@@ -2,4 +2,3 @@ bread.png author=PhET
 cheese.png author=PhET
 meat.png author=PhET
 Sandwiches-screen.png author=Yuen-ying Carpenter
-Molecules-screen.png author=Yuen-ying Carpenter
