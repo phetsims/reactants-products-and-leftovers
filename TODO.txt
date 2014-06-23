@@ -1,0 +1,4 @@
+TODO list for reactants-products-and-leftovers
+
+- create NumberSpinner common-code component
+- equation=bottom|top query parameter
