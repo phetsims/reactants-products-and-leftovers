@@ -7,3 +7,6 @@ DESIGN
 HIGH
 - create NumberSpinner common-code component
 - equation=bottom|top query parameter
+
+LOW
+- port Java string files
