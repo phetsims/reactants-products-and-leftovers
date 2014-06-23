@@ -1,4 +1,9 @@
 TODO list for reactants-products-and-leftovers
 
+DESIGN
+- scoreboard like in Graphing Lines?
+- 'Make water' or 'Make Water'?
+
+HIGH
 - create NumberSpinner common-code component
 - equation=bottom|top query parameter
