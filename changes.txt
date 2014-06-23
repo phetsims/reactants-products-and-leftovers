@@ -1,2 +1,3 @@
+6/23/14 programmatically create 'Molecules' screen icon
 6/23/14 create sim skeleton
 6/22/14 create GitHub repository
