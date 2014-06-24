@@ -5,6 +5,7 @@ DESIGN
 - 'Make water' or 'Make Water'?
 
 HIGH
+- finish ReactionFactory
 - create NumberSpinner common-code component
 - equation=bottom|top query parameter
 
