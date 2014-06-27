@@ -10,6 +10,9 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
   /**
    * @param {[Reactant]} reactants
    * @param {[Product]} products
@@ -37,7 +40,28 @@ define( function( require ) {
     } );
   }
 
-  Reaction.prototype = {
+  /**
+   * Creates an HTML fragment representation of a reaction's equation.
+   * Example: 2F<sub>2</sub>+1H<sub>2</sub>O->1OF<sub>2</sub>+2HF
+   * @returns {string}
+   */
+  var getEquationHTML = function( reactants, products ) {
+    var s = '';
+    for ( var i = 0; i < reactants.length; i++ ) {
+      if ( i !== 0 ) { s += '+'; }
+      s += reactants[i].coefficient;
+      s += reactants[i].name;
+    }
+    s += '->';
+    for ( i = 0; i < products.length; i++ ) {
+      if ( i !== 0 ) { s += '+'; }
+      s += products[i].coefficient;
+      s += products[i].name;
+    }
+    return s;
+  };
+
+  return inherit( Object, Reaction, {
 
     /**
      * Formula is a reaction if more than one coefficient is non-zero, or if any coefficient is > 1.
@@ -139,28 +163,5 @@ define( function( require ) {
       }
       return s;
     }
-  };
-
-  /**
-   * Creates an HTML fragment representation of a reaction's equation.
-   * Example: 2F<sub>2</sub>+1H<sub>2</sub>O->1OF<sub>2</sub>+2HF
-   * @returns {string}
-   */
-  var getEquationHTML = function( reactants, products ) {
-    var s = '';
-    for ( var i = 0; i < reactants.length; i++ ) {
-      if ( i !== 0 ) { s += '+'; }
-      s += reactants[i].coefficient;
-      s += reactants[i].name;
-    }
-    s += '->';
-    for ( i = 0; i < products.length; i++ ) {
-      if ( i !== 0 ) { s += '+'; }
-      s += products[i].coefficient;
-      s += products[i].name;
-    }
-    return s;
-  };
-
-  return Reaction;
+  } );
 } );

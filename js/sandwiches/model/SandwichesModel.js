@@ -8,15 +8,16 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
   function SandwichesModel() {
     //TODO
   }
 
-  SandwichesModel.prototype = {
+  return inherit( Object, SandwichesModel, {
     reset: function() {
       //TODO
     }
-  };
-
-  return SandwichesModel;
+  } );
 } );

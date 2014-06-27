@@ -8,15 +8,16 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
   function MoleculesModel() {
     //TODO
   }
 
-  MoleculesModel.prototype = {
+  return inherit( Object, MoleculesModel, {
     reset: function() {
       //TODO
     }
-  };
-
-  return MoleculesModel;
+  } );
 } );
