@@ -1,3 +1,4 @@
+8/18/14 EquationNode
 8/18/14 control panel for selecting reaction
 8/18/14 misc model changes
 7/29/14 port string files from Java
