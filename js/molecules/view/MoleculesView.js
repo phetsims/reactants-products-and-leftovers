@@ -42,17 +42,22 @@ define( function( require ) {
     ] } );
     thisView.addChild( rootNode );
 
-    // layout
+    // layout of the reaction bar is determined by a query parameter
+    var playAreaTop, playAreaBottom;
     if ( RPALQueryParameters.EQUATION === 'bottom' ) {
       reactionBarNode.bottom = this.layoutBounds.bottom;
-      resetAllButton.right = this.layoutBounds.right - 10;
-      resetAllButton.bottom = reactionBarNode.top - 10;
+      playAreaTop = this.layoutBounds.top;
+      playAreaBottom = reactionBarNode.top;
     }
     else {
       reactionBarNode.top = this.layoutBounds.top;
-      resetAllButton.right = this.layoutBounds.right - 10;
-      resetAllButton.bottom = this.layoutBounds.bottom - 10;
+      playAreaTop = reactionBarNode.bottom;
+      playAreaBottom = this.layoutBounds.bottom;
     }
+
+    // remainder of layout
+    resetAllButton.right = this.layoutBounds.right - 10;
+    resetAllButton.bottom = playAreaBottom - 10;
   }
 
   return inherit( ScreenView, MoleculesView, { layoutBounds: RPALConstants.LAYOUT_BOUNDS } );
