@@ -12,10 +12,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var ReactionBarNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBarNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   /**
    * @param {MoleculesModel} model
@@ -26,11 +26,10 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, { renderer: 'svg' } );
 
-    //TODO remove this
-    thisView.addChild( new Text( 'Molecules: under construction', { font: new PhetFont( 36 ), center: this.layoutBounds.center } ) );
+    var reactionChoiceNode = new ReactionBarNode( model.reactionProperty, model.reactions, this.layoutBounds.width,
+      { bottom: this.layoutBounds.bottom } );
 
     var resetAllButton = new ResetAllButton( {
-      scale: 1.32,
       listener: function() {
         model.reset();
       }
@@ -38,13 +37,14 @@ define( function( require ) {
 
     // Parent for all nodes added to this screen
     var rootNode = new Node( { children: [
+      reactionChoiceNode,
       resetAllButton
     ] } );
     thisView.addChild( rootNode );
 
     // layout
-    resetAllButton.right = this.layoutBounds.right - 40;
-    resetAllButton.bottom = this.layoutBounds.bottom - 20;
+    resetAllButton.right = this.layoutBounds.right - 20;
+    resetAllButton.bottom = reactionChoiceNode.top - 20;
   }
 
   return inherit( ScreenView, MoleculesView, { layoutBounds: RPALConstants.LAYOUT_BOUNDS } );

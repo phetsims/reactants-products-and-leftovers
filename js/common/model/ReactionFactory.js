@@ -15,6 +15,8 @@ define( function( require ) {
   var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
 
   // strings
+  var combustMethaneString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/combustMethane' );
+  var makeAmmoniaString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeAmmonia' );
   var makeWaterString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeWater' );
 
   return {
@@ -23,12 +25,20 @@ define( function( require ) {
     // Single-product reactions
     //---------------------------------------------------------------------------------------
 
-    // 2H2 + O2 -> 2H2O
-    water: function() {
+    // 2H2 + O2 -> 2H2O ("Make Water")
+    makeWater: function() {
       return new Reaction(
         [ new Reactant( 2, MoleculeFactory.H2() ), new Reactant( 1, MoleculeFactory.O2() ) ],
         [ new Product( 2, MoleculeFactory.H2O() ) ],
         { name: makeWaterString } );
+    },
+
+    // N2 + 3H2 -> 2NH3 ("Make Ammonia")
+    makeAmmonia: function() {
+      return new Reaction(
+        [ new Reactant( 1, MoleculeFactory.N2() ), new Reactant( 3, MoleculeFactory.H2() ) ],
+        [ new Product( 2, MoleculeFactory.NH3() ) ],
+        { name: makeAmmoniaString } );
     },
 
     // H2 + F2 -> 2HF
@@ -43,7 +53,7 @@ define( function( require ) {
       return new Reaction(
         [ new Reactant( 1, MoleculeFactory.H2() ), new Reactant( 1, MoleculeFactory.Cl2() ) ],
         [ new Product( 2, MoleculeFactory.HCl() ) ] );
-    }
+    },
 
     //TODO add additional reactions from java.OneProductReactions
 
@@ -51,6 +61,14 @@ define( function( require ) {
     // Two-product reactions
     //---------------------------------------------------------------------------------------
 
-    //TODO add reactions from java.TwoProductReactions
+    // CH4 + 2 O2 -> CO2 + 2 H2O ("Combust Methane")
+    combustMethane: function() {
+      return new Reaction(
+        [ new Reactant( 1, MoleculeFactory.CH4() ), new Reactant( 2, MoleculeFactory.O2() ) ],
+        [ new Product( 1, MoleculeFactory.CO2() ), new Product( 2, MoleculeFactory.H2O() ) ],
+        { name: combustMethaneString } );
+    }
+
+    //TODO add additional reactions from java.TwoProductReactions
   };
 } );

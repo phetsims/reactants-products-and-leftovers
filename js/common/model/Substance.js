@@ -19,9 +19,9 @@ define( function( require ) {
    * @constructor
    */
   function Substance( coefficient, molecule, quantity ) {
+    this.coefficient = coefficient;
     this.molecule = molecule;
     PropertySet.call( this, {
-      coefficient: coefficient,
       quantity: quantity
     } );
   }

@@ -25,41 +25,19 @@ define( function( require ) {
     assert && assert( products.length > 0, 'a reaction requires at least 1 product' );
 
     options = _.extend( {
-      name: getEquationHTML( reactants, products ) // symbolic or localized name, suitable for display
+       name: '' // optional name, suitable for display to the user
     }, options );
 
     var thisReaction = this;
 
-    this.name = options.name;
     this.reactants = reactants;
     this.products = products;
+    this.name = options.name;
 
     this.reactants.forEach( function( reactant ) {
-      reactant.coefficientProperty.link( thisReaction.update.bind( thisReaction ) );
       reactant.quantityProperty.link( thisReaction.update.bind( thisReaction ) );
     } );
   }
-
-  /**
-   * Creates an HTML fragment representation of a reaction's equation.
-   * Example: 2F<sub>2</sub>+1H<sub>2</sub>O->1OF<sub>2</sub>+2HF
-   * @returns {string}
-   */
-  var getEquationHTML = function( reactants, products ) {
-    var s = '';
-    for ( var i = 0; i < reactants.length; i++ ) {
-      if ( i !== 0 ) { s += '+'; }
-      s += reactants[i].coefficient;
-      s += reactants[i].name;
-    }
-    s += '->';
-    for ( i = 0; i < products.length; i++ ) {
-      if ( i !== 0 ) { s += '+'; }
-      s += products[i].coefficient;
-      s += products[i].name;
-    }
-    return s;
-  };
 
   return inherit( Object, Reaction, {
 
@@ -92,7 +70,7 @@ define( function( require ) {
     },
 
     fireStateChanged: function() {
-      //TODO eliminate this
+      //TODO eliminate this? or use a trigger?
     },
 
     /*
@@ -123,17 +101,28 @@ define( function( require ) {
      * @returns {string}
      */
     toString: function() {
-      return this.getEquationPlainText() + ' ' + this.getQuantitiesString();
+      return this.getEquationString() + ' ' + this.getQuantitiesString();
     },
 
     /**
      * DEBUG
-     * Removes the <sub> tags from the HTML form of the equation.
-     * This is intended for use in debug output, where HTML is difficult to read.
+     * A string representation of the reaction, with HTML stripped out.
      * @returns {string}
      */
-    getEquationPlainText: function() {
-      return getEquationHTML( this.reactants, this.products ).replace( '<sub>', '' ).replaceAll( '</sub>', '' );
+    getEquationString: function() {
+      var s = '';
+      for ( var i = 0; i < this.reactants.length; i++ ) {
+        if ( i !== 0 ) { s += '+'; }
+        s += this.reactants[i].coefficient;
+        s += this.reactants[i].name;
+      }
+      s += '->';
+      for ( i = 0; i < products.length; i++ ) {
+        if ( i !== 0 ) { s += '+'; }
+        s += this.products[i].coefficient;
+        s += this.products[i].name;
+      }
+      return s.replaceAll( '<sub>', '' ).replaceAll( '</sub>', '' );
     },
 
     /**

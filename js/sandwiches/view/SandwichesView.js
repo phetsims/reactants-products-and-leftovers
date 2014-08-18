@@ -30,7 +30,6 @@ define( function( require ) {
     thisView.addChild( new Text( 'Sandwiches: under construction', { font: new PhetFont( 36 ), center: this.layoutBounds.center } ) );
 
     var resetAllButton = new ResetAllButton( {
-      scale: 1.32,
       listener: function() {
         model.reset();
       }

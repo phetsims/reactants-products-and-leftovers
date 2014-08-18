@@ -12,6 +12,6 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
 
   return {
-    LAYOUT_BOUNDS: new Bounds2( 0, 0, 1100, 700 )
+    LAYOUT_BOUNDS: new Bounds2( 0, 0, 768, 504 )
   };
 } );

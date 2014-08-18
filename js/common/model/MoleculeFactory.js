@@ -58,12 +58,10 @@ define( function( require ) {
 
   return {
 
-    //TODO move these to something like SandwichFactory
     // sandwich components
     bread: function() { return new Molecule( RPALSymbols.BREAD, new Image( breadImage ) ); },
     cheese: function() { return new Molecule( RPALSymbols.CHEESE, new Image( cheeseImage ) ); },
     meat: function() { return new Molecule( RPALSymbols.MEAT, new Image( meatImage ) ); },
-    sandwich: function() { return new Molecule( RPALSymbols.MEAT, null /* created dynamically */ ); },
 
     // molecules
     C: function() { return new Molecule( RPALSymbols.C, new CNode( ATOM_OPTIONS ) ); },

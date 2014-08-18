@@ -20,9 +20,7 @@ define( function( require ) {
    */
   function Molecule( symbol, node ) {
     this.symbol = symbol;
-    PropertySet.call( this, {
-      node: node  //TODO make this immutable, use duck typing for sandwich components, with mutable sandwich node
-    } );
+    this.node = node;
   }
 
   return inherit( PropertySet, Molecule );
