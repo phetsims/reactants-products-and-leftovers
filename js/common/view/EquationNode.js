@@ -27,10 +27,10 @@ define( function( require ) {
 
   /**
    * Adds terms to the equation.
-   * @param thisNode the node to add terms to
-   * @param terms the terms to be added
-   * @param capHeight the height of a capital letter with no descender, for layout
-   * @param leftStart the left position of the first term to be added
+   * @param {Node} thisNode the node to add terms to
+   * @param {[Substance]} terms the terms to be added
+   * @param {number} capHeight the height of a capital letter with no descender, for layout
+   * @param {number} leftStart the left position of the first term to be added
    * @returns {Node} the last node added
    */
   var addTerms = function( thisNode, terms, capHeight, leftStart ) {
