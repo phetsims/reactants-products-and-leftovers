@@ -23,7 +23,7 @@ define( function( require ) {
   // strings
   var gameString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.game' );
 
-  //TODO this is identical to balancing-act.GameScreen, standardize?
+  //TODO this is identical to balancing-chemical-equations.GameScreen, standardize?
   // creates the icon for this screen
   var createIcon = function() {
 
