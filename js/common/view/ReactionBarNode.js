@@ -20,6 +20,8 @@ define( function( require ) {
 
   function ReactionBarNode( reactionProperty, reactions, screenWidth, options ) {
 
+    options = options || {};
+
     // control for choosing a reaction
     var reactionChoiceNode = new ReactionChoiceNode( reactionProperty, reactions );
 

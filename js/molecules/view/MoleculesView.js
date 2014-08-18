@@ -15,6 +15,7 @@ define( function( require ) {
   var ReactionBarNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBarNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
@@ -26,8 +27,7 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, { renderer: 'svg' } );
 
-    var reactionChoiceNode = new ReactionBarNode( model.reactionProperty, model.reactions, this.layoutBounds.width,
-      { bottom: this.layoutBounds.bottom } );
+    var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, this.layoutBounds.width );
 
     var resetAllButton = new ResetAllButton( {
       listener: function() {
@@ -37,14 +37,22 @@ define( function( require ) {
 
     // Parent for all nodes added to this screen
     var rootNode = new Node( { children: [
-      reactionChoiceNode,
+      reactionBarNode,
       resetAllButton
     ] } );
     thisView.addChild( rootNode );
 
     // layout
-    resetAllButton.right = this.layoutBounds.right - 20;
-    resetAllButton.bottom = reactionChoiceNode.top - 20;
+    if ( RPALQueryParameters.EQUATION === 'bottom' ) {
+      reactionBarNode.bottom = this.layoutBounds.bottom;
+      resetAllButton.right = this.layoutBounds.right - 10;
+      resetAllButton.bottom = reactionBarNode.top - 10;
+    }
+    else {
+      reactionBarNode.top = this.layoutBounds.top;
+      resetAllButton.right = this.layoutBounds.right - 10;
+      resetAllButton.bottom = this.layoutBounds.bottom - 10;
+    }
   }
 
   return inherit( ScreenView, MoleculesView, { layoutBounds: RPALConstants.LAYOUT_BOUNDS } );
