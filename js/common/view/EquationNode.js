@@ -18,12 +18,52 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var ARROW_X_SPACING = 20;
   var COEFFICIENT_X_SPACING = 10;
   var PLUS_X_SPACING = 20;
+  var ARROW_X_SPACING = 20;
+  var TEXT_OPTIONS = { font: new PhetFont( 28 ), fill: 'white' };
   var PLUS_OPTIONS = { fill: 'white' };
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
-  var TEXT_OPTIONS = { font: new PhetFont( 28 ), fill: 'white' };
+
+  /**
+   * Adds terms to the equation.
+   * @param thisNode the node to add terms to
+   * @param terms the terms to be added
+   * @param capHeight the height of a capital letter with no descender, for layout
+   * @param leftStart the left position of the first term to be added
+   * @returns {Node} the last node added
+   */
+  var addTerms = function( thisNode, terms, capHeight, leftStart ) {
+
+    var coefficientNode, symbolNode, plusNode; // hoist loop vars explicitly
+    var numberOfReactants = terms.length;
+
+    for ( var i = 0; i < numberOfReactants; i++ ) {
+
+      // coefficient
+      coefficientNode = new Text( terms[i].coefficient, TEXT_OPTIONS );
+      thisNode.addChild( coefficientNode );
+      coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : leftStart;
+
+      // symbol
+      symbolNode = new SubSupText( terms[i].molecule.symbol, TEXT_OPTIONS );
+      thisNode.addChild( symbolNode );
+      symbolNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
+
+      // plus sign between terms
+      if ( i < numberOfReactants - 1 ) {
+        plusNode = new PlusNode( PLUS_OPTIONS );
+        thisNode.addChild( plusNode );
+        plusNode.left = symbolNode.right + PLUS_X_SPACING;
+        plusNode.centerY = symbolNode.top + ( capHeight / 2 );
+      }
+      else {
+        plusNode = null;
+      }
+    }
+
+    return symbolNode; // the last node that was added
+  };
 
   /**
    * @param {Reaction} reaction
@@ -37,73 +77,17 @@ define( function( require ) {
     // determine cap height of the font, using a char that has no descender
     var capHeight = new SubSupText( "T", TEXT_OPTIONS ).height;
 
-    var i, coefficientNode, symbolNode, plusNode;
-
     // left-hand side of the formula (reactants)
-    var numberOfReactants = reaction.reactants.length;
-    for ( i = 0; i < numberOfReactants; i++ ) {
-
-      // coefficient
-      coefficientNode = new Text( reaction.reactants[i].coefficient, TEXT_OPTIONS );
-      this.addChild( coefficientNode );
-      if ( plusNode ) {
-        coefficientNode.left = plusNode.right + PLUS_X_SPACING;
-      }
-
-      // symbol
-      symbolNode = new SubSupText( reaction.reactants[i].molecule.symbol, TEXT_OPTIONS );
-      this.addChild( symbolNode );
-      symbolNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
-
-      // plus sign between terms
-      if ( i < numberOfReactants - 1  ) {
-        plusNode = new PlusNode( PLUS_OPTIONS );
-        this.addChild( plusNode );
-        plusNode.left = symbolNode.right + PLUS_X_SPACING;
-        plusNode.centerY = symbolNode.top + ( capHeight / 2 );
-      }
-      else {
-        plusNode = null;
-      }
-    }
+    var lastNode = addTerms( this, reaction.reactants, capHeight, 0 );
 
     // right arrow
     var arrowNode = new RightArrowNode( ARROW_OPTIONS );
-    arrowNode.left = symbolNode.right + ARROW_X_SPACING;
-    arrowNode.centerY = symbolNode.top + ( capHeight / 2 );
+    arrowNode.left = lastNode.right + ARROW_X_SPACING;
+    arrowNode.centerY = lastNode.top + ( capHeight / 2 );
     this.addChild( arrowNode );
 
     // right-hand side of the formula (products)
-    var numberOfProducts = reaction.products.length;
-    for ( i = 0; i < numberOfProducts; i++ ) {
-
-      // coefficient
-      coefficientNode = new Text( reaction.products[i].coefficient, TEXT_OPTIONS );
-      this.addChild( coefficientNode );
-      if ( plusNode ) {
-        coefficientNode.left = plusNode.right + PLUS_X_SPACING;
-      }
-      else {
-        coefficientNode.left = arrowNode.right + ARROW_X_SPACING;
-      }
-
-      // symbol
-      symbolNode = new SubSupText( reaction.products[i].molecule.symbol, TEXT_OPTIONS );
-      this.addChild( symbolNode );
-      symbolNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
-      symbolNode.top = coefficientNode.top;
-
-      // plus sign between terms
-      if ( i < numberOfProducts - 1 ) {
-        plusNode = new PlusNode( PLUS_OPTIONS );
-        this.addChild( plusNode );
-        plusNode.left = symbolNode.right + PLUS_X_SPACING;
-        plusNode.centerY = symbolNode.top + ( capHeight / 2 );
-      }
-      else {
-        plusNode = null;
-      }
-    }
+    addTerms( this, reaction.products, capHeight, arrowNode.right + ARROW_X_SPACING );
 
     this.mutate( options );
   }
