@@ -25,7 +25,7 @@ define( function( require ) {
   function MoleculesView( model ) {
 
     var thisView = this;
-    ScreenView.call( thisView, { renderer: 'svg' } );
+    ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, this.layoutBounds.width );
 
@@ -60,5 +60,5 @@ define( function( require ) {
     resetAllButton.bottom = playAreaBottom - 10;
   }
 
-  return inherit( ScreenView, MoleculesView, { layoutBounds: RPALConstants.LAYOUT_BOUNDS } );
+  return inherit( ScreenView, MoleculesView );
 } );

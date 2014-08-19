@@ -24,7 +24,7 @@ define( function( require ) {
   function SandwichesView( model ) {
 
     var thisView = this;
-    ScreenView.call( thisView, { renderer: 'svg' } );
+    ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     //TODO remove this
     thisView.addChild( new Text( 'Sandwiches: under construction', { font: new PhetFont( 36 ), center: this.layoutBounds.center } ) );
@@ -46,5 +46,5 @@ define( function( require ) {
     resetAllButton.bottom = this.layoutBounds.bottom - 20;
   }
 
-  return inherit( ScreenView, SandwichesView, { layoutBounds: RPALConstants.LAYOUT_BOUNDS } );
+  return inherit( ScreenView, SandwichesView );
 } );

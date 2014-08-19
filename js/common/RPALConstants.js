@@ -12,6 +12,6 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
 
   return {
-    LAYOUT_BOUNDS: new Bounds2( 0, 0, 768, 504 )
+    SCREEN_VIEW_OPTIONS: { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) }
   };
 } );
