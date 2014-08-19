@@ -47,11 +47,19 @@ define( function( require ) {
     Node.call( this, options );
 
     reactionProperty.link( function( reaction ) {
+
       // create the new equation node
       equationParent.removeAllChildren();
       equationParent.addChild( new EquationNode( reactionProperty.get() ) );
-      // centered it the space to the left of the controls
-      equationParent.centerX = X_MARGIN + ( reactionChoiceNode.left - ( 2 * X_MARGIN ) ) / 2;
+      equationParent.setScaleMagnitude( 1 );
+
+      // scale the equation if it's too wide to fit the available space
+      var availableWidth = reactionChoiceNode.left - ( 2 * X_MARGIN );
+      var scale = Math.min( 1, availableWidth / equationParent.width );
+      equationParent.setScaleMagnitude( scale );
+
+      // center the equation in the space to the left of the controls
+      equationParent.centerX = X_MARGIN + ( availableWidth / 2 );
       equationParent.centerY = backgroundNode.centerY;
     } );
   }
