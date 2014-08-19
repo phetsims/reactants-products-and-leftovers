@@ -26,43 +26,45 @@ define( function( require ) {
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
 
   /**
-   * Adds terms to the equation.
-   * @param {Node} thisNode the node to add terms to
+   * Creates terms for equation.
    * @param {[Substance]} terms the terms to be added
-   * @param {number} capHeight the height of a capital letter with no descender, for layout
-   * @param {number} leftStart the left position of the first term to be added
-   * @returns {Node} the last node added
+   * @param {boolean} showSymbol true = show molecule symbol, false = show molecule node
+   * @returns {Node}
    */
-  var addTerms = function( thisNode, terms, capHeight, leftStart ) {
+  var addTerms = function( terms, showSymbol ) {
 
-    var coefficientNode, symbolNode, plusNode; // hoist loop vars explicitly
-    var numberOfReactants = terms.length;
+    var parentNode = new Node();
+    var numberOfTerms = terms.length;
+    var coefficientNode, moleculeNode, plusNode; // hoist loop vars explicitly
 
-    for ( var i = 0; i < numberOfReactants; i++ ) {
+    for ( var i = 0; i < numberOfTerms; i++ ) {
 
       // coefficient
       coefficientNode = new Text( terms[i].coefficient, TEXT_OPTIONS );
-      thisNode.addChild( coefficientNode );
-      coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : leftStart;
+      coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
+      parentNode.addChild( coefficientNode );
 
-      // symbol
-      symbolNode = new SubSupText( terms[i].molecule.symbol, TEXT_OPTIONS );
-      thisNode.addChild( symbolNode );
-      symbolNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
+      // molecule
+      moleculeNode = showSymbol ? new SubSupText( terms[i].molecule.symbol, TEXT_OPTIONS ) : terms[i].molecule.node;
+      moleculeNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
+      if ( !showSymbol ) {
+        moleculeNode.centerY = coefficientNode.centerY;
+      }
+      parentNode.addChild( moleculeNode );
 
       // plus sign between terms
-      if ( i < numberOfReactants - 1 ) {
+      if ( i < numberOfTerms - 1 ) {
         plusNode = new PlusNode( PLUS_OPTIONS );
-        thisNode.addChild( plusNode );
-        plusNode.left = symbolNode.right + PLUS_X_SPACING;
-        plusNode.centerY = symbolNode.top + ( capHeight / 2 );
+        plusNode.left = moleculeNode.right + PLUS_X_SPACING;
+        plusNode.centerY = coefficientNode.top + ( coefficientNode.height / 2 );
+        parentNode.addChild( plusNode );
       }
       else {
         plusNode = null;
       }
     }
 
-    return symbolNode; // the last node that was added
+    return parentNode;
   };
 
   /**
@@ -72,22 +74,27 @@ define( function( require ) {
    */
   function EquationNode( reaction, options ) {
 
+    options = _.extend( {
+      showSymbol: true // true = show molecule symbol, false = show molecule node
+    }, options );
+
     Node.call( this );
 
-    // determine cap height of the font, using a char that has no descender
-    var capHeight = new SubSupText( "T", TEXT_OPTIONS ).height;
-
     // left-hand side of the formula (reactants)
-    var lastNode = addTerms( this, reaction.reactants, capHeight, 0 );
+    var reactantsNode = addTerms( reaction.reactants, options.showSymbol );
+    this.addChild( reactantsNode );
 
     // right arrow
     var arrowNode = new RightArrowNode( ARROW_OPTIONS );
-    arrowNode.left = lastNode.right + ARROW_X_SPACING;
-    arrowNode.centerY = lastNode.top + ( capHeight / 2 );
+    arrowNode.left = reactantsNode.right + ARROW_X_SPACING;
+    var coefficientHeight = new Text( '1', TEXT_OPTIONS ).height;
+    arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
     this.addChild( arrowNode );
 
     // right-hand side of the formula (products)
-    addTerms( this, reaction.products, capHeight, arrowNode.right + ARROW_X_SPACING );
+    var productsNode = addTerms( reaction.products, options.showSymbol );
+    productsNode.left = arrowNode.right + ARROW_X_SPACING;
+    this.addChild( productsNode );
 
     this.mutate( options );
   }

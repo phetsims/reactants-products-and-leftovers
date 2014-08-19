@@ -1,3 +1,4 @@
+8/18/14 add option to show either molecule symbol or node in equations
 8/18/14 add support for 'equation' query parameter, which determines whether equation is at 'top' or 'bottom' of screen
 8/18/14 EquationNode
 8/18/14 control panel for selecting reaction
