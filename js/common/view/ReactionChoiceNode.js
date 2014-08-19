@@ -37,7 +37,7 @@ define( function( require ) {
     var radioButtons = [];
     choices.forEach( function( choice ) {
       var radioButton = new AquaRadioButton( reactionProperty, choice, new Text( choice.name, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS );
-      radioButton.touchArea = radioButton.localBounds.dilatedXY( 10, 10 );  // determined by visual inspection
+      radioButton.touchArea = radioButton.localBounds.dilatedXY( 10, options.spacing / 2 );
       radioButtons.push( radioButton );
     } );
 
