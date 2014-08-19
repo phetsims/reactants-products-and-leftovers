@@ -18,6 +18,13 @@ define( function( require ) {
   var X_MARGIN = 20;
   var Y_MARGIN = 10;
 
+  /**
+   * @param {Property<Reaction>} reactionProperty
+   * @param {[Reaction]} reactions
+   * @param {number} screenWidth width of the screen's safe area
+   * @param {*} options
+   * @constructor
+   */
   function ReactionBarNode( reactionProperty, reactions, screenWidth, options ) {
 
     options = options || {};
