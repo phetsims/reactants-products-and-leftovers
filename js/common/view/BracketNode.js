@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * A text label centered below a horizontal bracket.
+ * Horizontal bracket with a a text label centered below it.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
