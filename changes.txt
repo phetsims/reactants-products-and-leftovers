@@ -1,3 +1,4 @@
+8/22/14 IntegerNode
 8/22/14 IntegerSpinner
 8/22/14 BracketNode
 8/18/14 scale equation if it's too wide to fit in the available space in the blue control bar
