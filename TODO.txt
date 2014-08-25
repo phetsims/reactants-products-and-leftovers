@@ -2,10 +2,11 @@ TODO list for reactants-products-and-leftovers
 
 DESIGN
 - scoreboard like in Graphing Lines?
-- 'Make water' or 'Make Water'?
+- #2 capitalization of labels ('Make water' or 'Make Water'?)
 
 HIGH
 - populate boxes with molecules to match quantities shown below boxes
+- add expand/collapse boxes
 
 MEDIUM
 - finish ReactionFactory
