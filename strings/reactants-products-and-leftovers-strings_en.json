@@ -16,10 +16,12 @@
   "meatAndCheese": "Meat and Cheese",
   "custom": "Custom",
   "makeWater": "Make water",
-  "makeAmmonia": "Make Ammonia",
-  "combustMethane": "Combust Methane",
+  "makeAmmonia": "Make ammonia",
+  "combustMethane": "Combust methane",
   "check": "Check",
   "tryAgain": "Try Again",
   "showAnswer": "Show Answer",
-  "next": "Next"
+  "next": "Next",
+  "beforeReaction": "Before reaction",
+  "afterReaction": "After reaction"
 }
