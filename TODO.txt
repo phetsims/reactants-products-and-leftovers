@@ -5,12 +5,13 @@ DESIGN
 - 'Make water' or 'Make Water'?
 
 HIGH
+- populate boxes with molecules to match quantities shown below boxes
+
+MEDIUM
 - finish ReactionFactory
-- create NumberSpinner common-code component
-- equation=bottom|top query parameter
+- mutable equation for Sandwiches screen
 
 LOW
-- port Java string files
 
 MIGRATE TO COMMON
 - IntegerSpinner
