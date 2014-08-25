@@ -64,7 +64,7 @@ define( function( require ) {
         product.quantity = numberOfReactions * product.coefficient;
       } );
       this.reactants.forEach( function( reactant ) {
-        reactant.leftOvers = reactant.quantity - ( numberOfReactions * reactant.coefficient );
+        reactant.leftovers = reactant.quantity - ( numberOfReactions * reactant.coefficient );
       } );
       this.fireStateChanged();
     },
@@ -117,7 +117,7 @@ define( function( require ) {
         s += this.reactants[i].name;
       }
       s += '->';
-      for ( i = 0; i < products.length; i++ ) {
+      for ( i = 0; i < this.products.length; i++ ) {
         if ( i !== 0 ) { s += '+'; }
         s += this.products[i].coefficient;
         s += this.products[i].name;
