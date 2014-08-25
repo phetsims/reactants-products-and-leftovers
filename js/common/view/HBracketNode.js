@@ -21,7 +21,7 @@ define( function( require ) {
   var BRACKET_TIP_WIDTH = 6;
   var BRACKET_TIP_HEIGHT = 6;
 
-  function BracketNode( label, options ) {
+  function HBracketNode( label, options ) {
 
     options = _.extend( {
       font: new PhetFont( 16 ),
@@ -56,5 +56,5 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  return inherit( Node, BracketNode );
+  return inherit( Node, HBracketNode );
 } );
