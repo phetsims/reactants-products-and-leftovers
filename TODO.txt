@@ -11,3 +11,6 @@ HIGH
 
 LOW
 - port Java string files
+
+MISC
+- watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524
