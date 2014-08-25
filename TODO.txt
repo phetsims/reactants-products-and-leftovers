@@ -12,5 +12,9 @@ HIGH
 LOW
 - port Java string files
 
+MIGRATE TO COMMON
+- IntegerSpinner
+- HBracketNode
+
 MISC
 - watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524

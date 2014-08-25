@@ -17,6 +17,7 @@ define( function( require ) {
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var IntegerSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerSpinner' );//XXX
 
   /**
    * @param {MoleculesModel} model
@@ -58,6 +59,11 @@ define( function( require ) {
     // remainder of layout
     resetAllButton.right = this.layoutBounds.right - 10;
     resetAllButton.bottom = playAreaBottom - 10;
+
+    var Property = require( 'AXON/Property' );
+    var Range = require( 'DOT/Range' );
+    var integerSpinner = new IntegerSpinner( new Property( 5 ), new Range( 0, 8 ), { left: 100, top: 100 } );
+    rootNode.addChild( integerSpinner );
   }
 
   return inherit( ScreenView, MoleculesView );
