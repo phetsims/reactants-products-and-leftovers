@@ -6,7 +6,7 @@ DESIGN
 
 HIGH
 - populate boxes with molecules to match quantities shown below boxes
-- add expand/collapse boxes
+- add expand/collapse buttons and titles to boxes
 
 MEDIUM
 - finish ReactionFactory
