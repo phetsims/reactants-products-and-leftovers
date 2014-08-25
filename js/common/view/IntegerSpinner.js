@@ -13,8 +13,8 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -36,7 +36,7 @@ define( function( require ) {
     assert && assert( range.contains( valueProperty.get() ) ); // value is in range
 
     options = _.extend( {
-      font: new PhetFont( 28 ),
+      font: new RPALFont( 28 ),
       xMargin: 5,
       yMargin: 3,
       ySpacing: 5

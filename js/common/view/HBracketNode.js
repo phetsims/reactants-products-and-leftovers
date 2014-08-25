@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -24,7 +24,7 @@ define( function( require ) {
   function HBracketNode( label, options ) {
 
     options = _.extend( {
-      font: new PhetFont( 16 ),
+      font: new RPALFont( 16 ),
       textColor: 'black',
       bracketWidth: 100,
       bracketColor: 'rgb(46,107,178)', // dark blue

@@ -11,9 +11,9 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
+  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -27,7 +27,7 @@ define( function( require ) {
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     //TODO remove this
-    thisView.addChild( new Text( 'Sandwiches: under construction', { font: new PhetFont( 36 ), center: this.layoutBounds.center } ) );
+    thisView.addChild( new Text( 'Sandwiches: under construction', { font: new RPALFont( 36 ), center: this.layoutBounds.center } ) );
 
     var resetAllButton = new ResetAllButton( {
       listener: function() {

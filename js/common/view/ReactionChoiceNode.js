@@ -12,13 +12,13 @@ define( function( require ) {
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var RADIO_BUTTON_OPTIONS = { radius: 8 };
-  var TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
+  var TEXT_OPTIONS = { font: new RPALFont( 16 ), fill: 'white' };
 
   /**
    * @param {Property<Reaction>} reactionProperty
