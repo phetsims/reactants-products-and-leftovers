@@ -16,7 +16,7 @@ define( function( require ) {
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var IntegerSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerSpinner' );//XXX
+  var ReactionBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBoxesNode' );//XXX
 
   /**
    * @param {MoleculesModel} model
@@ -27,8 +27,8 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
+    // static UI components
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, this.layoutBounds.width );
-
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
@@ -59,10 +59,12 @@ define( function( require ) {
     resetAllButton.right = this.layoutBounds.right - 10;
     resetAllButton.bottom = playAreaBottom - 10;
 
-    var Property = require( 'AXON/Property' );
-    var Range = require( 'DOT/Range' );
-    var integerSpinner = new IntegerSpinner( new Property( 5 ), new Range( 0, 8 ), { left: 100, top: 100 } );
-    rootNode.addChild( integerSpinner );
+    var reactionBoxesNode;
+    model.reactionProperty.link( function( reaction ) {
+      if ( reactionBoxesNode ) { rootNode.removeChild( reactionBoxesNode ); }
+      reactionBoxesNode = new ReactionBoxesNode( reaction, { centerX: thisView.layoutBounds.centerX - 10, top: playAreaTop + 20 } );
+      rootNode.addChild( reactionBoxesNode );
+    } );
   }
 
   return inherit( ScreenView, MoleculesView );

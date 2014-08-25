@@ -14,10 +14,11 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   function IntegerNode( valueProperty, options ) {
-    Text.call( this, options );
+    var thisNode = this;
+    Text.call( thisNode, '', options );
     valueProperty.link( function( value ) {
       assert && assert( Util.isInteger( value ) );
-      value.text = '' + value;
+      thisNode.text = '' + value;
     } );
   }
 

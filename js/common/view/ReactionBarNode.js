@@ -13,6 +13,7 @@ define( function( require ) {
   var EquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/EquationNode' );
   var ReactionChoiceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionChoiceNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
 
   // constants
   var X_MARGIN = 20;
@@ -34,7 +35,7 @@ define( function( require ) {
 
     // background, extra wide so that it will appear to fill the screen width for all but extreme window sizes
     var backgroundNode = new Rectangle( 0, 0, 4 * screenWidth, reactionChoiceNode.height + ( 2 * Y_MARGIN ),
-      { fill: '#3376c4', centerX: screenWidth / 2 } );
+      { fill: RPALColors.REACTION_BAR_COLOR, centerX: screenWidth / 2 } );
 
     // control at right, vertically centered
     reactionChoiceNode.right = screenWidth - X_MARGIN;
