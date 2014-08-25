@@ -54,7 +54,7 @@ define( function( require ) {
   var meatImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/meat.png' );
 
   // constants
-  var ATOM_OPTIONS = { stroke: 'black', lineWidth:  0.5 };
+  var ATOM_OPTIONS = { stroke: 'black', lineWidth:  0.5, scale: 1 };
 
   return {
 
