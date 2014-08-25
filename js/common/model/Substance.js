@@ -22,7 +22,7 @@ define( function( require ) {
     this.coefficient = coefficient;
     this.molecule = molecule;
     PropertySet.call( this, {
-      quantity: quantity
+      quantity: quantity || 0
     } );
   }
 
