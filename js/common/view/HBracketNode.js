@@ -24,10 +24,10 @@ define( function( require ) {
   function HBracketNode( label, options ) {
 
     options = _.extend( {
-      font: new RPALFont( 16 ),
+      font: new RPALFont( 12 ),
       textColor: 'black',
       bracketWidth: 100,
-      bracketColor: 'rgb(46,107,178)', // dark blue
+      bracketColor: 'black',
       ySpacing: 2
     }, options );
 
