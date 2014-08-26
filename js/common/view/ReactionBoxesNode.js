@@ -69,6 +69,16 @@ define( function( require ) {
     var hBox = new HBox( { children: [ beforeBox, arrowNode, afterBox ], spacing: 10 } );
     thisNode.addChild( hBox );
 
+    // collapsed boxes
+    var beforeBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ), boxOptions );
+    thisNode.addChild( beforeBoxCollapsed );
+    beforeBoxCollapsed.left = beforeBox.left;
+    beforeBoxCollapsed.top = beforeBox.top;
+    var afterBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ), boxOptions );
+    thisNode.addChild( afterBoxCollapsed );
+    afterBoxCollapsed.left = afterBox.left;
+    afterBoxCollapsed.top = afterBox.top;
+
     // Expand/collapse button 'before'
     var beforeExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH } );
     thisNode.addChild( beforeExpandCollapseButton );
@@ -76,7 +86,8 @@ define( function( require ) {
     beforeExpandCollapseButton.right = beforeBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN;
     beforeExpandCollapseButton.touchArea = beforeExpandCollapseButton.localBounds.dilatedXY( 8, 8 );
     var beforeExpandedPropertyObserver = function( expanded ) {
-      //TODO
+      beforeBox.visible = expanded;
+      beforeBoxCollapsed.visible = !expanded;
     };
     beforeExpandedProperty.link( beforeExpandedPropertyObserver );
 
@@ -87,7 +98,8 @@ define( function( require ) {
     afterExpandCollapseButton.right = afterBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN;
     afterExpandCollapseButton.touchArea = beforeExpandCollapseButton.localBounds.dilatedXY( 8, 8 );
     var afterExpandedPropertyObserver = function( expanded ) {
-      //TODO
+      afterBox.visible = expanded;
+      afterBoxCollapsed.visible = !expanded;
     };
     afterExpandedProperty.link( afterExpandedPropertyObserver );
 
