@@ -25,8 +25,11 @@ define( function( require ) {
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
+  var beforeReactionString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/beforeReaction' );
+  var afterReactionString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/afterReaction' );
   var reactantsString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants' );
   var productsString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/products' );
   var leftoversString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/leftovers' );
@@ -34,6 +37,7 @@ define( function( require ) {
   // constants
   var QUANTITY_FONT = new RPALFont( 28 );
   var SYMBOL_FONT = new RPALFont( 16 );
+  var TITLE_FONT = new RPALFont( 16 );
   var BOX_QUANTITY_SPACING = 6; // vertical space between box and quantity
   var QUANTITY_IMAGE_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_SPACING = 2; // vertical space between image and symbol
@@ -61,7 +65,7 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    // boxes with arrow between them
+    // expanded boxes with arrow between them
     var boxOptions = { fill: 'white', stroke: 'black' };
     var beforeBox = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, boxOptions );
     var arrowNode = new RightArrowNode( { fill: RPALColors.REACTION_BAR_COLOR, stroke: null, scale: 0.75 } );
@@ -69,15 +73,21 @@ define( function( require ) {
     var hBox = new HBox( { children: [ beforeBox, arrowNode, afterBox ], spacing: 10 } );
     thisNode.addChild( hBox );
 
-    // collapsed boxes
+    // collapsed 'before' box
     var beforeBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ), boxOptions );
     thisNode.addChild( beforeBoxCollapsed );
     beforeBoxCollapsed.left = beforeBox.left;
     beforeBoxCollapsed.top = beforeBox.top;
+    var beforeReactionLabel = new Text( beforeReactionString, { font: TITLE_FONT, centerX: beforeBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
+    beforeBoxCollapsed.addChild( beforeReactionLabel );
+
+    // collapsed 'after' box
     var afterBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ), boxOptions );
     thisNode.addChild( afterBoxCollapsed );
     afterBoxCollapsed.left = afterBox.left;
     afterBoxCollapsed.top = afterBox.top;
+    var afterReactionLabel = new Text( afterReactionString, { font: TITLE_FONT, centerX: afterBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
+    afterBoxCollapsed.addChild( afterReactionLabel );
 
     // Expand/collapse button 'before'
     var beforeExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH } );
