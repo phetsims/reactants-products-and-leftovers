@@ -66,7 +66,7 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    // expanded boxes with arrow between them
+    // expanded 'before' and 'after' boxes, with arrow between them
     var boxOptions = { fill: 'white', stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.2 ) };
     var beforeBox = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, boxOptions );
     var arrowNode = new RightArrowNode( { fill: RPALColors.REACTION_BAR_COLOR, stroke: null, scale: 0.75 } );
@@ -92,7 +92,7 @@ define( function( require ) {
       { font: TITLE_FONT, centerX: afterBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
     afterBoxCollapsed.addChild( afterReactionLabel );
 
-    // Expand/collapse button 'before'
+    // Expand/collapse button for 'before' box
     var beforeExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH } );
     thisNode.addChild( beforeExpandCollapseButton );
     beforeExpandCollapseButton.top = beforeBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN;
@@ -104,7 +104,7 @@ define( function( require ) {
     };
     beforeExpandedProperty.link( beforeExpandedPropertyObserver );
 
-    // Expand/collapse button 'after'
+    // Expand/collapse button for 'after' box
     var afterExpandCollapseButton = new ExpandCollapseButton( afterExpandedProperty, { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH } );
     thisNode.addChild( afterExpandCollapseButton );
     afterExpandCollapseButton.top = afterBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN;
