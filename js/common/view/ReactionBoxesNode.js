@@ -20,12 +20,11 @@ define( function( require ) {
   var IntegerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerNode' );
   var IntegerSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerSpinner' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
-  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
+  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 

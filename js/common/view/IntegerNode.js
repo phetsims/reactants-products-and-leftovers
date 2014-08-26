@@ -33,7 +33,7 @@ define( function( require ) {
     // @public Unlinks from the value property. The node is no longer functional after calling this function.
     this.unlink = function() {
       valueProperty.unlink( valuePropertyObserver );
-    }
+    };
   }
 
   return inherit( Text, IntegerNode );
