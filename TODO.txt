@@ -7,7 +7,6 @@ DESIGN
 HIGH
 - populate boxes with molecules to match quantities shown below boxes
 - add expand/collapse buttons and titles to boxes
-- memory-leak issues with current design, switching equations needs to unlink observers from model.reactions
 
 MEDIUM
 - finish ReactionFactory

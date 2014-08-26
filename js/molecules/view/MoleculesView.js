@@ -61,7 +61,10 @@ define( function( require ) {
 
     var reactionBoxesNode;
     model.reactionProperty.link( function( reaction ) {
-      if ( reactionBoxesNode ) { rootNode.removeChild( reactionBoxesNode ); }
+      if ( reactionBoxesNode ) {
+        reactionBoxesNode.unlink();
+        rootNode.removeChild( reactionBoxesNode );
+      }
       reactionBoxesNode = new ReactionBoxesNode( reaction, { centerX: thisView.layoutBounds.centerX - 10, top: playAreaTop + 20 } );
       rootNode.addChild( reactionBoxesNode );
     } );

@@ -65,7 +65,7 @@ define( function( require ) {
     thisNode.addChild( hBox );
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    var quantityNodes = [];
+    thisNode.quantityNodes = [];
     var imageNodes = [];
     var symbolNodes = [];
 
@@ -90,7 +90,7 @@ define( function( require ) {
       // quantity is editable via a spinner
       quantityNode = new IntegerSpinner( reactant.quantityProperty, RPALConstants.QUANTITY_RANGE, { font: QUANTITY_FONT } );
       reactantsParent.addChild( quantityNode );
-      quantityNodes.push( quantityNode );
+      thisNode.quantityNodes.push( quantityNode );
       quantityNode.centerX = centerX;
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
@@ -126,7 +126,7 @@ define( function( require ) {
       // quantity is not editable
       quantityNode = new IntegerNode( product.quantityProperty, { font: QUANTITY_FONT } );
       productsParent.addChild( quantityNode );
-      quantityNodes.push( quantityNode );
+      thisNode.quantityNodes.push( quantityNode );
       quantityNode.centerX = centerX;
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
@@ -157,7 +157,7 @@ define( function( require ) {
       // quantity is not editable
       quantityNode = new IntegerNode( reactant.leftoversProperty, { font: QUANTITY_FONT } );
       leftoversParent.addChild( quantityNode );
-      quantityNodes.push( quantityNode );
+      thisNode.quantityNodes.push( quantityNode );
       quantityNode.centerX = centerX;
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
@@ -180,11 +180,13 @@ define( function( require ) {
     }
 
     // vertical layout of components below the boxes
-    for ( i = 0; i < quantityNodes.length; i++ ) {
-      quantityNodes[i].centerY = beforeBox.bottom + BOX_QUANTITY_SPACING + ( maxQuantityHeight / 2 );
-      imageNodes[i].centerY = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + ( maxImageHeight / 2 );
+    var numberOfQuantityNode = thisNode.quantityNodes.length;
+    for ( i = 0; i < numberOfQuantityNode; i++ ) {
+      quantityNode = thisNode.quantityNodes[i];
+      quantityNode.centerY = beforeBox.bottom + BOX_QUANTITY_SPACING + ( maxQuantityHeight / 2 );
+      imageNodes[i].centerY = quantityNode.top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + ( maxImageHeight / 2 );
       if ( options.showSymbols ) {
-        symbolNodes[i].top = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + maxImageHeight + IMAGE_SYMBOL_SPACING;
+        symbolNodes[i].top = quantityNode.top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + maxImageHeight + IMAGE_SYMBOL_SPACING;
       }
     }
 
@@ -218,5 +220,16 @@ define( function( require ) {
     thisNode.mutate( options );
   }
 
-  return inherit( Node, ReactionBoxesNode );
+  return inherit( Node, ReactionBoxesNode, {
+
+    /**
+     * Unlinks this node from all properties that it was observing.
+     * The node is no longer functional after calling this function.
+     */
+    unlink: function() {
+      this.quantityNodes.forEach( function( quantityNode ) {
+        quantityNode.unlink();
+      } );
+    }
+  } );
 } );
