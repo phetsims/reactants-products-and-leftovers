@@ -31,7 +31,7 @@ define( function( require ) {
     valueProperty.link( valuePropertyObserver );
 
     // @public Unlinks from the value property. The node is no longer functional after calling this function.
-    this.unlink = function() {
+    thisNode.unlink = function() {
       valueProperty.unlink( valuePropertyObserver );
     };
   }
