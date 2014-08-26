@@ -74,27 +74,27 @@ define( function( require ) {
     var hBox = new HBox( { children: [ beforeBox, arrowNode, afterBox ], spacing: 10 } );
     thisNode.addChild( hBox );
 
-    // collapsed 'before' box
-    var beforeBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ), boxOptions );
+    // collapsed 'before' box with title
+    var beforeBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ),
+      _.extend( { translation: beforeBox.translation }, boxOptions ) );
     thisNode.addChild( beforeBoxCollapsed );
-    beforeBoxCollapsed.translation = beforeBox.translation;
-    var beforeReactionLabel = new Text( beforeReactionString,
-      { font: TITLE_FONT, centerX: beforeBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
-    beforeBoxCollapsed.addChild( beforeReactionLabel );
+    beforeBoxCollapsed.addChild( new Text( beforeReactionString,
+      { font: TITLE_FONT, centerX: beforeBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } ) );
 
-    // collapsed 'after' box
-    var afterBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ), boxOptions );
+    // collapsed 'after' box with title
+    var afterBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ),
+      _.extend( { translation: afterBox.translation }, boxOptions ) );
     thisNode.addChild( afterBoxCollapsed );
-    afterBoxCollapsed.translation = afterBox.translation;
-    var afterReactionLabel = new Text( afterReactionString,
-      { font: TITLE_FONT, centerX: afterBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
-    afterBoxCollapsed.addChild( afterReactionLabel );
+    afterBoxCollapsed.addChild( new Text( afterReactionString,
+      { font: TITLE_FONT, centerX: afterBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } ) );
 
     // Expand/collapse button for 'before' box
-    var beforeExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH } );
+    var beforeExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, {
+      sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH,
+      top: beforeBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN,
+      right: beforeBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN
+    } );
     thisNode.addChild( beforeExpandCollapseButton );
-    beforeExpandCollapseButton.top = beforeBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN;
-    beforeExpandCollapseButton.right = beforeBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN;
     beforeExpandCollapseButton.touchArea = beforeExpandCollapseButton.localBounds.dilatedXY( 8, 8 );
     var beforeExpandedPropertyObserver = function( expanded ) {
       beforeBox.visible = expanded;
@@ -103,10 +103,12 @@ define( function( require ) {
     beforeExpandedProperty.link( beforeExpandedPropertyObserver );
 
     // Expand/collapse button for 'after' box
-    var afterExpandCollapseButton = new ExpandCollapseButton( afterExpandedProperty, { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH } );
+    var afterExpandCollapseButton = new ExpandCollapseButton( afterExpandedProperty, {
+      sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH,
+      top: afterBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN,
+      right: afterBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN
+    } );
     thisNode.addChild( afterExpandCollapseButton );
-    afterExpandCollapseButton.top = afterBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN;
-    afterExpandCollapseButton.right = afterBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN;
     afterExpandCollapseButton.touchArea = beforeExpandCollapseButton.localBounds.dilatedXY( 8, 8 );
     var afterExpandedPropertyObserver = function( expanded ) {
       afterBox.visible = expanded;
@@ -138,25 +140,22 @@ define( function( require ) {
       reactant = reaction.reactants[i];
 
       // quantity is editable via a spinner
-      quantityNode = new IntegerSpinner( reactant.quantityProperty, options.quantityRange, { font: QUANTITY_FONT } );
+      quantityNode = new IntegerSpinner( reactant.quantityProperty, options.quantityRange, { font: QUANTITY_FONT, centerX: centerX } );
       reactantsParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
-      quantityNode.centerX = centerX;
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
       // image
-      imageNode = reactant.molecule.node;
+      imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
       reactantsParent.addChild( imageNode );
       imageNodes.push( imageNode );
-      imageNode.centerX = quantityNode.centerX;
       maxImageHeight = Math.max( maxImageHeight, imageNode.height );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT } );
+        symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
-        symbolNode.centerX = imageNode.centerX;
       }
 
       centerX += deltaX;
@@ -174,24 +173,21 @@ define( function( require ) {
       product = reaction.products[i];
 
       // quantity is not editable
-      quantityNode = new IntegerNode( product.quantityProperty, { font: QUANTITY_FONT } );
+      quantityNode = new IntegerNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
       productsParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
-      quantityNode.centerX = centerX;
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
       // image
-      imageNode = new Node( { children: [ product.molecule.node ] } );
+      imageNode = new Node( { children: [ product.molecule.node ], centerX: quantityNode.centerX } );
       productsParent.addChild( imageNode );
       imageNodes.push( imageNode );
-      imageNode.centerX = quantityNode.centerX;
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( product.molecule.symbol, { font: SYMBOL_FONT } );
+        symbolNode = new SubSupText( product.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         productsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
-        symbolNode.centerX = imageNode.centerX;
       }
 
       centerX += deltaX;
@@ -205,25 +201,22 @@ define( function( require ) {
       reactant = reaction.reactants[i];
 
       // quantity is not editable
-      quantityNode = new IntegerNode( reactant.leftoversProperty, { font: QUANTITY_FONT } );
+      quantityNode = new IntegerNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
       leftoversParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
-      quantityNode.centerX = centerX;
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
       // image
-      imageNode = new Node( { children: [ reactant.molecule.node ] } );
+      imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
       leftoversParent.addChild( imageNode );
       imageNodes.push( imageNode );
-      imageNode.centerX = quantityNode.centerX;
       maxImageHeight = Math.max( maxImageHeight, imageNode.height );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT } );
+        symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         leftoversParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
-        symbolNode.centerX = imageNode.centerX;
       }
 
       centerX += deltaX;
