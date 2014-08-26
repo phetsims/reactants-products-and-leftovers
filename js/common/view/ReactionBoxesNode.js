@@ -58,6 +58,7 @@ define( function( require ) {
 
     options = _.extend( {
       boxSize: new Dimension2( 300, 250 ), // size of the 'before' and 'after' boxes
+      quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
       layoutStrategy: 'stacked', // layout strategy for molecules inside the boxes, either 'stacked' or 'random',
       showSymbols: true // whether to show the molecule symbols
     }, options );
@@ -139,7 +140,7 @@ define( function( require ) {
       reactant = reaction.reactants[i];
 
       // quantity is editable via a spinner
-      quantityNode = new IntegerSpinner( reactant.quantityProperty, RPALConstants.QUANTITY_RANGE, { font: QUANTITY_FONT } );
+      quantityNode = new IntegerSpinner( reactant.quantityProperty, options.quantityRange, { font: QUANTITY_FONT } );
       reactantsParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
       quantityNode.centerX = centerX;
