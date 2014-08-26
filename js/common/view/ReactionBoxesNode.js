@@ -64,13 +64,17 @@ define( function( require ) {
     var hBox = new HBox( { children: [ beforeBox, arrowNode, afterBox ], spacing: 10 } );
     thisNode.addChild( hBox );
 
+    // keep track of components that appear below the boxes, so we can handle their vertical alignment
     var quantityNodes = [];
     var imageNodes = [];
     var symbolNodes = [];
+
+    // compute the max height of quantity and image components, to aid in vertical alignment
     var maxQuantityHeight = 0;
     var maxImageHeight = 0;
 
-    var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode; // hoist loop vars
+    // explicitly hoist vars that are reused in loops
+    var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode;
 
     // reactants
     var reactantsParent = new Node();
@@ -175,7 +179,7 @@ define( function( require ) {
       centerX += deltaX;
     }
 
-    // vertical layout
+    // vertical layout of components below the boxes
     for ( i = 0; i < quantityNodes.length; i++ ) {
       quantityNodes[i].centerY = beforeBox.bottom + BOX_QUANTITY_SPACING + ( maxQuantityHeight / 2 );
       imageNodes[i].centerY = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + ( maxImageHeight / 2 );
