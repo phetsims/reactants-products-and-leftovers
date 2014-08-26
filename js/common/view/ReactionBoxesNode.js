@@ -43,6 +43,7 @@ define( function( require ) {
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
   var BRACKET_X_MARGIN = 10; // amount that brackets extend beyond the things they bracket
+  var BRACKET_Y_SPACING = 3; // vertical space between the brackets and whatever is directly above it
   var EXPAND_COLLAPSE_BUTTON_LENGTH = 20; // size of the expand/collapse buttons
   var EXPAND_COLLAPSE_BUTTON_MARGIN = 3; // space between the expand/collapse buttons and the outer edge of the boxes
 
@@ -240,7 +241,7 @@ define( function( require ) {
     }
 
     // brackets
-    var BRACKET_TOP = Math.max( reactantsParent.bottom, Math.max( productsParent.bottom, leftoversParent.bottom ) );
+    var BRACKET_TOP = Math.max( reactantsParent.bottom, Math.max( productsParent.bottom, leftoversParent.bottom ) ) + BRACKET_Y_SPACING;
     var reactantsBracket = new HBracketNode( reactantsString, {
       bracketColor: RPALColors.REACTION_BAR_COLOR,
       bracketWidth: reactantsParent.width + ( 2 * BRACKET_X_MARGIN ),
