@@ -128,7 +128,7 @@ define( function( require ) {
     // explicitly hoist vars that are reused in loops
     var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode;
 
-    // reactants
+    // reactants: stuff below the 'before' box
     var reactantsParent = new Node();
     thisNode.addChild( reactantsParent );
     var numberOfReactants = reaction.reactants.length;
@@ -164,7 +164,7 @@ define( function( require ) {
       centerX += deltaX;
     }
 
-    // products
+    // products: stuff below the 'after' box
     var productsParent = new Node();
     thisNode.addChild( productsParent );
     var numberOfProducts = reaction.products.length;
@@ -199,7 +199,7 @@ define( function( require ) {
       centerX += deltaX;
     }
 
-    // leftovers
+    // leftovers: stuff below the 'after' box, to the right of the products
     var leftoversParent = new Node();
     thisNode.addChild( leftoversParent );
     for ( i = 0; i < numberOfReactants; i++ ) {
@@ -241,8 +241,9 @@ define( function( require ) {
       }
     }
 
-    // brackets
+    // brackets to denote 'reactants', 'products' and 'leftovers'
     var BRACKET_TOP = Math.max( reactantsParent.bottom, Math.max( productsParent.bottom, leftoversParent.bottom ) ) + BRACKET_Y_SPACING;
+
     var reactantsBracket = new HBracketNode( reactantsString, {
       bracketColor: RPALColors.REACTION_BAR_COLOR,
       bracketWidth: reactantsParent.width + ( 2 * BRACKET_X_MARGIN ),
