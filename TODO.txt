@@ -20,3 +20,4 @@ MIGRATE TO COMMON
 
 MISC
 - watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524
+- fix name of Reaction_2N2_O2__2NO2, it should be Reaction_2N2_O2__2N2O
