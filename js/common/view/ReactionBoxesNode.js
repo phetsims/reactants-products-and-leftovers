@@ -77,8 +77,7 @@ define( function( require ) {
     // collapsed 'before' box
     var beforeBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ), boxOptions );
     thisNode.addChild( beforeBoxCollapsed );
-    beforeBoxCollapsed.left = beforeBox.left;
-    beforeBoxCollapsed.top = beforeBox.top;
+    beforeBoxCollapsed.translation = beforeBox.translation;
     var beforeReactionLabel = new Text( beforeReactionString,
       { font: TITLE_FONT, centerX: beforeBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
     beforeBoxCollapsed.addChild( beforeReactionLabel );
@@ -86,8 +85,7 @@ define( function( require ) {
     // collapsed 'after' box
     var afterBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ), boxOptions );
     thisNode.addChild( afterBoxCollapsed );
-    afterBoxCollapsed.left = afterBox.left;
-    afterBoxCollapsed.top = afterBox.top;
+    afterBoxCollapsed.translation = afterBox.translation;
     var afterReactionLabel = new Text( afterReactionString,
       { font: TITLE_FONT, centerX: afterBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
     afterBoxCollapsed.addChild( afterReactionLabel );
