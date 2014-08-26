@@ -11,12 +11,13 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var ReactionBarNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBarNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var ReactionBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBoxesNode' );//XXX
+  var ReactionBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBoxesNode' );
 
   /**
    * @param {MoleculesModel} model
@@ -27,11 +28,17 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
+    var viewProperties = new PropertySet( {
+      beforeExpanded: true,
+      afterExpanded: true
+    } );
+
     // static UI components
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, this.layoutBounds.width );
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
+        viewProperties.reset();
       }
     } );
 
@@ -65,7 +72,9 @@ define( function( require ) {
         reactionBoxesNode.unlink();
         rootNode.removeChild( reactionBoxesNode );
       }
-      reactionBoxesNode = new ReactionBoxesNode( reaction, { centerX: thisView.layoutBounds.centerX - 10, top: playAreaTop + 20 } );
+      reactionBoxesNode = new ReactionBoxesNode( reaction,
+        viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty,
+        { centerX: thisView.layoutBounds.centerX - 10, top: playAreaTop + 20 } );
       rootNode.addChild( reactionBoxesNode );
     } );
   }

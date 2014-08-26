@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
+  var ExpandCollapseButton = require( 'SUN/ExpandCollapseButton' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -37,13 +38,16 @@ define( function( require ) {
   var QUANTITY_IMAGE_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_SPACING = 2; // vertical space between image and symbol
   var BRACKET_X_MARGIN = 10; // amount that brackets extend beyond the things they bracket
+  var EXPAND_COLLAPSE_BUTTON_LENGTH = 20;
 
   /**
    * @param {Reaction} reaction
+   * @param {Property<boolean>} beforeExpandedProperty
+   * @param {Property<boolean>} afterExpandedProperty
    * @param {*} options
    * @constructor
    */
-  function ReactionBoxesNode( reaction, options ) {
+  function ReactionBoxesNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
     options = _.extend( {
       boxSize: new Dimension2( 300, 250 ), // size of the 'before' and 'after' boxes
@@ -64,8 +68,13 @@ define( function( require ) {
     var hBox = new HBox( { children: [ beforeBox, arrowNode, afterBox ], spacing: 10 } );
     thisNode.addChild( hBox );
 
+    // Expand/collapse buttons
+    var expandCollapseButtonOptions = { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH };
+    var beforeExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, expandCollapseButtonOptions );
+    var afterExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, expandCollapseButtonOptions );
+
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    thisNode.quantityNodes = [];
+    var quantityNodes = [];
     var imageNodes = [];
     var symbolNodes = [];
 
@@ -90,7 +99,7 @@ define( function( require ) {
       // quantity is editable via a spinner
       quantityNode = new IntegerSpinner( reactant.quantityProperty, RPALConstants.QUANTITY_RANGE, { font: QUANTITY_FONT } );
       reactantsParent.addChild( quantityNode );
-      thisNode.quantityNodes.push( quantityNode );
+      quantityNodes.push( quantityNode );
       quantityNode.centerX = centerX;
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
@@ -126,7 +135,7 @@ define( function( require ) {
       // quantity is not editable
       quantityNode = new IntegerNode( product.quantityProperty, { font: QUANTITY_FONT } );
       productsParent.addChild( quantityNode );
-      thisNode.quantityNodes.push( quantityNode );
+      quantityNodes.push( quantityNode );
       quantityNode.centerX = centerX;
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
@@ -157,7 +166,7 @@ define( function( require ) {
       // quantity is not editable
       quantityNode = new IntegerNode( reactant.leftoversProperty, { font: QUANTITY_FONT } );
       leftoversParent.addChild( quantityNode );
-      thisNode.quantityNodes.push( quantityNode );
+      quantityNodes.push( quantityNode );
       quantityNode.centerX = centerX;
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
@@ -180,13 +189,12 @@ define( function( require ) {
     }
 
     // vertical layout of components below the boxes
-    var numberOfQuantityNode = thisNode.quantityNodes.length;
-    for ( i = 0; i < numberOfQuantityNode; i++ ) {
-      quantityNode = thisNode.quantityNodes[i];
-      quantityNode.centerY = beforeBox.bottom + BOX_QUANTITY_SPACING + ( maxQuantityHeight / 2 );
-      imageNodes[i].centerY = quantityNode.top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + ( maxImageHeight / 2 );
+    var numberOfQuantityNodes = quantityNodes.length;
+    for ( i = 0; i < numberOfQuantityNodes; i++ ) {
+      quantityNodes[i].centerY = beforeBox.bottom + BOX_QUANTITY_SPACING + ( maxQuantityHeight / 2 );
+      imageNodes[i].centerY = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + ( maxImageHeight / 2 );
       if ( options.showSymbols ) {
-        symbolNodes[i].top = quantityNode.top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + maxImageHeight + IMAGE_SYMBOL_SPACING;
+        symbolNodes[i].top = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + maxImageHeight + IMAGE_SYMBOL_SPACING;
       }
     }
 
@@ -216,20 +224,22 @@ define( function( require ) {
     } );
     thisNode.addChild( leftoversBracket );
 
+    // @public Unlinks all property observers. The node is no longer functional after calling this function.
+    thisNode.unlink = function() {
+
+      // expand/collapse buttons
+      beforeExpandCollapseButton.unlink();
+      afterExpandCollapseButton.unlink();
+
+      // quantity spinners and displays
+      quantityNodes.forEach( function( quantityNode ) {
+        quantityNode.unlink();
+      } );
+    };
+
     // pass options to supertype
     thisNode.mutate( options );
   }
 
-  return inherit( Node, ReactionBoxesNode, {
-
-    /**
-     * Unlinks this node from all properties that it was observing.
-     * The node is no longer functional after calling this function.
-     */
-    unlink: function() {
-      this.quantityNodes.forEach( function( quantityNode ) {
-        quantityNode.unlink();
-      } );
-    }
-  } );
+  return inherit( Node, ReactionBoxesNode  );
 } );
