@@ -14,6 +14,7 @@ MEDIUM
 - mutable equation for Sandwiches screen
 
 LOW
+- dev features for game (skip, play all, ...)
 
 MIGRATE TO COMMON
 - IntegerSpinner
