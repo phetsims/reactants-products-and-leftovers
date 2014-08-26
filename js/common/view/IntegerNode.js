@@ -23,20 +23,18 @@ define( function( require ) {
     var thisNode = this;
     Text.call( thisNode, '', options );
 
-    // @private When the value changes ...
-    thisNode.observer = function( value ) {
+    // When the value changes ...
+    var valuePropertyObserver = function( value ) {
       assert && assert( Util.isInteger( value ) );
       thisNode.text = '' + value;
     };
-    valueProperty.link( this.observer );
-    thisNode.valueProperty = valueProperty; // @private
+    valueProperty.link( valuePropertyObserver );
+
+    // @public Unlinks from the value property. The node is no longer functional after calling this function.
+    this.unlink = function() {
+      valueProperty.unlink( valuePropertyObserver );
+    }
   }
 
-  return inherit( Text, IntegerNode, {
-
-    // Unlinks from the value property. The node is no longer functional after calling this function.
-    unlink: function() {
-      this.valueProperty.unlink( this.observer );
-    }
-  } );
+  return inherit( Text, IntegerNode );
 } );

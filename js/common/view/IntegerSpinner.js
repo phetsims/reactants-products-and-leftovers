@@ -74,8 +74,8 @@ define( function( require ) {
     options.spacing = options.ySpacing;
     HBox.call( thisSpinner, options );
 
-    // @private when the value changes ...
-    thisSpinner.observer = function( value ) {
+    // When the value changes ...
+    var valuePropertyObserver = function( value ) {
       assert && assert( Util.isInteger( value ) );
       assert && assert( range.contains( value ) );
 
@@ -87,15 +87,13 @@ define( function( require ) {
       upButton.setEnabled( value < range.max );
       downButton.setEnabled( value > range.min );
     };
-    valueProperty.link( thisSpinner.observer );
-    thisSpinner.valueProperty = valueProperty; // @private
+    valueProperty.link( valuePropertyObserver );
+
+    // @public Unlinks from the value property. The spinner is no longer functional after calling this function.
+    this.unlink = function() {
+      valueProperty.unlink( valuePropertyObserver );
+    }
   }
 
-  return inherit( HBox, IntegerSpinner, {
-
-    // Unlinks this spinner from the value property. The spinner is no longer functional after calling this function.
-    unlink: function() {
-      this.valueProperty.unlink( this.observer );
-    }
-  } );
+  return inherit( HBox, IntegerSpinner );
 } );
