@@ -47,9 +47,9 @@ define( function( require ) {
   var EXPAND_COLLAPSE_BUTTON_MARGIN = 3;
 
   /**
-   * @param {Reaction} reaction
-   * @param {Property<boolean>} beforeExpandedProperty
-   * @param {Property<boolean>} afterExpandedProperty
+   * @param {Reaction} reaction the reaction to be displayed
+   * @param {Property<boolean>} beforeExpandedProperty whether the 'before' box is expanded
+   * @param {Property<boolean>} afterExpandedProperty whether the 'after' box is expanded
    * @param {*} options
    * @constructor
    */
