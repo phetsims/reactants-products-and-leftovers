@@ -1,3 +1,4 @@
+8/26/14 reduce size of 'Rest All' button
 8/26/14 use a more subtle stroke for boxes
 8/26/14 add labels (titles) to collapsed boxes
 8/26/14 add collapsed version of boxes, wire up to expand/collapse buttons

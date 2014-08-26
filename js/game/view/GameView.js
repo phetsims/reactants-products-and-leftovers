@@ -30,6 +30,7 @@ define( function( require ) {
     thisView.addChild( new Text( 'Game: under construction', { font: new RPALFont( 36 ), center: this.layoutBounds.center } ) );
 
     var resetAllButton = new ResetAllButton( {
+      scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       listener: function() {
         model.reset();
       }
