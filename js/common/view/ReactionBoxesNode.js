@@ -210,6 +210,7 @@ define( function( require ) {
     } );
     thisNode.addChild( leftoversBracket );
 
+    // pass options to supertype
     thisNode.mutate( options );
   }
 
