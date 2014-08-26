@@ -36,12 +36,12 @@ define( function( require ) {
   var leftoversString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/leftovers' );
 
   // constants
+  var TITLE_FONT = new RPALFont( 16 );
   var QUANTITY_FONT = new RPALFont( 28 );
   var SYMBOL_FONT = new RPALFont( 16 );
-  var TITLE_FONT = new RPALFont( 16 );
-  var BOX_QUANTITY_SPACING = 6; // vertical space between box and quantity
-  var QUANTITY_IMAGE_SPACING = 6; // vertical space between quantity and image
-  var IMAGE_SYMBOL_SPACING = 2; // vertical space between image and symbol
+  var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
+  var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
+  var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
   var BRACKET_X_MARGIN = 10; // amount that brackets extend beyond the things they bracket
   var EXPAND_COLLAPSE_BUTTON_LENGTH = 20;
   var EXPAND_COLLAPSE_BUTTON_MARGIN = 3;
@@ -77,7 +77,8 @@ define( function( require ) {
     thisNode.addChild( beforeBoxCollapsed );
     beforeBoxCollapsed.left = beforeBox.left;
     beforeBoxCollapsed.top = beforeBox.top;
-    var beforeReactionLabel = new Text( beforeReactionString, { font: TITLE_FONT, centerX: beforeBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
+    var beforeReactionLabel = new Text( beforeReactionString,
+      { font: TITLE_FONT, centerX: beforeBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
     beforeBoxCollapsed.addChild( beforeReactionLabel );
 
     // collapsed 'after' box
@@ -85,7 +86,8 @@ define( function( require ) {
     thisNode.addChild( afterBoxCollapsed );
     afterBoxCollapsed.left = afterBox.left;
     afterBoxCollapsed.top = afterBox.top;
-    var afterReactionLabel = new Text( afterReactionString, { font: TITLE_FONT, centerX: afterBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
+    var afterReactionLabel = new Text( afterReactionString,
+      { font: TITLE_FONT, centerX: afterBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } );
     afterBoxCollapsed.addChild( afterReactionLabel );
 
     // Expand/collapse button 'before'
@@ -230,10 +232,10 @@ define( function( require ) {
     // vertical layout of components below the boxes
     var numberOfQuantityNodes = quantityNodes.length;
     for ( i = 0; i < numberOfQuantityNodes; i++ ) {
-      quantityNodes[i].centerY = beforeBox.bottom + BOX_QUANTITY_SPACING + ( maxQuantityHeight / 2 );
-      imageNodes[i].centerY = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + ( maxImageHeight / 2 );
+      quantityNodes[i].centerY = beforeBox.bottom + BOX_QUANTITY_Y_SPACING + ( maxQuantityHeight / 2 );
+      imageNodes[i].centerY = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
       if ( options.showSymbols ) {
-        symbolNodes[i].top = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_SPACING + maxImageHeight + IMAGE_SYMBOL_SPACING;
+        symbolNodes[i].top = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
       }
     }
 
