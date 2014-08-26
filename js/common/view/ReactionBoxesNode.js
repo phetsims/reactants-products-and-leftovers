@@ -57,8 +57,6 @@ define( function( require ) {
 
     options = _.extend( {
       boxSize: new Dimension2( 300, 250 ), // size of the 'before' and 'after' boxes
-      xMargin: 10, // x-margin inside the boxes
-      yMargin: 10,  // y-margin inside the boxes
       layoutStrategy: 'stacked', // layout strategy for molecules inside the boxes, either 'stacked' or 'random',
       showSymbols: true // whether to show the molecule symbols
     }, options );
