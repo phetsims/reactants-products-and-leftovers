@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var ExpandCollapseButton = require( 'SUN/ExpandCollapseButton' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
@@ -19,6 +20,7 @@ define( function( require ) {
   var IntegerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerNode' );
   var IntegerSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerSpinner' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -66,7 +68,7 @@ define( function( require ) {
     Node.call( thisNode );
 
     // expanded boxes with arrow between them
-    var boxOptions = { fill: 'white', stroke: 'black' };
+    var boxOptions = { fill: 'white', stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.2 ) };
     var beforeBox = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, boxOptions );
     var arrowNode = new RightArrowNode( { fill: RPALColors.REACTION_BAR_COLOR, stroke: null, scale: 0.75 } );
     var afterBox = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, boxOptions );
