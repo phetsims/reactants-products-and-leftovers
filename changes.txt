@@ -1,3 +1,4 @@
+8/26/14 add expand/collapse buttons, not wired up yet
 8/26/14 unlink from reaction properties when switching equations, to prevent memory leak
 8/26/14 add ability to unlink spinners and value displays from quantity value properties
 8/26/14 #2 standardize capitalization of labels

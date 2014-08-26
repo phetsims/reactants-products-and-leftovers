@@ -39,6 +39,7 @@ define( function( require ) {
   var IMAGE_SYMBOL_SPACING = 2; // vertical space between image and symbol
   var BRACKET_X_MARGIN = 10; // amount that brackets extend beyond the things they bracket
   var EXPAND_COLLAPSE_BUTTON_LENGTH = 20;
+  var EXPAND_COLLAPSE_BUTTON_MARGIN = 3;
 
   /**
    * @param {Reaction} reaction
@@ -68,10 +69,27 @@ define( function( require ) {
     var hBox = new HBox( { children: [ beforeBox, arrowNode, afterBox ], spacing: 10 } );
     thisNode.addChild( hBox );
 
-    // Expand/collapse buttons
-    var expandCollapseButtonOptions = { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH };
-    var beforeExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, expandCollapseButtonOptions );
-    var afterExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, expandCollapseButtonOptions );
+    // Expand/collapse button 'before'
+    var beforeExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH } );
+    thisNode.addChild( beforeExpandCollapseButton );
+    beforeExpandCollapseButton.top = beforeBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN;
+    beforeExpandCollapseButton.right = beforeBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN;
+    beforeExpandCollapseButton.touchArea = beforeExpandCollapseButton.localBounds.dilatedXY( 8, 8 );
+    var beforeExpandedPropertyObserver = function( expanded ) {
+      //TODO
+    };
+    beforeExpandedProperty.link( beforeExpandedPropertyObserver );
+
+    // Expand/collapse button 'after'
+    var afterExpandCollapseButton = new ExpandCollapseButton( afterExpandedProperty, { sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH } );
+    thisNode.addChild( afterExpandCollapseButton );
+    afterExpandCollapseButton.top = afterBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN;
+    afterExpandCollapseButton.right = afterBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN;
+    afterExpandCollapseButton.touchArea = beforeExpandCollapseButton.localBounds.dilatedXY( 8, 8 );
+    var afterExpandedPropertyObserver = function( expanded ) {
+      //TODO
+    };
+    afterExpandedProperty.link( afterExpandedPropertyObserver );
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     var quantityNodes = [];
@@ -228,6 +246,8 @@ define( function( require ) {
     thisNode.unlink = function() {
 
       // expand/collapse buttons
+      beforeExpandedProperty.unlink( beforeExpandedPropertyObserver );
+      afterExpandedProperty.unlink( afterExpandedPropertyObserver );
       beforeExpandCollapseButton.unlink();
       afterExpandCollapseButton.unlink();
 
