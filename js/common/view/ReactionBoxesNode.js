@@ -36,15 +36,15 @@ define( function( require ) {
   var leftoversString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/leftovers' );
 
   // constants
-  var TITLE_FONT = new RPALFont( 16 );
-  var QUANTITY_FONT = new RPALFont( 28 );
-  var SYMBOL_FONT = new RPALFont( 16 );
+  var TITLE_FONT = new RPALFont( 16 ); // font for the titles that appear in the collapsed boxes
+  var QUANTITY_FONT = new RPALFont( 28 ); // font for the molecule quantities that appear below the boxes
+  var SYMBOL_FONT = new RPALFont( 16 ); // font for the molecule symbols that appear below the boxes
   var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
   var BRACKET_X_MARGIN = 10; // amount that brackets extend beyond the things they bracket
-  var EXPAND_COLLAPSE_BUTTON_LENGTH = 20;
-  var EXPAND_COLLAPSE_BUTTON_MARGIN = 3;
+  var EXPAND_COLLAPSE_BUTTON_LENGTH = 20; // size of the expand/collapse buttons
+  var EXPAND_COLLAPSE_BUTTON_MARGIN = 3; // space between the expand/collapse buttons and the outer edge of the boxes
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
