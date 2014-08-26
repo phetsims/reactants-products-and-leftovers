@@ -34,7 +34,7 @@ define( function( require ) {
 
   return inherit( Text, IntegerNode, {
 
-    // Unlinks from the value property. This node should not be used after calling this function.
+    // Unlinks from the value property. The node is no longer functional after calling this function.
     unlink: function() {
       this.valueProperty.unlink( this.observer );
     }
