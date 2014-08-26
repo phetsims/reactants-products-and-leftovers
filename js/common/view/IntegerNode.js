@@ -1,6 +1,5 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO add cleanup, to unlink observer from value
 /**
  * Displays a dynamic integer value.
  *
@@ -14,14 +13,30 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 
+  /**
+   * @param {Property<Number>} valueProperty
+   * @param {*} options
+   * @constructor
+   */
   function IntegerNode( valueProperty, options ) {
+
     var thisNode = this;
     Text.call( thisNode, '', options );
-    valueProperty.link( function( value ) {
+
+    // @private When the value changes ...
+    thisNode.observer = function( value ) {
       assert && assert( Util.isInteger( value ) );
       thisNode.text = '' + value;
-    } );
+    };
+    valueProperty.link( this.observer );
+    thisNode.valueProperty = valueProperty; // @private
   }
 
-  return inherit( Text, IntegerNode );
+  return inherit( Text, IntegerNode, {
+
+    // Unlinks from the value property. This node should not be used after calling this function.
+    unlink: function() {
+      this.valueProperty.unlink( this.observer );
+    }
+  } );
 } );

@@ -1,6 +1,5 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO add cleanup, to unlink observer from value
 /**
  * Spinner for integer values, similar in 'look' to Java's JSpinner.
  * 
@@ -43,6 +42,8 @@ define( function( require ) {
       ySpacing: 5
     }, options );
 
+    var thisSpinner = this;
+
     var valueOptions = {
       font: options.font,
       fill: 'black'
@@ -71,10 +72,10 @@ define( function( require ) {
     // buttons to right of value
     options.children = [ valueParent, buttonsParent ];
     options.spacing = options.ySpacing;
-    HBox.call( this, options );
+    HBox.call( thisSpinner, options );
 
-    // when the value changes ...
-    valueProperty.link( function( value ) {
+    // @private when the value changes ...
+    thisSpinner.observer = function( value ) {
       assert && assert( Util.isInteger( value ) );
       assert && assert( range.contains( value ) );
 
@@ -85,8 +86,16 @@ define( function( require ) {
       // enable/disable arrow buttons
       upButton.setEnabled( value < range.max );
       downButton.setEnabled( value > range.min );
-    } );
+    };
+    valueProperty.link( thisSpinner.observer );
+    thisSpinner.valueProperty = valueProperty; // @private
   }
 
-  return inherit( HBox, IntegerSpinner );
+  return inherit( HBox, IntegerSpinner, {
+
+    // Unlinks this spinner from the value property. Spinner should not be used after calling this function.
+    unlink: function() {
+      this.valueProperty.unlink( this.observer );
+    }
+  } );
 } );

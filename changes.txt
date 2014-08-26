@@ -1,3 +1,4 @@
+8/26/14 add ability to unlink spinners and value displays from quantity value properties
 8/26/14 #2 standardize capitalization of labels
 8/25/14 first pass at Before-After boxes, doesn't show molecules in boxes yet
 8/25/14 RPALFont
