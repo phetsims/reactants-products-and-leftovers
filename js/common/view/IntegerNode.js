@@ -1,5 +1,6 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
+//TODO add cleanup, to unlink observer from value
 /**
  * Displays a dynamic integer value.
  *
