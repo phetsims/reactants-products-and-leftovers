@@ -5,6 +5,7 @@ DESIGN
 - #2 capitalization of labels ('Make water' or 'Make Water'?)
 
 HIGH
+- consolidate loop iterations in ReactionBoxesNode
 - random layout strategy for molecules in boxes
 
 MEDIUM
