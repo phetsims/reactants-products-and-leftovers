@@ -41,7 +41,7 @@ define( function( require ) {
   var QUANTITY_FONT = new RPALFont( 28 ); // font for the molecule quantities that appear below the boxes
   var SYMBOL_FONT = new RPALFont( 16 ); // font for the molecule symbols that appear below the boxes
   var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
-  var BOX_Y_MARGIN = 2; // vertical margin between the inner edge of box and the tallest molecule image
+  var BOX_Y_MARGIN = 8; // vertical margin between the inner edge of box and the tallest molecule image
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
   var BRACKET_X_MARGIN = 10; // amount that brackets extend beyond the things they bracket
@@ -263,8 +263,8 @@ define( function( require ) {
 
     // molecule stacks inside the 'before' and 'after' boxes
     var moleculeStackNodes = [];
-    var startCenterY = beforeBox.bottom - ( 2 * BOX_Y_MARGIN ) - maxImageHeight;
-    var deltaY = ( beforeBox.height - ( 2 * BOX_Y_MARGIN ) - maxImageHeight ) / options.quantityRange.max;
+    var startCenterY = beforeBox.height - BOX_Y_MARGIN - ( maxImageHeight / 2 );
+    var deltaY = ( beforeBox.height - ( 2 * BOX_Y_MARGIN ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
 
     // reactants inside the 'before' box
     for ( i = 0; i < numberOfReactants; i++ ) {
