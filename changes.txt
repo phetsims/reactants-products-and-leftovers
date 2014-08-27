@@ -1,4 +1,4 @@
-# 1.0.0-dev.1
+# 1.0.0-dev.1 8/26/14
 8/26/14 'Molecules' screen is feature-complete
 8/26/14 fix 'Reset All' for quantities
 8/26/14 add stacked molecules inside boxes
