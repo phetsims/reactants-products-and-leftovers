@@ -41,6 +41,11 @@ define( function( require ) {
 
   return inherit( Object, Reaction, {
 
+    reset: function() {
+       this.reactants.forEach( function( reactant ) { reactant.reset(); } );
+       this.products.forEach( function( product ) { product.reset(); } );
+    },
+
     /**
      * Formula is a reaction if more than one coefficient is non-zero, or if any coefficient is > 1.
      * @returns {boolean}

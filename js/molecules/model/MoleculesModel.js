@@ -27,5 +27,12 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, MoleculesModel );
+  return inherit( PropertySet, MoleculesModel, {
+
+    // @override
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+      this.reactions.forEach( function( reaction ) { reaction.reset(); } );
+    }
+  } );
 } );

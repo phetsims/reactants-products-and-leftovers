@@ -1,3 +1,4 @@
+8/26/14 fix 'Reset All' for quantities
 8/26/14 add stacked molecules inside boxes
 8/26/14 reduce size of 'Rest All' button
 8/26/14 use a more subtle stroke for boxes
