@@ -19,6 +19,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var IntegerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerNode' );
   var IntegerSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerSpinner' );
+  var MoleculeStackNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculeStackNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
@@ -40,6 +41,7 @@ define( function( require ) {
   var QUANTITY_FONT = new RPALFont( 28 ); // font for the molecule quantities that appear below the boxes
   var SYMBOL_FONT = new RPALFont( 16 ); // font for the molecule symbols that appear below the boxes
   var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
+  var BOX_Y_MARGIN = 2; // vertical margin between the inner edge of box and the tallest molecule image
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
   var BRACKET_X_MARGIN = 10; // amount that brackets extend beyond the things they bracket
@@ -126,7 +128,7 @@ define( function( require ) {
     var maxImageHeight = 0;
 
     // explicitly hoist vars that are reused in loops
-    var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode;
+    var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode, moleculeStackNode;
 
     // reactants: stuff below the 'before' box
     var reactantsParent = new Node();
@@ -259,6 +261,35 @@ define( function( require ) {
     } );
     thisNode.addChild( leftoversBracket );
 
+    // molecule stacks inside the 'before' and 'after' boxes
+    var moleculeStackNodes = [];
+    var startCenterY = beforeBox.bottom - ( 2 * BOX_Y_MARGIN ) - maxImageHeight;
+    var deltaY = ( beforeBox.height - ( 2 * BOX_Y_MARGIN ) - maxImageHeight ) / options.quantityRange.max;
+
+    // reactants inside the 'before' box
+    for ( i = 0; i < numberOfReactants; i++ ) {
+      reactant = reaction.reactants[i];
+      moleculeStackNode = new MoleculeStackNode( reactant.quantityProperty, reactant.molecule.node,
+        quantityNodes[i].centerX, startCenterY, deltaY );
+      beforeBox.addChild( moleculeStackNode );
+    }
+
+    // products inside the 'after' box
+    for ( i = 0; i < numberOfProducts; i++ ) {
+      product = reaction.products[i];
+      moleculeStackNode = new MoleculeStackNode( product.quantityProperty, product.molecule.node,
+          quantityNodes[i + numberOfReactants ].centerX - ( afterBox.left - beforeBox.left ), startCenterY, deltaY );
+      afterBox.addChild( moleculeStackNode );
+    }
+
+    // leftovers inside the 'after' box
+    for ( i = 0; i < numberOfReactants; i++ ) {
+      reactant = reaction.reactants[i];
+      moleculeStackNode = new MoleculeStackNode( reactant.leftoversProperty, reactant.molecule.node,
+          quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( afterBox.left - beforeBox.left ), startCenterY, deltaY );
+      afterBox.addChild( moleculeStackNode );
+    }
+
     // @public Unlinks all property observers. The node is no longer functional after calling this function.
     thisNode.unlink = function() {
 
@@ -271,6 +302,11 @@ define( function( require ) {
       // quantity spinners and displays
       quantityNodes.forEach( function( quantityNode ) {
         quantityNode.unlink();
+      } );
+
+      // molecule stacks
+      moleculeStackNodes.forEach( function( moleculeStackNode ) {
+        moleculeStackNode.unlink();
       } );
     };
 

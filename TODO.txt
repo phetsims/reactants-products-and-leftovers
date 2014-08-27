@@ -5,7 +5,7 @@ DESIGN
 - #2 capitalization of labels ('Make water' or 'Make Water'?)
 
 HIGH
-- populate boxes with molecules to match quantities shown below boxes
+- random layout strategy for molecules in boxes
 
 MEDIUM
 - finish ReactionFactory
