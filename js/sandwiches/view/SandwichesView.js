@@ -43,8 +43,8 @@ define( function( require ) {
     thisView.addChild( rootNode );
 
     // layout
-    resetAllButton.right = this.layoutBounds.right - 40;
-    resetAllButton.bottom = this.layoutBounds.bottom - 20;
+    resetAllButton.left = this.layoutBounds.left + 10;
+    resetAllButton.bottom = this.layoutBounds.bottom - 10;
   }
 
   return inherit( ScreenView, SandwichesView );

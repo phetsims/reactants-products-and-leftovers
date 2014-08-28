@@ -3,7 +3,6 @@ TODO list for reactants-products-and-leftovers
 DESIGN
 
 HIGH
-- move 'Reset All' button to lower left
 - sandwich image generator (SandwichImageFactory)
 - move expand/collapse box and title to a 'title bar' for boxes (accordion box)
 - consolidate loop iterations in ReactionBoxesNode

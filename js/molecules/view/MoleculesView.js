@@ -64,7 +64,7 @@ define( function( require ) {
     }
 
     // remainder of layout
-    resetAllButton.right = this.layoutBounds.right - 10;
+    resetAllButton.left = this.layoutBounds.left + 10;
     resetAllButton.bottom = playAreaBottom - 10;
 
     var reactionBoxesNode;
@@ -75,7 +75,7 @@ define( function( require ) {
       }
       reactionBoxesNode = new ReactionBoxesNode( reaction,
         viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty,
-        { centerX: thisView.layoutBounds.centerX - 10, top: playAreaTop + 20 } );
+        { centerX: thisView.layoutBounds.centerX, top: playAreaTop + 20 } );
       rootNode.addChild( reactionBoxesNode );
     } );
   }
