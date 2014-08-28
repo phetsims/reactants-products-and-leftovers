@@ -1,6 +1,7 @@
 TODO list for reactants-products-and-leftovers
 
 DESIGN
+- move expand/collapse box and title to a 'title bar' for boxes, to prevent overlap with molecules?
 - scoreboard like in Graphing Lines?
 - #2 capitalization of labels ('Make water' or 'Make Water'?)
 
