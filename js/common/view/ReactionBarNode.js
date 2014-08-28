@@ -28,7 +28,9 @@ define( function( require ) {
    */
   function ReactionBarNode( reactionProperty, reactions, screenWidth, options ) {
 
-    options = options || {};
+    options = _.extend( {
+      showSymbols: true // true = show molecule symbol, false = show molecule node
+    }, options );
 
     // control for choosing a reaction
     var reactionChoiceNode = new ReactionChoiceNode( reactionProperty, reactions );
@@ -51,7 +53,7 @@ define( function( require ) {
 
       // create the new equation node
       equationParent.removeAllChildren();
-      equationParent.addChild( new EquationNode( reactionProperty.get() ) );
+      equationParent.addChild( new EquationNode( reactionProperty.get(), { showSymbols: options.showSymbols } ) );
       equationParent.setScaleMagnitude( 1 );
 
       // scale the equation if it's too wide to fit the available space

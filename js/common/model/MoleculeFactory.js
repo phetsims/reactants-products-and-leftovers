@@ -9,7 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Image = require( 'SCENERY/nodes/Image' );
   var Molecule = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Molecule' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALSymbols = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALSymbols' );
 
   // modules (molecules)
@@ -55,13 +57,28 @@ define( function( require ) {
 
   // constants
   var ATOM_OPTIONS = { stroke: 'black', lineWidth:  0.5, scale: 1 };
+  var SANDWICH_IMAGE_SCALE = 0.75; //TODO scale the image files?
+
+  /**
+   * Creates an image for a specified sandwich.
+   * @param {number} breadCount
+   * @param {number} meatCount
+   * @param {number} cheeseCount
+   * @return {Node}
+   */
+  var createSandwichNode = function( breadCount, meatCount, cheeseCount ) {
+    //TODO
+    return new Rectangle( 0, 0, 30, 30, { fill: 'orange', stroke: 'black' } );
+  };
 
   return {
 
     // sandwich components
-    bread: function() { return new Molecule( RPALSymbols.BREAD, new Image( breadImage ) ); },
-    cheese: function() { return new Molecule( RPALSymbols.CHEESE, new Image( cheeseImage ) ); },
-    meat: function() { return new Molecule( RPALSymbols.MEAT, new Image( meatImage ) ); },
+    bread: function() { return new Molecule( RPALSymbols.BREAD, new Image( breadImage, { scale: SANDWICH_IMAGE_SCALE } ) ); },
+    cheese: function() { return new Molecule( RPALSymbols.CHEESE, new Image( cheeseImage, { scale: SANDWICH_IMAGE_SCALE } ) ); },
+    meat: function() { return new Molecule( RPALSymbols.MEAT, new Image( meatImage, { scale: SANDWICH_IMAGE_SCALE } ) ); },
+    cheeseSandwich: function() { return new Molecule( 'cheese', createSandwichNode( 2, 0, 1 ) ); },
+    meatAndCheeseSandwich: function() { return new Molecule( 'cheese', createSandwichNode( 2, 1, 1 ) ); },
 
     // molecules
     C: function() { return new Molecule( RPALSymbols.C, new CNode( ATOM_OPTIONS ) ); },

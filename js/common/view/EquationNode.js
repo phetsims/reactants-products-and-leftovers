@@ -28,10 +28,10 @@ define( function( require ) {
   /**
    * Creates terms for equation.
    * @param {[Substance]} terms the terms to be added
-   * @param {boolean} showSymbol true = show molecule symbol, false = show molecule node
+   * @param {boolean} showSymbols true = show molecule symbol, false = show molecule node
    * @returns {Node}
    */
-  var addTerms = function( terms, showSymbol ) {
+  var addTerms = function( terms, showSymbols ) {
 
     var parentNode = new Node();
     var numberOfTerms = terms.length;
@@ -45,9 +45,9 @@ define( function( require ) {
       parentNode.addChild( coefficientNode );
 
       // molecule
-      moleculeNode = showSymbol ? new SubSupText( terms[i].molecule.symbol, TEXT_OPTIONS ) : new Node( { children: [ terms[i].molecule.node ] } );
+      moleculeNode = showSymbols ? new SubSupText( terms[i].molecule.symbol, TEXT_OPTIONS ) : new Node( { children: [ terms[i].molecule.node ] } );
       moleculeNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
-      if ( !showSymbol ) {
+      if ( !showSymbols ) {
         moleculeNode.centerY = coefficientNode.centerY;
       }
       parentNode.addChild( moleculeNode );
@@ -75,13 +75,13 @@ define( function( require ) {
   function EquationNode( reaction, options ) {
 
     options = _.extend( {
-      showSymbol: true // true = show molecule symbol, false = show molecule node
+      showSymbols: true // true = show molecule symbol, false = show molecule node
     }, options );
 
     Node.call( this );
 
     // left-hand side of the formula (reactants)
-    var reactantsNode = addTerms( reaction.reactants, options.showSymbol );
+    var reactantsNode = addTerms( reaction.reactants, options.showSymbols );
     this.addChild( reactantsNode );
 
     // right arrow
@@ -92,7 +92,7 @@ define( function( require ) {
     this.addChild( arrowNode );
 
     // right-hand side of the formula (products)
-    var productsNode = addTerms( reaction.products, options.showSymbol );
+    var productsNode = addTerms( reaction.products, options.showSymbols );
     productsNode.left = arrowNode.right + ARROW_X_SPACING;
     this.addChild( productsNode );
 

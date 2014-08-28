@@ -15,11 +15,31 @@ define( function( require ) {
   var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
 
   // strings
+  var cheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/cheese' );
+  var meatAndCheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/meatAndCheese' );
   var combustMethaneString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/combustMethane' );
   var makeAmmoniaString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeAmmonia' );
   var makeWaterString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeWater' );
 
   return {
+
+    //---------------------------------------------------------------------------------------
+    // Sandwich 'reactions'
+    //---------------------------------------------------------------------------------------
+
+    cheeseSandwich: function() {
+      return new Reaction(
+        [ new Reactant( 2, MoleculeFactory.bread() ), new Reactant( 1, MoleculeFactory.cheese() ) ],
+        [ new Product( 1, MoleculeFactory.cheeseSandwich() ) ],
+        { name: cheeseString } );
+    },
+
+    meatAndCheeseSandwich: function() {
+      return new Reaction(
+        [ new Reactant( 2, MoleculeFactory.bread() ), new Reactant( 1, MoleculeFactory.meat() ), new Reactant( 1, MoleculeFactory.cheese() ) ],
+        [ new Product( 1, MoleculeFactory.meatAndCheeseSandwich() ) ],
+        { name: meatAndCheeseString } );
+    },
 
     //---------------------------------------------------------------------------------------
     // Single-product reactions

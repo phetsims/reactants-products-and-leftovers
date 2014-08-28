@@ -10,14 +10,29 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var PropertySet = require( 'AXON/PropertySet' );
+  var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
 
   function SandwichesModel() {
-    //TODO
+
+    // reaction choices
+    this.reactions = [
+      ReactionFactory.cheeseSandwich(),
+      ReactionFactory.meatAndCheeseSandwich()
+      //TODO add 'custom' sandwich
+    ];
+
+    PropertySet.call( this, {
+      reaction: this.reactions[0] // the selected reaction
+    } );
   }
 
-  return inherit( Object, SandwichesModel, {
+  return inherit( PropertySet, SandwichesModel, {
+
+    // @override
     reset: function() {
-      //TODO
+      PropertySet.prototype.reset.call( this );
+      this.reactions.forEach( function( reaction ) { reaction.reset(); } );
     }
   } );
 } );
