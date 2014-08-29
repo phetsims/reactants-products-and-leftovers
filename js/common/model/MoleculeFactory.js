@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var Molecule = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Molecule' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALSymbols = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALSymbols' );
 
@@ -67,8 +68,49 @@ define( function( require ) {
    * @return {Node}
    */
   var createSandwichNode = function( breadCount, meatCount, cheeseCount ) {
-    //TODO
-    return new Rectangle( 0, 0, 30, 30, { fill: 'orange', stroke: 'black' } );
+
+    var parent = new Node( { scale: SANDWICH_IMAGE_SCALE } );
+
+    var centerY = 0;
+    var dy = -4;
+
+    // slice of bread on the bottom
+    if ( breadCount > 0 ) {
+      parent.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+      centerY += dy;
+      breadCount--;
+    }
+
+    // alternate between meat, cheese and bread
+    var imageAdded = true;
+    while ( imageAdded ) {
+      imageAdded = false;
+      if ( meatCount > 0 ) {
+        parent.addChild( new Image( meatImage, { centerX: 0, centerY: centerY } ) );
+        centerY += dy;
+        imageAdded = true;
+        meatCount--;
+      }
+      if ( cheeseCount > 0 ) {
+        parent.addChild( new Image( cheeseImage, { centerX: 0, centerY: centerY } ) );
+        centerY += dy;
+        imageAdded = true;
+        cheeseCount--;
+      }
+      if ( breadCount > 2 ) { // save one slice of bread for the top
+        parent.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+        centerY += dy;
+        imageAdded = true;
+        breadCount--;
+      }
+    }
+
+    // slice of bread on the top
+    if ( breadCount > 0 ) {
+      parent.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+    }
+
+    return parent;
   };
 
   return {

@@ -3,7 +3,6 @@ TODO list for reactants-products-and-leftovers
 DESIGN
 
 HIGH
-- MoleculeFactory.createSandwichNode
 - consolidate loop iterations in ReactionBoxesNode
 - random layout strategy for molecules in boxes
 

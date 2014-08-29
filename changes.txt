@@ -1,3 +1,4 @@
+8/29/14 implement MoleculeFactory.createSandwichNode
 8/29/14 use sun.AccordionBox
 8/28/14 first pass at 'Sandwiches' screen
 8/28/14 move 'Reset All' button to lower left
