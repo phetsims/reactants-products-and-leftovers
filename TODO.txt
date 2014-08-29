@@ -4,7 +4,6 @@ DESIGN
 
 HIGH
 - MoleculeFactory.createSandwichNode
-- move expand/collapse box and title to a 'title bar' for boxes (accordion box)
 - consolidate loop iterations in ReactionBoxesNode
 - random layout strategy for molecules in boxes
 

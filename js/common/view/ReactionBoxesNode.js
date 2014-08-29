@@ -11,9 +11,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
+  var AccordionBox = require( 'SUN/AccordionBox' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var ExpandCollapseButton = require( 'SUN/ExpandCollapseButton' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -37,17 +36,16 @@ define( function( require ) {
   var leftoversString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/leftovers' );
 
   // constants
-  var TITLE_FONT = new RPALFont( 16 ); // font for the titles that appear in the collapsed boxes
+  var TITLE_FONT = new RPALFont( 14 ); // font for the titles that appear in the collapsed boxes
   var QUANTITY_FONT = new RPALFont( 28 ); // font for the molecule quantities that appear below the boxes
   var SYMBOL_FONT = new RPALFont( 16 ); // font for the molecule symbols that appear below the boxes
   var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
-  var BOX_Y_MARGIN = 8; // vertical margin between the inner edge of box and the tallest molecule image
+  var BOX_Y_MARGIN = 6; // vertical margin between the inner edge of box and the tallest molecule image
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
+  var BRACKET_FONT = new RPALFont( 12 ); // font for the bracket labels
   var BRACKET_X_MARGIN = 10; // amount that brackets extend beyond the things they bracket
-  var BRACKET_Y_SPACING = 3; // vertical space between the brackets and whatever is directly above it
-  var EXPAND_COLLAPSE_BUTTON_LENGTH = 20; // size of the expand/collapse buttons
-  var EXPAND_COLLAPSE_BUTTON_MARGIN = 3; // space between the expand/collapse buttons and the outer edge of the boxes
+  var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
@@ -59,7 +57,7 @@ define( function( require ) {
   function ReactionBoxesNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
     options = _.extend( {
-      boxSize: new Dimension2( 320, 250 ), // size of the 'before' and 'after' boxes
+      boxSize: new Dimension2( 320, 240 ), // size of the 'before' and 'after' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
       layoutStrategy: 'stacked', // layout strategy for molecules inside the boxes, either 'stacked' or 'random',
       showSymbols: true // whether to show the molecule symbols
@@ -68,55 +66,42 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    // expanded 'before' and 'after' boxes, with arrow between them
-    var boxOptions = { fill: 'white', stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.2 ) };
-    var beforeBox = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, boxOptions );
+    // options common to box titles
+    var titleOptions = { font: TITLE_FONT, fill: 'white' };
+
+    // options common to both accordion boxes
+    var accordionBoxOptions = {
+      titleAlign: 'center',
+      buttonAlign: 'right',
+      contentXMargin: 0,
+      contentYMargin: 0,
+      contentYSpacing: 0,
+      fill: RPALColors.REACTION_BAR_COLOR,
+      buttonTouchAreaDilatedX: 10,
+      buttonTouchAreaDilatedY: 10,
+      stroke: null
+    };
+
+    // 'Before Reaction' accordion box
+    var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, { fill: 'white' } );
+    var beforeBox = new AccordionBox( beforeContent, _.extend( {
+      expandedProperty: beforeExpandedProperty,
+      titleNode: new Text( beforeReactionString, titleOptions )
+    }, accordionBoxOptions ) );
+
+    // 'After Reaction' accordion box
+    var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, { fill: 'white' } );
+    var afterBox = new AccordionBox( afterContent, _.extend( {
+      expandedProperty: afterExpandedProperty,
+      titleNode: new Text( afterReactionString, titleOptions ),
+    }, accordionBoxOptions ) );
+
+    // Arrow between boxes
     var arrowNode = new RightArrowNode( { fill: RPALColors.REACTION_BAR_COLOR, stroke: null, scale: 0.75 } );
-    var afterBox = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, boxOptions );
+
+    // layout of boxes and arrow
     var hBox = new HBox( { children: [ beforeBox, arrowNode, afterBox ], spacing: 10 } );
     thisNode.addChild( hBox );
-
-    // collapsed 'before' box with title
-    var beforeBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ),
-      _.extend( { translation: beforeBox.translation }, boxOptions ) );
-    thisNode.addChild( beforeBoxCollapsed );
-    beforeBoxCollapsed.addChild( new Text( beforeReactionString,
-      { font: TITLE_FONT, centerX: beforeBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } ) );
-
-    // collapsed 'after' box with title
-    var afterBoxCollapsed = new Rectangle( 0, 0, options.boxSize.width, EXPAND_COLLAPSE_BUTTON_LENGTH + ( 2 * EXPAND_COLLAPSE_BUTTON_MARGIN ),
-      _.extend( { translation: afterBox.translation }, boxOptions ) );
-    thisNode.addChild( afterBoxCollapsed );
-    afterBoxCollapsed.addChild( new Text( afterReactionString,
-      { font: TITLE_FONT, centerX: afterBoxCollapsed.width / 2, top: EXPAND_COLLAPSE_BUTTON_MARGIN } ) );
-
-    // Expand/collapse button for 'before' box
-    var beforeExpandCollapseButton = new ExpandCollapseButton( beforeExpandedProperty, {
-      sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH,
-      top: beforeBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN,
-      right: beforeBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN
-    } );
-    thisNode.addChild( beforeExpandCollapseButton );
-    beforeExpandCollapseButton.touchArea = beforeExpandCollapseButton.localBounds.dilatedXY( 8, 8 );
-    var beforeExpandedPropertyObserver = function( expanded ) {
-      beforeBox.visible = expanded;
-      beforeBoxCollapsed.visible = !expanded;
-    };
-    beforeExpandedProperty.link( beforeExpandedPropertyObserver );
-
-    // Expand/collapse button for 'after' box
-    var afterExpandCollapseButton = new ExpandCollapseButton( afterExpandedProperty, {
-      sideLength: EXPAND_COLLAPSE_BUTTON_LENGTH,
-      top: afterBox.top + EXPAND_COLLAPSE_BUTTON_MARGIN,
-      right: afterBox.right - EXPAND_COLLAPSE_BUTTON_MARGIN
-    } );
-    thisNode.addChild( afterExpandCollapseButton );
-    afterExpandCollapseButton.touchArea = beforeExpandCollapseButton.localBounds.dilatedXY( 8, 8 );
-    var afterExpandedPropertyObserver = function( expanded ) {
-      afterBox.visible = expanded;
-      afterBoxCollapsed.visible = !expanded;
-    };
-    afterExpandedProperty.link( afterExpandedPropertyObserver );
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     var quantityNodes = [];
@@ -238,6 +223,7 @@ define( function( require ) {
     var BRACKET_TOP = Math.max( reactantsParent.bottom, Math.max( productsParent.bottom, leftoversParent.bottom ) ) + BRACKET_Y_SPACING;
 
     var reactantsBracket = new HBracketNode( reactantsString, {
+      font: BRACKET_FONT,
       bracketColor: RPALColors.REACTION_BAR_COLOR,
       bracketWidth: reactantsParent.width + ( 2 * BRACKET_X_MARGIN ),
       centerX: reactantsParent.centerX,
@@ -246,6 +232,7 @@ define( function( require ) {
     thisNode.addChild( reactantsBracket );
 
     var productsBracket = new HBracketNode( productsString, {
+      font: BRACKET_FONT,
       bracketColor: RPALColors.REACTION_BAR_COLOR,
       bracketWidth: productsParent.width + ( 2 * BRACKET_X_MARGIN ),
       centerX: productsParent.centerX,
@@ -254,6 +241,7 @@ define( function( require ) {
     thisNode.addChild( productsBracket );
 
     var leftoversBracket = new HBracketNode( leftoversString, {
+      font: BRACKET_FONT,
       bracketColor: RPALColors.REACTION_BAR_COLOR,
       bracketWidth: leftoversParent.width + ( 2 * BRACKET_X_MARGIN ),
       centerX: leftoversParent.centerX,
@@ -263,15 +251,15 @@ define( function( require ) {
 
     // molecule stacks inside the 'before' and 'after' boxes
     var moleculeStackNodes = [];
-    var startCenterY = beforeBox.height - BOX_Y_MARGIN - ( maxImageHeight / 2 );
-    var deltaY = ( beforeBox.height - ( 2 * BOX_Y_MARGIN ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
+    var startCenterY = beforeContent.height - BOX_Y_MARGIN - ( maxImageHeight / 2 );
+    var deltaY = ( beforeContent.height - ( 2 * BOX_Y_MARGIN ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
 
     // reactants inside the 'before' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
       moleculeStackNode = new MoleculeStackNode( reactant.quantityProperty, reactant.molecule.node,
         quantityNodes[i].centerX, startCenterY, deltaY );
-      beforeBox.addChild( moleculeStackNode );
+      beforeContent.addChild( moleculeStackNode );
     }
 
     // products inside the 'after' box
@@ -279,7 +267,7 @@ define( function( require ) {
       product = reaction.products[i];
       moleculeStackNode = new MoleculeStackNode( product.quantityProperty, product.molecule.node,
           quantityNodes[i + numberOfReactants ].centerX - ( afterBox.left - beforeBox.left ), startCenterY, deltaY );
-      afterBox.addChild( moleculeStackNode );
+      afterContent.addChild( moleculeStackNode );
     }
 
     // leftovers inside the 'after' box
@@ -287,17 +275,15 @@ define( function( require ) {
       reactant = reaction.reactants[i];
       moleculeStackNode = new MoleculeStackNode( reactant.leftoversProperty, reactant.molecule.node,
           quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( afterBox.left - beforeBox.left ), startCenterY, deltaY );
-      afterBox.addChild( moleculeStackNode );
+      afterContent.addChild( moleculeStackNode );
     }
 
     // @public Unlinks all property observers. The node is no longer functional after calling this function.
     thisNode.unlink = function() {
 
-      // expand/collapse buttons
-      beforeExpandedProperty.unlink( beforeExpandedPropertyObserver );
-      afterExpandedProperty.unlink( afterExpandedPropertyObserver );
-      beforeExpandCollapseButton.unlink();
-      afterExpandCollapseButton.unlink();
+      // accordion boxes from 'expand' properties
+      beforeBox.unlink();
+      afterBox.unlink();
 
       // quantity spinners and displays
       quantityNodes.forEach( function( quantityNode ) {

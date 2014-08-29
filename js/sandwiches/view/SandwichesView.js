@@ -77,7 +77,7 @@ define( function( require ) {
       }
       reactionBoxesNode = new ReactionBoxesNode( reaction,
         viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty,
-        { showSymbols: false, centerX: thisView.layoutBounds.centerX, top: playAreaTop + 20 } );
+        { showSymbols: false, centerX: thisView.layoutBounds.centerX, top: playAreaTop + 10 } );
       rootNode.addChild( reactionBoxesNode );
     } );
   }
