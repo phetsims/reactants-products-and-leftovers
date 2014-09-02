@@ -11,16 +11,16 @@ define( function( require ) {
   var getQueryParameter = window.phetcommon.getQueryParameter;
 
   return {
-    // enabled developer-only features
+    // enables developer-only features
     DEV: getQueryParameter( 'dev' ) || false,
 
     // puts the equation at the 'top' or 'bottom' of the screen
     EQUATION: getQueryParameter( 'equation' ) || 'bottom',
 
-    // play all challenges for each level of the game, to get 100% test coverage
+    // plays all challenges for each level of the game, to get 100% test coverage
     PLAY_ALL: getQueryParameter( 'playAll' ) || false,
 
-    // show the game reward regardless of score
+    // shows the game reward regardless of score
     REWARD: getQueryParameter( 'reward' ) || false,
 
     // enables console output for debugging, particularly useful for the Game screen
