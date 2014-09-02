@@ -1,3 +1,4 @@
+9/2/14 fix computation of maxImageHeight in ReactionBoxesNode, so that y-margin is correct
 9/2/14 create placeholder for custom sandwich, to evaluate worst-case layout
 9/2/14 reduce size of sandwich components
 9/2/14 add stroke around content inside accordion boxes

@@ -176,6 +176,7 @@ define( function( require ) {
       imageNode = new Node( { children: [ product.molecule.node ], centerX: quantityNode.centerX } );
       productsParent.addChild( imageNode );
       imageNodes.push( imageNode );
+      maxImageHeight = Math.max( maxImageHeight, imageNode.height );
 
       // symbol
       if ( options.showSymbols ) {
