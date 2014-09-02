@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var GameScreen = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/GameScreen' );
   var MoleculesScreen = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/MoleculesScreen' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var SandwichesScreen = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/SandwichesScreen' );
@@ -28,10 +29,9 @@ define( function( require ) {
     }
   };
 
-  // Appending '?dev' to the URL will enable developer-only features.
-  if ( window.phetcommon.getQueryParameter( 'dev' ) ) {
+  // developer-only features
+  if ( RPALQueryParameters.DEV ) {
     options = _.extend( {
-      // add dev-specific options here
       showHomeScreen: false,
       screenIndex: 1
     }, options );
