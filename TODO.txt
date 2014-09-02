@@ -13,6 +13,7 @@ MEDIUM
 - mutable equation for Sandwiches screen
 
 LOW
+- facelift for scenery-phet.ArrowButton
 - dev features for game (skip, play all, ...)
 - French curves for brackets
 
