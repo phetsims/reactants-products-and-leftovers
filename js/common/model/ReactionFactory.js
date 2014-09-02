@@ -31,21 +31,21 @@ define( function( require ) {
     cheeseSandwich: function() {
       return new Reaction(
         [ new Reactant( 2, MoleculeFactory.bread() ), new Reactant( 1, MoleculeFactory.cheese() ) ],
-        [ new Product( 1, MoleculeFactory.cheeseSandwich() ) ],
+        [ new Product( 1, MoleculeFactory.sandwich( 'cheeseSandwich', 2, 0, 1 ) ) ],
         { name: cheeseString } );
     },
 
     meatAndCheeseSandwich: function() {
       return new Reaction(
         [ new Reactant( 2, MoleculeFactory.bread() ), new Reactant( 1, MoleculeFactory.meat() ), new Reactant( 1, MoleculeFactory.cheese() ) ],
-        [ new Product( 1, MoleculeFactory.meatAndCheeseSandwich() ) ],
+        [ new Product( 1, MoleculeFactory.sandwich( 'meatAndCheeseSandwich', 2, 1, 1 ) ) ],
         { name: meatAndCheeseString } );
     },
 
     customSandwich: function() {
       return new Reaction(
         [ new Reactant( 3, MoleculeFactory.bread() ), new Reactant( 3, MoleculeFactory.meat() ), new Reactant( 3, MoleculeFactory.cheese() ) ],
-        [ new Product( 1, MoleculeFactory.customSandwich() ) ],
+        [ new Product( 1, MoleculeFactory.sandwich( 'customSandwich', 3, 3, 3 ) ) ],
         { name: customString } );
     },
 

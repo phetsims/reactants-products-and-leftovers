@@ -118,9 +118,9 @@ define( function( require ) {
     bread: function() { return new Molecule( RPALSymbols.BREAD, new Image( breadImage, { scale: SANDWICH_IMAGE_SCALE } ) ); },
     cheese: function() { return new Molecule( RPALSymbols.CHEESE, new Image( cheeseImage, { scale: SANDWICH_IMAGE_SCALE } ) ); },
     meat: function() { return new Molecule( RPALSymbols.MEAT, new Image( meatImage, { scale: SANDWICH_IMAGE_SCALE } ) ); },
-    cheeseSandwich: function() { return new Molecule( 'cheeseSandwich', createSandwichNode( 2, 0, 1 ) ); },
-    meatAndCheeseSandwich: function() { return new Molecule( 'meatAndCheeseSandwich', createSandwichNode( 2, 1, 1 ) ); },
-    customSandwich: function() { return new Molecule( 'customSandwich', createSandwichNode( 3, 3, 3 ) ); },
+    sandwich: function( name, breadCount, meatCount, cheeseCount ) {
+      return new Molecule( name, createSandwichNode( breadCount, meatCount, cheeseCount ) );
+    },
 
     // molecules
     C: function() { return new Molecule( RPALSymbols.C, new CNode( ATOM_OPTIONS ) ); },
