@@ -1,3 +1,4 @@
+9/2/14 add instanceOf checks in equals
 # 1.0.0-dev.2 9/2/14
 9/2/14 set left and top of ReactionBoxesNode, so that it doesn't jump around when switching reactions
 9/2/14 reduce width of boxes so that 'reactants' bracket doesn't interfere with 'Reset All' button for custom sandwich

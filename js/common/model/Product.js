@@ -3,7 +3,7 @@
 /**
  * Chemical reactions yield one or more products, which have properties different from the reactants.
  * This type adds no new functionality, it serves as a 'marker' type.
- * 
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
@@ -23,5 +23,16 @@ define( function( require ) {
     Substance.call( this, coefficient, molecule, quantity );
   }
 
-  return inherit( Substance, Product );
+  return inherit( Substance, Product, {
+
+    /*
+     * Are 2 products the same?
+     * @param {Product} product
+     * @return {Boolean}
+     */
+    equals: function( product ) {
+      return ( product instanceof Product &&
+               Substance.prototype.equals.call( this, product ) );
+    }
+  } );
 } );

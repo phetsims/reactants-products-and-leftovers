@@ -28,15 +28,15 @@ define( function( require ) {
 
   return inherit( PropertySet, Substance, {
 
-    //TODO add type check
     /*
      * Are 2 substances the same?
      * @param {Substance} substance
      * @return {Boolean}
      */
     equals: function( substance ) {
-      return ( this.molecule === substance.molecule &&
+      return ( substance instanceof Substance &&
                this.coefficient === substance.coefficient &&
+               this.molecule === substance.molecule &&
                this.quantity === substance.quantity );
     }
   } );

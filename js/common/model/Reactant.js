@@ -25,7 +25,6 @@ define( function( require ) {
 
   return inherit( Substance, Reactant, {
 
-    //TODO add type check
     /*
      * Are 2 reactants the same?
      * @param {Reactant} reactants
@@ -33,7 +32,9 @@ define( function( require ) {
      * @override
      */
     equals: function( reactant ) {
-      return Substance.prototype.equals.call( this, reactant ) && this.leftovers && this.leftovers === reactant.leftovers;
+      return reactant instanceof Reactant &&
+             Substance.prototype.equals.call( this, reactant ) &&
+             this.leftovers && this.leftovers === reactant.leftovers; //TODO this looks wrong
     }
   } );
 } );
