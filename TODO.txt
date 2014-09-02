@@ -3,13 +3,13 @@ TODO list for reactants-products-and-leftovers
 DESIGN
 
 HIGH
-- products and leftovers stacks are shifted a bit to the right because bounds of IntegerNode (Text) are inaccurate
-- consolidate loop iterations in ReactionBoxesNode
-- random layout strategy for molecules in boxes
+- mutable equation for Sandwiches screen
 
 MEDIUM
+- random layout strategy for molecules in boxes
 - finish ReactionFactory
-- mutable equation for Sandwiches screen
+- products and leftovers stacks are shifted a bit to the right because bounds of IntegerNode (Text) are inaccurate
+- consolidate loop iterations in ReactionBoxesNode
 
 LOW
 - facelift for scenery-phet.ArrowButton
