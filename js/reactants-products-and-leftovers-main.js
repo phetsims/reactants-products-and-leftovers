@@ -33,7 +33,7 @@ define( function( require ) {
   if ( RPALQueryParameters.DEV ) {
     options = _.extend( {
       showHomeScreen: false,
-      screenIndex: 1
+      screenIndex: 0
     }, options );
   }
 
