@@ -58,7 +58,7 @@ define( function( require ) {
   function ReactionBoxesNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
     options = _.extend( {
-      boxSize: new Dimension2( 330, 240 ), // size of the 'before' and 'after' boxes
+      boxSize: new Dimension2( 300, 240 ), // size of the 'before' and 'after' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
       layoutStrategy: 'stacked', // layout strategy for molecules inside the boxes, either 'stacked' or 'random',
       showSymbols: true // whether to show the molecule symbols
