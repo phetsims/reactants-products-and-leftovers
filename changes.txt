@@ -1,4 +1,5 @@
 # 1.0.0-dev.2 9/2/14
+9/2/14 set left and top of ReactionBoxesNode, so that it doesn't jump around when switching reactions
 9/2/14 reduce width of boxes so that 'reactants' bracket doesn't interfere with 'Reset All' button for custom sandwich
 9/2/14 fix computation of maxImageHeight in ReactionBoxesNode, so that y-margin is correct
 9/2/14 create placeholder for custom sandwich, to evaluate worst-case layout
