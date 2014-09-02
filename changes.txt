@@ -1,3 +1,4 @@
+9/2/14 add stroke around content inside accordion boxes
 8/29/14 implement MoleculeFactory.createSandwichNode
 8/29/14 use sun.AccordionBox
 8/28/14 first pass at 'Sandwiches' screen

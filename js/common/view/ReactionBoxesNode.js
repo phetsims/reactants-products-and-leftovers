@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
+  var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -82,18 +83,24 @@ define( function( require ) {
       stroke: null
     };
 
+    // options common to the content in both accordion boxes
+    var contentOptions = {
+      fill: 'white',
+      stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.2 )
+    };
+
     // 'Before Reaction' accordion box
-    var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, { fill: 'white' } );
+    var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     var beforeBox = new AccordionBox( beforeContent, _.extend( {
       expandedProperty: beforeExpandedProperty,
       titleNode: new Text( beforeReactionString, titleOptions )
     }, accordionBoxOptions ) );
 
     // 'After Reaction' accordion box
-    var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, { fill: 'white' } );
+    var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     var afterBox = new AccordionBox( afterContent, _.extend( {
       expandedProperty: afterExpandedProperty,
-      titleNode: new Text( afterReactionString, titleOptions ),
+      titleNode: new Text( afterReactionString, titleOptions )
     }, accordionBoxOptions ) );
 
     // Arrow between boxes
