@@ -57,7 +57,7 @@ define( function( require ) {
 
   // constants
   var ATOM_OPTIONS = { stroke: 'black', lineWidth:  0.5, scale: 1 };
-  var SANDWICH_IMAGE_SCALE = 0.75; //TODO scale the image files?
+  var SANDWICH_IMAGE_SCALE = 0.65; //TODO scale the image files?
 
   /**
    * Creates an image for a specified sandwich.
