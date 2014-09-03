@@ -6,6 +6,8 @@ HIGH
 - mutable equation for Sandwiches screen
 
 MEDIUM
+- box titles for Sandwiches screen should have "Reaction" in double quotes, since they are not really reactions
+- remove titlebar from boxes?
 - Reaction.fireStateChanged
 - random layout strategy for molecules in boxes
 - finish ReactionFactory
