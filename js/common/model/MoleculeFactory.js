@@ -96,7 +96,7 @@ define( function( require ) {
         imageAdded = true;
         cheeseCount--;
       }
-      if ( breadCount > 2 ) { // save one slice of bread for the top
+      if ( breadCount > 1 ) { // save one slice of bread for the top
         parent.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
         centerY += dy;
         imageAdded = true;
