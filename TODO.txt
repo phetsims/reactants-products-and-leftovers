@@ -6,7 +6,6 @@ HIGH
 - mutable equation for Sandwiches screen
 
 MEDIUM
-- remove titlebar from boxes?
 - move Reset All to right of radio buttons
 - Reaction.fireStateChanged
 - random layout strategy for molecules in boxes
