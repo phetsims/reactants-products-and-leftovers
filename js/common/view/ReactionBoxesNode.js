@@ -61,7 +61,9 @@ define( function( require ) {
       boxSize: new Dimension2( 310, 240 ), // size of the 'before' and 'after' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
       layoutStrategy: 'stacked', // layout strategy for molecules inside the boxes, either 'stacked' or 'random',
-      showSymbols: true // whether to show the molecule symbols
+      showSymbols: true, // whether to show the molecule symbols
+      beforeTitle: beforeReactionString,
+      afterTitle: afterReactionString
     }, options );
 
     var thisNode = this;
@@ -93,14 +95,14 @@ define( function( require ) {
     var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     var beforeBox = new AccordionBox( beforeContent, _.extend( {
       expandedProperty: beforeExpandedProperty,
-      titleNode: new Text( beforeReactionString, titleOptions )
+      titleNode: new Text( options.beforeTitle, titleOptions )
     }, accordionBoxOptions ) );
 
     // 'After Reaction' accordion box
     var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     var afterBox = new AccordionBox( afterContent, _.extend( {
       expandedProperty: afterExpandedProperty,
-      titleNode: new Text( afterReactionString, titleOptions )
+      titleNode: new Text( options.afterTitle, titleOptions )
     }, accordionBoxOptions ) );
 
     // Arrow between boxes

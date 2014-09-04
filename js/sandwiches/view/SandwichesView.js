@@ -20,6 +20,10 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var ReactionBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBoxesNode' );
 
+  // strings
+  var beforeSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/beforeSandwich' );
+  var afterSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/afterSandwich' );
+
   /**
    * @param {SandwichesModel} model
    * @constructor
@@ -77,7 +81,7 @@ define( function( require ) {
       }
       reactionBoxesNode = new ReactionBoxesNode( reaction,
         viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty,
-        { showSymbols: false, left: 40, top: playAreaTop + 10 } );
+        { showSymbols: false, left: 40, top: playAreaTop + 10, beforeTitle: beforeSandwichString, afterTitle: afterSandwichString } );
       rootNode.addChild( reactionBoxesNode );
     } );
   }

@@ -23,5 +23,7 @@
   "showAnswer": "Show Answer",
   "next": "Next",
   "beforeReaction": "Before Reaction",
-  "afterReaction": "After Reaction"
+  "afterReaction": "After Reaction",
+  "beforeSandwich": "Before \"Reaction\"",
+  "afterSandwich": "After \"Reaction\""
 }

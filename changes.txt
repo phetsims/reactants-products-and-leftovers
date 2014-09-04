@@ -1,3 +1,4 @@
+9/4/14 put double quotes around "Reaction" in box titles of Sandwiches screen
 9/3/14 fix algorithm for creating sandwich node, a slice of bread was being left out
 9/2/14 add instanceof checks in equals
 # 1.0.0-dev.2 9/2/14

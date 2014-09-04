@@ -6,7 +6,6 @@ HIGH
 - mutable equation for Sandwiches screen
 
 MEDIUM
-- box titles for Sandwiches screen should have "Reaction" in double quotes, since they are not really reactions
 - remove titlebar from boxes?
 - move Reset All to right of radio buttons
 - Reaction.fireStateChanged
