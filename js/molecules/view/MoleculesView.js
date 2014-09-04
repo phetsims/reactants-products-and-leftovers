@@ -34,7 +34,7 @@ define( function( require ) {
     } );
 
     // static UI components
-    var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, this.layoutBounds.width );
+    var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, { screenWidth: this.layoutBounds.width } );
     var resetAllButton = new ResetAllButton( {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       listener: function() {

@@ -3,6 +3,8 @@
 /**
  * Horizontal bar that contains a control for selecting a reaction,
  * and displays the formula for the reaction.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
@@ -20,15 +22,15 @@ define( function( require ) {
   var Y_MARGIN = 10;
 
   /**
-   * @param {Property<Reaction>} reactionProperty
-   * @param {[Reaction]} reactions
-   * @param {number} screenWidth width of the screen's safe area
+   * @param {Property<Reaction>} reactionProperty the selected reaction
+   * @param {[Reaction]} reactions the reaction choices
    * @param {*} options
    * @constructor
    */
-  function ReactionBarNode( reactionProperty, reactions, screenWidth, options ) {
+  function ReactionBarNode( reactionProperty, reactions, options ) {
 
     options = _.extend( {
+      screenWidth: 1000, // width of the screen's safe area
       showSymbols: true // true = show molecule symbol, false = show molecule node
     }, options );
 
@@ -36,11 +38,11 @@ define( function( require ) {
     var reactionChoiceNode = new ReactionChoiceNode( reactionProperty, reactions );
 
     // background, extra wide so that it will appear to fill the screen width for all but extreme window sizes
-    var backgroundNode = new Rectangle( 0, 0, 4 * screenWidth, reactionChoiceNode.height + ( 2 * Y_MARGIN ),
-      { fill: RPALColors.REACTION_BAR_COLOR, centerX: screenWidth / 2 } );
+    var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, reactionChoiceNode.height + ( 2 * Y_MARGIN ),
+      { fill: RPALColors.REACTION_BAR_COLOR, centerX: options.screenWidth / 2 } );
 
     // control at right, vertically centered
-    reactionChoiceNode.right = screenWidth - X_MARGIN;
+    reactionChoiceNode.right = options.screenWidth - X_MARGIN;
     reactionChoiceNode.centerY = backgroundNode.centerY;
 
     // parent for equation
