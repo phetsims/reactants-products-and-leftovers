@@ -230,34 +230,31 @@ define( function( require ) {
     }
 
     // brackets to denote 'reactants', 'products' and 'leftovers'
-    var BRACKET_TOP = Math.max( reactantsParent.bottom, Math.max( productsParent.bottom, leftoversParent.bottom ) ) + BRACKET_Y_SPACING;
     var bracketLabelOptions = {
       font: BRACKET_FONT,
       fill: 'black'
     };
-
-    var reactantsBracket = new HBracketNode( new Text( reactantsString, bracketLabelOptions ), {
+    var bracketOptions = {
       bracketColor: RPALColors.REACTION_BAR_COLOR,
+      top: Math.max( reactantsParent.bottom, Math.max( productsParent.bottom, leftoversParent.bottom ) ) + BRACKET_Y_SPACING
+    };
+
+    var reactantsBracket = new HBracketNode( new Text( reactantsString, bracketLabelOptions ), _.extend( {
       bracketWidth: reactantsParent.width + ( 2 * BRACKET_X_MARGIN ),
-      centerX: reactantsParent.centerX,
-      top: BRACKET_TOP
-    } );
+      centerX: reactantsParent.centerX
+    }, bracketOptions ) );
     thisNode.addChild( reactantsBracket );
 
-    var productsBracket = new HBracketNode( new Text( productsString, bracketLabelOptions ), {
-      bracketColor: RPALColors.REACTION_BAR_COLOR,
+    var productsBracket = new HBracketNode( new Text( productsString, bracketLabelOptions ), _.extend( {
       bracketWidth: productsParent.width + ( 2 * BRACKET_X_MARGIN ),
-      centerX: productsParent.centerX,
-      top: BRACKET_TOP
-    } );
+      centerX: productsParent.centerX
+    }, bracketOptions ) );
     thisNode.addChild( productsBracket );
 
-    var leftoversBracket = new HBracketNode( new Text( leftoversString, bracketLabelOptions ), {
-      bracketColor: RPALColors.REACTION_BAR_COLOR,
+    var leftoversBracket = new HBracketNode( new Text( leftoversString, bracketLabelOptions ), _.extend( {
       bracketWidth: leftoversParent.width + ( 2 * BRACKET_X_MARGIN ),
-      centerX: leftoversParent.centerX,
-      top: BRACKET_TOP
-    } );
+      centerX: leftoversParent.centerX
+    }, bracketOptions ) );
     thisNode.addChild( leftoversBracket );
 
     // molecule stacks inside the 'before' and 'after' boxes
