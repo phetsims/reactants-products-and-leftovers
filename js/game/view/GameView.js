@@ -43,7 +43,7 @@ define( function( require ) {
     thisView.addChild( rootNode );
 
     // layout
-    resetAllButton.left = this.layoutBounds.left + 10;
+    resetAllButton.right = this.layoutBounds.right - 10;
     resetAllButton.bottom = this.layoutBounds.bottom - 10;
   }
 
