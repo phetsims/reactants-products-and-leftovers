@@ -29,6 +29,7 @@ define( function( require ) {
      * Are 2 products the same?
      * @param {Product} product
      * @return {Boolean}
+     * @override
      */
     equals: function( product ) {
       return ( product instanceof Product &&

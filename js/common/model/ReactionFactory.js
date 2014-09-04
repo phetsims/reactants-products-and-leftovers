@@ -53,7 +53,7 @@ define( function( require ) {
     // Single-product reactions
     //---------------------------------------------------------------------------------------
 
-    // 2H2 + O2 -> 2H2O ("Make Water")
+    // 2H2 + O2 -> 2H2O (Make Water)
     makeWater: function() {
       return new Reaction(
         [ new Reactant( 2, MoleculeFactory.H2() ), new Reactant( 1, MoleculeFactory.O2() ) ],
@@ -61,7 +61,7 @@ define( function( require ) {
         { name: makeWaterString } );
     },
 
-    // N2 + 3H2 -> 2NH3 ("Make Ammonia")
+    // N2 + 3H2 -> 2NH3 (Make Ammonia)
     makeAmmonia: function() {
       return new Reaction(
         [ new Reactant( 1, MoleculeFactory.N2() ), new Reactant( 3, MoleculeFactory.H2() ) ],
@@ -89,7 +89,7 @@ define( function( require ) {
     // Two-product reactions
     //---------------------------------------------------------------------------------------
 
-    // CH4 + 2 O2 -> CO2 + 2 H2O ("Combust Methane")
+    // CH4 + 2 O2 -> CO2 + 2 H2O (Combust Methane)
     combustMethane: function() {
       return new Reaction(
         [ new Reactant( 1, MoleculeFactory.CH4() ), new Reactant( 2, MoleculeFactory.O2() ) ],

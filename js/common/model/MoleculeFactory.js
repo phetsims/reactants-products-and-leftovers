@@ -60,7 +60,7 @@ define( function( require ) {
   var SANDWICH_IMAGE_SCALE = 0.65; //TODO scale the image files?
 
   /**
-   * Creates an image for a specified sandwich.
+   * Creates a node for a specified sandwich.
    * @param {number} breadCount
    * @param {number} meatCount
    * @param {number} cheeseCount

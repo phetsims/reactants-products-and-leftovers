@@ -31,7 +31,7 @@ define( function( require ) {
    * @param {boolean} showSymbols true = show molecule symbol, false = show molecule node
    * @returns {Node}
    */
-  var addTerms = function( terms, showSymbols ) {
+  var createTermsNode = function( terms, showSymbols ) {
 
     var parentNode = new Node();
     var numberOfTerms = terms.length;
@@ -81,7 +81,7 @@ define( function( require ) {
     Node.call( this );
 
     // left-hand side of the formula (reactants)
-    var reactantsNode = addTerms( reaction.reactants, options.showSymbols );
+    var reactantsNode = createTermsNode( reaction.reactants, options.showSymbols );
     this.addChild( reactantsNode );
 
     // right arrow
@@ -92,7 +92,7 @@ define( function( require ) {
     this.addChild( arrowNode );
 
     // right-hand side of the formula (products)
-    var productsNode = addTerms( reaction.products, options.showSymbols );
+    var productsNode = createTermsNode( reaction.products, options.showSymbols );
     productsNode.left = arrowNode.right + ARROW_X_SPACING;
     this.addChild( productsNode );
 
