@@ -1,3 +1,4 @@
+9/4/14 support any type of Node for the bracket label
 9/4/14 simplify interface to ReactionBarNode
 9/4/14 move Reset All button to lower-right in Game screen
 9/4/14 put double quotes around "Reaction" in box titles of Sandwiches screen

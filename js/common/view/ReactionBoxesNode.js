@@ -231,9 +231,12 @@ define( function( require ) {
 
     // brackets to denote 'reactants', 'products' and 'leftovers'
     var BRACKET_TOP = Math.max( reactantsParent.bottom, Math.max( productsParent.bottom, leftoversParent.bottom ) ) + BRACKET_Y_SPACING;
-
-    var reactantsBracket = new HBracketNode( reactantsString, {
+    var bracketLabelOptions = {
       font: BRACKET_FONT,
+      fill: 'black'
+    };
+
+    var reactantsBracket = new HBracketNode( new Text( reactantsString, bracketLabelOptions ), {
       bracketColor: RPALColors.REACTION_BAR_COLOR,
       bracketWidth: reactantsParent.width + ( 2 * BRACKET_X_MARGIN ),
       centerX: reactantsParent.centerX,
@@ -241,8 +244,7 @@ define( function( require ) {
     } );
     thisNode.addChild( reactantsBracket );
 
-    var productsBracket = new HBracketNode( productsString, {
-      font: BRACKET_FONT,
+    var productsBracket = new HBracketNode( new Text( productsString, bracketLabelOptions ), {
       bracketColor: RPALColors.REACTION_BAR_COLOR,
       bracketWidth: productsParent.width + ( 2 * BRACKET_X_MARGIN ),
       centerX: productsParent.centerX,
@@ -250,8 +252,7 @@ define( function( require ) {
     } );
     thisNode.addChild( productsBracket );
 
-    var leftoversBracket = new HBracketNode( leftoversString, {
-      font: BRACKET_FONT,
+    var leftoversBracket = new HBracketNode( new Text( leftoversString, bracketLabelOptions ), {
       bracketColor: RPALColors.REACTION_BAR_COLOR,
       bracketWidth: leftoversParent.width + ( 2 * BRACKET_X_MARGIN ),
       centerX: leftoversParent.centerX,

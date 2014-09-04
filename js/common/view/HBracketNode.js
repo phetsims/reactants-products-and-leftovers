@@ -12,20 +12,21 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var BRACKET_END_HEIGHT = 5;
   var BRACKET_TIP_WIDTH = 6;
   var BRACKET_TIP_HEIGHT = 6;
 
-  function HBracketNode( label, options ) {
+  /**
+   * @param {Node} labelNode node that is used to label the bracket
+   * @param {*} options
+   * @constructor
+   */
+  function HBracketNode( labelNode, options ) {
 
     options = _.extend( {
-      font: new RPALFont( 12 ),
-      textColor: 'black',
       bracketWidth: 100,
       bracketColor: 'black',
       ySpacing: 2
@@ -45,12 +46,8 @@ define( function( require ) {
     } );
 
     // label, centered below bracket
-    var labelNode = new Text( label, {
-      font: options.font,
-      fill: options.textColor,
-      centerX: bracketNode.centerX,
-      top: bracketNode.bottom + options.ySpacing
-    } );
+    labelNode.centerX = bracketNode.centerX;
+    labelNode.top = bracketNode.bottom + options.ySpacing;
 
     options.children = [ bracketNode, labelNode ];
     Node.call( this, options );
