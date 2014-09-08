@@ -21,7 +21,7 @@ define( function( require ) {
 
   /**
    * @param {Node} labelNode node that is used to label the bracket
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function HBracketNode( labelNode, options ) {

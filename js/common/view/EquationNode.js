@@ -69,7 +69,7 @@ define( function( require ) {
 
   /**
    * @param {Reaction} reaction
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function EquationNode( reaction, options ) {

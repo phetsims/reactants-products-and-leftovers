@@ -24,7 +24,7 @@ define( function( require ) {
    * @param {number} centerX the centerX of all molecules in the stack
    * @param {number} startCenterY the centerY of the molecule at the bottom of the stack
    * @param {number} deltaY the vertical spacing between the centers of molecules in the stack
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function MoleculeStackNode( quantityProperty, imageNode, centerX, startCenterY, deltaY, options ) {

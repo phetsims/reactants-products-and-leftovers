@@ -16,7 +16,7 @@ define( function( require ) {
   /**
    * @param {[Reactant]} reactants
    * @param {[Product]} products
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function Reaction( reactants, products, options ) {

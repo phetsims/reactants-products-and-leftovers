@@ -13,7 +13,7 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   /**
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function RightArrowNode( options ) {

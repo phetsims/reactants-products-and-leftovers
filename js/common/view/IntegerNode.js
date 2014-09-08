@@ -15,7 +15,7 @@ define( function( require ) {
 
   /**
    * @param {Property<Number>} valueProperty
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function IntegerNode( valueProperty, options ) {
