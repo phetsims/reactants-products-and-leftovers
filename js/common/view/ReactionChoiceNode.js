@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * @param {Property<Reaction>} reactionProperty
    * @param {[Reaction]} choices
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function ReactionChoiceNode( reactionProperty, choices, options ) {

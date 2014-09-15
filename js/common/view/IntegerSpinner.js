@@ -26,7 +26,7 @@ define( function( require ) {
   /**
    * @param {Property<Number>} valueProperty value, must be an integer
    * @param {Range} range range of values, min and max must be integers
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function IntegerSpinner( valueProperty, range, options ) {

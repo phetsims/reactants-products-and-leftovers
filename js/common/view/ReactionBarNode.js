@@ -24,7 +24,7 @@ define( function( require ) {
   /**
    * @param {Property<Reaction>} reactionProperty the selected reaction
    * @param {[Reaction]} reactions the reaction choices
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function ReactionBarNode( reactionProperty, reactions, options ) {
