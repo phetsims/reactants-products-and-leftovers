@@ -84,8 +84,8 @@ define( function( require ) {
       valueNode.center = backgroundNode.center;
 
       // enable/disable arrow buttons
-      upButton.setEnabled( value < range.max );
-      downButton.setEnabled( value > range.min );
+      upButton.enabled = ( value < range.max );
+      downButton.enabled = ( value > range.min );
     };
     valueProperty.link( valuePropertyObserver );
 
