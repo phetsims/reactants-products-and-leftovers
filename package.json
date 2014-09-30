@@ -15,6 +15,5 @@
     "uglify-js": "~2.4.0",
     "requirejs": "~2.1.8"
   },
-  "requirejsNamespace": "REACTANTS_PRODUCTS_AND_LEFTOVERS",
   "simTitleStringKey": "REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants-products-and-leftovers.name"
 }
