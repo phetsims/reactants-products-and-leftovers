@@ -21,7 +21,7 @@ define( function( require ) {
   function IntegerNode( valueProperty, options ) {
 
     var thisNode = this;
-    Text.call( thisNode, '', options );
+    Text.call( thisNode, '' );
 
     // When the value changes ...
     var valuePropertyObserver = function( value ) {
@@ -34,6 +34,8 @@ define( function( require ) {
     thisNode.unlink = function() {
       valueProperty.unlink( valuePropertyObserver );
     };
+
+    this.mutate( options );
   }
 
   return inherit( Text, IntegerNode );

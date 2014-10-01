@@ -10,7 +10,6 @@ MEDIUM
 - Reaction.fireStateChanged
 - random layout strategy for molecules in boxes
 - finish ReactionFactory
-- products and leftovers stacks are shifted a bit to the right because bounds of IntegerNode (Text) are inaccurate
 - consolidate loop iterations in ReactionBoxesNode
 
 LOW
