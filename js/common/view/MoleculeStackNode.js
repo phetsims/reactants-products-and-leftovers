@@ -19,7 +19,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
-   * @param {Property<number>} quantityProperty
+   * @param {Property.<number>} quantityProperty
    * @param {Node} imageNode
    * @param {number} centerX the centerX of all molecules in the stack
    * @param {number} startCenterY the centerY of the molecule at the bottom of the stack

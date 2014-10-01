@@ -50,8 +50,8 @@ define( function( require ) {
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
-   * @param {Property<boolean>} beforeExpandedProperty whether the 'before' box is expanded
-   * @param {Property<boolean>} afterExpandedProperty whether the 'after' box is expanded
+   * @param {Property.<boolean>} beforeExpandedProperty whether the 'before' box is expanded
+   * @param {Property.<boolean>} afterExpandedProperty whether the 'after' box is expanded
    * @param {Object} [options]
    * @constructor
    */

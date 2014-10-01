@@ -24,7 +24,7 @@ define( function( require ) {
   var TOUCH_DILATED_Y = 10;
 
   /**
-   * @param {Property<Number>} valueProperty value, must be an integer
+   * @param {Property.<number>} valueProperty value, must be an integer
    * @param {Range} range range of values, min and max must be integers
    * @param {Object} [options]
    * @constructor

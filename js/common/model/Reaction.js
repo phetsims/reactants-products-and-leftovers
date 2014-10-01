@@ -14,8 +14,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {[Reactant]} reactants
-   * @param {[Product]} products
+   * @param {Reactant[]} reactants
+   * @param {Product[]} products
    * @param {Object} [options]
    * @constructor
    */

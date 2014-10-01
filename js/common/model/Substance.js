@@ -13,9 +13,9 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
-   * @param {Number} coefficient
+   * @param {number} coefficient
    * @param {Molecule} molecule
-   * @param {Number} quantity
+   * @param {number} quantity
    * @constructor
    */
   function Substance( coefficient, molecule, quantity ) {
@@ -31,7 +31,7 @@ define( function( require ) {
     /*
      * Are 2 substances the same?
      * @param {Substance} substance
-     * @return {Boolean}
+     * @return {boolean}
      */
     equals: function( substance ) {
       return ( substance instanceof Substance &&

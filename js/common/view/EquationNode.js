@@ -27,7 +27,7 @@ define( function( require ) {
 
   /**
    * Creates terms for equation.
-   * @param {[Substance]} terms the terms to be added
+   * @param {Substance[]} terms the terms to be added
    * @param {boolean} showSymbols true = show molecule symbol, false = show molecule node
    * @returns {Node}
    */

@@ -21,8 +21,8 @@ define( function( require ) {
   var TEXT_OPTIONS = { font: new RPALFont( 16 ), fill: 'white' };
 
   /**
-   * @param {Property<Reaction>} reactionProperty
-   * @param {[Reaction]} choices
+   * @param {Property.<Reaction>} reactionProperty
+   * @param {Reaction[]} choices
    * @param {Object} [options]
    * @constructor
    */

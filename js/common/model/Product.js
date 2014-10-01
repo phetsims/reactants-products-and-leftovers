@@ -14,9 +14,9 @@ define( function( require ) {
   var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
   /**
-   * @param {Number} coefficient
+   * @param {number} coefficient
    * @param {Molecule} molecule
-   * @param {Number} quantity
+   * @param {number} quantity
    * @constructor
    */
   function Product( coefficient, molecule, quantity ) {
@@ -28,7 +28,7 @@ define( function( require ) {
     /*
      * Are 2 products the same?
      * @param {Product} product
-     * @return {Boolean}
+     * @return {boolean}
      * @override
      */
     equals: function( product ) {

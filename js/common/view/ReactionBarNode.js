@@ -22,8 +22,8 @@ define( function( require ) {
   var Y_MARGIN = 10;
 
   /**
-   * @param {Property<Reaction>} reactionProperty the selected reaction
-   * @param {[Reaction]} reactions the reaction choices
+   * @param {Property.<Reaction>} reactionProperty the selected reaction
+   * @param {Reaction[]} reactions the reaction choices
    * @param {Object} [options]
    * @constructor
    */

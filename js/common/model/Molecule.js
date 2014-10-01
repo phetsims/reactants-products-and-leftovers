@@ -14,7 +14,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
-   * @param {String} symbol
+   * @param {string} symbol
    * @param {scenery.Node} node
    * @constructor
    */

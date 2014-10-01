@@ -1,3 +1,4 @@
+10/1/14 use new JSdoc convention for @param (primitive types, arrays, Property type qualifier)
 10/1/14 rename unlink to dispose, function to be called when disposing of an instance of this object
 10/1/14 generalize IntegerSpinner to NumberSpinner, add options.decimalPlaces
 10/1/14 generalize IntegerNode to NumberNode, add options.decimalPlaces
