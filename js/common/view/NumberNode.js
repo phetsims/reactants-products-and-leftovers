@@ -29,7 +29,7 @@ define( function( require ) {
 
     // When the value changes ...
     var valuePropertyObserver = function( value ) {
-      thisNode.text = Util.toFixed( valueProperty.get(), options.decimalPlaces );
+      thisNode.text = Util.toFixed( value, options.decimalPlaces );
     };
     valueProperty.link( valuePropertyObserver );
 
