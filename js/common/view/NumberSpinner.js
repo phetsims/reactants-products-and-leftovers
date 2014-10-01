@@ -29,13 +29,14 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function IntegerSpinner( valueProperty, range, options ) {
+  function NumberSpinner( valueProperty, range, options ) {
 
     assert && assert( Util.isInteger( valueProperty.get() ) ); // value is an integer
     assert && assert( Util.isInteger( range.min ) && Util.isInteger( range.max ) ); // range is integer
     assert && assert( range.contains( valueProperty.get() ) ); // value is in range
 
     options = _.extend( {
+      decimalPlaces: 0,
       font: new RPALFont( 28 ),
       xMargin: 5,
       yMargin: 3,
@@ -48,9 +49,12 @@ define( function( require ) {
       font: options.font,
       fill: 'black'
     };
-    
+
     // compute max width
-    var maxWidth = Math.max( new Text( range.max, valueOptions ).width, new Text( range.min, valueOptions ).width );
+    var maxWidth = Math.max(
+      new Text( Util.toFixed( range.max, options.decimalPlaces ), valueOptions ).width,
+      new Text( Util.toFixed( range.min, options.decimalPlaces ), valueOptions ).width
+    );
     
     // value
     var valueNode = new Text( valueProperty.get(), valueOptions );
@@ -80,7 +84,7 @@ define( function( require ) {
       assert && assert( range.contains( value ) );
 
       // update the text and center it
-      valueNode.text = '' + value;
+      valueNode.text = Util.toFixed( value, options.decimalPlaces );
       valueNode.center = backgroundNode.center;
 
       // enable/disable arrow buttons
@@ -95,5 +99,5 @@ define( function( require ) {
     };
   }
 
-  return inherit( HBox, IntegerSpinner );
+  return inherit( HBox, NumberSpinner );
 } );

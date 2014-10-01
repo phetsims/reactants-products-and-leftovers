@@ -19,7 +19,7 @@ LOW
 - French curves for brackets
 
 MIGRATE TO COMMON
-- IntegerSpinner (generalize to NumberSpinner with options.decimalPlaces)
+- NumberSpinner
 - NumberNode
 - HBracketNode
 

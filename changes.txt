@@ -1,3 +1,4 @@
+10/1/14 generalize IntegerSpinner to NumberSpinner, add options.decimalPlaces
 10/1/14 generalize IntegerNode to NumberNode, add options.decimalPlaces
 10/1/14 mutate IntegerNode options after value is set, so that positioning is accurate
 9/8/14 use {Object} instead of {*} as type expression for options param

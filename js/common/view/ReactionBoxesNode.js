@@ -18,7 +18,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
-  var IntegerSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerSpinner' );
+  var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var MoleculeStackNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculeStackNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -136,7 +136,7 @@ define( function( require ) {
       reactant = reaction.reactants[i];
 
       // quantity is editable via a spinner
-      quantityNode = new IntegerSpinner( reactant.quantityProperty, options.quantityRange, { font: QUANTITY_FONT, centerX: centerX } );
+      quantityNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange, { font: QUANTITY_FONT, centerX: centerX } );
       reactantsParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
