@@ -93,7 +93,7 @@ define( function( require ) {
     valueProperty.link( valuePropertyObserver );
 
     // @public Unlinks from the value property. The spinner is no longer functional after calling this function.
-    thisSpinner.unlink = function() {
+    thisSpinner.dispose = function() {
       valueProperty.unlink( valuePropertyObserver );
     };
   }

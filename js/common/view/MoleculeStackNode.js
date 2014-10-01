@@ -53,7 +53,7 @@ define( function( require ) {
     quantityProperty.link( quantityPropertyObserver );
 
     // @public Unlinks all property observers. The node is no longer functional after calling this function.
-    thisNode.unlink = function() {
+    thisNode.dispose = function() {
       quantityProperty.unlink( quantityPropertyObserver );
     };
 

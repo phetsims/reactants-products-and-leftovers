@@ -287,20 +287,20 @@ define( function( require ) {
     }
 
     // @public Unlinks all property observers. The node is no longer functional after calling this function.
-    thisNode.unlink = function() {
+    thisNode.dispose = function() {
 
       // accordion boxes from 'expand' properties
-      beforeBox.unlink();
-      afterBox.unlink();
+      beforeBox.dispose();
+      afterBox.dispose();
 
       // quantity spinners and displays
       quantityNodes.forEach( function( quantityNode ) {
-        quantityNode.unlink();
+        quantityNode.dispose();
       } );
 
       // molecule stacks
       moleculeStackNodes.forEach( function( moleculeStackNode ) {
-        moleculeStackNode.unlink();
+        moleculeStackNode.dispose();
       } );
     };
 

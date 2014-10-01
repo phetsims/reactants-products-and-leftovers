@@ -70,7 +70,7 @@ define( function( require ) {
     var reactionBoxesNode;
     model.reactionProperty.link( function( reaction ) {
       if ( reactionBoxesNode ) {
-        reactionBoxesNode.unlink();
+        reactionBoxesNode.dispose();
         rootNode.removeChild( reactionBoxesNode );
       }
       reactionBoxesNode = new ReactionBoxesNode( reaction,
