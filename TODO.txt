@@ -16,7 +16,7 @@ LOW
 - remove uses of instanceof
 - add real titlebar to sun.AccordionBox
 - dev features for game (skip, play all, ...)
-- French curves for brackets
+- curves for brackets
 
 MIGRATE TO COMMON
 - NumberSpinner
