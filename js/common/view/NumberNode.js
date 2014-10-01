@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays a dynamic integer value.
+ * Displays a dynamic numeric value.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,11 +14,15 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param {Property<Number>} valueProperty
+   * @param {Property.<number>} valueProperty
    * @param {Object} [options]
    * @constructor
    */
-  function IntegerNode( valueProperty, options ) {
+  function NumberNode( valueProperty, options ) {
+
+    options = _.extend( {
+      decimalPlaces: 0
+    }, options );
 
     var thisNode = this;
     Text.call( thisNode, '' );
@@ -26,7 +30,7 @@ define( function( require ) {
     // When the value changes ...
     var valuePropertyObserver = function( value ) {
       assert && assert( Util.isInteger( value ) );
-      thisNode.text = '' + value;
+      thisNode.text = Util.toFixed( valueProperty.get(), options.decimalPlaces );
     };
     valueProperty.link( valuePropertyObserver );
 
@@ -38,5 +42,5 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Text, IntegerNode );
+  return inherit( Text, NumberNode );
 } );

@@ -17,7 +17,7 @@ define( function( require ) {
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var IntegerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerNode' );
+  var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var IntegerSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/IntegerSpinner' );
   var MoleculeStackNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculeStackNode' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -169,7 +169,7 @@ define( function( require ) {
       product = reaction.products[i];
 
       // quantity is not editable
-      quantityNode = new IntegerNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+      quantityNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
       productsParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
@@ -198,7 +198,7 @@ define( function( require ) {
       reactant = reaction.reactants[i];
 
       // quantity is not editable
-      quantityNode = new IntegerNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
+      quantityNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
       leftoversParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
       maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );

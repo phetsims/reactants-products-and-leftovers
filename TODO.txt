@@ -20,7 +20,7 @@ LOW
 
 MIGRATE TO COMMON
 - IntegerSpinner (generalize to NumberSpinner with options.decimalPlaces)
-- IntegerNode (generalize to NumberNode with options.decimalPlaces)
+- NumberNode
 - HBracketNode
 
 MISC
