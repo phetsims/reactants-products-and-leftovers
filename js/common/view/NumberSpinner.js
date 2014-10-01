@@ -80,7 +80,6 @@ define( function( require ) {
 
     // When the value changes ...
     var valuePropertyObserver = function( value ) {
-      assert && assert( Util.isInteger( value ) );
       assert && assert( range.contains( value ) );
 
       // update the text and center it

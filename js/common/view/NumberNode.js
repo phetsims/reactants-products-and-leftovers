@@ -29,7 +29,6 @@ define( function( require ) {
 
     // When the value changes ...
     var valuePropertyObserver = function( value ) {
-      assert && assert( Util.isInteger( value ) );
       thisNode.text = Util.toFixed( valueProperty.get(), options.decimalPlaces );
     };
     valueProperty.link( valuePropertyObserver );
