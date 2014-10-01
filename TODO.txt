@@ -15,7 +15,6 @@ MEDIUM
 
 LOW
 - remove uses of instanceof
-- facelift for scenery-phet.ArrowButton
 - add real titlebar to sun.AccordionBox
 - dev features for game (skip, play all, ...)
 - French curves for brackets
