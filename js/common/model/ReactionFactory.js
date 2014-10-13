@@ -42,11 +42,12 @@ define( function( require ) {
         { name: meatAndCheeseString } );
     },
 
+    // Note that reactant coefficients are mutable
     customSandwich: function() {
       return new Reaction(
         [ new Reactant( 3, MoleculeFactory.bread() ), new Reactant( 3, MoleculeFactory.meat() ), new Reactant( 3, MoleculeFactory.cheese() ) ],
         [ new Product( 1, MoleculeFactory.sandwich( 'customSandwich', 3, 3, 3 ) ) ],
-        { name: customString } );
+        { name: customString, reactantCoefficientsMutable: true } );
     },
 
     //---------------------------------------------------------------------------------------

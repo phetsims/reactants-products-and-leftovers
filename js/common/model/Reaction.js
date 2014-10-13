@@ -25,7 +25,8 @@ define( function( require ) {
     assert && assert( products.length > 0, 'a reaction requires at least 1 product' );
 
     options = _.extend( {
-       name: '' // optional name, suitable for display to the user
+      name: null, // optional name, suitable for display to the user
+      reactantCoefficientsMutable: false // whether the reactant coefficients are mutable
     }, options );
 
     var thisReaction = this;
@@ -33,9 +34,18 @@ define( function( require ) {
     this.reactants = reactants;
     this.products = products;
     this.name = options.name;
+    this.reactantCoefficientsMutable = options.reactantCoefficientsMutable;
 
     this.reactants.forEach( function( reactant ) {
       reactant.quantityProperty.link( thisReaction.update.bind( thisReaction ) );
+      if ( options.reactantCoefficientsMutable ) {
+        reactant.coefficientProperty.link( thisReaction.update.bind( thisReaction ) );
+      }
+      else {
+        reactant.coefficientProperty.lazyLink( function() {
+          throw new Error( 'unexpected coefficient change for reaction: ' + ( options.name || thisReaction.toString() ) );
+        } );
+      }
     } );
   }
 
@@ -117,17 +127,15 @@ define( function( require ) {
     getEquationString: function() {
       var s = '';
       for ( var i = 0; i < this.reactants.length; i++ ) {
-        if ( i !== 0 ) { s += '+'; }
-        s += this.reactants[i].coefficient;
-        s += this.reactants[i].name;
+        if ( i !== 0 ) { s += '+ '; }
+        s += ( this.reactants[i].coefficient + ' ' + this.reactants[i].molecule.symbol + ' ' );
       }
-      s += '->';
+      s += '-> ';
       for ( i = 0; i < this.products.length; i++ ) {
-        if ( i !== 0 ) { s += '+'; }
-        s += this.products[i].coefficient;
-        s += this.products[i].name;
+        if ( i !== 0 ) { s += '+ '; }
+        s += ( this.products[i].coefficient + ' ' + this.products[i].molecule.symbol + ' ' );
       }
-      return s.replaceAll( '<sub>', '' ).replaceAll( '</sub>', '' );
+      return s.replace( /<sub>/g, '' ).replace( /<sub>/g, '' );
     },
 
     /**
