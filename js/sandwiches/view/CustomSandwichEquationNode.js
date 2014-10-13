@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CustomSandwich = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/CustomSandwich' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
@@ -79,6 +80,8 @@ define( function( require ) {
    * @constructor
    */
   function CustomSandwichEquationNode( reaction, options ) {
+
+    assert( reaction instanceof CustomSandwich );
 
     options = options || {};
 
