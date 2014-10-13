@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays the equation for a reaction.
+ * Displays the equation for a reaction whose coefficients are immutable.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
