@@ -1,3 +1,4 @@
+10/13/14 move ReactionBoxesNode.dispose to prototype
 10/13/14 use _.max to compute max height of collections of nodes
 10/13/14 adjust layout of stuff below boxes to accommodate dynamic custom sandwich image
 10/13/14 update stacks of molecules in the before/after boxes if their visual representation changes (for custom sandwich)

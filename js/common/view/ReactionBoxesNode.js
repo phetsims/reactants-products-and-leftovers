@@ -94,14 +94,16 @@ define( function( require ) {
 
     // 'Before Reaction' accordion box
     var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
-    var beforeBox = new AccordionBox( beforeContent, _.extend( {
+    // @private
+    this.beforeBox = new AccordionBox( beforeContent, _.extend( {
       expandedProperty: beforeExpandedProperty,
       titleNode: new Text( options.beforeTitle, titleOptions )
     }, accordionBoxOptions ) );
 
     // 'After Reaction' accordion box
     var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
-    var afterBox = new AccordionBox( afterContent, _.extend( {
+    // @private
+    this.afterBox = new AccordionBox( afterContent, _.extend( {
       expandedProperty: afterExpandedProperty,
       titleNode: new Text( options.afterTitle, titleOptions )
     }, accordionBoxOptions ) );
@@ -110,11 +112,11 @@ define( function( require ) {
     var arrowNode = new RightArrowNode( { fill: RPALColors.REACTION_BAR_COLOR, stroke: null, scale: 0.75 } );
 
     // layout of boxes and arrow
-    var hBox = new HBox( { children: [ beforeBox, arrowNode, afterBox ], spacing: 10 } );
+    var hBox = new HBox( { children: [ this.beforeBox, arrowNode, this.afterBox ], spacing: 10 } );
     thisNode.addChild( hBox );
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    var quantityNodes = [];
+    this.quantityNodes = []; // @private
     var imageNodes = [];
     var symbolNodes = [];
 
@@ -127,7 +129,7 @@ define( function( require ) {
     var numberOfReactants = reaction.reactants.length;
     xMargin = ( numberOfReactants > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2 reactants case look nice
     deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfReactants;
-    centerX = beforeBox.left + xMargin + (deltaX / 2 );
+    centerX = this.beforeBox.left + xMargin + (deltaX / 2 );
     for ( i = 0; i < numberOfReactants; i++ ) {
 
       reactant = reaction.reactants[i];
@@ -135,7 +137,7 @@ define( function( require ) {
       // quantity is editable via a spinner
       quantityNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange, { font: QUANTITY_FONT, centerX: centerX } );
       reactantsParent.addChild( quantityNode );
-      quantityNodes.push( quantityNode );
+      this.quantityNodes.push( quantityNode );
 
       // image
       imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
@@ -158,7 +160,7 @@ define( function( require ) {
     var numberOfProducts = reaction.products.length;
     xMargin = ( numberOfProducts + numberOfReactants > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2 reactants case look nice
     deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / ( numberOfProducts + numberOfReactants );
-    centerX = afterBox.left + xMargin + (deltaX / 2 );
+    centerX = this.afterBox.left + xMargin + (deltaX / 2 );
     for ( i = 0; i < numberOfProducts; i++ ) {
 
       product = reaction.products[i];
@@ -166,7 +168,7 @@ define( function( require ) {
       // quantity is not editable
       quantityNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
       productsParent.addChild( quantityNode );
-      quantityNodes.push( quantityNode );
+      this.quantityNodes.push( quantityNode );
 
       // image
       imageNode = new Node( { children: [ product.molecule.node ], centerX: quantityNode.centerX } );
@@ -193,7 +195,7 @@ define( function( require ) {
       // quantity is not editable
       quantityNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
       leftoversParent.addChild( quantityNode );
-      quantityNodes.push( quantityNode );
+      this.quantityNodes.push( quantityNode );
 
       // image
       imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
@@ -211,13 +213,13 @@ define( function( require ) {
     }
 
     // vertical layout of components below the boxes
-    var maxQuantityHeight = _.max( quantityNodes, function( node ) { return node.height; } ).height;
+    var maxQuantityHeight = _.max( this.quantityNodes, function( node ) { return node.height; } ).height;
     var maxImageHeight = Math.max( options.maxImageSize.height, _.max( imageNodes, function( node ) { return node.height; } ).height );
     var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
-    var numberOfColumns = quantityNodes.length;
-    var componentsTop = beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
+    var numberOfColumns = this.quantityNodes.length;
+    var componentsTop = this.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
     for ( i = 0; i < numberOfColumns; i++ ) {
-      quantityNodes[i].centerY = componentsTop + ( maxQuantityHeight / 2 );
+      this.quantityNodes[i].centerY = componentsTop + ( maxQuantityHeight / 2 );
       imageNodes[i].centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
       if ( options.showSymbols ) {
         symbolNodes[i].top = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
@@ -257,7 +259,7 @@ define( function( require ) {
     thisNode.addChild( leftoversBracket );
 
     // molecule stacks inside the 'before' and 'after' boxes
-    var moleculeStackNodes = [];
+    this.moleculeStackNodes = []; // @private
     var startCenterY = beforeContent.height - options.boxYMargin - ( maxImageHeight / 2 );
     var deltaY = ( beforeContent.height - ( 2 * options.boxYMargin ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
 
@@ -265,7 +267,7 @@ define( function( require ) {
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
       moleculeStackNode = new MoleculeStackNode( reactant.quantityProperty, reactant.molecule.nodeProperty,
-        quantityNodes[i].centerX, startCenterY, deltaY );
+        this.quantityNodes[i].centerX, startCenterY, deltaY );
       beforeContent.addChild( moleculeStackNode );
     }
 
@@ -273,7 +275,7 @@ define( function( require ) {
     for ( i = 0; i < numberOfProducts; i++ ) {
       product = reaction.products[i];
       moleculeStackNode = new MoleculeStackNode( product.quantityProperty, product.molecule.nodeProperty,
-          quantityNodes[i + numberOfReactants ].centerX - ( afterBox.left - beforeBox.left ), startCenterY, deltaY );
+          this.quantityNodes[i + numberOfReactants ].centerX - ( this.afterBox.left - this.beforeBox.left ), startCenterY, deltaY );
       afterContent.addChild( moleculeStackNode );
     }
 
@@ -281,31 +283,32 @@ define( function( require ) {
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
       moleculeStackNode = new MoleculeStackNode( reactant.leftoversProperty, reactant.molecule.nodeProperty,
-          quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( afterBox.left - beforeBox.left ), startCenterY, deltaY );
+          this.quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( this.afterBox.left - this.beforeBox.left ), startCenterY, deltaY );
       afterContent.addChild( moleculeStackNode );
     }
-
-    // @public Unlinks all property observers. The node is no longer functional after calling this function.
-    thisNode.dispose = function() {
-
-      // accordion boxes from 'expand' properties
-      beforeBox.dispose();
-      afterBox.dispose();
-
-      // quantity spinners and displays
-      quantityNodes.forEach( function( quantityNode ) {
-        quantityNode.dispose();
-      } );
-
-      // molecule stacks
-      moleculeStackNodes.forEach( function( moleculeStackNode ) {
-        moleculeStackNode.dispose();
-      } );
-    };
 
     // pass options to supertype
     thisNode.mutate( options );
   }
 
-  return inherit( Node, ReactionBoxesNode  );
+  return inherit( Node, ReactionBoxesNode, {
+
+    // @public Unlinks all property observers. The node is no longer functional after calling this function.
+    dispose: function() {
+
+      // accordion boxes from 'expand' properties
+      this.beforeBox.dispose();
+      this.afterBox.dispose();
+
+      // quantity spinners and displays
+      this.quantityNodes.forEach( function( quantityNode ) {
+        quantityNode.dispose();
+      } );
+
+      // molecule stacks
+      this.moleculeStackNodes.forEach( function( moleculeStackNode ) {
+        moleculeStackNode.dispose();
+      } );
+    }
+  } );
 } );
