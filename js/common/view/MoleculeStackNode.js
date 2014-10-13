@@ -32,8 +32,11 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    // When the quantity changes ...
-    var quantityPropertyObserver = function( quantity ) {
+    this.quantityProperty = quantityProperty; // @private
+    this.nodeProperty = nodeProperty; // @private
+
+    // @private When the quantity changes ...
+    this.quantityPropertyObserver = function( quantity ) {
       var count = Math.max( quantity, thisNode.getChildrenCount() );
       for ( var i = 0; i < count; i++ ) {
         if ( i < thisNode.getChildrenCount() ) {
@@ -50,23 +53,24 @@ define( function( require ) {
         }
       }
     };
-    quantityProperty.link( quantityPropertyObserver );
+    quantityProperty.link( this.quantityPropertyObserver );
 
-    // When the node changes
-    var nodePropertyObserver = function( node ) {
+    // @private When the node changes
+    this.nodePropertyObserver = function( node ) {
       thisNode.removeAllChildren();
-      quantityPropertyObserver( quantityProperty.get() );
+      thisNode.quantityPropertyObserver( quantityProperty.get() );
     };
-    nodeProperty.link( nodePropertyObserver );
-
-    // @public Unlinks all property observers. The node is no longer functional after calling this function.
-    thisNode.dispose = function() {
-      quantityProperty.unlink( quantityPropertyObserver );
-      nodeProperty.unlink( nodePropertyObserver );
-    };
+    nodeProperty.link( this.nodePropertyObserver );
 
     thisNode.mutate( options );
   }
 
-  return inherit( Node, MoleculeStackNode );
+  return inherit( Node, MoleculeStackNode, {
+
+    // @public Unlinks all property observers. The node is no longer functional after calling this function.
+    dispose: function() {
+      this.quantityProperty.unlink( this.quantityPropertyObserver );
+      this.nodeProperty.unlink( this.nodePropertyObserver );
+    }
+  } );
 } );

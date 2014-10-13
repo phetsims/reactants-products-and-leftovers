@@ -45,6 +45,8 @@ define( function( require ) {
 
     var thisSpinner = this;
 
+    this.valueProperty = valueProperty; // @private
+
     var valueOptions = {
       font: options.font,
       fill: 'black'
@@ -78,8 +80,8 @@ define( function( require ) {
     options.spacing = options.ySpacing;
     HBox.call( thisSpinner, options );
 
-    // When the value changes ...
-    var valuePropertyObserver = function( value ) {
+    // @private When the value changes ...
+    this.valuePropertyObserver = function( value ) {
       assert && assert( range.contains( value ) );
 
       // update the text and center it
@@ -90,13 +92,14 @@ define( function( require ) {
       upButton.enabled = ( value < range.max );
       downButton.enabled = ( value > range.min );
     };
-    valueProperty.link( valuePropertyObserver );
-
-    // @public Unlinks from the value property. The spinner is no longer functional after calling this function.
-    thisSpinner.dispose = function() {
-      valueProperty.unlink( valuePropertyObserver );
-    };
+    valueProperty.link( this.valuePropertyObserver );
   }
 
-  return inherit( HBox, NumberSpinner );
+  return inherit( HBox, NumberSpinner, {
+
+    // @public Unlinks from the value property. The spinner is no longer functional after calling this function.
+    dispose: function() {
+      this.valueProperty.unlink( this.valuePropertyObserver );
+    }
+  } );
 } );

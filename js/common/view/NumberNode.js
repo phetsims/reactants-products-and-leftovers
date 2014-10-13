@@ -27,19 +27,22 @@ define( function( require ) {
     var thisNode = this;
     Text.call( thisNode, '' );
 
-    // When the value changes ...
-    var valuePropertyObserver = function( value ) {
+    this.valueProperty = valueProperty; // @private
+
+    // @private When the value changes ...
+    this.valuePropertyObserver = function( value ) {
       thisNode.text = Util.toFixed( value, options.decimalPlaces );
     };
-    valueProperty.link( valuePropertyObserver );
-
-    // @public Unlinks from the value property. The node is no longer functional after calling this function.
-    thisNode.dispose = function() {
-      valueProperty.unlink( valuePropertyObserver );
-    };
+    valueProperty.link( this.valuePropertyObserver );
 
     this.mutate( options );
   }
 
-  return inherit( Text, NumberNode );
+  return inherit( Text, NumberNode, {
+
+    // @public Unlinks from the value property. The node is no longer functional after calling this function.
+    dispose: function() {
+      this.valueProperty.unlink( this.valuePropertyObserver );
+    }
+  } );
 } );
