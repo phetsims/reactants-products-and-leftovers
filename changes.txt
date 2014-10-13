@@ -1,3 +1,4 @@
+10/13/14 delete Reaction.fireStateChanged, no longer needed
 10/13/14 update custom sandwich image below 'after' box
 10/13/14 split equation into SandwichesEquationNode and MoleculesEquationNode, they are sufficiently different
 10/13/14 move dispose to prototype

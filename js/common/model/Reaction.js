@@ -81,11 +81,6 @@ define( function( require ) {
       this.reactants.forEach( function( reactant ) {
         reactant.leftovers = reactant.quantity - ( numberOfReactions * reactant.coefficient );
       } );
-      this.fireStateChanged();
-    },
-
-    fireStateChanged: function() {
-      //TODO eliminate this? or use a trigger?
     },
 
     /*

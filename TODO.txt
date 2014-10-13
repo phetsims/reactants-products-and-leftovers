@@ -8,7 +8,6 @@ HIGH
 
 MEDIUM
 - move Reset All to right of radio buttons
-- Reaction.fireStateChanged
 - random layout strategy for molecules in boxes
 - finish ReactionFactory
 - Game screen
