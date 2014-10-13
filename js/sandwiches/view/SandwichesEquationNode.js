@@ -15,7 +15,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CustomSandwich = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/CustomSandwich' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
@@ -24,7 +23,6 @@ define( function( require ) {
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -101,7 +99,6 @@ define( function( require ) {
     // right arrow
     var arrowNode = new RightArrowNode( ARROW_OPTIONS );
     arrowNode.left = reactantsNode.right + ARROW_X_SPACING;
-    var coefficientHeight = new Text( '1', TEXT_OPTIONS ).height;
     arrowNode.centerY = reactantsNode.centerY;
 
     // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
