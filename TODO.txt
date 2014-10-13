@@ -11,7 +11,6 @@ MEDIUM
 - Reaction.fireStateChanged
 - random layout strategy for molecules in boxes
 - finish ReactionFactory
-- consolidate loop iterations in ReactionBoxesNode
 - Game screen
 
 LOW
@@ -19,6 +18,7 @@ LOW
 - dev features for game (skip, play all, ...)
 - curves for brackets
 - add real title bar to sun.AccordionBox, sun#135
+- consolidate loop iterations in ReactionBoxesNode?
 
 MIGRATE TO COMMON
 - NumberSpinner
