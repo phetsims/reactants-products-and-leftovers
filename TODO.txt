@@ -3,7 +3,8 @@ TODO list for reactants-products-and-leftovers
 DESIGN
 
 HIGH
-- mutable equation for Sandwiches screen
+- update sandwich image below 'after' boxπ
+
 
 MEDIUM
 - move Reset All to right of radio buttons
