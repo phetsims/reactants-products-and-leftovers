@@ -1,3 +1,4 @@
+10/13/14 adjust EquationNode layout
 10/13/14 add mutable reactant coefficients to Reaction for "custom sandwich"
 10/13/14 and Substance.coefficient mutable to support "custom sandwich" and game challenges
 10/13/14 make Molecule.node mutable to support "custom sandwich"

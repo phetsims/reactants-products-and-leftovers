@@ -56,7 +56,7 @@ define( function( require ) {
       if ( i < numberOfTerms - 1 ) {
         plusNode = new PlusNode( PLUS_OPTIONS );
         plusNode.left = moleculeNode.right + PLUS_X_SPACING;
-        plusNode.centerY = coefficientNode.top + ( coefficientNode.height / 2 );
+        plusNode.centerY = coefficientNode.centerY;
         parentNode.addChild( plusNode );
       }
       else {
