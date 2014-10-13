@@ -15,9 +15,9 @@ MEDIUM
 
 LOW
 - remove uses of instanceof
-- add real titlebar to sun.AccordionBox
 - dev features for game (skip, play all, ...)
 - curves for brackets
+- add real title bar to sun.AccordionBox, sun#135
 
 MIGRATE TO COMMON
 - NumberSpinner
