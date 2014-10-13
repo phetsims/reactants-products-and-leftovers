@@ -1,6 +1,6 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO this is very similar to MoleculeView, except: custom reaction, and showSymbols: false
+//TODO this is very similar to MoleculeView
 /**
  * View for the 'Sandwiches' screen.
  *
@@ -10,8 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CustomSandwich = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/CustomSandwich' );
-  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PropertySet = require( 'AXON/PropertySet' );
