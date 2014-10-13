@@ -12,7 +12,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var EquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/EquationNode' );
   var ReactionChoiceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionChoiceNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
@@ -24,10 +23,11 @@ define( function( require ) {
   /**
    * @param {Property.<Reaction>} reactionProperty the selected reaction
    * @param {Reaction[]} reactions the reaction choices
+   * @param {function} createEquationNode takes one {Reaction} parameter, returns {Node}
    * @param {Object} [options]
    * @constructor
    */
-  function ReactionBarNode( reactionProperty, reactions, options ) {
+  function ReactionBarNode( reactionProperty, reactions, createEquationNode, options ) {
 
     options = _.extend( {
       screenWidth: 1000, // width of the screen's safe area
@@ -55,7 +55,7 @@ define( function( require ) {
 
       // create the new equation node
       equationParent.removeAllChildren();
-      equationParent.addChild( new EquationNode( reactionProperty.get(), { showSymbols: options.showSymbols } ) );
+      equationParent.addChild( createEquationNode( reaction ) );
       equationParent.setScaleMagnitude( 1 );
 
       // scale the equation if it's too wide to fit the available space

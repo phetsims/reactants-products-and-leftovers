@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/EquationNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -34,7 +35,9 @@ define( function( require ) {
     } );
 
     // static UI components
-    var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, { screenWidth: this.layoutBounds.width } );
+    var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
+      function( reaction ) { return new EquationNode( reaction, { showSymbols: true } ); },
+      { screenWidth: this.layoutBounds.width } );
     var resetAllButton = new ResetAllButton( {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       listener: function() {

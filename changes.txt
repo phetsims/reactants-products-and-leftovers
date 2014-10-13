@@ -1,3 +1,4 @@
+10/13/14 add createEquationNode parameter to ReactionBarNode
 10/13/14 add NumberPickers for reactant coefficients in "custom sandwich" equation
 10/13/14 adjust EquationNode layout
 10/13/14 add mutable reactant coefficients to Reaction for "custom sandwich"
