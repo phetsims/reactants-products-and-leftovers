@@ -15,13 +15,13 @@ define( function( require ) {
   /**
    * @param {number} coefficient
    * @param {Molecule} molecule
-   * @param {number} quantity
+   * @param {number} [quantity]
    * @constructor
    */
   function Substance( coefficient, molecule, quantity ) {
-    this.coefficient = coefficient;
     this.molecule = molecule;
     PropertySet.call( this, {
+      coefficient: coefficient,
       quantity: quantity || 0
     } );
   }

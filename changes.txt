@@ -1,3 +1,5 @@
+10/13/14 and Substance.coefficient mutable to support "custom sandwich" and game challenges
+10/13/14 make Molecule.node mutable to support "custom sandwich"
 10/1/14 use new JSdoc convention for @param (primitive types, arrays, Property type qualifier)
 10/1/14 rename unlink to dispose, function to be called when disposing of an instance of this object
 10/1/14 generalize IntegerSpinner to NumberSpinner, add options.decimalPlaces

@@ -3,6 +3,7 @@
 /**
  * Base type for molecules.
  * For purposes of the Sandwiches analogy, sandwiches and their ingredients are treated as molecules.
+ * The node used to represent the molecule is mutable to support the mutable "sandwich" case.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,7 +21,9 @@ define( function( require ) {
    */
   function Molecule( symbol, node ) {
     this.symbol = symbol;
-    this.node = node;
+    PropertySet.call( this, {
+      node: node
+    } );
   }
 
   return inherit( PropertySet, Molecule );
