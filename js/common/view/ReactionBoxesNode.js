@@ -44,7 +44,7 @@ define( function( require ) {
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
   var BRACKET_FONT = new RPALFont( 12 ); // font for the bracket labels
-  var BRACKET_X_MARGIN = 10; // amount that brackets extend beyond the things they bracket
+  var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
 
   /**
@@ -63,7 +63,8 @@ define( function( require ) {
       showSymbols: true, // whether to show the molecule symbols
       beforeTitle: beforeReactionString,
       afterTitle: afterReactionString,
-      boxYMargin: 6 // vertical margin between the inner edge of box and the tallest molecule image
+      boxYMargin: 6, // vertical margin between the inner edge of box and the tallest molecule image
+      maxImageSize: new Dimension2( 0, 0 ) // our best guess at the maximum image size
     }, options );
 
     var thisNode = this;
@@ -119,7 +120,8 @@ define( function( require ) {
 
     // compute the max height of quantity and image components, to aid in vertical alignment
     var maxQuantityHeight = 0;
-    var maxImageHeight = 0;
+    var maxImageHeight = options.maxImageSize.height;
+    var maxSymbolHeight = 0;
 
     // explicitly hoist vars that are reused in loops
     var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode, moleculeStackNode;
@@ -152,6 +154,7 @@ define( function( require ) {
         symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
+        maxSymbolHeight = Math.max( maxSymbolHeight, symbolNode.height );
       }
 
       centerX += deltaX;
@@ -185,6 +188,7 @@ define( function( require ) {
         symbolNode = new SubSupText( product.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         productsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
+        maxSymbolHeight = Math.max( maxSymbolHeight, symbolNode.height );
       }
 
       centerX += deltaX;
@@ -214,6 +218,7 @@ define( function( require ) {
         symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         leftoversParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
+        maxSymbolHeight = Math.max( maxSymbolHeight, symbolNode.height );
       }
 
       centerX += deltaX;
@@ -221,12 +226,17 @@ define( function( require ) {
 
     // vertical layout of components below the boxes
     var numberOfQuantityNodes = quantityNodes.length;
+    var componentsTop = beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
     for ( i = 0; i < numberOfQuantityNodes; i++ ) {
-      quantityNodes[i].centerY = beforeBox.bottom + BOX_QUANTITY_Y_SPACING + ( maxQuantityHeight / 2 );
-      imageNodes[i].centerY = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
+      quantityNodes[i].centerY = componentsTop + ( maxQuantityHeight / 2 );
+      imageNodes[i].centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
       if ( options.showSymbols ) {
-        symbolNodes[i].top = quantityNodes[i].top + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
+        symbolNodes[i].top = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
       }
+    }
+    var componentsBottom = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
+    if ( options.showSymbols ) {
+      componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
 
     // brackets to denote 'reactants', 'products' and 'leftovers'
@@ -236,23 +246,23 @@ define( function( require ) {
     };
     var bracketOptions = {
       bracketColor: RPALColors.REACTION_BAR_COLOR,
-      top: Math.max( reactantsParent.bottom, Math.max( productsParent.bottom, leftoversParent.bottom ) ) + BRACKET_Y_SPACING
+      top: componentsBottom + BRACKET_Y_SPACING
     };
 
     var reactantsBracket = new HBracketNode( new Text( reactantsString, bracketLabelOptions ), _.extend( {
-      bracketWidth: reactantsParent.width + ( 2 * BRACKET_X_MARGIN ),
+      bracketWidth: Math.max( options.maxImageSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: reactantsParent.centerX
     }, bracketOptions ) );
     thisNode.addChild( reactantsBracket );
 
     var productsBracket = new HBracketNode( new Text( productsString, bracketLabelOptions ), _.extend( {
-      bracketWidth: productsParent.width + ( 2 * BRACKET_X_MARGIN ),
+      bracketWidth: Math.max( options.maxImageSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: productsParent.centerX
     }, bracketOptions ) );
     thisNode.addChild( productsBracket );
 
     var leftoversBracket = new HBracketNode( new Text( leftoversString, bracketLabelOptions ), _.extend( {
-      bracketWidth: leftoversParent.width + ( 2 * BRACKET_X_MARGIN ),
+      bracketWidth: Math.max( options.maxImageSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: leftoversParent.centerX
     }, bracketOptions ) );
     thisNode.addChild( leftoversBracket );

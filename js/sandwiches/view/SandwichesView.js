@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var CustomSandwich = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/CustomSandwich' );
   var CustomSandwichEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/CustomSandwichEquationNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var EquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/EquationNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -20,6 +21,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
+  var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ReactionBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBoxesNode' );
 
@@ -85,6 +87,7 @@ define( function( require ) {
     resetAllButton.bottom = playAreaBottom - 10;
 
     var reactionBoxesNode;
+    var maxSandwichSize = SandwichNode.maxSize( RPALConstants.COEFFICIENT_RANGE, RPALConstants.SANDWICH_IMAGE_SCALE );
     model.reactionProperty.link( function( reaction ) {
       if ( reactionBoxesNode ) {
         reactionBoxesNode.dispose();
@@ -96,7 +99,8 @@ define( function( require ) {
         top: playAreaTop + 10,
         beforeTitle: beforeSandwichString,
         afterTitle: afterSandwichString,
-        boxYMargin: ( reaction instanceof CustomSandwich ) ? 12 : 6
+        boxYMargin: ( reaction instanceof CustomSandwich ) ? 12 : 6,
+        maxImageSize: ( reaction instanceof CustomSandwich ) ? maxSandwichSize : new Dimension2( 0, 0 )
       } );
       rootNode.addChild( reactionBoxesNode );
     } );

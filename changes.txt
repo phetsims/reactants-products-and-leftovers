@@ -1,3 +1,4 @@
+10/13/14 adjust layout of stuff below boxes to accommodate dynamic custom sandwich image
 10/13/14 update stacks of molecules in the before/after boxes if their visual representation changes (for custom sandwich)
 10/13/14 make equation responsible for deciding what to display when custom sandwich formula is not well-defined
 10/13/14 when the custom sandwich formula is not well-defined, still require a {Node} with well-defined bounds
