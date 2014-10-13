@@ -2,7 +2,6 @@ TODO list for reactants-products-and-leftovers
 
 DESIGN
 - 'no reaction' won't fix in custom sandwich equation
-- images are interleaved in the order bread, meat, cheese. Should cheese come before meat if there's more cheese than meat?
 
 HIGH
 
