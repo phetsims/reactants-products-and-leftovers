@@ -20,6 +20,9 @@ define( function( require ) {
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
+  // strings
+  var noReactionString = '?'; //TODO showing "no reaction" creates big layout problems, we don't have room
+
   // constants
   var COEFFICIENT_X_SPACING = 10;
   var PLUS_X_SPACING = 20;
@@ -29,6 +32,7 @@ define( function( require ) {
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
   var PICKER_OPTIONS = { font: new RPALFont( 28 ), color: 'yellow', xMargin: 6, cornerRadius: 3 };
   var COEFFICIENT_RANGE_PROPERTY = new Property( RPALConstants.COEFFICIENT_RANGE );
+  var NO_REACTION_NODE = new Text( noReactionString, TEXT_OPTIONS );
 
   /**
    * Creates terms for equation.
@@ -92,7 +96,12 @@ define( function( require ) {
     var productsParent = new Node();
     reaction.products[0].molecule.nodeProperty.link( function( node ) {
         productsParent.removeAllChildren();
-        productsParent.addChild( node );
+        if ( reaction.isReaction() ) {
+          productsParent.addChild( node );
+        }
+        else {
+          productsParent.addChild( NO_REACTION_NODE );
+        }
         productsParent.left = arrowNode.right + ARROW_X_SPACING;
         productsParent.centerY = arrowNode.centerY;
       }

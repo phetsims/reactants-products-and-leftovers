@@ -1,3 +1,5 @@
+10/13/14 make equation responsible for deciding what to display when custom sandwich formula is not well-defined
+10/13/14 when the custom sandwich formula is not well-defined, still require a {Node} with well-defined bounds
 10/13/14 change the custom sandwich image based on the coefficients of the reactants
 10/13/14 handle custom sandwich as a special case, since it's so different than static reactions
 10/13/14 add createEquationNode parameter to ReactionBarNode

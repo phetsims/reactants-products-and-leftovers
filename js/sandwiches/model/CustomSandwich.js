@@ -13,16 +13,17 @@ define( function( require ) {
   var Molecule = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Molecule' );
   var MoleculeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/MoleculeFactory' );
   var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
   var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
   var customString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/custom' );
-  var noReactionString = '?'; //TODO showing "no reaction" creates big layout problems, we don't have room
+
+  // constants
+  var NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 ); // used when the product is undefined, any invisible node with well-defined bounds
 
   function CustomSandwich() {
 
@@ -31,17 +32,19 @@ define( function( require ) {
     var bread = new Reactant( 0, MoleculeFactory.bread() );
     var meat =  new Reactant( 0, MoleculeFactory.meat() );
     var cheese = new Reactant( 0, MoleculeFactory.cheese() );
-    var sandwich = new Product( 1, new Molecule( 'customSandwich', null ) ); // sandwich image will be updated below
+    var sandwich = new Product( 1, new Molecule( 'customSandwich', NO_SANDWICH_NODE ) ); // sandwich image will be updated below
 
-    Reaction.call( thisReaction, [ bread, meat, cheese ], [ sandwich ], { name: customString, reactantCoefficientsMutable: true } );
+    Reaction.call( thisReaction, [ bread, meat, cheese ], [ sandwich ],
+      { name: customString, reactantCoefficientsMutable: true } );
 
     // Update the sandwich image to match the coefficients.
     var updateNode = function() {
-      if ( bread.coefficient + meat.coefficient + cheese.coefficient === 0 ) {
-        sandwich.molecule.node = new Text( noReactionString, { font: new PhetFont( 24 ), fill: 'white' } );
+      if ( thisReaction.isReaction() ) {
+        sandwich.molecule.node = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient,
+          { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
       }
       else {
-        sandwich.molecule.node = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
+        sandwich.molecule.node = NO_SANDWICH_NODE;
       }
     };
     this.reactants.forEach( function( reactant ) {
