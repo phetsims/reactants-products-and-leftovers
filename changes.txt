@@ -1,5 +1,6 @@
 # 1.0.0-dev.3 10/13/14
 10/13/14 'Sandwiches' and 'Molecules' screens feature complete
+10/13/14 cleanup options to SandwichesBoxesNode
 10/13/14 delete Reaction.fireStateChanged, no longer needed
 10/13/14 update custom sandwich image below 'after' box
 10/13/14 split equation into SandwichesEquationNode and MoleculesEquationNode, they are sufficiently different

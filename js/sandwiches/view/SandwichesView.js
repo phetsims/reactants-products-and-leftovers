@@ -28,6 +28,9 @@ define( function( require ) {
   var beforeSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/beforeSandwich' );
   var afterSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/afterSandwich' );
 
+  // constants
+  var MAX_SANDWICH_SIZE = SandwichNode.maxSize( RPALConstants.COEFFICIENT_RANGE, RPALConstants.SANDWICH_IMAGE_SCALE );
+
   /**
    * @param {SandwichesModel} model
    * @constructor
@@ -79,21 +82,29 @@ define( function( require ) {
     resetAllButton.bottom = playAreaBottom - 10;
 
     var reactionBoxesNode;
-    var maxSandwichSize = SandwichNode.maxSize( RPALConstants.COEFFICIENT_RANGE, RPALConstants.SANDWICH_IMAGE_SCALE );
     model.reactionProperty.link( function( reaction ) {
+
+      // dispose of the previous box
       if ( reactionBoxesNode ) {
         reactionBoxesNode.dispose();
         rootNode.removeChild( reactionBoxesNode );
       }
-      reactionBoxesNode = new SandwichesBoxesNode( reaction, viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty, {
+
+      // options for the new box
+      var boxOptions = {
         showSymbols: false,
         left: 40,
         top: playAreaTop + 10,
         beforeTitle: beforeSandwichString,
-        afterTitle: afterSandwichString,
-        boxYMargin: ( reaction instanceof CustomSandwich ) ? 12 : 6,
-        maxImageSize: ( reaction instanceof CustomSandwich ) ? maxSandwichSize : new Dimension2( 0, 0 )
-      } );
+        afterTitle: afterSandwichString
+      };
+      if ( reaction.reactantCoefficientsMutable ) {
+        boxOptions.boxYMargin = 12;
+        boxOptions.maxImageSize = MAX_SANDWICH_SIZE;
+      }
+
+      // create the new box
+      reactionBoxesNode = new SandwichesBoxesNode( reaction, viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty, boxOptions );
       rootNode.addChild( reactionBoxesNode );
     } );
   }
