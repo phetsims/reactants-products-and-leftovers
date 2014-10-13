@@ -3,7 +3,7 @@ TODO list for reactants-products-and-leftovers
 DESIGN
 
 HIGH
-- update sandwich image below 'after' boxπ
+- update sandwich image below 'after' box
 
 
 MEDIUM
