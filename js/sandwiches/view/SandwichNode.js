@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Creates a sandwich by alternating ingredients, and attempts to put bread on top and bottom.
+ * Creates a sandwich by attempting to mimic how a person would make a sandwich.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -37,29 +37,53 @@ define( function( require ) {
 
     var centerY = 0;
 
-    // slice of bread on the bottom
+    // put a slice of bread on the bottom
     if ( breadCount > 0 ) {
       this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
       centerY -= Y_SPACING;
       breadCount--;
     }
 
-    // alternate between meat, cheese and bread
+    // interleave ingredients
     var imageAdded = true;
     while ( imageAdded ) {
+
       imageAdded = false;
-      if ( meatCount > 0 ) {
-        this.addChild( new Image( meatImage, { centerX: 0, centerY: centerY } ) );
-        centerY -= Y_SPACING;
-        imageAdded = true;
-        meatCount--;
+
+      //TODO simplify this
+      // to maximize interleaving, always add the more prevalent ingredient first
+      if ( meatCount >= cheeseCount ) {
+        // add meat, then cheese
+        if ( meatCount > 0 ) {
+          this.addChild( new Image( meatImage, { centerX: 0, centerY: centerY } ) );
+          centerY -= Y_SPACING;
+          imageAdded = true;
+          meatCount--;
+        }
+        if ( cheeseCount > 0 ) {
+          this.addChild( new Image( cheeseImage, { centerX: 0, centerY: centerY } ) );
+          centerY -= Y_SPACING;
+          imageAdded = true;
+          cheeseCount--;
+        }
       }
-      if ( cheeseCount > 0 ) {
-        this.addChild( new Image( cheeseImage, { centerX: 0, centerY: centerY } ) );
-        centerY -= Y_SPACING;
-        imageAdded = true;
-        cheeseCount--;
+      else {
+        // add cheese, then meat
+        if ( cheeseCount > 0 ) {
+          this.addChild( new Image( cheeseImage, { centerX: 0, centerY: centerY } ) );
+          centerY -= Y_SPACING;
+          imageAdded = true;
+          cheeseCount--;
+        }
+        if ( meatCount > 0 ) {
+          this.addChild( new Image( meatImage, { centerX: 0, centerY: centerY } ) );
+          centerY -= Y_SPACING;
+          imageAdded = true;
+          meatCount--;
+        }
       }
+
+      // ... followed by bread.
       if ( breadCount > 1 ) { // save one slice of bread for the top
         this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
         centerY -= Y_SPACING;
@@ -68,7 +92,7 @@ define( function( require ) {
       }
     }
 
-    // slice of bread on the top
+    // put a slice of bread on the top
     if ( breadCount > 0 ) {
       this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
     }
