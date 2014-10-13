@@ -19,10 +19,10 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
+  var SandwichesBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesBoxesNode' );
   var SandwichesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesEquationNode' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var ReactionBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBoxesNode' );
 
   // strings
   var beforeSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/beforeSandwich' );
@@ -85,7 +85,7 @@ define( function( require ) {
         reactionBoxesNode.dispose();
         rootNode.removeChild( reactionBoxesNode );
       }
-      reactionBoxesNode = new ReactionBoxesNode( reaction, viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty, {
+      reactionBoxesNode = new SandwichesBoxesNode( reaction, viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty, {
         showSymbols: false,
         left: 40,
         top: playAreaTop + 10,

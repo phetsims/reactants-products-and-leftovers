@@ -1,3 +1,4 @@
+10/13/14 update custom sandwich image below 'after' box
 10/13/14 split equation into SandwichesEquationNode and MoleculesEquationNode, they are sufficiently different
 10/13/14 move dispose to prototype
 10/13/14 use _.max to compute max height of collections of nodes

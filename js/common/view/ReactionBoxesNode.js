@@ -70,6 +70,8 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
+    this.reaction = reaction; // @private
+
     // options common to box titles
     var titleOptions = { font: TITLE_FONT, fill: 'white' };
 
@@ -117,7 +119,7 @@ define( function( require ) {
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     this.quantityNodes = []; // @private
-    var imageNodes = [];
+    this.imageNodes = []; // @private
     this.productImageNode = []; // @private needed for 'custom sandwich' scenario
     var symbolNodes = [];
 
@@ -143,7 +145,7 @@ define( function( require ) {
       // image
       imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
       reactantsParent.addChild( imageNode );
-      imageNodes.push( imageNode );
+      this.imageNodes.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -174,7 +176,7 @@ define( function( require ) {
       // image
       imageNode = new Node( { children: [ product.molecule.node ], centerX: quantityNode.centerX } );
       productsParent.addChild( imageNode );
-      imageNodes.push( imageNode );
+      this.imageNodes.push( imageNode );
       this.productImageNode.push( imageNode );
 
       // symbol
@@ -202,7 +204,7 @@ define( function( require ) {
       // image
       imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
       leftoversParent.addChild( imageNode );
-      imageNodes.push( imageNode );
+      this.imageNodes.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -216,13 +218,13 @@ define( function( require ) {
 
     // vertical layout of components below the boxes
     var maxQuantityHeight = _.max( this.quantityNodes, function( node ) { return node.height; } ).height;
-    var maxImageHeight = Math.max( options.maxImageSize.height, _.max( imageNodes, function( node ) { return node.height; } ).height );
+    var maxImageHeight = Math.max( options.maxImageSize.height, _.max( this.imageNodes, function( node ) { return node.height; } ).height );
     var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
     var numberOfColumns = this.quantityNodes.length;
     var componentsTop = this.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
     for ( i = 0; i < numberOfColumns; i++ ) {
       this.quantityNodes[i].centerY = componentsTop + ( maxQuantityHeight / 2 );
-      imageNodes[i].centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
+      this.imageNodes[i].centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
       if ( options.showSymbols ) {
         symbolNodes[i].top = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
       }
@@ -294,6 +296,23 @@ define( function( require ) {
   }
 
   return inherit( Node, ReactionBoxesNode, {
+
+    /**
+     * Sets the nodes used to represent a specified product.
+     * This updates only the node shown below the 'After' box.
+     * Nodes that are inside the box are modified by observing the nodeProperty directly.
+     *
+     * @param node
+     * @param productIndex
+     * @protected
+     */
+    setNodeForProduct: function( node, productIndex ) {
+      assert && assert( productIndex >= 0 && productIndex < this.reaction.products.length );
+      var imageNode = this.imageNodes[ this.reaction.reactants.length + productIndex ]; // products follow reactants
+      imageNode.removeAllChildren();
+      imageNode.addChild( node );
+      imageNode.centerY = this.imageNodes[0].centerY; // align with first reactant
+    },
 
     // @public Unlinks all property observers. The node is no longer functional after calling this function.
     dispose: function() {
