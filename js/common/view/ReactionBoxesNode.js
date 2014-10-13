@@ -41,7 +41,6 @@ define( function( require ) {
   var QUANTITY_FONT = new RPALFont( 28 ); // font for the molecule quantities that appear below the boxes
   var SYMBOL_FONT = new RPALFont( 16 ); // font for the molecule symbols that appear below the boxes
   var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
-  var BOX_Y_MARGIN = 6; // vertical margin between the inner edge of box and the tallest molecule image
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
   var BRACKET_FONT = new RPALFont( 12 ); // font for the bracket labels
@@ -63,7 +62,8 @@ define( function( require ) {
       layoutStrategy: 'stacked', // layout strategy for molecules inside the boxes, either 'stacked' or 'random',
       showSymbols: true, // whether to show the molecule symbols
       beforeTitle: beforeReactionString,
-      afterTitle: afterReactionString
+      afterTitle: afterReactionString,
+      boxYMargin: 6 // vertical margin between the inner edge of box and the tallest molecule image
     }, options );
 
     var thisNode = this;
@@ -259,13 +259,13 @@ define( function( require ) {
 
     // molecule stacks inside the 'before' and 'after' boxes
     var moleculeStackNodes = [];
-    var startCenterY = beforeContent.height - BOX_Y_MARGIN - ( maxImageHeight / 2 );
-    var deltaY = ( beforeContent.height - ( 2 * BOX_Y_MARGIN ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
+    var startCenterY = beforeContent.height - options.boxYMargin - ( maxImageHeight / 2 );
+    var deltaY = ( beforeContent.height - ( 2 * options.boxYMargin ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
 
     // reactants inside the 'before' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
-      moleculeStackNode = new MoleculeStackNode( reactant.quantityProperty, reactant.molecule.node,
+      moleculeStackNode = new MoleculeStackNode( reactant.quantityProperty, reactant.molecule.nodeProperty,
         quantityNodes[i].centerX, startCenterY, deltaY );
       beforeContent.addChild( moleculeStackNode );
     }
@@ -273,7 +273,7 @@ define( function( require ) {
     // products inside the 'after' box
     for ( i = 0; i < numberOfProducts; i++ ) {
       product = reaction.products[i];
-      moleculeStackNode = new MoleculeStackNode( product.quantityProperty, product.molecule.node,
+      moleculeStackNode = new MoleculeStackNode( product.quantityProperty, product.molecule.nodeProperty,
           quantityNodes[i + numberOfReactants ].centerX - ( afterBox.left - beforeBox.left ), startCenterY, deltaY );
       afterContent.addChild( moleculeStackNode );
     }
@@ -281,7 +281,7 @@ define( function( require ) {
     // leftovers inside the 'after' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
-      moleculeStackNode = new MoleculeStackNode( reactant.leftoversProperty, reactant.molecule.node,
+      moleculeStackNode = new MoleculeStackNode( reactant.leftoversProperty, reactant.molecule.nodeProperty,
           quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( afterBox.left - beforeBox.left ), startCenterY, deltaY );
       afterContent.addChild( moleculeStackNode );
     }

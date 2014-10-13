@@ -67,7 +67,7 @@ define( function( require ) {
     cheese: function() { return new Molecule( RPALSymbols.CHEESE, new Image( cheeseImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
     meat: function() { return new Molecule( RPALSymbols.MEAT, new Image( meatImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
     sandwich: function( name, breadCount, meatCount, cheeseCount ) {
-      return new Molecule( name, new SandwichNode( breadCount, meatCount, cheeseCount ) );
+      return new Molecule( name, new SandwichNode( breadCount, meatCount, cheeseCount, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) );
     },
 
     // molecules

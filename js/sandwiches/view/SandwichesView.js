@@ -90,9 +90,14 @@ define( function( require ) {
         reactionBoxesNode.dispose();
         rootNode.removeChild( reactionBoxesNode );
       }
-      reactionBoxesNode = new ReactionBoxesNode( reaction,
-        viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty,
-        { showSymbols: false, left: 40, top: playAreaTop + 10, beforeTitle: beforeSandwichString, afterTitle: afterSandwichString } );
+      reactionBoxesNode = new ReactionBoxesNode( reaction, viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty, {
+        showSymbols: false,
+        left: 40,
+        top: playAreaTop + 10,
+        beforeTitle: beforeSandwichString,
+        afterTitle: afterSandwichString,
+        boxYMargin: ( reaction instanceof CustomSandwich ) ? 12 : 6
+      } );
       rootNode.addChild( reactionBoxesNode );
     } );
   }

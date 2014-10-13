@@ -19,15 +19,15 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
-   * @param {Property.<number>} quantityProperty
-   * @param {Node} imageNode
+   * @param {Property.<number>} quantityProperty the number of nodes in the stack
+   * @param {Property.<Node>} nodeProperty the node that we're stacking
    * @param {number} centerX the centerX of all molecules in the stack
    * @param {number} startCenterY the centerY of the molecule at the bottom of the stack
    * @param {number} deltaY the vertical spacing between the centers of molecules in the stack
    * @param {Object} [options]
    * @constructor
    */
-  function MoleculeStackNode( quantityProperty, imageNode, centerX, startCenterY, deltaY, options ) {
+  function MoleculeStackNode( quantityProperty, nodeProperty, centerX, startCenterY, deltaY, options ) {
 
     var thisNode = this;
     Node.call( thisNode );
@@ -43,7 +43,7 @@ define( function( require ) {
         else {
           // add a molecule
           thisNode.addChild( new Node( {
-            children: [ imageNode ],
+            children: [ nodeProperty.get() ],
             centerX: centerX,
             centerY: startCenterY - ( i * deltaY )
           } ) );
@@ -52,9 +52,17 @@ define( function( require ) {
     };
     quantityProperty.link( quantityPropertyObserver );
 
+    // When the node changes
+    var nodePropertyObserver = function( node ) {
+      thisNode.removeAllChildren();
+      quantityPropertyObserver( quantityProperty.get() );
+    };
+    nodeProperty.link( nodePropertyObserver );
+
     // @public Unlinks all property observers. The node is no longer functional after calling this function.
     thisNode.dispose = function() {
       quantityProperty.unlink( quantityPropertyObserver );
+      nodeProperty.unlink( nodePropertyObserver );
     };
 
     thisNode.mutate( options );

@@ -18,6 +18,9 @@ define( function( require ) {
   var cheeseImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/cheese.png' );
   var meatImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/meat.png' );
 
+  // constants
+  var Y_SPACING = 3; // vertical space between centers of ingredients
+
   /**
    * @param {number} breadCount
    * @param {number} meatCount
@@ -32,12 +35,11 @@ define( function( require ) {
     Node.call( this );
 
     var centerY = 0;
-    var dy = -4;
 
     // slice of bread on the bottom
     if ( breadCount > 0 ) {
       this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
-      centerY += dy;
+      centerY -= Y_SPACING;
       breadCount--;
     }
 
@@ -47,19 +49,19 @@ define( function( require ) {
       imageAdded = false;
       if ( meatCount > 0 ) {
         this.addChild( new Image( meatImage, { centerX: 0, centerY: centerY } ) );
-        centerY += dy;
+        centerY -= Y_SPACING;
         imageAdded = true;
         meatCount--;
       }
       if ( cheeseCount > 0 ) {
         this.addChild( new Image( cheeseImage, { centerX: 0, centerY: centerY } ) );
-        centerY += dy;
+        centerY -= Y_SPACING;
         imageAdded = true;
         cheeseCount--;
       }
       if ( breadCount > 1 ) { // save one slice of bread for the top
         this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
-        centerY += dy;
+        centerY -= Y_SPACING;
         imageAdded = true;
         breadCount--;
       }
