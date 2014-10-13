@@ -11,6 +11,7 @@ MEDIUM
 - random layout strategy for molecules in boxes
 - finish ReactionFactory
 - consolidate loop iterations in ReactionBoxesNode
+- Game screen
 
 LOW
 - remove uses of instanceof
