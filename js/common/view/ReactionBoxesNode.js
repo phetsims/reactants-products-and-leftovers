@@ -118,11 +118,6 @@ define( function( require ) {
     var imageNodes = [];
     var symbolNodes = [];
 
-    // compute the max height of quantity and image components, to aid in vertical alignment
-    var maxQuantityHeight = 0;
-    var maxImageHeight = options.maxImageSize.height;
-    var maxSymbolHeight = 0;
-
     // explicitly hoist vars that are reused in loops
     var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode, moleculeStackNode;
 
@@ -141,20 +136,17 @@ define( function( require ) {
       quantityNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange, { font: QUANTITY_FONT, centerX: centerX } );
       reactantsParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
-      maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
       // image
       imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
       reactantsParent.addChild( imageNode );
       imageNodes.push( imageNode );
-      maxImageHeight = Math.max( maxImageHeight, imageNode.height );
 
       // symbol
       if ( options.showSymbols ) {
         symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
-        maxSymbolHeight = Math.max( maxSymbolHeight, symbolNode.height );
       }
 
       centerX += deltaX;
@@ -175,20 +167,17 @@ define( function( require ) {
       quantityNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
       productsParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
-      maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
       // image
       imageNode = new Node( { children: [ product.molecule.node ], centerX: quantityNode.centerX } );
       productsParent.addChild( imageNode );
       imageNodes.push( imageNode );
-      maxImageHeight = Math.max( maxImageHeight, imageNode.height );
 
       // symbol
       if ( options.showSymbols ) {
         symbolNode = new SubSupText( product.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         productsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
-        maxSymbolHeight = Math.max( maxSymbolHeight, symbolNode.height );
       }
 
       centerX += deltaX;
@@ -205,29 +194,29 @@ define( function( require ) {
       quantityNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
       leftoversParent.addChild( quantityNode );
       quantityNodes.push( quantityNode );
-      maxQuantityHeight = Math.max( maxQuantityHeight, quantityNode.height );
 
       // image
       imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
       leftoversParent.addChild( imageNode );
       imageNodes.push( imageNode );
-      maxImageHeight = Math.max( maxImageHeight, imageNode.height );
 
       // symbol
       if ( options.showSymbols ) {
         symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         leftoversParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
-        maxSymbolHeight = Math.max( maxSymbolHeight, symbolNode.height );
       }
 
       centerX += deltaX;
     }
 
     // vertical layout of components below the boxes
-    var numberOfQuantityNodes = quantityNodes.length;
+    var maxQuantityHeight = _.max( quantityNodes, function( node ) { return node.height; } ).height;
+    var maxImageHeight = Math.max( options.maxImageSize.height, _.max( imageNodes, function( node ) { return node.height; } ).height );
+    var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
+    var numberOfColumns = quantityNodes.length;
     var componentsTop = beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
-    for ( i = 0; i < numberOfQuantityNodes; i++ ) {
+    for ( i = 0; i < numberOfColumns; i++ ) {
       quantityNodes[i].centerY = componentsTop + ( maxQuantityHeight / 2 );
       imageNodes[i].centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
       if ( options.showSymbols ) {
