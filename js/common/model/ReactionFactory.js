@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CustomSandwich = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/CustomSandwich' );
   var MoleculeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/MoleculeFactory' );
   var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
   var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
@@ -17,7 +18,6 @@ define( function( require ) {
   // strings
   var cheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/cheese' );
   var meatAndCheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/meatAndCheese' );
-  var customString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/custom' );
   var combustMethaneString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/combustMethane' );
   var makeAmmoniaString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeAmmonia' );
   var makeWaterString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeWater' );
@@ -42,12 +42,8 @@ define( function( require ) {
         { name: meatAndCheeseString } );
     },
 
-    // Note that reactant coefficients are mutable
     customSandwich: function() {
-      return new Reaction(
-        [ new Reactant( 3, MoleculeFactory.bread() ), new Reactant( 3, MoleculeFactory.meat() ), new Reactant( 3, MoleculeFactory.cheese() ) ],
-        [ new Product( 1, MoleculeFactory.sandwich( 'customSandwich', 3, 3, 3 ) ) ],
-        { name: customString, reactantCoefficientsMutable: true } );
+      return new CustomSandwich();
     },
 
     //---------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays the equation for a reaction.
+ * Displays the equation for a custom sandwich.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,9 +11,11 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
   var Property = require( 'AXON/Property' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -25,14 +27,15 @@ define( function( require ) {
   var TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
   var PLUS_OPTIONS = { fill: 'white' };
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
+  var PICKER_OPTIONS = { font: new RPALFont( 28 ), color: 'yellow', xMargin: 6, cornerRadius: 3 };
+  var COEFFICIENT_RANGE_PROPERTY = new Property( RPALConstants.COEFFICIENT_RANGE );
 
   /**
    * Creates terms for equation.
    * @param {Substance[]} terms the terms to be added
-   * @param {boolean} showSymbols true = show molecule symbol, false = show molecule node
    * @returns {Node}
    */
-  var createTermsNode = function( terms, showSymbols ) {
+  var createTermsNode = function( terms ) {
 
     var parentNode = new Node();
     var numberOfTerms = terms.length;
@@ -41,16 +44,14 @@ define( function( require ) {
     for ( var i = 0; i < numberOfTerms; i++ ) {
 
       // coefficient
-      coefficientNode = new Text( terms[i].coefficient, TEXT_OPTIONS );
+      coefficientNode = new NumberPicker( terms[i].coefficientProperty, COEFFICIENT_RANGE_PROPERTY, PICKER_OPTIONS );
       coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
       parentNode.addChild( coefficientNode );
 
       // molecule
-      moleculeNode = showSymbols ? new SubSupText( terms[i].molecule.symbol, TEXT_OPTIONS ) : new Node( { children: [ terms[i].molecule.node ] } );
+      moleculeNode = new Node( { children: [ terms[i].molecule.node ] } );
       moleculeNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
-      if ( !showSymbols ) {
-        moleculeNode.centerY = coefficientNode.centerY;
-      }
+      moleculeNode.centerY = coefficientNode.centerY;
       parentNode.addChild( moleculeNode );
 
       // plus sign between terms
@@ -73,38 +74,27 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function EquationNode( reaction, options ) {
+  function CustomSandwichEquationNode( reaction, options ) {
 
-    options = _.extend( {
-      showSymbols: true // true = show molecule symbol, false = show molecule node
-    }, options );
-
-    Node.call( this );
+    options = options || {};
 
     // left-hand side of the formula (reactants)
-    var reactantsNode = createTermsNode( reaction.reactants, options.showSymbols );
-    this.addChild( reactantsNode );
+    var reactantsNode = createTermsNode( reaction.reactants );
 
     // right arrow
     var arrowNode = new RightArrowNode( ARROW_OPTIONS );
     arrowNode.left = reactantsNode.right + ARROW_X_SPACING;
     var coefficientHeight = new Text( '1', TEXT_OPTIONS ).height;
-    if ( options.showSymbols ) {
-      arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
-    }
-    else {
-      arrowNode.centerY = reactantsNode.centerY;
-    }
-    this.addChild( arrowNode );
+    arrowNode.centerY = reactantsNode.centerY;
 
     // right-hand side of the formula (products)
-    var productsNode = createTermsNode( reaction.products, options.showSymbols );
+    var productsNode = createTermsNode( reaction.products );
     productsNode.left = arrowNode.right + ARROW_X_SPACING;
-    if ( !options.showSymbols ) { productsNode.centerY = arrowNode.centerY; }
-    this.addChild( productsNode );
+    productsNode.centerY = arrowNode.centerY;
 
-    this.mutate( options );
+    options.children = [ reactantsNode, arrowNode, productsNode ];
+    Node.call( this, options );
   }
 
-  return inherit( Node, EquationNode );
+  return inherit( Node, CustomSandwichEquationNode );
 } );

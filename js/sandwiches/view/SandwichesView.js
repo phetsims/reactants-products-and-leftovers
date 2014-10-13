@@ -10,6 +10,8 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CustomSandwich = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/CustomSandwich' );
+  var CustomSandwichEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/CustomSandwichEquationNode' );
   var EquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/EquationNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -41,7 +43,14 @@ define( function( require ) {
 
     // static UI components
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
-      function( reaction ) { return new EquationNode( reaction, { showSymbols: false } ); },
+      function( reaction ) {
+        if ( reaction instanceof CustomSandwich ) {
+          return new CustomSandwichEquationNode( reaction );
+        }
+        else {
+          return new EquationNode( reaction, { showSymbols: false } );
+        }
+      },
       { screenWidth: this.layoutBounds.width } );
     var resetAllButton = new ResetAllButton( {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
