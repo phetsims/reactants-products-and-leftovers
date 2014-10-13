@@ -1,3 +1,4 @@
+10/13/14 change the custom sandwich image based on the coefficients of the reactants
 10/13/14 handle custom sandwich as a special case, since it's so different than static reactions
 10/13/14 add createEquationNode parameter to ReactionBarNode
 10/13/14 add NumberPickers for reactant coefficients in "custom sandwich" equation

@@ -12,7 +12,9 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Molecule = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Molecule' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALSymbols = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALSymbols' );
+  var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
 
   // modules (molecules)
   var CNode = require( 'NITROGLYCERIN/nodes/CNode' );
@@ -57,69 +59,15 @@ define( function( require ) {
 
   // constants
   var ATOM_OPTIONS = { stroke: 'black', lineWidth:  0.5, scale: 1 };
-  var SANDWICH_IMAGE_SCALE = 0.65; //TODO scale the image files?
-
-  /**
-   * Creates a node for a specified sandwich.
-   * @param {number} breadCount
-   * @param {number} meatCount
-   * @param {number} cheeseCount
-   * @return {Node}
-   */
-  var createSandwichNode = function( breadCount, meatCount, cheeseCount ) {
-
-    var parent = new Node( { scale: SANDWICH_IMAGE_SCALE } );
-
-    var centerY = 0;
-    var dy = -4;
-
-    // slice of bread on the bottom
-    if ( breadCount > 0 ) {
-      parent.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
-      centerY += dy;
-      breadCount--;
-    }
-
-    // alternate between meat, cheese and bread
-    var imageAdded = true;
-    while ( imageAdded ) {
-      imageAdded = false;
-      if ( meatCount > 0 ) {
-        parent.addChild( new Image( meatImage, { centerX: 0, centerY: centerY } ) );
-        centerY += dy;
-        imageAdded = true;
-        meatCount--;
-      }
-      if ( cheeseCount > 0 ) {
-        parent.addChild( new Image( cheeseImage, { centerX: 0, centerY: centerY } ) );
-        centerY += dy;
-        imageAdded = true;
-        cheeseCount--;
-      }
-      if ( breadCount > 1 ) { // save one slice of bread for the top
-        parent.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
-        centerY += dy;
-        imageAdded = true;
-        breadCount--;
-      }
-    }
-
-    // slice of bread on the top
-    if ( breadCount > 0 ) {
-      parent.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
-    }
-
-    return parent;
-  };
 
   return {
 
     // sandwich components
-    bread: function() { return new Molecule( RPALSymbols.BREAD, new Image( breadImage, { scale: SANDWICH_IMAGE_SCALE } ) ); },
-    cheese: function() { return new Molecule( RPALSymbols.CHEESE, new Image( cheeseImage, { scale: SANDWICH_IMAGE_SCALE } ) ); },
-    meat: function() { return new Molecule( RPALSymbols.MEAT, new Image( meatImage, { scale: SANDWICH_IMAGE_SCALE } ) ); },
+    bread: function() { return new Molecule( RPALSymbols.BREAD, new Image( breadImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
+    cheese: function() { return new Molecule( RPALSymbols.CHEESE, new Image( cheeseImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
+    meat: function() { return new Molecule( RPALSymbols.MEAT, new Image( meatImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
     sandwich: function( name, breadCount, meatCount, cheeseCount ) {
-      return new Molecule( name, createSandwichNode( breadCount, meatCount, cheeseCount ) );
+      return new Molecule( name, new SandwichNode( breadCount, meatCount, cheeseCount ) );
     },
 
     // molecules

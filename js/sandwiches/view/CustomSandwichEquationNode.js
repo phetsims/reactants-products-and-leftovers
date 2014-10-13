@@ -78,7 +78,7 @@ define( function( require ) {
 
     options = options || {};
 
-    // left-hand side of the formula (reactants)
+    // left-hand side is the sandwich ingredients
     var reactantsNode = createTermsNode( reaction.reactants );
 
     // right arrow
@@ -87,12 +87,18 @@ define( function( require ) {
     var coefficientHeight = new Text( '1', TEXT_OPTIONS ).height;
     arrowNode.centerY = reactantsNode.centerY;
 
-    // right-hand side of the formula (products)
-    var productsNode = createTermsNode( reaction.products );
-    productsNode.left = arrowNode.right + ARROW_X_SPACING;
-    productsNode.centerY = arrowNode.centerY;
+    // right-hand side is the sandwich, whose image changes based on coefficients of the ingredients
+    assert && assert( reaction.products.length === 1 );
+    var productsParent = new Node();
+    reaction.products[0].molecule.nodeProperty.link( function( node ) {
+        productsParent.removeAllChildren();
+        productsParent.addChild( node );
+        productsParent.left = arrowNode.right + ARROW_X_SPACING;
+        productsParent.centerY = arrowNode.centerY;
+      }
+    );
 
-    options.children = [ reactantsNode, arrowNode, productsNode ];
+    options.children = [ reactantsNode, arrowNode, productsParent ];
     Node.call( this, options );
   }
 
