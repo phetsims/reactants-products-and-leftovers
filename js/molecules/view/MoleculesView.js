@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/EquationNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesEquationNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ReactionBarNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBarNode' );
@@ -36,7 +36,7 @@ define( function( require ) {
 
     // static UI components
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
-      function( reaction ) { return new EquationNode( reaction, { showSymbols: true } ); },
+      function( reaction ) { return new MoleculesEquationNode( reaction ); },
       { screenWidth: this.layoutBounds.width } );
     var resetAllButton = new ResetAllButton( {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,

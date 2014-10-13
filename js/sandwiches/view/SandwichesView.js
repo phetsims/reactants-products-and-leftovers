@@ -11,9 +11,7 @@ define( function( require ) {
 
   // modules
   var CustomSandwich = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/CustomSandwich' );
-  var CustomSandwichEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/CustomSandwichEquationNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var EquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/EquationNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -21,6 +19,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
+  var SandwichesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesEquationNode' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ReactionBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBoxesNode' );
@@ -45,14 +44,7 @@ define( function( require ) {
 
     // static UI components
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
-      function( reaction ) {
-        if ( reaction instanceof CustomSandwich ) {
-          return new CustomSandwichEquationNode( reaction );
-        }
-        else {
-          return new EquationNode( reaction, { showSymbols: false } );
-        }
-      },
+      function( reaction ) { return new SandwichesEquationNode( reaction ); },
       { screenWidth: this.layoutBounds.width } );
     var resetAllButton = new ResetAllButton( {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,

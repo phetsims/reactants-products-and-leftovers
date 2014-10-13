@@ -1,7 +1,13 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays the equation for a custom sandwich.
+ * Equations for the "Sandwiches" screen.
+ * This differs from the "Molecules" screen equation is a few key ways:
+ *
+ * 1. Terms are images instead of formulae.
+ * 2. Reactant coefficients are mutable for the "custom" sandwich
+ * 3. The "custom" sandwich reaction may not be well-defined.
+ * 4. Appearance (fonts, sizes, spacing, ...) needs to be separately tweakable.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -38,9 +44,10 @@ define( function( require ) {
   /**
    * Creates terms for equation.
    * @param {Substance[]} terms the terms to be added
+   * @param {boolean} coefficientsMutable
    * @returns {Node}
    */
-  var createTermsNode = function( terms ) {
+  var createTermsNode = function( terms, coefficientsMutable ) {
 
     var parentNode = new Node();
     var numberOfTerms = terms.length;
@@ -49,7 +56,12 @@ define( function( require ) {
     for ( var i = 0; i < numberOfTerms; i++ ) {
 
       // coefficient
-      coefficientNode = new NumberPicker( terms[i].coefficientProperty, COEFFICIENT_RANGE_PROPERTY, PICKER_OPTIONS );
+      if ( coefficientsMutable ) {
+        coefficientNode = new NumberPicker( terms[i].coefficientProperty, COEFFICIENT_RANGE_PROPERTY, PICKER_OPTIONS );
+      }
+      else {
+        coefficientNode = new Text( terms[i].coefficient, TEXT_OPTIONS );
+      }
       coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
       parentNode.addChild( coefficientNode );
 
@@ -79,14 +91,12 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function CustomSandwichEquationNode( reaction, options ) {
-
-    assert( reaction instanceof CustomSandwich );
+  function SandwichesEquationNode( reaction, options ) {
 
     options = options || {};
 
     // left-hand side is the sandwich ingredients
-    var reactantsNode = createTermsNode( reaction.reactants );
+    var reactantsNode = createTermsNode( reaction.reactants, reaction.reactantCoefficientsMutable );
 
     // right arrow
     var arrowNode = new RightArrowNode( ARROW_OPTIONS );
@@ -94,25 +104,33 @@ define( function( require ) {
     var coefficientHeight = new Text( '1', TEXT_OPTIONS ).height;
     arrowNode.centerY = reactantsNode.centerY;
 
-    // right-hand side is the sandwich, whose image changes based on coefficients of the ingredients
+    // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
     assert && assert( reaction.products.length === 1 );
     var productsParent = new Node();
-    reaction.products[0].molecule.nodeProperty.link( function( node ) {
-        productsParent.removeAllChildren();
-        if ( reaction.isReaction() ) {
-          productsParent.addChild( node );
-        }
-        else {
-          productsParent.addChild( NO_REACTION_NODE );
-        }
-        productsParent.left = arrowNode.right + ARROW_X_SPACING;
-        productsParent.centerY = arrowNode.centerY;
+    this.nodePropertyObserver = function( node ) {
+      productsParent.removeAllChildren();
+      if ( reaction.isReaction() ) {
+        productsParent.addChild( node );
       }
-    );
+      else {
+        productsParent.addChild( NO_REACTION_NODE );
+      }
+      productsParent.left = arrowNode.right + ARROW_X_SPACING;
+      productsParent.centerY = arrowNode.centerY;
+    };
+
+    this.nodeProperty = reaction.products[0].molecule.nodeProperty;
+    this.nodeProperty.link( this.nodePropertyObserver );
 
     options.children = [ reactantsNode, arrowNode, productsParent ];
     Node.call( this, options );
   }
 
-  return inherit( Node, CustomSandwichEquationNode );
+  return inherit( Node, SandwichesEquationNode, {
+
+    // @public Unlinks from properties. The node is no longer functional after calling this function.
+    dispose: function() {
+       this.nodeProperty.unlink( this.nodePropertyObserver );
+    }
+  } );
 } );

@@ -51,11 +51,17 @@ define( function( require ) {
     options.children = [ backgroundNode, equationParent, reactionChoiceNode ];
     Node.call( this, options );
 
+    var equationNode = null; // @private
     reactionProperty.link( function( reaction ) {
+
+      if ( equationNode && equationNode.dispose ) {
+        equationNode.dispose();
+      }
+      equationNode = createEquationNode( reaction );
 
       // create the new equation node
       equationParent.removeAllChildren();
-      equationParent.addChild( createEquationNode( reaction ) );
+      equationParent.addChild( equationNode );
       equationParent.setScaleMagnitude( 1 );
 
       // scale the equation if it's too wide to fit the available space

@@ -118,6 +118,7 @@ define( function( require ) {
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     this.quantityNodes = []; // @private
     var imageNodes = [];
+    this.productImageNode = []; // @private needed for 'custom sandwich' scenario
     var symbolNodes = [];
 
     // explicitly hoist vars that are reused in loops
@@ -174,6 +175,7 @@ define( function( require ) {
       imageNode = new Node( { children: [ product.molecule.node ], centerX: quantityNode.centerX } );
       productsParent.addChild( imageNode );
       imageNodes.push( imageNode );
+      this.productImageNode.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {

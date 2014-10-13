@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays the equation for a reaction whose coefficients are immutable.
+ * Equation for the 'Molecules' screen. Coefficients are immutable and molecule symbols are displayed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -29,14 +29,13 @@ define( function( require ) {
   /**
    * Creates terms for equation.
    * @param {Substance[]} terms the terms to be added
-   * @param {boolean} showSymbols true = show molecule symbol, false = show molecule node
    * @returns {Node}
    */
-  var createTermsNode = function( terms, showSymbols ) {
+  var createTermsNode = function( terms ) {
 
     var parentNode = new Node();
     var numberOfTerms = terms.length;
-    var coefficientNode, moleculeNode, plusNode; // hoist loop vars explicitly
+    var coefficientNode, symbolNode, plusNode; // hoist loop vars explicitly
 
     for ( var i = 0; i < numberOfTerms; i++ ) {
 
@@ -46,17 +45,14 @@ define( function( require ) {
       parentNode.addChild( coefficientNode );
 
       // molecule
-      moleculeNode = showSymbols ? new SubSupText( terms[i].molecule.symbol, TEXT_OPTIONS ) : new Node( { children: [ terms[i].molecule.node ] } );
-      moleculeNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
-      if ( !showSymbols ) {
-        moleculeNode.centerY = coefficientNode.centerY;
-      }
-      parentNode.addChild( moleculeNode );
+      symbolNode = new SubSupText( terms[i].molecule.symbol, TEXT_OPTIONS );
+      symbolNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
+      parentNode.addChild( symbolNode );
 
       // plus sign between terms
       if ( i < numberOfTerms - 1 ) {
         plusNode = new PlusNode( PLUS_OPTIONS );
-        plusNode.left = moleculeNode.right + PLUS_X_SPACING;
+        plusNode.left = symbolNode.right + PLUS_X_SPACING;
         plusNode.centerY = coefficientNode.centerY;
         parentNode.addChild( plusNode );
       }
@@ -73,38 +69,28 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function EquationNode( reaction, options ) {
-
-    options = _.extend( {
-      showSymbols: true // true = show molecule symbol, false = show molecule node
-    }, options );
+  function MoleculesEquationNode( reaction, options ) {
 
     Node.call( this );
 
-    // left-hand side of the formula (reactants)
-    var reactantsNode = createTermsNode( reaction.reactants, options.showSymbols );
+    // left-hand side (reactants)
+    var reactantsNode = createTermsNode( reaction.reactants );
     this.addChild( reactantsNode );
 
     // right arrow
     var arrowNode = new RightArrowNode( ARROW_OPTIONS );
     arrowNode.left = reactantsNode.right + ARROW_X_SPACING;
     var coefficientHeight = new Text( '1', TEXT_OPTIONS ).height;
-    if ( options.showSymbols ) {
-      arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
-    }
-    else {
-      arrowNode.centerY = reactantsNode.centerY;
-    }
+    arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
     this.addChild( arrowNode );
 
-    // right-hand side of the formula (products)
-    var productsNode = createTermsNode( reaction.products, options.showSymbols );
+    // right-hand side (products)
+    var productsNode = createTermsNode( reaction.products );
     productsNode.left = arrowNode.right + ARROW_X_SPACING;
-    if ( !options.showSymbols ) { productsNode.centerY = arrowNode.centerY; }
     this.addChild( productsNode );
 
     this.mutate( options );
   }
 
-  return inherit( Node, EquationNode );
+  return inherit( Node, MoleculesEquationNode );
 } );
