@@ -11,8 +11,11 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
+  var Property = require( 'AXON/Property' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -24,14 +27,19 @@ define( function( require ) {
   var TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
   var PLUS_OPTIONS = { fill: 'white' };
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
+  var PICKER_OPTIONS = { font: new RPALFont( 28 ), color: 'yellow', xMargin: 6, cornerRadius: 3 };
+  var COEFFICIENT_RANGE_PROPERTY = new Property( RPALConstants.COEFFICIENT_RANGE );
 
   /**
    * Creates terms for equation.
    * @param {Substance[]} terms the terms to be added
    * @param {boolean} showSymbols true = show molecule symbol, false = show molecule node
+   * @param {boolean} [coefficientMutable]
    * @returns {Node}
    */
-  var createTermsNode = function( terms, showSymbols ) {
+  var createTermsNode = function( terms, showSymbols, coefficientMutable ) {
+
+    coefficientMutable = coefficientMutable || false;
 
     var parentNode = new Node();
     var numberOfTerms = terms.length;
@@ -40,7 +48,12 @@ define( function( require ) {
     for ( var i = 0; i < numberOfTerms; i++ ) {
 
       // coefficient
-      coefficientNode = new Text( terms[i].coefficient, TEXT_OPTIONS );
+      if ( coefficientMutable ) {
+        coefficientNode = new NumberPicker( terms[i].coefficientProperty, COEFFICIENT_RANGE_PROPERTY, PICKER_OPTIONS );
+      }
+      else {
+        coefficientNode = new Text( terms[i].coefficient, TEXT_OPTIONS );
+      }
       coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
       parentNode.addChild( coefficientNode );
 
@@ -81,19 +94,25 @@ define( function( require ) {
     Node.call( this );
 
     // left-hand side of the formula (reactants)
-    var reactantsNode = createTermsNode( reaction.reactants, options.showSymbols );
+    var reactantsNode = createTermsNode( reaction.reactants, options.showSymbols, reaction.reactantCoefficientsMutable );
     this.addChild( reactantsNode );
 
     // right arrow
     var arrowNode = new RightArrowNode( ARROW_OPTIONS );
     arrowNode.left = reactantsNode.right + ARROW_X_SPACING;
     var coefficientHeight = new Text( '1', TEXT_OPTIONS ).height;
-    arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
+    if ( options.showSymbols ) {
+      arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
+    }
+    else {
+      arrowNode.centerY = reactantsNode.centerY;
+    }
     this.addChild( arrowNode );
 
     // right-hand side of the formula (products)
     var productsNode = createTermsNode( reaction.products, options.showSymbols );
     productsNode.left = arrowNode.right + ARROW_X_SPACING;
+    if ( !options.showSymbols ) { productsNode.centerY = arrowNode.centerY; }
     this.addChild( productsNode );
 
     this.mutate( options );
