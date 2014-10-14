@@ -2,7 +2,6 @@ TODO list for reactants-products-and-leftovers
 
 DESIGN
 - 'no reaction' won't fit in custom sandwich equation
-- Sandwiches: keep the same amount of vertical spacing below boxes for all 'reactions', so that things don't move around so much?
 
 HIGH
 

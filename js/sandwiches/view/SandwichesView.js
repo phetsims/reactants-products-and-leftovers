@@ -97,11 +97,11 @@ define( function( require ) {
         left: 40,
         top: playAreaTop + 10,
         beforeTitle: beforeSandwichString,
-        afterTitle: afterSandwichString
+        afterTitle: afterSandwichString,
+        maxImageSize: maxSandwichSize
       };
       if ( reaction.reactantCoefficientsMutable ) {
         boxOptions.boxYMargin = 12;
-        boxOptions.maxImageSize = maxSandwichSize;
       }
 
       // create the new box
