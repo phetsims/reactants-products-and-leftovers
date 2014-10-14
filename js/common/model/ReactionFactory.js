@@ -251,14 +251,163 @@ define( function( require ) {
     combustMethane: function() {
       return new Reaction(
         [ new Reactant( 1, RPALSymbols.CH4, new CH4Node( ATOM_OPTIONS ) ),
-          new Reactant( 2, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) )
-        ],
+          new Reactant( 2, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
         [ new Product( 1, RPALSymbols.CO2, new CO2Node( ATOM_OPTIONS ) ),
-          new Product( 2, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) )
-        ],
+          new Product( 2, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ],
         { name: combustMethaneString } );
-    }
+    },
 
-    //TODO add additional reactions from java.TwoProductReactions
+    // 2C + 2H2O -> CH4 + CO2
+    Reaction_2C_2H2O__CH4_CO2: function() {
+      return new Reaction(
+        [ new Reactant( 2, RPALSymbols.C, new CNode( ATOM_OPTIONS ) ),
+          new Reactant( 2, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ],
+        [ new Product( 1, RPALSymbols.CH4, new CH4Node( ATOM_OPTIONS ) ),
+          new Product( 1, RPALSymbols.CO2, new CO2Node( ATOM_OPTIONS ) ) ] );
+    },
+
+    // CH4 + H2O -> 3H2 + CO
+    Reaction_CH4_H2O__3H2_CO: function() {
+      return new Reaction(
+        [ new Reactant( 1, RPALSymbols.CH4, new CH4Node( ATOM_OPTIONS ) ),
+          new Reactant( 1, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ],
+        [ new Product( 3, RPALSymbols.H2, new H2Node( ATOM_OPTIONS ) ),
+          new Product( 1, RPALSymbols.CO, new CONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // 2C2H6 + 7O2 -> 4CO2 + 6H2O
+    Reaction_2C2H6_7O2__4CO2_6H2O: function() {
+      return new Reaction(
+        [ new Reactant( 2, RPALSymbols.C2H6, new C2H6Node( ATOM_OPTIONS ) ),
+          new Reactant( 7, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 4, RPALSymbols.CO2, new CO2Node( ATOM_OPTIONS ) ),
+          new Product( 6, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // C2H4 + 3O2 -> 2CO2 + 2H2O
+    Reaction_C2H4_3O2__2CO2_2H2O: function() {
+      return new Reaction(
+        [ new Reactant( 1, RPALSymbols.C2H4, new C2H4Node( ATOM_OPTIONS ) ),
+          new Reactant( 3, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 2, RPALSymbols.CO2, new CO2Node( ATOM_OPTIONS ) ),
+          new Product( 2, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // 2C2H2 + 5O2 -> 4CO2 + 2H2O
+    Reaction_2C2H2_5O2__4CO2_2H2O: function() {
+      return new Reaction(
+        [ new Reactant( 2, RPALSymbols.C2H2, new C2H2Node( ATOM_OPTIONS ) ),
+          new Reactant( 5, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 4, RPALSymbols.CO2, new CO2Node( ATOM_OPTIONS ) ),
+          new Product( 2, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // C2H5OH + 3O2 -> 2CO2 + 3H2O
+    Reaction_C2H5OH_3O2__2CO2_3H2O: function() {
+      return new Reaction(
+        [ new Reactant( 1, RPALSymbols.C2H5O, new C2H5OHNode( ATOM_OPTIONS ) ),
+          new Reactant( 3, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 2, RPALSymbols.CO2, new CO2Node( ATOM_OPTIONS ) ),
+          new Product( 3, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // C2H6 + Cl2 -> C2H5Cl + HCl
+    Reaction_C2H6_Cl2__C2H5Cl_HCl: function() {
+      return new Reaction(
+        [ new Reactant( 1, RPALSymbols.C2H6, new C2H6Node( ATOM_OPTIONS ) ),
+          new Reactant( 1, RPALSymbols.Cl2, new Cl2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 1, RPALSymbols.C2H5Cl, new C2H5ClNode( ATOM_OPTIONS ) ),
+          new Product( 1, RPALSymbols.HCl, new HClNode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // CH4 + 4S -> CS2 + 2H2S
+    Reaction_CH4_4S__CS2_2H2S: function() {
+      return new Reaction(
+        [ new Reactant( 1, RPALSymbols.CH4, new CH4Node( ATOM_OPTIONS ) ),
+          new Reactant( 4, RPALSymbols.S, new SNode( ATOM_OPTIONS ) )],
+        [ new Product( 1, RPALSymbols.CS2, new CS2Node( ATOM_OPTIONS ) ),
+          new Product( 2, RPALSymbols.H2S, new H2SNode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // CS2 + 3O2 -> CO2 + 2SO2
+    Reaction_CS2_3O2__CO2_2SO2: function() {
+      return new Reaction(
+        [ new Reactant( 1, RPALSymbols.CS2, new CS2Node( ATOM_OPTIONS ) ),
+          new Reactant( 3, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 1, RPALSymbols.CO2, new CO2Node( ATOM_OPTIONS ) ),
+          new Product( 2, RPALSymbols.SO2, new SO2Node( ATOM_OPTIONS ) ) ] );
+    },
+
+    // 4NH3 + 3O2 -> 2N2 + 6H2O
+    Reaction_4NH3_3O2__2N2_6H2O: function() {
+      return new Reaction(
+        [ new Reactant( 4, RPALSymbols.NH3, new NH3Node( ATOM_OPTIONS ) ),
+          new Reactant( 3, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 2, RPALSymbols.N2, new N2Node( ATOM_OPTIONS ) ),
+          new Product( 6, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // 4NH3 + 5O2 -> 4NO + 6H2O
+    Reaction_4NH3_5O2__4NO_6H2O: function() {
+      return new Reaction(
+        [ new Reactant( 4, RPALSymbols.NH3, new NH3Node( ATOM_OPTIONS ) ),
+          new Reactant( 5, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 4, RPALSymbols.NO, new NONode( ATOM_OPTIONS ) ),
+          new Product( 6, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // 4NH3 + 7O2 -> 4NO2 + 6H2O
+    Reaction_4NH3_7O2__4NO2_6H2O: function() {
+      return new Reaction(
+        [ new Reactant( 4, RPALSymbols.NH3, new NH3Node( ATOM_OPTIONS ) ),
+          new Reactant( 7, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 4, RPALSymbols.NO2, new NO2Node( ATOM_OPTIONS ) ),
+          new Product( 6, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // 4NH3 + 6NO -> 5N2 + 6H2O
+    Reaction_4NH3_6NO__5N2_6H2O: function() {
+      return new Reaction(
+        [ new Reactant( 4, RPALSymbols.NH3, new NH3Node( ATOM_OPTIONS ) ),
+          new Reactant( 6, RPALSymbols.NO, new NONode( ATOM_OPTIONS ) ) ],
+        [ new Product( 5, RPALSymbols.N2, new N2Node( ATOM_OPTIONS ) ),
+          new Product( 6, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // SO2 + 2H2 -> S + 2H2O
+    Reaction_SO2_2H2__S_2H2O: function() {
+      return new Reaction(
+        [ new Reactant( 1, RPALSymbols.SO2, new SO2Node( ATOM_OPTIONS ) ),
+          new Reactant( 2, RPALSymbols.H2, new H2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 1, RPALSymbols.S, new SNode( ATOM_OPTIONS ) ),
+          new Product( 2, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // SO2 + 3H2 -> H2S + 2H2O
+    Reaction_SO2_3H2__H2S_2H2O: function() {
+      return new Reaction(
+        [ new Reactant( 1, RPALSymbols.SO2, new SO2Node( ATOM_OPTIONS ) ),
+          new Reactant( 3, RPALSymbols.H2, new H2Node( ATOM_OPTIONS ) ) ],
+        [ new Product( 1, RPALSymbols.H2S, new H2SNode( ATOM_OPTIONS ) ),
+          new Product( 2, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // 2F2 + H2O -> OF2 + 2HF
+    Reaction_2F2_H2O__OF2_2HF: function() {
+      return new Reaction(
+        [ new Reactant( 2, RPALSymbols.F2, new F2Node( ATOM_OPTIONS ) ),
+          new Reactant( 1, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ],
+        [ new Product( 1, RPALSymbols.OF2, new OF2Node( ATOM_OPTIONS ) ),
+          new Product( 2, RPALSymbols.HF, new HFNode( ATOM_OPTIONS ) ) ] );
+    },
+
+    // OF2 + H2O -> O2 + 2HF
+    Reaction_OF2_H2O__O2_2HF: function() {
+      return new Reaction(
+        [ new Reactant( 1, RPALSymbols.OF2, new OF2Node( ATOM_OPTIONS ) ),
+          new Reactant( 1, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ],
+        [ new Product( 1, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ),
+          new Product( 2, RPALSymbols.HF, new HFNode( ATOM_OPTIONS ) ) ] );
+    }
   };
 } );
