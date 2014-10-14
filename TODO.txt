@@ -4,15 +4,14 @@ DESIGN
 - 'no reaction' won't fit in custom sandwich equation
 
 HIGH
-
-
-MEDIUM
-- relocate Reset All buttons
-- random layout strategy for molecules in boxes
 - finish ReactionFactory
 - Game screen
 
+MEDIUM
+- random layout strategy for molecules in boxes
+
 LOW
+- relocate Reset All buttons
 - remove uses of instanceof
 - dev features for game (skip, play all, ...)
 - curves for brackets
