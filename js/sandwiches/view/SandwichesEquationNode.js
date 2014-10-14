@@ -20,13 +20,11 @@ define( function( require ) {
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
   var Property = require( 'AXON/Property' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
-
-  // strings
-  var noReactionString = '?'; //TODO showing "no reaction" creates big layout problems, we don't have room
 
   // constants
   var COEFFICIENT_X_SPACING = 10;
@@ -37,7 +35,7 @@ define( function( require ) {
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
   var PICKER_OPTIONS = { font: new RPALFont( 28 ), color: 'yellow', xMargin: 6, cornerRadius: 3 };
   var COEFFICIENT_RANGE_PROPERTY = new Property( RPALConstants.COEFFICIENT_RANGE );
-  var NO_REACTION_NODE = new Text( noReactionString, TEXT_OPTIONS );
+  var NO_REACTION_NODE = new Rectangle( 0, 0, 45, 45, { stroke: 'white', lineDash: [ 3, 3 ] } );
 
   /**
    * Creates terms for equation.
