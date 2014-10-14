@@ -1,7 +1,7 @@
+# 1.0.0-dev.4 10/14/14
 10/14/14 try a dashed square to represent "no reaction"
 10/14/14 Sandwiches: keep the same amount of vertical spacing below boxes for all 'reactions', so that things don't move up and down
 10/13/14 simplify interleaving of ingredients in SandwichNode
-# 1.0.0-dev.4 10/13/14
 10/13/14 fix: layout of products below 'After' box sometimes doesn't leave enough vertical space for max-size sandwich
 # 1.0.0-dev.3 10/13/14
 10/13/14 'Sandwiches' and 'Molecules' screens feature complete
