@@ -25,7 +25,7 @@ define( function( require ) {
     assert && assert( reaction.products.length === 1 );
 
     var thisNode = this;
-    ReactionBoxesNode.call( this, recipe, beforeExpandedProperty, afterExpandedProperty, options );
+    ReactionBoxesNode.call( this, reaction, beforeExpandedProperty, afterExpandedProperty, options );
 
     // Update the sandwich image when it changes
     if ( this.reaction.coefficientsMutable ) {
