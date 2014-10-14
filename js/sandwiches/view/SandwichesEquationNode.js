@@ -24,6 +24,7 @@ define( function( require ) {
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
+  var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
@@ -88,6 +89,8 @@ define( function( require ) {
    * @constructor
    */
   function SandwichesEquationNode( reaction, options ) {
+
+    assert && assert( reaction instanceof SandwichRecipe );
 
     options = options || {};
 

@@ -57,16 +57,16 @@ define( function( require ) {
       coefficientsMutable: false // {boolean} can coefficients of the ingredients can be changed?
     }, options );
 
-    var thisReaction = this;
-    this.coefficientsMutable = options.coefficientsMutable; // @public
+    var thisRecipe = this;
+    thisRecipe.coefficientsMutable = options.coefficientsMutable; // @public
 
     // sandwich ingredients (names are internal, no i18n required)
     var bread = createIngredient( 'bread', breadCount, breadImage );
     var meat =  createIngredient( 'meat', meatCount, meatImage );
     var cheese = createIngredient( 'cheese', cheeseCount, cheeseImage );
 
-    // sandwich image will be updated below
-    var sandwich = new Product( 1, new Molecule( 'sandwich', NO_SANDWICH_NODE ) );
+    // @public sandwich image will be updated below
+    thisRecipe.sandwich = new Product( 1, new Molecule( 'sandwich', NO_SANDWICH_NODE ) );
 
     var ingredients;
     if ( options.coefficientsMutable ) {
@@ -81,29 +81,29 @@ define( function( require ) {
       if ( cheeseCount > 0 ) { ingredients.push( cheese ); }
     }
 
-    Reaction.call( thisReaction, ingredients, [ sandwich ], { name: name } );
+    Reaction.call( thisRecipe, ingredients, [ thisRecipe.sandwich ], { name: name } );
 
     if ( options.coefficientsMutable ) {
 
       // Update the sandwich image to match the coefficients.
       var updateSandwichNode = function() {
-        if ( thisReaction.isReaction() ) {
-          sandwich.molecule.node = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient,
+        if ( thisRecipe.isReaction() ) {
+          thisRecipe.sandwich.molecule.node = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient,
             { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
         }
         else {
-          sandwich.molecule.node = NO_SANDWICH_NODE;
+          thisRecipe.sandwich.molecule.node = NO_SANDWICH_NODE;
         }
       };
 
       ingredients.forEach( function( ingredient ) {
-        ingredient.coefficientProperty.link( thisReaction.update.bind( thisReaction ) );
+        ingredient.coefficientProperty.link( thisRecipe.update.bind( thisRecipe ) );
         ingredient.coefficientProperty.link( updateSandwichNode );
       } );
     }
     else {
-      assert && assert( thisReaction.isReaction() );
-      sandwich.molecule.node = new SandwichNode( breadCount, meatCount, cheeseCount,
+      assert && assert( thisRecipe.isReaction() );
+      thisRecipe.sandwich.molecule.node = new SandwichNode( breadCount, meatCount, cheeseCount,
         { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
     }
   }

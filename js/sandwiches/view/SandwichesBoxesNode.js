@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ReactionBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBoxesNode' );
+  var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
 
   /**
    * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to be displayed
@@ -22,7 +23,7 @@ define( function( require ) {
    */
   function SandwichesBoxesNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
-    assert && assert( reaction.products.length === 1 );
+    assert && assert( reaction instanceof SandwichRecipe );
 
     var thisNode = this;
     ReactionBoxesNode.call( this, reaction, beforeExpandedProperty, afterExpandedProperty, options );
@@ -32,7 +33,7 @@ define( function( require ) {
       this.nodePropertyObserver = function( node ) {
         thisNode.setNodeForProduct( node, 0 /* productIndex */ );
       };
-      this.reaction.products[0].molecule.nodeProperty.link( this.nodePropertyObserver );
+      this.reaction.sandwich.molecule.nodeProperty.link( this.nodePropertyObserver );
     }
   }
 
@@ -42,7 +43,7 @@ define( function( require ) {
     dispose: function() {
       ReactionBoxesNode.prototype.dispose.call( this );
       if ( this.reaction.coefficientsMutable ) {
-        this.reaction.products[0].molecule.nodeProperty.unlink( this.nodePropertyObserver );
+        this.reaction.sandwich.molecule.nodeProperty.unlink( this.nodePropertyObserver );
       }
     }
   } );
