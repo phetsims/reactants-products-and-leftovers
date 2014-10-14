@@ -19,7 +19,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
-  var MoleculeStackNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculeStackNode' );
+  var SubstanceStackNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceStackNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
@@ -124,7 +124,7 @@ define( function( require ) {
     var symbolNodes = [];
 
     // explicitly hoist vars that are reused in loops
-    var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode, moleculeStackNode;
+    var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode, substanceStackNode;
 
     // reactants: stuff below the 'before' box
     var reactantsParent = new Node();
@@ -262,33 +262,35 @@ define( function( require ) {
     }, bracketOptions ) );
     thisNode.addChild( leftoversBracket );
 
-    // molecule stacks inside the 'before' and 'after' boxes
-    thisNode.moleculeStackNodes = []; // @private
+    // vertical stacks inside the 'before' and 'after' boxes
+    thisNode.substanceStackNodes = []; // @private
     var startCenterY = beforeContent.height - options.boxYMargin - ( maxImageHeight / 2 );
     var deltaY = ( beforeContent.height - ( 2 * options.boxYMargin ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
 
     // reactants inside the 'before' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
-      moleculeStackNode = new MoleculeStackNode( reactant.quantityProperty, reactant.nodeProperty,
-        thisNode.quantityNodes[i].centerX, startCenterY, deltaY );
-      beforeContent.addChild( moleculeStackNode );
+      substanceStackNode = new SubstanceStackNode( reactant, thisNode.quantityNodes[i].centerX, startCenterY, deltaY );
+      beforeContent.addChild( substanceStackNode );
+      thisNode.substanceStackNodes.push( substanceStackNode );
     }
 
     // products inside the 'after' box
     for ( i = 0; i < numberOfProducts; i++ ) {
       product = reaction.products[i];
-      moleculeStackNode = new MoleculeStackNode( product.quantityProperty, product.nodeProperty,
-          thisNode.quantityNodes[i + numberOfReactants ].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left ), startCenterY, deltaY );
-      afterContent.addChild( moleculeStackNode );
+      centerX = thisNode.quantityNodes[i + numberOfReactants].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left );
+      substanceStackNode = new SubstanceStackNode( product, centerX, startCenterY, deltaY );
+      afterContent.addChild( substanceStackNode );
+      thisNode.substanceStackNodes.push( substanceStackNode );
     }
 
     // leftovers inside the 'after' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
-      moleculeStackNode = new MoleculeStackNode( reactant.leftoversProperty, reactant.nodeProperty,
-          thisNode.quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left ), startCenterY, deltaY );
-      afterContent.addChild( moleculeStackNode );
+      centerX = thisNode.quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left );
+      substanceStackNode = new SubstanceStackNode( reactant, centerX, startCenterY, deltaY );
+      afterContent.addChild( substanceStackNode );
+      thisNode.substanceStackNodes.push( substanceStackNode );
     }
 
     // pass options to supertype
@@ -322,14 +324,10 @@ define( function( require ) {
       this.afterBox.dispose();
 
       // quantity spinners and displays
-      this.quantityNodes.forEach( function( quantityNode ) {
-        quantityNode.dispose();
-      } );
+      this.quantityNodes.forEach( function( node ) { node.dispose(); } );
 
-      // molecule stacks
-      this.moleculeStackNodes.forEach( function( moleculeStackNode ) {
-        moleculeStackNode.dispose();
-      } );
+      // substance stacks
+      this.substanceStackNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );

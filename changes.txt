@@ -1,3 +1,4 @@
+10/14/14 rename MoleculeStackNode to SubstanceStackNode, simplify constructor
 10/14/14 collapse Molecule into Substance, MoleculeFactory into ReactionFactory
 10/14/14 use thisBlah consistently
 10/14/14 clean up and checking in clients of SandwichRecipe
