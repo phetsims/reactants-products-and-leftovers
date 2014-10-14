@@ -11,15 +11,20 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
+  var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
+
+  // strings
+  var cheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/cheese' );
+  var customString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/custom' );
+  var meatAndCheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/meatAndCheese' );
 
   function SandwichesModel() {
 
-    // reaction choices
+    // sandwich recipe choices, numeric args are: bread, meat, cheese
     this.reactions = [
-      ReactionFactory.cheeseSandwich( 2, 1 ), // bread, cheese
-      ReactionFactory.meatAndCheeseSandwich( 2, 1, 1 ), // bread, meat, cheese
-      ReactionFactory.customSandwich( 0, 0, 0 ) // bread, meat, cheese
+      new SandwichRecipe( cheeseString, 2, 0, 1 ),
+      new SandwichRecipe( meatAndCheeseString, 2, 1, 1 ),
+      new SandwichRecipe( customString, 0, 0, 0, { coefficientsMutable: true } )
     ];
 
     PropertySet.call( this, {

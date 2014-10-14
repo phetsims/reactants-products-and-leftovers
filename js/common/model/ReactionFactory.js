@@ -2,7 +2,6 @@
 
 /**
  * Factory functions for creating specific chemical reactions.
- * For the purposes of the 'sandwiches' analogy, sandwiches are treated like reactions.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,42 +9,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CustomSandwich = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/CustomSandwich' );
   var MoleculeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/MoleculeFactory' );
   var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
   var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
   var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
 
   // strings
-  var cheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/cheese' );
-  var meatAndCheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/meatAndCheese' );
   var combustMethaneString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/combustMethane' );
   var makeAmmoniaString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeAmmonia' );
   var makeWaterString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeWater' );
 
   return {
-
-    //---------------------------------------------------------------------------------------
-    // Sandwich 'reactions'
-    //---------------------------------------------------------------------------------------
-
-    cheeseSandwich: function( breadCount, cheeseCount ) {
-      return new Reaction(
-        [ new Reactant( breadCount, MoleculeFactory.bread() ), new Reactant( cheeseCount, MoleculeFactory.cheese() ) ],
-        [ new Product( 1, MoleculeFactory.sandwich( 'cheeseSandwich', breadCount, 0, cheeseCount ) ) ],
-        { name: cheeseString } );
-    },
-
-    meatAndCheeseSandwich: function( breadCount, meatCount, cheeseCount ) {
-      return new Reaction(
-        [ new Reactant( breadCount, MoleculeFactory.bread() ), new Reactant( meatCount, MoleculeFactory.meat() ), new Reactant( cheeseCount, MoleculeFactory.cheese() ) ],
-        [ new Product( 1, MoleculeFactory.sandwich( 'meatAndCheeseSandwich', breadCount, meatCount, cheeseCount ) ) ],
-        { name: meatAndCheeseString } );
-    },
-
-    customSandwich: function( breadCount, meatCount, cheeseCount ) {
-      return new CustomSandwich( breadCount, meatCount, cheeseCount );
-    },
 
     //---------------------------------------------------------------------------------------
     // Single-product reactions

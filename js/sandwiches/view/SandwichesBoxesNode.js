@@ -28,7 +28,7 @@ define( function( require ) {
     ReactionBoxesNode.call( this, reaction, beforeExpandedProperty, afterExpandedProperty, options );
 
     // Update the sandwich image when it changes
-    if ( this.reaction.reactantCoefficientsMutable ) {
+    if ( this.reaction.coefficientsMutable ) {
       this.nodePropertyObserver = function( node ) {
         thisNode.setNodeForProduct( node, 0 /* productIndex */ );
       };
@@ -41,7 +41,7 @@ define( function( require ) {
     // @public Unlinks from properties. This object is no longer functional after calling this function.
     dispose: function() {
       ReactionBoxesNode.prototype.dispose.call( this );
-      if ( this.reaction.reactantCoefficientsMutable ) {
+      if ( this.reaction.coefficientsMutable ) {
         this.reaction.products[0].molecule.nodeProperty.unlink( this.nodePropertyObserver );
       }
     }

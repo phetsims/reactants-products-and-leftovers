@@ -92,7 +92,7 @@ define( function( require ) {
     options = options || {};
 
     // left-hand side is the sandwich ingredients
-    var reactantsNode = createTermsNode( reaction.reactants, reaction.reactantCoefficientsMutable );
+    var reactantsNode = createTermsNode( reaction.reactants, reaction.coefficientsMutable );
 
     // right arrow
     var arrowNode = new RightArrowNode( ARROW_OPTIONS );

@@ -100,7 +100,7 @@ define( function( require ) {
         afterTitle: afterSandwichString,
         maxImageSize: maxSandwichSize
       };
-      if ( reaction.reactantCoefficientsMutable ) {
+      if ( reaction.coefficientsMutable ) {
         boxOptions.boxYMargin = 12;
       }
 

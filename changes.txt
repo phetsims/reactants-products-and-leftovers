@@ -1,3 +1,4 @@
+10/14/14 better encapsulation of "sandwiches" analogy in SandwichRecipe type
 10/14/14 clean up factories a bit, wrt "sandwiches" analogy
 # 1.0.0-dev.4 10/14/14
 10/14/14 try a dashed square to represent "no reaction"

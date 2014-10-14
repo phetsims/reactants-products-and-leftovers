@@ -10,11 +10,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
   var Molecule = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Molecule' );
-  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALSymbols = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALSymbols' );
-  var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
 
   // modules (molecules)
   var CNode = require( 'NITROGLYCERIN/nodes/CNode' );
@@ -52,25 +49,10 @@ define( function( require ) {
   var SO2Node = require( 'NITROGLYCERIN/nodes/SO2Node' );
   var SO3Node = require( 'NITROGLYCERIN/nodes/SO3Node' );
 
-  // images
-  var breadImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/bread.png' );
-  var cheeseImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/cheese.png' );
-  var meatImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/meat.png' );
-
   // constants
   var ATOM_OPTIONS = { stroke: 'black', lineWidth:  0.5, scale: 1 };
 
   return {
-
-    // sandwiches
-    bread: function() { return new Molecule( RPALSymbols.BREAD, new Image( breadImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
-    cheese: function() { return new Molecule( RPALSymbols.CHEESE, new Image( cheeseImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
-    meat: function() { return new Molecule( RPALSymbols.MEAT, new Image( meatImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
-    sandwich: function( name, breadCount, meatCount, cheeseCount ) {
-      return new Molecule( name, new SandwichNode( breadCount, meatCount, cheeseCount, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) );
-    },
-
-    // molecules
     C: function() { return new Molecule( RPALSymbols.C, new CNode( ATOM_OPTIONS ) ); },
     C2H2: function() { return new Molecule( RPALSymbols.C2H2, new C2H2Node( ATOM_OPTIONS ) ); },
     C2H4: function() { return new Molecule( RPALSymbols.C2H4, new C2H4Node( ATOM_OPTIONS ) ); },
