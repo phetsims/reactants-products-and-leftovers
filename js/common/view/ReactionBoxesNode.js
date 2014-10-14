@@ -38,8 +38,8 @@ define( function( require ) {
 
   // constants
   var TITLE_FONT = new RPALFont( 14 ); // font for the titles that appear in the collapsed boxes
-  var QUANTITY_FONT = new RPALFont( 28 ); // font for the molecule quantities that appear below the boxes
-  var SYMBOL_FONT = new RPALFont( 16 ); // font for the molecule symbols that appear below the boxes
+  var QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
+  var SYMBOL_FONT = new RPALFont( 16 ); // font for the symbols that appear below the boxes
   var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
@@ -59,11 +59,11 @@ define( function( require ) {
     options = _.extend( {
       boxSize: new Dimension2( 310, 240 ), // size of the 'before' and 'after' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
-      layoutStrategy: 'stacked', // layout strategy for molecules inside the boxes, either 'stacked' or 'random',
-      showSymbols: true, // whether to show the molecule symbols
+      layoutStrategy: 'stacked', // layout strategy for nodes inside the boxes, either 'stacked' or 'random',
+      showSymbols: true, // whether to show the symbols
       beforeTitle: beforeReactionString,
       afterTitle: afterReactionString,
-      boxYMargin: 6, // vertical margin between the inner edge of box and the tallest molecule image
+      boxYMargin: 6, // vertical margin between the inner edge of box and the tallest node
       maxImageSize: new Dimension2( 0, 0 ) // our best guess at the maximum image size
     }, options );
 

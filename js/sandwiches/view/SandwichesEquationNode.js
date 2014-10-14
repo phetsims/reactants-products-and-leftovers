@@ -1,12 +1,12 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Equations for the "Sandwiches" screen.
- * This differs from the "Molecules" screen equation is a few key ways:
+ * Equations for the 'Sandwiches' screen.
+ * This differs from the 'Molecules' screen equation is a few key ways:
  *
  * 1. Terms are images instead of formulae.
- * 2. Reactant coefficients are mutable for the "custom" sandwich
- * 3. The "custom" sandwich reaction may not be well-defined.
+ * 2. Reactant coefficients are mutable for the 'custom' sandwich
+ * 3. The 'custom' sandwich reaction may not be well-defined.
  * 4. Appearance (fonts, sizes, spacing, ...) needs to be separately tweakable.
  *
  * @author Chris Malley (PixelZoom, Inc.)

@@ -3,7 +3,7 @@
 /**
  * A chemical reaction is a process that leads to the transformation of one set of
  * chemical substances (reactants) to another (products).  The reactants that do not
- * transform to products are referred to herein as "leftovers".
+ * transform to products are referred to herein as leftovers.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
