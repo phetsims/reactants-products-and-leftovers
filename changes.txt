@@ -1,3 +1,4 @@
+# 1.0.0-dev.4 10/13/14
 10/13/14 fix: layout of products below 'After' box sometimes doesn't leave enough vertical space for max-size sandwich
 # 1.0.0-dev.3 10/13/14
 10/13/14 'Sandwiches' and 'Molecules' screens feature complete
