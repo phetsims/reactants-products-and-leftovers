@@ -32,58 +32,51 @@ define( function( require ) {
 
     assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
 
+    var thisNode = this;
     Node.call( this );
 
     var centerY = 0;
 
-    // put a slice of bread on the bottom
+    // Put a slice of bread on the bottom.
     if ( breadCount > 0 ) {
       this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
       centerY -= Y_SPACING;
       breadCount--;
     }
 
-    // interleave ingredients
+    // To maximize interleaving, order the ingredients that go between the bread so that the more prevalent ingredient is added first.
+    var ingredients;
+    if ( meatCount >= cheeseCount ) {
+      ingredients = [
+        { count: meatCount, image: meatImage },
+        { count: cheeseCount, image: cheeseImage }
+      ];
+    }
+    else {
+      ingredients = [
+        { count: cheeseCount, image: cheeseImage },
+        { count: meatCount, image: meatImage }
+      ];
+    }
+
+    // Interleave ingredients
     var imageAdded = true;
     while ( imageAdded ) {
 
       imageAdded = false;
 
-      //TODO simplify this
-      // to maximize interleaving, always add the more prevalent ingredient first
-      if ( meatCount >= cheeseCount ) {
-        // add meat, then cheese
-        if ( meatCount > 0 ) {
-          this.addChild( new Image( meatImage, { centerX: 0, centerY: centerY } ) );
+      // Add ingredients that go between the bread.
+      ingredients.forEach( function( ingredient ) {
+        if ( ingredient.count > 0 ) {
+          thisNode.addChild( new Image( ingredient.image, { centerX: 0, centerY: centerY } ) );
           centerY -= Y_SPACING;
           imageAdded = true;
-          meatCount--;
+          ingredient.count--;
         }
-        if ( cheeseCount > 0 ) {
-          this.addChild( new Image( cheeseImage, { centerX: 0, centerY: centerY } ) );
-          centerY -= Y_SPACING;
-          imageAdded = true;
-          cheeseCount--;
-        }
-      }
-      else {
-        // add cheese, then meat
-        if ( cheeseCount > 0 ) {
-          this.addChild( new Image( cheeseImage, { centerX: 0, centerY: centerY } ) );
-          centerY -= Y_SPACING;
-          imageAdded = true;
-          cheeseCount--;
-        }
-        if ( meatCount > 0 ) {
-          this.addChild( new Image( meatImage, { centerX: 0, centerY: centerY } ) );
-          centerY -= Y_SPACING;
-          imageAdded = true;
-          meatCount--;
-        }
-      }
+      } );
 
-      // ... followed by bread.
-      if ( breadCount > 1 ) { // save one slice of bread for the top
+      // Add a slice of bread, but save one slice of bread for the top.
+      if ( breadCount > 1 ) {
         this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
         centerY -= Y_SPACING;
         imageAdded = true;
@@ -91,7 +84,7 @@ define( function( require ) {
       }
     }
 
-    // put a slice of bread on the top
+    // Put a slice of bread on the top.
     if ( breadCount > 0 ) {
       this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
     }
