@@ -5,7 +5,6 @@ DESIGN
 - quantities only go to 8, are we dumping Reaction_P4_10Cl2__4PCl5 ?
 
 HIGH
-- finish ReactionFactory
 - Game screen
 
 MEDIUM
