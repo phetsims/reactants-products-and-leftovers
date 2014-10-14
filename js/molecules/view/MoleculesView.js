@@ -37,7 +37,7 @@ define( function( require ) {
     // static UI components
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
       function( reaction ) { return new MoleculesEquationNode( reaction ); },
-      { screenWidth: this.layoutBounds.width } );
+      { screenWidth: thisView.layoutBounds.width } );
     var resetAllButton = new ResetAllButton( {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       listener: function() {
@@ -56,18 +56,18 @@ define( function( require ) {
     // layout of the reaction bar is determined by a query parameter
     var playAreaTop, playAreaBottom;
     if ( RPALQueryParameters.EQUATION === 'bottom' ) {
-      reactionBarNode.bottom = this.layoutBounds.bottom;
-      playAreaTop = this.layoutBounds.top;
+      reactionBarNode.bottom = thisView.layoutBounds.bottom;
+      playAreaTop = thisView.layoutBounds.top;
       playAreaBottom = reactionBarNode.top;
     }
     else {
-      reactionBarNode.top = this.layoutBounds.top;
+      reactionBarNode.top = thisView.layoutBounds.top;
       playAreaTop = reactionBarNode.bottom;
-      playAreaBottom = this.layoutBounds.bottom;
+      playAreaBottom = thisView.layoutBounds.bottom;
     }
 
     // remainder of layout
-    resetAllButton.left = this.layoutBounds.left + 10;
+    resetAllButton.left = thisView.layoutBounds.left + 10;
     resetAllButton.bottom = playAreaBottom - 10;
 
     var reactionBoxesNode;

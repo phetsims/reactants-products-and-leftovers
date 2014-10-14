@@ -43,8 +43,8 @@ define( function( require ) {
     thisView.addChild( rootNode );
 
     // layout
-    resetAllButton.right = this.layoutBounds.right - 10;
-    resetAllButton.bottom = this.layoutBounds.bottom - 10;
+    resetAllButton.right = thisView.layoutBounds.right - 10;
+    resetAllButton.bottom = thisView.layoutBounds.bottom - 10;
   }
 
   return inherit( ScreenView, GameView );

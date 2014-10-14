@@ -32,11 +32,11 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    this.quantityProperty = quantityProperty; // @private
-    this.nodeProperty = nodeProperty; // @private
+    thisNode.quantityProperty = quantityProperty; // @private
+    thisNode.nodeProperty = nodeProperty; // @private
 
     // @private When the quantity changes ...
-    this.quantityPropertyObserver = function( quantity ) {
+    thisNode.quantityPropertyObserver = function( quantity ) {
       var count = Math.max( quantity, thisNode.getChildrenCount() );
       for ( var i = 0; i < count; i++ ) {
         if ( i < thisNode.getChildrenCount() ) {
@@ -53,14 +53,14 @@ define( function( require ) {
         }
       }
     };
-    quantityProperty.link( this.quantityPropertyObserver );
+    quantityProperty.link( thisNode.quantityPropertyObserver );
 
     // @private When the node changes
-    this.nodePropertyObserver = function( node ) {
+    thisNode.nodePropertyObserver = function( node ) {
       thisNode.removeAllChildren();
       thisNode.quantityPropertyObserver( quantityProperty.get() );
     };
-    nodeProperty.link( this.nodePropertyObserver );
+    nodeProperty.link( thisNode.nodePropertyObserver );
 
     thisNode.mutate( options );
   }

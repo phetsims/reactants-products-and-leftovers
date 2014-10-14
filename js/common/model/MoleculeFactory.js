@@ -2,7 +2,6 @@
 
 /**
  * Factory functions for creating specific types of molecules.
- * For the purposes of the 'sandwiches' analogy, sandwiches and their ingredients are treated like molecules.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

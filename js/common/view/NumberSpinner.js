@@ -45,7 +45,7 @@ define( function( require ) {
 
     var thisSpinner = this;
 
-    this.valueProperty = valueProperty; // @private
+    thisSpinner.valueProperty = valueProperty; // @private
 
     var valueOptions = {
       font: options.font,
@@ -81,7 +81,7 @@ define( function( require ) {
     HBox.call( thisSpinner, options );
 
     // @private When the value changes ...
-    this.valuePropertyObserver = function( value ) {
+    thisSpinner.valuePropertyObserver = function( value ) {
       assert && assert( range.contains( value ) );
 
       // update the text and center it
@@ -92,7 +92,7 @@ define( function( require ) {
       upButton.enabled = ( value < range.max );
       downButton.enabled = ( value > range.min );
     };
-    valueProperty.link( this.valuePropertyObserver );
+    valueProperty.link( thisSpinner.valuePropertyObserver );
   }
 
   return inherit( HBox, NumberSpinner, {

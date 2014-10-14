@@ -70,7 +70,7 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    this.reaction = reaction; // @private
+    thisNode.reaction = reaction; // @private
 
     // options common to box titles
     var titleOptions = { font: TITLE_FONT, fill: 'white' };
@@ -97,7 +97,7 @@ define( function( require ) {
     // 'Before Reaction' accordion box
     var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     // @private
-    this.beforeBox = new AccordionBox( beforeContent, _.extend( {
+    thisNode.beforeBox = new AccordionBox( beforeContent, _.extend( {
       expandedProperty: beforeExpandedProperty,
       titleNode: new Text( options.beforeTitle, titleOptions )
     }, accordionBoxOptions ) );
@@ -105,7 +105,7 @@ define( function( require ) {
     // 'After Reaction' accordion box
     var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     // @private
-    this.afterBox = new AccordionBox( afterContent, _.extend( {
+    thisNode.afterBox = new AccordionBox( afterContent, _.extend( {
       expandedProperty: afterExpandedProperty,
       titleNode: new Text( options.afterTitle, titleOptions )
     }, accordionBoxOptions ) );
@@ -114,13 +114,13 @@ define( function( require ) {
     var arrowNode = new RightArrowNode( { fill: RPALColors.REACTION_BAR_COLOR, stroke: null, scale: 0.75 } );
 
     // layout of boxes and arrow
-    var hBox = new HBox( { children: [ this.beforeBox, arrowNode, this.afterBox ], spacing: 10 } );
+    var hBox = new HBox( { children: [ thisNode.beforeBox, arrowNode, thisNode.afterBox ], spacing: 10 } );
     thisNode.addChild( hBox );
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    this.quantityNodes = []; // @private
-    this.imageNodes = []; // @private
-    this.productImageNode = []; // @private needed for 'custom sandwich' scenario
+    thisNode.quantityNodes = []; // @private
+    thisNode.imageNodes = []; // @private
+    thisNode.productImageNode = []; // @private needed for 'custom sandwich' scenario
     var symbolNodes = [];
 
     // explicitly hoist vars that are reused in loops
@@ -132,7 +132,7 @@ define( function( require ) {
     var numberOfReactants = reaction.reactants.length;
     xMargin = ( numberOfReactants > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2 reactants case look nice
     deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfReactants;
-    centerX = this.beforeBox.left + xMargin + (deltaX / 2 );
+    centerX = thisNode.beforeBox.left + xMargin + (deltaX / 2 );
     for ( i = 0; i < numberOfReactants; i++ ) {
 
       reactant = reaction.reactants[i];
@@ -140,12 +140,12 @@ define( function( require ) {
       // quantity is editable via a spinner
       quantityNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange, { font: QUANTITY_FONT, centerX: centerX } );
       reactantsParent.addChild( quantityNode );
-      this.quantityNodes.push( quantityNode );
+      thisNode.quantityNodes.push( quantityNode );
 
       // image
       imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
       reactantsParent.addChild( imageNode );
-      this.imageNodes.push( imageNode );
+      thisNode.imageNodes.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -163,7 +163,7 @@ define( function( require ) {
     var numberOfProducts = reaction.products.length;
     xMargin = ( numberOfProducts + numberOfReactants > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2 reactants case look nice
     deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / ( numberOfProducts + numberOfReactants );
-    centerX = this.afterBox.left + xMargin + (deltaX / 2 );
+    centerX = thisNode.afterBox.left + xMargin + (deltaX / 2 );
     for ( i = 0; i < numberOfProducts; i++ ) {
 
       product = reaction.products[i];
@@ -171,13 +171,13 @@ define( function( require ) {
       // quantity is not editable
       quantityNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
       productsParent.addChild( quantityNode );
-      this.quantityNodes.push( quantityNode );
+      thisNode.quantityNodes.push( quantityNode );
 
       // image
       imageNode = new Node( { children: [ product.molecule.node ], centerX: quantityNode.centerX } );
       productsParent.addChild( imageNode );
-      this.imageNodes.push( imageNode );
-      this.productImageNode.push( imageNode );
+      thisNode.imageNodes.push( imageNode );
+      thisNode.productImageNode.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -199,12 +199,12 @@ define( function( require ) {
       // quantity is not editable
       quantityNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
       leftoversParent.addChild( quantityNode );
-      this.quantityNodes.push( quantityNode );
+      thisNode.quantityNodes.push( quantityNode );
 
       // image
       imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
       leftoversParent.addChild( imageNode );
-      this.imageNodes.push( imageNode );
+      thisNode.imageNodes.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -217,14 +217,14 @@ define( function( require ) {
     }
 
     // vertical layout of components below the boxes
-    var maxQuantityHeight = _.max( this.quantityNodes, function( node ) { return node.height; } ).height;
-    var maxImageHeight = Math.max( options.maxImageSize.height, _.max( this.imageNodes, function( node ) { return node.height; } ).height );
+    var maxQuantityHeight = _.max( thisNode.quantityNodes, function( node ) { return node.height; } ).height;
+    var maxImageHeight = Math.max( options.maxImageSize.height, _.max( thisNode.imageNodes, function( node ) { return node.height; } ).height );
     var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
-    var numberOfColumns = this.quantityNodes.length;
-    var componentsTop = this.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
+    var numberOfColumns = thisNode.quantityNodes.length;
+    var componentsTop = thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
     for ( i = 0; i < numberOfColumns; i++ ) {
-      this.quantityNodes[i].centerY = componentsTop + ( maxQuantityHeight / 2 );
-      this.imageNodes[i].centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
+      thisNode.quantityNodes[i].centerY = componentsTop + ( maxQuantityHeight / 2 );
+      thisNode.imageNodes[i].centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
       if ( options.showSymbols ) {
         symbolNodes[i].top = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
       }
@@ -263,7 +263,7 @@ define( function( require ) {
     thisNode.addChild( leftoversBracket );
 
     // molecule stacks inside the 'before' and 'after' boxes
-    this.moleculeStackNodes = []; // @private
+    thisNode.moleculeStackNodes = []; // @private
     var startCenterY = beforeContent.height - options.boxYMargin - ( maxImageHeight / 2 );
     var deltaY = ( beforeContent.height - ( 2 * options.boxYMargin ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
 
@@ -271,7 +271,7 @@ define( function( require ) {
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
       moleculeStackNode = new MoleculeStackNode( reactant.quantityProperty, reactant.molecule.nodeProperty,
-        this.quantityNodes[i].centerX, startCenterY, deltaY );
+        thisNode.quantityNodes[i].centerX, startCenterY, deltaY );
       beforeContent.addChild( moleculeStackNode );
     }
 
@@ -279,7 +279,7 @@ define( function( require ) {
     for ( i = 0; i < numberOfProducts; i++ ) {
       product = reaction.products[i];
       moleculeStackNode = new MoleculeStackNode( product.quantityProperty, product.molecule.nodeProperty,
-          this.quantityNodes[i + numberOfReactants ].centerX - ( this.afterBox.left - this.beforeBox.left ), startCenterY, deltaY );
+          thisNode.quantityNodes[i + numberOfReactants ].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left ), startCenterY, deltaY );
       afterContent.addChild( moleculeStackNode );
     }
 
@@ -287,7 +287,7 @@ define( function( require ) {
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
       moleculeStackNode = new MoleculeStackNode( reactant.leftoversProperty, reactant.molecule.nodeProperty,
-          this.quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( this.afterBox.left - this.beforeBox.left ), startCenterY, deltaY );
+          thisNode.quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left ), startCenterY, deltaY );
       afterContent.addChild( moleculeStackNode );
     }
 

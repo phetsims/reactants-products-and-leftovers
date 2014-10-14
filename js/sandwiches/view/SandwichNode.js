@@ -39,7 +39,7 @@ define( function( require ) {
 
     // Put a slice of bread on the bottom.
     if ( breadCount > 0 ) {
-      this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+      thisNode.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
       centerY -= Y_SPACING;
       breadCount--;
     }
@@ -77,7 +77,7 @@ define( function( require ) {
 
       // Add a slice of bread, but save one slice of bread for the top.
       if ( breadCount > 1 ) {
-        this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+        thisNode.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
         centerY -= Y_SPACING;
         imageAdded = true;
         breadCount--;
@@ -86,10 +86,10 @@ define( function( require ) {
 
     // Put a slice of bread on the top.
     if ( breadCount > 0 ) {
-      this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+      thisNode.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
     }
 
-    this.mutate( options );
+    thisNode.mutate( options );
   }
 
   return inherit( Node, SandwichNode );

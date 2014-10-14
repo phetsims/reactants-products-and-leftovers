@@ -27,15 +27,15 @@ define( function( require ) {
     var thisNode = this;
     Text.call( thisNode, '' );
 
-    this.valueProperty = valueProperty; // @private
+    thisNode.valueProperty = valueProperty; // @private
 
     // @private When the value changes ...
-    this.valuePropertyObserver = function( value ) {
+    thisNode.valuePropertyObserver = function( value ) {
       thisNode.text = Util.toFixed( value, options.decimalPlaces );
     };
-    valueProperty.link( this.valuePropertyObserver );
+    valueProperty.link( thisNode.valuePropertyObserver );
 
-    this.mutate( options );
+    thisNode.mutate( options );
   }
 
   return inherit( Text, NumberNode, {
