@@ -31,7 +31,7 @@ define( function( require ) {
 
     options = _.extend( {
       screenWidth: 1000, // width of the screen's safe area
-      showSymbols: true // true = show molecule symbol, false = show molecule node
+      showSymbols: true // true = show symbols, false = show nodes
     }, options );
 
     // control for choosing a reaction

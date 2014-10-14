@@ -4,6 +4,7 @@ DESIGN
 - 'no reaction' won't fit in custom sandwich equation
 
 HIGH
+- rename MoleculeStackNode
 - finish ReactionFactory
 - Game screen
 
