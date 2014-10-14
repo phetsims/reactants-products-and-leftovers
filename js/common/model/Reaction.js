@@ -30,11 +30,11 @@ define( function( require ) {
 
     var thisReaction = this;
 
-    this.reactants = reactants;
-    this.products = products;
-    this.name = options.name;
+    thisReaction.reactants = reactants;
+    thisReaction.products = products;
+    thisReaction.name = options.name;
 
-    this.reactants.forEach( function( reactant ) {
+    thisReaction.reactants.forEach( function( reactant ) {
       reactant.quantityProperty.link( thisReaction.update.bind( thisReaction ) );
     } );
   }
@@ -114,12 +114,12 @@ define( function( require ) {
       var s = '';
       for ( var i = 0; i < this.reactants.length; i++ ) {
         if ( i !== 0 ) { s += '+ '; }
-        s += ( this.reactants[i].coefficient + ' ' + this.reactants[i].molecule.symbol + ' ' );
+        s += ( this.reactants[i].coefficient + ' ' + this.reactants[i].symbol + ' ' );
       }
       s += '-> ';
       for ( i = 0; i < this.products.length; i++ ) {
         if ( i !== 0 ) { s += '+ '; }
-        s += ( this.products[i].coefficient + ' ' + this.products[i].molecule.symbol + ' ' );
+        s += ( this.products[i].coefficient + ' ' + this.products[i].symbol + ' ' );
       }
       return s.replace( /<sub>/g, '' ).replace( /<sub>/g, '' );
     },

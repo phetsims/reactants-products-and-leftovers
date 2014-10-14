@@ -8,16 +8,6 @@ define( function( require ) {
 
   return {
 
-    /*
-     * Symbols for the sandwich components.
-     * These do not require localization because the names are not visible to the user.
-     * But they are required by StackedLayoutNode to determine which stack an associated image goes in.
-     */
-    BREAD: 'bread',
-    MEAT: 'meat',
-    CHEESE: 'cheese',
-    SANDWICH: 'sandwich',
-
     // molecules
     C: toSubscript( 'C' ),
     C2H2: toSubscript( 'C2H2' ),

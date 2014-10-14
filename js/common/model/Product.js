@@ -15,12 +15,13 @@ define( function( require ) {
 
   /**
    * @param {number} coefficient
-   * @param {Molecule} molecule
+   * @param {string} symbol
+   * @param {Node} node
    * @param {number} quantity
    * @constructor
    */
-  function Product( coefficient, molecule, quantity ) {
-    Substance.call( this, coefficient, molecule, quantity );
+  function Product( coefficient, symbol, node, quantity ) {
+    Substance.call( this, coefficient, symbol, node, quantity );
   }
 
   return inherit( Substance, Product, {

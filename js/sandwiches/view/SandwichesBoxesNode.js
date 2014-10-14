@@ -33,7 +33,7 @@ define( function( require ) {
       thisNode.nodePropertyObserver = function( node ) {
         thisNode.setNodeForProduct( node, 0 /* productIndex */ );
       };
-      thisNode.reaction.sandwich.molecule.nodeProperty.link( thisNode.nodePropertyObserver );
+      thisNode.reaction.sandwich.nodeProperty.link( thisNode.nodePropertyObserver );
     }
   }
 
@@ -43,7 +43,7 @@ define( function( require ) {
     dispose: function() {
       ReactionBoxesNode.prototype.dispose.call( this );
       if ( this.reaction.coefficientsMutable ) {
-        this.reaction.sandwich.molecule.nodeProperty.unlink( this.nodePropertyObserver );
+        this.reaction.sandwich.nodeProperty.unlink( this.nodePropertyObserver );
       }
     }
   } );

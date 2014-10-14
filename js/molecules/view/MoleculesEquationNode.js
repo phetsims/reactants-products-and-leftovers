@@ -44,7 +44,7 @@ define( function( require ) {
       parentNode.addChild( coefficientNode );
 
       // molecule
-      symbolNode = new SubSupText( terms[i].molecule.symbol, TEXT_OPTIONS );
+      symbolNode = new SubSupText( terms[i].symbol, TEXT_OPTIONS );
       symbolNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
       parentNode.addChild( symbolNode );
 

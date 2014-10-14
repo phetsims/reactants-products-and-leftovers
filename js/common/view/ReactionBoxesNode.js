@@ -143,13 +143,13 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
+      imageNode = new Node( { children: [ reactant.node ], centerX: quantityNode.centerX } );
       reactantsParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
+        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -174,14 +174,14 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = new Node( { children: [ product.molecule.node ], centerX: quantityNode.centerX } );
+      imageNode = new Node( { children: [ product.node ], centerX: quantityNode.centerX } );
       productsParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
       thisNode.productImageNode.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( product.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
+        symbolNode = new SubSupText( product.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         productsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -202,13 +202,13 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = new Node( { children: [ reactant.molecule.node ], centerX: quantityNode.centerX } );
+      imageNode = new Node( { children: [ reactant.node ], centerX: quantityNode.centerX } );
       leftoversParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.molecule.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
+        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
         leftoversParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -270,7 +270,7 @@ define( function( require ) {
     // reactants inside the 'before' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
-      moleculeStackNode = new MoleculeStackNode( reactant.quantityProperty, reactant.molecule.nodeProperty,
+      moleculeStackNode = new MoleculeStackNode( reactant.quantityProperty, reactant.nodeProperty,
         thisNode.quantityNodes[i].centerX, startCenterY, deltaY );
       beforeContent.addChild( moleculeStackNode );
     }
@@ -278,7 +278,7 @@ define( function( require ) {
     // products inside the 'after' box
     for ( i = 0; i < numberOfProducts; i++ ) {
       product = reaction.products[i];
-      moleculeStackNode = new MoleculeStackNode( product.quantityProperty, product.molecule.nodeProperty,
+      moleculeStackNode = new MoleculeStackNode( product.quantityProperty, product.nodeProperty,
           thisNode.quantityNodes[i + numberOfReactants ].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left ), startCenterY, deltaY );
       afterContent.addChild( moleculeStackNode );
     }
@@ -286,7 +286,7 @@ define( function( require ) {
     // leftovers inside the 'after' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
-      moleculeStackNode = new MoleculeStackNode( reactant.leftoversProperty, reactant.molecule.nodeProperty,
+      moleculeStackNode = new MoleculeStackNode( reactant.leftoversProperty, reactant.nodeProperty,
           thisNode.quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left ), startCenterY, deltaY );
       afterContent.addChild( moleculeStackNode );
     }

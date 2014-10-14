@@ -14,12 +14,13 @@ define( function( require ) {
 
   /**
    * @param {number} coefficient
-   * @param {Molecule} molecule
+   * @param {string} symbol
+   * @param {Node} node
    * @param {number} quantity
    * @constructor
    */
-  function Reactant( coefficient, molecule, quantity ) {
-    Substance.call( this, coefficient, molecule, quantity );
+  function Reactant( coefficient, symbol, node, quantity ) {
+    Substance.call( this, coefficient, symbol, node, quantity );
     this.addProperty( 'leftovers', 0 );
   }
 
@@ -34,7 +35,7 @@ define( function( require ) {
     equals: function( reactant ) {
       return reactant instanceof Reactant &&
              Substance.prototype.equals.call( this, reactant ) &&
-             this.leftovers && this.leftovers === reactant.leftovers; //TODO this looks wrong
+             this.leftovers && this.leftovers === reactant.leftovers;
     }
   } );
 } );

@@ -14,14 +14,21 @@ define( function( require ) {
 
   /**
    * @param {number} coefficient
-   * @param {Molecule} molecule
-   * @param {number} [quantity]
+   * @param {string} symbol
+   * @param {Node} node
+   * @param {number} [quantity] defaults to zero
    * @constructor
    */
-  function Substance( coefficient, molecule, quantity ) {
-    this.molecule = molecule;
+  function Substance( coefficient, symbol, node, quantity ) {
+
+    assert && assert( coefficient >= 0 );
+    assert && assert( quantity >= 0 );
+
+    this.symbol = symbol;
+
     PropertySet.call( this, {
       coefficient: coefficient,
+      node: node, // mutable to support the 'custom sandwich' case
       quantity: quantity || 0
     } );
   }
@@ -36,7 +43,8 @@ define( function( require ) {
     equals: function( substance ) {
       return ( substance instanceof Substance &&
                this.coefficient === substance.coefficient &&
-               this.molecule === substance.molecule &&
+               this.symbol === substance.symbol &&
+               this.node === this.node &&
                this.quantity === substance.quantity );
     }
   } );

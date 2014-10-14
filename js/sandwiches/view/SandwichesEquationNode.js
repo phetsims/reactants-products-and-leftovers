@@ -48,7 +48,7 @@ define( function( require ) {
 
     var parentNode = new Node();
     var numberOfTerms = terms.length;
-    var coefficientNode, moleculeNode, plusNode; // hoist loop vars explicitly
+    var coefficientNode, ingredientNode, plusNode; // hoist loop vars explicitly
 
     for ( var i = 0; i < numberOfTerms; i++ ) {
 
@@ -62,16 +62,16 @@ define( function( require ) {
       coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
       parentNode.addChild( coefficientNode );
 
-      // molecule
-      moleculeNode = new Node( { children: [ terms[i].molecule.node ] } );
-      moleculeNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
-      moleculeNode.centerY = coefficientNode.centerY;
-      parentNode.addChild( moleculeNode );
+      // ingredient
+      ingredientNode = new Node( { children: [ terms[i].node ] } );
+      ingredientNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
+      ingredientNode.centerY = coefficientNode.centerY;
+      parentNode.addChild( ingredientNode );
 
       // plus sign between terms
       if ( i < numberOfTerms - 1 ) {
         plusNode = new PlusNode( PLUS_OPTIONS );
-        plusNode.left = moleculeNode.right + PLUS_X_SPACING;
+        plusNode.left = ingredientNode.right + PLUS_X_SPACING;
         plusNode.centerY = coefficientNode.centerY;
         parentNode.addChild( plusNode );
       }
@@ -105,6 +105,7 @@ define( function( require ) {
     // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
     assert && assert( reaction.products.length === 1 );
     var productsParent = new Node();
+    // @private
     this.nodePropertyObserver = function( node ) {
       productsParent.removeAllChildren();
       if ( reaction.isReaction() ) {
@@ -117,7 +118,7 @@ define( function( require ) {
       productsParent.centerY = arrowNode.centerY;
     };
 
-    this.nodeProperty = reaction.products[0].molecule.nodeProperty;
+    this.nodeProperty = reaction.sandwich.nodeProperty;
     this.nodeProperty.link( this.nodePropertyObserver );
 
     options.children = [ reactantsNode, arrowNode, productsParent ];
