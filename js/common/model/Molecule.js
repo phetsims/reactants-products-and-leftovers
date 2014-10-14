@@ -1,9 +1,9 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Base type for molecules.
+ * Molecules are the substances that participate in a reaction.
  * For purposes of the Sandwiches analogy, sandwiches and their ingredients are treated as molecules.
- * The node used to represent the molecule is mutable to support the mutable "sandwich" case.
+ * The node used to represent the molecule is mutable to support the 'custom sandwich' case.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
