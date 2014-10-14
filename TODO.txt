@@ -1,7 +1,7 @@
 TODO list for reactants-products-and-leftovers
 
 DESIGN
-- 'no reaction' won't fix in custom sandwich equation
+- 'no reaction' won't fit in custom sandwich equation
 
 HIGH
 
