@@ -1,3 +1,4 @@
+10/14/14 port single-product reactions from Java
 10/14/14 rename MoleculeStackNode to SubstanceStackNode, simplify constructor
 10/14/14 collapse Molecule into Substance, MoleculeFactory into ReactionFactory
 10/14/14 use thisBlah consistently
