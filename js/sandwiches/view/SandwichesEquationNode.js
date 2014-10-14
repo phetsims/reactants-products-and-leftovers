@@ -28,9 +28,9 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var COEFFICIENT_X_SPACING = 10;
-  var PLUS_X_SPACING = 20;
-  var ARROW_X_SPACING = 20;
+  var COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
+  var PLUS_X_SPACING = 15; // space on both sides of the plus signs
+  var ARROW_X_SPACING = 15; // space on both sides of arrow
   var TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
   var PLUS_OPTIONS = { fill: 'white' };
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };

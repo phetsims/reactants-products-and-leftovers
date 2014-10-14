@@ -1,3 +1,4 @@
+10/14/14 reduce horizontal spacing in equations
 10/14/14 make the 'no reaction' dashed rectangle the same size as the area occupied by max-size sandwich and its coefficient
 10/14/14 add missing '1' coefficient on right side of sandwich equations
 10/14/14 port two-product reactions from Java
