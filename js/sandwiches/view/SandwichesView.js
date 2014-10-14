@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -25,9 +26,6 @@ define( function( require ) {
   // strings
   var beforeSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/beforeSandwich' );
   var afterSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/afterSandwich' );
-
-  // constants
-  var MAX_SANDWICH_SIZE = SandwichNode.maxSize( RPALConstants.COEFFICIENT_RANGE, RPALConstants.SANDWICH_IMAGE_SCALE );
 
   /**
    * @param {SandwichesModel} model
@@ -79,6 +77,11 @@ define( function( require ) {
     resetAllButton.left = this.layoutBounds.left + 10;
     resetAllButton.bottom = playAreaBottom - 10;
 
+    // compute the size of the largest sandwich, used for layout of the 'custom' sandwich
+    var maxCoefficient = RPALConstants.COEFFICIENT_RANGE.max;
+    var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
+    var maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
+
     var reactionBoxesNode;
     model.reactionProperty.link( function( reaction ) {
 
@@ -98,7 +101,7 @@ define( function( require ) {
       };
       if ( reaction.reactantCoefficientsMutable ) {
         boxOptions.boxYMargin = 12;
-        boxOptions.maxImageSize = MAX_SANDWICH_SIZE;
+        boxOptions.maxImageSize = maxSandwichSize;
       }
 
       // create the new box

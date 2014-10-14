@@ -100,18 +100,5 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Node, SandwichNode, {}, {
-
-    /**
-     * Gets the size of the biggest sandwich node.
-     * @param {Range} coefficientRange
-     * @param {number} scale
-     * @returns {Dimension2}
-     * @static
-     */
-    maxSize: function( coefficientRange, scale ) {
-      var maxSandwich = new SandwichNode( coefficientRange.max, coefficientRange.max, coefficientRange.max, { scale: scale || 1 } );
-      return new Dimension2( maxSandwich.width, maxSandwich.height );
-    }
-  } );
+  return inherit( Node, SandwichNode );
 } );

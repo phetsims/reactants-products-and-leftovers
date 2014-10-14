@@ -4,7 +4,6 @@ DESIGN
 - 'no reaction' won't fix in custom sandwich equation
 
 HIGH
-- layout of products below 'After' box sometimes doesn't leave enough vertical space for max-size sandwich
 
 
 MEDIUM

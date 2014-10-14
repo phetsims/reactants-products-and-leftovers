@@ -1,3 +1,4 @@
+10/13/14 fix: layout of products below 'After' box sometimes doesn't leave enough vertical space for max-size sandwich
 # 1.0.0-dev.3 10/13/14
 10/13/14 'Sandwiches' and 'Molecules' screens feature complete
 10/13/14 always add the most prevalent ingredient first when making a sandwich, to maximize interleaving
