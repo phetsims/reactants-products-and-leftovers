@@ -1,7 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Factory functions for creating specific chemical reactions
+ * Factory functions for creating specific chemical reactions.
+ * For the purposes of the 'sandwiches' analogy, sandwiches are treated like reactions.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -28,22 +29,22 @@ define( function( require ) {
     // Sandwich 'reactions'
     //---------------------------------------------------------------------------------------
 
-    cheeseSandwich: function() {
+    cheeseSandwich: function( breadCount, cheeseCount ) {
       return new Reaction(
-        [ new Reactant( 2, MoleculeFactory.bread() ), new Reactant( 1, MoleculeFactory.cheese() ) ],
-        [ new Product( 1, MoleculeFactory.sandwich( 'cheeseSandwich', 2, 0, 1 ) ) ],
+        [ new Reactant( breadCount, MoleculeFactory.bread() ), new Reactant( cheeseCount, MoleculeFactory.cheese() ) ],
+        [ new Product( 1, MoleculeFactory.sandwich( 'cheeseSandwich', breadCount, 0, cheeseCount ) ) ],
         { name: cheeseString } );
     },
 
-    meatAndCheeseSandwich: function() {
+    meatAndCheeseSandwich: function( breadCount, meatCount, cheeseCount ) {
       return new Reaction(
-        [ new Reactant( 2, MoleculeFactory.bread() ), new Reactant( 1, MoleculeFactory.meat() ), new Reactant( 1, MoleculeFactory.cheese() ) ],
-        [ new Product( 1, MoleculeFactory.sandwich( 'meatAndCheeseSandwich', 2, 1, 1 ) ) ],
+        [ new Reactant( breadCount, MoleculeFactory.bread() ), new Reactant( meatCount, MoleculeFactory.meat() ), new Reactant( cheeseCount, MoleculeFactory.cheese() ) ],
+        [ new Product( 1, MoleculeFactory.sandwich( 'meatAndCheeseSandwich', breadCount, meatCount, cheeseCount ) ) ],
         { name: meatAndCheeseString } );
     },
 
-    customSandwich: function() {
-      return new CustomSandwich();
+    customSandwich: function( breadCount, meatCount, cheeseCount ) {
+      return new CustomSandwich( breadCount, meatCount, cheeseCount );
     },
 
     //---------------------------------------------------------------------------------------

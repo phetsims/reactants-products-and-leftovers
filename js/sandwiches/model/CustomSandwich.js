@@ -25,13 +25,13 @@ define( function( require ) {
   // constants
   var NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 ); // used when the product is undefined, any invisible node with well-defined bounds
 
-  function CustomSandwich() {
+  function CustomSandwich( breadCount, meatCount, cheeseCount ) {
 
     var thisReaction = this;
 
-    var bread = new Reactant( 0, MoleculeFactory.bread() );
-    var meat =  new Reactant( 0, MoleculeFactory.meat() );
-    var cheese = new Reactant( 0, MoleculeFactory.cheese() );
+    var bread = new Reactant( breadCount, MoleculeFactory.bread() );
+    var meat =  new Reactant( meatCount, MoleculeFactory.meat() );
+    var cheese = new Reactant( cheeseCount, MoleculeFactory.cheese() );
     var sandwich = new Product( 1, new Molecule( 'customSandwich', NO_SANDWICH_NODE ) ); // sandwich image will be updated below
 
     Reaction.call( thisReaction, [ bread, meat, cheese ], [ sandwich ],

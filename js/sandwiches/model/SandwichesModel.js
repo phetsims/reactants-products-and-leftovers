@@ -17,9 +17,9 @@ define( function( require ) {
 
     // reaction choices
     this.reactions = [
-      ReactionFactory.cheeseSandwich(),
-      ReactionFactory.meatAndCheeseSandwich(),
-      ReactionFactory.customSandwich()
+      ReactionFactory.cheeseSandwich( 2, 1 ), // bread, cheese
+      ReactionFactory.meatAndCheeseSandwich( 2, 1, 1 ), // bread, meat, cheese
+      ReactionFactory.customSandwich( 0, 0, 0 ) // bread, meat, cheese
     ];
 
     PropertySet.call( this, {

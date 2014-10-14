@@ -2,6 +2,7 @@
 
 /**
  * Factory functions for creating specific types of molecules.
+ * For the purposes of the 'sandwiches' analogy, sandwiches and their ingredients are treated like molecules.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -61,7 +62,7 @@ define( function( require ) {
 
   return {
 
-    // sandwich components
+    // sandwiches
     bread: function() { return new Molecule( RPALSymbols.BREAD, new Image( breadImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
     cheese: function() { return new Molecule( RPALSymbols.CHEESE, new Image( cheeseImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
     meat: function() { return new Molecule( RPALSymbols.MEAT, new Image( meatImage, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) ); },
