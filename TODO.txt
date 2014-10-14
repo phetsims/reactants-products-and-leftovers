@@ -6,7 +6,6 @@ DESIGN
 - where should we put the 'Reset All' button in the first 2 screens?
 
 HIGH
-- put coefficient 1 in front of the sandwich on the RHS of equations
 - Game screen
 
 MEDIUM
