@@ -83,7 +83,7 @@ define( function( require ) {
   };
 
   /**
-   * @param {Reaction} reaction
+   * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
    * @param {Object} [options]
    * @constructor
    */

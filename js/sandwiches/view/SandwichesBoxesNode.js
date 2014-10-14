@@ -14,7 +14,7 @@ define( function( require ) {
   var ReactionBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBoxesNode' );
 
   /**
-   * @param {Reaction} reaction the reaction to be displayed
+   * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to be displayed
    * @param {Property.<boolean>} beforeExpandedProperty whether the 'before' box is expanded
    * @param {Property.<boolean>} afterExpandedProperty whether the 'after' box is expanded
    * @param {Object} [options]
@@ -25,7 +25,7 @@ define( function( require ) {
     assert && assert( reaction.products.length === 1 );
 
     var thisNode = this;
-    ReactionBoxesNode.call( this, reaction, beforeExpandedProperty, afterExpandedProperty, options );
+    ReactionBoxesNode.call( this, recipe, beforeExpandedProperty, afterExpandedProperty, options );
 
     // Update the sandwich image when it changes
     if ( this.reaction.coefficientsMutable ) {

@@ -1,9 +1,15 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Recipe for a sandwich. For the purposes of the 'sandwiches' analogy, a sandwich recipe is treated like a reaction,
- * ingredients are analogous to reactants, the sandwich is analogous to a product.
- * A custom sandwich has mutable reactant coefficients, and the sandwich image changes based on those coefficients.
+ * Recipe for a sandwich.
+ *<p>
+ * For the purposes of the 'sandwiches' analogy:
+ * <ul>
+ * <li>sandwich recipe == reaction
+ * <li>ingredients == reactants
+ * <li>sandwich == product
+ * </ul>
+ * A 'custom' sandwich has mutable reactant coefficients, and the sandwich image changes based on those coefficients.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

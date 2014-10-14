@@ -2,6 +2,13 @@
 
 /**
  * Model for the 'Sandwiches' screen.
+ * <p>
+ * For the purposes of the 'sandwiches' analogy:
+ * <ul>
+ * <li>sandwich recipe == reaction
+ * <li>ingredients == reactants
+ * <li>sandwich == product
+ * </ul>
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,7 +27,7 @@ define( function( require ) {
 
   function SandwichesModel() {
 
-    // sandwich recipe choices, numeric args are: bread, meat, cheese
+    // sandwich recipe (reaction) choices, numeric args are: bread, meat, cheese
     this.reactions = [
       new SandwichRecipe( cheeseString, 2, 0, 1 ),
       new SandwichRecipe( meatAndCheeseString, 2, 1, 1 ),
