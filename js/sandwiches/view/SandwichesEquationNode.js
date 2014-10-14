@@ -36,7 +36,8 @@ define( function( require ) {
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
   var PICKER_OPTIONS = { font: new RPALFont( 28 ), color: 'yellow', xMargin: 6, cornerRadius: 3 };
   var COEFFICIENT_RANGE_PROPERTY = new Property( RPALConstants.COEFFICIENT_RANGE );
-  var NO_REACTION_NODE = new Rectangle( 0, 0, 45, 45, { stroke: 'white', lineDash: [ 3, 3 ] } );
+  var NO_REACTION_NODE = new Rectangle( 0, 0, 75, 40, { stroke: 'white', lineDash: [ 3, 3 ] } );
+  var ONE_NODE = new Text( '1', TEXT_OPTIONS ); // coefficient for right side of well-defined equations
 
   /**
    * Creates terms for equation.
@@ -109,7 +110,10 @@ define( function( require ) {
     this.nodePropertyObserver = function( node ) {
       productsParent.removeAllChildren();
       if ( reaction.isReaction() ) {
+        productsParent.addChild( ONE_NODE );
         productsParent.addChild( node );
+        ONE_NODE.right = node.left - COEFFICIENT_X_SPACING;
+        ONE_NODE.centerY = node.centerY;
       }
       else {
         productsParent.addChild( NO_REACTION_NODE );
