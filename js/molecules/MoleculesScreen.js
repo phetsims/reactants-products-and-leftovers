@@ -21,7 +21,7 @@ define( function( require ) {
   // strings
   var screenTitle = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
 
-  // creates the icon for this screen
+  // creates the {Node} icon for this screen
   var createIcon = function() {
 
      // background rectangle
