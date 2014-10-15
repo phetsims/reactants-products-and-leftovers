@@ -137,7 +137,7 @@ define( function( require ) {
 
   return inherit( Node, SandwichesEquationNode, {
 
-    // @public Unlinks from properties. The node is no longer functional after calling this function.
+    // Unlinks from properties. The node is no longer functional after calling this function.
     dispose: function() {
        this.nodeProperty.unlink( this.nodePropertyObserver );
     }

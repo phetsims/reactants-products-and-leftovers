@@ -56,14 +56,14 @@ define( function( require ) {
     }, options );
 
     var thisRecipe = this;
-    thisRecipe.coefficientsMutable = options.coefficientsMutable; // @public
+    thisRecipe.coefficientsMutable = options.coefficientsMutable;
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
     var bread = createIngredient( 'bread', breadCount, breadImage );
     var meat =  createIngredient( 'meat', meatCount, meatImage );
     var cheese = createIngredient( 'cheese', cheeseCount, cheeseImage );
 
-    // @public sandwich image will be updated below
+    // sandwich image will be updated below
     thisRecipe.sandwich = new Product( 1, 'sandwich', NO_SANDWICH_NODE );
 
     var ingredients;

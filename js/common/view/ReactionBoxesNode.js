@@ -316,7 +316,7 @@ define( function( require ) {
       imageNode.centerY = this.imageNodes[0].centerY; // align with first reactant
     },
 
-    // @public Unlinks all property observers. The node is no longer functional after calling this function.
+    // Unlinks all property observers. The node is no longer functional after calling this function.
     dispose: function() {
 
       // accordion boxes from 'expand' properties

@@ -39,7 +39,7 @@ define( function( require ) {
 
   return inherit( ReactionBoxesNode, SandwichesBoxesNode, {
 
-    // @public Unlinks from properties. This object is no longer functional after calling this function.
+    // Unlinks from properties. This object is no longer functional after calling this function.
     dispose: function() {
       ReactionBoxesNode.prototype.dispose.call( this );
       if ( this.reaction.coefficientsMutable ) {

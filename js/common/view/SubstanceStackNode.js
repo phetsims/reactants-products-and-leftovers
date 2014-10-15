@@ -67,7 +67,7 @@ define( function( require ) {
 
   return inherit( Node, SubstanceStackNode, {
 
-    // @public Unlinks all property observers. The node is no longer functional after calling this function.
+    // Unlinks all property observers. The node is no longer functional after calling this function.
     dispose: function() {
       this.quantityProperty.unlink( this.quantityPropertyObserver );
       this.nodeProperty.unlink( this.nodePropertyObserver );

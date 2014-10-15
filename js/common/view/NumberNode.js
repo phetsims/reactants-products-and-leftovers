@@ -40,7 +40,7 @@ define( function( require ) {
 
   return inherit( Text, NumberNode, {
 
-    // @public Unlinks from the value property. The node is no longer functional after calling this function.
+    // Unlinks from the value property. The node is no longer functional after calling this function.
     dispose: function() {
       this.valueProperty.unlink( this.valuePropertyObserver );
     }

@@ -95,7 +95,7 @@ define( function( require ) {
 
   return inherit( HBox, NumberSpinner, {
 
-    // @public Unlinks from the value property. The spinner is no longer functional after calling this function.
+    // Unlinks from the value property. The spinner is no longer functional after calling this function.
     dispose: function() {
       this.valueProperty.unlink( this.valuePropertyObserver );
     }
