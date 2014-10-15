@@ -44,7 +44,10 @@ define( function( require ) {
       breadCount--;
     }
 
-    // To maximize interleaving, order the ingredients that go between the bread so that the more prevalent ingredient is added first.
+    /*
+     * To maximize interleaving, order the ingredients that go between the bread
+     * so that the more prevalent ingredient is added first.
+     */
     var ingredients;
     if ( meatCount >= cheeseCount ) {
       ingredients = [
