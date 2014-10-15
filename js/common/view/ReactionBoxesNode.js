@@ -270,7 +270,7 @@ define( function( require ) {
     // reactants inside the 'before' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
-      substanceStackNode = new SubstanceStackNode( reactant, thisNode.quantityNodes[i].centerX, startCenterY, deltaY );
+      substanceStackNode = new SubstanceStackNode( reactant.nodeProperty, reactant.quantityProperty, thisNode.quantityNodes[i].centerX, startCenterY, deltaY );
       beforeContent.addChild( substanceStackNode );
       thisNode.substanceStackNodes.push( substanceStackNode );
     }
@@ -279,7 +279,7 @@ define( function( require ) {
     for ( i = 0; i < numberOfProducts; i++ ) {
       product = reaction.products[i];
       centerX = thisNode.quantityNodes[i + numberOfReactants].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left );
-      substanceStackNode = new SubstanceStackNode( product, centerX, startCenterY, deltaY );
+      substanceStackNode = new SubstanceStackNode( product.nodeProperty, product.quantityProperty, centerX, startCenterY, deltaY );
       afterContent.addChild( substanceStackNode );
       thisNode.substanceStackNodes.push( substanceStackNode );
     }
@@ -288,7 +288,7 @@ define( function( require ) {
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
       centerX = thisNode.quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left );
-      substanceStackNode = new SubstanceStackNode( reactant, centerX, startCenterY, deltaY );
+      substanceStackNode = new SubstanceStackNode( reactant.nodeProperty, reactant.leftoversProperty, centerX, startCenterY, deltaY );
       afterContent.addChild( substanceStackNode );
       thisNode.substanceStackNodes.push( substanceStackNode );
     }

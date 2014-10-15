@@ -19,19 +19,21 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
-   * @param {Substance} substance the substance in the stack
+   * @param {Property.<Node>} nodeProperty the node to display
+   * @param {Property.<number>} quantityProperty the number of nodes to display
    * @param {number} centerX the centerX of the stack
    * @param {number} startCenterY the centerY of the bottom node in the stack
    * @param {number} deltaY the vertical spacing between nodes in the stack
    * @param {Object} [options]
    * @constructor
    */
-  function SubstanceStackNode( substance, centerX, startCenterY, deltaY, options ) {
+  function SubstanceStackNode( nodeProperty, quantityProperty, centerX, startCenterY, deltaY, options ) {
 
     var thisNode = this;
     Node.call( thisNode );
 
-    thisNode.substance = substance; // @private
+    thisNode.nodeProperty = nodeProperty; // @private
+    thisNode.quantityProperty = quantityProperty; // @private
 
     // @private When the quantity changes ...
     thisNode.quantityPropertyObserver = function( quantity ) {
@@ -44,21 +46,21 @@ define( function( require ) {
         else {
           // add a node
           thisNode.addChild( new Node( {
-            children: [ thisNode.substance.nodeProperty.get() ],
+            children: [ thisNode.nodeProperty.get() ],
             centerX: centerX,
             centerY: startCenterY - ( i * deltaY )
           } ) );
         }
       }
     };
-    substance.quantityProperty.link( thisNode.quantityPropertyObserver );
+    thisNode.quantityProperty.link( thisNode.quantityPropertyObserver );
 
     // @private When the node that represents the substance changes ...
     thisNode.nodePropertyObserver = function( node ) {
       thisNode.removeAllChildren();
-      thisNode.quantityPropertyObserver( substance.quantityProperty.get() );
+      thisNode.quantityPropertyObserver( thisNode.quantityProperty.get() );
     };
-    substance.nodeProperty.link( thisNode.nodePropertyObserver );
+    thisNode.nodeProperty.link( thisNode.nodePropertyObserver );
 
     thisNode.mutate( options );
   }
@@ -67,8 +69,8 @@ define( function( require ) {
 
     // @public Unlinks all property observers. The node is no longer functional after calling this function.
     dispose: function() {
-      this.substance.quantityProperty.unlink( this.quantityPropertyObserver );
-      this.substance.nodeProperty.unlink( this.nodePropertyObserver );
+      this.quantityProperty.unlink( this.quantityPropertyObserver );
+      this.nodeProperty.unlink( this.nodePropertyObserver );
     }
   } );
 } );

@@ -1,4 +1,5 @@
 # 1.0.0-dev.5 10/14/14
+10/14/14 fix node stack for leftovers
 10/14/14 display 'No "Reaction"' as multi-line text, constrain to approximate width of max-size sandwich and its coefficient
 10/14/14 reduce horizontal spacing in equations
 10/14/14 make the 'no reaction' dashed rectangle the same size as the area occupied by max-size sandwich and its coefficient
