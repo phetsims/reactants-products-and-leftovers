@@ -1,8 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Control for selecting a reaction.
- * A vertical stack of left-aligned radio buttons.
+ * Control for selecting a reaction, a vertical stack of left-aligned radio buttons.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -33,7 +32,7 @@ define( function( require ) {
       align: 'left'
     }, options );
 
-    // radio buttons, one for each reaction, arranged horizontally
+    // radio buttons, one for each reaction
     var radioButtons = [];
     choices.forEach( function( choice ) {
       var radioButton = new AquaRadioButton( reactionProperty, choice, new Text( choice.name, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS );
