@@ -14,7 +14,7 @@ MEDIUM
 LOW
 - remove uses of instanceof
 - curves for brackets
-- add real title bar to sun.AccordionBox, sun#135
+- add title-bar feature to sun.AccordionBox, sun#135
 
 MIGRATE TO COMMON
 - NumberSpinner
