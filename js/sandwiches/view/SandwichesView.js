@@ -1,6 +1,5 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO this is very similar to MoleculeView
 /**
  * View for the 'Sandwiches' screen.
  *
@@ -12,16 +11,11 @@ define( function( require ) {
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var ReactionBarNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBarNode' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var ReactionView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionView' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var SandwichesBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesBoxesNode' );
   var SandwichesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesEquationNode' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
-  var ScreenView = require( 'JOIST/ScreenView' );
 
   // strings
   var beforeSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/beforeSandwich' );
@@ -34,41 +28,8 @@ define( function( require ) {
   function SandwichesView( model ) {
 
     var thisView = this;
-    ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
-
-    var viewProperties = new PropertySet( {
-      beforeExpanded: true,
-      afterExpanded: true
-    } );
-
-    // reaction bar, location is determined by a query parameter
-    var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
-      function( reaction ) { return new SandwichesEquationNode( reaction ); },
-      { screenWidth: thisView.layoutBounds.width } );
-    thisView.addChild( reactionBarNode );
-    var playAreaTop, playAreaBottom;
-    if ( RPALQueryParameters.EQUATION === 'bottom' ) {
-      reactionBarNode.bottom = thisView.layoutBounds.bottom;
-      playAreaTop = thisView.layoutBounds.top;
-      playAreaBottom = reactionBarNode.top;
-    }
-    else {
-      reactionBarNode.top = thisView.layoutBounds.top;
-      playAreaTop = reactionBarNode.bottom;
-      playAreaBottom = thisView.layoutBounds.bottom;
-    }
-
-    // Reset All button
-    var resetAllButton = new ResetAllButton( {
-      scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
-      listener: function() {
-        model.reset();
-        viewProperties.reset();
-      }
-    } );
-    thisView.addChild( resetAllButton );
-    resetAllButton.left = thisView.layoutBounds.left + 10;
-    resetAllButton.bottom = playAreaBottom - 10;
+    ReactionView.call( thisView, model,
+      function( reaction ) { return new SandwichesEquationNode( reaction ); } );
 
     // compute the size of the largest sandwich, used for layout of boxes
     var maxCoefficient = RPALConstants.COEFFICIENT_RANGE.max;
@@ -79,17 +40,17 @@ define( function( require ) {
     var reactionBoxesNode;
     model.reactionProperty.link( function( reaction ) {
 
-      // dispose of the previous box
+      // dispose of the previous boxes
       if ( reactionBoxesNode ) {
         reactionBoxesNode.dispose();
         thisView.removeChild( reactionBoxesNode );
       }
 
-      // options for the new box
+      // options for the new boxes
       var boxOptions = {
         showSymbols: false,
         left: 40,
-        top: playAreaTop + 10,
+        top: thisView.playAreaTop + 10,
         beforeTitle: beforeSandwichString,
         afterTitle: afterSandwichString,
         maxImageSize: maxSandwichSize
@@ -98,11 +59,14 @@ define( function( require ) {
         boxOptions.boxYMargin = 12;
       }
 
-      // create the new box
-      reactionBoxesNode = new SandwichesBoxesNode( reaction, viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty, boxOptions );
+      // create the new boxes
+      reactionBoxesNode = new SandwichesBoxesNode( reaction,
+        thisView.viewProperties.beforeExpandedProperty,
+        thisView.viewProperties.afterExpandedProperty,
+        boxOptions );
       thisView.addChild( reactionBoxesNode );
     } );
   }
 
-  return inherit( ScreenView, SandwichesView );
+  return inherit( ReactionView, SandwichesView );
 } );
