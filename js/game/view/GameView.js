@@ -29,20 +29,14 @@ define( function( require ) {
     //TODO remove this
     thisView.addChild( new Text( 'Game: under construction', { font: new RPALFont( 36 ), center: this.layoutBounds.center } ) );
 
+    // Reset All button
     var resetAllButton = new ResetAllButton( {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       listener: function() {
         model.reset();
       }
     } );
-
-    // Parent for all nodes added to this screen
-    var rootNode = new Node( { children: [
-      resetAllButton
-    ] } );
-    thisView.addChild( rootNode );
-
-    // layout
+    thisView.addChild( resetAllButton );
     resetAllButton.right = thisView.layoutBounds.right - 10;
     resetAllButton.bottom = thisView.layoutBounds.bottom - 10;
   }
