@@ -34,26 +34,11 @@ define( function( require ) {
       afterExpanded: true
     } );
 
-    // static UI components
+    // reaction bar, location is determined by a query parameter
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
       function( reaction ) { return new MoleculesEquationNode( reaction ); },
       { screenWidth: thisView.layoutBounds.width } );
-    var resetAllButton = new ResetAllButton( {
-      scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
-      listener: function() {
-        model.reset();
-        viewProperties.reset();
-      }
-    } );
-
-    // Parent for all nodes added to this screen
-    var rootNode = new Node( { children: [
-      reactionBarNode,
-      resetAllButton
-    ] } );
-    thisView.addChild( rootNode );
-
-    // layout of the reaction bar is determined by a query parameter
+    thisView.addChild( reactionBarNode );
     var playAreaTop, playAreaBottom;
     if ( RPALQueryParameters.EQUATION === 'bottom' ) {
       reactionBarNode.bottom = thisView.layoutBounds.bottom;
@@ -66,20 +51,29 @@ define( function( require ) {
       playAreaBottom = thisView.layoutBounds.bottom;
     }
 
-    // remainder of layout
+    // Reset All button
+    var resetAllButton = new ResetAllButton( {
+      scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
+      listener: function() {
+        model.reset();
+        viewProperties.reset();
+      }
+    } );
+    thisView.addChild( resetAllButton );
     resetAllButton.left = thisView.layoutBounds.left + 10;
     resetAllButton.bottom = playAreaBottom - 10;
 
+    // When the reaction changes, create new Before/After boxes
     var reactionBoxesNode;
     model.reactionProperty.link( function( reaction ) {
       if ( reactionBoxesNode ) {
         reactionBoxesNode.dispose();
-        rootNode.removeChild( reactionBoxesNode );
+        thisView.removeChild( reactionBoxesNode );
       }
       reactionBoxesNode = new ReactionBoxesNode( reaction,
         viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty,
         { left: 40, top: playAreaTop + 10 } );
-      rootNode.addChild( reactionBoxesNode );
+      thisView.addChild( reactionBoxesNode );
     } );
   }
 

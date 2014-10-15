@@ -1,3 +1,4 @@
+10/14/14 clean up ScreenView subtypes
 # 1.0.0-dev.5 10/14/14
 10/14/14 fix node stack for leftovers
 10/14/14 display 'No "Reaction"' as multi-line text, constrain to approximate width of max-size sandwich and its coefficient

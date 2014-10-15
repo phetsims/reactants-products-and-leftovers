@@ -41,26 +41,11 @@ define( function( require ) {
       afterExpanded: true
     } );
 
-    // static UI components
+    // reaction bar, location is determined by a query parameter
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
       function( reaction ) { return new SandwichesEquationNode( reaction ); },
       { screenWidth: thisView.layoutBounds.width } );
-    var resetAllButton = new ResetAllButton( {
-      scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
-      listener: function() {
-        model.reset();
-        viewProperties.reset();
-      }
-    } );
-
-    // Parent for all nodes added to this screen
-    var rootNode = new Node( { children: [
-      reactionBarNode,
-      resetAllButton
-    ] } );
-    thisView.addChild( rootNode );
-
-    // layout of the reaction bar is determined by a query parameter
+    thisView.addChild( reactionBarNode );
     var playAreaTop, playAreaBottom;
     if ( RPALQueryParameters.EQUATION === 'bottom' ) {
       reactionBarNode.bottom = thisView.layoutBounds.bottom;
@@ -73,22 +58,31 @@ define( function( require ) {
       playAreaBottom = thisView.layoutBounds.bottom;
     }
 
-    // remainder of layout
+    // Reset All button
+    var resetAllButton = new ResetAllButton( {
+      scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
+      listener: function() {
+        model.reset();
+        viewProperties.reset();
+      }
+    } );
+    thisView.addChild( resetAllButton );
     resetAllButton.left = thisView.layoutBounds.left + 10;
     resetAllButton.bottom = playAreaBottom - 10;
 
-    // compute the size of the largest sandwich, used for layout of the 'custom' sandwich
+    // compute the size of the largest sandwich, used for layout of boxes
     var maxCoefficient = RPALConstants.COEFFICIENT_RANGE.max;
     var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
     var maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
 
+    // When the reaction changes, create new Before/After boxes
     var reactionBoxesNode;
     model.reactionProperty.link( function( reaction ) {
 
       // dispose of the previous box
       if ( reactionBoxesNode ) {
         reactionBoxesNode.dispose();
-        rootNode.removeChild( reactionBoxesNode );
+        thisView.removeChild( reactionBoxesNode );
       }
 
       // options for the new box
@@ -106,7 +100,7 @@ define( function( require ) {
 
       // create the new box
       reactionBoxesNode = new SandwichesBoxesNode( reaction, viewProperties.beforeExpandedProperty, viewProperties.afterExpandedProperty, boxOptions );
-      rootNode.addChild( reactionBoxesNode );
+      thisView.addChild( reactionBoxesNode );
     } );
   }
 
