@@ -21,6 +21,8 @@ define( function( require ) {
    */
   function Substance( coefficient, symbol, node, quantity ) {
 
+    quantity = quantity || 0;
+
     assert && assert( coefficient >= 0 );
     assert && assert( quantity >= 0 );
 
@@ -29,7 +31,7 @@ define( function( require ) {
     PropertySet.call( this, {
       coefficient: coefficient,
       node: node, // mutable to support the 'custom sandwich' case
-      quantity: quantity || 0
+      quantity: quantity
     } );
   }
 

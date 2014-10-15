@@ -49,7 +49,7 @@ define( function( require ) {
    */
   function SandwichRecipe( name, breadCount, meatCount, cheeseCount, options ) {
 
-    assert && assert( breadCount > 0 && meatCount > 0 && cheeseCount > 0 );
+    assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
 
     options = _.extend( {
       coefficientsMutable: false // {boolean} can coefficients of the ingredients can be changed?
