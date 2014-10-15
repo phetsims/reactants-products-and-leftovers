@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ReactionView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionView' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  var SandwichesBoxesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesBoxesNode' );
+  var SandwichesBeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesBeforeAfterNode' );
   var SandwichesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesEquationNode' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
 
@@ -37,13 +37,13 @@ define( function( require ) {
     var maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
 
     // When the reaction changes, create new Before/After boxes
-    var reactionBoxesNode;
+    var beforeAfterNode;
     model.reactionProperty.link( function( reaction ) {
 
       // dispose of the previous boxes
-      if ( reactionBoxesNode ) {
-        reactionBoxesNode.dispose();
-        thisView.removeChild( reactionBoxesNode );
+      if ( beforeAfterNode ) {
+        beforeAfterNode.dispose();
+        thisView.removeChild( beforeAfterNode );
       }
 
       // options for the new boxes
@@ -60,11 +60,11 @@ define( function( require ) {
       }
 
       // create the new boxes
-      reactionBoxesNode = new SandwichesBoxesNode( reaction,
+      beforeAfterNode = new SandwichesBeforeAfterNode( reaction,
         thisView.viewProperties.beforeExpandedProperty,
         thisView.viewProperties.afterExpandedProperty,
         boxOptions );
-      thisView.addChild( reactionBoxesNode );
+      thisView.addChild( beforeAfterNode );
     } );
   }
 

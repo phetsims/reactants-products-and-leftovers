@@ -4,6 +4,7 @@
  * Displays a reaction as 2 boxes, representing the 'before' and 'after' states of the reaction.
  * The 'before' box is on the left, and shows the initial reactants.
  * The 'after' box is on the right, and shows the products and leftovers when the reaction has completed.
+ * Below the boxes are controls for changing quantities.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -54,7 +55,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function ReactionBoxesNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
+  function BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
     options = _.extend( {
       boxSize: new Dimension2( 310, 240 ), // size of the 'before' and 'after' boxes
@@ -297,7 +298,7 @@ define( function( require ) {
     thisNode.mutate( options );
   }
 
-  return inherit( Node, ReactionBoxesNode, {
+  return inherit( Node, BeforeAfterNode, {
 
     /**
      * Sets the nodes used to represent a specified product.
