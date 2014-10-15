@@ -1,5 +1,6 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
+//TODO move to rpal.common.view, since this will also be used in Game screen?
 /**
  * Equation for the 'Molecules' screen. Coefficients are immutable and molecule symbols are displayed.
  *
