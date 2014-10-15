@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * The 'Sandwiches' screen. Conforms to the contract specified in joist/Screen.
+ * 'Sandwiches' screen
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * The 'Molecules' screen. Conforms to the contract specified in joist/Screen.
+ * 'Molecules' screen
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

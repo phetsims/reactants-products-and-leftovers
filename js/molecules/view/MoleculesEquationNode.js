@@ -18,6 +18,7 @@ define( function( require ) {
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
+  //TODO these constants are also defined in SandwichesEquationNode, will they potentially be different?
   // constants
   var COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
   var PLUS_X_SPACING = 15; // space on both sides of the plus signs
