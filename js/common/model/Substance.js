@@ -46,7 +46,7 @@ define( function( require ) {
       return ( substance instanceof Substance &&
                this.coefficient === substance.coefficient &&
                this.symbol === substance.symbol &&
-               this.node === this.node &&
+               this.node === substance.node &&
                this.quantity === substance.quantity );
     }
   } );
