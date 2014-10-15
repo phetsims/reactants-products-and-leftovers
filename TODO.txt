@@ -9,18 +9,16 @@ HIGH
 
 MEDIUM
 - random layout strategy for molecules in boxes
+- dev features for game (skip, play all, ...)
 
 LOW
 - remove uses of instanceof
-- dev features for game (skip, play all, ...)
 - curves for brackets
 - add real title bar to sun.AccordionBox, sun#135
-- consolidate loop iterations in ReactionBoxesNode?
 
 MIGRATE TO COMMON
 - NumberSpinner
 - NumberNode
-- HBracketNode
 
 MISC
 - watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524
