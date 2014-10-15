@@ -31,8 +31,6 @@ define( function( require ) {
    */
   function NumberSpinner( valueProperty, range, options ) {
 
-    assert && assert( Util.isInteger( valueProperty.get() ) ); // value is an integer
-    assert && assert( Util.isInteger( range.min ) && Util.isInteger( range.max ) ); // range is integer
     assert && assert( range.contains( valueProperty.get() ) ); // value is in range
 
     options = _.extend( {
