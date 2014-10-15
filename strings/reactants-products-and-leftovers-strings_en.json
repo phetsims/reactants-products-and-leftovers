@@ -25,5 +25,6 @@
   "beforeReaction": "Before Reaction",
   "afterReaction": "After Reaction",
   "beforeSandwich": "Before \"Reaction\"",
-  "afterSandwich": "After \"Reaction\""
+  "afterSandwich": "After \"Reaction\"",
+  "noReaction": "No\n\"Reaction\""
 }
