@@ -1,3 +1,4 @@
+10/16/14 increase vertical space between sandwich ingredients by 1 pixel
 10/14/14 rename BeforeAfterNode
 10/14/14 factor out commonality in ScreenView subtypes into ReactionView
 10/14/14 include Java team in credits

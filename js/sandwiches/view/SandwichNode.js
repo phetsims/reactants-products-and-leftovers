@@ -19,7 +19,7 @@ define( function( require ) {
   var meatImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/meat.png' );
 
   // constants
-  var Y_SPACING = 3; // vertical space between centers of ingredients
+  var Y_SPACING = 4; // vertical space between centers of ingredients
 
   /**
    * @param {number} breadCount
