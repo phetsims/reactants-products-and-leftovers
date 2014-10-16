@@ -8,6 +8,7 @@ HIGH
 - Game screen
 
 MEDIUM
+- why is spacing different between 2 slides of cheese (or meat) comparing RHS of equation and 'products'
 - random layout strategy for molecules in boxes
 - dev features for game (skip, play all, ...)
 
