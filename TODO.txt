@@ -7,6 +7,7 @@ DESIGN
 HIGH
 - Game screen
 - add fixQuantityRangeViolation to ChallengeFactory
+- add test function to ChallengeFactory
 
 MEDIUM
 - why is spacing different between 2 slides of cheese (or meat) comparing RHS of equation and 'products'
