@@ -1,3 +1,4 @@
+10/17/14 started porting ChallengeFactory.doTest (incomplete)
 10/17/14 port big chunks of the Game model from Java (untested by seems to pass requirejs)
 10/17/14 add clone to Reactant and Product, for Game
 10/16/14 increase vertical space between sandwich ingredients by 1 pixel

@@ -28,6 +28,7 @@ define( function( require ) {
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
   var ChallengeVisibility = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeVisibility' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
 
   // level 2 is all the one-product reactions
   var LEVEL2_LIST = [
@@ -127,7 +128,10 @@ define( function( require ) {
 
       assert && assert( challenges.length === numberOfChallenges );
       return challenges;
-    }
+    },
+
+    // Runs a sanity check, for debugging.
+    test: function() { doTest() }
   };
 
   /*
@@ -209,54 +213,55 @@ define( function( require ) {
     return allOne;
   };
 
+  /**
+   * Runs a sanity check, looking for problems with reactions and the challenge-creation algorithm.
+   * Intended to be run from the browser console via ChallengeFactory.test().
+   */
+  var doTest = function() {
+
+    // hoist vars that will be reused
+    var factoryFunction, reaction;
+
+    // Print reactions by level. Put all reactions in a container, removing duplicates.
+    var factoryFunctions = [];
+    for ( var level = 0; level < REACTIONS.length; level++ ) {
+      console.log( '----------------------------------------------------------' );
+      console.log( 'Level ' + ( level + 1 ) );
+      console.log( '----------------------------------------------------------' );
+      for ( var reactionIndex = 0; reactionIndex < REACTIONS[ level ].length; reactionIndex++ ) {
+        factoryFunction = REACTIONS[ level ][ reactionIndex ];
+        reaction = factoryFunction();
+        console.log( reaction.toString() );
+        if ( factoryFunctions.indexOf( factoryFunction ) !== -1 ) {
+          factoryFunctions.push( factoryFunction );
+        }
+      }
+    }
+
+    // Look for reactions with coefficients > maxQuantity, we must have none of these.
+    var maxQuantity = RPALConstants.QUANTITY_RANGE.max;
+    console.log( '----------------------------------------------------------' );
+    console.log( "Looking for coefficient-range violations ..." );
+    console.log( '----------------------------------------------------------' );
+    var numberOfCoefficientRangeViolations = 0;
+    factoryFunctions.forEach( function( factoryFunction ) {
+      reaction = factoryFunction();
+      for ( var i = 0; i < reaction.reactants.length; i++ ) {
+        if ( reaction.reactants[i].coefficient < 1 || reaction.reactants[i].coefficient > maxQuantity ) {
+          console.log( "ERROR: coefficient out of range : " + reaction.toString() );
+          numberOfCoefficientRangeViolations++;
+          break;
+        }
+      }
+    } );
+    console.log( 'Number of coefficient-range violations = ' + numberOfCoefficientRangeViolations );
+  };
+
   return ChallengeFactory;
 } );
 
 
-//TODO port this test, so it can be run in the debugger
-//
-//    /**
-//     * Test for problems with reactions and algorithm.
-//     * This can be run from the Developer menu.
-//     *
-//     * @param args
-//     */
-//    public static void main( String[] args ) {
-//
-//        NumberOfVariablesChallengeFactory factory = new NumberOfVariablesChallengeFactory();
-//
-//        // Print reactions by level. Put all reactions in a container, removing duplicates.
-//        ArrayList<Class<? extends ChemicalReaction>> reactionClasses = new ArrayList<Class<? extends ChemicalReaction>>();
-//        for ( int level = 1; level <= REACTIONS.size(); level++ ) {
-//            System.out.println();
-//            System.out.println( "Level " + level + " --------------------------------------" );
-//            for ( int reactionIndex = 0; reactionIndex < factory.getNumberOfReactions( level ); reactionIndex++ ) {
-//                Class<? extends ChemicalReaction> reactionClass = factory.getReactionClass( level, reactionIndex );
-//                // print the reaction
-//                ChemicalReaction reaction = instantiateReaction( reactionClass );
-//                System.out.println( reaction.getEquationPlainText() );
-//                // add the reaction to the container
-//                if ( !reactionClasses.contains( reactionClass ) ) {
-//                    reactionClasses.add( reactionClass );
-//                }
-//            }
-//        }
-//
-//        // Look for reactions with coefficients > maxQuantity, we must have none of these.
-//        int maxQuantity = GameModel.getQuantityRange().getMax();
-//        System.out.println();
-//        System.out.println( "LOOKING FOR COEFFICIENTS RANGE VIOLATIONS ..." );
-//        System.out.println();
-//        for ( Class<? extends ChemicalReaction> reactionClass : reactionClasses ) {
-//            ChemicalReaction reaction = instantiateReaction( reactionClass );
-//            // set all reactant quantities to their max values.
-//            for ( Reactant reactant : reaction.getReactants() ) {
-//                if ( reactant.getCoefficient() < 1 || reactant.getCoefficient() > maxQuantity ) {
-//                    System.out.println( "ERROR: coefficient out of range : " + reaction.getEquationPlainText() );
-//                    break;
-//                }
-//            }
-//        }
+//TODO continue porting doTest()
 //
 //        // Look for quantity range violations in all reactions. We expect these, but require that they can be fixed.
 //        System.out.println( "LOOKING FOR QUANTITY RANGE VIOLATIONS THAT CANNOT BE FIXED ..." );

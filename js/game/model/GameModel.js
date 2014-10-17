@@ -9,9 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
+  var ChallengeVisibility = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeVisibility' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function GameModel() {
+    var challenges = ChallengeFactory.createChallenges( 5, 0, 8, ChallengeVisibility.BOTH ); //XXX test
     //TODO
   }
 
