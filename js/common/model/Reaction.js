@@ -98,11 +98,12 @@ define( function( require ) {
 
     /**
      * DEBUG
-     * String representation of the reaction.
+     * String representation of the reaction, including quantities.
+     * Example: 2H2 + 1O2 -> 2H2O  : 2,2 -> 2,0,1
      * @returns {string}
      */
     toString: function() {
-      return this.getEquationString() + ' ' + this.getQuantitiesString();
+      return this.getEquationString() + ' : ' + this.getQuantitiesString();
     },
 
     /**
@@ -132,13 +133,14 @@ define( function( require ) {
      */
     getQuantitiesString: function() {
       var s = '';
+      var i = 0;
       // reactants
-      for ( var i = 0; i < this.reactants.length; i++ ) {
+      for ( i = 0; i < this.reactants.length; i++ ) {
         if ( i !== 0 ) { s += ','; }
         s += this.reactants[i].quantity;
       }
       // arrow
-      s += '->';
+      s += ' -> ';
       // products
       for ( i = 0; i < this.products.length; i++ ) {
         if ( i !== 0 ) { s += ','; }
