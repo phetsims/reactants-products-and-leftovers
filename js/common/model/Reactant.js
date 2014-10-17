@@ -38,5 +38,11 @@ define( function( require ) {
              Substance.prototype.equals.call( this, reactant ) &&
              this.leftovers && this.leftovers === reactant.leftovers;
     }
+  }, {
+
+    // @static
+    clone: function( reactant ) {
+      return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, reactant.quantity );
+    }
   } );
 } );

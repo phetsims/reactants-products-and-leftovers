@@ -36,5 +36,11 @@ define( function( require ) {
       return ( product instanceof Product &&
                Substance.prototype.equals.call( this, product ) );
     }
+  }, {
+
+    // @static
+    clone: function( product ) {
+      return new Product( product.coefficient, product.symbol, product.node, product.quantity );
+    }
   } );
 } );
