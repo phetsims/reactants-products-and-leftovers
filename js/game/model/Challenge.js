@@ -11,20 +11,26 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ChallengeVisibility = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeVisibility' );
   var GameGuess = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GameGuess' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {Reaction} reaction
    * @param {ChallengeType} challengeType
-   * @param {ChallengeVisibility} challengeVisibility
+   * @param {Object} [options]
    * @constructor
    */
-  function Challenge( reaction, challengeType, challengeVisibility ) {
+  function Challenge( reaction, challengeType, options ) {
+
+    options = _.extend( {
+      moleculesVisible: true,
+      numbersVisible: true
+    }, options );
+
     this.reaction = reaction;
     this.challengeType = challengeType;
-    this.challengeVisibility = challengeVisibility;
+    this.moleculesVisible = options.moleculesVisible;
+    this.numbersVisible = options.numbersVisible;
     this.guess = new GameGuess( reaction, challengeType );
   }
 
@@ -51,14 +57,6 @@ define( function( require ) {
     // Example: 2H2 + 1O2 -> 2H2O  : 2,2 -> 2,0,1 : 3,2 -> 2,1,1 : AFTER
     toString: function() {
       return this.reaction.toString() + ' : ' + this.guess.toString() + ' : ' + this.challengeType;
-    },
-
-    isMoleculesVisible: function() {
-      return ( this.challengeVisibility === ChallengeVisibility.NUMBERS || this.challengeVisibility === ChallengeVisibility.BOTH );
-    },
-
-    isNumbersVisible: function() {
-      return ( this.challengeVisibility === ChallengeVisibility.MOLECULES || this.challengeVisibility === ChallengeVisibility.BOTH );
     }
   } );
 } );

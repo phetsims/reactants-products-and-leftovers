@@ -1,8 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO make this go away
 /**
- * Whether the user must guess the Before or After quantities.
+ * The type of challenge is determined by whether the user must guess the reaction's 'Before' or 'After' quantities.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

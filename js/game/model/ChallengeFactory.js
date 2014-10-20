@@ -26,7 +26,6 @@ define( function( require ) {
   // modules
   var Challenge = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/Challenge' );
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
-  var ChallengeVisibility = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeVisibility' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
 
@@ -94,10 +93,10 @@ define( function( require ) {
      * @param {number} numberOfChallenges
      * @param {number} level
      * @param {number} maxQuantity
-     * @param {ChallengeVisibility} challengeVisibility
+     * @param {Object} challengeOptions options to the Challenge constructor
      * @returns {[Challenge]}
      */
-    createChallenges: function( numberOfChallenges, level, maxQuantity, challengeVisibility ) {
+    createChallenges: function( numberOfChallenges, level, maxQuantity, challengeOptions ) {
 
       // check args
       assert && assert( numberOfChallenges > 0 );
@@ -122,7 +121,7 @@ define( function( require ) {
         }
         fixQuantityRangeViolation( reaction, maxQuantity ); // do this *before* creating the challenge, see Unfuddle #2156 //TODO remove Unfuddle reference
 
-        challenges.push( new Challenge( reaction, CHALLENGE_TYPE[ level ], challengeVisibility ) );
+        challenges.push( new Challenge( reaction, CHALLENGE_TYPE[ level ], challengeOptions ) );
       }
 
       assert && assert( challenges.length === numberOfChallenges );
@@ -359,7 +358,7 @@ define( function( require ) {
       for ( i = 0; i < 100; i++ ) {
 
         // create challenges
-        var challenges = ChallengeFactory.createChallenges( RPALConstants.CHALLENGES_PER_GAME, level, maxQuantity, ChallengeVisibility.BOTH );
+        var challenges = ChallengeFactory.createChallenges( RPALConstants.CHALLENGES_PER_GAME, level, maxQuantity );
         numberOfChallengesGenerated += challenges.length;
 
         // validate
