@@ -44,7 +44,7 @@ define( function( require ) {
   var SCREEN_Y_MARGIN = 20;
 
   // Creates a level selection button
-  var createLevelStartButton = function( level, model ) {
+  var createLevelSelectionButton = function( level, model ) {
 
     // 'Level N' centered above icon
     var label = new Text( StringUtils.format( pattern_Level_0, level + 1 ), { font: new RPALFont( 40 ) } );
@@ -90,7 +90,7 @@ define( function( require ) {
     // buttons
     var buttons = [];
     for ( var level = 0; level < model.numberOfLevels; level++ ) {
-      buttons.push( createLevelStartButton( level, model ) );
+      buttons.push( createLevelSelectionButton( level, model ) );
     }
     var buttonsParent = new HBox( {
       children: buttons,
