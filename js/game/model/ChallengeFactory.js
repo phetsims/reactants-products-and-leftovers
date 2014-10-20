@@ -2,7 +2,7 @@
 
 /**
  * Creates challenges where level-of-difficulty is based on the number variables that
- * we're solving for, and whether the variables are "before" or "after" terms.
+ * we're solving for, and whether the variables are 'before' or 'after' terms.
  * <p>
  * Behavior is:
  * <ul>
@@ -99,7 +99,7 @@ define( function( require ) {
      */
     createChallenges: function( numberOfChallenges, level, maxQuantity, challengeVisibility ) {
 
-       // check args
+      // check args
       assert && assert( numberOfChallenges > 0 );
       assert && assert( level >= 0 && level < REACTIONS.length );
       assert && assert( maxQuantity > 0 );
@@ -120,8 +120,7 @@ define( function( require ) {
         else {
           reaction = createChallengeWithProducts( factoryFunctions, maxQuantity );
         }
-        //TODO
-//        fixQuantityRangeViolation( reaction, maxQuantity ); // do this *before* creating the challenge, see Unfuddle #2156
+        fixQuantityRangeViolation( reaction, maxQuantity ); // do this *before* creating the challenge, see Unfuddle #2156 //TODO remove Unfuddle reference
 
         challenges.push( new Challenge( reaction, CHALLENGE_TYPE[ level ], challengeVisibility ) );
       }
@@ -214,24 +213,106 @@ define( function( require ) {
   };
 
   /**
+   * Checks a reaction for quantity range violations.
+   * @param {Reaction} reaction
+   * @returns {boolean}
+   */
+  var hasQuantityRangeViolation = function( reaction ) {
+    var violation = false;
+    var i;
+    for ( i = 0; !violation && i < reaction.reactants.length; i++ ) {
+      if ( !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].quantity ) ||
+           !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].leftovers ) ) {
+        violation = true;
+      }
+    }
+    for ( i = 0; !violation && i < reaction.products.length; i++ ) {
+      if ( !RPALConstants.QUANTITY_RANGE.contains( reaction.products[i].quantity ) ) {
+        violation = true;
+      }
+    }
+    return violation;
+  };
+
+  /**
+   * Fixes any quantity range violations in a reaction.
+   * We do this by decrementing reactant quantities by 1, alternating reactants as we do so.
+   * Each reactant must have a quantity of at least 1, in order to have a valid reaction.
+   */
+  var fixQuantityRangeViolation = function( reaction, maxQuantity, enableDebugOutput ) {
+
+    enableDebugOutput = !!enableDebugOutput || false;
+
+    if ( hasQuantityRangeViolation( reaction ) ) {
+
+      if ( enableDebugOutput ) {
+        console.log( 'attempting to fix quantity-range violation, reaction=' + reaction.toString() );
+      }
+
+      // First, make sure all reactant quantities are in range.
+      reaction.reactants.forEach( function( reactant ) {
+        if ( reactant.quantity > maxQuantity ) {
+          reactant.quantity = maxQuantity;
+        }
+      } );
+
+      // Then incrementally reduce reactant quantities, alternating reactants.
+      var reactantIndex = 0;
+      var changed = false;
+      while ( hasQuantityRangeViolation( reaction ) ) {
+        var reactant = reaction.reactants[ reactantIndex ];
+        var quantity = reactant.quantity;
+        if ( quantity > 1 ) {
+          reactant.quantity = reactant.quantity - 1;
+          changed = true;
+        }
+        reactantIndex++;
+        if ( reactantIndex > reaction.reactants.length - 1 ) {
+          reactantIndex = 0;
+          if ( !changed ) {
+            // we have not been able to reduce any reactant
+            break;
+          }
+        }
+      }
+
+      // If all reactants have been reduced and we are still out of range, bail with a serious error.
+      if ( hasQuantityRangeViolation( reaction ) ) {
+        throw new Error( 'ERROR: quantity-range violation cannot be fixed: ' + reaction.toString() );
+      }
+
+      if ( enableDebugOutput ) {
+        console.log( ' fixed: ' + reaction.toString() );
+      }
+    }
+  };
+
+  /**
    * Runs a sanity check, looking for problems with reactions and the challenge-creation algorithm.
    * Intended to be run from the browser console via ChallengeFactory.test().
    */
   var doTest = function() {
 
+    // Cumulative counts for this test
+    var numberOfChallengesGenerated = 0;
+    var numberOfCoefficientRangeErrors = 0;
+    var numberOfReactantErrors = 0;
+    var numberOfProductErrors = 0;
+    var numberOfQuantityRangeErrors = 0;
+
     // hoist vars that will be reused
-    var factoryFunction, reaction;
+    var factoryFunction, reaction, level, i, j;
 
     // Print reactions by level. Put all reactions in a container, removing duplicates.
     var factoryFunctions = [];
-    for ( var level = 0; level < REACTIONS.length; level++ ) {
+    for ( level = 0; level < REACTIONS.length; level++ ) {
       console.log( '----------------------------------------------------------' );
       console.log( 'Level ' + ( level + 1 ) );
       console.log( '----------------------------------------------------------' );
-      for ( var reactionIndex = 0; reactionIndex < REACTIONS[ level ].length; reactionIndex++ ) {
-        factoryFunction = REACTIONS[ level ][ reactionIndex ];
+      for ( i = 0; i < REACTIONS[ level ].length; i++ ) {
+        factoryFunction = REACTIONS[ level ][ i ];
         reaction = factoryFunction();
-        console.log( reaction.toString() );
+        console.log( reaction.getEquationString() );
         if ( factoryFunctions.indexOf( factoryFunction ) !== -1 ) {
           factoryFunctions.push( factoryFunction );
         }
@@ -241,88 +322,104 @@ define( function( require ) {
     // Look for reactions with coefficients > maxQuantity, we must have none of these.
     var maxQuantity = RPALConstants.QUANTITY_RANGE.max;
     console.log( '----------------------------------------------------------' );
-    console.log( "Looking for coefficient-range violations ..." );
+    console.log( 'Looking for coefficient-range violations ...' );
     console.log( '----------------------------------------------------------' );
-    var numberOfCoefficientRangeViolations = 0;
     factoryFunctions.forEach( function( factoryFunction ) {
       reaction = factoryFunction();
-      for ( var i = 0; i < reaction.reactants.length; i++ ) {
-        if ( reaction.reactants[i].coefficient < 1 || reaction.reactants[i].coefficient > maxQuantity ) {
-          console.log( "ERROR: coefficient out of range : " + reaction.toString() );
-          numberOfCoefficientRangeViolations++;
+      for ( i = 0; i < reaction.reactants.length; i++ ) {
+        if ( !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].coefficient ) ) {
+          console.log( 'ERROR: coefficient out of range : ' + reaction.getEquationString() );
+          numberOfCoefficientRangeErrors++;
           break;
         }
       }
     } );
-    console.log( 'Number of coefficient-range violations = ' + numberOfCoefficientRangeViolations );
+
+    /*
+     * Look for quantity range violations in all reactions. We expect these, but require that they can be fixed.
+     * This test will halt if we encounter a violation that can't be fixed.
+     */
+    console.log( '-----------------------------------------------------------------' );
+    console.log( 'Looking for quantity-range violations that cannot be fixed ...' );
+    console.log( '----------------------------------------------------------------' );
+    factoryFunctions.forEach( function( factoryFunction ) {
+      reaction = factoryFunction();
+      // set all reactant quantities to their max values.
+      for ( i = 0; i < reaction.reactants.length; i++ ) {
+        reaction.reactants[i].quantity = maxQuantity;
+      }
+      // look for violations and try to fix them.
+      fixQuantityRangeViolation( reaction, maxQuantity, true /* enableDebugOutput */ );
+    } );
+
+    // Generate many challenges for each level, and validate our expectations.
+    console.log( '----------------------------------------------------------' );
+    console.log( 'Testing challenge generation ...' );
+    console.log( '----------------------------------------------------------' );
+
+    for ( level = 0; level < RPALConstants.NUMBER_OF_GAME_LEVELS; level++ ) {
+      for ( i = 0; i < 100; i++ ) {
+
+        // create challenges
+        var challenges = ChallengeFactory.createChallenges( RPALConstants.CHALLENGES_PER_GAME, level, maxQuantity, ChallengeVisibility.BOTH );
+        numberOfChallengesGenerated += challenges.length;
+
+        // validate
+        var numberWithZeroProducts = 0;
+        challenges.forEach( function( challenge ) {
+
+          // verify that all reactant quantities are > 0
+          var zeroReactants = false;
+          challenge.reaction.reactants.forEach( function( reactant ) {
+            if ( reactant.quantity < 1 ) {
+              zeroReactants = true;
+            }
+          } );
+          if ( zeroReactants ) {
+            console.log( 'ERROR: challenge has zero reactants, level=' + level + ' : ' + challenge.reaction.toString() );
+            numberOfReactantErrors++;
+          }
+
+          // count how many challenges have zero products
+          var nonZeroProducts = 0;
+          challenge.reaction.products.forEach( function( product ) {
+            if ( product.quantity > 0 ) {
+              nonZeroProducts++;
+            }
+          } );
+          if ( nonZeroProducts === 0 ) {
+            numberWithZeroProducts++;
+          }
+
+          // quantity-range violation?
+          if ( hasQuantityRangeViolation( reaction ) ) {
+            console.log( 'ERROR: challenge has quantity-range violation, level=' + level + ' : ' + challenge.reaction.toString() );
+            numberOfQuantityRangeErrors++;
+          }
+        } );
+
+        // should have exactly one challenge with zero products
+        if ( numberWithZeroProducts !== 1 ) {
+          numberOfProductErrors++;
+          console.log( 'ERROR: more than one challenge with zero products, level=' + level + ' challenges=' );
+          for ( j = 0; j < challenges.length; j++ ) {
+            console.log( j + ': ' + challenges[j].reaction.toString() );
+          }
+        }
+      }
+    }
+
+    console.log( '----------------------------------------------------------' );
+    console.log( 'Summary' );
+    console.log( '----------------------------------------------------------' );
+    console.log( 'challenges generated = ' + numberOfChallengesGenerated );
+    console.log( 'coefficient-range errors = ' + numberOfCoefficientRangeErrors );
+    console.log( 'zero-reactant errors = ' + numberOfReactantErrors );
+    console.log( 'zero-product errors = ' + numberOfProductErrors );
+    console.log( 'quantity-range errors = ' + numberOfQuantityRangeErrors );
+    console.log( '<done>' );
   };
+
 
   return ChallengeFactory;
 } );
-
-
-//TODO continue porting doTest()
-//
-//        // Look for quantity range violations in all reactions. We expect these, but require that they can be fixed.
-//        System.out.println( "LOOKING FOR QUANTITY RANGE VIOLATIONS THAT CANNOT BE FIXED ..." );
-//        System.out.println();
-//        for ( Class<? extends ChemicalReaction> reactionClass : reactionClasses ) {
-//            ChemicalReaction reaction = instantiateReaction( reactionClass );
-//            // set all reactant quantities to their max values.
-//            for ( Reactant reactant : reaction.getReactants() ) {
-//                reactant.setQuantity( maxQuantity );
-//            }
-//            // look for violations and try to fix them.
-//            fixQuantityRangeViolation( reaction, maxQuantity, true /* enableDebugOutput */ );
-//        }
-//
-//        // Generate many challenges for each level, and validate our expectations.
-//        System.out.println();
-//        System.out.println( "TESTING CHALLENGE GENERATION ..." );
-//        System.out.println();
-//        for ( int level = GameModel.LEVEL_RANGE.getMin(); level <= GameModel.LEVEL_RANGE.getMax(); level++ ) {
-//            for ( int i = 0; i < 100; i++ ) {
-//
-//                // create challenges
-//                GameChallenge[] challenges = factory.createChallenges( GameModel.getChallengesPerGame(), level, maxQuantity, ChallengeVisibility.BOTH );
-//
-//                // validate
-//                int numberWithZeroProducts = 0;
-//                for ( GameChallenge challenge : challenges ) {
-//
-//                    // verify that all reactant quantities are > 0
-//                    boolean zeroReactants = false;
-//                    for ( Reactant reactant : challenge.getReaction().getReactants() ) {
-//                        if ( reactant.getQuantity() < 1 ) {
-//                            zeroReactants = true;
-//                        }
-//                    }
-//                    if ( zeroReactants ) {
-//                        System.out.println( "ERROR: challenge has zero reactants, level=" + level + " : " +  challenge.getReaction().toString() );
-//                    }
-//
-//                    // count how many challenges have zero products
-//                    int nonZeroProducts = 0;
-//                    for ( Product product : challenge.getReaction().getProducts() ) {
-//                        if ( product.getQuantity() > 0 ) {
-//                            nonZeroProducts++;
-//                        }
-//                    }
-//                    if ( nonZeroProducts == 0 ) {
-//                        numberWithZeroProducts++;
-//                    }
-//                }
-//
-//                // should have exactly one challenge with zero products
-//                if ( numberWithZeroProducts != 1 ) {
-//                    System.out.println( "ERROR: more than one challenge with zero products, level=" + level + " challenges=" );
-//                    for ( int j = 0; j < challenges.length; j++ ) {
-//                        System.out.println( j + ": " + challenges[j].getReaction().toString() );
-//                    }
-//                }
-//            }
-//        }
-//        System.out.println( "Done." );
-//    }
-//}
-//
