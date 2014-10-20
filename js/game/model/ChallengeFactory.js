@@ -114,7 +114,7 @@ define( function( require ) {
 
         // reaction with quantities
         var reaction = null; // {Reaction}
-        if ( i == zeroProductsIndex ) {
+        if ( i === zeroProductsIndex ) {
           reaction = createChallengeWithoutProducts( factoryFunctions );
         }
         else {
@@ -130,7 +130,7 @@ define( function( require ) {
     },
 
     // Runs a sanity check, for debugging.
-    test: function() { doTest() }
+    test: function() { doTest(); }
   };
 
   /*

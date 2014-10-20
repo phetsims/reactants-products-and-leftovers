@@ -100,14 +100,14 @@ define( function( require ) {
       var i = 0;
       // reactants
       for ( i = 0; i < this.reactants.length; i++ ) {
-        if ( i != 0 ) { s += ','; }
+        if ( i !== 0 ) { s += ','; }
         s += this.reactants[i].quantity;
       }
       // arrow
       s += ' -> ';
       // products
       for ( i = 0; i < this.products.length; i++ ) {
-        if ( i != 0 ) { s += ','; }
+        if ( i !== 0 ) { s += ','; }
         s += this.products[i].quantity;
       }
       // leftovers
