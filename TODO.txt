@@ -6,11 +6,11 @@ DESIGN
 
 HIGH
 - Game screen
-- add fixQuantityRangeViolation to ChallengeFactory
-- add test function to ChallengeFactory
+- add fixQuantityRangeViolation to ChallengeFactory- add test function to ChallengeFactory
+
 
 MEDIUM
-- why is spacing different between 2 slides of cheese (or meat) comparing RHS of equation and 'products'
+- why is spacing different between 2 slices of cheese (or meat) comparing RHS of equation and 'products'
 - random layout strategy for molecules in boxes
 - dev features for game (skip, play all, ...)
 
