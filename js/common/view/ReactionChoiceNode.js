@@ -11,9 +11,9 @@ define( function( require ) {
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var RADIO_BUTTON_OPTIONS = { radius: 8 };
@@ -41,8 +41,9 @@ define( function( require ) {
     } );
 
     options.children = radioButtons;
-    VBox.call( this, options );
+    options.orientation = 'vertical';
+    LayoutBox.call( this, options );
   }
 
-  return inherit( VBox, ReactionChoiceNode );
+  return inherit( LayoutBox, ReactionChoiceNode );
 } );

@@ -16,8 +16,8 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var SubstanceStackNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceStackNode' );
@@ -115,7 +115,11 @@ define( function( require ) {
     var arrowNode = new RightArrowNode( { fill: RPALColors.REACTION_BAR_COLOR, stroke: null, scale: 0.75 } );
 
     // layout of boxes and arrow
-    var hBox = new HBox( { children: [ thisNode.beforeBox, arrowNode, thisNode.afterBox ], spacing: 10 } );
+    var hBox = new LayoutBox( {
+        children: [ thisNode.beforeBox, arrowNode, thisNode.afterBox ],
+        orientation: 'horizontal',
+        spacing: 10 }
+    );
     thisNode.addChild( hBox );
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment

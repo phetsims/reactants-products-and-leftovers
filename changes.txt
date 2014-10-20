@@ -1,3 +1,4 @@
+10/20/14 replace HBox and VBox with LayoutNode throughout
 10/20/14 create icons for level-selection buttons
 10/20/14 first pass at level-selection interface for Game
 10/20/14 make GameModel extend PropertySet

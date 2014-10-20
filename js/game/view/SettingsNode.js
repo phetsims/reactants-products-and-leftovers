@@ -11,9 +11,9 @@ define( function( require ) {
 
   // modules
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var IconFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/IconFactory' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -24,7 +24,6 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var chooseYourLevelString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/chooseYourLevel' );
@@ -90,10 +89,10 @@ define( function( require ) {
     for ( var level = 0; level < model.numberOfLevels; level++ ) {
       buttons.push( createLevelSelectionButton( level, model ) );
     }
-    var buttonsParent = new HBox( {
+    var buttonsParent = new LayoutBox( {
       children: buttons,
       spacing: 50,
-      resize: false,
+      orientation: 'horizontal',
       center: layoutBounds.center
     } );
 
@@ -112,15 +111,17 @@ define( function( require ) {
 
     options.children = [
       // title and level-selection buttons centered
-      new VBox( {
+      new LayoutBox( {
         children: [ title, buttonsParent ],
+        orientation: 'vertical',
         align: 'center',
         spacing: 40,
         center: layoutBounds.center
       } ),
       // timer and sound buttons at leftBottom
-      new VBox( {
+      new LayoutBox( {
         children: [ timerToggleButton, soundToggleButton ],
+        orientation: 'vertical',
         align: 'center',
         spacing: 15,
         left: layoutBounds.left + SCREEN_X_MARGIN,

@@ -41,7 +41,7 @@ define( function( require ) {
       tailWidth: 6
     } );
     var icon = new LayoutBox( { children: [ leftNode, arrowNode, rightNode ], orientation: 'horizontal', spacing: 20 } );
-    return new LayoutBox( { children: [ labelNode, icon ], spacing: 30 } );
+    return new LayoutBox( { children: [ labelNode, icon ], orientation: 'vertical', spacing: 30 } );
   };
 
   return {

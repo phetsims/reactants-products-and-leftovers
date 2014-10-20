@@ -10,14 +10,13 @@ define( function( require ) {
 
   // modules
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var TOUCH_DILATED_X = 20;
@@ -68,7 +67,11 @@ define( function( require ) {
     // buttons
     var upButton = new ArrowButton( 'up', function() { valueProperty.set( valueProperty.get() + 1 ); } );
     var downButton = new ArrowButton( 'down', function() { valueProperty.set( valueProperty.get() - 1 ); } );
-    var buttonsParent = new VBox( { children: [ upButton, downButton ], spacing: options.ySpacing } );
+    var buttonsParent = new LayoutBox( {
+      children: [ upButton, downButton ],
+      orientation: 'vertical',
+      spacing: options.ySpacing
+    } );
     buttonsParent.setScaleMagnitude( backgroundNode.height / buttonsParent.height );
     upButton.touchArea = upButton.localBounds.dilatedXY( TOUCH_DILATED_X, TOUCH_DILATED_Y ).shiftedY( -TOUCH_DILATED_Y );
     downButton.touchArea = downButton.localBounds.dilatedXY( TOUCH_DILATED_X, TOUCH_DILATED_Y ).shiftedY( TOUCH_DILATED_Y );
@@ -76,7 +79,8 @@ define( function( require ) {
     // buttons to right of value
     options.children = [ valueParent, buttonsParent ];
     options.spacing = options.ySpacing;
-    HBox.call( thisSpinner, options );
+    options.orientation = 'horizontal';
+    LayoutBox.call( thisSpinner, options );
 
     // @private When the value changes ...
     thisSpinner.valuePropertyObserver = function( value ) {
@@ -93,7 +97,7 @@ define( function( require ) {
     valueProperty.link( thisSpinner.valuePropertyObserver );
   }
 
-  return inherit( HBox, NumberSpinner, {
+  return inherit( LayoutBox, NumberSpinner, {
 
     // Unlinks from the value property. The spinner is no longer functional after calling this function.
     dispose: function() {
