@@ -16,49 +16,67 @@ define( function( require ) {
   var NH3Node = require( 'NITROGLYCERIN/nodes/NH3Node' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
+  var pattern_Level_0 = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/pattern_Level_0' );
   var doubleQuestionMarkString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/doubleQuestionMark' );
   var questionMarkString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/questionMark' );
 
   // constants
-  var FONT = new RPALFont( { size: 70, weight: 'bold' } );
+  var LABEL_OPTIONS = { font: new RPALFont( 40 ) };
+  var QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
   var MOLECULE_SCALE = 3;
 
-  var createIcon = function( leftNode, rightNode ) {
+  /*
+   *  Level N
+   *  leftNode -> rightNode
+   */
+  var createIcon = function( level, leftNode, rightNode ) {
+    var labelNode = new Text( StringUtils.format( pattern_Level_0, level ), LABEL_OPTIONS );
     var arrowNode = new ArrowNode( 0, 0, 50, 0, {
       headHeight: 20,
       headWidth: 20,
       tailWidth: 6
     } );
-    return new LayoutBox( { children: [ leftNode, arrowNode, rightNode ], orientation: 'horizontal', spacing: 20 } );
+    var icon = new LayoutBox( { children: [ leftNode, arrowNode, rightNode ], orientation: 'horizontal', spacing: 20 } );
+    return new LayoutBox( { children: [ labelNode, icon ], spacing: 30 } );
   };
 
   return {
 
-    // ? -> HCl
+    /**
+     *  Level 1
+     *  ? -> HCl
+     */
     createLevelOneIcon: function() {
-      var leftNode = new Text( questionMarkString, { font: FONT } );
+      var leftNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
       var rightNode = new HClNode( RPALConstants.ATOM_OPTIONS );
       rightNode.setScaleMagnitude( MOLECULE_SCALE );
-      return createIcon( leftNode, rightNode );
+      return createIcon( 1, leftNode, rightNode );
     },
 
-    // H2O -> ?
+    /**
+     *  Level 2
+     *  H2O -> ?
+     */
     createLevelTwoIcon: function() {
       var leftNode = new H2ONode( RPALConstants.ATOM_OPTIONS );
       leftNode.setScaleMagnitude( MOLECULE_SCALE );
-      var rightNode = new Text( questionMarkString, { font: FONT } );
-      return createIcon( leftNode, rightNode );
+      var rightNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
+      return createIcon( 2, leftNode, rightNode );
     },
 
-    // NH3 -> ??
+    /**
+     *  Level 3
+     *  NH3 -> ??
+     */
     createLevelThreeIcon: function() {
       var leftNode = new NH3Node( RPALConstants.ATOM_OPTIONS );
       leftNode.setScaleMagnitude( MOLECULE_SCALE );
-      var rightNode = new Text( doubleQuestionMarkString, { font: FONT } );
-      return createIcon( leftNode, rightNode );
+      var rightNode = new Text( doubleQuestionMarkString, QUESTION_MARK_OPTIONS );
+      return createIcon( 3, leftNode, rightNode );
     }
   };
 } );

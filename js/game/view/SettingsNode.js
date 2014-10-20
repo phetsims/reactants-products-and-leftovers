@@ -26,13 +26,6 @@ define( function( require ) {
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
-  // images, ordered by level
-  var levelIcons = [
-    IconFactory.createLevelOneIcon(),
-    IconFactory.createLevelTwoIcon(),
-    IconFactory.createLevelThreeIcon()
-  ];
-
   // strings
   var chooseYourLevelString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/chooseYourLevel' );
   var pattern_Level_0 = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/pattern_Level_0' );
@@ -41,17 +34,25 @@ define( function( require ) {
   var SCREEN_X_MARGIN = 40;
   var SCREEN_Y_MARGIN = 20;
 
-  // Creates a level-selection button
+  // Icons for the level-selection buttons, indexed by level
+  var levelIcons = [
+    IconFactory.createLevelOneIcon(),
+    IconFactory.createLevelTwoIcon(),
+    IconFactory.createLevelThreeIcon()
+  ];
+
+  /**
+   * Creates a level-selection button
+   * @param {number} level
+   * @param {GameModel} model
+   * @returns {Node}
+   */
   var createLevelSelectionButton = function( level, model ) {
 
-    // 'Level N' centered above icon
-    var label = new Text( StringUtils.format( pattern_Level_0, level + 1 ), { font: new RPALFont( 40 ) } );
-    var icon = levelIcons[level];
-    icon.centerX = label.centerX;
-    icon.top = label.bottom + 30;
+    assert && assert( level >= 0 && level < levelIcons.length );
 
     return new LevelSelectionButton(
-      new Node( { children: [ label, icon ] } ),
+      levelIcons[ level ],
       model.challengesPerGame,
       function() {
         model.level = level;
@@ -78,8 +79,6 @@ define( function( require ) {
    * @constructor
    */
   function SettingsNode( model, layoutBounds, options ) {
-
-    assert && assert( levelIcons.length === model.numberOfLevels );
 
     options = options || {};
 
