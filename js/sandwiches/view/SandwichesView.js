@@ -32,7 +32,7 @@ define( function( require ) {
       function( reaction ) { return new SandwichesEquationNode( reaction ); } );
 
     // compute the size of the largest sandwich, used for layout of boxes
-    var maxCoefficient = RPALConstants.COEFFICIENT_RANGE.max;
+    var maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
     var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
     var maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
 
