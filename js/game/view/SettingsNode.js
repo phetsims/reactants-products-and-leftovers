@@ -12,7 +12,6 @@ define( function( require ) {
   // modules
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -24,7 +23,6 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
-  var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   //TODO these are placeholders
