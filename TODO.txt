@@ -6,8 +6,7 @@ DESIGN
 
 HIGH
 - Game screen
-- add fixQuantityRangeViolation to ChallengeFactory- add test function to ChallengeFactory
-
+- add visibility controls for molecules and numbers to SettingsNode
 
 MEDIUM
 - why is spacing different between 2 slices of cheese (or meat) comparing RHS of equation and 'products'
