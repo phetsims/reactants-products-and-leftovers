@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
+  var HStrut = require( 'SUN/HStrut' );
   var IconFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/IconFactory' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
@@ -22,6 +23,7 @@ define( function( require ) {
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
+  var VStrut = require( 'SUN/VStrut' );
 
   // strings
   var chooseYourLevelString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/chooseYourLevel' );
@@ -36,6 +38,8 @@ define( function( require ) {
     IconFactory.createLevelTwoIcon(),
     IconFactory.createLevelThreeIcon()
   ];
+  var MAX_ICON_WIDTH = _.max( levelIcons, function( icon ) { return icon.width; } ).width;
+  var MAX_ICON_HEIGHT = _.max( levelIcons, function( icon ) { return icon.height; } ).height;
 
   /**
    * Creates a level-selection button
@@ -47,8 +51,16 @@ define( function( require ) {
 
     assert && assert( level >= 0 && level < levelIcons.length );
 
+    // make all icons the same size
+    var icon = levelIcons[ level ];
+    var hStrut = new HStrut( MAX_ICON_WIDTH, { center: icon.center } );
+    var vStrut = new VStrut( MAX_ICON_HEIGHT, { center: icon.center } );
+    var content = new Node( {
+      children: [ icon, hStrut, vStrut ]
+    } );
+
     return new LevelSelectionButton(
-      levelIcons[ level ],
+      content,
       model.challengesPerGame,
       function() {
         model.level = level;
@@ -61,7 +73,7 @@ define( function( require ) {
         buttonXMargin: 15,
         buttonYMargin: 15,
         buttonWidth: 150,
-        buttonHeight: 200,
+        buttonHeight: 150,
         iconToProgressIndicatorYSpace: 15,
         bestTimeProperty: model.bestTimeProperties[ level ],
         bestTimeVisibleProperty: model.timerEnabledProperty
@@ -88,7 +100,7 @@ define( function( require ) {
     }
     var buttonsParent = new LayoutBox( {
       children: buttons,
-      spacing: 50,
+      spacing: 40,
       orientation: 'horizontal',
       center: layoutBounds.center
     } );
