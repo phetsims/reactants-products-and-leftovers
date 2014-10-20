@@ -14,7 +14,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var LevelStartButton = require( 'VEGAS/LevelStartButton' );
+  var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -52,7 +52,7 @@ define( function( require ) {
     icon.centerX = label.centerX;
     icon.top = label.bottom + 20;
 
-    return new LevelStartButton(
+    return new LevelSelectionButton(
       new Node( { children: [ label, icon ] } ),
       model.challengesPerGame,
       function() {
@@ -62,8 +62,7 @@ define( function( require ) {
       model.bestScoreProperties[ level ],
       model.getPerfectScore(),
       {
-        backgroundColor: 'rgb( 180, 205, 255 )',
-        highlightedBackgroundColor: 'rgb( 220, 230, 255 )',
+        baseColor: 'rgb( 240, 255, 204 )',
         buttonWidth: 125,
         buttonHeight: 175,
         bestTimeProperty: model.bestTimeProperties[ level ],
