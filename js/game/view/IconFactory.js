@@ -37,6 +37,7 @@ define( function( require ) {
 
   return {
 
+    // ? -> HCl
     createLevelOneIcon: function() {
       var leftNode = new Text( questionMarkString, { font: FONT } );
       var rightNode = new HClNode( RPALConstants.ATOM_OPTIONS );
@@ -44,6 +45,7 @@ define( function( require ) {
       return createIcon( leftNode, rightNode );
     },
 
+    // H2O -> ?
     createLevelTwoIcon: function() {
       var leftNode = new H2ONode( RPALConstants.ATOM_OPTIONS );
       leftNode.setScaleMagnitude( MOLECULE_SCALE );
@@ -51,10 +53,11 @@ define( function( require ) {
       return createIcon( leftNode, rightNode );
     },
 
+    // NH3 -> ??
     createLevelThreeIcon: function() {
       var leftNode = new NH3Node( RPALConstants.ATOM_OPTIONS );
       leftNode.setScaleMagnitude( MOLECULE_SCALE );
-      var rightNode = new Text( questionMarkString, { font: FONT } );
+      var rightNode = new Text( doubleQuestionMarkString, { font: FONT } );
       return createIcon( leftNode, rightNode );
     }
   };
