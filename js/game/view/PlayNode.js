@@ -43,8 +43,8 @@ define( function( require ) {
       },
       {
         font: new RPALFont( 16 ),
-        leftMargin: 40, // visually aligned with left edge of challenge boxes
-        rightMargin: 50 // visually aligned with right edge of challenge graph
+        leftMargin: 40, //TODO
+        rightMargin: 50 //TODO
       } );
     scoreboardNode.centerX = layoutBounds.centerX;
     scoreboardNode.top = 0;
