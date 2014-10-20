@@ -17,6 +17,8 @@ define( function( require ) {
     QUANTITY_RANGE: new Range( 0, 8 ),
     COEFFICIENT_RANGE: new Range( 0, 3 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
-    SANDWICH_IMAGE_SCALE: 0.65 //TODO scale image files?
+    SANDWICH_IMAGE_SCALE: 0.65, //TODO scale image files?
+    NUMBER_OF_GAME_LEVELS: 3,
+    CHALLENGES_PER_GAME: 5
   };
 } );
