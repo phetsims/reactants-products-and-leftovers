@@ -51,7 +51,7 @@ define( function( require ) {
     ReactionFactory.Reaction_P4_6H2__4PH3,
     ReactionFactory.Reaction_P4_6F2__4PF3,
     ReactionFactory.Reaction_P4_6Cl2__4PCl3,
-    ReactionFactory.Reaction_P4_10Cl2__4PCl5,
+//    ReactionFactory.Reaction_P4_10Cl2__4PCl5, //TODO #3 drop this, it causes problems with challenge generation
     ReactionFactory.Reaction_PCl3_Cl2__PCl5,
     ReactionFactory.Reaction_2SO2_O2__2SO3
   ];
@@ -245,9 +245,7 @@ define( function( require ) {
 
     if ( hasQuantityRangeViolation( reaction ) ) {
 
-      if ( enableDebugOutput ) {
-        console.log( 'attempting to fix quantity-range violation, reaction=' + reaction.toString() );
-      }
+      var violationString = reaction.toString();
 
       // First, make sure all reactant quantities are in range.
       reaction.reactants.forEach( function( reactant ) {
@@ -282,7 +280,7 @@ define( function( require ) {
       }
 
       if ( enableDebugOutput ) {
-        console.log( ' fixed: ' + reaction.toString() );
+        console.log( 'quantity range violation: ' + violationString + ' fixed: ' + reaction.getQuantitiesString() );
       }
     }
   };

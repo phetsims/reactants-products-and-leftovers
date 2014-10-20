@@ -218,7 +218,7 @@ define( function( require ) {
         [ new Product( 4, RPALSymbols.PCl3, new PCl3Node( ATOM_OPTIONS ) ) ] );
     },
 
-    //TODO quantities only go to 8. Are we dropping this?
+    //TODO #3 drop this, it causes problems with challenge generation
     // P4 + 10Cl2 -> 4PCl5
     Reaction_P4_10Cl2__4PCl5: function() {
       return new Reaction(
