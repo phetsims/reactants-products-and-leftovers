@@ -354,7 +354,7 @@ define( function( require ) {
     console.log( 'Testing challenge generation ...' );
     console.log( '----------------------------------------------------------' );
 
-    for ( level = 0; level < RPALConstants.NUMBER_OF_GAME_LEVELS; level++ ) {
+    for ( level = 0; level < REACTIONS.length; level++ ) {
       for ( i = 0; i < 100; i++ ) {
 
         // create challenges

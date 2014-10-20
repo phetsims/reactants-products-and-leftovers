@@ -1,3 +1,4 @@
+10/20/14 first pass at level-selection interface for Game
 10/20/14 make GameModel extend PropertySet
 10/20/14 replace ChallengeVisibility enum with 2 booleans
 10/20/14 completed porting ChallengeFactory.test

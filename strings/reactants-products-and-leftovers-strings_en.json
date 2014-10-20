@@ -26,5 +26,7 @@
   "afterReaction": "After Reaction",
   "beforeSandwich": "Before \"Reaction\"",
   "afterSandwich": "After \"Reaction\"",
-  "noReaction": "No\n\"Reaction\""
+  "noReaction": "No\n\"Reaction\"",
+  "chooseYourLevel": "Choose Your Level",
+  "pattern_Level_0": "Level {0}"
 }

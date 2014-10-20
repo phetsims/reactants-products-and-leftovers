@@ -9,12 +9,14 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
+  var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var PlayNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/PlayNode' );
+  var ResultsNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ResultsNode' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
+  var SettingsNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/SettingsNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   /**
    * @param {GameModel} model
@@ -25,20 +27,33 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
-    //TODO remove this
-    thisView.addChild( new Text( 'Game: under construction', { font: new RPALFont( 36 ), center: this.layoutBounds.center } ) );
+    // audio
+    var audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
 
-    // Reset All button
-    var resetAllButton = new ResetAllButton( {
-      scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
-      listener: function() {
-        model.reset();
-      }
+    // one parent node for each 'phase' of the game
+    thisView.settingsNode = new SettingsNode( model, thisView.layoutBounds );
+    thisView.playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
+    thisView.resultsNode = new ResultsNode( model, thisView.layoutBounds, audioPlayer );
+
+    // rendering order
+    thisView.addChild( thisView.resultsNode );
+    thisView.addChild( thisView.playNode );
+    thisView.addChild( thisView.settingsNode );
+
+    // game 'phase' changes
+    model.gamePhaseProperty.link( function( gamePhase ) {
+      thisView.settingsNode.visible = ( gamePhase === GamePhase.SETTINGS );
+      thisView.playNode.visible = ( gamePhase === GamePhase.PLAY );
+      thisView.resultsNode.visible = ( gamePhase === GamePhase.RESULTS );
     } );
-    thisView.addChild( resetAllButton );
-    resetAllButton.right = thisView.layoutBounds.right - 10;
-    resetAllButton.bottom = thisView.layoutBounds.bottom - 10;
   }
 
-  return inherit( ScreenView, GameView );
+  return inherit( ScreenView, GameView, {
+
+    step: function( elapsedTime ) {
+      if ( this.resultsNode.visible ) {
+        this.resultsNode.step( elapsedTime );
+      }
+    }
+  } );
 } );

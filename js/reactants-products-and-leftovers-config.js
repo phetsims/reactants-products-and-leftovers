@@ -13,6 +13,7 @@ require.config( {
   paths: {
 
     // plugins
+    audio: '../../chipper/requirejs-plugins/audio',
     image: '../../chipper/requirejs-plugins/image',
     string: '../../chipper/requirejs-plugins/string',
 
@@ -30,7 +31,10 @@ require.config( {
     PHETCOMMON: '../../phetcommon/js',
     SCENERY: '../../scenery/js',
     SCENERY_PHET: '../../scenery-phet/js',
+    SHERPA: '../../sherpa',
     SUN: '../../sun/js',
+    VEGAS: '../../vegas/js',
+    VIBE: '../../vibe/js',
 
     // sim code
     REACTANTS_PRODUCTS_AND_LEFTOVERS: '.'
