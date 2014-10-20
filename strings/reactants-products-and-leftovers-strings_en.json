@@ -28,5 +28,7 @@
   "afterSandwich": "After \"Reaction\"",
   "noReaction": "No\n\"Reaction\"",
   "chooseYourLevel": "Choose Your Level",
-  "pattern_Level_0": "Level {0}"
+  "pattern_Level_0": "Level {0}",
+  "questionMark": "?",
+  "doubleQuestionMark": "??"
 }

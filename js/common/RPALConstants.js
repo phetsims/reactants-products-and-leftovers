@@ -14,6 +14,7 @@ define( function( require ) {
 
   return {
     SCREEN_VIEW_OPTIONS: { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
+    ATOM_OPTIONS: { stroke: 'black', lineWidth: 0.5, scale: 1 },
     QUANTITY_RANGE: new Range( 0, 8 ),
     SANDWICH_COEFFICIENT_RANGE: new Range( 0, 3 ),
     RESET_ALL_BUTTON_SCALE: 0.75,

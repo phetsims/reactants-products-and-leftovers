@@ -12,6 +12,7 @@ define( function( require ) {
   var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
   var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
   var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALSymbols = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALSymbols' );
 
   // modules (molecules)
@@ -56,7 +57,7 @@ define( function( require ) {
   var makeWaterString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeWater' );
 
   // constants
-  var ATOM_OPTIONS = { stroke: 'black', lineWidth: 0.5, scale: 1 };
+  var ATOM_OPTIONS = RPALConstants.ATOM_OPTIONS;
 
   return {
 

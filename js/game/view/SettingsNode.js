@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var IconFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/IconFactory' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -25,12 +26,11 @@ define( function( require ) {
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
-  //TODO these are placeholders
   // images, ordered by level
   var levelIcons = [
-    new Rectangle( 0, 0, 100, 100, { fill: 'red' } ),
-    new Rectangle( 0, 0, 100, 100, { fill: 'green' } ),
-    new Rectangle( 0, 0, 100, 100, { fill: 'blue' } )
+    IconFactory.createLevelOneIcon(),
+    IconFactory.createLevelTwoIcon(),
+    IconFactory.createLevelThreeIcon()
   ];
 
   // strings
@@ -41,14 +41,14 @@ define( function( require ) {
   var SCREEN_X_MARGIN = 40;
   var SCREEN_Y_MARGIN = 20;
 
-  // Creates a level selection button
+  // Creates a level-selection button
   var createLevelSelectionButton = function( level, model ) {
 
     // 'Level N' centered above icon
     var label = new Text( StringUtils.format( pattern_Level_0, level + 1 ), { font: new RPALFont( 40 ) } );
     var icon = levelIcons[level];
     icon.centerX = label.centerX;
-    icon.top = label.bottom + 20;
+    icon.top = label.bottom + 30;
 
     return new LevelSelectionButton(
       new Node( { children: [ label, icon ] } ),
@@ -61,8 +61,11 @@ define( function( require ) {
       model.getPerfectScore(),
       {
         baseColor: 'rgb( 240, 255, 204 )',
-        buttonWidth: 125,
-        buttonHeight: 175,
+        buttonXMargin: 15,
+        buttonYMargin: 15,
+        buttonWidth: 150,
+        buttonHeight: 200,
+        iconToProgressIndicatorYSpace: 15,
         bestTimeProperty: model.bestTimeProperties[ level ],
         bestTimeVisibleProperty: model.timerEnabledProperty
       } );
@@ -84,8 +87,6 @@ define( function( require ) {
     var title = new Text( chooseYourLevelString, { font: new RPALFont( 40 ) } );
 
     // Level-selection buttons, arranged in a row
-
-    // buttons
     var buttons = [];
     for ( var level = 0; level < model.numberOfLevels; level++ ) {
       buttons.push( createLevelSelectionButton( level, model ) );
