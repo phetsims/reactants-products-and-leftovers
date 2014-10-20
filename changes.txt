@@ -1,3 +1,4 @@
+10/20/14 implement the reset of GameModel, based on graphing-lines.LineGameModel instead of a direct Java port
 10/20/14 replace HBox and VBox with LayoutNode throughout
 10/20/14 create icons for level-selection buttons
 10/20/14 first pass at level-selection interface for Game

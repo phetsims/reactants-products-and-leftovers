@@ -1,5 +1,6 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
+//TODO this is almost identical to graphing-lines.LineGameModel. is there a framework here?
 /**
  * Model for the 'Game' screen.
  *
@@ -25,6 +26,10 @@ define( function( require ) {
   // constants
   var DUMMY_CHALLENGE = new Challenge( ReactionFactory.makeWater(), ChallengeType.BEFORE );
 
+  /**
+   * @param {Object} [options]
+   * @constructor
+   */
   function GameModel( options ) {
 
     options = _.extend( {
@@ -48,11 +53,14 @@ define( function( require ) {
       playState: PlayState.NONE
     } );
 
-    thisModel.challenges = []; // {[Challenge]}
-    thisModel.timer = new GameTimer();
+    // These things are read-only, they should not be changed once the model is instantiated.
     thisModel.numberOfLevels = options.numberOfLevels;
     thisModel.challengesPerGame = options.challengesPerGame;
     thisModel.maxPointsPerChallenge = 2;
+    thisModel.maxQuantity = options.maxQuantity;
+
+    // These things change as game-play progresses.
+    thisModel.challenges = []; // {[Challenge]}
     thisModel.bestScoreProperties = []; // best scores for each level, array of Property.<number>
     thisModel.bestTimeProperties = []; // best times for each level, in ms, array of Property.<number>
     thisModel.isNewBestTime = false; // is the time for the most-recently-completed game a new best time?
@@ -61,9 +69,11 @@ define( function( require ) {
       thisModel.bestTimeProperties.push( new Property( null ) ); // null if a level has no best time yet
     }
 
+    thisModel.timer = new GameTimer();
+
     thisModel.gamePhaseProperty = new GamePhaseProperty( GamePhase.SETTINGS,
       /*
-       * This function will be called prior to setting the property value.
+       * This function will be called prior to setting the gamePhaseProperty value.
        * Updates fields so that they are accurate before property listeners are notified.
        */
       function( gamePhase ) {
@@ -87,19 +97,101 @@ define( function( require ) {
         }
       } );
 
+    thisModel.initChallenges();
 
-    //TODO
+    // Do this after initChallenges, because this will fire immediately and needs to have an initial set of challenges.
+    thisModel.playStateProperty.link( function( playState ) {
+      if ( playState === PlayState.FIRST_CHECK ) {
+        if ( thisModel.challengeIndex === thisModel.challenges.length - 1 ) {
+          // game has been completed
+          thisModel.gamePhaseProperty.set( GamePhase.RESULTS );
+          if ( thisModel.score > thisModel.bestScoreProperties[ thisModel.level ].get() ) {
+            thisModel.bestScoreProperties[ thisModel.level ].set( thisModel.score );
+          }
+        }
+        else {
+          // next challenge
+          thisModel.challengeIndex = thisModel.challengeIndex + 1;
+          thisModel.challenge = thisModel.challenges[thisModel.challengeIndex];
+        }
+      }
+      else if ( playState === PlayState.NEXT ) {
+        thisModel.challenge.setAnswerVisible( true );
+      }
+    } );
   }
 
   return inherit( PropertySet, GameModel, {
 
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      //TODO reset other things?
+      this.gamePhaseProperty.reset();
+      this.bestScoreProperties.forEach( function( property ) {
+        property.set( 0 );
+      } );
     },
 
     getPerfectScore: function() {
       return this.challengesPerGame * this.maxPointsPerChallenge;
+    },
+
+    isPerfectScore: function() {
+      return this.score === this.getPerfectScore();
+    },
+
+    // Compute points to be awarded for a correct answer.
+    computePoints: function( attempts ) {
+      return Math.max( 0, this.maxPointsPerChallenge - attempts + 1 );
+    },
+
+    /**
+     * Skips the current challenge.
+     * This is a developer feature.
+     * Score and best times are meaningless after using this.
+     */
+    skipCurrentChallenge: function() {
+      this.playState = PlayState.NEXT;
+      this.playState = PlayState.FIRST_CHECK;
+    },
+
+    /**
+     * Replays the current challenge.
+     * This is a developer feature.
+     * Score and best times are meaningless after using this.
+     */
+    replayCurrentChallenge: function() {
+      this.challenge.reset();
+      this.challengeIndex = this.challengeIndex - 1;
+      this.challenge = DUMMY_CHALLENGE; // force an update
+      this.playState = PlayState.FIRST_CHECK;
+    },
+
+    // Updates the best time for the current level, at the end of a timed game with a perfect score.
+    updateBestTime: function() {
+      assert && assert( !this.timer.isRunning );
+      if ( this.timerEnabled && this.isPerfectScore() ) {
+        var level = this.level;
+        var time = this.timer.elapsedTime;
+        this.isNewBestTime = false;
+        if ( !this.bestTimeProperties[ level ].get() ) {
+          // there was no previous time for this level
+          this.bestTimeProperties[ level ].set( time );
+        }
+        else if ( time < this.bestTimeProperties[ level ].get() ) {
+          // we have a new best time for this level
+          this.bestTimeProperties[ level ].set( time );
+          this.isNewBestTime = true;
+        }
+      }
+    },
+
+    // initializes a new set of challenges for the current level
+    initChallenges: function() {
+      this.challengeIndex = -1;
+      this.challenges = ChallengeFactory.createChallenges( this.challengesPerGame, this.level, this.maxQuantity, {
+        moleculesVisible: this.moleculesVisible,
+        numbersVisible: this.numbersVisible
+      } );
     }
   } );
 } );
