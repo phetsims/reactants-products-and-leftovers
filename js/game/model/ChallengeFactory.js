@@ -311,7 +311,7 @@ define( function( require ) {
         factoryFunction = REACTIONS[ level ][ i ];
         reaction = factoryFunction();
         console.log( reaction.getEquationString() );
-        if ( factoryFunctions.indexOf( factoryFunction ) !== -1 ) {
+        if ( factoryFunctions.indexOf( factoryFunction ) === -1 ) {
           factoryFunctions.push( factoryFunction );
         }
       }

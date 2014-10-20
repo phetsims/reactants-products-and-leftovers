@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   function GameModel() {
+    debugger;//XXX
     var challenges = ChallengeFactory.createChallenges( 5, 0, 8, ChallengeVisibility.BOTH ); //XXX test
     //TODO
   }
