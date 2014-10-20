@@ -42,7 +42,7 @@ define( function( require ) {
         model.gamePhaseProperty.set( GamePhase.SETTINGS );
       },
       {
-        font: new RPALFont( 20 ),
+        font: new RPALFont( 16 ),
         leftMargin: 40, // visually aligned with left edge of challenge boxes
         rightMargin: 50 // visually aligned with right edge of challenge graph
       } );
