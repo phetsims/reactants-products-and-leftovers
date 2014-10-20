@@ -1,3 +1,4 @@
+10/20/14 make GameModel extend PropertySet
 10/20/14 replace ChallengeVisibility enum with 2 booleans
 10/20/14 completed porting ChallengeFactory.test
 10/17/14 started porting ChallengeFactory.test (incomplete)

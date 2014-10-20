@@ -11,15 +11,24 @@ define( function( require ) {
   // modules
   var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var PropertySet = require( 'AXON/PropertySet' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
 
   function GameModel() {
-    var challenges = ChallengeFactory.createChallenges( 5, 0, 8 ); //XXX test
+
+    PropertySet.call( this, {
+      level: 0
+    } );
+
+    var challenges = ChallengeFactory.createChallenges( RPALConstants.CHALLENGES_PER_GAME, this.level, RPALConstants.QUANTITY_RANGE.max ); //XXX test
+
     //TODO
   }
 
-  return inherit( Object, GameModel, {
+  return inherit( PropertySet, GameModel, {
     reset: function() {
-      //TODO
+      PropertySet.prototype.reset.call( this );
+      //TODO reset other things?
     }
   } );
 } );
