@@ -23,6 +23,7 @@ define( function( require ) {
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
+  var VisibilityControl = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/VisibilityControl' );
   var VStrut = require( 'SUN/VStrut' );
 
   // strings
@@ -110,6 +111,12 @@ define( function( require ) {
     var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, toggleOptions );
     var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, toggleOptions );
 
+    // Visibility control
+    var visibilityControl = new VisibilityControl( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
+      centerX: layoutBounds.centerX,
+      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
+    });
+
     // Reset All button, at rightBottom
     var resetAllButton = new ResetAllButton( {
       listener: function() { model.reset(); },
@@ -125,7 +132,8 @@ define( function( require ) {
         orientation: 'vertical',
         align: 'center',
         spacing: 40,
-        center: layoutBounds.center
+        centerX: layoutBounds.centerX,
+        top: layoutBounds.top + SCREEN_X_MARGIN
       } ),
       // timer and sound buttons at leftBottom
       new LayoutBox( {
@@ -136,6 +144,7 @@ define( function( require ) {
         left: layoutBounds.left + SCREEN_X_MARGIN,
         bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
       } ),
+      visibilityControl,
       resetAllButton
     ];
     Node.call( this, options );

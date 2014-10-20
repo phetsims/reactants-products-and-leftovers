@@ -8,6 +8,7 @@ HIGH
 - Game screen
 - add visibility controls for molecules and numbers to SettingsNode
 - implement RPALRewardNode, add to ResultsNode
+- add icons to VisibilityControl
 
 MEDIUM
 - why is spacing different between 2 slices of cheese (or meat) comparing RHS of equation and 'products'
@@ -15,6 +16,7 @@ MEDIUM
 - dev features for game (skip, play all, ...)
 
 LOW
+- address the evil piece of code in VisibilityControl
 - remove uses of instanceof
 - curves for brackets
 - add title-bar feature to sun.AccordionBox, sun#135
