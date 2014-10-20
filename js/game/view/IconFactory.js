@@ -25,8 +25,9 @@ define( function( require ) {
   var questionMarkString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/questionMark' );
 
   // constants
-  var LABEL_OPTIONS = { font: new RPALFont( 40 ) };
+  var LABEL_OPTIONS = { font: new RPALFont( 45 ) };
   var QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
+  var ARROW_OPTIONS = { headHeight: 20, headWidth: 20, tailWidth: 6 };
   var MOLECULE_SCALE = 3;
 
   /*
@@ -35,11 +36,7 @@ define( function( require ) {
    */
   var createIcon = function( level, leftNode, rightNode ) {
     var labelNode = new Text( StringUtils.format( pattern_Level_0, level ), LABEL_OPTIONS );
-    var arrowNode = new ArrowNode( 0, 0, 50, 0, {
-      headHeight: 20,
-      headWidth: 20,
-      tailWidth: 6
-    } );
+    var arrowNode = new ArrowNode( 0, 0, 50, 0, ARROW_OPTIONS );
     var icon = new LayoutBox( { children: [ leftNode, arrowNode, rightNode ], orientation: 'horizontal', spacing: 20 } );
     return new LayoutBox( { children: [ labelNode, icon ], orientation: 'vertical', spacing: 30 } );
   };
