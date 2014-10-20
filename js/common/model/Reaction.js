@@ -122,7 +122,7 @@ define( function( require ) {
         if ( i !== 0 ) { s += '+ '; }
         s += ( this.products[i].coefficient + ' ' + this.products[i].symbol + ' ' );
       }
-      return s.replace( /<sub>/g, '' ).replace( /<sub>/g, '' );
+      return s.replace( /<sub>/g, '' ).replace( /<\/sub>/g, '' );
     },
 
     /**
