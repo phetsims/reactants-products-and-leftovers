@@ -305,7 +305,7 @@ define( function( require ) {
     // C2H5OH + 3O2 -> 2CO2 + 3H2O
     Reaction_C2H5OH_3O2__2CO2_3H2O: function() {
       return new Reaction(
-        [ new Reactant( 1, RPALSymbols.C2H5O, new C2H5OHNode( ATOM_OPTIONS ) ),
+        [ new Reactant( 1, RPALSymbols.C2H5OH, new C2H5OHNode( ATOM_OPTIONS ) ),
           new Reactant( 3, RPALSymbols.O2, new O2Node( ATOM_OPTIONS ) ) ],
         [ new Product( 2, RPALSymbols.CO2, new CO2Node( ATOM_OPTIONS ) ),
           new Product( 3, RPALSymbols.H2O, new H2ONode( ATOM_OPTIONS ) ) ] );
