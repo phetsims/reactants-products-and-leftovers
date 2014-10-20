@@ -1,3 +1,4 @@
+10/20/14 flesh out PlayNode
 10/20/14 flesh out ResultsNode
 10/20/14 implement the reset of GameModel, based on graphing-lines.LineGameModel instead of a direct Java port
 10/20/14 replace HBox and VBox with LayoutNode throughout

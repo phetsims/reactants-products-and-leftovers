@@ -23,5 +23,9 @@ MIGRATE TO COMMON
 - NumberSpinner
 - NumberNode
 
+GAME FRAMEWORK
+- GameModel, GamePhase, GamePhaseProperty, PlayState, PlayNode, ResultsNode are all almost identical to
+  graphing-lines, is there a framework here?
+
 MISC
 - watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524
