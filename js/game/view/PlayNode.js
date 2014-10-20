@@ -50,8 +50,9 @@ define( function( require ) {
     scoreboardNode.top = 0;
     thisNode.addChild( scoreboardNode );
 
+    //TODO make this a Bounds2 ?
     // compute the size of the area available for the challenges
-    var challengeSize = new Dimension2( layoutBounds.width, layoutBounds.height - scoreboardNode.bottom );
+//    var challengeSize = new Dimension2( layoutBounds.width, layoutBounds.height - scoreboardNode.bottom );
 
     // challenge parent, to keep challenge below scoreboard
     var challengeParent = new Rectangle( 0, 0, 0, 1 );
