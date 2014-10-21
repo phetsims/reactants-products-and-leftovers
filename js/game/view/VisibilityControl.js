@@ -76,6 +76,13 @@ define( function( require ) {
     var hideMoleculesButton = new AquaRadioButton( moleculesVisibleProperty, false, createHideMoleculesNode(), RADIO_BUTTON_OPTIONS );
     var hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, createHideNumbersNode(), RADIO_BUTTON_OPTIONS );
 
+    // expand touchArea
+    var xExpand = 10;
+    var yExpand = 6;
+    showAllRadioButton.touchArea = showAllRadioButton.localBounds.dilatedXY( xExpand, yExpand );
+    hideMoleculesButton.touchArea = hideMoleculesButton.localBounds.dilatedXY( xExpand, yExpand );
+    hideNumbersButton.touchArea = hideNumbersButton.localBounds.dilatedXY( xExpand, yExpand );
+
     // vertical layout
     var content = new LayoutBox( {
       children: [ showAllRadioButton, hideMoleculesButton, hideNumbersButton ],
