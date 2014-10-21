@@ -1,7 +1,6 @@
 TODO list for reactants-products-and-leftovers
 
 DESIGN
-- issue #3: quantities only go to 8, should we dump Reaction_P4_10Cl2__4PCl5 or keep it?
 - where should we put the 'Reset All' button in the first 2 screens?
 
 HIGH
