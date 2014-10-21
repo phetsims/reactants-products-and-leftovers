@@ -1,3 +1,4 @@
+10/22/14 fold IconFactory into SettingsNode, since all of its functions should be private to SettingsNode
 10/22/14 add 'eye' icons to VisibilityControl
 10/21/14 #3 drop P4 + 10Cl2 -> 4PCl5, since it has a coefficient greater than our quantity range
 10/20/14 adjust size of scoreboard font
