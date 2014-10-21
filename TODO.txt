@@ -5,7 +5,6 @@ DESIGN
 
 HIGH
 - Game screen
-- add visibility controls for molecules and numbers to SettingsNode
 - implement RPALRewardNode, add to ResultsNode
 - add icons to VisibilityControl
 
