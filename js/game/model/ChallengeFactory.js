@@ -127,7 +127,7 @@ define( function( require ) {
       return challenges;
     },
 
-    // Runs a sanity check, for debugging.
+    // DEBUG: Call this in the debugger to run a sanity check on this factory.
     test: function() { doTest(); }
   };
 
@@ -138,8 +138,10 @@ define( function( require ) {
    * @returns {number}
    */
   var getRandomNumber = function( min, max ) {
-    assert && assert( min < max );
-    return min + Math.floor( Math.random() * ( max - min + 1 ) );
+    assert && assert( min <= max );
+    var value = min + Math.floor( Math.random() * ( max - min + 1 ) );
+    assert && assert( value >= min && value <= max );
+    return value;
   };
 
   /**
@@ -283,6 +285,7 @@ define( function( require ) {
   };
 
   /**
+   * DEBUG
    * Runs a sanity check, looking for problems with reactions and the challenge-creation algorithm.
    * Intended to be run from the browser console via ChallengeFactory.test().
    */
