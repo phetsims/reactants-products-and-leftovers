@@ -62,6 +62,7 @@ define( function( require ) {
       createLevelTwoIcon(),
       createLevelThreeIcon()
     ];
+    assert && assert( level >= 0 && level < levelIcons.length );
     var maxIconWidth = _.max( levelIcons, function( icon ) { return icon.width; } ).width;
     var maxIconHeight = _.max( levelIcons, function( icon ) { return icon.height; } ).height;
 
@@ -131,8 +132,6 @@ define( function( require ) {
    * @returns {Node}
    */
   var createLevelSelectionButton = function( level, model, icon, maxIconWidth, maxIconHeight ) {
-
-    assert && assert( level >= 0 && level < levelIcons.length );
 
     // make all icons the same size
     var rect = new Rectangle( 0, 0, maxIconWidth, maxIconHeight, { center: icon.center } );
