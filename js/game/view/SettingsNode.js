@@ -11,12 +11,12 @@ define( function( require ) {
 
   // modules
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
-  var HStrut = require( 'SUN/HStrut' );
   var IconFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/IconFactory' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
@@ -24,7 +24,6 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
   var VisibilityControl = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/VisibilityControl' );
-  var VStrut = require( 'SUN/VStrut' );
 
   // strings
   var chooseYourLevelString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/chooseYourLevel' );
@@ -54,10 +53,9 @@ define( function( require ) {
 
     // make all icons the same size
     var icon = levelIcons[ level ];
-    var hStrut = new HStrut( MAX_ICON_WIDTH, { center: icon.center } );
-    var vStrut = new VStrut( MAX_ICON_HEIGHT, { center: icon.center } );
+    var rect = new Rectangle( 0, 0, MAX_ICON_WIDTH, MAX_ICON_HEIGHT, { center: icon.center } );
     var content = new Node( {
-      children: [ icon, hStrut, vStrut ]
+      children: [ rect, icon ]
     } );
 
     return new LevelSelectionButton(
