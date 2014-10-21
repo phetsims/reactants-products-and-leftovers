@@ -62,7 +62,7 @@ define( function( require ) {
       createLevelTwoIcon(),
       createLevelThreeIcon()
     ];
-    assert && assert( level >= 0 && level < levelIcons.length );
+    assert && assert( levelIcons.length === model.numberOfLevels );
     var maxIconWidth = _.max( levelIcons, function( icon ) { return icon.width; } ).width;
     var maxIconHeight = _.max( levelIcons, function( icon ) { return icon.height; } ).height;
 
