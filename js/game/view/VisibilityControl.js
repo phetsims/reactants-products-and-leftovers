@@ -31,7 +31,6 @@ define( function( require ) {
   var TEXT_OPTIONS = { font: new RPALFont( 14 ) };
   var RADIO_BUTTON_OPTIONS = { radius: 8, xSpacing: 10 };
   var FONT_AWESOME_OPTIONS = { scale: 0.5 };
-  var ICON_TEXT_SPACING = 5;
 
   function VisibilityControl( moleculesVisibleProperty, numbersVisibleProperty, options ) {
 
@@ -98,7 +97,7 @@ define( function( require ) {
     return new LayoutBox( {
       children: [ eyeNode, textNode ],
       orientation: 'horizontal',
-      spacing: ICON_TEXT_SPACING
+      spacing: 12
     } );
   };
 
@@ -118,7 +117,7 @@ define( function( require ) {
     return new LayoutBox( {
       children: [ new Node( { children: [ eyeNode, moleculeNode ] } ), textNode ],
       orientation: 'horizontal',
-      spacing: ICON_TEXT_SPACING
+      spacing: 7
     } );
   };
 
@@ -133,7 +132,7 @@ define( function( require ) {
     return new LayoutBox( {
       children: [ new Node( { children: [ eyeNode, numbersNode ] } ), textNode ],
       orientation: 'horizontal',
-      spacing: ICON_TEXT_SPACING
+      spacing: 5
     } );
   };
 
