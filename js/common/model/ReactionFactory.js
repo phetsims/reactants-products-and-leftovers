@@ -219,15 +219,6 @@ define( function( require ) {
         [ new Product( 4, RPALSymbols.PCl3, new PCl3Node( ATOM_OPTIONS ) ) ] );
     },
 
-    //TODO #3 drop this, it causes problems with challenge generation
-    // P4 + 10Cl2 -> 4PCl5
-    Reaction_P4_10Cl2__4PCl5: function() {
-      return new Reaction(
-        [ new Reactant( 1, RPALSymbols.P4, new P4Node( ATOM_OPTIONS ) ),
-          new Reactant( 10, RPALSymbols.Cl2, new Cl2Node( ATOM_OPTIONS ) ) ],
-        [ new Product( 4, RPALSymbols.PCl5, new PCl5Node( ATOM_OPTIONS ) ) ] );
-    },
-
     // PCl3 + Cl2 -> PCl5
     Reaction_PCl3_Cl2__PCl5: function() {
       return new Reaction(

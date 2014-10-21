@@ -1,3 +1,4 @@
+10/21/14 #3 drop P4 + 10Cl2 -> 4PCl5, since it has a coefficient greater than our quantity range
 10/20/14 adjust size of scoreboard font
 10/20/14 add visibility controls to game settings
 10/20/14 ensure that icons are the same size on all level-selection buttons, so they scale uniformly

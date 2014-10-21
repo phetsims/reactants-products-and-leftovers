@@ -50,7 +50,6 @@ define( function( require ) {
     ReactionFactory.Reaction_P4_6H2__4PH3,
     ReactionFactory.Reaction_P4_6F2__4PF3,
     ReactionFactory.Reaction_P4_6Cl2__4PCl3,
-//    ReactionFactory.Reaction_P4_10Cl2__4PCl5, //TODO #3 drop this, it causes problems with challenge generation
     ReactionFactory.Reaction_PCl3_Cl2__PCl5,
     ReactionFactory.Reaction_2SO2_O2__2SO3
   ];
@@ -220,8 +219,7 @@ define( function( require ) {
     var violation = false;
     var i;
     for ( i = 0; !violation && i < reaction.reactants.length; i++ ) {
-      if ( !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].quantity ) ||
-           !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].leftovers ) ) {
+      if ( !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].quantity ) || !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].leftovers ) ) {
         violation = true;
       }
     }
