@@ -37,7 +37,7 @@ define( function( require ) {
 
   // constants
   var SCREEN_X_MARGIN = 40;
-  var SCREEN_Y_MARGIN = 20;
+  var SCREEN_Y_MARGIN = 40;
   var LABEL_OPTIONS = { font: new RPALFont( 45 ) };
   var QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
   var ARROW_OPTIONS = { headHeight: 20, headWidth: 20, tailWidth: 6 };
@@ -104,7 +104,7 @@ define( function( require ) {
         align: 'center',
         spacing: 40,
         centerX: layoutBounds.centerX,
-        top: layoutBounds.top + SCREEN_X_MARGIN
+        centerY: ( visibilityControl.top - layoutBounds.top ) / 2
       } ),
       // timer and sound buttons at leftBottom
       new LayoutBox( {
