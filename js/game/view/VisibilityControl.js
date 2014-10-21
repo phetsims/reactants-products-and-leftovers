@@ -11,10 +11,14 @@ define( function( require ) {
 
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton');
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var Property = require( 'AXON/Property' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -25,7 +29,9 @@ define( function( require ) {
 
   // constants
   var TEXT_OPTIONS = { font: new RPALFont( 14 ) };
-  var RADIO_BUTTON_OPTIONS = { radius: 12 };
+  var RADIO_BUTTON_OPTIONS = { radius: 8, xSpacing: 10 };
+  var FONT_AWESOME_OPTIONS = { scale: 0.5 };
+  var ICON_TEXT_SPACING = 5;
 
   function VisibilityControl( moleculesVisibleProperty, numbersVisibleProperty, options ) {
 
@@ -67,20 +73,69 @@ define( function( require ) {
     } );
 
     // radio buttons
-    var showAllRadioButton = new AquaRadioButton( showAllProperty, true, new Text( showAllString, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS );
-    var hideMoleculesButton = new AquaRadioButton( moleculesVisibleProperty, false, new Text( hideMoleculesString, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS );
-    var hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, new Text( hideNumbersString, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS );
+    var showAllRadioButton = new AquaRadioButton( showAllProperty, true, createShowAllNode(), RADIO_BUTTON_OPTIONS );
+    var hideMoleculesButton = new AquaRadioButton( moleculesVisibleProperty, false, createHideMoleculesNode(), RADIO_BUTTON_OPTIONS );
+    var hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, createHideNumbersNode(), RADIO_BUTTON_OPTIONS );
 
     // vertical layout
     var content = new LayoutBox( {
       children: [ showAllRadioButton, hideMoleculesButton, hideNumbersButton ],
       orientation: 'vertical',
       align: 'left',
-      spacing: 10
+      spacing: 15
     } );
 
     Panel.call( this, content, options );
   }
+
+  /**
+   * Creates the node for the 'Show All' radio button, an open eye with text to the right of it.
+   * @returns {Node}
+   */
+  var createShowAllNode = function() {
+    var eyeNode = new FontAwesomeNode( 'eye_open', FONT_AWESOME_OPTIONS );
+    var textNode = new Text( showAllString, TEXT_OPTIONS );
+    return new LayoutBox( {
+      children: [ eyeNode, textNode ],
+      orientation: 'horizontal',
+      spacing: ICON_TEXT_SPACING
+    } );
+  };
+
+  /**
+   * Creates the node for the 'Hide Molecules' radio button, a closed eye with '123' at lower right, and text to the right.
+   * @returns {Node}
+   */
+  var createHideMoleculesNode = function() {
+    var eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
+    var moleculeNode = new Node( {
+      children: [ new H2ONode( RPALConstants.ATOM_OPTIONS ) ], // wrap in a Node because H2ONode doesn't work with standard options
+      scale: 0.4,
+      centerX: eyeNode.right,
+      centerY: eyeNode.bottom
+    } );
+    var textNode = new Text( hideMoleculesString, TEXT_OPTIONS );
+    return new LayoutBox( {
+      children: [ new Node( { children: [ eyeNode, moleculeNode ] } ), textNode ],
+      orientation: 'horizontal',
+      spacing: ICON_TEXT_SPACING
+    } );
+  };
+
+  /**
+   * Creates the node for the 'Hide Numbers' radio button, a closed eye with H2O molecule at lower right, and text to the right.
+   * @returns {Node}
+   */
+  var createHideNumbersNode = function() {
+    var eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
+    var numbersNode = new Text( '123', { font: new RPALFont( 8 ), centerX: eyeNode.right + 2, centerY: eyeNode.bottom } );
+    var textNode = new Text( hideNumbersString, TEXT_OPTIONS );
+    return new LayoutBox( {
+      children: [ new Node( { children: [ eyeNode, numbersNode ] } ), textNode ],
+      orientation: 'horizontal',
+      spacing: ICON_TEXT_SPACING
+    } );
+  };
 
   return inherit( Panel, VisibilityControl );
 } );

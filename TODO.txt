@@ -6,7 +6,6 @@ DESIGN
 HIGH
 - Game screen
 - implement RPALRewardNode, add to ResultsNode
-- add icons to VisibilityControl
 
 MEDIUM
 - why is spacing different between 2 slices of cheese (or meat) comparing RHS of equation and 'products'
