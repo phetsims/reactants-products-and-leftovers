@@ -1,4 +1,6 @@
 # 1.0.0-dev.6 10/21/14
+10/21/14 fix ChallengeFactory.test
+10/21/14 add 'testGame' query parameter, runs a sanity test on challenge generation
 10/21/14 expand touch areas for radio buttons
 10/21/14 fold IconFactory into SettingsNode, since all of its functions should be private to SettingsNode
 10/21/14 add 'eye' icons to VisibilityControl

@@ -355,11 +355,12 @@ define( function( require ) {
     console.log( 'Testing challenge generation ...' );
     console.log( '----------------------------------------------------------' );
 
+    var challengesPerGame = 5;
     for ( level = 0; level < REACTIONS.length; level++ ) {
       for ( i = 0; i < 100; i++ ) {
 
         // create challenges
-        var challenges = ChallengeFactory.createChallenges( RPALConstants.CHALLENGES_PER_GAME, level, maxQuantity );
+        var challenges = ChallengeFactory.createChallenges( challengesPerGame, level, maxQuantity );
         numberOfChallengesGenerated += challenges.length;
 
         // validate
@@ -400,6 +401,7 @@ define( function( require ) {
         if ( numberWithZeroProducts !== 1 ) {
           numberOfProductErrors++;
           console.log( 'ERROR: more than one challenge with zero products, level=' + level + ' challenges=' );
+          console.log( '#challenges=' + challenges.length );//XXX
           for ( j = 0; j < challenges.length; j++ ) {
             console.log( j + ': ' + challenges[j].reaction.toString() );
           }
