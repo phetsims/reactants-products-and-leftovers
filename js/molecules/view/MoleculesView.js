@@ -37,8 +37,10 @@ define( function( require ) {
       // create the new boxes
       beforeAfterNode = new BeforeAfterNode( reaction,
         thisView.viewProperties.beforeExpandedProperty,
-        thisView.viewProperties.afterExpandedProperty,
-        { left: 40, top: thisView.playAreaTop + 10 } );
+        thisView.viewProperties.afterExpandedProperty, {
+          left: 40,
+          top: thisView.playAreaTop + 10
+        } );
       thisView.addChild( beforeAfterNode );
     } );
   }

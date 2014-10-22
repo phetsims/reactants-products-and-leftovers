@@ -50,9 +50,9 @@ define( function( require ) {
       beforeAfterNode = new SandwichesBeforeAfterNode( reaction,
         thisView.viewProperties.beforeExpandedProperty,
         thisView.viewProperties.afterExpandedProperty, {
-          showSymbols: false,
           left: 40,
           top: thisView.playAreaTop + 10,
+          showSymbols: false,
           beforeTitle: beforeSandwichString,
           afterTitle: afterSandwichString,
           maxImageSize: maxSandwichSize,
