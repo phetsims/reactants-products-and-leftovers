@@ -46,24 +46,18 @@ define( function( require ) {
         thisView.removeChild( beforeAfterNode );
       }
 
-      // options for the new boxes
-      var boxOptions = {
-        showSymbols: false,
-        left: 40,
-        top: thisView.playAreaTop + 10,
-        beforeTitle: beforeSandwichString,
-        afterTitle: afterSandwichString,
-        maxImageSize: maxSandwichSize
-      };
-      if ( reaction.coefficientsMutable ) {
-        boxOptions.boxYMargin = 12;
-      }
-
       // create the new boxes
       beforeAfterNode = new SandwichesBeforeAfterNode( reaction,
         thisView.viewProperties.beforeExpandedProperty,
-        thisView.viewProperties.afterExpandedProperty,
-        boxOptions );
+        thisView.viewProperties.afterExpandedProperty, {
+          showSymbols: false,
+          left: 40,
+          top: thisView.playAreaTop + 10,
+          beforeTitle: beforeSandwichString,
+          afterTitle: afterSandwichString,
+          maxImageSize: maxSandwichSize,
+          boxYMargin: 8 // large enough to accommodate biggest sandwich
+        } );
       thisView.addChild( beforeAfterNode );
     } );
   }
