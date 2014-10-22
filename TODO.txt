@@ -12,6 +12,7 @@ MEDIUM
 - why is spacing different between 2 slices of cheese (or meat) comparing RHS of equation and 'products'
 - random layout strategy for molecules in boxes
 - dev features for game (skip, play all, ...)
+- push more common stuff into ReactionView
 
 LOW
 - address the evil piece of code in VisibilityControl
