@@ -1,4 +1,5 @@
-10/22/14 i18n: scale box titles (Before, After) to fit
+10/22/14 i18n: scale radio buttons to fit in 30% of blue bar
+10/22/14 i18n: scale box titles (Before, After) to fit in 75% of box width
 10/22/14 use the same Before/After box margin for all sandwich choices
 # 1.0.0-dev.6 10/21/14
 10/21/14 fix ChallengeFactory.test

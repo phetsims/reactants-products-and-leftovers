@@ -18,6 +18,7 @@ define( function( require ) {
   // constants
   var X_MARGIN = 20;
   var Y_MARGIN = 10;
+  var CONTROLS_MAX_PERCENTAGE = 0.30; // controls will be scaled down if width is greater than this percentage of bar
 
   /**
    * @param {Property.<Reaction>} reactionProperty the selected reaction
@@ -35,6 +36,7 @@ define( function( require ) {
 
     // control for choosing a reaction
     var reactionChoiceNode = new ReactionChoiceNode( reactionProperty, reactions );
+    reactionChoiceNode.setScaleMagnitude( Math.min( 1, 1, CONTROLS_MAX_PERCENTAGE * options.screenWidth / reactionChoiceNode.width ) );
 
     // background, extra wide so that it will appear to fill the screen width for all but extreme window sizes
     var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, reactionChoiceNode.height + ( 2 * Y_MARGIN ),
