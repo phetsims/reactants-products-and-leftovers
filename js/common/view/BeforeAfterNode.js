@@ -130,7 +130,7 @@ define( function( require ) {
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     thisNode.quantityNodes = []; // @private
-    thisNode.imageNodes = []; // @private
+    thisNode.imageNodes = []; // @protected
     thisNode.productImageNode = []; // @private needed for 'custom sandwich' scenario
     var symbolNodes = [];
 
@@ -315,23 +315,6 @@ define( function( require ) {
   }
 
   return inherit( Node, BeforeAfterNode, {
-
-    /**
-     * Sets the nodes used to represent a specified product.
-     * This updates only the node shown below the 'After' box.
-     * Nodes that are inside the box are modified by observing the nodeProperty directly.
-     *
-     * @param node
-     * @param productIndex
-     * @protected
-     */
-    setNodeForProduct: function( node, productIndex ) {
-      assert && assert( productIndex >= 0 && productIndex < this.reaction.products.length );
-      var imageNode = this.imageNodes[ this.reaction.reactants.length + productIndex ]; // products follow reactants
-      imageNode.removeAllChildren();
-      imageNode.addChild( node );
-      imageNode.centerY = this.imageNodes[0].centerY; // align with first reactant
-    },
 
     // Unlinks all property observers. The node is no longer functional after calling this function.
     dispose: function() {

@@ -31,7 +31,10 @@ define( function( require ) {
     // Update the sandwich image when it changes
     if ( thisNode.reaction.coefficientsMutable ) {
       thisNode.nodePropertyObserver = function( node ) {
-        thisNode.setNodeForProduct( node, 0 /* productIndex */ );
+        var wrapper = thisNode.imageNodes[ thisNode.reaction.reactants.length  ]; // products follow reactants
+        wrapper.removeAllChildren();
+        wrapper.addChild( node );
+        wrapper.centerY = thisNode.imageNodes[0].centerY; // align with first reactant
       };
       thisNode.reaction.sandwich.nodeProperty.link( thisNode.nodePropertyObserver );
     }
