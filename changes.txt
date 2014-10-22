@@ -1,3 +1,4 @@
+10/22/14 i18n: scale level-selection button labels to be no wider than icons
 10/22/14 i18n: scale radio buttons to fit in 25% of blue bar
 10/22/14 i18n: scale box titles (Before, After) to fit in 75% of box width
 10/22/14 use the same Before/After box margin for all sandwich choices

@@ -168,6 +168,7 @@ define( function( require ) {
     var labelNode = new Text( StringUtils.format( pattern_Level_0, level ), LABEL_OPTIONS );
     var arrowNode = new ArrowNode( 0, 0, 50, 0, ARROW_OPTIONS );
     var icon = new LayoutBox( { children: [ leftNode, arrowNode, rightNode ], orientation: 'horizontal', spacing: 20 } );
+    labelNode.setScaleMagnitude( Math.min( 1, icon.width / labelNode.width ) ); // i18n: label can be no wider than image
     return new LayoutBox( { children: [ labelNode, icon ], orientation: 'vertical', spacing: 30 } );
   };
 
