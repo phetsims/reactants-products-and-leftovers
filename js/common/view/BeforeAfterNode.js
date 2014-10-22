@@ -47,7 +47,8 @@ define( function( require ) {
   var BRACKET_FONT = new RPALFont( 12 ); // font for the bracket labels
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
-  var TITLE_MAX_PERCENTAGE = 0.75; // Before/After title width will be scaled down if greater than this percentage of the box width
+  var MAX_TITLE_PERCENTAGE = 0.75; // Before/After title width will be scaled down if greater than this percentage of the box width
+  var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined emphirically
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
@@ -99,7 +100,7 @@ define( function( require ) {
     // 'Before Reaction' accordion box
     var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     var beforeTitle = new Text( options.beforeTitle, titleOptions );
-    beforeTitle.setScaleMagnitude( Math.min( 1, TITLE_MAX_PERCENTAGE * beforeContent.width / beforeTitle.width ) ); // i18n, scale to fit
+    beforeTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * beforeContent.width / beforeTitle.width ) ); // i18n, scale to fit
     // @private
     thisNode.beforeBox = new AccordionBox( beforeContent, _.extend( {
       expandedProperty: beforeExpandedProperty,
@@ -109,7 +110,7 @@ define( function( require ) {
     // 'After Reaction' accordion box
     var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     var afterTitle = new Text( options.afterTitle, titleOptions );
-    afterTitle.setScaleMagnitude( Math.min( 1, TITLE_MAX_PERCENTAGE * afterContent.width / afterTitle.width ) ); // i18n, scale to fit
+    afterTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * afterContent.width / afterTitle.width ) ); // i18n, scale to fit
     // @private
     thisNode.afterBox = new AccordionBox( afterContent, _.extend( {
       expandedProperty: afterExpandedProperty,
@@ -254,19 +255,25 @@ define( function( require ) {
       top: componentsBottom + BRACKET_Y_SPACING
     };
 
-    var reactantsBracket = new HBracketNode( new Text( reactantsString, bracketLabelOptions ), _.extend( {
+    var reactantsLabel = new Text( reactantsString, bracketLabelOptions );
+    reactantsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / reactantsLabel.width ) ); // i18n
+    var reactantsBracket = new HBracketNode( reactantsLabel, _.extend( {
       bracketWidth: Math.max( options.maxImageSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: reactantsParent.centerX
     }, bracketOptions ) );
     thisNode.addChild( reactantsBracket );
 
-    var productsBracket = new HBracketNode( new Text( productsString, bracketLabelOptions ), _.extend( {
+    var productsLabel = new Text( productsString, bracketLabelOptions );
+    productsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / productsLabel.width ) ); // i18n
+    var productsBracket = new HBracketNode( productsLabel, _.extend( {
       bracketWidth: Math.max( options.maxImageSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: productsParent.centerX
     }, bracketOptions ) );
     thisNode.addChild( productsBracket );
 
-    var leftoversBracket = new HBracketNode( new Text( leftoversString, bracketLabelOptions ), _.extend( {
+    var leftoversLabel = new Text( leftoversString, bracketLabelOptions );
+    leftoversLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / leftoversLabel.width ) ); // i18n
+    var leftoversBracket = new HBracketNode( leftoversLabel, _.extend( {
       bracketWidth: Math.max( options.maxImageSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: leftoversParent.centerX
     }, bracketOptions ) );
