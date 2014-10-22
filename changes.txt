@@ -1,3 +1,4 @@
+10/22/14 add convenience function Substance.getWrappedNode (a substance's Node appears in the scenegraph multiple times)
 10/22/14 i18n: limit width of labels below horizontal brackets
 10/22/14 i18n: scale level-selection button labels to be no wider than icons
 10/22/14 i18n: scale radio buttons to fit in 25% of blue bar

@@ -70,9 +70,10 @@ define( function( require ) {
       parentNode.addChild( coefficientNode );
 
       // ingredient
-      ingredientNode = new Node( { children: [ terms[i].node ] } );
-      ingredientNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
-      ingredientNode.centerY = coefficientNode.centerY;
+      ingredientNode = terms[i].getWrappedNode( {
+        left: coefficientNode.right + COEFFICIENT_X_SPACING,
+        centerY: coefficientNode.centerY
+      } );
       parentNode.addChild( ingredientNode );
 
       // plus sign between terms

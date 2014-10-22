@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
@@ -36,6 +37,20 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, Substance, {
+
+    /**
+     * Scenery is a DAG and allows one instance of a Node to appear in the scenegraph in
+     * multiple place, with 2 caveats: (1) a Node cannot be a sibling of itself, and (2)
+     * positioning a node will do so everywhere that it appears. Because a Substance will
+     * appear in multiple places in the view, this function provides a convenient way to
+     * wrap this.node, so that we don't accidentally make it a sibling of itself, or
+     * attempt to position it.
+     * @param {Object} [options] options for the {Node} wrapper
+     * @returns {Node}
+     */
+    getWrappedNode: function( options ) {
+      return new Node( _.extend( {}, options, { children: [ this.node ] } ) );
+    },
 
     /*
      * Are 2 substances the same?

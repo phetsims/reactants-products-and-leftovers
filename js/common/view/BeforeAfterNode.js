@@ -154,7 +154,7 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = new Node( { children: [ reactant.node ], centerX: quantityNode.centerX } );
+      imageNode = reactant.getWrappedNode( { centerX: quantityNode.centerX } );
       reactantsParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
 
@@ -185,7 +185,7 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = new Node( { children: [ product.node ], centerX: quantityNode.centerX } );
+      imageNode = product.getWrappedNode( { centerX: quantityNode.centerX } );
       productsParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
       thisNode.productImageNode.push( imageNode );
@@ -213,7 +213,7 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = new Node( { children: [ reactant.node ], centerX: quantityNode.centerX } );
+      imageNode = reactant.getWrappedNode( { centerX: quantityNode.centerX } );
       leftoversParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
 

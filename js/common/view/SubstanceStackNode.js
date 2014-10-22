@@ -44,7 +44,7 @@ define( function( require ) {
           thisNode.getChildAt( i ).visible = ( i < quantity );
         }
         else {
-          // add a node
+          // add a node, wrapped because the node will appear in the scenegraph multiple times
           thisNode.addChild( new Node( {
             children: [ thisNode.nodeProperty.get() ],
             centerX: centerX,
