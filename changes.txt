@@ -1,3 +1,4 @@
+10/22/14 ensure that all sandwiches are the same width, so that changing sandwich recipe doesn't cause sandwich to move horizontally
 10/22/14 move sandwich-specific code out of BeforeAfterNode
 10/22/14 add convenience function Substance.getWrappedNode (a substance's Node appears in the scenegraph multiple times)
 10/22/14 i18n: limit width of labels below horizontal brackets

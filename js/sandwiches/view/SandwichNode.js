@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var HStrut = require( 'SUN/HStrut' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -19,6 +20,7 @@ define( function( require ) {
   var meatImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/meat.png' );
 
   // constants
+  var MAX_WIDTH = _.max( [ breadImage, cheeseImage, meatImage ], function( image ) { return image.width; } ).width;
   var Y_SPACING = 4; // vertical space between centers of ingredients
 
   /**
@@ -36,6 +38,9 @@ define( function( require ) {
     Node.call( this );
 
     var centerY = 0;
+
+    // ensure that all sandwiches are the same width
+    thisNode.addChild( new HStrut( MAX_WIDTH, { centerX: 0 } ) );
 
     // Put a slice of bread on the bottom.
     if ( breadCount > 0 ) {
