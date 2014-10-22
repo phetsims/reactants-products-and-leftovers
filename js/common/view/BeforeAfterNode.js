@@ -97,18 +97,22 @@ define( function( require ) {
 
     // 'Before Reaction' accordion box
     var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
+    var beforeTitle = new Text( options.beforeTitle, titleOptions );
+    beforeTitle.setScaleMagnitude( Math.min( 1, 0.75 * beforeContent.width / beforeTitle.width ) ); // i18n, scale to fit
     // @private
     thisNode.beforeBox = new AccordionBox( beforeContent, _.extend( {
       expandedProperty: beforeExpandedProperty,
-      titleNode: new Text( options.beforeTitle, titleOptions )
+      titleNode: beforeTitle
     }, accordionBoxOptions ) );
 
     // 'After Reaction' accordion box
     var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
+    var afterTitle = new Text( options.afterTitle, titleOptions );
+    afterTitle.setScaleMagnitude( Math.min( 1, 0.75 * afterContent.width / afterTitle.width ) ); // i18n, scale to fit
     // @private
     thisNode.afterBox = new AccordionBox( afterContent, _.extend( {
       expandedProperty: afterExpandedProperty,
-      titleNode: new Text( options.afterTitle, titleOptions )
+      titleNode: afterTitle
     }, accordionBoxOptions ) );
 
     // Arrow between boxes
