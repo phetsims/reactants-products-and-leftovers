@@ -47,6 +47,7 @@ define( function( require ) {
   var BRACKET_FONT = new RPALFont( 12 ); // font for the bracket labels
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
+  var TITLE_MAX_PERCENTAGE = 0.75; // Before/After title width will be scaled down if greater than this percentage of the box width
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
@@ -98,7 +99,7 @@ define( function( require ) {
     // 'Before Reaction' accordion box
     var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     var beforeTitle = new Text( options.beforeTitle, titleOptions );
-    beforeTitle.setScaleMagnitude( Math.min( 1, 0.75 * beforeContent.width / beforeTitle.width ) ); // i18n, scale to fit
+    beforeTitle.setScaleMagnitude( Math.min( 1, TITLE_MAX_PERCENTAGE * beforeContent.width / beforeTitle.width ) ); // i18n, scale to fit
     // @private
     thisNode.beforeBox = new AccordionBox( beforeContent, _.extend( {
       expandedProperty: beforeExpandedProperty,
@@ -108,7 +109,7 @@ define( function( require ) {
     // 'After Reaction' accordion box
     var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
     var afterTitle = new Text( options.afterTitle, titleOptions );
-    afterTitle.setScaleMagnitude( Math.min( 1, 0.75 * afterContent.width / afterTitle.width ) ); // i18n, scale to fit
+    afterTitle.setScaleMagnitude( Math.min( 1, TITLE_MAX_PERCENTAGE * afterContent.width / afterTitle.width ) ); // i18n, scale to fit
     // @private
     thisNode.afterBox = new AccordionBox( afterContent, _.extend( {
       expandedProperty: afterExpandedProperty,
