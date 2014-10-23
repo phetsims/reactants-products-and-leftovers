@@ -16,7 +16,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
-//TODO  var RPALRewardNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/RPALRewardNode' );
+  var RPALRewardNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/RPALRewardNode' );
 
   /**
    * @param {GameModel} model
@@ -41,8 +41,8 @@ define( function( require ) {
           audioPlayer.gameOverPerfectScore();
 
           //TODO
-//          thisNode.rewardNode = new RPALRewardNode( model.level );
-//          thisNode.addChild( thisNode.rewardNode );
+          thisNode.rewardNode = new RPALRewardNode( model.level );
+          thisNode.addChild( thisNode.rewardNode );
         }
         else {
           audioPlayer.gameOverImperfectScore();
@@ -53,7 +53,7 @@ define( function( require ) {
           model.level,
           model.score,
           model.getPerfectScore(),
-            model.getPerfectScore() / model.maxPointsPerChallenge, // number of stars in the progress indicator
+          model.challengesPerGame, // number of stars in the progress indicator
           model.timerEnabled,
           model.timer.elapsedTime,
           model.bestTimeProperties[ model.level ].get(),

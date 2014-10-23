@@ -17,6 +17,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -73,7 +74,13 @@ define( function( require ) {
    */
   var createChallengeView = function( model, challengeBounds, audioPlayer ) {
     //TODO
-    return new Text( 'Under Construction', { font: new RPALFont( 40 ), center: challengeBounds.center } );
+    return new RectangularPushButton( {
+      content: new Text( 'continue', { font: new RPALFont( 25 ) } ),
+      center: challengeBounds.center,
+      listener: function() {
+        model.gamePhaseProperty.set( GamePhase.RESULTS );
+      }
+    } );
   };
 
   return inherit( Node, PlayNode );
