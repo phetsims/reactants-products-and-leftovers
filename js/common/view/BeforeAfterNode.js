@@ -48,7 +48,7 @@ define( function( require ) {
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
   var MAX_TITLE_PERCENTAGE = 0.75; // Before/After title width will be scaled down if greater than this percentage of the box width
-  var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined emphirically
+  var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by eye
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
