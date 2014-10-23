@@ -36,6 +36,11 @@ define( function( require ) {
 
   return inherit( Object, Challenge, {
 
+    reset: function() {
+      this.reaction.reset();
+      this.guess.reset();
+    },
+
     // Does the user's guess match the correct answer?
     isCorrect: function() {
       var i;

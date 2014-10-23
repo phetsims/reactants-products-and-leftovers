@@ -122,7 +122,8 @@ define( function( require ) {
         }
       }
       else if ( playState === PlayState.NEXT ) {
-        thisModel.challenge.setAnswerVisible( true );
+        //TODO
+//        thisModel.challenge.setAnswerVisible( true );
       }
     } );
   }
@@ -161,14 +162,19 @@ define( function( require ) {
     },
 
     /**
+     * Skips all challenges, advances immediately to the game results.
+     */
+    skipAllChallenges: function() {
+      this.gamePhaseProperty.set( GamePhase.RESULTS );
+    },
+
+    /**
      * Replays the current challenge.
      * This is a developer feature.
      * Score and best times are meaningless after using this.
      */
     replayCurrentChallenge: function() {
       this.challenge.reset();
-      this.challengeIndex = this.challengeIndex - 1;
-      this.challenge = DUMMY_CHALLENGE; // force an update
       this.playState = PlayState.FIRST_CHECK;
     },
 

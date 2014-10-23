@@ -90,6 +90,11 @@ define( function( require ) {
 
   return inherit( Object, GameGuess, {
 
+    reset: function() {
+      this.reactants.forEach( function( reactant ) { reactant.reset(); } );
+      this.products.forEach( function( product ) { product.reset(); } );
+    },
+
     //TODO identical to Reaction.getQuantitiesString
     /**
      * Example: 4,1 -> 1,2,2,0

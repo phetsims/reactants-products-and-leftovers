@@ -11,15 +11,15 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var DevControls = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevControls' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
 
   /**
    * @param {GameModel} model
@@ -44,13 +44,22 @@ define( function( require ) {
         model.gamePhaseProperty.set( GamePhase.SETTINGS );
       },
       {
+        // ScoreboardBar options
         font: new RPALFont( 16 ),
         leftMargin: 40, //TODO
-        rightMargin: 50 //TODO
+        rightMargin: 50, //TODO
+        centerX: layoutBounds.centerX,
+        top: 0
       } );
-    scoreboardNode.centerX = layoutBounds.centerX;
-    scoreboardNode.top = 0;
     thisNode.addChild( scoreboardNode );
+
+    // Developer controls
+    if ( RPALQueryParameters.DEV ) {
+      thisNode.addChild( new DevControls( model, {
+        centerX: scoreboardNode.centerX + 150, // left of 'Start Over' button, offset determined by eye
+        centerY: scoreboardNode.centerY
+      } ) );
+    }
 
     // compute the bounds available for the challenges
     var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
@@ -74,14 +83,7 @@ define( function( require ) {
    */
   var createChallengeView = function( model, challengeBounds, audioPlayer ) {
     //TODO
-    return new RectangularPushButton( {
-      content: new Text( 'Continue', { font: new RPALFont( 25 ) } ),
-      baseColor: 'yellow',
-      center: challengeBounds.center,
-      listener: function() {
-        model.gamePhaseProperty.set( GamePhase.RESULTS );
-      }
-    } );
+    return new Node();
   };
 
   return inherit( Node, PlayNode );
