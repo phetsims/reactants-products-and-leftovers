@@ -75,7 +75,8 @@ define( function( require ) {
   var createChallengeView = function( model, challengeBounds, audioPlayer ) {
     //TODO
     return new RectangularPushButton( {
-      content: new Text( 'continue', { font: new RPALFont( 25 ) } ),
+      content: new Text( 'Continue', { font: new RPALFont( 25 ) } ),
+      baseColor: 'yellow',
       center: challengeBounds.center,
       listener: function() {
         model.gamePhaseProperty.set( GamePhase.RESULTS );
