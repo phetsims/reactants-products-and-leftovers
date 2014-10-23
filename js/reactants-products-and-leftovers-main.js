@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var GameScreen = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/GameScreen' );
+//  var GameScreen = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/GameScreen' );
   var MoleculesScreen = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/MoleculesScreen' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var Sim = require( 'JOIST/Sim' );
@@ -19,7 +19,8 @@ define( function( require ) {
   // strings
   var title = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants-products-and-leftovers.name' );
 
-  var screens = [ new SandwichesScreen(), new MoleculesScreen(), new GameScreen() ];
+//  var screens = [ new SandwichesScreen(), new MoleculesScreen(), new GameScreen() ];
+  var screens = [ new SandwichesScreen(), new MoleculesScreen() ];
 
   var options = {
     credits: {
