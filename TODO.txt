@@ -5,6 +5,7 @@ DESIGN
 - title feels cramped in navigation bar
 
 HIGH
+- create a dev version with no Game for YY to do interviews on first 2 screens
 - implement PlayNode
 - use transparent buttons in Game
 
