@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-//TODO  var Dimension2 = require( 'DOT/Dimension2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -18,6 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   /**
    * @param {GameModel} model
@@ -50,9 +51,8 @@ define( function( require ) {
     scoreboardNode.top = 0;
     thisNode.addChild( scoreboardNode );
 
-    //TODO make this a Bounds2 ?
-    // compute the size of the area available for the challenges
-//    var challengeSize = new Dimension2( layoutBounds.width, layoutBounds.height - scoreboardNode.bottom );
+    // compute the bounds available for the challenges
+    var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
     // challenge parent, to keep challenge below scoreboard
     var challengeParent = new Rectangle( 0, 0, 0, 1 );
@@ -62,9 +62,19 @@ define( function( require ) {
     // Set up a new challenge
     model.challengeProperty.link( function( challenge ) {
       challengeParent.removeAllChildren();
-//TODO      challengeParent.addChild( challenge.createView( model, challengeSize, audioPlayer ) );
+      challengeParent.addChild( createChallengeView( model, challengeBounds, audioPlayer ) );
     } );
   }
+
+  /**
+   * @param {GameModel} model
+   * @param {Bounds2} challengeBounds
+   * @param {GameAudioPlayer} audioPlayer
+   */
+  var createChallengeView = function( model, challengeBounds, audioPlayer ) {
+    //TODO
+    return new Text( 'Under Construction', { font: new RPALFont( 40 ), center: challengeBounds.center } );
+  };
 
   return inherit( Node, PlayNode );
 } );
