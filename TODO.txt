@@ -7,7 +7,6 @@ DESIGN
 HIGH
 - implement PlayNode
 - use transparent buttons in Game
-- implement RPALRewardNode, add to ResultsNode
 
 MEDIUM
 - random layout strategy for molecules in boxes
