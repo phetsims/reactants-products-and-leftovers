@@ -5,12 +5,12 @@ DESIGN
 - title feels cramped in navigation bar
 
 HIGH
+- add a 'Play All Challenges' button to the level-selection screen
 - implement PlayNode
 - use transparent buttons in Game
 
 MEDIUM
 - random layout strategy for molecules in boxes
-- dev features for game (skip, play all, ...)
 - push more common stuff into ReactionView
 
 LOW
