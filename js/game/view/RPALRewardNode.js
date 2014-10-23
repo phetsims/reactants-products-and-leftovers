@@ -17,7 +17,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RewardNode = require( 'VEGAS/RewardNode' );
@@ -80,10 +79,11 @@ define( function( require ) {
   // Level 2 = smiley faces
   var createNodesLevel2 = function() {
     var nodes = [
-      new CNode(), new C2H2Node(), new C2H4Node(), new Cl2Node(), new CONode(), new CO2Node(), new CS2Node(),
+      new CNode(), new C2H2Node(), new C2H4Node(), new C2H5ClNode(), new C2H5OHNode(), new C2H6Node(),
+      new CH2ONode(), new CH3OHNode(), new CH4Node(), new Cl2Node(), new CONode(), new CO2Node(), new CS2Node(),
       new F2Node(), new H2Node(), new H2ONode(), new H2SNode(), new HClNode(), new HFNode(), new N2Node(),
-      new N2ONode(), new O2Node(), new P4Node(), new PCl3Node(), new PCl5Node(), new PF3Node(), new PH3Node(),
-      new SNode(), new SO2Node(), new SO3Node()
+      new N2ONode(), new NH3Node(), new NONode(), new NO2Node(), new O2Node(), new OF2Node(), new P4Node(),
+      new PCl3Node(), new PCl5Node(), new PF3Node(), new PH3Node(), new SNode(), new SO2Node(), new SO3Node()
     ];
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
   };
