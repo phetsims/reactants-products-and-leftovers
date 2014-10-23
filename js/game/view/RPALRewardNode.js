@@ -61,21 +61,6 @@ define( function( require ) {
 
   // constants
   var NUMBER_OF_NODES = 100;
-  var FACE_NODES = [ new FaceNode( 40 ) ];
-  var MOLECULE_NODES = [
-    new CNode(), new C2H2Node(), new C2H4Node(), new Cl2Node(), new CONode(), new CO2Node(), new CS2Node(),
-    new F2Node(), new H2Node(), new H2ONode(), new H2SNode(), new HClNode(), new HFNode(), new N2Node(),
-    new N2ONode(), new O2Node(), new P4Node(), new PCl3Node(), new PCl5Node(), new PF3Node(), new PH3Node(),
-    new SNode(), new SO2Node(), new SO3Node()
-  ];
-  var SANDWICH_NODES = [
-    new SandwichNode( 3, 3, 3 ),
-    new SandwichNode( 2, 1, 2 ),
-    new SandwichNode( 1, 1, 1 ),
-    new SandwichNode( 2, 3, 3 ),
-    new SandwichNode( 0, 2, 0 ),
-    new SandwichNode( 0, 0, 2 )
-  ];
 
   /**
    * @param level game level, starting at zero
@@ -88,17 +73,32 @@ define( function( require ) {
 
   // Level 1 = molecules
   var createNodesLevel1 = function() {
-    return RewardNode.createRandomNodes( MOLECULE_NODES, NUMBER_OF_NODES );
+    var nodes = [ new FaceNode( 40 ) ];
+    return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
   };
 
   // Level 2 = smiley faces
   var createNodesLevel2 = function() {
-    return RewardNode.createRandomNodes( FACE_NODES, NUMBER_OF_NODES );
+    var nodes = [
+      new CNode(), new C2H2Node(), new C2H4Node(), new Cl2Node(), new CONode(), new CO2Node(), new CS2Node(),
+      new F2Node(), new H2Node(), new H2ONode(), new H2SNode(), new HClNode(), new HFNode(), new N2Node(),
+      new N2ONode(), new O2Node(), new P4Node(), new PCl3Node(), new PCl5Node(), new PF3Node(), new PH3Node(),
+      new SNode(), new SO2Node(), new SO3Node()
+    ];
+    return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
   };
 
   // Level 3 = sandwiches
   var createNodesLevel3 = function() {
-    return RewardNode.createRandomNodes( SANDWICH_NODES, NUMBER_OF_NODES );
+    var nodes = [
+      new SandwichNode( 3, 3, 3 ),
+      new SandwichNode( 2, 1, 2 ),
+      new SandwichNode( 1, 1, 1 ),
+      new SandwichNode( 2, 3, 3 ),
+      new SandwichNode( 0, 2, 0 ),
+      new SandwichNode( 0, 0, 2 )
+    ];
+    return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
   };
 
   /*
