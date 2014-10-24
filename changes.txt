@@ -1,7 +1,8 @@
-10/24/14 add 'Test' button to dev controls, for running sanity check on challenge generation
+10/24/14 dev: display challenge string at bottom of Game screen
+10/24/14 dev: add 'Test' button to dev controls, for running sanity check on challenge generation
 10/24/14 when choosing a challenge that has zero-products, put disqualified reactions back into the pool
-10/24/14 implement 'playAll' query parameter, for playing all possible reactions for each Game level
-10/23/14 add developer controls to game scoreboard
+10/24/14 dev: implement 'playAll' query parameter, for playing all possible reactions for each Game level
+10/23/14 dev: add various test buttons to Game screen
 10/23/14 restore Game screen
 # 1.0.0-dev.8 10/22/14
 10/23/14 dev version with Game removed for preliminary interviews
