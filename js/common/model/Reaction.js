@@ -120,7 +120,10 @@ define( function( require ) {
       s += '-> ';
       for ( i = 0; i < this.products.length; i++ ) {
         if ( i !== 0 ) { s += '+ '; }
-        s += ( this.products[i].coefficient + ' ' + this.products[i].symbol + ' ' );
+        s += ( this.products[i].coefficient + ' ' + this.products[i].symbol );
+        if ( i < this.products.length - 1 ) {
+          s += ' ';
+        }
       }
       return s.replace( /<sub>/g, '' ).replace( /<\/sub>/g, '' );
     },
