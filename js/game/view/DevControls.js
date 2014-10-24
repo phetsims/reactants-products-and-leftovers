@@ -38,16 +38,19 @@ define( function( require ) {
       spacing: 5
     }, options );
 
-    var skipButton = new TextPushButton( skipString, BUTTON_OPTIONS );
-    skipButton.addListener( function() { model.skipCurrentChallenge(); } );
-
-    var skipAllButton = new TextPushButton( skipAllString, BUTTON_OPTIONS );
-    skipAllButton.addListener( function() { model.skipAllChallenges(); } );
-
+    // replay the current challenge
     var replayButton = new TextPushButton( replayString, BUTTON_OPTIONS );
     replayButton.addListener( function() { model.replayCurrentChallenge(); } );
 
-    options.children = [ skipButton, skipAllButton, replayButton ];
+    // skip the current challenge
+    var skipButton = new TextPushButton( skipString, BUTTON_OPTIONS );
+    skipButton.addListener( function() { model.skipCurrentChallenge(); } );
+
+    // skip all challenges, go immediately to the 'Results' state
+    var skipAllButton = new TextPushButton( skipAllString, BUTTON_OPTIONS );
+    skipAllButton.addListener( function() { model.skipAllChallenges(); } );
+
+    options.children = [ replayButton, skipButton, skipAllButton ];
     LayoutBox.call( this, options );
   }
 
