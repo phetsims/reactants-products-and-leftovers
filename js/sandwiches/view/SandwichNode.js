@@ -13,6 +13,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
 
   // images
   var breadImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/bread.png' );
@@ -33,6 +34,10 @@ define( function( require ) {
   function SandwichNode( breadCount, meatCount, cheeseCount, options ) {
 
     assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
+
+    options = _.extend( {
+      scale: RPALConstants.SANDWICH_IMAGE_SCALE
+    }, options );
 
     var thisNode = this;
     Node.call( this );

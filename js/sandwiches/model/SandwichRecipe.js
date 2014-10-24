@@ -86,8 +86,7 @@ define( function( require ) {
       // Update the sandwich image to match the coefficients.
       var updateSandwichNode = function() {
         if ( thisRecipe.isReaction() ) {
-          thisRecipe.sandwich.node = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient,
-            { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
+          thisRecipe.sandwich.node = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient );
         }
         else {
           thisRecipe.sandwich.node = NO_SANDWICH_NODE;
@@ -101,8 +100,7 @@ define( function( require ) {
     }
     else {
       assert && assert( thisRecipe.isReaction() );
-      thisRecipe.sandwich.node = new SandwichNode( breadCount, meatCount, cheeseCount,
-        { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
+      thisRecipe.sandwich.node = new SandwichNode( breadCount, meatCount, cheeseCount );
     }
   }
 

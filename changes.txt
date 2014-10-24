@@ -1,3 +1,4 @@
+10/24/14 set default scale in SandwichNode
 10/24/14 document all PropertySet members
 10/24/14 rename RPALBaseModel and RPALBaseView
 10/24/14 factor out ReactionModel base type for first 2 screens

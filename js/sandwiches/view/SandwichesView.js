@@ -29,7 +29,7 @@ define( function( require ) {
 
     // compute the size of the largest sandwich, used for layout of Before/After boxes
     var maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
-    var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
+    var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient );
     var maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
 
     RPALBaseView.call( this, model,
