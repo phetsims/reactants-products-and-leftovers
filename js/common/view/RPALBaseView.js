@@ -18,7 +18,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
-   * @param {ReactionModel} model
+   * @param {RPALBaseModel} model
    * @param {function} createEquationNode creates an equation for a specified reaction
    * @param {function} createBeforeAfterNode creates the Before/After boxes for a specified reaction
    * @constructor
