@@ -56,8 +56,8 @@ define( function( require ) {
     // Developer controls
     if ( RPALQueryParameters.DEV ) {
       thisNode.addChild( new DevControls( model, {
-        centerX: scoreboardNode.centerX + 150, // left of 'Start Over' button, offset determined by eye
-        centerY: scoreboardNode.centerY
+        right: layoutBounds.right - 5, // left of 'Start Over' button, offset determined by eye
+        top: scoreboardNode.bottom + 3
       } ) );
     }
 
