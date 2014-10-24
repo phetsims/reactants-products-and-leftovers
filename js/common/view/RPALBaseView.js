@@ -28,9 +28,10 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
+    // Properties that are specific to the view
     var viewProperties = new PropertySet( {
-      beforeExpanded: true,
-      afterExpanded: true
+      beforeExpanded: true, // {boolean} is the Before box expanded?
+      afterExpanded: true  // {boolean} is the After box expanded
     } );
 
     // reaction bar, location is determined by a query parameter

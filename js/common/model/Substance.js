@@ -30,9 +30,9 @@ define( function( require ) {
     this.symbol = symbol;
 
     PropertySet.call( this, {
-      coefficient: coefficient,
-      node: node, // mutable to support the 'custom sandwich' case
-      quantity: quantity
+      coefficient: coefficient, // {number} substance's coefficient in the reaction equation
+      node: node, // {Node} mutable to support the 'custom sandwich' case
+      quantity: quantity  // {number} how much of the substance we have
     } );
   }
 

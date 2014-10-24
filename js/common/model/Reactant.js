@@ -22,6 +22,7 @@ define( function( require ) {
    */
   function Reactant( coefficient, symbol, node, quantity ) {
     Substance.call( this, coefficient, symbol, node, quantity );
+    // {number} the amount of this reactant that's left over when the reaction completes
     this.addProperty( 'leftovers', 0 );
   }
 

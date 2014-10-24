@@ -17,7 +17,7 @@ define( function( require ) {
     this.reactions = reactions; // reaction choices
 
     PropertySet.call( this, {
-       reaction: this.reactions[0] // the selected reaction
+       reaction: this.reactions[0] // {Reaction} the selected reaction
     } );
   }
 

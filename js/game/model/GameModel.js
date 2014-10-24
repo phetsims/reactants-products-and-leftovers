@@ -40,16 +40,16 @@ define( function( require ) {
     var thisModel = this;
 
     PropertySet.call( this, {
-      soundEnabled: true,
-      timerEnabled: false,
-      moleculesVisible: true,
-      numbersVisible: true,
-      level: 0,
-      challenge: DUMMY_CHALLENGE,
-      numberOfChallenges: 0,
-      score: 0, // how many points the user has earned for the current game
-      challengeIndex: 0,
-      playState: PlayState.NONE
+      soundEnabled: true, // {boolean} is sound turned on?
+      timerEnabled: false, // {boolean} is the timer turned on?
+      moleculesVisible: true, // {boolean} are molecules shown in the challenge?
+      numbersVisible: true, // {boolean} are quantities shown in the challenge?
+      level: 0, // {number} the current level
+      challenge: DUMMY_CHALLENGE, // {Challenge} the current challenge being played
+      numberOfChallenges: 0, // {number} the number of challenges in the current game being played
+      score: 0, // {number} how many points the user has earned for the current game
+      challengeIndex: 0, // {number} the index of the current challenge
+      playState: PlayState.NONE  // {PlayState} the current 'play state' of the game (see PlayState)
     } );
 
     // These things are read-only, they should not be changed once the model is instantiated.
@@ -58,10 +58,10 @@ define( function( require ) {
     thisModel.maxQuantity = options.maxQuantity;
 
     // These things change as game-play progresses.
-    thisModel.challenges = []; // {[Challenge]}
-    thisModel.bestScoreProperties = []; // best scores for each level, array of Property.<number>
-    thisModel.bestTimeProperties = []; // best times for each level, in ms, array of Property.<number>
-    thisModel.isNewBestTime = false; // is the time for the most-recently-completed game a new best time?
+    thisModel.challenges = []; // {[Challenge]} the set of challenges for the current game being played
+    thisModel.bestScoreProperties = []; // [Property.<number>] best scores for each level
+    thisModel.bestTimeProperties = []; // [Property.<number>] best times for each level, in ms
+    thisModel.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
     for ( var level = 0; level < thisModel.numberOfLevels; level++ ) {
       thisModel.bestScoreProperties.push( new Property( 0 ) );
       thisModel.bestTimeProperties.push( new Property( null ) ); // null if a level has no best time yet
@@ -69,6 +69,7 @@ define( function( require ) {
 
     thisModel.timer = new GameTimer();
 
+    // {GamePhase} the phase that the current game being played is in (see GamePhase)
     thisModel.gamePhaseProperty = new GamePhaseProperty( GamePhase.SETTINGS,
       /*
        * This function will be called prior to setting the gamePhaseProperty value.
@@ -125,9 +126,7 @@ define( function( require ) {
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.gamePhaseProperty.reset();
-      this.bestScoreProperties.forEach( function( property ) {
-        property.set( 0 );
-      } );
+      this.bestScoreProperties.forEach( function( property ) { property.set( 0 ); } );
     },
 
     getPerfectScore: function() {
