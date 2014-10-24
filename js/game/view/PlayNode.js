@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var DevControls = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevControls' );
-  var DevChallengeStringNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevChallengeStringNode' );
+  var DevAnswerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevAnswerNode' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -62,8 +62,8 @@ define( function( require ) {
         top: scoreboardNode.bottom + 3
       } ) );
 
-      // String representation of the current challenge, bottom center
-      thisNode.addChild( new DevChallengeStringNode( model.challengeProperty, {
+      // Quantities required to answer the current challenge correctly, bottom center
+      thisNode.addChild( new DevAnswerNode( model.challengeProperty, {
         centerX: layoutBounds.centerX,
         bottom: layoutBounds.bottom - 5
       } ) );

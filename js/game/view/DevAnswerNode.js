@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays a string representation of a reaction, for debugging purposes.
+ * Displays the answer to the current challenge, for debugging purposes.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -18,11 +18,11 @@ define( function( require ) {
    * @param {Property.<Challenge>} challengeProperty
    * @constructor
    */
-  function DevChallengeStringNode( challengeProperty, options ) {
+  function DevAnswerNode( challengeProperty, options ) {
 
-    var textNode = new Text( '', { font: new RPALFont( 10 ) } );
+    var textNode = new Text( '', { font: new RPALFont( 12 ) } );
     challengeProperty.link( function( challenge ) {
-      textNode.text = challenge.reaction.toString();
+      textNode.text = challenge.reaction.getQuantitiesString();
       textNode.centerX = 0;
     } );
 
@@ -31,5 +31,5 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  return inherit( Node, DevChallengeStringNode );
+  return inherit( Node, DevAnswerNode );
 } );
