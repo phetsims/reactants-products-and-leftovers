@@ -117,7 +117,7 @@ define( function( require ) {
         if ( i !== 0 ) { s += '+ '; }
         s += ( this.reactants[i].coefficient + ' ' + this.reactants[i].symbol + ' ' );
       }
-      s += '-> ';
+      s += '\u2192 ';
       for ( i = 0; i < this.products.length; i++ ) {
         if ( i !== 0 ) { s += '+ '; }
         s += ( this.products[i].coefficient + ' ' + this.products[i].symbol );
@@ -143,7 +143,7 @@ define( function( require ) {
         s += this.reactants[i].quantity;
       }
       // arrow
-      s += ' -> ';
+      s += ' \u2192 ';
       // products
       for ( i = 0; i < this.products.length; i++ ) {
         if ( i !== 0 ) { s += ','; }

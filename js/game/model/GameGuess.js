@@ -109,7 +109,7 @@ define( function( require ) {
         s += this.reactants[i].quantity;
       }
       // arrow
-      s += ' -> ';
+      s += ' \u2192 ';
       // products
       for ( i = 0; i < this.products.length; i++ ) {
         if ( i !== 0 ) { s += ','; }

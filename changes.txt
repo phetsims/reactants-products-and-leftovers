@@ -1,4 +1,5 @@
-10/24/14 dev: display challenge string at bottom of Game screen
+10/24/14 dev: display challenge answer at bottom-center of Game screen
+10/24/14 use unicode char for reaction arrow in debug strings
 10/24/14 dev: add 'Test' button to dev controls, for running sanity check on challenge generation
 10/24/14 when choosing a challenge that has zero-products, put disqualified reactions back into the pool
 10/24/14 dev: implement 'playAll' query parameter, for playing all possible reactions for each Game level
