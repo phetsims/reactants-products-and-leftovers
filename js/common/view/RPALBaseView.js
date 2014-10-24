@@ -28,7 +28,7 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
-    // @protected
+    // @private
     thisView.viewProperties = new PropertySet( {
       beforeExpanded: true,
       afterExpanded: true
@@ -77,7 +77,8 @@ define( function( require ) {
 
       // create the new boxes
       beforeAfterNode = createBeforeAfterNode( reaction,
-        thisView.viewProperties.beforeExpandedProperty, thisView.viewProperties.afterExpandedProperty, {
+        thisView.viewProperties.beforeExpandedProperty,
+        thisView.viewProperties.afterExpandedProperty, {
         left: 40,
         top: thisView.playAreaTop + 10
       } );
