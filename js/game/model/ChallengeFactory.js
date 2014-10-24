@@ -289,18 +289,19 @@ define( function( require ) {
   /**
    * Checks a reaction for quantity range violations.
    * @param {Reaction} reaction
+   * @param {number} maxQuantity
    * @returns {boolean}
    */
-  var hasQuantityRangeViolation = function( reaction ) {
+  var hasQuantityRangeViolation = function( reaction, maxQuantity ) {
     var violation = false;
     var i;
     for ( i = 0; !violation && i < reaction.reactants.length; i++ ) {
-      if ( !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].quantity ) || !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].leftovers ) ) {
+      if ( reaction.reactants[i].quantity > maxQuantity || reaction.reactants[i].leftovers > maxQuantity ) {
         violation = true;
       }
     }
     for ( i = 0; !violation && i < reaction.products.length; i++ ) {
-      if ( !RPALConstants.QUANTITY_RANGE.contains( reaction.products[i].quantity ) ) {
+      if ( reaction.products[i].quantity > maxQuantity ) {
         violation = true;
       }
     }
@@ -322,7 +323,7 @@ define( function( require ) {
 
     enableDebugOutput = !!enableDebugOutput || false;
 
-    if ( hasQuantityRangeViolation( reaction ) ) {
+    if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
 
       var violationString = reaction.toString();
 
@@ -336,7 +337,7 @@ define( function( require ) {
       // Then incrementally reduce reactant quantities, alternating reactants.
       var reactantIndex = 0;
       var changed = false;
-      while ( hasQuantityRangeViolation( reaction ) ) {
+      while ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
         var reactant = reaction.reactants[ reactantIndex ];
         var quantity = reactant.quantity;
         if ( quantity > 1 ) {
@@ -354,7 +355,7 @@ define( function( require ) {
       }
 
       // If all reactants have been reduced and we are still out of range, bail with a serious error.
-      if ( hasQuantityRangeViolation( reaction ) ) {
+      if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
         throw new Error( 'ERROR: quantity-range violation cannot be fixed: ' + reaction.toString() );
       }
 
@@ -405,7 +406,7 @@ define( function( require ) {
     factoryFunctions.forEach( function( factoryFunction ) {
       reaction = factoryFunction();
       for ( i = 0; i < reaction.reactants.length; i++ ) {
-        if ( !RPALConstants.QUANTITY_RANGE.contains( reaction.reactants[i].coefficient ) ) {
+        if ( reaction.reactants[i].coefficient > maxQuantity ) {
           console.log( 'ERROR: coefficient out of range : ' + reaction.getEquationString() );
           numberOfCoefficientRangeErrors++;
           break;
@@ -473,7 +474,7 @@ define( function( require ) {
           }
 
           // quantity-range violation?
-          if ( hasQuantityRangeViolation( reaction ) ) {
+          if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
             console.log( 'ERROR: challenge has quantity-range violation, level=' + level + ' : ' + challenge.reaction.toString() );
             numberOfQuantityRangeErrors++;
           }
