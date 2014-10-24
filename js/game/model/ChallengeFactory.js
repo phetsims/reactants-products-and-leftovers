@@ -107,15 +107,19 @@ define( function( require ) {
       var numberOfChallenges = ChallengeFactory.getNumberOfChallenges( level );
       var factoryFunctions = REACTIONS[level].slice( 0 ); // make a copy of the array for the specified level
 
-      // determine which challenge will have zero products
-      var zeroProductsIndex = Math.floor( Math.random() * numberOfChallenges );
+      /*
+       * Determine which challenge will have zero products.
+       * If we're playing all challenges (dev mode) then do zero-products first,
+       * so that we are assured of getting a reaction that meets this criteria.
+       */
+      var zeroProductsIndex = RPALQueryParameters.PLAY_ALL ? 0 : Math.floor( Math.random() * numberOfChallenges );
 
       var challenges = []; // [{Challenge}]
       for ( var i = 0; i < numberOfChallenges; i++ ) {
 
         // reaction with quantities
         var reaction = null; // {Reaction}
-        if ( i === zeroProductsIndex && !RPALQueryParameters.PLAY_ALL ) {
+        if ( i === zeroProductsIndex ) {
           reaction = createChallengeWithoutProducts( factoryFunctions );
         }
         else {
@@ -190,6 +194,7 @@ define( function( require ) {
     // Choose a reaction that is capable of having no products when all reactant quantities are non-zero.
     var reaction = null;
     var retry = true;
+    var disqualifiedFunctions = []; // functions that were disqualified
     while ( retry ) {
 
       assert && assert( factoryFunctions.length > 0 );
@@ -202,7 +207,16 @@ define( function( require ) {
       // Create the reaction and test its coefficients.
       reaction = factoryFunction();
       retry = reactantCoefficientsAllOne( reaction );
+
+      if ( retry ) {
+        disqualifiedFunctions.push( factoryFunction );
+      }
     }
+
+    // Put the functions that we didn't use back in the pool.
+    disqualifiedFunctions.forEach( function( disqualifiedFunction ) {
+      factoryFunctions.push( disqualifiedFunction );
+    } );
 
     // set quantities
     reaction.reactants.forEach( function( reactant ) {
@@ -371,8 +385,9 @@ define( function( require ) {
     console.log( 'Testing challenge generation ...' );
     console.log( '----------------------------------------------------------' );
 
+    var iterations = RPALQueryParameters.PLAY_ALL ? 1 : 100;
     for ( level = 0; level < REACTIONS.length; level++ ) {
-      for ( i = 0; i < 100; i++ ) {
+      for ( i = 0; i < iterations; i++ ) {
 
         // create challenges
         var challenges = ChallengeFactory.createChallenges( level, maxQuantity );
