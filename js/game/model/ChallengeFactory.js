@@ -125,7 +125,9 @@ define( function( require ) {
         else {
           reaction = createChallengeWithProducts( factoryFunctions, maxQuantity );
         }
-        fixQuantityRangeViolation( reaction, maxQuantity ); // do this *before* creating the challenge, see Unfuddle #2156 //TODO remove Unfuddle reference
+
+        // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
+        fixQuantityRangeViolation( reaction, maxQuantity );
 
         challenges.push( new Challenge( reaction, CHALLENGE_TYPE[ level ], challengeOptions ) );
       }
@@ -264,9 +266,15 @@ define( function( require ) {
   };
 
   /**
-   * Fixes any quantity range violations in a reaction.
+   * Fixes any quantity-range violations in a reaction.
    * We do this by decrementing reactant quantities by 1, alternating reactants as we do so.
    * Each reactant must have a quantity of at least 1, in order to have a valid reaction.
+   * <p>
+   * In the Java version of this simulation, this manifested itself as Unfuddle #2156.
+   *
+   * @param {Reaction} reaction
+   * @param {number} maxQuantity
+   * @param {boolean} enableDebugOutput prints to the console when a violation is fixed
    */
   var fixQuantityRangeViolation = function( reaction, maxQuantity, enableDebugOutput ) {
 
