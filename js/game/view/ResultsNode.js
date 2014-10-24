@@ -53,7 +53,7 @@ define( function( require ) {
           model.level,
           model.score,
           model.getPerfectScore(),
-          model.challengesPerGame, // number of stars in the progress indicator
+          model.numberOfChallenges, // number of stars in the progress indicator
           model.timerEnabled,
           model.timer.elapsedTime,
           model.bestTimeProperties[ model.level ].get(),

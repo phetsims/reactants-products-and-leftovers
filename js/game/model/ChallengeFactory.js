@@ -28,6 +28,10 @@ define( function( require ) {
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
+
+  // constants
+  var CHALLENGES_PER_LEVEL = 5;
 
   // level 2 is all the one-product reactions
   var LEVEL2_LIST = [
@@ -89,19 +93,18 @@ define( function( require ) {
 
     /**
      * Creates challenges.
-     * @param {number} numberOfChallenges
      * @param {number} level
      * @param {number} maxQuantity
      * @param {Object} challengeOptions options to the Challenge constructor
      * @returns {[Challenge]}
      */
-    createChallenges: function( numberOfChallenges, level, maxQuantity, challengeOptions ) {
+    createChallenges: function( level, maxQuantity, challengeOptions ) {
 
       // check args
-      assert && assert( numberOfChallenges > 0 );
       assert && assert( level >= 0 && level < REACTIONS.length );
       assert && assert( maxQuantity > 0 );
 
+      var numberOfChallenges = ChallengeFactory.getNumberOfChallenges( level );
       var factoryFunctions = REACTIONS[level].slice( 0 ); // make a copy of the array for the specified level
 
       // determine which challenge will have zero products
@@ -112,7 +115,7 @@ define( function( require ) {
 
         // reaction with quantities
         var reaction = null; // {Reaction}
-        if ( i === zeroProductsIndex ) {
+        if ( i === zeroProductsIndex && !RPALQueryParameters.PLAY_ALL ) {
           reaction = createChallengeWithoutProducts( factoryFunctions );
         }
         else {
@@ -127,6 +130,12 @@ define( function( require ) {
       return challenges;
     },
 
+    // Gets the number of reactions in the "pool" for a specified level.
+    getNumberOfChallenges: function( level ) {
+      assert && assert( level >= 0 && level < REACTIONS.length );
+      return RPALQueryParameters.PLAY_ALL ? REACTIONS[level].length : CHALLENGES_PER_LEVEL;
+    },
+
     // DEBUG: Call this in the debugger to run a sanity check on this factory.
     test: function() { doTest(); }
   };
@@ -138,7 +147,7 @@ define( function( require ) {
    * @returns {number}
    */
   var getRandomNumber = function( min, max ) {
-    assert && assert( min <= max );
+    assert && assert( min <= max, 'getRandomNumber failure: min=' + min + ' max=' + max );
     var value = min + Math.floor( Math.random() * ( max - min + 1 ) );
     assert && assert( value >= min && value <= max );
     return value;
@@ -151,6 +160,9 @@ define( function( require ) {
    * @returns {Reaction}
    */
   var createChallengeWithProducts = function( factoryFunctions, maxQuantity ) {
+
+    assert && assert( factoryFunctions.length > 0 );
+    assert && assert( maxQuantity > 0 );
 
     // Choose a function and remove it from the further consideration.
     var randomIndex = getRandomNumber( 0, factoryFunctions.length - 1 );
@@ -173,10 +185,14 @@ define( function( require ) {
    */
   var createChallengeWithoutProducts = function( factoryFunctions ) {
 
+    assert && assert( factoryFunctions.length > 0 );
+
     // Choose a reaction that is capable of having no products when all reactant quantities are non-zero.
     var reaction = null;
     var retry = true;
     while ( retry ) {
+
+      assert && assert( factoryFunctions.length > 0 );
 
       // Choose a function and remove it from the further consideration.
       var randomIndex = getRandomNumber( 0, factoryFunctions.length - 1 );
@@ -355,12 +371,11 @@ define( function( require ) {
     console.log( 'Testing challenge generation ...' );
     console.log( '----------------------------------------------------------' );
 
-    var challengesPerGame = 5;
     for ( level = 0; level < REACTIONS.length; level++ ) {
       for ( i = 0; i < 100; i++ ) {
 
         // create challenges
-        var challenges = ChallengeFactory.createChallenges( challengesPerGame, level, maxQuantity );
+        var challenges = ChallengeFactory.createChallenges( level, maxQuantity );
         numberOfChallengesGenerated += challenges.length;
 
         // validate
@@ -401,7 +416,6 @@ define( function( require ) {
         if ( numberWithZeroProducts !== 1 ) {
           numberOfProductErrors++;
           console.log( 'ERROR: more than one challenge with zero products, level=' + level + ' challenges=' );
-          console.log( '#challenges=' + challenges.length );//XXX
           for ( j = 0; j < challenges.length; j++ ) {
             console.log( j + ': ' + challenges[j].reaction.toString() );
           }

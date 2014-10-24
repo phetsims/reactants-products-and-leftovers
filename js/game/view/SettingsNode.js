@@ -141,7 +141,7 @@ define( function( require ) {
 
     return new LevelSelectionButton(
       content,
-      model.challengesPerGame,
+      model.getNumberOfChallenges( level ),
       function() {
         model.level = level;
         model.gamePhaseProperty.set( GamePhase.PLAY );

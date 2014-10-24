@@ -35,7 +35,7 @@ define( function( require ) {
     var scoreboardNode = new ScoreboardBar(
       layoutBounds.width,
       model.challengeIndexProperty,
-      new Property( model.challengesPerGame ),
+      model.numberOfChallengesProperty,
       model.levelProperty,
       model.scoreProperty,
       model.timer.elapsedTimeProperty,

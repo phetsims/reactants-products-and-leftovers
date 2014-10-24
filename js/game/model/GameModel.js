@@ -40,7 +40,6 @@ define( function( require ) {
     options = _.extend( {
       level: 0,
       numberOfLevels: 3,
-      challengesPerGame: 5,
       maxQuantity: RPALConstants.QUANTITY_RANGE.max
     }, options );
 
@@ -53,6 +52,7 @@ define( function( require ) {
       numbersVisible: true,
       level: 0,
       challenge: DUMMY_CHALLENGE,
+      numberOfChallenges: 0,
       score: 0, // how many points the user has earned for the current game
       challengeIndex: 0,
       playState: PlayState.NONE
@@ -60,7 +60,6 @@ define( function( require ) {
 
     // These things are read-only, they should not be changed once the model is instantiated.
     thisModel.numberOfLevels = options.numberOfLevels;
-    thisModel.challengesPerGame = options.challengesPerGame;
     thisModel.maxPointsPerChallenge = 2;
     thisModel.maxQuantity = options.maxQuantity;
 
@@ -138,7 +137,7 @@ define( function( require ) {
     },
 
     getPerfectScore: function() {
-      return this.challengesPerGame * this.maxPointsPerChallenge;
+      return this.numberOfChallenges * this.maxPointsPerChallenge;
     },
 
     isPerfectScore: function() {
@@ -199,10 +198,16 @@ define( function( require ) {
     // initializes a new set of challenges for the current level
     initChallenges: function() {
       this.challengeIndex = -1;
-      this.challenges = ChallengeFactory.createChallenges( this.challengesPerGame, this.level, this.maxQuantity, {
+      this.challenges = ChallengeFactory.createChallenges( this.level, this.maxQuantity, {
         moleculesVisible: this.moleculesVisible,
         numbersVisible: this.numbersVisible
       } );
+      this.numberOfChallenges = this.challenges.length;
+    },
+
+    // Gets the number of challenges for a specified level.
+    getNumberOfChallenges: function( level ) {
+      return ChallengeFactory.getNumberOfChallenges( level );
     }
   } );
 } );
