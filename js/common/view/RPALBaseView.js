@@ -28,8 +28,7 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
-    // @private
-    thisView.viewProperties = new PropertySet( {
+    var viewProperties = new PropertySet( {
       beforeExpanded: true,
       afterExpanded: true
     } );
@@ -40,16 +39,17 @@ define( function( require ) {
       { screenWidth: thisView.layoutBounds.width } );
     thisView.addChild( reactionBarNode );
 
-    thisView.playAreaTop = null; // @protected
+    // play area top/bottom varies depending on where reaction bar is located
+    var playAreaTop = null;
     var playAreaBottom;
     if ( RPALQueryParameters.EQUATION === 'bottom' ) {
       reactionBarNode.bottom = thisView.layoutBounds.bottom;
-      thisView.playAreaTop = thisView.layoutBounds.top;
+      playAreaTop = thisView.layoutBounds.top;
       playAreaBottom = reactionBarNode.top;
     }
     else {
       reactionBarNode.top = thisView.layoutBounds.top;
-      thisView.playAreaTop = reactionBarNode.bottom;
+      playAreaTop = reactionBarNode.bottom;
       playAreaBottom = thisView.layoutBounds.bottom;
     }
 
@@ -58,7 +58,7 @@ define( function( require ) {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       listener: function() {
         model.reset();
-        thisView.viewProperties.reset();
+        viewProperties.reset();
       }
     } );
     thisView.addChild( resetAllButton );
@@ -77,11 +77,11 @@ define( function( require ) {
 
       // create the new boxes
       beforeAfterNode = createBeforeAfterNode( reaction,
-        thisView.viewProperties.beforeExpandedProperty,
-        thisView.viewProperties.afterExpandedProperty, {
-        left: 40,
-        top: thisView.playAreaTop + 10
-      } );
+        viewProperties.beforeExpandedProperty,
+        viewProperties.afterExpandedProperty, {
+          left: 40,
+          top: playAreaTop + 10
+        } );
       thisView.addChild( beforeAfterNode );
     } );
   }
