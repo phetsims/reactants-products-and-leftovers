@@ -13,7 +13,6 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
 
   // images
   var breadImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/bread.png' );
@@ -23,6 +22,7 @@ define( function( require ) {
   // constants
   var MAX_WIDTH = _.max( [ breadImage, cheeseImage, meatImage ], function( image ) { return image.width; } ).width;
   var Y_SPACING = 4; // vertical space between centers of ingredients
+  var SANDWICH_SCALE = 0.65; // default scale of Nodes for sandwiches and their ingredients
 
   /**
    * @param {number} breadCount
@@ -36,7 +36,7 @@ define( function( require ) {
     assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
 
     options = _.extend( {
-      scale: RPALConstants.SANDWICH_IMAGE_SCALE
+      scale: SANDWICH_SCALE
     }, options );
 
     var thisNode = this;
@@ -105,5 +105,11 @@ define( function( require ) {
     thisNode.mutate( options );
   }
 
-  return inherit( Node, SandwichNode );
+  return inherit( Node, SandwichNode, {}, {
+
+    // @static create individual ingredients
+    createBreadNode: function() { return new Image( breadImage, { scale: SANDWICH_SCALE } ); },
+    createMeatNode: function() { return new Image( meatImage, { scale: SANDWICH_SCALE } ); },
+    createCheeseNode: function() { return new Image( cheeseImage, { scale: SANDWICH_SCALE } ); }
+  } );
 } );

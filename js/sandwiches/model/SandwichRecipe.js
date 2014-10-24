@@ -17,27 +17,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
   var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
   var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
-
-  // images
-  var breadImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/bread.png' );
-  var cheeseImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/cheese.png' );
-  var meatImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/meat.png' );
 
   // constants
   var NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 ); // used when the product is undefined, any invisible node with well-defined bounds
-
-  // sandwich ingredients
-  var createIngredient = function( symbol, count, image ) {
-    return new Reactant( count, symbol, new Image( image, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } ) );
-  };
 
   /**
    * @param {string} name
@@ -59,9 +47,9 @@ define( function( require ) {
     thisRecipe.coefficientsMutable = options.coefficientsMutable;
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
-    var bread = createIngredient( 'bread', breadCount, breadImage );
-    var meat =  createIngredient( 'meat', meatCount, meatImage );
-    var cheese = createIngredient( 'cheese', cheeseCount, cheeseImage );
+    var bread = new Reactant( breadCount, 'bread', SandwichNode.createBreadNode() );
+    var meat =  new Reactant( meatCount, 'meat', SandwichNode.createMeatNode() );
+    var cheese = new Reactant( cheeseCount, 'cheese', SandwichNode.createCheeseNode() );
 
     // sandwich image will be updated below
     thisRecipe.sandwich = new Product( 1, 'sandwich', NO_SANDWICH_NODE );

@@ -1,3 +1,4 @@
+10/24/14 move responsibility for creation of Nodes for sandwich ingredients into SandwichNode
 10/24/14 set default scale in SandwichNode
 10/24/14 document all PropertySet members
 10/24/14 rename RPALBaseModel and RPALBaseView

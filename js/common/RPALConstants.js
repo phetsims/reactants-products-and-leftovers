@@ -18,7 +18,6 @@ define( function( require ) {
     QUANTITY_RANGE: new Range( 0, 8 ),
     SANDWICH_COEFFICIENT_RANGE: new Range( 0, 3 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
-    SANDWICH_IMAGE_SCALE: 0.65, //TODO scale image files?
     GAME_BUTTON_COLOR: 'yellow'
   };
 } );
