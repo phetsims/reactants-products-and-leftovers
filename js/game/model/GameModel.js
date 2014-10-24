@@ -1,6 +1,5 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO this is almost identical to graphing-lines.LineGameModel. is there a framework here?
 /**
  * Model for the 'Game' screen.
  *
