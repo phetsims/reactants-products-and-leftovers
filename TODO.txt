@@ -18,7 +18,7 @@ LOW
 - remove uses of instanceof
 - curves for brackets
 - add title-bar feature to sun.AccordionBox, sun#135
-- adjust pointAreas
+- adjust pointerAreas
 
 MIGRATE TO COMMON
 - NumberSpinner
