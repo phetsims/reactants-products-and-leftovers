@@ -10,29 +10,17 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
+  var ReactionModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionModel' );
 
   function MoleculesModel() {
-
-    // reaction choices
-    this.reactions = [
-       ReactionFactory.makeWater(),
-       ReactionFactory.makeAmmonia(),
-       ReactionFactory.combustMethane()
-    ];
-
-    PropertySet.call( this, {
-       reaction: this.reactions[0] // the selected reaction
-    } );
+    ReactionModel.call( this, [
+      // reaction choices
+      ReactionFactory.makeWater(),
+      ReactionFactory.makeAmmonia(),
+      ReactionFactory.combustMethane()
+    ] );
   }
 
-  return inherit( PropertySet, MoleculesModel, {
-
-    // @override
-    reset: function() {
-      PropertySet.prototype.reset.call( this );
-      this.reactions.forEach( function( reaction ) { reaction.reset(); } );
-    }
-  } );
+  return inherit( ReactionModel, MoleculesModel );
 } );

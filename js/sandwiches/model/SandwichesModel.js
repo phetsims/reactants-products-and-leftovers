@@ -17,7 +17,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var ReactionModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionModel' );
   var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
 
   // strings
@@ -26,25 +26,13 @@ define( function( require ) {
   var meatAndCheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/meatAndCheese' );
 
   function SandwichesModel() {
-
-    // sandwich recipe (reaction) choices, numeric args are: bread, meat, cheese
-    this.reactions = [
+    ReactionModel.call( this, [
+      // sandwich recipe (reaction) choices, numeric args are: bread, meat, cheese
       new SandwichRecipe( cheeseString, 2, 0, 1 ),
       new SandwichRecipe( meatAndCheeseString, 2, 1, 1 ),
       new SandwichRecipe( customString, 0, 0, 0, { coefficientsMutable: true } )
-    ];
-
-    PropertySet.call( this, {
-      reaction: this.reactions[0] // the selected reaction
-    } );
+    ] );
   }
 
-  return inherit( PropertySet, SandwichesModel, {
-
-    // @override
-    reset: function() {
-      PropertySet.prototype.reset.call( this );
-      this.reactions.forEach( function( reaction ) { reaction.reset(); } );
-    }
-  } );
+  return inherit( ReactionModel, SandwichesModel );
 } );
