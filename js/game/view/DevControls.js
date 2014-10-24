@@ -9,12 +9,14 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // strings (i18n not required)
+  var testString = 'Test';
   var skipString = 'Skip';
   var skipAllString = 'Skip All';
   var replayString = 'Replay';
@@ -38,19 +40,23 @@ define( function( require ) {
       spacing: 5
     }, options );
 
-    // replay the current challenge
+    // replays the current challenge
     var replayButton = new TextPushButton( replayString, BUTTON_OPTIONS );
     replayButton.addListener( function() { model.replayCurrentChallenge(); } );
 
-    // skip the current challenge
+    // skips the current challenge
     var skipButton = new TextPushButton( skipString, BUTTON_OPTIONS );
     skipButton.addListener( function() { model.skipCurrentChallenge(); } );
 
-    // skip all challenges, go immediately to the 'Results' state
+    // skips all challenges, go immediately to the 'Results' state
     var skipAllButton = new TextPushButton( skipAllString, BUTTON_OPTIONS );
     skipAllButton.addListener( function() { model.skipAllChallenges(); } );
 
-    options.children = [ replayButton, skipButton, skipAllButton ];
+    // runs a sanity test on the challenge generator
+    var testButton = new TextPushButton( testString, BUTTON_OPTIONS );
+    testButton.addListener( function() { ChallengeFactory.test(); } );
+
+    options.children = [ replayButton, skipButton, skipAllButton, testButton ];
     LayoutBox.call( this, options );
   }
 
