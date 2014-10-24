@@ -21,7 +21,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
 
   // constants
   var DUMMY_CHALLENGE = new Challenge( ReactionFactory.makeWater(), ChallengeType.BEFORE );
@@ -31,11 +30,6 @@ define( function( require ) {
    * @constructor
    */
   function GameModel( options ) {
-
-    // Run a sanity test on ChallengeFactory.
-    if ( RPALQueryParameters.TEST_GAME ) {
-      ChallengeFactory.test();
-    }
 
     options = _.extend( {
       level: 0,
