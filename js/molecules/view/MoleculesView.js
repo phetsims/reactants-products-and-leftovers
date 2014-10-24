@@ -22,27 +22,26 @@ define( function( require ) {
 
     var thisView = this;
     ReactionView.call( thisView, model,
-      function( reaction ) { return new MoleculesEquationNode( reaction ); } );
 
-    // When the reaction changes, create new Before/After boxes
-    var beforeAfterNode;
-    model.reactionProperty.link( function( reaction ) {
+      /*
+       * Creates an equation for a specified reaction.
+       * @param {Reaction} reaction
+       * @returns {Node}
+       */
+      function( reaction ) { return new MoleculesEquationNode( reaction ); },
 
-      // dispose of the previous boxes
-      if ( beforeAfterNode ) {
-        beforeAfterNode.dispose();
-        thisView.removeChild( beforeAfterNode );
+      /*
+       * Creates the Before/After boxes for a specified reaction.
+       * @param {Reaction} reaction the reaction displayed in the boxes
+       * @param {Property.<boolean>} beforeExpandedProperty is the 'Before' box expanded?
+       * @param {Property.<boolean>} afterExpandedProperty is the 'After' box expanded?
+       * @param {Object} [options]
+       * @returns {Node}
+       */
+      function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
+        return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, options );
       }
-
-      // create the new boxes
-      beforeAfterNode = new BeforeAfterNode( reaction,
-        thisView.viewProperties.beforeExpandedProperty,
-        thisView.viewProperties.afterExpandedProperty, {
-          left: 40,
-          top: thisView.playAreaTop + 10
-        } );
-      thisView.addChild( beforeAfterNode );
-    } );
+    );
   }
 
   return inherit( ReactionView, MoleculesView );

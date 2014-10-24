@@ -10,7 +10,6 @@ HIGH
 
 MEDIUM
 - random layout strategy for molecules in boxes
-- push more common stuff into ReactionView
 
 LOW
 - address the evil piece of code in VisibilityControl

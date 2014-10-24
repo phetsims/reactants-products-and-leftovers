@@ -19,9 +19,11 @@ define( function( require ) {
 
   /**
    * @param {SandwichesModel|MoleculesModel} model
+   * @param {function} createEquationNode creates an equation for a specified reaction
+   * @param {function} createBeforeAfterNode creates the Before/After boxes for a specified reaction
    * @constructor
    */
-  function ReactionView( model, createEquationNode ) {
+  function ReactionView( model, createEquationNode, createBeforeAfterNode ) {
 
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
@@ -38,7 +40,7 @@ define( function( require ) {
       { screenWidth: thisView.layoutBounds.width } );
     thisView.addChild( reactionBarNode );
 
-    thisView.playAreaTop; // @protected
+    thisView.playAreaTop = null; // @protected
     var playAreaBottom;
     if ( RPALQueryParameters.EQUATION === 'bottom' ) {
       reactionBarNode.bottom = thisView.layoutBounds.bottom;
@@ -62,6 +64,25 @@ define( function( require ) {
     thisView.addChild( resetAllButton );
     resetAllButton.left = thisView.layoutBounds.left + 10;
     resetAllButton.bottom = playAreaBottom - 10;
+
+    // When the reaction changes, create new Before/After boxes
+    var beforeAfterNode;
+    model.reactionProperty.link( function( reaction ) {
+
+      // dispose of the previous boxes
+      if ( beforeAfterNode ) {
+        beforeAfterNode.dispose();
+        thisView.removeChild( beforeAfterNode );
+      }
+
+      // create the new boxes
+      beforeAfterNode = createBeforeAfterNode( reaction,
+        thisView.viewProperties.beforeExpandedProperty, thisView.viewProperties.afterExpandedProperty, {
+        left: 40,
+        top: thisView.playAreaTop + 10
+      } );
+      thisView.addChild( beforeAfterNode );
+    } );
   }
 
   return inherit( ScreenView, ReactionView );

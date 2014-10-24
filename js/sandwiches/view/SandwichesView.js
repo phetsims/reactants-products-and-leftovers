@@ -27,39 +27,39 @@ define( function( require ) {
    */
   function SandwichesView( model ) {
 
-    var thisView = this;
-    ReactionView.call( thisView, model,
-      function( reaction ) { return new SandwichesEquationNode( reaction ); } );
-
-    // compute the size of the largest sandwich, used for layout of boxes
+    // compute the size of the largest sandwich, used for layout of Before/After boxes
     var maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
     var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient, { scale: RPALConstants.SANDWICH_IMAGE_SCALE } );
     var maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
 
-    // When the reaction changes, create new Before/After boxes
-    var beforeAfterNode;
-    model.reactionProperty.link( function( reaction ) {
+    ReactionView.call( this, model,
 
-      // dispose of the previous boxes
-      if ( beforeAfterNode ) {
-        beforeAfterNode.dispose();
-        thisView.removeChild( beforeAfterNode );
+      /*
+       * Creates an equation for a specified reaction.
+       * @param {Reaction} reaction the reaction whose equation is displayed
+       * @returns {Node}
+       */
+      function( reaction ) { return new SandwichesEquationNode( reaction ); },
+
+      /*
+       * Creates the Before/After boxes for a specified reaction.
+       * @param {Reaction} reaction the reaction displayed in the boxes
+       * @param {Property.<boolean>} beforeExpandedProperty is the 'Before' box expanded?
+       * @param {Property.<boolean>} afterExpandedProperty is the 'After' box expanded?
+       * @param {Object} [options]
+       * @returns {Node}
+       */
+      function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
+        return new SandwichesBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
+          _.extend( {}, options, {
+            showSymbols: false,
+            beforeTitle: beforeSandwichString,
+            afterTitle: afterSandwichString,
+            maxImageSize: maxSandwichSize,
+            boxYMargin: 8 // large enough to accommodate biggest sandwich
+          } ) );
       }
-
-      // create the new boxes
-      beforeAfterNode = new SandwichesBeforeAfterNode( reaction,
-        thisView.viewProperties.beforeExpandedProperty,
-        thisView.viewProperties.afterExpandedProperty, {
-          left: 40,
-          top: thisView.playAreaTop + 10,
-          showSymbols: false,
-          beforeTitle: beforeSandwichString,
-          afterTitle: afterSandwichString,
-          maxImageSize: maxSandwichSize,
-          boxYMargin: 8 // large enough to accommodate biggest sandwich
-        } );
-      thisView.addChild( beforeAfterNode );
-    } );
+    );
   }
 
   return inherit( ReactionView, SandwichesView );

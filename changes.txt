@@ -1,3 +1,4 @@
+10/24/14 push more common stuff into ReactionView
 10/24/14 dev: with 'playAll', always return reactions in the same order
 10/24/14 dev: with 'playAll', zero-products test is irrelevant, so skip it
 10/24/14 dev: display challenge answer at bottom-center of Game screen
