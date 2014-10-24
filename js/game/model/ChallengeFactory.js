@@ -385,7 +385,9 @@ define( function( require ) {
     console.log( 'Testing challenge generation ...' );
     console.log( '----------------------------------------------------------' );
 
+    // so that this test doesn't take forever with 'playAll' query parameter
     var iterations = RPALQueryParameters.PLAY_ALL ? 1 : 100;
+
     for ( level = 0; level < REACTIONS.length; level++ ) {
       for ( i = 0; i < iterations; i++ ) {
 

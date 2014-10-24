@@ -40,7 +40,6 @@ define( function( require ) {
 
           audioPlayer.gameOverPerfectScore();
 
-          //TODO
           thisNode.rewardNode = new RPALRewardNode( model.level );
           thisNode.addChild( thisNode.rewardNode );
         }

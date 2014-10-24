@@ -53,10 +53,10 @@ define( function( require ) {
       } );
     thisNode.addChild( scoreboardNode );
 
-    // Developer controls
+    // Developer controls, below right end of scoreboard
     if ( RPALQueryParameters.DEV ) {
       thisNode.addChild( new DevControls( model, {
-        right: layoutBounds.right - 5, // left of 'Start Over' button, offset determined by eye
+        right: layoutBounds.right - 5,
         top: scoreboardNode.bottom + 3
       } ) );
     }
