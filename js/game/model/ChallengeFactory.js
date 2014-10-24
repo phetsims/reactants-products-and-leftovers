@@ -83,67 +83,109 @@ define( function( require ) {
   // level 1 is all the reactions
   var LEVEL1_LIST = LEVEL2_LIST.concat( LEVEL3_LIST );
 
-  // challenge arrays, indexed by level
-  var REACTIONS = [ LEVEL1_LIST, LEVEL2_LIST, LEVEL3_LIST ];
+  // 'pools' of factory functions, indexed by level
+  var POOLS = [ LEVEL1_LIST, LEVEL2_LIST, LEVEL3_LIST ];
 
   // challenge type, indexed by level
   var CHALLENGE_TYPE = [ ChallengeType.BEFORE, ChallengeType.AFTER, ChallengeType.AFTER ];
 
   var ChallengeFactory = {
 
-    /**
-     * Creates challenges.
-     * @param {number} level
-     * @param {number} maxQuantity
-     * @param {Object} challengeOptions options to the Challenge constructor
-     * @returns {[Challenge]}
-     */
     createChallenges: function( level, maxQuantity, challengeOptions ) {
-
-      // check args
-      assert && assert( level >= 0 && level < REACTIONS.length );
-      assert && assert( maxQuantity > 0 );
-
-      var numberOfChallenges = ChallengeFactory.getNumberOfChallenges( level );
-      var factoryFunctions = REACTIONS[level].slice( 0 ); // make a copy of the array for the specified level
-
-      /*
-       * Determine which challenge will have zero products.
-       * If we're playing all challenges (dev mode) then do zero-products first,
-       * so that we are assured of getting a reaction that meets this criteria.
-       */
-      var zeroProductsIndex = RPALQueryParameters.PLAY_ALL ? 0 : Math.floor( Math.random() * numberOfChallenges );
-
-      var challenges = []; // [{Challenge}]
-      for ( var i = 0; i < numberOfChallenges; i++ ) {
-
-        // reaction with quantities
-        var reaction = null; // {Reaction}
-        if ( i === zeroProductsIndex ) {
-          reaction = createChallengeWithoutProducts( factoryFunctions );
-        }
-        else {
-          reaction = createChallengeWithProducts( factoryFunctions, maxQuantity );
-        }
-
-        // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
-        fixQuantityRangeViolation( reaction, maxQuantity );
-
-        challenges.push( new Challenge( reaction, CHALLENGE_TYPE[ level ], challengeOptions ) );
+      if ( RPALQueryParameters.PLAY_ALL ) {
+        return createChallengesPlayAll( level, maxQuantity, challengeOptions );
       }
-
-      assert && assert( challenges.length === numberOfChallenges );
-      return challenges;
+      else {
+        return createChallengesProduction( level, maxQuantity, challengeOptions );
+      }
     },
 
     // Gets the number of reactions in the "pool" for a specified level.
     getNumberOfChallenges: function( level ) {
-      assert && assert( level >= 0 && level < REACTIONS.length );
-      return RPALQueryParameters.PLAY_ALL ? REACTIONS[level].length : CHALLENGES_PER_LEVEL;
+      assert && assert( level >= 0 && level < POOLS.length );
+      return RPALQueryParameters.PLAY_ALL ? POOLS[level].length : CHALLENGES_PER_LEVEL;
     },
 
-    // DEBUG: Call this in the debugger to run a sanity check on this factory.
+    // DEBUG: Runs a sanity check on this factory.
     test: function() { doTest(); }
+  };
+
+  /**
+   * Creates a set of random challenges.
+   *
+   * @param {number} level
+   * @param {number} maxQuantity
+   * @param {Object} challengeOptions options to the Challenge constructor
+   * @returns {[Challenge]}
+   */
+  var createChallengesProduction = function( level, maxQuantity, challengeOptions ) {
+
+    assert && assert( level >= 0 && level < POOLS.length );
+    assert && assert( maxQuantity > 0 );
+    assert && assert( !RPALQueryParameters.PLAY_ALL );
+
+    var numberOfChallenges = CHALLENGES_PER_LEVEL;
+    var factoryFunctions = POOLS[level].slice( 0 ); // make a copy of the array for the specified level
+
+    // Determine which challenge will have zero products.
+    var zeroProductsIndex = Math.floor( Math.random() * numberOfChallenges );
+
+    var challenges = []; // [{Challenge}]
+    for ( var i = 0; i < numberOfChallenges; i++ ) {
+
+      // reaction with quantities
+      var reaction = null; // {Reaction}
+      if ( i === zeroProductsIndex ) {
+        reaction = createChallengeWithoutProducts( factoryFunctions );
+      }
+      else {
+        reaction = createChallengeWithProducts( factoryFunctions, maxQuantity );
+      }
+
+      // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
+      fixQuantityRangeViolation( reaction, maxQuantity );
+
+      challenges.push( new Challenge( reaction, CHALLENGE_TYPE[ level ], challengeOptions ) );
+    }
+
+    assert && assert( challenges.length === numberOfChallenges );
+    return challenges;
+  };
+
+  /**
+   * DEBUG: This is called when 'playAll' query parameter is present, same interface as createRandomChallenges.
+   * A challenge is randomly generated for every reaction in the level's pool, and the reactions always
+   * appear in the same order.
+   *
+   * @param level
+   * @param maxQuantity
+   * @param challengeOptions
+   */
+  var createChallengesPlayAll = function( level, maxQuantity, challengeOptions ) {
+
+    assert && assert( level >= 0 && level < POOLS.length );
+    assert && assert( maxQuantity > 0 );
+    assert && assert( RPALQueryParameters.PLAY_ALL );
+
+    var challenges = []; // [{Challenge}]
+
+    var factoryFunctions = POOLS[level].slice( 0 ); // make a copy of the array for the specified level
+
+    for ( var i = 0; i < factoryFunctions.length; i++ ) {
+
+      // Create a reaction with non-zero quantities of at least one product.
+      var reaction = factoryFunctions[ i ]();
+      reaction.reactants.forEach( function( reactant ) {
+        reactant.quantity = getRandomNumber( reactant.coefficient, maxQuantity );
+      } );
+
+      // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
+      fixQuantityRangeViolation( reaction, maxQuantity );
+
+      challenges.push( new Challenge( reaction, CHALLENGE_TYPE[ level ], challengeOptions ) );
+    }
+
+    return challenges;
   };
 
   /*
@@ -175,7 +217,7 @@ define( function( require ) {
     var factoryFunction = factoryFunctions[ randomIndex ];
     factoryFunctions.splice( randomIndex, 1 );
 
-    // Create the reaction with non-zero quantities of at least one product.
+    // Create a reaction with non-zero quantities of at least one product.
     var reaction = factoryFunction();
     reaction.reactants.forEach( function( reactant ) {
       reactant.quantity = getRandomNumber( reactant.coefficient, maxQuantity );
@@ -341,12 +383,12 @@ define( function( require ) {
 
     // Print reactions by level. Put all reactions in a container, removing duplicates.
     var factoryFunctions = [];
-    for ( level = 0; level < REACTIONS.length; level++ ) {
+    for ( level = 0; level < POOLS.length; level++ ) {
       console.log( '----------------------------------------------------------' );
       console.log( 'Level ' + ( level + 1 ) );
       console.log( '----------------------------------------------------------' );
-      for ( i = 0; i < REACTIONS[ level ].length; i++ ) {
-        factoryFunction = REACTIONS[ level ][ i ];
+      for ( i = 0; i < POOLS[ level ].length; i++ ) {
+        factoryFunction = POOLS[ level ][ i ];
         reaction = factoryFunction();
         console.log( reaction.getEquationString() );
         if ( factoryFunctions.indexOf( factoryFunction ) === -1 ) {
@@ -396,7 +438,7 @@ define( function( require ) {
     // so that this test doesn't take forever with 'playAll' query parameter
     var iterations = RPALQueryParameters.PLAY_ALL ? 1 : 100;
 
-    for ( level = 0; level < REACTIONS.length; level++ ) {
+    for ( level = 0; level < POOLS.length; level++ ) {
       for ( i = 0; i < iterations; i++ ) {
 
         // create challenges
@@ -437,8 +479,8 @@ define( function( require ) {
           }
         } );
 
-        // should have exactly one challenge with zero products
-        if ( numberWithZeroProducts !== 1 ) {
+        // should have exactly one challenge with zero products (irrelevant for 'playAll')
+        if ( numberWithZeroProducts !== 1 && !RPALQueryParameters.PLAY_ALL ) {
           numberOfProductErrors++;
           console.log( 'ERROR: more than one challenge with zero products, level=' + level + ' challenges=' );
           for ( j = 0; j < challenges.length; j++ ) {

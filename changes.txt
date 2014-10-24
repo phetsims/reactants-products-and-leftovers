@@ -1,3 +1,5 @@
+10/24/14 dev: with 'playAll', always return reactions in the same order
+10/24/14 dev: with 'playAll', zero-products test is irrelevant, so skip it
 10/24/14 dev: display challenge answer at bottom-center of Game screen
 10/24/14 use unicode char for reaction arrow in debug strings
 10/24/14 dev: add 'Test' button to dev controls, for running sanity check on challenge generation
