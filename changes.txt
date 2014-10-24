@@ -1,3 +1,4 @@
+10/24/14 rename RPALBaseModel and RPALBaseView
 10/24/14 factor out ReactionModel base type for first 2 screens
 10/24/14 push more common stuff into ReactionView
 10/24/14 dev: with 'playAll', always return reactions in the same order

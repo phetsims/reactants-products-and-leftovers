@@ -23,7 +23,7 @@ define( function( require ) {
    * @param {function} createBeforeAfterNode creates the Before/After boxes for a specified reaction
    * @constructor
    */
-  function ReactionView( model, createEquationNode, createBeforeAfterNode ) {
+  function RPALBaseView( model, createEquationNode, createBeforeAfterNode ) {
 
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
@@ -85,5 +85,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( ScreenView, ReactionView );
+  return inherit( ScreenView, RPALBaseView );
 } );

@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
 
-  function ReactionModel( reactions ) {
+  function RPALBaseModel( reactions ) {
 
     this.reactions = reactions; // reaction choices
 
@@ -21,7 +21,7 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, ReactionModel, {
+  return inherit( PropertySet, RPALBaseModel, {
 
     // @override
     reset: function() {

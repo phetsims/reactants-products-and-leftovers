@@ -17,7 +17,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var ReactionModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionModel' );
+  var RPALBaseModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/RPALBaseModel' );
   var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
 
   // strings
@@ -26,7 +26,7 @@ define( function( require ) {
   var meatAndCheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/meatAndCheese' );
 
   function SandwichesModel() {
-    ReactionModel.call( this, [
+    RPALBaseModel.call( this, [
       // sandwich recipe (reaction) choices, numeric args are: bread, meat, cheese
       new SandwichRecipe( cheeseString, 2, 0, 1 ),
       new SandwichRecipe( meatAndCheeseString, 2, 1, 1 ),
@@ -34,5 +34,5 @@ define( function( require ) {
     ] );
   }
 
-  return inherit( ReactionModel, SandwichesModel );
+  return inherit( RPALBaseModel, SandwichesModel );
 } );

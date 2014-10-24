@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesEquationNode' );
-  var ReactionView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionView' );
+  var RPALBaseView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALBaseView' );
   var BeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BeforeAfterNode' );
 
   /**
@@ -21,7 +21,7 @@ define( function( require ) {
   function MoleculesView( model ) {
 
     var thisView = this;
-    ReactionView.call( thisView, model,
+    RPALBaseView.call( thisView, model,
 
       /*
        * Creates an equation for a specified reaction.
@@ -44,5 +44,5 @@ define( function( require ) {
     );
   }
 
-  return inherit( ReactionView, MoleculesView );
+  return inherit( RPALBaseView, MoleculesView );
 } );
