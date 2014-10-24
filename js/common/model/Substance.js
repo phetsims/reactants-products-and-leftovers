@@ -32,7 +32,7 @@ define( function( require ) {
     PropertySet.call( this, {
       coefficient: coefficient, // {number} substance's coefficient in the reaction equation
       node: node, // {Node} mutable to support the 'custom sandwich' case
-      quantity: quantity  // {number} how much of the substance we have
+      quantity: quantity  // {number} how much of the substance we have before the reaction occurs
     } );
   }
 
