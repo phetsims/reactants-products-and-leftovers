@@ -96,7 +96,7 @@ define( function( require ) {
 
   /**
    * Creates the node for the 'Show All' radio button, an open eye with text to the right of it.
-   * @returns {Node}
+   * @returns {SCENERY.Node}
    */
   var createShowAllNode = function() {
     var eyeNode = new FontAwesomeNode( 'eye_open', FONT_AWESOME_OPTIONS );
@@ -110,7 +110,7 @@ define( function( require ) {
 
   /**
    * Creates the node for the 'Hide Molecules' radio button, a closed eye with '123' at lower right, and text to the right.
-   * @returns {Node}
+   * @returns {SCENERY.Node}
    */
   var createHideMoleculesNode = function() {
     var eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );

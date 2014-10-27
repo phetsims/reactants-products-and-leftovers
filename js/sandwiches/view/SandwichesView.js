@@ -37,7 +37,7 @@ define( function( require ) {
       /*
        * Creates an equation for a specified reaction.
        * @param {Reaction} reaction the reaction whose equation is displayed
-       * @returns {Node}
+       * @returns {SCENERY.Node}
        */
       function( reaction ) { return new SandwichesEquationNode( reaction ); },
 
@@ -47,7 +47,7 @@ define( function( require ) {
        * @param {Property.<boolean>} beforeExpandedProperty is the 'Before' box expanded?
        * @param {Property.<boolean>} afterExpandedProperty is the 'After' box expanded?
        * @param {Object} [options]
-       * @returns {Node}
+       * @returns {SCENERY.Node}
        */
       function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
         return new SandwichesBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,

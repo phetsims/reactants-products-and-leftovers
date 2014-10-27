@@ -30,7 +30,7 @@ define( function( require ) {
   /**
    * Creates terms for equation.
    * @param {Substance[]} terms the terms to be added
-   * @returns {Node}
+   * @returns {SCENERY.Node}
    */
   var createTermsNode = function( terms ) {
 

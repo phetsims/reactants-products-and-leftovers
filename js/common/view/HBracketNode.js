@@ -20,7 +20,7 @@ define( function( require ) {
   var BRACKET_TIP_HEIGHT = 6;
 
   /**
-   * @param {Node} labelNode node that is used to label the bracket
+   * @param {SCENERY.Node} labelNode node that is used to label the bracket
    * @param {Object} [options]
    * @constructor
    */

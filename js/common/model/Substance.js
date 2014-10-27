@@ -16,7 +16,7 @@ define( function( require ) {
   /**
    * @param {number} coefficient substance's coefficient in the reaction equation
    * @param {string} symbol used in reaction equation
-   * @param {Node} node visual representation of the substance
+   * @param {SCENERY.Node} node visual representation of the substance
    * @param {number} [quantity] how much of a substance we have before the reaction occurs, defaults to zero
    * @constructor
    */
@@ -46,7 +46,7 @@ define( function( require ) {
      * wrap this.node, so that we don't accidentally make it a sibling of itself, or
      * attempt to position it.
      * @param {Object} [options] options for the {Node} wrapper
-     * @returns {Node}
+     * @returns {SCENERY.Node}
      */
     getWrappedNode: function( options ) {
       return new Node( _.extend( {}, options, { children: [ this.node ] } ) );

@@ -16,7 +16,7 @@ define( function( require ) {
   /**
    * @param {number} coefficient reactant's coefficient in the reaction equation
    * @param {string} symbol used in reaction equation
-   * @param {Node} node visual representation of the reactant
+   * @param {SCENERY.Node} node visual representation of the reactant
    * @param {number} quantity how much of the reactant we have before the reaction occurs
    * @param {number} [leftovers] how much of the reactant we have after the reaction occurs, default to zero
    * @constructor
