@@ -1,5 +1,10 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
+/**
+ * Symbols for the Substances that appear in this simulation.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
 define( function( require ) {
   'use strict';
 
