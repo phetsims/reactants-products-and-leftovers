@@ -1,3 +1,4 @@
+10/27/14 dev: add challenge type (before/after) to displayed answer
 10/24/14 improve test for quantity-range violations, use maxQuantity
 10/24/14 move responsibility for creation of Nodes for sandwich ingredients into SandwichNode
 10/24/14 set default scale in SandwichNode

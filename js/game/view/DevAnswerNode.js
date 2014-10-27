@@ -22,7 +22,7 @@ define( function( require ) {
 
     var textNode = new Text( '', { font: new RPALFont( 12 ) } );
     challengeProperty.link( function( challenge ) {
-      textNode.text = challenge.reaction.toString();
+      textNode.text = challenge.reaction.toString() + ' (' + challenge.challengeType  + ')';
       textNode.centerX = 0;
     } );
 
