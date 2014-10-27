@@ -1,3 +1,5 @@
+10/27/14 fix GameGuess creation
+10/27/14 fix Reactant.clone
 10/27/14 add temporary spinners, so we can make a guess
 10/27/14 add ubiquitous Game elements: face, buttons (Check, Try Again, Show Answer, Next)
 10/27/14 dev: add dev-mode stuff to Game last, so that it's on top

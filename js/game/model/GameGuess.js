@@ -30,15 +30,9 @@ define( function( require ) {
    * @constructor
    */
   function GameGuess( reaction, challengeType ) {
-
-    // @private
-    this.observer = function() {
-      //TODO notify other observers that some aspect of the guess has changed
-    };
-
     this.reaction = reaction;
-    this.reactants = createGuessReactants( reaction.reactants, challengeType, this.observer );
-    this.products = createGuessProducts( reaction.products, challengeType, this.observer );
+    this.reactants = createGuessReactants( reaction.reactants, challengeType );
+    this.products = createGuessProducts( reaction.products, challengeType );
   }
 
   /**
@@ -47,21 +41,20 @@ define( function( require ) {
    * Depending on the challenge type, either quantities or leftovers are initialized to zero.
    * @param {[Reactant]} reactants the challenge's reactants
    * @param {ChallengeType} challengeType
-   * @param {function} observer
    * @returns {[Reactants]}
    */
-  var createGuessReactants = function( reactants, challengeType, observer ) {
+  var createGuessReactants = function( reactants, challengeType ) {
     var guessReactants = [];
+    var guessReactant;
     for ( var i = 0; i < reactants.length; i++ ) {
-      guessReactants.push( Reactant.clone( reactants[i] ) );
+      guessReactant = Reactant.clone( reactants[i] );
       if ( challengeType === ChallengeType.AFTER ) {
-        guessReactants[i].leftovers = 0;
+        guessReactant.leftovers = 0;
       }
       else {
-        guessReactants[i].quantity = 0;
+        guessReactant.quantity = 0;
       }
-      guessReactants[i].quantityProperty.link( observer );
-      guessReactants[i].leftoversProperty.link( observer );
+      guessReactants.push( guessReactant );
     }
     assert && assert( guessReactants.length === reactants.length );
     return guessReactants;
@@ -73,17 +66,17 @@ define( function( require ) {
    * Quantities are initialized to zero for 'After' challenges.
    * @param {[Product]} products the challenge's products
    * @param {ChallengeType} challengeType
-   * @param {function} observer
    * @returns {[Product]}
    */
-  var createGuessProducts = function( products, challengeType, observer ) {
+  var createGuessProducts = function( products, challengeType ) {
     var guessProducts = [];
+    var guessProduct;
     for ( var i = 0; i < products.length; i++ ) {
-      guessProducts[i] = Product.clone( products[i] );
+      guessProduct = Product.clone( products[i] );
       if ( challengeType === ChallengeType.AFTER ) {
-        guessProducts[i].quantity = 0;
+        guessProduct.quantity = 0;
       }
-      guessProducts[i].quantityProperty.link( observer );
+      guessProducts.push( guessProduct );
     }
     return guessProducts;
   };

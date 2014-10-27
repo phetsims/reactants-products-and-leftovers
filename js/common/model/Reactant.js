@@ -18,11 +18,12 @@ define( function( require ) {
    * @param {string} symbol
    * @param {Node} node
    * @param {number} quantity
+   * @param {number} [leftovers] // how much of the reactant we have after the reaction occurs, default to zero
    * @constructor
    */
-  function Reactant( coefficient, symbol, node, quantity ) {
+  function Reactant( coefficient, symbol, node, quantity, leftovers ) {
     Substance.call( this, coefficient, symbol, node, quantity );
-    this.addProperty( 'leftovers', 0 ); // {number} how much of the reactant we have after the reaction occurs
+    this.addProperty( 'leftovers', leftovers || 0 );
   }
 
   return inherit( Substance, Reactant, {
@@ -36,13 +37,13 @@ define( function( require ) {
     equals: function( reactant ) {
       return reactant instanceof Reactant &&
              Substance.prototype.equals.call( this, reactant ) &&
-             this.leftovers && this.leftovers === reactant.leftovers;
+             this.leftovers === reactant.leftovers;
     }
   }, {
 
     // @static
     clone: function( reactant ) {
-      return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, reactant.quantity );
+      return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, reactant.quantity, reactant.leftovers );
     }
   } );
 } );
