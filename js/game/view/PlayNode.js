@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var ChallengeView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ChallengeView' );
   var DevControls = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevControls' );
   var DevAnswerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevAnswerNode' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
@@ -53,6 +54,19 @@ define( function( require ) {
       } );
     thisNode.addChild( scoreboardNode );
 
+    // compute the bounds available for the challenges
+    var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
+
+    // ChallengeView parent, to preserve rendering order
+    var challengeParent = new Node();
+    thisNode.addChild( challengeParent );
+
+    // Set up a new challenge
+    model.challengeProperty.link( function( challenge ) {
+      challengeParent.removeAllChildren();
+      challengeParent.addChild( new ChallengeView( model, challenge, challengeBounds, audioPlayer ) );
+    } );
+
     if ( RPALQueryParameters.DEV ) {
 
       // Developer controls, below right end of scoreboard
@@ -61,37 +75,13 @@ define( function( require ) {
         top: scoreboardNode.bottom + 3
       } ) );
 
-      // Quantities required to answer the current challenge correctly, bottom center
+      // The answer to the current challenge, bottom center
       thisNode.addChild( new DevAnswerNode( model.challengeProperty, {
         centerX: layoutBounds.centerX,
         bottom: layoutBounds.bottom - 5
       } ) );
     }
-
-    // compute the bounds available for the challenges
-    var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
-
-    // challenge parent, to keep challenge below scoreboard
-    var challengeParent = new Rectangle( 0, 0, 0, 1 );
-    challengeParent.top = scoreboardNode.bottom;
-    thisNode.addChild( challengeParent );
-
-    // Set up a new challenge
-    model.challengeProperty.link( function( challenge ) {
-      challengeParent.removeAllChildren();
-      challengeParent.addChild( createChallengeView( model, challengeBounds, audioPlayer ) );
-    } );
   }
-
-  /**
-   * @param {GameModel} model
-   * @param {Bounds2} challengeBounds
-   * @param {GameAudioPlayer} audioPlayer
-   */
-  var createChallengeView = function( model, challengeBounds, audioPlayer ) {
-    //TODO
-    return new Node();
-  };
 
   return inherit( Node, PlayNode );
 } );
