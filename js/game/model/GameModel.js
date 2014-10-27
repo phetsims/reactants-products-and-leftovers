@@ -114,10 +114,6 @@ define( function( require ) {
           thisModel.challenge = thisModel.challenges[thisModel.challengeIndex];
         }
       }
-      else if ( playState === PlayState.NEXT ) {
-        //TODO
-//        thisModel.challenge.setAnswerVisible( true );
-      }
     } );
   }
 
