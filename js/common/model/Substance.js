@@ -14,10 +14,10 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
-   * @param {number} coefficient
-   * @param {string} symbol
-   * @param {Node} node
-   * @param {number} [quantity] defaults to zero
+   * @param {number} coefficient substance's coefficient in the reaction equation
+   * @param {string} symbol used in reaction equation
+   * @param {Node} node visual representation of the substance
+   * @param {number} [quantity] how much of a substance we have before the reaction occurs, defaults to zero
    * @constructor
    */
   function Substance( coefficient, symbol, node, quantity ) {

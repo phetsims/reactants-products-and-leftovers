@@ -14,10 +14,10 @@ define( function( require ) {
   var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
   /**
-   * @param {number} coefficient
-   * @param {string} symbol
-   * @param {Node} node
-   * @param {number} quantity
+   * @param {number} coefficient product's coefficient in the reaction equation
+   * @param {string} symbol used in reaction equation
+   * @param {Node} node visual representation of the product
+   * @param {number} quantity quantity how much of the reactant we have before the reaction occurs
    * @constructor
    */
   function Product( coefficient, symbol, node, quantity ) {

@@ -12,6 +12,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
 
+  /**
+   * @param {[Reaction]} reactions
+   * @constructor
+   */
   function RPALBaseModel( reactions ) {
 
     this.reactions = reactions; // reaction choices
