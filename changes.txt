@@ -1,3 +1,4 @@
+10/27/14 move RPALFont to common/view/
 10/27/14 fix GameGuess creation
 10/27/14 fix Reactant.clone
 10/27/14 add temporary spinners, so we can make a guess

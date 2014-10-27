@@ -9,7 +9,6 @@ HIGH
 - use transparent buttons in Game
 
 MEDIUM
-- move RPALFont to common/view/
 - random layout strategy for molecules in boxes
 
 LOW

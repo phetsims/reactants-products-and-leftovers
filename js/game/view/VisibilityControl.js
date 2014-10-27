@@ -19,7 +19,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var Property = require( 'AXON/Property' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALFont' );
+  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
