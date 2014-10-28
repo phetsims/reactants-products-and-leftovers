@@ -1,5 +1,10 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
+/**
+ * View of a Game challenge.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
 define( function( require ) {
   'use strict';
 
@@ -32,7 +37,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function ChallengeView( model, challenge, challengeBounds, audioPlayer, options ) {
+  function ChallengeNode( model, challenge, challengeBounds, audioPlayer, options ) {
 
     var thisNode = this;
     Node.call( thisNode );
@@ -169,5 +174,5 @@ define( function( require ) {
     thisNode.mutate( options );
   }
 
-  return inherit( Node, ChallengeView );
+  return inherit( Node, ChallengeNode );
 } );

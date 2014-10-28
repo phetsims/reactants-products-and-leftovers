@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var ChallengeView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ChallengeView' );
+  var ChallengeNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ChallengeNode' );
   var DevControls = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevControls' );
   var DevAnswerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevAnswerNode' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
@@ -57,14 +57,14 @@ define( function( require ) {
     // compute the bounds available for the challenges
     var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
-    // ChallengeView parent, to preserve rendering order
+    // ChallengeNode parent, to preserve rendering order
     var challengeParent = new Node();
     thisNode.addChild( challengeParent );
 
     // Set up a new challenge
     model.challengeProperty.link( function( challenge ) {
       challengeParent.removeAllChildren();
-      challengeParent.addChild( new ChallengeView( model, challenge, challengeBounds, audioPlayer ) );
+      challengeParent.addChild( new ChallengeNode( model, challenge, challengeBounds, audioPlayer ) );
     } );
 
     if ( RPALQueryParameters.DEV ) {

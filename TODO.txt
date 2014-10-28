@@ -3,10 +3,11 @@ TODO list for reactants-products-and-leftovers
 DESIGN
 - where should we put the 'Reset All' button in the first 2 screens?
 - title feels cramped in navigation bar
+- Game button color?
 
 HIGH
-- implement PlayNode
-- use transparent buttons in Game
+- implement ChallengeNode
+- break up BeforeAfterNode into smaller reusable components
 
 MEDIUM
 - random layout strategy for molecules in boxes
