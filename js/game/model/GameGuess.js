@@ -23,6 +23,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
   var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
 
   /**
    * @param {Reaction} reaction
@@ -48,11 +49,13 @@ define( function( require ) {
     var guessReactant;
     for ( var i = 0; i < reactants.length; i++ ) {
       guessReactant = Reactant.clone( reactants[i] );
-      if ( challengeType === ChallengeType.AFTER ) {
-        guessReactant.leftovers = 0;
-      }
-      else {
-        guessReactant.quantity = 0;
+      if ( !RPALQueryParameters.DEV ) {
+        if ( challengeType === ChallengeType.AFTER ) {
+          guessReactant.leftovers = 0;
+        }
+        else {
+          guessReactant.quantity = 0;
+        }
       }
       guessReactants.push( guessReactant );
     }
@@ -73,7 +76,7 @@ define( function( require ) {
     var guessProduct;
     for ( var i = 0; i < products.length; i++ ) {
       guessProduct = Product.clone( products[i] );
-      if ( challengeType === ChallengeType.AFTER ) {
+      if ( challengeType === ChallengeType.AFTER && !RPALQueryParameters.DEV ) {
         guessProduct.quantity = 0;
       }
       guessProducts.push( guessProduct );
