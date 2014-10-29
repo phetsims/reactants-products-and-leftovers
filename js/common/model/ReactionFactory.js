@@ -61,6 +61,15 @@ define( function( require ) {
 
   return {
 
+    // {Node} constructors for all molecules that appear in reactions
+    moleculeNodeConstructors: [
+      CNode, C2H2Node, C2H4Node, C2H5ClNode, C2H5OHNode, C2H6Node,
+      CH2ONode, CH3OHNode, CH4Node, Cl2Node, CONode, CO2Node, CS2Node,
+      F2Node, H2Node, H2ONode, H2SNode, HClNode, HFNode, N2Node,
+      N2ONode, NH3Node, NONode, NO2Node, O2Node, OF2Node, P4Node,
+      PCl3Node, PCl5Node, PF3Node, PH3Node, SNode, SO2Node, SO3Node
+    ],
+
     //---------------------------------------------------------------------------------------
     // Single-product reactions
     //---------------------------------------------------------------------------------------

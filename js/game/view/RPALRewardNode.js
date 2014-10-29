@@ -20,43 +20,8 @@ define( function( require ) {
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RewardNode = require( 'VEGAS/RewardNode' );
+  var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
-
-  // modules (molecules)
-  var CNode = require( 'NITROGLYCERIN/nodes/CNode' );
-  var C2H2Node = require( 'NITROGLYCERIN/nodes/C2H2Node' );
-  var C2H4Node = require( 'NITROGLYCERIN/nodes/C2H4Node' );
-  var C2H5ClNode = require( 'NITROGLYCERIN/nodes/C2H5ClNode' );
-  var C2H5OHNode = require( 'NITROGLYCERIN/nodes/C2H5OHNode' );
-  var C2H6Node = require( 'NITROGLYCERIN/nodes/C2H6Node' );
-  var CH2ONode = require( 'NITROGLYCERIN/nodes/CH2ONode' );
-  var CH3OHNode = require( 'NITROGLYCERIN/nodes/CH3OHNode' );
-  var CH4Node = require( 'NITROGLYCERIN/nodes/CH4Node' );
-  var Cl2Node = require( 'NITROGLYCERIN/nodes/Cl2Node' );
-  var CONode = require( 'NITROGLYCERIN/nodes/CONode' );
-  var CO2Node = require( 'NITROGLYCERIN/nodes/CO2Node' );
-  var CS2Node = require( 'NITROGLYCERIN/nodes/CS2Node' );
-  var F2Node = require( 'NITROGLYCERIN/nodes/F2Node' );
-  var H2Node = require( 'NITROGLYCERIN/nodes/H2Node' );
-  var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
-  var H2SNode = require( 'NITROGLYCERIN/nodes/H2SNode' );
-  var HClNode = require( 'NITROGLYCERIN/nodes/HClNode' );
-  var HFNode = require( 'NITROGLYCERIN/nodes/HFNode' );
-  var N2Node = require( 'NITROGLYCERIN/nodes/N2Node' );
-  var N2ONode = require( 'NITROGLYCERIN/nodes/N2ONode' );
-  var NH3Node = require( 'NITROGLYCERIN/nodes/NH3Node' );
-  var NONode = require( 'NITROGLYCERIN/nodes/NONode' );
-  var NO2Node = require( 'NITROGLYCERIN/nodes/NO2Node' );
-  var O2Node = require( 'NITROGLYCERIN/nodes/O2Node' );
-  var OF2Node = require( 'NITROGLYCERIN/nodes/OF2Node' );
-  var P4Node = require( 'NITROGLYCERIN/nodes/P4Node' );
-  var PCl3Node = require( 'NITROGLYCERIN/nodes/PCl3Node' );
-  var PCl5Node = require( 'NITROGLYCERIN/nodes/PCl5Node' );
-  var PF3Node = require( 'NITROGLYCERIN/nodes/PF3Node' );
-  var PH3Node = require( 'NITROGLYCERIN/nodes/PH3Node' );
-  var SNode = require( 'NITROGLYCERIN/nodes/SNode' );
-  var SO2Node = require( 'NITROGLYCERIN/nodes/SO2Node' );
-  var SO3Node = require( 'NITROGLYCERIN/nodes/SO3Node' );
 
   // constants
   var NUMBER_OF_NODES = 100;
@@ -72,13 +37,10 @@ define( function( require ) {
 
   // Level 1: molecules
   var createNodesLevel1 = function() {
-    var nodes = [
-          new CNode(), new C2H2Node(), new C2H4Node(), new C2H5ClNode(), new C2H5OHNode(), new C2H6Node(),
-          new CH2ONode(), new CH3OHNode(), new CH4Node(), new Cl2Node(), new CONode(), new CO2Node(), new CS2Node(),
-          new F2Node(), new H2Node(), new H2ONode(), new H2SNode(), new HClNode(), new HFNode(), new N2Node(),
-          new N2ONode(), new NH3Node(), new NONode(), new NO2Node(), new O2Node(), new OF2Node(), new P4Node(),
-          new PCl3Node(), new PCl5Node(), new PF3Node(), new PH3Node(), new SNode(), new SO2Node(), new SO3Node()
-        ];
+    var nodes = [];
+    ReactionFactory.moleculeNodeConstructors.forEach( function( MoleculeNodeConstructor ) {
+      nodes.push( new MoleculeNodeConstructor() );
+    } );
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
   };
 

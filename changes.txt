@@ -1,3 +1,4 @@
+10/29/14 add ReactionFactory.moleculeNodeConstructors, so we don't have to import all nodes elsewhere
 10/29/14 doc equals and clone
 10/29/14 defer creation of Game elements (model and view) until needed, to improve sim startup time
 10/27/14 move RPALFont to common/view/
