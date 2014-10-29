@@ -51,7 +51,7 @@ define( function( require ) {
         thisNode.addChild( new LevelCompletedNode(
           model.level,
           model.score,
-          model.getPerfectScore(),
+          model.getPerfectScore( model.level ),
           model.numberOfChallenges, // number of stars in the progress indicator
           model.timerEnabled,
           model.timer.elapsedTime,

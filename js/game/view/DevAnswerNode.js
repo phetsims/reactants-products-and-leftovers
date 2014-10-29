@@ -22,8 +22,10 @@ define( function( require ) {
 
     var textNode = new Text( '', { font: new RPALFont( 12 ) } );
     challengeProperty.link( function( challenge ) {
-      textNode.text = challenge.reaction.toString() + ' (' + challenge.challengeType  + ')';
-      textNode.centerX = 0;
+      if ( challenge ) { // challenge will be null on startup and 'Rest All'
+        textNode.text = challenge.reaction.toString() + ' (' + challenge.challengeType + ')';
+        textNode.centerX = 0;
+      }
     } );
 
     // Text wrapped in Node so that we can keep the text horizontally centered

@@ -22,9 +22,6 @@ define( function( require ) {
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
 
-  // constants
-  var DUMMY_CHALLENGE = new Challenge( ReactionFactory.makeWater(), ChallengeType.BEFORE );
-
   /**
    * @param {Object} [options]
    * @constructor
@@ -45,10 +42,10 @@ define( function( require ) {
       moleculesVisible: true, // {boolean} are molecules shown in the challenge?
       numbersVisible: true, // {boolean} are quantities shown in the challenge?
       level: 0, // {number} the current level
-      challenge: DUMMY_CHALLENGE, // {Challenge} the current challenge being played
+      challenge: null, // {Challenge} the current challenge being played
       numberOfChallenges: 0, // {number} the number of challenges in the current game being played
       score: 0, // {number} how many points the user has earned for the current game
-      challengeIndex: 0, // {number} the index of the current challenge
+      challengeIndex: -1, // {number} the index of the current challenge
       playState: PlayState.NONE  // {PlayState} the current 'play state' of the game (see PlayState)
     } );
 
@@ -96,9 +93,7 @@ define( function( require ) {
         }
       } );
 
-    thisModel.initChallenges();
-
-    // Do this after initChallenges, because this will fire immediately and needs to have an initial set of challenges.
+    // Defer until the user starts playing a game.
     thisModel.playStateProperty.link( function( playState ) {
       if ( playState === PlayState.FIRST_CHECK ) {
         if ( thisModel.challengeIndex === thisModel.challenges.length - 1 ) {
@@ -125,12 +120,12 @@ define( function( require ) {
       this.bestScoreProperties.forEach( function( property ) { property.set( 0 ); } );
     },
 
-    getPerfectScore: function() {
-      return this.numberOfChallenges * this.maxPointsPerChallenge;
+    getPerfectScore: function( level ) {
+      return ChallengeFactory.getNumberOfChallenges( level ) * this.maxPointsPerChallenge;
     },
 
     isPerfectScore: function() {
-      return this.score === this.getPerfectScore();
+      return this.score === this.getPerfectScore( this.level );
     },
 
     // Compute points to be awarded for a correct answer.

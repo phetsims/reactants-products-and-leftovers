@@ -30,28 +30,43 @@ define( function( require ) {
     // audio
     var audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
 
-    // one parent node for each 'phase' of the game
-    thisView.settingsNode = new SettingsNode( model, thisView.layoutBounds );
-    thisView.playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
-    thisView.resultsNode = new ResultsNode( model, thisView.layoutBounds, audioPlayer );
-
-    // rendering order
-    thisView.addChild( thisView.resultsNode );
-    thisView.addChild( thisView.playNode );
-    thisView.addChild( thisView.settingsNode );
+    // one node for each 'phase' of the game, creation deferred to improve startup time
+    thisView.settingsNode = null;
+    thisView.playNode = null;
+    thisView.resultsNode = null;
 
     // game 'phase' changes
     model.gamePhaseProperty.link( function( gamePhase ) {
-      thisView.settingsNode.visible = ( gamePhase === GamePhase.SETTINGS );
-      thisView.playNode.visible = ( gamePhase === GamePhase.PLAY );
-      thisView.resultsNode.visible = ( gamePhase === GamePhase.RESULTS );
+
+      // create when first needed
+      if ( gamePhase === GamePhase.SETTINGS && thisView.settingsNode === null ) {
+        thisView.settingsNode = new SettingsNode( model, thisView.layoutBounds );
+        thisView.addChild( thisView.settingsNode );
+      }
+
+      // create when first needed
+      if ( gamePhase === GamePhase.PLAY && thisView.playNode === null ) {
+        thisView.playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
+        thisView.addChild( thisView.playNode );
+      }
+
+      // create when first needed
+      if ( gamePhase === GamePhase.RESULTS && thisView.resultsNode === null ) {
+        thisView.resultsNode = new ResultsNode( model, thisView.layoutBounds, audioPlayer );
+        thisView.addChild( thisView.resultsNode );
+      }
+
+      // make the node visible that corresponds to the state
+      thisView.settingsNode && ( thisView.settingsNode.visible = ( gamePhase === GamePhase.SETTINGS ) );
+      thisView.playNode && ( thisView.playNode.visible = ( gamePhase === GamePhase.PLAY ) );
+      thisView.resultsNode && ( thisView.resultsNode.visible = ( gamePhase === GamePhase.RESULTS ) );
     } );
   }
 
   return inherit( ScreenView, GameView, {
 
     step: function( elapsedTime ) {
-      if ( this.resultsNode.visible ) {
+      if ( this.resultsNode && this.resultsNode.visible ) {
         this.resultsNode.step( elapsedTime );
       }
     }

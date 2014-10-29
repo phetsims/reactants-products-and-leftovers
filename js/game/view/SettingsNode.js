@@ -147,7 +147,7 @@ define( function( require ) {
         model.gamePhaseProperty.set( GamePhase.PLAY );
       },
       model.bestScoreProperties[ level ],
-      model.getPerfectScore(),
+      model.getPerfectScore( level ),
       {
         baseColor: 'rgb( 240, 255, 204 )',
         buttonXMargin: 15,

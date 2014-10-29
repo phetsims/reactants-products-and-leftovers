@@ -1,3 +1,4 @@
+10/29/14 defer creation of Game elements (model and view) until needed, to improve sim startup time
 10/27/14 move RPALFont to common/view/
 10/27/14 fix GameGuess creation
 10/27/14 fix Reactant.clone

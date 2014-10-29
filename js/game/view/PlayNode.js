@@ -64,7 +64,9 @@ define( function( require ) {
     // Set up a new challenge
     model.challengeProperty.link( function( challenge ) {
       challengeParent.removeAllChildren();
-      challengeParent.addChild( new ChallengeNode( model, challenge, challengeBounds, audioPlayer ) );
+      if ( challenge ) { // challenge will be null on startup and 'Rest All'
+        challengeParent.addChild( new ChallengeNode( model, challenge, challengeBounds, audioPlayer ) );
+      }
     } );
 
     if ( RPALQueryParameters.DEV ) {
