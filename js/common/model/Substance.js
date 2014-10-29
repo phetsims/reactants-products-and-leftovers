@@ -53,7 +53,7 @@ define( function( require ) {
     },
 
     /*
-     * Are 2 substances the same?
+     * Are 2 substances the same? AXON.Property observers are not considered.
      * @param {Substance} substance
      * @return {boolean}
      */

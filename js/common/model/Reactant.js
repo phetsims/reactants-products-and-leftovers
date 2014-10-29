@@ -29,7 +29,7 @@ define( function( require ) {
   return inherit( Substance, Reactant, {
 
     /*
-     * Are 2 reactants the same?
+     * Are 2 reactants the same? AXON.Property observers are not considered.
      * @param {Reactant} reactants
      * @return {boolean}
      * @override
@@ -41,7 +41,7 @@ define( function( require ) {
     }
   }, {
 
-    // @static
+    // @static Creates a copy of a reactant. AXON.Property observers are not copied.
     clone: function( reactant ) {
       return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, reactant.quantity, reactant.leftovers );
     }

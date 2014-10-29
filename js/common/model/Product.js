@@ -27,7 +27,7 @@ define( function( require ) {
   return inherit( Substance, Product, {
 
     /*
-     * Are 2 products the same?
+     * Are 2 products the same? AXON.Property observers are not considered.
      * @param {Product} product
      * @return {boolean}
      * @override
@@ -38,7 +38,7 @@ define( function( require ) {
     }
   }, {
 
-    // @static
+    // @static Creates a copy of a product. AXON.Property observers are not copied.
     clone: function( product ) {
       return new Product( product.coefficient, product.symbol, product.node, product.quantity );
     }
