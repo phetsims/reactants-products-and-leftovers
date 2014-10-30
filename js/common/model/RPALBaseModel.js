@@ -18,7 +18,7 @@ define( function( require ) {
    */
   function RPALBaseModel( reactions ) {
 
-    this.reactions = reactions; // reaction choices
+    this.reactions = reactions; // {[Reaction]} reaction choices
 
     PropertySet.call( this, {
        reaction: this.reactions[0] // {Reaction} the selected reaction
