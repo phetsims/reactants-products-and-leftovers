@@ -27,7 +27,7 @@ define( function( require ) {
   var NUMBER_OF_NODES = 100;
 
   /**
-   * @param level game level, starting at zero
+   * @param {number} level game level, starting at zero
    * @constructor
    */
   function RPALRewardNode( level ) {

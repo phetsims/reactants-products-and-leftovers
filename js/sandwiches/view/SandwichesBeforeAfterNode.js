@@ -16,8 +16,8 @@ define( function( require ) {
 
   /**
    * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to be displayed
-   * @param {Property.<boolean>} beforeExpandedProperty whether the 'before' box is expanded
-   * @param {Property.<boolean>} afterExpandedProperty whether the 'after' box is expanded
+   * @param {Property.<boolean>} beforeExpandedProperty whether the 'Before' box is expanded
+   * @param {Property.<boolean>} afterExpandedProperty whether the 'After' box is expanded
    * @param {Object} [options]
    * @constructor
    */

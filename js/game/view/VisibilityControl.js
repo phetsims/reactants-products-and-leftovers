@@ -32,6 +32,12 @@ define( function( require ) {
   var RADIO_BUTTON_OPTIONS = { radius: 8, xSpacing: 10 };
   var FONT_AWESOME_OPTIONS = { scale: 0.5 };
 
+  /**
+   * @param {Property.<boolean>} moleculesVisibleProperty are molecules visibile in Game challenges?
+   * @param {Property.<boolean>} numbersVisibleProperty are quantities visible in Game challenges?
+   * @param options
+   * @constructor
+   */
   function VisibilityControl( moleculesVisibleProperty, numbersVisibleProperty, options ) {
 
     options = _.extend( {
