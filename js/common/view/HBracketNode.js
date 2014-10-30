@@ -14,11 +14,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
 
-  // constants
-  var BRACKET_END_HEIGHT = 5;
-  var BRACKET_TIP_WIDTH = 6;
-  var BRACKET_TIP_HEIGHT = 6;
-
   /**
    * @param {SCENERY.Node} labelNode node that is used to label the bracket
    * @param {Object} [options]
@@ -28,19 +23,23 @@ define( function( require ) {
 
     options = _.extend( {
       bracketWidth: 100,
+      bracketEndHeight: 5,
+      bracketCurveXOffset: 5,
+      bracketTipWidth: 6,
+      bracketTipHeight: 6,
       bracketColor: 'black',
       ySpacing: 2
     }, options );
 
-    // bracket, tip points down
+    // bracket, create shape left-to-right (curved ends, tip points down)
     var bracketShape = new Shape()
       .moveTo( 0, 0 )
-      .lineTo( 0, BRACKET_END_HEIGHT )
-      .lineTo( ( options.bracketWidth - BRACKET_TIP_WIDTH ) / 2, BRACKET_END_HEIGHT )
-      .lineTo( ( options.bracketWidth / 2 ), ( BRACKET_END_HEIGHT + BRACKET_TIP_HEIGHT ) )
-      .lineTo( ( options.bracketWidth + BRACKET_TIP_WIDTH ) / 2, BRACKET_END_HEIGHT )
-      .lineTo( options.bracketWidth, BRACKET_END_HEIGHT )
-      .lineTo( options.bracketWidth, 0 );
+      .quadraticCurveTo( 0, options.bracketEndHeight, options.bracketCurveXOffset, options.bracketEndHeight )
+      .lineTo( ( options.bracketWidth - options.bracketTipWidth ) / 2, options.bracketEndHeight )
+      .lineTo( ( options.bracketWidth / 2 ), ( options.bracketEndHeight + options.bracketTipHeight ) )
+      .lineTo( ( options.bracketWidth + options.bracketTipWidth ) / 2, options.bracketEndHeight )
+      .lineTo( options.bracketWidth - options.bracketCurveXOffset, options.bracketEndHeight )
+      .quadraticCurveTo( options.bracketWidth, options.bracketEndHeight, options.bracketWidth, 0 );
     var bracketNode = new Path( bracketShape, {
       stroke: options.bracketColor
     } );
