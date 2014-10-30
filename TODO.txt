@@ -20,6 +20,7 @@ LOW
 - freeze enums only when assert is enabled
 
 MIGRATE TO COMMON
+- HBracketNode
 - NumberSpinner
 - NumberNode
 
