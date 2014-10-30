@@ -149,6 +149,7 @@ define( function( require ) {
       model.bestScoreProperties[ level ],
       model.getPerfectScore( level ),
       {
+        // LevelSelectionButton options
         baseColor: 'rgb( 240, 255, 204 )',
         buttonXMargin: 15,
         buttonYMargin: 15,
