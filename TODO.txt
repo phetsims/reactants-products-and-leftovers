@@ -15,7 +15,6 @@ MEDIUM
 LOW
 - address the evil piece of code in VisibilityControl
 - remove uses of instanceof
-- curves for brackets
 - add title-bar feature to sun.AccordionBox, sun#135
 - adjust pointerAreas
 - freeze enums only when assert is enabled

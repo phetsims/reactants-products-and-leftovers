@@ -24,7 +24,7 @@ define( function( require ) {
     options = _.extend( {
       bracketWidth: 100,
       bracketEndHeight: 5,
-      bracketCurveXOffset: 5,
+      bracketCurveXOffset: 5, // x-offset of the bracket's curved segments
       bracketTipWidth: 6,
       bracketTipHeight: 6,
       bracketColor: 'black',
@@ -36,10 +36,10 @@ define( function( require ) {
       // left end curves up
       .moveTo( 0, 0 )
       .quadraticCurveTo( 0, options.bracketEndHeight, options.bracketCurveXOffset, options.bracketEndHeight )
-      .lineTo( ( options.bracketWidth - options.bracketTipWidth ) / 2, options.bracketEndHeight )
+      .lineTo( ( ( options.bracketWidth - options.bracketTipWidth ) / 2 ) - options.bracketCurveXOffset, options.bracketEndHeight )
       // tip, pointing down
-      .lineTo( ( options.bracketWidth / 2 ), ( options.bracketEndHeight + options.bracketTipHeight ) )
-      .lineTo( ( options.bracketWidth + options.bracketTipWidth ) / 2, options.bracketEndHeight )
+      .quadraticCurveTo( options.bracketWidth / 2, options.bracketEndHeight, ( options.bracketWidth / 2 ), ( options.bracketEndHeight + options.bracketTipHeight ) )
+      .quadraticCurveTo( ( options.bracketWidth / 2 ), options.bracketEndHeight, ( ( options.bracketWidth + options.bracketTipWidth ) / 2 ) + options.bracketCurveXOffset, options.bracketEndHeight )
       // right end curves up
       .lineTo( options.bracketWidth - options.bracketCurveXOffset, options.bracketEndHeight )
       .quadraticCurveTo( options.bracketWidth, options.bracketEndHeight, options.bracketWidth, 0 );
