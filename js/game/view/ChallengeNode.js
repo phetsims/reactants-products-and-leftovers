@@ -46,8 +46,7 @@ define( function( require ) {
     var faceNode = new FaceWithPointsNode( {
       faceDiameter: 120,
       faceOpacity: 1,
-      pointsAlignment: 'rightCenter',
-      center: challengeBounds.center //TODO temporary
+      pointsAlignment: 'rightCenter'
     } );
     thisNode.addChild( faceNode );
 
@@ -162,13 +161,18 @@ define( function( require ) {
           children.push( new NumberSpinner( reactant.leftoversProperty, quantityRange, SPINNER_OPTIONS ) );
         } );
       }
-      thisNode.addChild( new LayoutBox( {
+      var spinnersBox = new LayoutBox( {
         children: children,
         orientation: 'horizontal',
         spacing: 30,
         centerX: centerX,
-        centerY: challengeBounds.centerY
-      } ) );
+        centerY: challengeBounds.top + ( 0.75 * challengeBounds.height )
+      } );
+
+      // face above spinners
+      thisNode.addChild( spinnersBox );
+      faceNode.centerX = centerX;
+      faceNode.bottom = challengeBounds.centerY;
     }
 
     thisNode.mutate( options );
