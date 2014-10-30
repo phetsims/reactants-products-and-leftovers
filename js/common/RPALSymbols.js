@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var toSubscript = require( 'NITROGLYCERIN/ChemUtils' ).toSubscript;
 
-  return {
+  var RPALSymbols = {
 
     // molecules
     C: toSubscript( 'C' ),
@@ -49,4 +49,6 @@ define( function( require ) {
     SO2: toSubscript( 'SO2' ),
     SO3: toSubscript( 'SO3' )
   };
+
+  return RPALSymbols;
 } );

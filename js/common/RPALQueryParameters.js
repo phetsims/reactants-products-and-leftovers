@@ -10,7 +10,7 @@ define( function( require ) {
 
   var getQueryParameter = window.phetcommon.getQueryParameter;
 
-  return {
+  var RPALQueryParameters = {
     // enables developer-only features
     DEV: getQueryParameter( 'dev' ) || false,
 
@@ -29,4 +29,6 @@ define( function( require ) {
     // runs a sanity test on challenge generation at startup, output goes to console
     TEST_GAME: getQueryParameter( 'testGame' ) || false
   };
+
+  return RPALQueryParameters;
 } );

@@ -8,8 +8,10 @@
 define( function( require ) {
   'use strict';
 
-  return {
+  var RPALColors = {
     SCREEN_BACKGROUND: 'rgb(218,236,255)',
     REACTION_BAR_COLOR: 'rgb(51,118,196)'
   };
+
+  return RPALColors;
 } );

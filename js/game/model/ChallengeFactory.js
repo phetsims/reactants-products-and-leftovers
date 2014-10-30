@@ -502,6 +502,5 @@ define( function( require ) {
     console.log( '<done>' );
   };
 
-
   return ChallengeFactory;
 } );

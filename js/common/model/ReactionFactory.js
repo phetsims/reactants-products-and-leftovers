@@ -59,7 +59,7 @@ define( function( require ) {
   // constants
   var ATOM_OPTIONS = RPALConstants.ATOM_OPTIONS;
 
-  return {
+  var ReactionFactory = {
 
     // {Node} constructors for all molecules that appear in reactions
     moleculeNodeConstructors: [
@@ -411,4 +411,6 @@ define( function( require ) {
           new Product( 2, RPALSymbols.HF, new HFNode( ATOM_OPTIONS ) ) ] );
     }
   };
+
+  return ReactionFactory;
 } );

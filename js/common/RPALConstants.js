@@ -12,7 +12,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Range = require( 'DOT/Range' );
 
-  return {
+  var RPALConstants = {
     SCREEN_VIEW_OPTIONS: { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
     ATOM_OPTIONS: { stroke: 'black', lineWidth: 0.5, scale: 1 },
     QUANTITY_RANGE: new Range( 0, 8 ),
@@ -20,4 +20,6 @@ define( function( require ) {
     RESET_ALL_BUTTON_SCALE: 0.75,
     GAME_BUTTON_COLOR: 'yellow'
   };
+
+  return RPALConstants;
 } );
