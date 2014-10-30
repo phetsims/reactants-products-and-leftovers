@@ -1,3 +1,4 @@
+10/30/14 make label optional for horizontal brackets
 10/30/14 add curve to tip of horizontal brackets
 10/30/14 temporary layout of face in game
 10/30/14 curved ends on horizontal brackets

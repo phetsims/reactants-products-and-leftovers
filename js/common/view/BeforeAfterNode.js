@@ -257,7 +257,8 @@ define( function( require ) {
 
     var reactantsLabel = new Text( reactantsString, bracketLabelOptions );
     reactantsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / reactantsLabel.width ) ); // i18n
-    var reactantsBracket = new HBracketNode( reactantsLabel, _.extend( {
+    var reactantsBracket = new HBracketNode( _.extend( {
+      labelNode: reactantsLabel,
       bracketWidth: Math.max( options.maxImageSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: reactantsParent.centerX
     }, bracketOptions ) );
@@ -265,7 +266,8 @@ define( function( require ) {
 
     var productsLabel = new Text( productsString, bracketLabelOptions );
     productsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / productsLabel.width ) ); // i18n
-    var productsBracket = new HBracketNode( productsLabel, _.extend( {
+    var productsBracket = new HBracketNode( _.extend( {
+      labelNode: productsLabel,
       bracketWidth: Math.max( options.maxImageSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: productsParent.centerX
     }, bracketOptions ) );
@@ -273,7 +275,8 @@ define( function( require ) {
 
     var leftoversLabel = new Text( leftoversString, bracketLabelOptions );
     leftoversLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / leftoversLabel.width ) ); // i18n
-    var leftoversBracket = new HBracketNode( leftoversLabel, _.extend( {
+    var leftoversBracket = new HBracketNode( _.extend( {
+      labelNode: leftoversLabel,
       bracketWidth: Math.max( options.maxImageSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: leftoversParent.centerX
     }, bracketOptions ) );

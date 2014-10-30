@@ -15,21 +15,23 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   /**
-   * @param {SCENERY.Node} labelNode node that is used to label the bracket
    * @param {Object} [options]
    * @constructor
    */
-  function HBracketNode( labelNode, options ) {
+  function HBracketNode( options ) {
 
     options = _.extend( {
+      labelNode: null, // optional {Node} label that will be centered below bracket's tip
       bracketWidth: 100,
       bracketEndHeight: 5,
       bracketCurveXOffset: 5, // x-offset of the bracket's curved segments
       bracketTipWidth: 6,
       bracketTipHeight: 6,
       bracketColor: 'black',
-      ySpacing: 2
+      ySpacing: 2 // vertical space between label and tip of bracket
     }, options );
+
+    Node.call( this, options );
 
     // bracket, create shape left-to-right
     var bracketShape = new Shape()
@@ -46,13 +48,16 @@ define( function( require ) {
     var bracketNode = new Path( bracketShape, {
       stroke: options.bracketColor
     } );
+    this.addChild( bracketNode );
 
-    // label, centered below bracket
-    labelNode.centerX = bracketNode.centerX;
-    labelNode.top = bracketNode.bottom + options.ySpacing;
+    // optional label, centered below bracket
+    if ( options.labelNode ) {
+      this.addChild( options.labelNode );
+      options.labelNode.centerX = bracketNode.centerX;
+      options.labelNode.top = bracketNode.bottom + options.ySpacing;
+    }
 
-    options.children = [ bracketNode, labelNode ];
-    Node.call( this, options );
+    this.mutate( options );
   }
 
   return inherit( Node, HBracketNode );
