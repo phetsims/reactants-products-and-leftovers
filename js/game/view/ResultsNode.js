@@ -31,8 +31,9 @@ define( function( require ) {
 
     thisNode.rewardNode = null;
 
-    // show results when we enter this phase
     model.gamePhaseProperty.link( function( gamePhase ) {
+
+      // show results when we enter this phase
       if ( gamePhase === GamePhase.RESULTS ) {
 
         // game reward, shown for perfect score (or with 'reward' query parameter)
