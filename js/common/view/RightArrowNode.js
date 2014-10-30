@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {Object} [options]

@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BeforeAfterNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesEquationNode' );
   var RPALBaseView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALBaseView' );
-  var BeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BeforeAfterNode' );
 
   /**
    * @param {MoleculesModel} model

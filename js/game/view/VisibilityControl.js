@@ -23,9 +23,9 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var showAllString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/showAll' );
   var hideMoleculesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/hideMolecules' );
   var hideNumbersString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/hideNumbers' );
+  var showAllString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/showAll' );
 
   // constants
   var TEXT_OPTIONS = { font: new RPALFont( 14 ) };

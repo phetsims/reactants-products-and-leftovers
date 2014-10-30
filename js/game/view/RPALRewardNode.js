@@ -19,8 +19,8 @@ define( function( require ) {
   // modules
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var RewardNode = require( 'VEGAS/RewardNode' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
+  var RewardNode = require( 'VEGAS/RewardNode' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
 
   // constants

@@ -14,8 +14,8 @@ define( function( require ) {
   var MoleculesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/model/MoleculesModel' );
   var MoleculesView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesView' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var Screen = require( 'JOIST/SCREEN' );
 
   // strings
