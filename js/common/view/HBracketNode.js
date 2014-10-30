@@ -31,13 +31,16 @@ define( function( require ) {
       ySpacing: 2
     }, options );
 
-    // bracket, create shape left-to-right (curved ends, tip points down)
+    // bracket, create shape left-to-right
     var bracketShape = new Shape()
+      // left end curves up
       .moveTo( 0, 0 )
       .quadraticCurveTo( 0, options.bracketEndHeight, options.bracketCurveXOffset, options.bracketEndHeight )
       .lineTo( ( options.bracketWidth - options.bracketTipWidth ) / 2, options.bracketEndHeight )
+      // tip, pointing down
       .lineTo( ( options.bracketWidth / 2 ), ( options.bracketEndHeight + options.bracketTipHeight ) )
       .lineTo( ( options.bracketWidth + options.bracketTipWidth ) / 2, options.bracketEndHeight )
+      // right end curves up
       .lineTo( options.bracketWidth - options.bracketCurveXOffset, options.bracketEndHeight )
       .quadraticCurveTo( options.bracketWidth, options.bracketEndHeight, options.bracketWidth, 0 );
     var bracketNode = new Path( bracketShape, {
