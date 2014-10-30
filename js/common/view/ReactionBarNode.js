@@ -33,6 +33,8 @@ define( function( require ) {
       showSymbols: true // true = show symbols, false = show nodes
     }, options );
 
+    var thisNode = this;
+
     // control for choosing a reaction
     var reactionChoiceNode = new ReactionChoiceNode( reactionProperty, reactions );
     reactionChoiceNode.setScaleMagnitude( Math.min( 1, 0.25 * options.screenWidth / reactionChoiceNode.width ) ); // i18n, scale to fit
@@ -45,33 +47,29 @@ define( function( require ) {
     reactionChoiceNode.right = options.screenWidth - X_MARGIN;
     reactionChoiceNode.centerY = backgroundNode.centerY;
 
-    // parent for equation
-    var equationParent = new Node();
+    options.children = [ backgroundNode, reactionChoiceNode ];
+    Node.call( thisNode, options );
 
-    options.children = [ backgroundNode, equationParent, reactionChoiceNode ];
-    Node.call( this, options );
-
-    var equationNode = null; // @private
+    // update the equation to match the reaction
+    var equationNode = null;
     reactionProperty.link( function( reaction ) {
 
-      if ( equationNode && equationNode.dispose ) {
-        equationNode.dispose();
-      }
-      equationNode = createEquationNode( reaction );
+      // dispose of previous equation
+      equationNode && thisNode.removeChild( equationNode );
+      equationNode && equationNode.dispose && equationNode.dispose();
 
-      // create the new equation node
-      equationParent.removeAllChildren();
-      equationParent.addChild( equationNode );
-      equationParent.setScaleMagnitude( 1 );
+      // create equation for the reaction
+      equationNode = createEquationNode( reaction );
+      thisNode.addChild( equationNode );
 
       // scale the equation if it's too wide to fit the available space
       var availableWidth = reactionChoiceNode.left - ( 2 * X_MARGIN );
-      var scale = Math.min( 1, availableWidth / equationParent.width );
-      equationParent.setScaleMagnitude( scale );
+      var scale = Math.min( 1, availableWidth / equationNode.width );
+      equationNode.setScaleMagnitude( scale );
 
       // center the equation in the space to the left of the controls
-      equationParent.centerX = X_MARGIN + ( availableWidth / 2 );
-      equationParent.centerY = backgroundNode.centerY;
+      equationNode.centerX = X_MARGIN + ( availableWidth / 2 );
+      equationNode.centerY = backgroundNode.centerY;
     } );
   }
 
