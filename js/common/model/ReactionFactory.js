@@ -15,7 +15,7 @@ define( function( require ) {
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALSymbols = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALSymbols' );
 
-  // modules (molecules)
+  // modules (atoms & molecules)
   var CNode = require( 'NITROGLYCERIN/nodes/CNode' );
   var C2H2Node = require( 'NITROGLYCERIN/nodes/C2H2Node' );
   var C2H4Node = require( 'NITROGLYCERIN/nodes/C2H4Node' );
@@ -61,7 +61,7 @@ define( function( require ) {
 
   var ReactionFactory = {
 
-    // {Node} constructors for all molecules that appear in reactions
+    // {Node} constructors for all atoms & molecules that appear in reactions
     moleculeNodeConstructors: [
       CNode, C2H2Node, C2H4Node, C2H5ClNode, C2H5OHNode, C2H6Node,
       CH2ONode, CH3OHNode, CH4Node, Cl2Node, CONode, CO2Node, CS2Node,
