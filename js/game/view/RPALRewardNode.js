@@ -49,7 +49,7 @@ define( function( require ) {
     var nodes = [];
     var colors = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
     colors.forEach( function( color ) {
-        nodes.push( new FaceNode( 40, { headFill: color }  ) );
+      nodes.push( new FaceNode( 40, { headFill: color } ) );
     } );
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
   };

@@ -2,7 +2,7 @@
 
 /**
  * Spinner for integer values, similar in 'look' to Java's JSpinner.
- * 
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
@@ -54,16 +54,16 @@ define( function( require ) {
       new Text( Util.toFixed( range.max, options.decimalPlaces ), valueOptions ).width,
       new Text( Util.toFixed( range.min, options.decimalPlaces ), valueOptions ).width
     );
-    
+
     // value
     var valueNode = new Text( valueProperty.get(), valueOptions );
     var backgroundNode = new Rectangle( 0, 0, maxWidth + ( 2 * options.xMargin ), valueNode.height + ( 2 * options.yMargin ), 5, 5, {
       fill: 'white',
       stroke: 'black',
       lineWidth: 0.5
-    });
+    } );
     var valueParent = new Node( { children: [ backgroundNode, valueNode ] } );
-    
+
     // buttons
     var upButton = new ArrowButton( 'up', function() { valueProperty.set( valueProperty.get() + 1 ); } );
     var downButton = new ArrowButton( 'down', function() { valueProperty.set( valueProperty.get() - 1 ); } );

@@ -42,8 +42,8 @@ define( function( require ) {
   return inherit( Object, Reaction, {
 
     reset: function() {
-       this.reactants.forEach( function( reactant ) { reactant.reset(); } );
-       this.products.forEach( function( product ) { product.reset(); } );
+      this.reactants.forEach( function( reactant ) { reactant.reset(); } );
+      this.products.forEach( function( product ) { product.reset(); } );
     },
 
     /**

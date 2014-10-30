@@ -48,7 +48,7 @@ define( function( require ) {
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
     var bread = new Reactant( breadCount, 'bread', SandwichNode.createBreadNode() );
-    var meat =  new Reactant( meatCount, 'meat', SandwichNode.createMeatNode() );
+    var meat = new Reactant( meatCount, 'meat', SandwichNode.createMeatNode() );
     var cheese = new Reactant( cheeseCount, 'cheese', SandwichNode.createCheeseNode() );
 
     // sandwich image will be updated below

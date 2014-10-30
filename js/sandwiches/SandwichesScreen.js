@@ -21,7 +21,7 @@ define( function( require ) {
 
   // images
   var screenImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-screen.png' );
-  
+
   function SandwichesScreen() {
     Screen.call( this, screenTitle,
       new Image( screenImage ),

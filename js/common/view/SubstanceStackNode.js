@@ -8,7 +8,7 @@
  * <li>Nodes are never removed; they remain as children for the lifetime of this node.</li>
  * <li>The visibility of nodes is adjusted to show the correct quantity of the substance.</li>
  * </ul>
- * 
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {

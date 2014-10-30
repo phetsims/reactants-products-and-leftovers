@@ -1,3 +1,4 @@
+10/29/14 format all code
 10/29/14 give names to statics collections
 10/29/14 clean up handling of equation in ReactionBarNode
 10/29/14 add ReactionFactory.moleculeNodeConstructors, so we don't have to import all nodes elsewhere

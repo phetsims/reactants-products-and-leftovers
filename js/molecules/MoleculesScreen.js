@@ -24,7 +24,7 @@ define( function( require ) {
   // creates the {Node} icon for this screen
   var createIcon = function() {
 
-     // background rectangle
+    // background rectangle
     var width = Screen.HOME_SCREEN_ICON_SIZE.width;
     var height = Screen.HOME_SCREEN_ICON_SIZE.height;
     var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
@@ -36,9 +36,9 @@ define( function( require ) {
 
     return new Node( { children: [ background, moleculeNode ] } );
   };
-  
+
   function MoleculesScreen() {
-    Screen.call( this, screenTitle, 
+    Screen.call( this, screenTitle,
       createIcon(),
       function() { return new MoleculesModel(); },
       function( model ) { return new MoleculesView( model ); },

@@ -3,7 +3,7 @@
 /**
  * A reactant is a substance that is initially involved in a chemical reaction.
  * The reactants that do not transform to products are referred to herein as leftovers.
- * 
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {

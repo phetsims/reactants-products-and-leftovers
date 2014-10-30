@@ -140,7 +140,7 @@ define( function( require ) {
 
     // Unlinks from properties. The node is no longer functional after calling this function.
     dispose: function() {
-       this.nodeProperty.unlink( this.nodePropertyObserver );
+      this.nodeProperty.unlink( this.nodePropertyObserver );
     }
   } );
 } );

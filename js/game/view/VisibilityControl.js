@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AquaRadioButton = require( 'SUN/AquaRadioButton');
+  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   var inherit = require( 'PHET_CORE/inherit' );
