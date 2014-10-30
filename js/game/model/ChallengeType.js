@@ -9,8 +9,10 @@ define( function() {
   'use strict';
 
   // NOTE: enum pattern recommends using {} for each value, but strings are more convenient for debugging
-  return Object.freeze( {
+  var ChallengeType = Object.freeze( {
     BEFORE: 'BEFORE',
     AFTER: 'AFTER'
   } );
+
+  return ChallengeType;
 } );

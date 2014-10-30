@@ -8,11 +8,11 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function() {
+define( function( require ) {
   'use strict';
 
   // NOTE: enum pattern recommends using {} for each value, but strings are more convenient for debugging
-  return Object.freeze( {
+  var PlayState = Object.freeze( {
     FIRST_CHECK: 'FIRST_CHECK',
     TRY_AGAIN: 'TRY_AGAIN',
     SECOND_CHECK: 'SECOND_CHECK',
@@ -20,5 +20,7 @@ define( function() {
     NEXT: 'NEXT',
     NONE: 'NONE' // use this value when game is not in the 'play' phase
   } );
+
+  return PlayState;
 } );
 
