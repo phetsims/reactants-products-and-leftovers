@@ -39,7 +39,7 @@ define( function( require ) {
       .moveTo( 0, 0 )
       .quadraticCurveTo( 0, options.bracketEndHeight, options.bracketCurveXOffset, options.bracketEndHeight )
       .lineTo( ( ( options.bracketWidth - options.bracketTipWidth ) / 2 ) - options.bracketCurveXOffset, options.bracketEndHeight )
-      // tip, pointing down
+      // tip points down
       .quadraticCurveTo( options.bracketWidth / 2, options.bracketEndHeight, ( options.bracketWidth / 2 ), ( options.bracketEndHeight + options.bracketTipHeight ) )
       .quadraticCurveTo( ( options.bracketWidth / 2 ), options.bracketEndHeight, ( ( options.bracketWidth + options.bracketTipWidth ) / 2 ) + options.bracketCurveXOffset, options.bracketEndHeight )
       // right end curves up
