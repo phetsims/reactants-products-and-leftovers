@@ -11,6 +11,7 @@ HIGH
 
 MEDIUM
 - random layout strategy for molecules in boxes
+- conditionally freeze enums when assertions are enabled
 
 LOW
 - address the evil piece of code in VisibilityControl
