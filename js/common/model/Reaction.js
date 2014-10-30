@@ -74,11 +74,12 @@ define( function( require ) {
       } );
     },
 
-    /*
+    /**
      * Gets the number of reactions we have, based on the coefficients and reactant quantities.
      * For each reactant, we divide its quantity by its coefficient.
      * The smallest such value determines the number of reactions N that will occur.
      * @returns {number}
+     * @private
      */
     getNumberOfReactions: function() {
       var numberOfReactions = 0;
