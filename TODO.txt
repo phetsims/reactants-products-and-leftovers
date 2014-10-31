@@ -12,7 +12,6 @@ HIGH
 MEDIUM
 - random layout strategy for molecules in boxes
 - conditionally freeze enums when assertions are enabled
-- add title-bar feature to sun.AccordionBox, sun#135
 - adjust pointerAreas
 
 LOW

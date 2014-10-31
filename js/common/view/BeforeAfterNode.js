@@ -85,20 +85,21 @@ define( function( require ) {
       contentXMargin: 0,
       contentYMargin: 0,
       contentYSpacing: 0,
-      fill: RPALColors.REACTION_BAR_COLOR,
+      cornerRadius: 0,
+      fill: 'white',
+      stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.3 ),
       buttonTouchAreaDilatedX: 10,
       buttonTouchAreaDilatedY: 10,
-      stroke: null
+      titleBarFill: RPALColors.REACTION_BAR_COLOR
     };
 
     // options common to the content in both accordion boxes
     var contentOptions = {
-      fill: 'white',
-      stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.2 )
+      fill: 'white'
     };
 
     // 'Before Reaction' accordion box
-    var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
+    var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius, contentOptions );
     var beforeTitle = new Text( options.beforeTitle, titleOptions );
     beforeTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * beforeContent.width / beforeTitle.width ) ); // i18n, scale to fit
     // @private
@@ -108,7 +109,7 @@ define( function( require ) {
     }, accordionBoxOptions ) );
 
     // 'After Reaction' accordion box
-    var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, contentOptions );
+    var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius, contentOptions );
     var afterTitle = new Text( options.afterTitle, titleOptions );
     afterTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * afterContent.width / afterTitle.width ) ); // i18n, scale to fit
     // @private
