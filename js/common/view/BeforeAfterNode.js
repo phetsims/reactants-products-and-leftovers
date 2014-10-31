@@ -85,7 +85,7 @@ define( function( require ) {
       contentXMargin: 0,
       contentYMargin: 0,
       contentYSpacing: 0,
-      cornerRadius: 0,
+      cornerRadius: 3,
       fill: 'white',
       stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.3 ),
       buttonTouchAreaDilatedX: 10,
