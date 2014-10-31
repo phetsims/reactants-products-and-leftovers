@@ -1,6 +1,6 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO move to rpal.common.view, since this will also be used in Game screen?
+//TODO move to rpal.common.view, since this is also used in Game screen?
 /**
  * Equation for the 'Molecules' screen. Coefficients are immutable and molecule symbols are displayed.
  *
@@ -23,16 +23,46 @@ define( function( require ) {
   var COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
   var PLUS_X_SPACING = 15; // space on both sides of the plus signs
   var ARROW_X_SPACING = 15; // space on both sides of arrow
-  var TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
-  var PLUS_OPTIONS = { fill: 'white' };
-  var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
+
+  /**
+   * @param {Reaction} reaction
+   * @param {Object} [options]
+   * @constructor
+   */
+  function MoleculesEquationNode( reaction, options ) {
+
+    options = _.extend( {
+      fill: 'white',
+      font: new RPALFont( 28 )
+    }, options );
+
+    Node.call( this );
+
+    // left-hand side (reactants)
+    var reactantsNode = createTermsNode( reaction.reactants, options );
+    this.addChild( reactantsNode );
+
+    // right arrow
+    var arrowNode = new RightArrowNode( { fill: options.fill, stroke: null, scale: 0.65 } );
+    arrowNode.left = reactantsNode.right + ARROW_X_SPACING;
+    var coefficientHeight = new Text( '1', { font: options.font, fill: options.fill } ).height;
+    arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
+    this.addChild( arrowNode );
+
+    // right-hand side (products)
+    var productsNode = createTermsNode( reaction.products, options );
+    productsNode.left = arrowNode.right + ARROW_X_SPACING;
+    this.addChild( productsNode );
+
+    this.mutate( options );
+  }
 
   /**
    * Creates terms for equation.
    * @param {Substance[]} terms the terms to be added
    * @returns {SCENERY.Node}
    */
-  var createTermsNode = function( terms ) {
+  var createTermsNode = function( terms, options ) {
 
     var parentNode = new Node();
     var numberOfTerms = terms.length;
@@ -41,18 +71,18 @@ define( function( require ) {
     for ( var i = 0; i < numberOfTerms; i++ ) {
 
       // coefficient
-      coefficientNode = new Text( terms[i].coefficient, TEXT_OPTIONS );
+      coefficientNode = new Text( terms[i].coefficient, { font: options.font, fill: options.fill } );
       coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
       parentNode.addChild( coefficientNode );
 
       // molecule
-      symbolNode = new SubSupText( terms[i].symbol, TEXT_OPTIONS );
+      symbolNode = new SubSupText( terms[i].symbol, { font: options.font, fill: options.fill } );
       symbolNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
       parentNode.addChild( symbolNode );
 
       // plus sign between terms
       if ( i < numberOfTerms - 1 ) {
-        plusNode = new PlusNode( PLUS_OPTIONS );
+        plusNode = new PlusNode( { fill: options.fill } );
         plusNode.left = symbolNode.right + PLUS_X_SPACING;
         plusNode.centerY = coefficientNode.centerY;
         parentNode.addChild( plusNode );
@@ -64,34 +94,6 @@ define( function( require ) {
 
     return parentNode;
   };
-
-  /**
-   * @param {Reaction} reaction
-   * @param {Object} [options]
-   * @constructor
-   */
-  function MoleculesEquationNode( reaction, options ) {
-
-    Node.call( this );
-
-    // left-hand side (reactants)
-    var reactantsNode = createTermsNode( reaction.reactants );
-    this.addChild( reactantsNode );
-
-    // right arrow
-    var arrowNode = new RightArrowNode( ARROW_OPTIONS );
-    arrowNode.left = reactantsNode.right + ARROW_X_SPACING;
-    var coefficientHeight = new Text( '1', TEXT_OPTIONS ).height;
-    arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
-    this.addChild( arrowNode );
-
-    // right-hand side (products)
-    var productsNode = createTermsNode( reaction.products );
-    productsNode.left = arrowNode.right + ARROW_X_SPACING;
-    this.addChild( productsNode );
-
-    this.mutate( options );
-  }
 
   return inherit( Node, MoleculesEquationNode );
 } );

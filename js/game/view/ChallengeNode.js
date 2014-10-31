@@ -13,6 +13,7 @@ define( function( require ) {
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesEquationNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
@@ -41,6 +42,14 @@ define( function( require ) {
 
     var thisNode = this;
     Node.call( thisNode );
+
+    // equation
+    var equationNode = new MoleculesEquationNode( model.challenge.reaction, {
+      fill: 'black',
+      centerX: challengeBounds.centerX,
+      top: challengeBounds.top + 20
+    } );
+    thisNode.addChild( equationNode );
 
     // smile/frown face
     var faceNode = new FaceWithPointsNode( {
