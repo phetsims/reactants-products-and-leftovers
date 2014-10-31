@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
+  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculesEquationNode' );
@@ -19,6 +20,8 @@ define( function( require ) {
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
   var Range = require( 'DOT/Range' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
+  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // strings
@@ -47,7 +50,7 @@ define( function( require ) {
     var equationNode = new MoleculesEquationNode( model.challenge.reaction, {
       fill: 'black',
       centerX: challengeBounds.centerX,
-      top: challengeBounds.top + 20
+      top: challengeBounds.top + 40 //TODO temporary
     } );
     thisNode.addChild( equationNode );
 
@@ -55,7 +58,9 @@ define( function( require ) {
     var faceNode = new FaceWithPointsNode( {
       faceDiameter: 120,
       faceOpacity: 1,
-      pointsAlignment: 'rightCenter'
+      pointsAlignment: 'rightCenter',
+      centerX: challengeBounds.centerX, //TODO temporary
+      top: equationNode.bottom + 30  //TODO temporary
     } );
     thisNode.addChild( faceNode );
 
@@ -150,38 +155,89 @@ define( function( require ) {
       //TODO if ( state === PlayState.NEXT ) { show answer }
     } );
 
-    //TODO temporary spinners, to get the game working
+    //TODO temporary UI, to get the game working
     {
       var quantityRange = new Range( 0, model.maxQuantity );
       var children = [];
-      var centerX = 0;
       if ( challenge.challengeType === ChallengeType.BEFORE ) {
-        centerX = challengeBounds.left + ( 0.25 * challengeBounds.width );
+
+        // guess the reactants
         challenge.guess.reactants.forEach( function( reactant ) {
-          children.push( new NumberSpinner( reactant.quantityProperty, quantityRange, SPINNER_OPTIONS ) );
+          children.push( new LayoutBox( {
+            orientation: 'vertical',
+            spacing: 8,
+            children: [
+              new NumberSpinner( reactant.quantityProperty, quantityRange, SPINNER_OPTIONS ),
+              new SubSupText( reactant.symbol )
+            ] } ) );
+        } );
+
+        // space
+        children.push( new HStrut( 40 ) );
+
+        // show the products & leftovers
+        challenge.guess.products.forEach( function( product ) {
+          children.push( new LayoutBox( {
+            orientation: 'vertical',
+            spacing: 8,
+            children: [
+              new Text( product.quantity, SPINNER_OPTIONS ),
+              new SubSupText( product.symbol )
+            ] } ) );
+        } );
+        challenge.guess.reactants.forEach( function( reactant ) {
+          children.push( new LayoutBox( {
+            orientation: 'vertical',
+            spacing: 8,
+            children: [
+              new Text( reactant.leftovers, SPINNER_OPTIONS ),
+              new SubSupText( reactant.symbol )
+            ] } ) );
         } );
       }
       else {
-        centerX = challengeBounds.left + ( 0.75 * challengeBounds.width );
+
+        // show the reactants
+        challenge.guess.reactants.forEach( function( reactant ) {
+          children.push( new LayoutBox( {
+            orientation: 'vertical',
+            spacing: 8,
+            children: [
+              new Text( reactant.quantity, SPINNER_OPTIONS ),
+              new SubSupText( reactant.symbol )
+            ] } ) );
+        } );
+
+        // space
+        children.push( new HStrut( 40 ) );
+
+        // guess the products and leftovers
         challenge.guess.products.forEach( function( product ) {
-          children.push( new NumberSpinner( product.quantityProperty, quantityRange, SPINNER_OPTIONS ) );
+          children.push( new LayoutBox( {
+            orientation: 'vertical',
+            spacing: 8,
+            children: [
+              new NumberSpinner( product.quantityProperty, quantityRange, SPINNER_OPTIONS ),
+              new SubSupText( product.symbol )
+            ] } ) );
         } );
         challenge.guess.reactants.forEach( function( reactant ) {
-          children.push( new NumberSpinner( reactant.leftoversProperty, quantityRange, SPINNER_OPTIONS ) );
+          children.push( new LayoutBox( {
+            orientation: 'vertical',
+            spacing: 8,
+            children: [
+              new NumberSpinner( reactant.leftoversProperty, quantityRange, SPINNER_OPTIONS ),
+              new SubSupText( reactant.symbol )
+            ] } ) );
         } );
       }
-      var spinnersBox = new LayoutBox( {
+      thisNode.addChild( new LayoutBox( {
         children: children,
         orientation: 'horizontal',
         spacing: 30,
-        centerX: centerX,
-        centerY: challengeBounds.top + ( 0.75 * challengeBounds.height )
-      } );
-
-      // face above spinners
-      thisNode.addChild( spinnersBox );
-      faceNode.centerX = centerX;
-      faceNode.bottom = challengeBounds.centerY;
+        centerX: challengeBounds.centerX,
+        top: faceNode.bottom + 30
+      } ) );
     }
 
     thisNode.mutate( options );
