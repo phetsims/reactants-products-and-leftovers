@@ -18,7 +18,6 @@ define( function( require ) {
   // strings (i18n not required)
   var testString = 'Test';
   var skipString = 'Skip';
-  var skipAllString = 'Skip All';
   var replayString = 'Replay';
 
   // constants
@@ -48,15 +47,11 @@ define( function( require ) {
     var skipButton = new TextPushButton( skipString, BUTTON_OPTIONS );
     skipButton.addListener( function() { model.skipCurrentChallenge(); } );
 
-    // skips all challenges, go immediately to the 'Results' state
-    var skipAllButton = new TextPushButton( skipAllString, BUTTON_OPTIONS );
-    skipAllButton.addListener( function() { model.skipAllChallenges(); } );
-
     // runs a sanity test on the challenge generator
     var testButton = new TextPushButton( testString, BUTTON_OPTIONS );
     testButton.addListener( function() { ChallengeFactory.test(); } );
 
-    options.children = [ replayButton, skipButton, skipAllButton, testButton ];
+    options.children = [ replayButton, skipButton, testButton ];
     LayoutBox.call( this, options );
   }
 
