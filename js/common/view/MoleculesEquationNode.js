@@ -1,8 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO move to rpal.common.view, since this is also used in Game screen?
 /**
- * Equation for the 'Molecules' screen. Coefficients are immutable and molecule symbols are displayed.
+ * Equation for the 'Molecules' and 'Game' screens. Coefficients are immutable and molecule symbols are displayed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -18,7 +17,6 @@ define( function( require ) {
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  //TODO these constants are also defined in SandwichesEquationNode, will they potentially be different?
   // constants
   var COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
   var PLUS_X_SPACING = 15; // space on both sides of the plus signs

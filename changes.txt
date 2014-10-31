@@ -1,3 +1,4 @@
+10/31/14 move MoleculesEquationNode to common/view/, since it's used in 2 screens
 10/31/14 generalize MoleculesEquationNode, for use in Game screen
 10/31/14 replace faked title-bar with new sun.AccordionBox title-bar feature
 10/30/14 give internal names to enums
