@@ -23,8 +23,8 @@ define( function( require ) {
   function Challenge( reaction, challengeType, options ) {
 
     options = _.extend( {
-      moleculesVisible: true,
-      numbersVisible: true
+      moleculesVisible: true, // {boolean} are molecules visible when playing the challenge?
+      numbersVisible: true // {boolean} are numbers visible when playing the challenge?
     }, options );
 
     this.reaction = reaction;
@@ -59,7 +59,7 @@ define( function( require ) {
       return true;
     },
 
-    // Example: 2H2 + 1O2 -> 2H2O  : 2,2 -> 2,0,1 : 3,2 -> 2,1,1 : AFTER
+    // Example: 2H2 + 1O2 -> 2H2O : 2,2 -> 2,0,1 : 3,2 -> 2,1,1 : AFTER
     toString: function() {
       return this.reaction.toString() + ' : ' + this.guess.toString() + ' : ' + this.challengeType;
     }
