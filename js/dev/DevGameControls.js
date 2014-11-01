@@ -30,8 +30,7 @@ define( function( require ) {
   function DevGameControls( model, options ) {
 
     options = _.extend( {
-      orientation: 'vertical',
-      align: 'right',
+      orientation: 'horizontal',
       spacing: 5
     }, options );
 
