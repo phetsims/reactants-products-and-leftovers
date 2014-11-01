@@ -16,7 +16,7 @@ define( function( require ) {
 
   /**
    * @param {Reaction} reaction
-   * @param {ChallengeType} challengeType
+   * @param {ChallengeType} challengeType whether this is a 'Before' or 'After' challenge
    * @param {Object} [options]
    * @constructor
    */
