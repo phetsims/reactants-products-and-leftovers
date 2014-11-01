@@ -20,6 +20,8 @@ define( function( require ) {
    */
   function DevAnswerNode( challengeProperty, options ) {
 
+    options = options || {};
+
     var textNode = new Text( '', { font: new RPALFont( 12 ) } );
     challengeProperty.link( function( challenge ) {
       if ( challenge ) { // challenge will be null on startup and 'Rest All'
