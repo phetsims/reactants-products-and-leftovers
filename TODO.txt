@@ -19,6 +19,7 @@ LOW
 - remove uses of instanceof
 - is there a game framework here?
 - TODO items in code
+- review lines that are longer than 120 chars
 
 MIGRATE TO COMMON
 - HBracketNode
