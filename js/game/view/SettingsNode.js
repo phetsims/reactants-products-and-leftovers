@@ -31,8 +31,8 @@ define( function( require ) {
 
   // strings
   var chooseYourLevelString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/chooseYourLevel' );
-  var pattern_Level_0 = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/pattern_Level_0' );
   var doubleQuestionMarkString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/doubleQuestionMark' );
+  var pattern_Level_0 = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/pattern_Level_0' );
   var questionMarkString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/questionMark' );
 
   // constants
@@ -41,11 +41,11 @@ define( function( require ) {
   var LABEL_OPTIONS = { font: new RPALFont( 45 ) };
   var QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
   var ARROW_OPTIONS = { headHeight: 20, headWidth: 20, tailWidth: 6 };
-  var MOLECULE_SCALE = 3;
+  var MOLECULE_SCALE = 3; // scale of the icons used on the level-selection buttons
 
   /**
    * @param {GameModel} model
-   * @param {Bounds2} layoutBounds
+   * @param {Bounds2} layoutBounds the {Screen}'s layoutBounds
    * @param {Object} [options]
    * @constructor
    */

@@ -75,6 +75,8 @@ define( function( require ) {
   }
 
   return inherit( Node, ResultsNode, {
+
+    // animate the game reward
     step: function( elapsedTime ) {
       if ( this.rewardNode ) {
         this.rewardNode.step( elapsedTime );
