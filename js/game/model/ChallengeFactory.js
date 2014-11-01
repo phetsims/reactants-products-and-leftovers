@@ -34,7 +34,7 @@ define( function( require ) {
   var CHALLENGES_PER_LEVEL = 5;
 
   // level 2 is all the one-product reactions
-  var LEVEL2_LIST = [
+  var LEVEL2_POOL = [
     ReactionFactory.makeWater,
     ReactionFactory.Reaction_H2_F2__2HF,
     ReactionFactory.Reaction_H2_Cl2__2HCl,
@@ -59,7 +59,7 @@ define( function( require ) {
   ];
 
   // level 3 is all the two-product reactions
-  var LEVEL3_LIST = [
+  var LEVEL3_POOL = [
     ReactionFactory.Reaction_2C_2H2O__CH4_CO2,
     ReactionFactory.Reaction_CH4_H2O__3H2_CO,
     ReactionFactory.combustMethane,
@@ -81,17 +81,25 @@ define( function( require ) {
   ];
 
   // level 1 is all the reactions
-  var LEVEL1_LIST = LEVEL2_LIST.concat( LEVEL3_LIST );
+  var LEVEL1_POOL = LEVEL2_POOL.concat( LEVEL3_POOL );
 
   // 'pools' of factory functions, indexed by level
-  var POOLS = [ LEVEL1_LIST, LEVEL2_LIST, LEVEL3_LIST ];
+  var POOLS = [ LEVEL1_POOL, LEVEL2_POOL, LEVEL3_POOL ];
 
   // challenge type, indexed by level
   var CHALLENGE_TYPE = [ ChallengeType.BEFORE, ChallengeType.AFTER, ChallengeType.AFTER ];
 
   var ChallengeFactory = {
 
+    /**
+     * Creates a set of challenges.
+     * @param {number} level game level, starting at zero
+     * @param {number} maxQuantity maximum quantity of any substance in the reaction
+     * @param {Object} [challengeOptions] options passed to Challenge constructor
+     * @returns {Challenge[]}
+     */
     createChallenges: function( level, maxQuantity, challengeOptions ) {
+      challengeOptions = challengeOptions || {};
       if ( RPALQueryParameters.PLAY_ALL ) {
         return createChallengesPlayAll( level, maxQuantity, challengeOptions );
       }
@@ -100,13 +108,17 @@ define( function( require ) {
       }
     },
 
-    // Gets the number of reactions in the "pool" for a specified level.
+    /**
+     * Gets the number of reactions in the "pool" for a specified level.
+     * @param {number} level game level, starting at zero
+     * @returns {number}
+     */
     getNumberOfChallenges: function( level ) {
       assert && assert( level >= 0 && level < POOLS.length );
       return RPALQueryParameters.PLAY_ALL ? POOLS[level].length : CHALLENGES_PER_LEVEL;
     },
 
-    // DEBUG: Runs a sanity check on this factory.
+    // DEBUG: Runs a sanity check on this factory, prints to console.
     test: function() { doTest(); }
   };
 
@@ -188,7 +200,7 @@ define( function( require ) {
     return challenges;
   };
 
-  /*
+  /**
    * Generates a random number in some range.
    * @param {number} min
    * @param {number} max
@@ -226,7 +238,7 @@ define( function( require ) {
     return reaction;
   };
 
-  /*
+  /**
    * Creates a reaction with zero quantities of all products.
    * @param {[function]} factoryFunctions
    * @returns {Reaction}
@@ -270,7 +282,7 @@ define( function( require ) {
     return reaction;
   };
 
-  /*
+  /**
    * Does this reaction have coefficient of 1 for all reactants? This type of reaction cannot produce
    * zero products with non-zero quantities, so we don't want to use it for that purpose.
    * @param {Reaction} reaction
@@ -369,6 +381,7 @@ define( function( require ) {
    * DEBUG
    * Runs a sanity check, looking for problems with reactions and the challenge-creation algorithm.
    * Intended to be run from the browser console via ChallengeFactory.test().
+   * Output is printed to the console.
    */
   var doTest = function() {
 
@@ -436,7 +449,7 @@ define( function( require ) {
     console.log( 'Testing challenge generation ...' );
     console.log( '----------------------------------------------------------' );
 
-    // so that this test doesn't take forever with 'playAll' query parameter
+    // Limit iterations, so that this test doesn't take forever with 'playAll' query parameter.
     var iterations = RPALQueryParameters.PLAY_ALL ? 1 : 100;
 
     for ( level = 0; level < POOLS.length; level++ ) {
@@ -491,6 +504,7 @@ define( function( require ) {
       }
     }
 
+    // This is the bit that you want to look at, when the test has completed.
     console.log( '----------------------------------------------------------' );
     console.log( 'Summary' );
     console.log( '----------------------------------------------------------' );
