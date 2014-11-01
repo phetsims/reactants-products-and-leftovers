@@ -42,7 +42,7 @@ define( function( require ) {
       challenge: null, // {Challenge} the current challenge being played
       numberOfChallenges: 0, // {number} the number of challenges in the current game being played
       score: 0, // {number} how many points the user has earned for the current game
-      challengeIndex: -1, // {number} the index of the current challenge
+      challengeIndex: -1, // {number} the index of the current challenge, -1 indicates no challenge
       playState: PlayState.NONE  // {PlayState} the current 'play state' of the game (see PlayState)
     } );
 
