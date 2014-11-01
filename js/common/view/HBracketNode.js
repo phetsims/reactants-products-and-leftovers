@@ -31,7 +31,7 @@ define( function( require ) {
       ySpacing: 2 // vertical space between label and tip of bracket
     }, options );
 
-    Node.call( this, options );
+    Node.call( this );
 
     // bracket, create shape left-to-right
     var bracketShape = new Shape()
