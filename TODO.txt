@@ -24,7 +24,7 @@ MIGRATE TO COMMON
 - HBracketNode
 - NumberSpinner
 - NumberNode
-- PreProperty
+- PreProperty (or option to Property?)
 
 MISC
 - watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524
