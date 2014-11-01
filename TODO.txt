@@ -15,6 +15,7 @@ MEDIUM
 - adjust pointerAreas
 
 LOW
+- uppercase for all constants
 - address the evil piece of code in VisibilityControl
 - remove uses of instanceof
 - is there a game framework here?
