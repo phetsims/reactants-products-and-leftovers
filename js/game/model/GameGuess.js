@@ -23,6 +23,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
   var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
+  var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
 
   /**
@@ -92,32 +93,13 @@ define( function( require ) {
       this.products.forEach( function( product ) { product.reset(); } );
     },
 
-    //TODO identical to Reaction.getQuantitiesString
     /**
+     * DEV: Quantities for reactants, products and leftovers in the guess.
      * Example: 4,1 -> 1,2,2,0
      * @returns {string}
      */
-    toString: function() {
-      var s = '';
-      var i = 0;
-      // reactants
-      for ( i = 0; i < this.reactants.length; i++ ) {
-        if ( i !== 0 ) { s += ','; }
-        s += this.reactants[i].quantity;
-      }
-      // arrow
-      s += ' \u2192 ';
-      // products
-      for ( i = 0; i < this.products.length; i++ ) {
-        if ( i !== 0 ) { s += ','; }
-        s += this.products[i].quantity;
-      }
-      // leftovers
-      for ( i = 0; i < this.reactants.length; i++ ) {
-        s += ',';
-        s += this.reactants[i].leftovers;
-      }
-      return s;
+    getQuantitiesString: function() {
+      return Reaction.getQuantitiesStringStatic( this.reactants, this.products );
     }
   } );
 } );

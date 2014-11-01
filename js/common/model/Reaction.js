@@ -133,30 +133,42 @@ define( function( require ) {
     },
 
     /**
-     * DEBUG
-     * String representation of the quantities involved in the reaction.
+     * DEBUG String representation of the quantities involved in the reaction.
      * Example: 4,1 -> 1,2,2,0
      * @returns {string}
      */
     getQuantitiesString: function() {
+      return Reaction.getQuantitiesStringStatic( this.reactants, this.products );
+    }
+  }, {
+
+    /**
+     * DEV: Quantities for reactants, products and leftovers.
+     * Example: 4,1 -> 1,2,2,0
+     * @param {[Reactant]} reactants
+     * @param {[Product]} products
+     * @returns {string}
+     * @static
+     */
+    getQuantitiesStringStatic: function( reactants, products ) {
       var s = '';
       var i = 0;
       // reactants
-      for ( i = 0; i < this.reactants.length; i++ ) {
+      for ( i = 0; i < reactants.length; i++ ) {
         if ( i !== 0 ) { s += ','; }
-        s += this.reactants[i].quantity;
+        s += reactants[i].quantity;
       }
       // arrow
       s += ' \u2192 ';
       // products
-      for ( i = 0; i < this.products.length; i++ ) {
+      for ( i = 0; i < products.length; i++ ) {
         if ( i !== 0 ) { s += ','; }
-        s += this.products[i].quantity;
+        s += products[i].quantity;
       }
       // leftovers
-      for ( i = 0; i < this.reactants.length; i++ ) {
+      for ( i = 0; i < reactants.length; i++ ) {
         s += ',';
-        s += this.reactants[i].leftovers;
+        s += reactants[i].leftovers;
       }
       return s;
     }

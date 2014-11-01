@@ -61,7 +61,7 @@ define( function( require ) {
 
     // Example: 2H2 + 1O2 -> 2H2O : 2,2 -> 2,0,1 : 3,2 -> 2,1,1 : AFTER
     toString: function() {
-      return this.reaction.toString() + ' : ' + this.guess.toString() + ' : ' + this.challengeType;
+      return this.reaction.toString() + ' : ' + this.guess.getQuantitiesString() + ' : ' + this.challengeType;
     }
   } );
 } );
