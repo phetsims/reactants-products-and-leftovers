@@ -40,8 +40,8 @@ define( function( require ) {
 
     /**
      * Scenery is a DAG and allows one instance of a Node to appear in the scenegraph in
-     * multiple place, with 2 caveats: (1) a Node cannot be a sibling of itself, and (2)
-     * positioning a node will do so everywhere that it appears. Because a Substance will
+     * multiple places, with 2 caveats: (1) a Node cannot be a sibling of itself, and (2)
+     * transforming a node will do so everywhere that it appears. Because a Substance will
      * appear in multiple places in the view, this function provides a convenient way to
      * wrap this.node, so that we don't accidentally make it a sibling of itself, or
      * attempt to position it.
