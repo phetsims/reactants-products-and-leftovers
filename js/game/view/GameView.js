@@ -56,7 +56,7 @@ define( function( require ) {
         thisView.addChild( thisView.resultsNode );
       }
 
-      // make the node visible that corresponds to the state
+      // make the node visible that corresponds to the game phase
       thisView.settingsNode && ( thisView.settingsNode.visible = ( gamePhase === GamePhase.SETTINGS ) );
       thisView.playNode && ( thisView.playNode.visible = ( gamePhase === GamePhase.PLAY ) );
       thisView.resultsNode && ( thisView.resultsNode.visible = ( gamePhase === GamePhase.RESULTS ) );
