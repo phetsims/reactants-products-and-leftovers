@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Equations for the 'Sandwiches' screen.
+ * Equation for the 'Sandwiches' screen.
  * This differs from the 'Molecules' screen equation is a few key ways:
  *
  * 1. Terms are images instead of formulae.
@@ -83,7 +83,7 @@ define( function( require ) {
       productsParent.centerY = arrowNode.centerY;
     };
 
-    this.nodeProperty = reaction.sandwich.nodeProperty;
+    this.nodeProperty = reaction.sandwich.nodeProperty; // @public convenience for accessing the sandwich node
     this.nodeProperty.link( this.nodePropertyObserver );
 
     options.children = [ reactantsNode, arrowNode, productsParent ];
