@@ -26,6 +26,7 @@ define( function( require ) {
   // modules
   var Challenge = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/Challenge' );
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
+  var DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DevStringUtils' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
@@ -337,7 +338,7 @@ define( function( require ) {
 
     if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
 
-      var violationString = reaction.toString();
+      var beforeFixString = DevStringUtils.reactionString( reaction );
 
       // First, make sure all reactant quantities are in range.
       reaction.reactants.forEach( function( reactant ) {
@@ -368,11 +369,12 @@ define( function( require ) {
 
       // If all reactants have been reduced and we are still out of range, bail with a serious error.
       if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
-        throw new Error( 'ERROR: quantity-range violation cannot be fixed: ' + reaction.toString() );
+        throw new Error( 'ERROR: quantity-range violation cannot be fixed: ' + beforeFixString );
       }
 
       if ( enableDebugOutput ) {
-        console.log( 'quantity range violation: ' + violationString + ' fixed: ' + reaction.getQuantitiesString() );
+        console.log( 'quantity range violation: ' + beforeFixString +
+                     ' fixed: ' + DevStringUtils.quantitiesString( reaction.reactants, reaction.products ) );
       }
     }
   };
@@ -404,7 +406,7 @@ define( function( require ) {
       for ( i = 0; i < POOLS[ level ].length; i++ ) {
         factoryFunction = POOLS[ level ][ i ];
         reaction = factoryFunction();
-        console.log( reaction.getEquationString() );
+        console.log( DevStringUtils.equationString( reaction ) );
         if ( factoryFunctions.indexOf( factoryFunction ) === -1 ) {
           factoryFunctions.push( factoryFunction );
         }
@@ -420,7 +422,7 @@ define( function( require ) {
       reaction = factoryFunction();
       for ( i = 0; i < reaction.reactants.length; i++ ) {
         if ( reaction.reactants[i].coefficient > maxQuantity ) {
-          console.log( 'ERROR: coefficient out of range : ' + reaction.getEquationString() );
+          console.log( 'ERROR: coefficient out of range : ' + DevStringUtils.equationString( reaction ) );
           numberOfCoefficientRangeErrors++;
           break;
         }
@@ -471,7 +473,8 @@ define( function( require ) {
             }
           } );
           if ( zeroReactants ) {
-            console.log( 'ERROR: challenge has zero reactants, level=' + level + ' : ' + challenge.reaction.toString() );
+            console.log( 'ERROR: challenge has zero reactants, level=' + level + ' : ' +
+                         DevStringUtils.reactionString( challenge.reaction ) );
             numberOfReactantErrors++;
           }
 
@@ -488,7 +491,8 @@ define( function( require ) {
 
           // quantity-range violation?
           if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
-            console.log( 'ERROR: challenge has quantity-range violation, level=' + level + ' : ' + challenge.reaction.toString() );
+            console.log( 'ERROR: challenge has quantity-range violation, level=' + level + ' : ' +
+                         DevStringUtils.reactionString( challenge.reaction ));
             numberOfQuantityRangeErrors++;
           }
         } );
@@ -498,7 +502,7 @@ define( function( require ) {
           numberOfProductErrors++;
           console.log( 'ERROR: more than one challenge with zero products, level=' + level + ' challenges=' );
           for ( j = 0; j < challenges.length; j++ ) {
-            console.log( j + ': ' + challenges[j].reaction.toString() );
+            console.log( j + ': ' + DevStringUtils.reactionString( challenges[j].reaction ) );
           }
         }
       }

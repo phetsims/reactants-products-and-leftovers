@@ -23,7 +23,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
   var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
-  var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
 
   /**
@@ -91,15 +90,6 @@ define( function( require ) {
     reset: function() {
       this.reactants.forEach( function( reactant ) { reactant.reset(); } );
       this.products.forEach( function( product ) { product.reset(); } );
-    },
-
-    /**
-     * DEV: Quantities for reactants, products and leftovers in the guess.
-     * Example: 4,1 -> 1,2,2,0
-     * @returns {string}
-     */
-    getQuantitiesString: function() {
-      return Reaction.getQuantitiesStringStatic( this.reactants, this.products );
     }
   } );
 } );

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DevStringUtils' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
@@ -25,7 +26,7 @@ define( function( require ) {
     var textNode = new Text( '', { font: new RPALFont( 12 ) } );
     challengeProperty.link( function( challenge ) {
       if ( challenge ) { // challenge will be null on startup and 'Reset All'
-        textNode.text = challenge.reaction.toString() + ' (' + challenge.challengeType + ')';
+        textNode.text = DevStringUtils.reactionString( challenge.reaction ) + ' (' + challenge.challengeType + ')';
         textNode.centerX = 0;
       }
     } );
