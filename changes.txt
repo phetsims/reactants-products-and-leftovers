@@ -1,3 +1,4 @@
+11/1/14 simplify creation of RPALSymbols
 11/1/14 simplify layout of Game screen icon by using LayoutBox
 11/1/14 generalize and rename GamePhaseProperty to PreProperty
 11/1/14 add workaround for scenery#300, conditionally freeze enums when assertions are enabled
