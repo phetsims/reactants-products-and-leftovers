@@ -46,8 +46,8 @@ define( function( require ) {
       {
         // ScoreboardBar options
         font: new RPALFont( 16 ),
-        leftMargin: 40, //TODO
-        rightMargin: 50, //TODO
+        leftMargin: 40, //TODO align with left edge of 'Before' box
+        rightMargin: 50, //TODO align with right edge of 'After' box
         centerX: layoutBounds.centerX,
         top: 0
       } );
