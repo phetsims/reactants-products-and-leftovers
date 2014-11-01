@@ -11,6 +11,7 @@ define( function( require ) {
   var getQueryParameter = window.phetcommon.getQueryParameter;
 
   var RPALQueryParameters = {
+
     // enables developer-only features
     DEV: getQueryParameter( 'dev' ) || false,
 
