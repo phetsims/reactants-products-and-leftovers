@@ -21,6 +21,15 @@ define( function( require ) {
   // strings
   var screenTitle = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
 
+  function MoleculesScreen() {
+    Screen.call( this, screenTitle,
+      createIcon(),
+      function() { return new MoleculesModel(); },
+      function( model ) { return new MoleculesView( model ); },
+      { backgroundColor: RPALColors.SCREEN_BACKGROUND }
+    );
+  }
+
   // creates the {Node} icon for this screen
   var createIcon = function() {
 
@@ -36,15 +45,6 @@ define( function( require ) {
 
     return new Node( { children: [ background, moleculeNode ] } );
   };
-
-  function MoleculesScreen() {
-    Screen.call( this, screenTitle,
-      createIcon(),
-      function() { return new MoleculesModel(); },
-      function( model ) { return new MoleculesView( model ); },
-      { backgroundColor: RPALColors.SCREEN_BACKGROUND }
-    );
-  }
 
   return inherit( Screen, MoleculesScreen );
 } );

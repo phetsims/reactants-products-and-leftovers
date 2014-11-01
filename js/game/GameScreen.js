@@ -24,6 +24,15 @@ define( function( require ) {
   // strings
   var gameString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.game' );
 
+  function GameScreen() {
+    Screen.call( this, gameString,
+      createIcon(),
+      function() { return new GameModel(); },
+      function( model ) { return new GameView( model ); },
+      { backgroundColor: RPALColors.SCREEN_BACKGROUND }
+    );
+  }
+
   // creates the {Node} icon for this screen
   var createIcon = function() {
 
@@ -59,15 +68,6 @@ define( function( require ) {
     contentNode.center = background.center;
     return new Node( { children: [ background, contentNode ] } );
   };
-
-  function GameScreen() {
-    Screen.call( this, gameString,
-      createIcon(),
-      function() { return new GameModel(); },
-      function( model ) { return new GameView( model ); },
-      { backgroundColor: RPALColors.SCREEN_BACKGROUND }
-    );
-  }
 
   return inherit( Screen, GameScreen );
 } );
