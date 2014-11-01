@@ -11,7 +11,6 @@ HIGH
 
 MEDIUM
 - random layout strategy for molecules in boxes
-- conditionally freeze enums when assertions are enabled
 - adjust pointerAreas
 
 LOW
