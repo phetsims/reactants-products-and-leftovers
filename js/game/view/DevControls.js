@@ -35,7 +35,8 @@ define( function( require ) {
   function DevControls( model, options ) {
 
     options = _.extend( {
-      orientation: 'horizontal',
+      orientation: 'vertical',
+      align: 'right',
       spacing: 5
     }, options );
 
