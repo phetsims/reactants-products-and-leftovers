@@ -23,7 +23,7 @@ define( function( require ) {
 
   /**
    * @param {GameModel} model
-   * @param {Bounds2} layoutBounds
+   * @param {Bounds2} layoutBounds the {Screen}'s layoutBounds
    * @param {GameAudioPlayer} audioPlayer
    * @constructor
    */
@@ -31,6 +31,7 @@ define( function( require ) {
 
     Node.call( this );
 
+    // scoreboard, across the top of the screen
     var scoreboardNode = new ScoreboardBar(
       layoutBounds.width,
       model.challengeIndexProperty,
@@ -52,7 +53,7 @@ define( function( require ) {
       } );
     this.addChild( scoreboardNode );
 
-    // compute the bounds available for the challenges
+    // challenge can use the area below the scoreboard
     var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
     // ChallengeNode parent, to preserve rendering order
@@ -62,7 +63,7 @@ define( function( require ) {
     // Set up a new challenge
     model.challengeProperty.link( function( challenge ) {
       challengeParent.removeAllChildren();
-      if ( challenge ) { // challenge will be null on startup and 'Rest All'
+      if ( challenge ) { // challenge will be null on startup and 'Reset All'
         challengeParent.addChild( new ChallengeNode( model, challenge, challengeBounds, audioPlayer ) );
       }
     } );
