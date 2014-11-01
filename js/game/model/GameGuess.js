@@ -31,7 +31,6 @@ define( function( require ) {
    * @constructor
    */
   function GameGuess( reaction, challengeType ) {
-    this.reaction = reaction;
     this.reactants = createGuessReactants( reaction.reactants, challengeType );
     this.products = createGuessProducts( reaction.products, challengeType );
   }
