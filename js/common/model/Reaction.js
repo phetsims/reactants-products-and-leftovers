@@ -100,7 +100,7 @@ define( function( require ) {
     /**
      * DEBUG
      * String representation of the reaction, including quantities.
-     * Example: 2H2 + 1O2 -> 2H2O  : 2,2 -> 2,0,1
+     * Example: 2H2 + 1O2 -> 2H2O : 2,2 -> 2,0,1
      * @returns {string}
      */
     toString: function() {
@@ -114,11 +114,14 @@ define( function( require ) {
      */
     getEquationString: function() {
       var s = '';
+      // reactants
       for ( var i = 0; i < this.reactants.length; i++ ) {
         if ( i !== 0 ) { s += '+ '; }
         s += ( this.reactants[i].coefficient + ' ' + this.reactants[i].symbol + ' ' );
       }
+      // right arrow
       s += '\u2192 ';
+      // products
       for ( i = 0; i < this.products.length; i++ ) {
         if ( i !== 0 ) { s += '+ '; }
         s += ( this.products[i].coefficient + ' ' + this.products[i].symbol );
