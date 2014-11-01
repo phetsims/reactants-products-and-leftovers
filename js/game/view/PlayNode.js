@@ -29,8 +29,7 @@ define( function( require ) {
    */
   function PlayNode( model, layoutBounds, audioPlayer ) {
 
-    var thisNode = this;
-    Node.call( thisNode );
+    Node.call( this );
 
     var scoreboardNode = new ScoreboardBar(
       layoutBounds.width,
@@ -51,14 +50,14 @@ define( function( require ) {
         centerX: layoutBounds.centerX,
         top: 0
       } );
-    thisNode.addChild( scoreboardNode );
+    this.addChild( scoreboardNode );
 
     // compute the bounds available for the challenges
     var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
     // ChallengeNode parent, to preserve rendering order
     var challengeParent = new Node();
-    thisNode.addChild( challengeParent );
+    this.addChild( challengeParent );
 
     // Set up a new challenge
     model.challengeProperty.link( function( challenge ) {
@@ -71,13 +70,13 @@ define( function( require ) {
     if ( RPALQueryParameters.DEV ) {
 
       // Developer controls, below right end of scoreboard
-      thisNode.addChild( new DevControls( model, {
+      this.addChild( new DevControls( model, {
         right: layoutBounds.right - 5,
         top: scoreboardNode.bottom + 3
       } ) );
 
       // The answer to the current challenge, bottom center
-      thisNode.addChild( new DevAnswerNode( model.challengeProperty, {
+      this.addChild( new DevAnswerNode( model.challengeProperty, {
         centerX: layoutBounds.centerX,
         bottom: layoutBounds.bottom - 5
       } ) );
