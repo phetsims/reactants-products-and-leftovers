@@ -99,7 +99,8 @@ define( function( require ) {
     };
 
     // 'Before Reaction' accordion box
-    var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius, contentOptions );
+    var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height,
+      accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius, contentOptions );
     var beforeTitle = new Text( options.beforeTitle, titleOptions );
     beforeTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * beforeContent.width / beforeTitle.width ) ); // i18n, scale to fit
     // @private
@@ -109,7 +110,8 @@ define( function( require ) {
     }, accordionBoxOptions ) );
 
     // 'After Reaction' accordion box
-    var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius, contentOptions );
+    var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height,
+      accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius, contentOptions );
     var afterTitle = new Text( options.afterTitle, titleOptions );
     afterTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * afterContent.width / afterTitle.width ) ); // i18n, scale to fit
     // @private
@@ -150,7 +152,8 @@ define( function( require ) {
       reactant = reaction.reactants[i];
 
       // quantity is editable via a spinner
-      quantityNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange, { font: QUANTITY_FONT, centerX: centerX } );
+      quantityNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
+        { font: QUANTITY_FONT, centerX: centerX } );
       reactantsParent.addChild( quantityNode );
       thisNode.quantityNodes.push( quantityNode );
 
@@ -173,7 +176,8 @@ define( function( require ) {
     var productsParent = new Node();
     thisNode.addChild( productsParent );
     var numberOfProducts = reaction.products.length;
-    xMargin = ( numberOfProducts + numberOfReactants > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2 reactants case look nice
+    // make 2-reactants case look nice
+    xMargin = ( numberOfProducts + numberOfReactants > 2 ) ? 0 : ( 0.15 * options.boxSize.width );
     deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / ( numberOfProducts + numberOfReactants );
     centerX = thisNode.afterBox.left + xMargin + (deltaX / 2 );
     for ( i = 0; i < numberOfProducts; i++ ) {
