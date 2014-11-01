@@ -28,6 +28,7 @@ define( function( require ) {
       screenWidth: 1000, // width of the screen's safe area
       xMargin: 20,
       yMargin: 10,
+      fill: RPALColors.REACTION_BAR_COLOR,
       showSymbols: true // true = show symbols, false = show nodes
     }, options );
 
@@ -39,7 +40,7 @@ define( function( require ) {
 
     // background, extra wide so that it will appear to fill the screen width for all but extreme window sizes
     var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, reactionChoiceNode.height + ( 2 * options.yMargin ),
-      { fill: RPALColors.REACTION_BAR_COLOR, centerX: options.screenWidth / 2 } );
+      { fill: options.fill, centerX: options.screenWidth / 2 } );
 
     // control at right, vertically centered
     reactionChoiceNode.right = options.screenWidth - options.xMargin;
