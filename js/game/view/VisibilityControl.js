@@ -50,32 +50,29 @@ define( function( require ) {
       lineWidth: 0.5
     }, options );
 
-    //TODO consider changing the model so that this can be simplified
     /**
-     * This evil piece of code deals with the fact that the model and this control don't match up very nicely.
+     * This bit of code is a little complicated because of a mismatch between model and view.
      * The model has independent properties for the visibility of molecules and numbers.
-     * But this control mixes "show" and "hide" controls, and makes these properties dependent on each other.
+     * But the view makes them dependent on each other, and this control mixes 'show' and 'hide'.
+     * This could be fixed by modeling this dependency, but I prefer to keep the model clean.
      */
     var showAllProperty = new Property( moleculesVisibleProperty.get() && numbersVisibleProperty.get() );
-    Property.multilink( [ moleculesVisibleProperty, numbersVisibleProperty ],
-      function( moleculesVisible, numbersVisible ) {
-        assert && assert( moleculesVisible || numbersVisible );
-        showAllProperty.set( moleculesVisible && numbersVisible );
-      } );
-    showAllProperty.link( function( visible ) {
-      if ( visible ) {
+    showAllProperty.link( function( value ) {
+      if ( value ) {
         moleculesVisibleProperty.set( true );
         numbersVisibleProperty.set( true );
       }
     } );
     moleculesVisibleProperty.link( function( visible ) {
       if ( !visible ) {
-        numbersVisibleProperty.set( true );
+        numbersVisibleProperty.set( true ); // if molecules are hidden, then numbers must be shown
+        showAllProperty.set( false );
       }
     } );
     numbersVisibleProperty.link( function( visible ) {
       if ( !visible ) {
-        moleculesVisibleProperty.set( true );
+        moleculesVisibleProperty.set( true ); // if numbers are hidden, then molecules must be shown
+        showAllProperty.set( false );
       }
     } );
 
