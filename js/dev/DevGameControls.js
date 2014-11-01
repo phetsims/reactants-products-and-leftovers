@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function DevControls( model, options ) {
+  function DevGameControls( model, options ) {
 
     options = _.extend( {
       orientation: 'vertical',
@@ -56,5 +56,5 @@ define( function( require ) {
     LayoutBox.call( this, options );
   }
 
-  return inherit( LayoutBox, DevControls );
+  return inherit( LayoutBox, DevGameControls );
 } );

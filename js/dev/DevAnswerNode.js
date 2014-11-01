@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DevStringUtils' );
+  var DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevStringUtils' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );

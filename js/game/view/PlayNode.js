@@ -12,8 +12,8 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var ChallengeNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ChallengeNode' );
-  var DevAnswerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevAnswerNode' );
-  var DevControls = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/DevControls' );
+  var DevAnswerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevAnswerNode' );
+  var DevGameControls = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevGameControls' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -71,7 +71,7 @@ define( function( require ) {
     if ( RPALQueryParameters.DEV ) {
 
       // Developer controls, below right end of scoreboard
-      this.addChild( new DevControls( model, {
+      this.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
         top: scoreboardNode.bottom + 3
       } ) );
