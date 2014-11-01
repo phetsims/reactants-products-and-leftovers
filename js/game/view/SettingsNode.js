@@ -41,6 +41,7 @@ define( function( require ) {
   var LABEL_OPTIONS = { font: new RPALFont( 45 ) };
   var QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
   var ARROW_OPTIONS = { headHeight: 20, headWidth: 20, tailWidth: 6 };
+  var TOGGLE_BUTTON_OPTIONS = { stroke: 'gray', scale: 1 };
   var MOLECULE_SCALE = 3; // scale of the icons used on the level-selection buttons
 
   /**
@@ -79,9 +80,8 @@ define( function( require ) {
     } );
 
     // Timer and Sound controls
-    var toggleOptions = { stroke: 'gray', scale: 1 };
-    var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, toggleOptions );
-    var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, toggleOptions );
+    var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, TOGGLE_BUTTON_OPTIONS );
+    var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, TOGGLE_BUTTON_OPTIONS );
 
     // Visibility control
     var visibilityControl = new VisibilityControl( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
