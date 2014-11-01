@@ -40,9 +40,7 @@ define( function( require ) {
       ySpacing: 5
     }, options );
 
-    var thisSpinner = this;
-
-    thisSpinner.valueProperty = valueProperty; // @private
+    this.valueProperty = valueProperty; // @private
 
     var valueOptions = {
       font: options.font,
@@ -80,10 +78,10 @@ define( function( require ) {
     options.children = [ valueParent, buttonsParent ];
     options.spacing = options.ySpacing;
     options.orientation = 'horizontal';
-    LayoutBox.call( thisSpinner, options );
+    LayoutBox.call( this, options );
 
     // @private When the value changes ...
-    thisSpinner.valuePropertyObserver = function( value ) {
+    this.valuePropertyObserver = function( value ) {
       assert && assert( range.contains( value ) );
 
       // update the text and center it
@@ -94,7 +92,7 @@ define( function( require ) {
       upButton.enabled = ( value < range.max );
       downButton.enabled = ( value > range.min );
     };
-    valueProperty.link( thisSpinner.valuePropertyObserver );
+    valueProperty.link( this.valuePropertyObserver );
   }
 
   return inherit( LayoutBox, NumberSpinner, {
