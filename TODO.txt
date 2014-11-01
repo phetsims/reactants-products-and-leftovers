@@ -18,6 +18,7 @@ LOW
 - address the evil piece of code in VisibilityControl
 - remove uses of instanceof
 - is there a game framework here?
+- TODO items in code
 
 MIGRATE TO COMMON
 - HBracketNode
