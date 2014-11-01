@@ -91,7 +91,7 @@ define( function( require ) {
       } );
 
     // Defer until the user starts playing a game.
-    thisModel.playStateProperty.link( function( playState ) {
+    thisModel.playStateProperty.lazyLink( function( playState ) {
       if ( playState === PlayState.FIRST_CHECK ) {
         if ( thisModel.challengeIndex === thisModel.challenges.length - 1 ) {
           // game has been completed
