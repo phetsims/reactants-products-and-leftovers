@@ -49,6 +49,7 @@ define( function( require ) {
     var guessReactant;
     for ( var i = 0; i < reactants.length; i++ ) {
       guessReactant = Reactant.clone( reactants[i] );
+      // When 'dev' query parameter is present, guess will be initialized to correct answer.
       if ( !RPALQueryParameters.DEV ) {
         if ( challengeType === ChallengeType.AFTER ) {
           guessReactant.leftovers = 0;
@@ -76,6 +77,7 @@ define( function( require ) {
     var guessProduct;
     for ( var i = 0; i < products.length; i++ ) {
       guessProduct = Product.clone( products[i] );
+      // When 'dev' query parameter is present, guess will be initialized to correct answer.
       if ( challengeType === ChallengeType.AFTER && !RPALQueryParameters.DEV ) {
         guessProduct.quantity = 0;
       }
