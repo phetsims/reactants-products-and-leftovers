@@ -15,10 +15,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
 
-  // constants
-  var X_MARGIN = 20;
-  var Y_MARGIN = 10;
-
   /**
    * @param {Property.<Reaction>} reactionProperty the selected reaction
    * @param {Reaction[]} reactions the reaction choices
@@ -30,6 +26,8 @@ define( function( require ) {
 
     options = _.extend( {
       screenWidth: 1000, // width of the screen's safe area
+      xMargin: 20,
+      yMargin: 10,
       showSymbols: true // true = show symbols, false = show nodes
     }, options );
 
@@ -40,11 +38,11 @@ define( function( require ) {
     reactionChoiceNode.setScaleMagnitude( Math.min( 1, 0.25 * options.screenWidth / reactionChoiceNode.width ) ); // i18n, scale to fit
 
     // background, extra wide so that it will appear to fill the screen width for all but extreme window sizes
-    var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, reactionChoiceNode.height + ( 2 * Y_MARGIN ),
+    var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, reactionChoiceNode.height + ( 2 * options.yMargin ),
       { fill: RPALColors.REACTION_BAR_COLOR, centerX: options.screenWidth / 2 } );
 
     // control at right, vertically centered
-    reactionChoiceNode.right = options.screenWidth - X_MARGIN;
+    reactionChoiceNode.right = options.screenWidth - options.xMargin;
     reactionChoiceNode.centerY = backgroundNode.centerY;
 
     options.children = [ backgroundNode, reactionChoiceNode ];
@@ -63,12 +61,12 @@ define( function( require ) {
       thisNode.addChild( equationNode );
 
       // scale the equation if it's too wide to fit the available space
-      var availableWidth = reactionChoiceNode.left - ( 2 * X_MARGIN );
+      var availableWidth = reactionChoiceNode.left - ( 2 * options.xMargin );
       var scale = Math.min( 1, availableWidth / equationNode.width );
       equationNode.setScaleMagnitude( scale );
 
       // center the equation in the space to the left of the controls
-      equationNode.centerX = X_MARGIN + ( availableWidth / 2 );
+      equationNode.centerX = options.xMargin + ( availableWidth / 2 );
       equationNode.centerY = backgroundNode.centerY;
     } );
   }
