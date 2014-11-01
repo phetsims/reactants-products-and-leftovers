@@ -15,11 +15,6 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
-  // strings (i18n not required)
-  var testString = 'Test';
-  var skipString = 'Skip';
-  var replayString = 'Replay';
-
   // constants
   var BUTTON_OPTIONS = {
     font: new RPALFont( 10 ),
@@ -41,18 +36,14 @@ define( function( require ) {
     }, options );
 
     // replays the current challenge
-    var replayButton = new TextPushButton( replayString, BUTTON_OPTIONS );
+    var replayButton = new TextPushButton( 'Replay', BUTTON_OPTIONS );
     replayButton.addListener( function() { model.replayCurrentChallenge(); } );
 
     // skips the current challenge
-    var skipButton = new TextPushButton( skipString, BUTTON_OPTIONS );
+    var skipButton = new TextPushButton( 'Skip', BUTTON_OPTIONS );
     skipButton.addListener( function() { model.skipCurrentChallenge(); } );
 
-    // runs a sanity test on the challenge generator
-    var testButton = new TextPushButton( testString, BUTTON_OPTIONS );
-    testButton.addListener( function() { ChallengeFactory.test(); } );
-
-    options.children = [ replayButton, skipButton, testButton ];
+    options.children = [ replayButton, skipButton ];
     LayoutBox.call( this, options );
   }
 

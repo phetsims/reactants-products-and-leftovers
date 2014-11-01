@@ -383,7 +383,7 @@ define( function( require ) {
    * DEBUG
    * Runs a sanity check, looking for problems with reactions and the challenge-creation algorithm.
    * Intended to be run from the browser console via ChallengeFactory.test(), or run the simulation
-   * with 'dev' query parameter and press the 'Test' button that appears in the Game screen.
+   * with 'dev' query parameter and press the 'Test' button that appears on the Game's level-selection screen.
    * Output is printed to the console.
    */
   var doTest = function() {

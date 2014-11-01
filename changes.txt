@@ -1,3 +1,4 @@
+11/1/14 dev: move 'Test' button to level-selection screen
 11/1/14 move all dev code to js/dev/
 11/1/14 consolidate dev-related string representations of various things in DevStringUtils
 11/1/14 eliminate duplicate 'dev' code in GameGuess

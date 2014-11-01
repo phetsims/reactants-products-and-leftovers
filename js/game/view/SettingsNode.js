@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   var HClNode = require( 'NITROGLYCERIN/nodes/HClNode' );
@@ -23,9 +24,11 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
   var VisibilityControl = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/VisibilityControl' );
 
@@ -120,6 +123,19 @@ define( function( require ) {
       resetAllButton
     ];
     Node.call( this, options );
+
+    if ( RPALQueryParameters.DEV ) {
+      // 'Test' button at rightTop, runs a sanity test on the challenge generator
+      var testButton = new TextPushButton( 'Test', {
+        font: new RPALFont( 10 ),
+        baseColor: 'red',
+        textFill: 'white',
+        right: layoutBounds.right - 10,
+        top: layoutBounds.top + 10
+      } );
+      testButton.addListener( function() { ChallengeFactory.test(); } );
+      this.addChild( testButton );
+    }
   }
 
   /**
