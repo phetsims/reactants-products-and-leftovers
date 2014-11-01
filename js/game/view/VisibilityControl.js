@@ -31,10 +31,12 @@ define( function( require ) {
   var TEXT_OPTIONS = { font: new RPALFont( 14 ) };
   var RADIO_BUTTON_OPTIONS = { radius: 8, xSpacing: 10 };
   var FONT_AWESOME_OPTIONS = { scale: 0.5 };
+  var DILATE_X = 10; // dilate touchArea for radio buttons
+  var DILATE_Y = 6; // dilate touchArea for radio buttons
 
   /**
-   * @param {Property.<boolean>} moleculesVisibleProperty are molecules visibile in Game challenges?
-   * @param {Property.<boolean>} numbersVisibleProperty are quantities visible in Game challenges?
+   * @param {Property.<boolean>} moleculesVisibleProperty are molecules visible in challenges?
+   * @param {Property.<boolean>} numbersVisibleProperty are quantities visible in challenges?
    * @param options
    * @constructor
    */
@@ -48,7 +50,7 @@ define( function( require ) {
       lineWidth: 0.5
     }, options );
 
-    //TODO consider changing the model so that this abomination can be deleted.
+    //TODO consider changing the model so that this can be simplified
     /**
      * This evil piece of code deals with the fact that the model and this control don't match up very nicely.
      * The model has independent properties for the visibility of molecules and numbers.
@@ -83,11 +85,9 @@ define( function( require ) {
     var hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, createHideNumbersNode(), RADIO_BUTTON_OPTIONS );
 
     // expand touchArea
-    var xExpand = 10;
-    var yExpand = 6;
-    showAllRadioButton.touchArea = showAllRadioButton.localBounds.dilatedXY( xExpand, yExpand );
-    hideMoleculesButton.touchArea = hideMoleculesButton.localBounds.dilatedXY( xExpand, yExpand );
-    hideNumbersButton.touchArea = hideNumbersButton.localBounds.dilatedXY( xExpand, yExpand );
+    showAllRadioButton.touchArea = showAllRadioButton.localBounds.dilatedXY( DILATE_X, DILATE_Y );
+    hideMoleculesButton.touchArea = hideMoleculesButton.localBounds.dilatedXY( DILATE_X, DILATE_Y );
+    hideNumbersButton.touchArea = hideNumbersButton.localBounds.dilatedXY( DILATE_X, DILATE_Y );
 
     // vertical layout
     var content = new LayoutBox( {
