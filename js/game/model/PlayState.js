@@ -2,9 +2,7 @@
 
 /**
  * States during the 'play' phase of a game, mutually exclusive. (See GamePhase.)
- * For lack of better names, the state names correspond to the main action that
- * the user can take in that state.  For example. the FIRST_CHECK state is where the user
- * has their first opportunity to press the 'Check' button.
+ * For lack of better names, the state names correspond to the button that is visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,11 +13,11 @@ define( function( require ) {
 
   // NOTE: enum pattern recommends using {} for each value, but strings are more convenient for debugging
   var PlayState = {
-    FIRST_CHECK: 'FIRST_CHECK',
-    TRY_AGAIN: 'TRY_AGAIN',
-    SECOND_CHECK: 'SECOND_CHECK',
-    SHOW_ANSWER: 'SHOW_ANSWER',
-    NEXT: 'NEXT',
+    FIRST_CHECK: 'FIRST_CHECK', // 'Check' button is visible for the first time
+    TRY_AGAIN: 'TRY_AGAIN', // 'Try Again' button is visible
+    SECOND_CHECK: 'SECOND_CHECK', // 'Check' button is visible for the second time
+    SHOW_ANSWER: 'SHOW_ANSWER', // 'Show Answer' button is visible
+    NEXT: 'NEXT', // 'Next' button is visible
     NONE: 'NONE' // use this value when game is not in the 'play' phase
   };
 
