@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
-  var GamePhaseProperty = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhaseProperty' );
+  var PreProperty = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PreProperty' );
   var GameTimer = require( 'VEGAS/GameTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
@@ -64,7 +64,7 @@ define( function( require ) {
     thisModel.timer = new GameTimer();
 
     // {GamePhase} the phase that the current game being played is in (see GamePhase)
-    thisModel.gamePhaseProperty = new GamePhaseProperty( GamePhase.SETTINGS,
+    thisModel.gamePhaseProperty = new PreProperty( GamePhase.SETTINGS,
       /*
        * This function will be called prior to setting the gamePhaseProperty value.
        * Updates fields so that they are accurate before property listeners are notified.
