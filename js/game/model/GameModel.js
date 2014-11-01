@@ -67,7 +67,7 @@ define( function( require ) {
     thisModel.gamePhaseProperty = new PreProperty( GamePhase.SETTINGS,
       /*
        * This function will be called prior to setting the gamePhaseProperty value.
-       * Updates fields so that they are accurate before property listeners are notified.
+       * Updates fields so that they are accurate before property observers are notified.
        */
       function( gamePhase ) {
         if ( gamePhase === GamePhase.SETTINGS ) {
