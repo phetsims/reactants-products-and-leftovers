@@ -15,7 +15,7 @@ define( function( require ) {
 
   /**
    * @param {*} value
-   * @param {function} pre called before setting the value, single @param is the new value
+   * @param {function(value)} pre called before setting the value
    * @constructor
    */
   function PreProperty( value, pre ) {
