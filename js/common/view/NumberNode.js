@@ -14,11 +14,11 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param {Property.<number>} valueProperty
+   * @param {Property.<number>} numberProperty
    * @param {Object} [options]
    * @constructor
    */
-  function NumberNode( valueProperty, options ) {
+  function NumberNode( numberProperty, options ) {
 
     options = _.extend( {
       decimalPlaces: 0
@@ -27,22 +27,22 @@ define( function( require ) {
     var thisNode = this;
     Text.call( thisNode, '' );
 
-    thisNode.valueProperty = valueProperty; // @private
+    thisNode.numberProperty = numberProperty; // @private
 
-    // @private When the value changes ...
-    thisNode.valuePropertyObserver = function( value ) {
+    // @private update the displayed number
+    thisNode.numberPropertyObserver = function( value ) {
       thisNode.text = Util.toFixed( value, options.decimalPlaces );
     };
-    valueProperty.link( thisNode.valuePropertyObserver );
+    numberProperty.link( thisNode.numberPropertyObserver );
 
     thisNode.mutate( options );
   }
 
   return inherit( Text, NumberNode, {
 
-    // Unlinks from the value property. The node is no longer functional after calling this function.
+    // Unlinks from the property. The node is no longer functional after calling this function.
     dispose: function() {
-      this.valueProperty.unlink( this.valuePropertyObserver );
+      this.numberProperty.unlink( this.numberPropertyObserver );
     }
   } );
 } );

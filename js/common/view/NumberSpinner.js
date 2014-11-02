@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Spinner for integer values, similar in 'look' to Java's JSpinner.
+ * Spinner for numbers, similar in 'look' to Java's JSpinner.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,14 +23,14 @@ define( function( require ) {
   var TOUCH_DILATED_Y = 10;
 
   /**
-   * @param {Property.<number>} valueProperty value, must be an integer
+   * @param {Property.<number>} numberProperty value, must be an integer
    * @param {DOT.Range} range range of values, min and max must be integers
    * @param {Object} [options]
    * @constructor
    */
-  function NumberSpinner( valueProperty, range, options ) {
+  function NumberSpinner( numberProperty, range, options ) {
 
-    assert && assert( range.contains( valueProperty.get() ) ); // value is in range
+    assert && assert( range.contains( numberProperty.get() ) ); // value is in range
 
     options = _.extend( {
       decimalPlaces: 0,
@@ -40,7 +40,7 @@ define( function( require ) {
       ySpacing: 5
     }, options );
 
-    this.valueProperty = valueProperty; // @private
+    this.numberProperty = numberProperty; // @private
 
     var valueOptions = {
       font: options.font,
@@ -54,7 +54,7 @@ define( function( require ) {
     );
 
     // value
-    var valueNode = new Text( valueProperty.get(), valueOptions );
+    var valueNode = new Text( numberProperty.get(), valueOptions );
     var backgroundNode = new Rectangle( 0, 0, maxWidth + ( 2 * options.xMargin ), valueNode.height + ( 2 * options.yMargin ), 5, 5, {
       fill: 'white',
       stroke: 'black',
@@ -63,8 +63,8 @@ define( function( require ) {
     var valueParent = new Node( { children: [ backgroundNode, valueNode ] } );
 
     // buttons
-    var upButton = new ArrowButton( 'up', function() { valueProperty.set( valueProperty.get() + 1 ); } );
-    var downButton = new ArrowButton( 'down', function() { valueProperty.set( valueProperty.get() - 1 ); } );
+    var upButton = new ArrowButton( 'up', function() { numberProperty.set( numberProperty.get() + 1 ); } );
+    var downButton = new ArrowButton( 'down', function() { numberProperty.set( numberProperty.get() - 1 ); } );
     var buttonsParent = new LayoutBox( {
       children: [ upButton, downButton ],
       orientation: 'vertical',
@@ -81,7 +81,7 @@ define( function( require ) {
     LayoutBox.call( this, options );
 
     // @private When the value changes ...
-    this.valuePropertyObserver = function( value ) {
+    this.numberPropertyObserver = function( value ) {
       assert && assert( range.contains( value ) );
 
       // update the text and center it
@@ -92,14 +92,14 @@ define( function( require ) {
       upButton.enabled = ( value < range.max );
       downButton.enabled = ( value > range.min );
     };
-    valueProperty.link( this.valuePropertyObserver );
+    numberProperty.link( this.numberPropertyObserver );
   }
 
   return inherit( LayoutBox, NumberSpinner, {
 
-    // Unlinks from the value property. The spinner is no longer functional after calling this function.
+    // Unlinks from the property. The spinner is no longer functional after calling this function.
     dispose: function() {
-      this.valueProperty.unlink( this.valuePropertyObserver );
+      this.numberProperty.unlink( this.numberPropertyObserver );
     }
   } );
 } );
