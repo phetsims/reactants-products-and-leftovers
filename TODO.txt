@@ -19,6 +19,7 @@ LOW
 - TODO items in code
 - review lines that are longer than 120 chars
 - port doc/ (model.txt, implementation-notes.txt, ...)
+- is clone a name for function that create a shallow copy of an object?
 
 ISSUES
 - FontAwesomeNode behaves badly if you setScaleMagnitude
