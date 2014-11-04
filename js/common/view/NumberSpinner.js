@@ -18,10 +18,6 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 
-  // constants
-  var TOUCH_DILATED_X = 20;
-  var TOUCH_DILATED_Y = 10;
-
   /**
    * @param {Property.<number>} numberProperty value, must be an integer
    * @param {DOT.Range} range range of values, min and max must be integers
@@ -38,7 +34,9 @@ define( function( require ) {
       xMargin: 5,
       yMargin: 3,
       ySpacing: 5,
-      cornerRadius: 5
+      cornerRadius: 5,
+      touchXDilated: 20,
+      touchYDilated: 10
     }, options );
 
     this.numberProperty = numberProperty; // @private
@@ -73,8 +71,8 @@ define( function( require ) {
       spacing: options.ySpacing
     } );
     buttonsParent.setScaleMagnitude( backgroundNode.height / buttonsParent.height );
-    upButton.touchArea = upButton.localBounds.dilatedXY( TOUCH_DILATED_X, TOUCH_DILATED_Y ).shiftedY( -TOUCH_DILATED_Y );
-    downButton.touchArea = downButton.localBounds.dilatedXY( TOUCH_DILATED_X, TOUCH_DILATED_Y ).shiftedY( TOUCH_DILATED_Y );
+    upButton.touchArea = upButton.localBounds.dilatedXY( options.touchXDilated, options.touchYDilated ).shiftedY( -options.touchYDilated );
+    downButton.touchArea = downButton.localBounds.dilatedXY( options.touchXDilated, options.touchYDilated ).shiftedY( options.touchYDilated );
 
     // buttons to right of value
     options.children = [ valueParent, buttonsParent ];
