@@ -20,7 +20,7 @@ LOW
 - review lines that are longer than 120 chars
 - port doc/ (model.txt, implementation-notes.txt, ...)
 
-REPORT
+ISSUES
 - FontAwesomeNode behaves badly if you setScaleMagnitude
 
 MIGRATE TO COMMON
