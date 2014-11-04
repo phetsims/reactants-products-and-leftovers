@@ -23,6 +23,7 @@ LOW
 
 ISSUES
 - FontAwesomeNode behaves badly if you setScaleMagnitude
+- Rectangle should have options for corner radius, not constructor params
 
 MIGRATE TO COMMON
 - HBracketNode
