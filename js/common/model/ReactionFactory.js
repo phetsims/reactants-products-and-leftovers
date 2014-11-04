@@ -16,7 +16,6 @@ define( function( require ) {
   var RPALSymbols = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALSymbols' );
 
   // modules (atoms & molecules)
-  var CNode = require( 'NITROGLYCERIN/nodes/CNode' );
   var C2H2Node = require( 'NITROGLYCERIN/nodes/C2H2Node' );
   var C2H4Node = require( 'NITROGLYCERIN/nodes/C2H4Node' );
   var C2H5ClNode = require( 'NITROGLYCERIN/nodes/C2H5ClNode' );
@@ -26,8 +25,9 @@ define( function( require ) {
   var CH3OHNode = require( 'NITROGLYCERIN/nodes/CH3OHNode' );
   var CH4Node = require( 'NITROGLYCERIN/nodes/CH4Node' );
   var Cl2Node = require( 'NITROGLYCERIN/nodes/Cl2Node' );
-  var CONode = require( 'NITROGLYCERIN/nodes/CONode' );
+  var CNode = require( 'NITROGLYCERIN/nodes/CNode' );
   var CO2Node = require( 'NITROGLYCERIN/nodes/CO2Node' );
+  var CONode = require( 'NITROGLYCERIN/nodes/CONode' );
   var CS2Node = require( 'NITROGLYCERIN/nodes/CS2Node' );
   var F2Node = require( 'NITROGLYCERIN/nodes/F2Node' );
   var H2Node = require( 'NITROGLYCERIN/nodes/H2Node' );
@@ -38,8 +38,8 @@ define( function( require ) {
   var N2Node = require( 'NITROGLYCERIN/nodes/N2Node' );
   var N2ONode = require( 'NITROGLYCERIN/nodes/N2ONode' );
   var NH3Node = require( 'NITROGLYCERIN/nodes/NH3Node' );
-  var NONode = require( 'NITROGLYCERIN/nodes/NONode' );
   var NO2Node = require( 'NITROGLYCERIN/nodes/NO2Node' );
+  var NONode = require( 'NITROGLYCERIN/nodes/NONode' );
   var O2Node = require( 'NITROGLYCERIN/nodes/O2Node' );
   var OF2Node = require( 'NITROGLYCERIN/nodes/OF2Node' );
   var P4Node = require( 'NITROGLYCERIN/nodes/P4Node' );
@@ -63,11 +63,14 @@ define( function( require ) {
 
     // {Node} constructors for all atoms & molecules that appear in reactions
     moleculeNodeConstructors: [
-      CNode, C2H2Node, C2H4Node, C2H5ClNode, C2H5OHNode, C2H6Node,
-      CH2ONode, CH3OHNode, CH4Node, Cl2Node, CONode, CO2Node, CS2Node,
-      F2Node, H2Node, H2ONode, H2SNode, HClNode, HFNode, N2Node,
-      N2ONode, NH3Node, NONode, NO2Node, O2Node, OF2Node, P4Node,
-      PCl3Node, PCl5Node, PF3Node, PH3Node, SNode, SO2Node, SO3Node
+      C2H2Node, C2H4Node, C2H5ClNode, C2H5OHNode, C2H6Node, CH2ONode,
+      CH3OHNode, CH4Node, Cl2Node, CNode, CO2Node, CONode, CS2Node,
+      F2Node,
+      H2Node, H2ONode, H2SNode, HClNode, HFNode,
+      N2Node, N2ONode, NH3Node, NO2Node, NONode,
+      O2Node, OF2Node,
+      P4Node, PCl3Node, PCl5Node, PF3Node, PH3Node,
+      SNode, SO2Node, SO3Node
     ],
 
     //---------------------------------------------------------------------------------------
