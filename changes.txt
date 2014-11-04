@@ -1,3 +1,4 @@
+11/4/14 create box that is placed over 'hidden' elements in game challenges
 11/1/14 dev: move 'Replay' and 'Skip' buttons to rightBottom of screen
 11/1/14 dev: move 'Test' button to level-selection screen
 11/1/14 move all dev code to js/dev/

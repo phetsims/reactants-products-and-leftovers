@@ -20,6 +20,9 @@ LOW
 - TODO items in code
 - review lines that are longer than 120 chars
 
+REPORT
+- FontAwesomeNode behaves badly if you setScaleMagnitude
+
 MIGRATE TO COMMON
 - HBracketNode
 - NumberSpinner
