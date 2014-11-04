@@ -37,7 +37,8 @@ define( function( require ) {
       font: new RPALFont( 28 ),
       xMargin: 5,
       yMargin: 3,
-      ySpacing: 5
+      ySpacing: 5,
+      cornerRadius: 5
     }, options );
 
     this.numberProperty = numberProperty; // @private
@@ -55,11 +56,12 @@ define( function( require ) {
 
     // value
     var valueNode = new Text( numberProperty.get(), valueOptions );
-    var backgroundNode = new Rectangle( 0, 0, maxWidth + ( 2 * options.xMargin ), valueNode.height + ( 2 * options.yMargin ), 5, 5, {
-      fill: 'white',
-      stroke: 'black',
-      lineWidth: 0.5
-    } );
+    var backgroundNode = new Rectangle( 0, 0, maxWidth + ( 2 * options.xMargin ), valueNode.height + ( 2 * options.yMargin ),
+      options.cornerRadius, options.cornerRadius, {
+        fill: 'white',
+        stroke: 'black',
+        lineWidth: 0.5
+      } );
     var valueParent = new Node( { children: [ backgroundNode, valueNode ] } );
 
     // buttons
