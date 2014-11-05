@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
+  var GameButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameButtons' );
   var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
@@ -22,13 +23,6 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
-
-  // strings
-  var checkString = require( 'string!VEGAS/check' );
-  var nextString = require( 'string!VEGAS/next' );
-  var showAnswerString = require( 'string!VEGAS/showAnswer' );
-  var tryAgainString = require( 'string!VEGAS/tryAgain' );
 
   // constants
   var SPINNER_OPTIONS = { font: new RPALFont( 28 ) };
@@ -64,79 +58,12 @@ define( function( require ) {
     } );
     thisNode.addChild( faceNode );
 
-    // buttons
-    var buttonOptions = {
-      font: new RPALFont( { size: 24, weight: 'bold' } ),
-      baseColor: 'rgba( 255, 255, 0, 0.5)', // transparent yellow
-      xMargin: 20,
-      yMargin: 5,
+    // buttons (Check, Try Again, ...)
+    var buttons = new GameButtons( model, challenge, audioPlayer, faceNode, {
       centerX: challengeBounds.centerX, //TODO temporary
       bottom: challengeBounds.bottom - 40 //TODO temporary
-    };
-    var checkButton = new TextPushButton( checkString, buttonOptions );
-    var tryAgainButton = new TextPushButton( tryAgainString, buttonOptions );
-    var showAnswerButton = new TextPushButton( showAnswerString, buttonOptions );
-    var nextButton = new TextPushButton( nextString, buttonOptions );
-    var buttonsParent = new Node( { children: [ checkButton, tryAgainButton, showAnswerButton, nextButton ] } );
-    thisNode.addChild( buttonsParent );
-
-    // 'Check' button
-    checkButton.addListener( function() {
-      if ( challenge.isCorrect() ) {
-        faceNode.smile();
-        audioPlayer.correctAnswer();
-        var points = model.computePoints();
-        model.score = model.score + points;
-        faceNode.setPoints( points );
-        model.playState = PlayState.NEXT;
-      }
-      else {
-        faceNode.frown();
-        faceNode.setPoints( 0 );
-        audioPlayer.wrongAnswer();
-        model.playState = ( model.playState === PlayState.FIRST_CHECK ) ? PlayState.TRY_AGAIN : PlayState.SHOW_ANSWER;
-      }
     } );
-
-    // Disable the Check button when guessed quantities are zero.
-    var checkButtonUpdater = null;
-    if ( challenge.challengeType === ChallengeType.BEFORE ) {
-      checkButtonUpdater = function() {
-        // enabled Check button if any reactant quantity is non-zero
-        checkButton.enabled = _.any( challenge.guess.reactants, function( reactant ) { return reactant.quantity > 0; } );
-      };
-      challenge.guess.reactants.forEach( function( reactant ) {
-        reactant.quantityProperty.link( checkButtonUpdater );
-      } );
-    }
-    else {
-      checkButtonUpdater = function() {
-        // enabled Check button if any product or leftover quantity is non-zero
-        checkButton.enabled = _.any( challenge.guess.products, function( product ) { return product.quantity > 0; } ) ||
-                              _.any( challenge.guess.reactants, function( reactant ) { return reactant.leftovers > 0; } );
-      };
-      challenge.guess.products.forEach( function( product ) {
-        product.quantityProperty.link( checkButtonUpdater );
-      } );
-      challenge.guess.reactants.forEach( function( reactant ) {
-        reactant.leftoversProperty.link( checkButtonUpdater );
-      } );
-    }
-
-    // 'Try Again' button
-    tryAgainButton.addListener( function() {
-      model.playState = PlayState.SECOND_CHECK;
-    } );
-
-    // 'Show Answer' button
-    showAnswerButton.addListener( function() {
-      model.playState = PlayState.NEXT;
-    } );
-
-    // 'Next' button
-    nextButton.addListener( function() {
-      model.playState = PlayState.FIRST_CHECK;
-    } );
+    this.addChild( buttons );
 
     // play-state changes
     model.playStateProperty.link( function( state ) {
@@ -145,12 +72,6 @@ define( function( require ) {
       faceNode.visible = ( state === PlayState.TRY_AGAIN ||
                            state === PlayState.SHOW_ANSWER ||
                            ( state === PlayState.NEXT && challenge.isCorrect() ) );
-
-      // visibility of buttons
-      checkButton.visible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK );
-      tryAgainButton.visible = ( state === PlayState.TRY_AGAIN );
-      showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER );
-      nextButton.visible = ( state === PlayState.NEXT );
 
       //TODO if ( state === PlayState.NEXT ) { show answer }
     } );

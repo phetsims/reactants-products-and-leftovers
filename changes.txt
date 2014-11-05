@@ -1,3 +1,4 @@
+11/5/14 encapsulate mutually-exclusive buttons in GameButtons
 11/4/14 change interface to GameModel.computePoints
 11/4/14 write implementation-notes.txt, revise model.txt
 11/4/14 port doc/model.txt
