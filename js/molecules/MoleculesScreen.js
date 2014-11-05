@@ -40,7 +40,8 @@ define( function( require ) {
 
     // H2O molecules, scaled to fit and centered on background
     var moleculeNode = new H2ONode( { stroke: 'gray', lineWidth: 0.1 } );
-    moleculeNode.setScaleMagnitude( Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
+    moleculeNode.setScaleMagnitude(
+      Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
     moleculeNode.center = background.center;
 
     return new Node( { children: [ background, moleculeNode ] } );

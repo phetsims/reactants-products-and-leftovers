@@ -64,7 +64,8 @@ define( function( require ) {
 
     // scale to fit, center in background
     var contentNode = new LayoutBox( { children: [ arrowsBox, faceNode ], orientation: 'horizontal', spacing: 25 } );
-    contentNode.setScaleMagnitude( Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
+    contentNode.setScaleMagnitude(
+      Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
     contentNode.center = background.center;
     return new Node( { children: [ background, contentNode ] } );
   };
