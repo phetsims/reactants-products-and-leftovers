@@ -16,7 +16,6 @@ MEDIUM
 LOW
 - uppercase for all constants
 - TODO items in code
-- is clone a good name for function that creates a shallow copy of an object?
 - code review
 
 ISSUES

@@ -25,6 +25,7 @@ define( function( require ) {
 
   // constants
   var NUMBER_OF_NODES = 100;
+  var FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
 
   /**
    * @param {number} level game level, starting at zero
@@ -47,8 +48,7 @@ define( function( require ) {
   // Level 2: smiley faces (various colors)
   var createNodesLevel2 = function() {
     var nodes = [];
-    var colors = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
-    colors.forEach( function( color ) {
+    FACE_COLORS.forEach( function( color ) {
       nodes.push( new FaceNode( 40, { headFill: color } ) );
     } );
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
