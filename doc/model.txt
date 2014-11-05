@@ -36,4 +36,6 @@ Substances, reactants and products are implemented by types Substance, Reactant 
 Chemical reactions are implemented by type Reaction.
 The algorithm described above is implemented in methods getNumberOfReactions and update.
 
+Generation of challenges for the Game screen is described in the documentation for ChallengeFactory.
+
 --
