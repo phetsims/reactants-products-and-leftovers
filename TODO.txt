@@ -15,7 +15,7 @@ MEDIUM
 
 LOW
 - TODO items in code
-- code review
+- code review (create github issue)
 - reactants-products-and-leftovers-screenshot.png
 
 ISSUES
