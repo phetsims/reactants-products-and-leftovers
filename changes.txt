@@ -1,3 +1,4 @@
+11/4/14 write implementation-notes.txt, revise model.txt
 11/4/14 port doc/model.txt
 11/4/14 adjust layout of 'Molecules' screen so that brackets don't shift vertically when switching reactions
 11/4/14 create box that is placed over 'hidden' elements in game challenges

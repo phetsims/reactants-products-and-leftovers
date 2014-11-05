@@ -27,15 +27,8 @@ The quantity Q of product P with coefficient C1: Q = N * C1
 
 The leftovers L of reactant R with coefficient C2: L = ( initial quantity of R ) - ( N * C2 )
 
-JAVASCRIPT IMPLEMENTATION
-
-If you're interested in reading the JavaScript source code, here's some information on where to start.
-
-Substances, reactants and products are implemented by types Substance, Reactant and Product, respectively.
-
-Chemical reactions are implemented by type Reaction.
-The algorithm described above is implemented in methods getNumberOfReactions and update.
-
-Generation of challenges for the Game screen is described in the documentation for ChallengeFactory.
+The "Sandwiches" analogy treats a sandwich recipe as a single-product reaction, and
+in fact uses the same model as the "Molecules" screen. Sandwich ingredients are reactants,
+and the completed sandwich is the product.
 
 --
