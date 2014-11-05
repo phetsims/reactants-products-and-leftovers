@@ -19,6 +19,7 @@ LOW
 - TODO items in code
 - implementation-notes.txt
 - is clone a good name for function that create a shallow copy of an object?
+- code review
 
 ISSUES
 - FontAwesomeNode behaves badly if you setScaleMagnitude
