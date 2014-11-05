@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var BeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BeforeAfterNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculesEquationNode' );
   var RPALBaseView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALBaseView' );
@@ -39,7 +40,10 @@ define( function( require ) {
        * @returns {SCENERY.Node}
        */
       function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
-        return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, options );
+        return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
+          _.extend( {}, options, {
+            maxImageSize: new Dimension2( 30, 25 ) // eyeballed
+          } ) );
       }
     );
   }
