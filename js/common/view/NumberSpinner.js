@@ -1,6 +1,5 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO long lines
 /**
  * Spinner for numbers, similar in 'look' to Java's JSpinner.
  *
@@ -72,8 +71,12 @@ define( function( require ) {
       spacing: options.ySpacing
     } );
     buttonsParent.setScaleMagnitude( backgroundNode.height / buttonsParent.height );
-    upButton.touchArea = upButton.localBounds.dilatedXY( options.touchXDilated, options.touchYDilated ).shiftedY( -options.touchYDilated );
-    downButton.touchArea = downButton.localBounds.dilatedXY( options.touchXDilated, options.touchYDilated ).shiftedY( options.touchYDilated );
+    upButton.touchArea = upButton.localBounds
+      .dilatedXY( options.touchXDilated, options.touchYDilated )
+      .shiftedY( -options.touchYDilated );
+    downButton.touchArea = downButton.localBounds
+      .dilatedXY( options.touchXDilated, options.touchYDilated )
+      .shiftedY( options.touchYDilated );
 
     // buttons to right of value
     options.children = [ valueParent, buttonsParent ];
