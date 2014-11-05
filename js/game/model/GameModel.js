@@ -63,7 +63,7 @@ define( function( require ) {
 
     thisModel.timer = new GameTimer();
 
-    // {GamePhase} the phase that the current game being played is in (see GamePhase)
+    // {GamePhase} the phase that the current game being played is in
     thisModel.gamePhaseProperty = new PreProperty( GamePhase.SETTINGS,
       /*
        * This function will be called prior to setting the gamePhaseProperty value.
