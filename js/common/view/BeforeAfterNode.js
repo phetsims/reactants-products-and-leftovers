@@ -62,7 +62,6 @@ define( function( require ) {
     options = _.extend( {
       boxSize: new Dimension2( 310, 240 ), // size of the 'before' and 'after' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
-      layoutStrategy: 'stacked', // layout strategy for nodes inside the boxes, either 'stacked' or 'random',
       showSymbols: true, // whether to show the symbols
       beforeTitle: beforeReactionString,
       afterTitle: afterReactionString,
