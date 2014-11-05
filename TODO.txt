@@ -14,7 +14,6 @@ MEDIUM
 - adjust pointerAreas for game buttons & spinners
 
 LOW
-- uppercase for all constants
 - TODO items in code
 - code review
 
