@@ -11,7 +11,7 @@ HIGH
 
 MEDIUM
 - random layout strategy for molecules in boxes
-- adjust pointerAreas
+- adjust pointerAreas for game buttons & spinners
 
 LOW
 - uppercase for all constants
