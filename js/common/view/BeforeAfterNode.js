@@ -1,10 +1,11 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays a reaction as 2 boxes, representing the 'before' and 'after' states of the reaction.
- * The 'before' box is on the left, and shows the initial reactants.
- * The 'after' box is on the right, and shows the products and leftovers when the reaction has completed.
- * Below the boxes are controls for changing quantities.
+ * This is the primary UI component for the 'Sandwiches' and 'Molecules' screens.
+ * It displays a reaction as 2 boxes, representing the 'Before' and 'After' states of the reaction.
+ * The 'Before' box is on the left, and shows the initial reactants.
+ * The 'After' box is on the right, and shows the products and leftovers when the reaction has completed.
+ * Below the 'Before' box are a set of spinners for changing the reactant quantities.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -52,15 +53,15 @@ define( function( require ) {
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
-   * @param {Property.<boolean>} beforeExpandedProperty whether the 'before' box is expanded
-   * @param {Property.<boolean>} afterExpandedProperty whether the 'after' box is expanded
+   * @param {Property.<boolean>} beforeExpandedProperty whether the 'Before' box is expanded
+   * @param {Property.<boolean>} afterExpandedProperty whether the 'After' box is expanded
    * @param {Object} [options]
    * @constructor
    */
   function BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
     options = _.extend( {
-      boxSize: new Dimension2( 310, 240 ), // size of the 'before' and 'after' boxes
+      boxSize: new Dimension2( 310, 240 ), // size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
       showSymbols: true, // whether to show the symbols
       beforeTitle: beforeReactionString,
@@ -136,7 +137,7 @@ define( function( require ) {
     // explicitly hoist vars that are reused in loops
     var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode, substanceStackNode;
 
-    // reactants: stuff below the 'before' box
+    // reactants: stuff below the 'Before' box
     var reactantsParent = new Node();
     thisNode.addChild( reactantsParent );
     var numberOfReactants = reaction.reactants.length;
@@ -168,7 +169,7 @@ define( function( require ) {
       centerX += deltaX;
     }
 
-    // products: stuff below the 'after' box
+    // products: stuff below the 'After' box
     var productsParent = new Node();
     thisNode.addChild( productsParent );
     var numberOfProducts = reaction.products.length;
@@ -201,7 +202,7 @@ define( function( require ) {
       centerX += deltaX;
     }
 
-    // leftovers: stuff below the 'after' box, to the right of the products
+    // leftovers: stuff below the 'After' box, to the right of the products
     var leftoversParent = new Node();
     thisNode.addChild( leftoversParent );
     for ( i = 0; i < numberOfReactants; i++ ) {
@@ -285,12 +286,12 @@ define( function( require ) {
     }, bracketOptions ) );
     thisNode.addChild( leftoversBracket );
 
-    // vertical stacks inside the 'before' and 'after' boxes
+    // vertical stacks inside the 'Before' and 'After' boxes
     thisNode.substanceStackNodes = []; // @private
     var startCenterY = beforeContent.height - options.boxYMargin - ( maxImageHeight / 2 );
     var deltaY = ( beforeContent.height - ( 2 * options.boxYMargin ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
 
-    // reactants inside the 'before' box
+    // reactants inside the 'Before' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
       substanceStackNode = new SubstanceStackNode( reactant.nodeProperty, reactant.quantityProperty,
@@ -299,7 +300,7 @@ define( function( require ) {
       thisNode.substanceStackNodes.push( substanceStackNode );
     }
 
-    // products inside the 'after' box
+    // products inside the 'After' box
     for ( i = 0; i < numberOfProducts; i++ ) {
       product = reaction.products[i];
       centerX = thisNode.quantityNodes[i + numberOfReactants].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left );
@@ -308,7 +309,7 @@ define( function( require ) {
       thisNode.substanceStackNodes.push( substanceStackNode );
     }
 
-    // leftovers inside the 'after' box
+    // leftovers inside the 'After' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
       centerX = thisNode.quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left );
