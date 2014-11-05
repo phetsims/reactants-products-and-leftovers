@@ -149,6 +149,7 @@ define( function( require ) {
      * @returns {number}
      */
     computePoints: function() {
+      assert && assert( this.playState === PlayState.FIRST_CHECK || this.playState === PlayState.SECOND_CHECK );
       var attempts = ( this.playState === PlayState.FIRST_CHECK ) ? 1 : 2;
       return Math.max( 0, this.maxPointsPerChallenge - attempts + 1 );
     },
