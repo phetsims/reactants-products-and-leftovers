@@ -93,14 +93,9 @@ define( function( require ) {
       titleBarFill: RPALColors.REACTION_BAR_COLOR
     };
 
-    // options common to the content in both accordion boxes
-    var contentOptions = {
-      fill: 'white'
-    };
-
     // 'Before Reaction' accordion box
     var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height,
-      accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius, contentOptions );
+      accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius );
     var beforeTitle = new Text( options.beforeTitle, titleOptions );
     beforeTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * beforeContent.width / beforeTitle.width ) ); // i18n, scale to fit
     // @private
@@ -111,7 +106,7 @@ define( function( require ) {
 
     // 'After Reaction' accordion box
     var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height,
-      accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius, contentOptions );
+      accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius );
     var afterTitle = new Text( options.afterTitle, titleOptions );
     afterTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * afterContent.width / afterTitle.width ) ); // i18n, scale to fit
     // @private
