@@ -15,7 +15,7 @@
  * <li>all coefficients will be > 0
  * <li>all reactant quantities will be > 0
  * <li>every game will contain exactly one zero-products challenge
- * <li>game will contain no duplicate reactions TODO added for HTML5, OK?
+ * <li>game will contain no duplicate reactions
  * </ul>
  *
  * @author Chris Malley (PixelZoom, Inc.)
