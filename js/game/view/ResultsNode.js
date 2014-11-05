@@ -1,8 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Portion of the scenegraph that corresponds to the 'results' game phase. (See GamePhase.RESULTS)
- * Displays a panel with the game results.
+ * Portion of the scenegraph that corresponds to GamePhase.RESULTS.
+ * Displays a panel with the game results (score and optional time).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

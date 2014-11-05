@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Portion of the scenegraph that corresponds to the 'play' game phase. (See GamePhase.PLAY)
+ * Portion of the scenegraph that corresponds to GamePhase.PLAY.
  * Displays the scoreboard and current challenge.
  *
  * @author Chris Malley (PixelZoom, Inc.)
