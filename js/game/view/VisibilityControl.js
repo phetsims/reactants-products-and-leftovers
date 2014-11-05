@@ -2,7 +2,7 @@
 
 /**
  * Visibility control for the 'Game' screen.
- * Provides the ability to hide either molecules or numbers in challenges.
+ * Provides the ability to hide either molecules or numbers (but not both) in challenges.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
