@@ -27,7 +27,7 @@ define( function( require ) {
       /*
        * Creates an equation for a specified reaction.
        * @param {Reaction} reaction
-       * @returns {SCENERY.Node}
+       * @returns {Node}
        */
       function( reaction ) { return new MoleculesEquationNode( reaction ); },
 
@@ -37,7 +37,7 @@ define( function( require ) {
        * @param {Property.<boolean>} beforeExpandedProperty is the 'Before' box expanded?
        * @param {Property.<boolean>} afterExpandedProperty is the 'After' box expanded?
        * @param {Object} [options]
-       * @returns {SCENERY.Node}
+       * @returns {Node}
        */
       function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
         return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,

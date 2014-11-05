@@ -46,7 +46,7 @@ define( function( require ) {
      * wrap this.node, so that we don't accidentally make it a sibling of itself, or
      * attempt to position it.
      * @param {Object} [options] options for the {Node} wrapper
-     * @returns {SCENERY.Node}
+     * @returns {Node}
      */
     getWrappedNode: function( options ) {
       return new Node( _.extend( {}, options, { children: [ this.node ] } ) );

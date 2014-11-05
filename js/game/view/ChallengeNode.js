@@ -36,7 +36,7 @@ define( function( require ) {
   /**
    * @param {GameModel} model
    * @param {Challenge} challenge
-   * @param {DOT.Bounds2} challengeBounds portion of the screen where the Challenge can be displayed
+   * @param {Bounds2} challengeBounds portion of the screen where the Challenge can be displayed
    * @param {GameAudioPlayer} audioPlayer
    * @param {Object} [options]
    * @constructor

@@ -94,7 +94,7 @@ define( function( require ) {
    * Creates terms for equation.
    * @param {Substance[]} terms the terms to be added
    * @param {boolean} coefficientsMutable
-   * @returns {SCENERY.Node}
+   * @returns {Node}
    */
   var createTermsNode = function( terms, coefficientsMutable ) {
 

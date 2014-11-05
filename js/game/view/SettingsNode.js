@@ -142,10 +142,10 @@ define( function( require ) {
    * Creates a level-selection button
    * @param {number} level
    * @param {GameModel} model
-   * @param {SCENERY.Node} icon
+   * @param {Node} icon
    * @param {number} maxIconWidth
    * @param {number} maxIconHeight
-   * @returns {SCENERY.Node}
+   * @returns {Node}
    */
   var createLevelSelectionButton = function( level, model, icon, maxIconWidth, maxIconHeight ) {
 

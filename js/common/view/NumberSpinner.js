@@ -21,7 +21,7 @@ define( function( require ) {
 
   /**
    * @param {Property.<number>} numberProperty value, must be an integer
-   * @param {DOT.Range} range range of values, min and max must be integers
+   * @param {Range} range range of values, min and max must be integers
    * @param {Object} [options]
    * @constructor
    */
