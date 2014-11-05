@@ -52,15 +52,15 @@ define( function( require ) {
       new Text( Util.toFixed( range.min, options.decimalPlaces ), valueOptions ).width
     );
 
-    // value
-    var valueNode = new Text( numberProperty.get(), valueOptions );
-    var backgroundNode = new Rectangle( 0, 0, maxWidth + ( 2 * options.xMargin ), valueNode.height + ( 2 * options.yMargin ),
+    // number
+    var numberNode = new Text( numberProperty.get(), valueOptions );
+    var backgroundNode = new Rectangle( 0, 0, maxWidth + ( 2 * options.xMargin ), numberNode.height + ( 2 * options.yMargin ),
       options.cornerRadius, options.cornerRadius, {
         fill: 'white',
         stroke: 'black',
         lineWidth: 0.5
       } );
-    var valueParent = new Node( { children: [ backgroundNode, valueNode ] } );
+    var valueParent = new Node( { children: [ backgroundNode, numberNode ] } );
 
     // buttons
     var upButton = new ArrowButton( 'up', function() { numberProperty.set( numberProperty.get() + 1 ); } );
@@ -88,9 +88,9 @@ define( function( require ) {
     this.numberPropertyObserver = function( value ) {
       assert && assert( range.contains( value ) );
 
-      // update the text and center it
-      valueNode.text = Util.toFixed( value, options.decimalPlaces );
-      valueNode.center = backgroundNode.center;
+      // update the number and center it
+      numberNode.text = Util.toFixed( value, options.decimalPlaces );
+      numberNode.center = backgroundNode.center;
 
       // enable/disable arrow buttons
       upButton.enabled = ( value < range.max );
