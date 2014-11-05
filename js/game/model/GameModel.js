@@ -111,29 +111,52 @@ define( function( require ) {
 
   return inherit( PropertySet, GameModel, {
 
+    // Resets the model to its initial state.
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.gamePhaseProperty.reset();
       this.bestScoreProperties.forEach( function( property ) { property.set( 0 ); } );
     },
 
+    /**
+     * Gets the number of challenges for the specified level.
+     * @param {number} level
+     * @returns {number}
+     */
+    getNumberOfChallenges: function( level ) {
+      return ChallengeFactory.getNumberOfChallenges( level );
+    },
+
+    /**
+     * Gets the perfect score for the specified level.
+     * @param {number} level
+     * @returns {number}
+     */
     getPerfectScore: function( level ) {
       return ChallengeFactory.getNumberOfChallenges( level ) * this.maxPointsPerChallenge;
     },
 
+    /**
+     * Is the current score perfect?
+     * @returns {boolean}
+     */
     isPerfectScore: function() {
       return this.score === this.getPerfectScore( this.level );
     },
 
-    // Compute points to be awarded for a correct answer.
-    computePoints: function( attempts ) {
+    /**
+     * Computes points that would be awarded if the current guess were correct.
+     * @returns {number}
+     */
+    computePoints: function() {
+      var attempts = ( this.playState === PlayState.FIRST_CHECK ) ? 1 : 2;
       return Math.max( 0, this.maxPointsPerChallenge - attempts + 1 );
     },
 
     /**
      * Skips the current challenge.
-     * This is a developer feature.
      * Score and best times are meaningless after using this.
+     * This is a developer feature.
      */
     skipCurrentChallenge: function() {
       this.playState = PlayState.NEXT;
@@ -142,6 +165,7 @@ define( function( require ) {
 
     /**
      * Skips all challenges, advances immediately to the game results.
+     * This is a developer feature.
      */
     skipAllChallenges: function() {
       this.gamePhaseProperty.set( GamePhase.RESULTS );
@@ -149,15 +173,15 @@ define( function( require ) {
 
     /**
      * Replays the current challenge.
-     * This is a developer feature.
      * Score and best times are meaningless after using this.
+     * This is a developer feature.
      */
     replayCurrentChallenge: function() {
       this.challenge.reset();
       this.playState = PlayState.FIRST_CHECK;
     },
 
-    // Updates the best time for the current level, at the end of a timed game with a perfect score.
+    // @private Updates the best time for the current level, at the end of a timed game with a perfect score.
     updateBestTime: function() {
       assert && assert( !this.timer.isRunning );
       if ( this.timerEnabled && this.isPerfectScore() ) {
@@ -176,7 +200,7 @@ define( function( require ) {
       }
     },
 
-    // initializes a new set of challenges for the current level
+    // @private initializes a new set of challenges for the current level
     initChallenges: function() {
       this.challengeIndex = -1;
       this.challenges = ChallengeFactory.createChallenges( this.level, this.maxQuantity, {
@@ -184,11 +208,6 @@ define( function( require ) {
         numbersVisible: this.numbersVisible
       } );
       this.numberOfChallenges = this.challenges.length;
-    },
-
-    // Gets the number of challenges for a specified level.
-    getNumberOfChallenges: function( level ) {
-      return ChallengeFactory.getNumberOfChallenges( level );
     }
   } );
 } );

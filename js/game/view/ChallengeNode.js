@@ -85,7 +85,7 @@ define( function( require ) {
       if ( challenge.isCorrect() ) {
         faceNode.smile();
         audioPlayer.correctAnswer();
-        var points = model.computePoints( model.playState === PlayState.FIRST_CHECK ? 1 : 2 /* number of attempts */ );
+        var points = model.computePoints();
         model.score = model.score + points;
         faceNode.setPoints( points );
         model.playState = PlayState.NEXT;
