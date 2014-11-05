@@ -47,7 +47,7 @@ define( function( require ) {
   var BRACKET_FONT = new RPALFont( 12 ); // font for the bracket labels
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
-  var MAX_TITLE_PERCENTAGE = 0.75; // Before/After title width will be scaled down if greater than this percentage of the box width
+  var MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
   var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by eye
 
   /**
@@ -96,7 +96,8 @@ define( function( require ) {
     var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height,
       accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius );
     var beforeTitle = new Text( options.beforeTitle, titleOptions );
-    beforeTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * beforeContent.width / beforeTitle.width ) ); // i18n, scale to fit
+    // i18n, scale title to fit
+    beforeTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * beforeContent.width / beforeTitle.width ) );
     // @private
     thisNode.beforeBox = new AccordionBox( beforeContent, _.extend( {
       expandedProperty: beforeExpandedProperty,
@@ -107,7 +108,8 @@ define( function( require ) {
     var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height,
       accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius );
     var afterTitle = new Text( options.afterTitle, titleOptions );
-    afterTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * afterContent.width / afterTitle.width ) ); // i18n, scale to fit
+    // i18n, scale title to fit
+    afterTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * afterContent.width / afterTitle.width ) );
     // @private
     thisNode.afterBox = new AccordionBox( afterContent, _.extend( {
       expandedProperty: afterExpandedProperty,
@@ -228,7 +230,9 @@ define( function( require ) {
 
     // vertical layout of components below the boxes
     var maxQuantityHeight = _.max( thisNode.quantityNodes, function( node ) { return node.height; } ).height;
-    var maxImageHeight = Math.max( options.maxImageSize.height, _.max( thisNode.imageNodes, function( node ) { return node.height; } ).height );
+    var maxImageHeight = Math.max(
+      options.maxImageSize.height,
+      _.max( thisNode.imageNodes, function( node ) { return node.height; } ).height );
     var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
     var numberOfColumns = thisNode.quantityNodes.length;
     var componentsTop = thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
@@ -289,7 +293,8 @@ define( function( require ) {
     // reactants inside the 'before' box
     for ( i = 0; i < numberOfReactants; i++ ) {
       reactant = reaction.reactants[i];
-      substanceStackNode = new SubstanceStackNode( reactant.nodeProperty, reactant.quantityProperty, thisNode.quantityNodes[i].centerX, startCenterY, deltaY );
+      substanceStackNode = new SubstanceStackNode( reactant.nodeProperty, reactant.quantityProperty,
+        thisNode.quantityNodes[i].centerX, startCenterY, deltaY );
       beforeContent.addChild( substanceStackNode );
       thisNode.substanceStackNodes.push( substanceStackNode );
     }
