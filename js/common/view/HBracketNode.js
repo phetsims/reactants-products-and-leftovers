@@ -1,6 +1,5 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-//TODO long lines
 /**
  * Horizontal bracket with optional label centered below it.
  *
@@ -41,8 +40,10 @@ define( function( require ) {
       .quadraticCurveTo( 0, options.bracketEndHeight, options.bracketCurveXOffset, options.bracketEndHeight )
       .lineTo( ( ( options.bracketWidth - options.bracketTipWidth ) / 2 ) - options.bracketCurveXOffset, options.bracketEndHeight )
       // tip points down
-      .quadraticCurveTo( options.bracketWidth / 2, options.bracketEndHeight, ( options.bracketWidth / 2 ), ( options.bracketEndHeight + options.bracketTipHeight ) )
-      .quadraticCurveTo( ( options.bracketWidth / 2 ), options.bracketEndHeight, ( ( options.bracketWidth + options.bracketTipWidth ) / 2 ) + options.bracketCurveXOffset, options.bracketEndHeight )
+      .quadraticCurveTo( options.bracketWidth / 2, options.bracketEndHeight,
+        options.bracketWidth / 2, ( options.bracketEndHeight + options.bracketTipHeight ) )
+      .quadraticCurveTo( ( options.bracketWidth / 2 ), options.bracketEndHeight,
+        ( ( options.bracketWidth + options.bracketTipWidth ) / 2 ) + options.bracketCurveXOffset, options.bracketEndHeight )
       // right end curves up
       .lineTo( options.bracketWidth - options.bracketCurveXOffset, options.bracketEndHeight )
       .quadraticCurveTo( options.bracketWidth, options.bracketEndHeight, options.bracketWidth, 0 );
