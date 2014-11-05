@@ -1,5 +1,6 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
+//TODO long lines
 /**
  * Spinner for numbers, similar in 'look' to Java's JSpinner.
  *

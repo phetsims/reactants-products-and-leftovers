@@ -36,7 +36,8 @@ define( function( require ) {
 
     // control for choosing a reaction
     var reactionChoiceNode = new ReactionChoiceNode( reactionProperty, reactions );
-    reactionChoiceNode.setScaleMagnitude( Math.min( 1, 0.25 * options.screenWidth / reactionChoiceNode.width ) ); // i18n, scale to fit
+    // i18n, scale to fit
+    reactionChoiceNode.setScaleMagnitude( Math.min( 1, 0.25 * options.screenWidth / reactionChoiceNode.width ) );
 
     // background, extra wide so that it will appear to fill the screen width for all but extreme window sizes
     var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, reactionChoiceNode.height + ( 2 * options.yMargin ),

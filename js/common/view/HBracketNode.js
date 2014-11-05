@@ -1,5 +1,6 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
+//TODO long lines
 /**
  * Horizontal bracket with optional label centered below it.
  *

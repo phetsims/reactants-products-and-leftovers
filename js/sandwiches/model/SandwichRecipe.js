@@ -25,7 +25,8 @@ define( function( require ) {
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
 
   // constants
-  var NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 ); // used when the product is undefined, any invisible node with well-defined bounds
+  // used when the product is undefined, any invisible node with well-defined bounds
+  var NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
 
   /**
    * @param {string} name

@@ -99,7 +99,7 @@ define( function( require ) {
 
   /**
    * Creates the node for the 'Show All' radio button, an open eye with text to the right of it.
-   * @returns {SCENERY.Node}
+   * @returns {Node}
    */
   var createShowAllNode = function() {
     var eyeNode = new FontAwesomeNode( 'eye_open', FONT_AWESOME_OPTIONS );
@@ -112,13 +112,15 @@ define( function( require ) {
   };
 
   /**
-   * Creates the node for the 'Hide Molecules' radio button, a closed eye with '123' at lower right, and text to the right.
-   * @returns {SCENERY.Node}
+   * Creates the node for the 'Hide Molecules' radio button,
+   * a closed eye with '123' at lower right, and text to the right.
+   * @returns {Node}
    */
   var createHideMoleculesNode = function() {
     var eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
     var moleculeNode = new Node( {
-      children: [ new H2ONode( RPALConstants.ATOM_OPTIONS ) ], // wrap in a Node because H2ONode doesn't work with standard options
+      // wrap in a Node because H2ONode doesn't work with standard options
+      children: [ new H2ONode( RPALConstants.ATOM_OPTIONS ) ],
       scale: 0.4,
       centerX: eyeNode.right,
       centerY: eyeNode.bottom
@@ -132,12 +134,17 @@ define( function( require ) {
   };
 
   /**
-   * Creates the node for the 'Hide Numbers' radio button, a closed eye with H2O molecule at lower right, and text to the right.
+   * Creates the node for the 'Hide Numbers' radio button,
+   * a closed eye with H2O molecule at lower right, and text to the right.
    * @returns {Node}
    */
   var createHideNumbersNode = function() {
     var eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
-    var numbersNode = new Text( '123', { font: new RPALFont( 8 ), centerX: eyeNode.right + 2, centerY: eyeNode.bottom } );
+    var numbersNode = new Text( '123', {
+      font: new RPALFont( 8 ),
+      centerX: eyeNode.right + 2,
+      centerY: eyeNode.bottom
+    } );
     var textNode = new Text( hideNumbersString, TEXT_OPTIONS );
     return new LayoutBox( {
       children: [ new Node( { children: [ eyeNode, numbersNode ] } ), textNode ],
