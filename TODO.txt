@@ -21,6 +21,7 @@ LOW
 - code review
 
 ISSUES
+- options to NITROGLYCERIN/nodes/* don't behave correctly, they are passed to AtomNode and not to supertype
 - FontAwesomeNode behaves badly if you setScaleMagnitude
 - Rectangle should have options for corner radius, not constructor params
 
