@@ -120,7 +120,7 @@ define( function( require ) {
     var eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
     var moleculeNode = new Node( {
       // wrap in a Node because H2ONode doesn't work with standard options
-      children: [ new H2ONode( RPALConstants.ATOM_OPTIONS ) ],
+      children: [ new H2ONode( RPALConstants.MOLECULE_OPTIONS ) ],
       scale: 0.4,
       centerX: eyeNode.right,
       centerY: eyeNode.bottom

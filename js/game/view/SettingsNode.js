@@ -195,7 +195,7 @@ define( function( require ) {
    */
   var createLevelOneIcon = function() {
     var leftNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
-    var rightNode = new HClNode( RPALConstants.ATOM_OPTIONS );
+    var rightNode = new HClNode( RPALConstants.MOLECULE_OPTIONS );
     rightNode.setScaleMagnitude( MOLECULE_SCALE );
     return createIcon( 1, leftNode, rightNode );
   };
@@ -205,7 +205,7 @@ define( function( require ) {
    *  H2O -> ?
    */
   var createLevelTwoIcon = function() {
-    var leftNode = new H2ONode( RPALConstants.ATOM_OPTIONS );
+    var leftNode = new H2ONode( RPALConstants.MOLECULE_OPTIONS );
     leftNode.setScaleMagnitude( MOLECULE_SCALE );
     var rightNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
     return createIcon( 2, leftNode, rightNode );
@@ -216,7 +216,7 @@ define( function( require ) {
    *  NH3 -> ??
    */
   var createLevelThreeIcon = function() {
-    var leftNode = new NH3Node( RPALConstants.ATOM_OPTIONS );
+    var leftNode = new NH3Node( RPALConstants.MOLECULE_OPTIONS );
     leftNode.setScaleMagnitude( MOLECULE_SCALE );
     var rightNode = new Text( doubleQuestionMarkString, QUESTION_MARK_OPTIONS );
     return createIcon( 3, leftNode, rightNode );
