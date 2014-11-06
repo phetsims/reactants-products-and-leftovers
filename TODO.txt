@@ -5,7 +5,6 @@ DESIGN
 - title feels cramped in navigation bar
 
 HIGH
-- add a query parameter to use spinners (default) or pickers in custom sandwich equation
 - 'Replay' seems to be broken
 - memory leak in first 2 screens, slows down after using it for awhile
 - implement ChallengeNode

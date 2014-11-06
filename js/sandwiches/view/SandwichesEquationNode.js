@@ -19,11 +19,13 @@ define( function( require ) {
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
+  var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
   var Property = require( 'AXON/Property' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -38,6 +40,7 @@ define( function( require ) {
   var PLUS_OPTIONS = { fill: 'white' };
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
   var PICKER_OPTIONS = { font: new RPALFont( 28 ), color: 'yellow', xMargin: 6, cornerRadius: 3 };
+  var SPINNER_OPTIONS = { font: new RPALFont( 28 ) };
   var COEFFICIENT_RANGE_PROPERTY = new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE );
   var ONE_NODE = new Text( '1', TEXT_OPTIONS ); // coefficient for right side of well-defined equations
   var NO_REACTION_NODE = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
@@ -106,7 +109,12 @@ define( function( require ) {
 
       // coefficient
       if ( coefficientsMutable ) {
-        coefficientNode = new NumberPicker( terms[i].coefficientProperty, COEFFICIENT_RANGE_PROPERTY, PICKER_OPTIONS );
+        if ( RPALQueryParameters.COEFFICIENTS === 'spinners' ) {
+          coefficientNode = new NumberSpinner( terms[i].coefficientProperty, RPALConstants.SANDWICH_COEFFICIENT_RANGE, SPINNER_OPTIONS );
+        }
+        else {
+          coefficientNode = new NumberPicker( terms[i].coefficientProperty, COEFFICIENT_RANGE_PROPERTY, PICKER_OPTIONS );
+        }
       }
       else {
         coefficientNode = new Text( terms[i].coefficient, TEXT_OPTIONS );

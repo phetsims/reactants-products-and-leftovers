@@ -28,7 +28,10 @@ define( function( require ) {
     CONSOLE: getQueryParameter( 'console' ) || false,
 
     // runs a sanity test on challenge generation at startup, output goes to console
-    TEST_GAME: getQueryParameter( 'testGame' ) || false
+    TEST_GAME: getQueryParameter( 'testGame' ) || false,
+
+    // whether to use 'spinners' or 'pickers' for changing equation coefficients
+    COEFFICIENTS: getQueryParameter( 'coefficients' ) || 'spinners'
   };
 
   return RPALQueryParameters;
