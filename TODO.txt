@@ -19,6 +19,7 @@ LOW
 - code review (create github issue)
 - reactants-products-and-leftovers-screenshot.png
 - remove 'equation' query parameter, decide on optimal placement of equation
+- remove 'coefficients' query parameter, decide whether to use spinners or pickers
 
 ISSUES
 - options to NITROGLYCERIN/nodes/* don't behave correctly, they are passed to AtomNode and not to supertype
