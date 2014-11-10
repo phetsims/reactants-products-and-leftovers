@@ -1,3 +1,4 @@
+# 1.0.0-dev.10 11/10/14
 11/10/14 dev version with Game removed for preliminary interviews
 11/10/14 when doing a removeChild, also call dispose if supported
 11/10/14 address memory leak in SandwichesEquationNode, call dispose on spinners/pickers
