@@ -6,7 +6,6 @@ DESIGN
 
 HIGH
 - 'Replay' seems to be broken
-- memory leak in first 2 screens, slows down after using it for awhile
 - implement ChallengeNode
 - break up BeforeAfterNode into smaller reusable components
 
