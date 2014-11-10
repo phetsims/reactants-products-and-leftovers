@@ -72,8 +72,8 @@ define( function( require ) {
 
       // dispose of the previous boxes
       if ( beforeAfterNode ) {
-        beforeAfterNode.dispose();
         thisView.removeChild( beforeAfterNode );
+        beforeAfterNode.dispose && beforeAfterNode.dispose(); // dispose of the node, if supported
       }
 
       // create the new boxes

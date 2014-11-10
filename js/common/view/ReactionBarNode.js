@@ -55,8 +55,10 @@ define( function( require ) {
     reactionProperty.link( function( reaction ) {
 
       // dispose of previous equation
-      equationNode && thisNode.removeChild( equationNode );
-      equationNode && equationNode.dispose && equationNode.dispose();
+      if ( equationNode ) {
+        thisNode.removeChild( equationNode );
+        equationNode.dispose && equationNode.dispose(); // dispose of the node, if supported
+      }
 
       // create equation for the reaction
       equationNode = createEquationNode( reaction );
