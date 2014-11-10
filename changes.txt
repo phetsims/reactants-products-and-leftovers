@@ -1,3 +1,4 @@
+11/10/14 dev version with Game removed for preliminary interviews
 11/10/14 when doing a removeChild, also call dispose if supported
 11/10/14 address memory leak in SandwichesEquationNode, call dispose on spinners/pickers
 11/6/14 fix how options are provided to NITROGLYCERIN molecule nodes
