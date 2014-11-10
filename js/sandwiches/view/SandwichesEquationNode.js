@@ -60,95 +60,88 @@ define( function( require ) {
     options = options || {};
 
     // left-hand side is the sandwich ingredients
-    var reactantsNode = createTermsNode( reaction.reactants, reaction.coefficientsMutable );
+    var leftNode = new Node();
+    var numberOfReactants = reaction.reactants.length;
+    var reactant, coefficientNode, ingredientNode, plusNode; // hoist loop vars explicitly
+    this.coefficientNodes = []; // @private so we can unlink UI components in dispose
+    for ( var i = 0; i < numberOfReactants; i++ ) {
 
-    // right arrow
-    var arrowNode = new RightArrowNode( ARROW_OPTIONS );
-    arrowNode.left = reactantsNode.right + ARROW_X_SPACING;
-    arrowNode.centerY = reactantsNode.centerY;
-
-    // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
-    assert && assert( reaction.products.length === 1 );
-    var productsParent = new Node();
-    // @private
-    this.nodePropertyObserver = function( node ) {
-      productsParent.removeAllChildren();
-      if ( reaction.isReaction() ) {
-        productsParent.addChild( ONE_NODE );
-        productsParent.addChild( node );
-        ONE_NODE.right = node.left - COEFFICIENT_X_SPACING;
-        ONE_NODE.centerY = node.centerY;
-      }
-      else {
-        productsParent.addChild( NO_REACTION_NODE );
-      }
-      productsParent.left = arrowNode.right + ARROW_X_SPACING;
-      productsParent.centerY = arrowNode.centerY;
-    };
-
-    this.nodeProperty = reaction.sandwich.nodeProperty; // @public convenience for accessing the sandwich node
-    this.nodeProperty.link( this.nodePropertyObserver );
-
-    options.children = [ reactantsNode, arrowNode, productsParent ];
-    Node.call( this, options );
-  }
-
-  /**
-   * Creates terms for equation.
-   * @param {Substance[]} terms the terms to be added
-   * @param {boolean} coefficientsMutable
-   * @returns {Node}
-   */
-  var createTermsNode = function( terms, coefficientsMutable ) {
-
-    var parentNode = new Node();
-    var numberOfTerms = terms.length;
-    var coefficientNode, ingredientNode, plusNode; // hoist loop vars explicitly
-
-    for ( var i = 0; i < numberOfTerms; i++ ) {
+      reactant = reaction.reactants[i];
 
       // coefficient
-      if ( coefficientsMutable ) {
+      if ( reaction.coefficientsMutable ) {
         if ( RPALQueryParameters.COEFFICIENTS === 'spinners' ) {
-          coefficientNode = new NumberSpinner( terms[i].coefficientProperty, RPALConstants.SANDWICH_COEFFICIENT_RANGE, SPINNER_OPTIONS );
+          coefficientNode = new NumberSpinner( reactant.coefficientProperty, RPALConstants.SANDWICH_COEFFICIENT_RANGE, SPINNER_OPTIONS );
         }
         else {
-          coefficientNode = new NumberPicker( terms[i].coefficientProperty, COEFFICIENT_RANGE_PROPERTY, PICKER_OPTIONS );
+          coefficientNode = new NumberPicker( reactant.coefficientProperty, COEFFICIENT_RANGE_PROPERTY, PICKER_OPTIONS );
         }
+        this.coefficientNodes.push( coefficientNode );
       }
       else {
-        coefficientNode = new Text( terms[i].coefficient, TEXT_OPTIONS );
+        coefficientNode = new Text( reactant.coefficient, TEXT_OPTIONS );
       }
       coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
-      parentNode.addChild( coefficientNode );
+      leftNode.addChild( coefficientNode );
 
       // ingredient
-      ingredientNode = terms[i].getWrappedNode( {
+      ingredientNode = reactant.getWrappedNode( {
         left: coefficientNode.right + COEFFICIENT_X_SPACING,
         centerY: coefficientNode.centerY
       } );
-      parentNode.addChild( ingredientNode );
+      leftNode.addChild( ingredientNode );
 
-      // plus sign between terms
-      if ( i < numberOfTerms - 1 ) {
+      // plus sign between reactants
+      if ( i < numberOfReactants - 1 ) {
         plusNode = new PlusNode( PLUS_OPTIONS );
         plusNode.left = ingredientNode.right + PLUS_X_SPACING;
         plusNode.centerY = coefficientNode.centerY;
-        parentNode.addChild( plusNode );
+        leftNode.addChild( plusNode );
       }
       else {
         plusNode = null;
       }
     }
 
-    return parentNode;
-  };
+    // right arrow
+    var arrowNode = new RightArrowNode( ARROW_OPTIONS );
+    arrowNode.left = leftNode.right + ARROW_X_SPACING;
+    arrowNode.centerY = leftNode.centerY;
+
+    // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
+    assert && assert( reaction.products.length === 1 );
+    var rightNode = new Node();
+    // @private so we can unlink this observer in dispose
+    this.nodePropertyObserver = function( node ) {
+      rightNode.removeAllChildren();
+      if ( reaction.isReaction() ) {
+        rightNode.addChild( ONE_NODE );
+        rightNode.addChild( node );
+        ONE_NODE.right = node.left - COEFFICIENT_X_SPACING;
+        ONE_NODE.centerY = node.centerY;
+      }
+      else {
+        rightNode.addChild( NO_REACTION_NODE );
+      }
+      rightNode.left = arrowNode.right + ARROW_X_SPACING;
+      rightNode.centerY = arrowNode.centerY;
+    };
+
+    this.nodeProperty = reaction.sandwich.nodeProperty; // @public convenience for accessing the sandwich node
+    this.nodeProperty.link( this.nodePropertyObserver );
+
+    options.children = [ leftNode, arrowNode, rightNode ];
+    Node.call( this, options );
+  }
 
   return inherit( Node, SandwichesEquationNode, {
 
     // Unlinks from properties. The node is no longer functional after calling this function.
     dispose: function() {
       this.nodeProperty.unlink( this.nodePropertyObserver );
+      this.coefficientNodes.forEach( function( coefficientNode ) {
+        coefficientNode.dispose();
+      } );
     }
   } );
 } );

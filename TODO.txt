@@ -5,8 +5,6 @@ DESIGN
 - title feels cramped in navigation bar
 
 HIGH
-- scenery-phet.NumberPicker needs a dispose function
-- memory leak in SandwichesEquationNode, need to call dispose on spinners and pickers
 - 'Replay' seems to be broken
 - memory leak in first 2 screens, slows down after using it for awhile
 - implement ChallengeNode

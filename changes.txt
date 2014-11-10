@@ -1,3 +1,4 @@
+11/10/14 address memory leak in SandwichesEquationNode, call dispose on spinners/pickers
 11/6/14 fix how options are provided to NITROGLYCERIN molecule nodes
 11/6/14 add 'coefficients' query parameter to use 'spinners' (default) or 'pickers' in custom sandwich equation
 11/6/14 put equation at top by default in first 2 screens
