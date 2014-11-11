@@ -14,14 +14,12 @@ MEDIUM
 
 LOW
 - TODO items in code
-- code review (create github issue)
+- code review #5
 - reactants-products-and-leftovers-screenshot.png
 - remove 'equation' query parameter, decide on optimal placement of equation
 - remove 'coefficients' query parameter, decide whether to use spinners or pickers
 
 ISSUES
-- options to NITROGLYCERIN/nodes/* don't behave correctly, they are passed to AtomNode and not to supertype
-- FontAwesomeNode behaves badly if you setScaleMagnitude
 - Rectangle should have options for arcWidth & arcHeight, not constructor params
 
 MIGRATE TO COMMON
