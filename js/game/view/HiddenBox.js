@@ -23,7 +23,7 @@ define( function( require ) {
 
     options = _.extend( {
       boxSize: new Dimension2( 300, 50 ),
-      iconScale: 1 //TODO would rather specify width and compute scale, but FontAwesomeNode.setScaleMagnitude is buggy
+      iconHeight: 35
     }, options );
 
     var rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, {
@@ -32,11 +32,9 @@ define( function( require ) {
       lineDash: [ 4, 4 ]
     } );
 
-    var iconNode = new FontAwesomeNode( 'eye_close', {
-      fill: 'rgb(180,180,180)',
-      scale: options.iconScale,
-      center: rectangleNode.center
-    } );
+    var iconNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
+    iconNode.setScaleMagnitude( options.iconHeight / iconNode.height );
+    iconNode.center = rectangleNode.center;
 
     options.children = [ rectangleNode, iconNode ];
     Node.call( this, options );
