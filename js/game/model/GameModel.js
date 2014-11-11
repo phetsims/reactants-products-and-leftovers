@@ -179,7 +179,10 @@ define( function( require ) {
      */
     replayCurrentChallenge: function() {
       this.challenge.reset();
-      this.playState = PlayState.FIRST_CHECK;
+      if ( this.playState !== PlayState.FIRST_CHECK ) {
+        this.challengeIndex = this.challengeIndex - 1;
+        this.playState = PlayState.FIRST_CHECK;
+      }
     },
 
     // @private Updates the best time for the current level, at the end of a timed game with a perfect score.

@@ -1,3 +1,4 @@
+11/10/14 dev: fix 'Replay' button
 11/10/14 restore Game screen
 # 1.0.0-dev.10 11/10/14
 11/10/14 dev version with Game removed for preliminary interviews

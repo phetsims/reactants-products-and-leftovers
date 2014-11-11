@@ -5,7 +5,6 @@ DESIGN
 - title feels cramped in navigation bar
 
 HIGH
-- 'Replay' seems to be broken
 - implement ChallengeNode
 - break up BeforeAfterNode into smaller reusable components
 
