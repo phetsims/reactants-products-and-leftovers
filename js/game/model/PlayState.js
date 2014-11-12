@@ -9,8 +9,6 @@
 define( function( require ) {
   'use strict';
 
-  require( 'SCENERY/scenery' ); //TODO remove this workaround for scenery#300
-
   // NOTE: enum pattern recommends using {} for each value, but strings are more convenient for debugging
   var PlayState = {
     FIRST_CHECK: 'FIRST_CHECK', // 'Check' button is visible for the first time
