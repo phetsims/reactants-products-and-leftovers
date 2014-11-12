@@ -20,9 +20,6 @@ LOW
 - remove 'equation' query parameter, decide on optimal placement of equation
 - remove 'coefficients' query parameter, decide whether to use spinners or pickers
 
-ISSUES
-- Rectangle should have options for arcWidth & arcHeight, not constructor params
-
 MIGRATE TO COMMON
 - HBracketNode
 - NumberSpinner
