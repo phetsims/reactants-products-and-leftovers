@@ -1,3 +1,4 @@
+11/12/14 remove checks for existence of Object.freeze in enums
 11/12/14 remove workaround in enums for assert issue scenery#300
 11/10/14 specify height of icon in HiddenBox, compute scale
 11/10/14 dev: fix 'Replay' button

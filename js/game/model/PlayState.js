@@ -20,9 +20,7 @@ define( function( require ) {
   };
 
   // verify that enum is immutable, without the runtime penalty in production code
-  if ( assert ) {
-    Object.freeze && Object.freeze( PlayState );
-  }
+  if ( assert ) { Object.freeze( PlayState ); }
 
   return PlayState;
 } );
