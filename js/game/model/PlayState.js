@@ -9,14 +9,14 @@
 define( function( require ) {
   'use strict';
 
-  // NOTE: enum pattern recommends using {} for each value, but strings are more convenient for debugging
+  // enum values: use {} for production, use strings for debugging
   var PlayState = {
-    FIRST_CHECK: 'FIRST_CHECK', // 'Check' button is visible for the first time
-    TRY_AGAIN: 'TRY_AGAIN', // 'Try Again' button is visible
-    SECOND_CHECK: 'SECOND_CHECK', // 'Check' button is visible for the second time
-    SHOW_ANSWER: 'SHOW_ANSWER', // 'Show Answer' button is visible
-    NEXT: 'NEXT', // 'Next' button is visible
-    NONE: 'NONE' // use this value when game is not in the 'play' phase
+    FIRST_CHECK: assert ? 'FIRST_CHECK' : {}, // 'Check' button is visible for the first time
+    TRY_AGAIN: assert ? 'TRY_AGAIN' : {}, // 'Try Again' button is visible
+    SECOND_CHECK: assert ? 'SECOND_CHECK' : {}, // 'Check' button is visible for the second time
+    SHOW_ANSWER: assert ? 'SHOW_ANSWER' : {}, // 'Show Answer' button is visible
+    NEXT: assert ? 'NEXT' : {}, // 'Next' button is visible
+    NONE: assert ? 'NONE' : {} // use this value when game is not in the 'play' phase
   };
 
   // verify that enum is immutable, without the runtime penalty in production code

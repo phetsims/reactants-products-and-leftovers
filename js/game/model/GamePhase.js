@@ -8,11 +8,11 @@
 define( function( require ) {
   'use strict';
 
-  // NOTE: enum pattern recommends using {} for each value, but strings are more convenient for debugging
+  // enum values: use {} for production, use strings for debugging
   var GamePhase = {
-    SETTINGS: 'SETTINGS', // user is choosing game settings
-    PLAY: 'PLAY', // user is playing the game
-    RESULTS: 'RESULTS' // user is viewing results at end of a game
+    SETTINGS: assert ? 'SETTINGS' : {}, // user is choosing game settings
+    PLAY: assert ? 'PLAY' : {}, // user is playing the game
+    RESULTS: assert ? 'RESULTS': {} // user is viewing results at end of a game
   };
 
   // verify that enum is immutable, without the runtime penalty in production code
