@@ -11,7 +11,7 @@ HIGH
 MEDIUM
 - random layout strategy for molecules in boxes
 - adjust pointerAreas for game buttons & spinners
-- enums: use {string} when assert enabled, use {} for production
+- review model-view responsibilities for PlayState and GamePhase changes
 
 LOW
 - TODO items in code
