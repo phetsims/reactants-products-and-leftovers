@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * A vertical stack of some Substance, built from the bottom up.
+ * A vertical stack of some thing, built from the bottom up.
  * To improve performance:
  * <ul>
  * <li>Nodes are created as needed.</li>
@@ -21,13 +21,12 @@ define( function( require ) {
   /**
    * @param {Property.<Node>} nodeProperty the node to display
    * @param {Property.<number>} quantityProperty the number of nodes to display
-   * @param {number} centerX the centerX of the stack
    * @param {number} startCenterY the centerY of the bottom node in the stack
    * @param {number} deltaY the vertical spacing between nodes in the stack
    * @param {Object} [options]
    * @constructor
    */
-  function SubstanceStackNode( nodeProperty, quantityProperty, centerX, startCenterY, deltaY, options ) {
+  function StackNode( nodeProperty, quantityProperty, centerX, startCenterY, deltaY, options ) {
 
     var thisNode = this;
     Node.call( thisNode );
@@ -65,7 +64,7 @@ define( function( require ) {
     thisNode.mutate( options );
   }
 
-  return inherit( Node, SubstanceStackNode, {
+  return inherit( Node, StackNode, {
 
     // Unlinks all property observers. The node is no longer functional after calling this function.
     dispose: function() {

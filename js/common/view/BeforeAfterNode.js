@@ -13,8 +13,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AccordionBox = require( 'SUN/AccordionBox' );
-  var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -22,12 +20,11 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var SubstanceStackNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceStackNode' );
+  var StacksAccordionBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/StacksAccordionBox' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -48,7 +45,6 @@ define( function( require ) {
   var BRACKET_FONT = new RPALFont( 12 ); // font for the bracket labels
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
-  var MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
   var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by eye
 
   /**
@@ -61,7 +57,7 @@ define( function( require ) {
   function BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
     options = _.extend( {
-      boxSize: new Dimension2( 310, 240 ), // size of the 'Before' and 'After' boxes
+      contentSize: new Dimension2( 310, 240 ), // size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
       showSymbols: true, // whether to show the symbols
       beforeTitle: beforeReactionString,
@@ -75,47 +71,32 @@ define( function( require ) {
 
     thisNode.reaction = reaction; // @private
 
-    // options common to box titles
     var titleOptions = { font: TITLE_FONT, fill: 'white' };
 
-    // options common to both accordion boxes
-    var accordionBoxOptions = {
-      titleAlign: 'center',
-      buttonAlign: 'right',
-      contentXMargin: 0,
-      contentYMargin: 0,
-      contentYSpacing: 0,
-      cornerRadius: 3,
-      fill: 'white',
-      stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.3 ),
-      buttonTouchAreaDilatedX: 10,
-      buttonTouchAreaDilatedY: 10,
-      titleBarFill: RPALColors.REACTION_BAR_COLOR
-    };
-
-    // 'Before Reaction' accordion box
-    var beforeContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height,
-      accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius );
-    var beforeTitle = new Text( options.beforeTitle, titleOptions );
-    // i18n, scale title to fit
-    beforeTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * beforeContent.width / beforeTitle.width ) );
-    // @private
-    thisNode.beforeBox = new AccordionBox( beforeContent, _.extend( {
+    // 'Before Reaction' accordion box, with stacks of reactants
+    var beforeThings = [];
+    reaction.reactants.forEach( function( reactant ) {
+      beforeThings.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.quantityProperty } );
+    });
+    var beforeTitleNode = new Text( options.beforeTitle, titleOptions );
+    thisNode.beforeBox = new StacksAccordionBox( beforeThings, _.extend( {
       expandedProperty: beforeExpandedProperty,
-      titleNode: beforeTitle
-    }, accordionBoxOptions ) );
+      titleNode: beforeTitleNode
+    }, options ) );
 
-    // 'After Reaction' accordion box
-    var afterContent = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height,
-      accordionBoxOptions.cornerRadius, accordionBoxOptions.cornerRadius );
-    var afterTitle = new Text( options.afterTitle, titleOptions );
-    // i18n, scale title to fit
-    afterTitle.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * afterContent.width / afterTitle.width ) );
-    // @private
-    thisNode.afterBox = new AccordionBox( afterContent, _.extend( {
+    // 'After Reaction' accordion box, with stacks of products and leftovers
+    var afterThings = [];
+    reaction.products.forEach( function( product ) {
+      afterThings.push( { nodeProperty: product.nodeProperty, quantityProperty: product.quantityProperty } );
+    } );
+    reaction.reactants.forEach( function( reactant ) {
+      afterThings.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.leftoversProperty } );
+    } );
+    var afterTitleNode = new Text( options.afterTitle, titleOptions );
+    thisNode.afterBox = new StacksAccordionBox( afterThings, _.extend( {
       expandedProperty: afterExpandedProperty,
-      titleNode: afterTitle
-    }, accordionBoxOptions ) );
+      titleNode: afterTitleNode
+    }, options ) );
 
     // Arrow between boxes
     var arrowNode = new RightArrowNode( { fill: RPALColors.REACTION_BAR_COLOR, stroke: null, scale: 0.75 } );
@@ -135,14 +116,14 @@ define( function( require ) {
     var symbolNodes = [];
 
     // explicitly hoist vars that are reused in loops
-    var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode, substanceStackNode;
+    var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode;
 
     // reactants: stuff below the 'Before' box
     var reactantsParent = new Node();
     thisNode.addChild( reactantsParent );
     var numberOfReactants = reaction.reactants.length;
-    xMargin = ( numberOfReactants > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2 reactants case look nice
-    deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfReactants;
+    xMargin = ( numberOfReactants > 2 ) ? 0 : ( 0.15 * options.contentSize.width ); // make 2 reactants case look nice
+    deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfReactants;
     centerX = thisNode.beforeBox.left + xMargin + (deltaX / 2 );
     for ( i = 0; i < numberOfReactants; i++ ) {
 
@@ -174,8 +155,8 @@ define( function( require ) {
     thisNode.addChild( productsParent );
     var numberOfProducts = reaction.products.length;
     // make 2-reactants case look nice
-    xMargin = ( numberOfProducts + numberOfReactants > 2 ) ? 0 : ( 0.15 * options.boxSize.width );
-    deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / ( numberOfProducts + numberOfReactants );
+    xMargin = ( numberOfProducts + numberOfReactants > 2 ) ? 0 : ( 0.15 * options.contentSize.width );
+    deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / ( numberOfProducts + numberOfReactants );
     centerX = thisNode.afterBox.left + xMargin + (deltaX / 2 );
     for ( i = 0; i < numberOfProducts; i++ ) {
 
@@ -286,38 +267,6 @@ define( function( require ) {
     }, bracketOptions ) );
     thisNode.addChild( leftoversBracket );
 
-    // vertical stacks inside the 'Before' and 'After' boxes
-    thisNode.substanceStackNodes = []; // @private
-    var startCenterY = beforeContent.height - options.boxYMargin - ( maxImageHeight / 2 );
-    var deltaY = ( beforeContent.height - ( 2 * options.boxYMargin ) - maxImageHeight ) / ( options.quantityRange.max - 1 );
-
-    // reactants inside the 'Before' box
-    for ( i = 0; i < numberOfReactants; i++ ) {
-      reactant = reaction.reactants[i];
-      substanceStackNode = new SubstanceStackNode( reactant.nodeProperty, reactant.quantityProperty,
-        thisNode.quantityNodes[i].centerX, startCenterY, deltaY );
-      beforeContent.addChild( substanceStackNode );
-      thisNode.substanceStackNodes.push( substanceStackNode );
-    }
-
-    // products inside the 'After' box
-    for ( i = 0; i < numberOfProducts; i++ ) {
-      product = reaction.products[i];
-      centerX = thisNode.quantityNodes[i + numberOfReactants].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left );
-      substanceStackNode = new SubstanceStackNode( product.nodeProperty, product.quantityProperty, centerX, startCenterY, deltaY );
-      afterContent.addChild( substanceStackNode );
-      thisNode.substanceStackNodes.push( substanceStackNode );
-    }
-
-    // leftovers inside the 'After' box
-    for ( i = 0; i < numberOfReactants; i++ ) {
-      reactant = reaction.reactants[i];
-      centerX = thisNode.quantityNodes[i + numberOfReactants + numberOfProducts].centerX - ( thisNode.afterBox.left - thisNode.beforeBox.left );
-      substanceStackNode = new SubstanceStackNode( reactant.nodeProperty, reactant.leftoversProperty, centerX, startCenterY, deltaY );
-      afterContent.addChild( substanceStackNode );
-      thisNode.substanceStackNodes.push( substanceStackNode );
-    }
-
     // pass options to supertype
     thisNode.mutate( options );
   }
@@ -327,15 +276,12 @@ define( function( require ) {
     // Unlinks all property observers. The node is no longer functional after calling this function.
     dispose: function() {
 
-      // accordion boxes from 'expand' properties
+      // accordion boxes
       this.beforeBox.dispose();
       this.afterBox.dispose();
 
       // quantity spinners and displays
       this.quantityNodes.forEach( function( node ) { node.dispose(); } );
-
-      // substance stacks
-      this.substanceStackNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );
