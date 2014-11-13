@@ -21,6 +21,9 @@ define( function( require ) {
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
 
+  // constants
+  var X_MARGIN = 50;
+
   /**
    * @param {GameModel} model
    * @param {Bounds2} layoutBounds the {Screen}'s layoutBounds
@@ -46,8 +49,8 @@ define( function( require ) {
       {
         // ScoreboardBar options
         font: new RPALFont( 16 ),
-        leftMargin: 40, //TODO align with left edge of 'Before' box
-        rightMargin: 50, //TODO align with right edge of 'After' box
+        leftMargin: X_MARGIN,
+        rightMargin: X_MARGIN,
         centerX: layoutBounds.centerX,
         top: 0
       } );
@@ -68,6 +71,7 @@ define( function( require ) {
       }
     } );
 
+    // developer mode
     if ( RPALQueryParameters.DEV ) {
 
       // Developer controls at rightBottom
