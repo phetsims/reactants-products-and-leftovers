@@ -5,8 +5,9 @@ DESIGN
 - title feels cramped in navigation bar
 
 HIGH
-- implement ChallengeNode
+- move centerX into 'things' array passed to StacksAccordionBox
 - break up BeforeAfterNode into smaller reusable components
+- implement ChallengeNode
 
 MEDIUM
 - random layout strategy for molecules in boxes
