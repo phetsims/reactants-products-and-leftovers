@@ -8,10 +8,9 @@
 define( function( require ) {
   'use strict';
 
-  // enum values: use {} for production, use strings for debugging
   var ChallengeType = {
-    BEFORE: assert ? 'BEFORE' : {}, // guess the reactant quantities, before the reaction started
-    AFTER: assert ? 'AFTER' : {} // guess the product and leftover quantities, after the reaction occurs
+    BEFORE: 'BEFORE', // guess the reactant quantities, before the reaction started
+    AFTER: 'AFTER' // guess the product and leftover quantities, after the reaction occurs
   };
 
   // verify that enum is immutable, without the runtime penalty in production code
