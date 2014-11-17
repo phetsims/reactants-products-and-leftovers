@@ -1,3 +1,4 @@
+11/17/14 dev: default to correct answer when running with 'dev' query param
 11/17/14 don't reset challenge.reaction when resetting a challenge (eg, for 'Replay')
 11/17/14 fix clone methods for initializing a game guess
 11/17/14 wire up ChallengeNode.dispose
