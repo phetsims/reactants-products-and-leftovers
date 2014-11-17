@@ -122,9 +122,7 @@ define( function( require ) {
     thisNode.guessIsValidProperty = new DerivedProperty( dependencies, function() {
       // true if any quantity that the user can guess is non-zero
       for ( var i = 0, j = arguments.length; i < j; i++ ) {
-        if ( arguments[i] !== 0 ) {
-          return true;
-        }
+        if ( arguments[i] !== 0 ) { return true; }
       }
       return false;
     } );
