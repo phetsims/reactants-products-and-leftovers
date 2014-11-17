@@ -27,6 +27,7 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
+  var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -42,7 +43,6 @@ define( function( require ) {
   var PICKER_OPTIONS = { font: new RPALFont( 28 ), color: 'yellow', xMargin: 6, cornerRadius: 3 };
   var SPINNER_OPTIONS = { font: new RPALFont( 28 ) };
   var COEFFICIENT_RANGE_PROPERTY = new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE );
-  var ONE_NODE = new Text( '1', TEXT_OPTIONS ); // coefficient for right side of well-defined equations
   var NO_REACTION_NODE = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
 
   // Limit the width of this node, max width determined empirically.
@@ -50,14 +50,17 @@ define( function( require ) {
 
   /**
    * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
+   * @param {Dimensions2} maxSandwichSize dimensions of largest sandwich
    * @param {Object} [options]
    * @constructor
    */
-  function SandwichesEquationNode( reaction, options ) {
+  function SandwichesEquationNode( reaction, maxSandwichSize, options ) {
 
     assert && assert( reaction instanceof SandwichRecipe );
 
     options = options || {};
+
+    this.substanceNodes = [];
 
     // left-hand side is the sandwich ingredients
     var leftNode = new Node();
@@ -85,11 +88,12 @@ define( function( require ) {
       leftNode.addChild( coefficientNode );
 
       // ingredient
-      ingredientNode = reactant.getWrappedNode( {
+      ingredientNode = new SubstanceNode( reactant, {
         left: coefficientNode.right + COEFFICIENT_X_SPACING,
         centerY: coefficientNode.centerY
       } );
       leftNode.addChild( ingredientNode );
+      this.substanceNodes.push( ingredientNode );
 
       // plus sign between reactants
       if ( i < numberOfReactants - 1 ) {
@@ -110,27 +114,12 @@ define( function( require ) {
 
     // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
     assert && assert( reaction.products.length === 1 );
-    var rightNode = new Node();
-    // @private so we can unlink this observer in dispose
-    this.nodePropertyObserver = function( node ) {
-      rightNode.removeAllChildren();
-      if ( reaction.isReaction() ) {
-        rightNode.addChild( ONE_NODE );
-        rightNode.addChild( node );
-        ONE_NODE.right = node.left - COEFFICIENT_X_SPACING;
-        ONE_NODE.centerY = node.centerY;
-      }
-      else {
-        rightNode.addChild( NO_REACTION_NODE );
-      }
-      rightNode.left = arrowNode.right + ARROW_X_SPACING;
-      rightNode.centerY = arrowNode.centerY;
-    };
+    var sandwichNode = new SubstanceNode( reaction.products[0] );
+    this.substanceNodes.push( sandwichNode );
+    sandwichNode.centerX = arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 );
+    sandwichNode.centerY = arrowNode.centerY;
 
-    this.nodeProperty = reaction.sandwich.nodeProperty; // @public convenience for accessing the sandwich node
-    this.nodeProperty.link( this.nodePropertyObserver );
-
-    options.children = [ leftNode, arrowNode, rightNode ];
+    options.children = [ leftNode, arrowNode, sandwichNode ];
     Node.call( this, options );
   }
 
@@ -138,10 +127,8 @@ define( function( require ) {
 
     // Unlinks from properties. The node is no longer functional after calling this function.
     dispose: function() {
-      this.nodeProperty.unlink( this.nodePropertyObserver );
-      this.coefficientNodes.forEach( function( coefficientNode ) {
-        coefficientNode.dispose();
-      } );
+      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+      this.coefficientNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );

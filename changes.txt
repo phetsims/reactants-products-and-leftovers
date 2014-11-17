@@ -1,3 +1,5 @@
+11/17/14 delete SandwichesBeforeAfterNode subtype, handle dynamic images in base type
+11/17/14 replace Substance.getWrappedNode with SubstanceNode, handle image update
 11/17/14 no need to keep track of productImagesNodes in BeforeAfterNode
 11/17/14 add factory function StacksAccordionBox.item, to formally define "items"
 11/17/14 compute and store x positions for each "item" in StacksAccordionBox

@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- *  Accordion box that shows stacks of items, used in the 'Sandwiches' and 'Molecules' screens.
+ *  Accordion box that shows stacks of 'items', used in the 'Sandwiches' and 'Molecules' screens.
  *
  *  @author Chris Malley (PixelZoom, Inc.)
  */
@@ -108,7 +108,7 @@ define( function( require ) {
         nodeProperty: nodeProperty,
         quantityProperty: quantityProperty,
         centerX: centerX
-      }
+      };
     }
   } );
 } );

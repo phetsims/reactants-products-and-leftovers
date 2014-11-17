@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BeforeAfterNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RPALBaseView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALBaseView' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  var SandwichesBeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesBeforeAfterNode' );
   var SandwichesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesEquationNode' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
 
@@ -37,9 +37,10 @@ define( function( require ) {
       /*
        * Creates an equation for a specified reaction.
        * @param {Reaction} reaction the reaction whose equation is displayed
+       * @param {Dimension2} maxSandwichSize dimensions of largest sandwich
        * @returns {Node}
        */
-      function( reaction ) { return new SandwichesEquationNode( reaction ); },
+      function( reaction ) { return new SandwichesEquationNode( reaction, maxSandwichSize ); },
 
       /*
        * Creates the Before/After boxes for a specified reaction.
@@ -50,7 +51,7 @@ define( function( require ) {
        * @returns {Node}
        */
       function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
-        return new SandwichesBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
+        return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
           _.extend( {}, options, {
             showSymbols: false,
             beforeTitle: beforeSandwichString,

@@ -25,6 +25,7 @@ define( function( require ) {
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var StacksAccordionBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/StacksAccordionBox' );
+  var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -139,8 +140,8 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    thisNode.quantityNodes = []; // @private
-    thisNode.imageNodes = []; // @protected needed for 'custom sandwich' scenario
+    thisNode.quantityNodes = []; // @private see dispose
+    thisNode.imageNodes = []; // @private see dispose
     var symbolNodes = [];
 
     // reactants, below the 'Before' box
@@ -158,7 +159,7 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = reactant.getWrappedNode( { centerX: centerX } );
+      imageNode = new SubstanceNode( reactant, { centerX: centerX } );
       reactantsParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
 
@@ -186,7 +187,7 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = product.getWrappedNode( { centerX: centerX } );
+      imageNode = new SubstanceNode( product, { centerX: centerX } );
       productsParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
 
@@ -214,7 +215,7 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = reactant.getWrappedNode( { centerX: centerX } );
+      imageNode = new SubstanceNode( reactant, { centerX: centerX } );
       leftoversParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
 
@@ -302,6 +303,9 @@ define( function( require ) {
 
       // quantity spinners and displays
       this.quantityNodes.forEach( function( node ) { node.dispose(); } );
+
+      // substance images
+      this.imageNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );
