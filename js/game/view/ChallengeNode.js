@@ -18,6 +18,7 @@ define( function( require ) {
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculesEquationNode' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
   var Property = require( 'AXON/Property' );
@@ -185,7 +186,7 @@ define( function( require ) {
             orientation: 'vertical',
             spacing: 8,
             children: [
-              new Text( product.quantity, SPINNER_OPTIONS ),
+              new NumberNode( product.quantityProperty, SPINNER_OPTIONS ),
               new SubSupText( product.symbol )
             ] } ) );
         } );
@@ -194,7 +195,7 @@ define( function( require ) {
             orientation: 'vertical',
             spacing: 8,
             children: [
-              new Text( reactant.leftovers, SPINNER_OPTIONS ),
+              new NumberNode( reactant.leftoversProperty, SPINNER_OPTIONS ),
               new SubSupText( reactant.symbol )
             ] } ) );
         } );
@@ -207,7 +208,7 @@ define( function( require ) {
             orientation: 'vertical',
             spacing: 8,
             children: [
-              new Text( reactant.quantity, SPINNER_OPTIONS ),
+              new NumberNode( reactant.quantityProperty, SPINNER_OPTIONS ),
               new SubSupText( reactant.symbol )
             ] } ) );
         } );
