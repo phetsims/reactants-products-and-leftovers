@@ -64,10 +64,19 @@ define( function( require ) {
     this.addChild( challengeParent );
 
     // Set up a new challenge
+    var challengeNode = null;
     model.challengeProperty.link( function( challenge ) {
-      challengeParent.removeAllChildren();
+
+      // clean up previous challenge
+      if ( challengeNode ) {
+        challengeParent.removeChild( challengeNode );
+        challengeNode.dispose();
+      }
+
+      // set up new challenge
       if ( challenge ) { // challenge will be null on startup and 'Reset All'
-        challengeParent.addChild( new ChallengeNode( model, challenge, challengeBounds, audioPlayer ) );
+        challengeNode = new ChallengeNode( model, challenge, challengeBounds, audioPlayer );
+        challengeParent.addChild( challengeNode );
       }
     } );
 

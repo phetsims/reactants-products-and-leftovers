@@ -134,10 +134,9 @@ define( function( require ) {
     thisNode.addChild( thisNode.afterBox );
 
     //------------------------------------------------------------------------------------
-    //
+    // Face
     //------------------------------------------------------------------------------------
 
-    // smile/frown face
     var faceNode = new FaceWithPointsNode( {
       faceDiameter: 120,
       faceOpacity: 0.65,
@@ -146,6 +145,10 @@ define( function( require ) {
     thisNode.addChild( faceNode );
     faceNode.center = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.center : thisNode.afterBox.center;
 
+    //------------------------------------------------------------------------------------
+    // Buttons (Check, Try Again, ...)
+    //------------------------------------------------------------------------------------
+
     // buttons (Check, Try Again, ...)
     var buttons = new GameButtons( model, challenge, audioPlayer, faceNode );
     this.addChild( buttons );
@@ -153,7 +156,7 @@ define( function( require ) {
     buttons.bottom = thisNode.beforeBox.bottom - 10;
 
     //------------------------------------------------------------------------------------
-    //
+    // Controls below the boxes
     //------------------------------------------------------------------------------------
 
     //TODO temporary UI, to get the game working
@@ -268,10 +271,10 @@ define( function( require ) {
       this.afterBox.dispose();
 
       // quantity spinners and displays
-      this.quantityNodes.forEach( function( node ) { node.dispose(); } );
+//      this.quantityNodes.forEach( function( node ) { node.dispose(); } ); //TODO
 
       // substance images
-      this.imageNodes.forEach( function( node ) { node.dispose(); } );
+//      this.imageNodes.forEach( function( node ) { node.dispose(); } ); //TODO
     }
   } );
 } );

@@ -1,3 +1,4 @@
+11/17/14 wire up ChallengeNode.dispose
 11/17/14 add more UI components to ChallengeNode
 11/17/14 add GameButtons.dispose
 11/17/14 delete SandwichesBeforeAfterNode subtype, handle dynamic images in base type
