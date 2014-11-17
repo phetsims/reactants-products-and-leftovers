@@ -37,7 +37,7 @@ define( function( require ) {
     thisNode.quantityProperty = quantityProperty; // @private
 
     /*
-     * This line is not visible, but defines the height of the stack,
+     * This line is not visible (has no stroke), but defines the height of the stack,
      * and ensures that the stack always has well-defined bounds.
      */
     thisNode.addChild( new Line( 0, 0, 0, height ) );
