@@ -23,7 +23,7 @@ define( function( require ) {
   var MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
 
   /**
-   * @param {[ { {Property.<Node>} nodeProperty, {Property.<number>} quantityProperty} ]} items items in the box
+   * @param items items in the box, see StacksAccordionBox.item(...)
    * @param {Object} [options]
    * @constructor
    */
@@ -92,6 +92,23 @@ define( function( require ) {
     dispose: function() {
       AccordionBox.prototype.dispose.call( this );
       this.stackNodes.forEach( function( node ) { node.dispose(); } );
+    }
+  }, {
+
+    /**
+     * Creates a data structure for the 'items' in the box.
+     * This data structure includes centerX, to facilitate horizontal positioning of UI components.
+     * @param {Property.<Node>} nodeProperty the node to display
+     * @param {Property.<number>} quantityProperty the number of nodes to display
+     * @param {number} centerX
+     * @static
+     */
+    item: function( nodeProperty, quantityProperty, centerX ) {
+      return {
+        nodeProperty: nodeProperty,
+        quantityProperty: quantityProperty,
+        centerX: centerX
+      }
     }
   } );
 } );

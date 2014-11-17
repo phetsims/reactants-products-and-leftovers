@@ -1,3 +1,5 @@
+11/17/14 no need to keep track of productImagesNodes in BeforeAfterNode
+11/17/14 add factory function StacksAccordionBox.item, to formally define "items"
 11/17/14 compute and store x positions for each "item" in StacksAccordionBox
 11/13/14 factor out StacksAccordionBox
 11/12/14 set scoreboard margins

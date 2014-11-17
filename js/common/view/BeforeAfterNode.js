@@ -85,7 +85,7 @@ define( function( require ) {
     deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfItems;
     centerX = xMargin + ( deltaX / 2 );
     reaction.reactants.forEach( function( reactant ) {
-      beforeItems.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.quantityProperty, centerX: centerX } );
+      beforeItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
 
@@ -96,12 +96,12 @@ define( function( require ) {
     deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfItems;
     centerX = xMargin + ( deltaX / 2 );
     reaction.products.forEach( function( product ) {
-      afterItems.push( { nodeProperty: product.nodeProperty, quantityProperty: product.quantityProperty, centerX: centerX } );
+      afterItems.push( StacksAccordionBox.item( product.nodeProperty, product.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
     reaction.reactants.forEach( function( reactant ) {
       // for 'After', we use display each reactant's leftovers quantity
-      afterItems.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.leftoversProperty, centerX: centerX } );
+      afterItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
       centerX += deltaX;
     } );
 
@@ -140,8 +140,7 @@ define( function( require ) {
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     thisNode.quantityNodes = []; // @private
-    thisNode.imageNodes = []; // @protected
-    thisNode.productImageNode = []; // @private needed for 'custom sandwich' scenario
+    thisNode.imageNodes = []; // @protected needed for 'custom sandwich' scenario
     var symbolNodes = [];
 
     // reactants, below the 'Before' box
@@ -190,7 +189,6 @@ define( function( require ) {
       imageNode = product.getWrappedNode( { centerX: centerX } );
       productsParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
-      thisNode.productImageNode.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {

@@ -24,6 +24,7 @@ define( function( require ) {
   function SandwichesBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
     assert && assert( reaction instanceof SandwichRecipe );
+    assert && assert( reaction.products.length === 1 );
 
     var thisNode = this;
     BeforeAfterNode.call( thisNode, reaction, beforeExpandedProperty, afterExpandedProperty, options );
