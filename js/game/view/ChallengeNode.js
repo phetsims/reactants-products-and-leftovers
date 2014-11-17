@@ -112,17 +112,11 @@ define( function( require ) {
     // dependencies is the set of quantities that the user can guess
     var dependencies = [];
     if ( challenge.challengeType === ChallengeType.BEFORE ) {
-      challenge.guess.reactants.forEach( function( reactant ) {
-        dependencies.push( reactant.quantityProperty );
-      } );
+      challenge.guess.reactants.forEach( function( reactant ) { dependencies.push( reactant.quantityProperty ); } );
     }
     else {
-      challenge.guess.products.forEach( function( product ) {
-        dependencies.push( product.quantityProperty );
-      } );
-      challenge.guess.reactants.forEach( function( reactant ) {
-        dependencies.push( reactant.leftoversProperty );
-      } );
+      challenge.guess.products.forEach( function( product ) { dependencies.push( product.quantityProperty ); } );
+      challenge.guess.reactants.forEach( function( reactant ) { dependencies.push( reactant.leftoversProperty ); } );
     }
     // @private
     thisNode.guessIsValidProperty = new DerivedProperty( dependencies, function() {
