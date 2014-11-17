@@ -181,7 +181,7 @@ define( function( require ) {
         children.push( new HStrut( 40 ) );
 
         // show the products & leftovers
-        challenge.guess.products.forEach( function( product ) {
+        challenge.reaction.products.forEach( function( product ) {
           children.push( new LayoutBox( {
             orientation: 'vertical',
             spacing: 8,
@@ -190,7 +190,7 @@ define( function( require ) {
               new SubSupText( product.symbol )
             ] } ) );
         } );
-        challenge.guess.reactants.forEach( function( reactant ) {
+        challenge.reaction.reactants.forEach( function( reactant ) {
           children.push( new LayoutBox( {
             orientation: 'vertical',
             spacing: 8,
@@ -203,7 +203,7 @@ define( function( require ) {
       else {
 
         // show the reactants
-        challenge.guess.reactants.forEach( function( reactant ) {
+        challenge.reaction.reactants.forEach( function( reactant ) {
           children.push( new LayoutBox( {
             orientation: 'vertical',
             spacing: 8,
