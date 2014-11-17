@@ -136,13 +136,10 @@ define( function( require ) {
     // reactants: stuff below the 'Before' box
     var reactantsParent = new Node();
     thisNode.addChild( reactantsParent );
-    var numberOfReactants = reaction.reactants.length;
-    xMargin = ( numberOfReactants > 2 ) ? 0 : ( 0.15 * options.contentSize.width ); // make 2 reactants case look nice
-    deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfReactants;
-    centerX = thisNode.beforeBox.left + xMargin + (deltaX / 2 );
-    for ( i = 0; i < numberOfReactants; i++ ) {
+    for ( i = 0; i < reaction.reactants.length; i++ ) {
 
       reactant = reaction.reactants[i];
+      centerX = thisNode.beforeBox.left + beforeItems[i].centerX;
 
       // quantity is editable via a spinner
       quantityNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
@@ -151,13 +148,13 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = reactant.getWrappedNode( { centerX: quantityNode.centerX } );
+      imageNode = reactant.getWrappedNode( { centerX: centerX } );
       reactantsParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
+        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
         reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -168,14 +165,10 @@ define( function( require ) {
     // products: stuff below the 'After' box
     var productsParent = new Node();
     thisNode.addChild( productsParent );
-    var numberOfProducts = reaction.products.length;
-    // make 2-reactants case look nice
-    xMargin = ( numberOfProducts + numberOfReactants > 2 ) ? 0 : ( 0.15 * options.contentSize.width );
-    deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / ( numberOfProducts + numberOfReactants );
-    centerX = thisNode.afterBox.left + xMargin + (deltaX / 2 );
-    for ( i = 0; i < numberOfProducts; i++ ) {
+    for ( i = 0; i < reaction.products.length; i++ ) {
 
       product = reaction.products[i];
+      centerX = thisNode.afterBox.left + afterItems[i].centerX;
 
       // quantity is not editable
       quantityNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
@@ -183,14 +176,14 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = product.getWrappedNode( { centerX: quantityNode.centerX } );
+      imageNode = product.getWrappedNode( { centerX: centerX } );
       productsParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
       thisNode.productImageNode.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( product.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
+        symbolNode = new SubSupText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
         productsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -201,9 +194,10 @@ define( function( require ) {
     // leftovers: stuff below the 'After' box, to the right of the products
     var leftoversParent = new Node();
     thisNode.addChild( leftoversParent );
-    for ( i = 0; i < numberOfReactants; i++ ) {
+    for ( i = 0; i < reaction.reactants.length; i++ ) {
 
       reactant = reaction.reactants[i];
+      centerX = thisNode.afterBox.left + afterItems[ i + reaction.products.length ].centerX;
 
       // quantity is not editable
       quantityNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
@@ -211,13 +205,13 @@ define( function( require ) {
       thisNode.quantityNodes.push( quantityNode );
 
       // image
-      imageNode = reactant.getWrappedNode( { centerX: quantityNode.centerX } );
+      imageNode = reactant.getWrappedNode( { centerX: centerX } );
       leftoversParent.addChild( imageNode );
       thisNode.imageNodes.push( imageNode );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: quantityNode.centerX } );
+        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
         leftoversParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
