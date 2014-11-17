@@ -28,7 +28,6 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var StacksAccordionBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/StacksAccordionBox' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var SPINNER_OPTIONS = { font: new RPALFont( 28 ) };
