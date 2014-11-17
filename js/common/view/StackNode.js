@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * A vertical stack of some thing, built from the bottom up.
+ * A vertical stack of some item, built from the bottom up.
  * To improve performance:
  * <ul>
  * <li>Nodes are created as needed.</li>
