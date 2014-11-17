@@ -37,7 +37,6 @@ define( function( require ) {
   return inherit( Object, Challenge, {
 
     reset: function() {
-      this.reaction.reset();
       this.guess.reset();
     },
 
