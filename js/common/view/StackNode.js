@@ -18,9 +18,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
 
+  //TODO collapse first 3 params into item?
   /**
    * @param {Property.<Node>} nodeProperty the node to display
    * @param {Property.<number>} quantityProperty the number of nodes to display
+   * @param {number} centerX //TODO move to options
    * @param {number} startCenterY the centerY of the bottom node in the stack
    * @param {number} deltaY the vertical spacing between nodes in the stack
    * @param {Object} [options]

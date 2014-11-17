@@ -1,3 +1,4 @@
+11/17/14 compute and store x positions for each "item" in StacksAccordionBox
 11/13/14 factor out StacksAccordionBox
 11/12/14 set scoreboard margins
 11/12/14 remove enum-value experiment

@@ -46,7 +46,7 @@ define( function( require ) {
       contentYMargin: 0,
       contentYSpacing: 0,
 
-      // this subtype options
+      // StacksAccordionBox options
       contentSize: new Dimension2( 310, 240 ), // size of box's content
       quantityRange: RPALConstants.QUANTITY_RANGE,
       maxImageSize: new Dimension2( 0, 0 ), // our best guess at the maximum image size
@@ -70,16 +70,13 @@ define( function( require ) {
 
     // vertical stacks of items inside the box
     this.stackNodes = []; // @private
-    var xMargin = ( items.length > 2 ) ? 0 : ( 0.15 * rectangle.width ); // make 2-reactants case look nice
-    var deltaX = ( rectangle.width - ( 2 * xMargin ) ) / items.length;
-    var startCenterX = rectangle.left + xMargin + ( deltaX / 2 );
     var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxThingHeight ) / ( options.quantityRange.max - 1 );
     var startCenterY = rectangle.height - options.boxYMargin - ( maxThingHeight / 2 );
 
     // stacks inside the box
     for ( var i = 0; i < items.length; i++ ) {
       var item = items[i];
-      var stackNode = new StackNode( item.nodeProperty, item.quantityProperty, startCenterX + ( i * deltaX ), startCenterY, deltaY );
+      var stackNode = new StackNode( item.nodeProperty, item.quantityProperty, item.centerX, startCenterY, deltaY );
       content.addChild( stackNode );
       this.stackNodes.push( stackNode );
     }

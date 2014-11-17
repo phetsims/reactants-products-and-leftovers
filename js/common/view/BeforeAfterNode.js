@@ -73,11 +73,36 @@ define( function( require ) {
 
     var titleOptions = { font: TITLE_FONT, fill: 'white' };
 
-    // 'Before Reaction' accordion box, with stacks of reactants
+    // explicitly hoist vars that are reused
+    var numberOfItems, reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode;
+
+    // items in the 'Before Reaction' box, including their horizontal alignment
     var beforeItems = [];
+    numberOfItems = reaction.reactants.length;
+    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.contentSize.width ); // make 2-items case look nice
+    deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfItems;
+    centerX = xMargin + ( deltaX / 2 );
     reaction.reactants.forEach( function( reactant ) {
-      beforeItems.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.quantityProperty } );
-    });
+      beforeItems.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.quantityProperty, centerX: centerX } );
+      centerX += deltaX;
+    } );
+
+    // items in the 'After Reaction' box, including their horizontal alignment
+    var afterItems = [];
+    numberOfItems = reaction.products.length + reaction.reactants.length;
+    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.contentSize.width ); // make 2-items case look nice
+    deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfItems;
+    centerX = xMargin + ( deltaX / 2 );
+    reaction.products.forEach( function( product ) {
+      afterItems.push( { nodeProperty: product.nodeProperty, quantityProperty: product.quantityProperty, centerX: centerX } );
+      centerX += deltaX;
+    } );
+    reaction.reactants.forEach( function( reactant ) {
+      afterItems.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.leftoversProperty, centerX: centerX } );
+      centerX += deltaX;
+    } );
+
+    // 'Before Reaction' accordion box, with stacks of reactants
     var beforeTitleNode = new Text( options.beforeTitle, titleOptions );
     thisNode.beforeBox = new StacksAccordionBox( beforeItems, _.extend( {
       expandedProperty: beforeExpandedProperty,
@@ -85,13 +110,6 @@ define( function( require ) {
     }, options ) );
 
     // 'After Reaction' accordion box, with stacks of products and leftovers
-    var afterItems = [];
-    reaction.products.forEach( function( product ) {
-      afterItems.push( { nodeProperty: product.nodeProperty, quantityProperty: product.quantityProperty } );
-    } );
-    reaction.reactants.forEach( function( reactant ) {
-      afterItems.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.leftoversProperty } );
-    } );
     var afterTitleNode = new Text( options.afterTitle, titleOptions );
     thisNode.afterBox = new StacksAccordionBox( afterItems, _.extend( {
       expandedProperty: afterExpandedProperty,
@@ -114,9 +132,6 @@ define( function( require ) {
     thisNode.imageNodes = []; // @protected
     thisNode.productImageNode = []; // @private needed for 'custom sandwich' scenario
     var symbolNodes = [];
-
-    // explicitly hoist vars that are reused in loops
-    var reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode;
 
     // reactants: stuff below the 'Before' box
     var reactantsParent = new Node();
