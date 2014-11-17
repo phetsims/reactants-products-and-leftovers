@@ -64,7 +64,7 @@ define( function( require ) {
     var equationNode = new MoleculesEquationNode( model.challenge.reaction, {
       fill: 'black',
       centerX: challengeBounds.centerX,
-      top: challengeBounds.top + 20
+      top: challengeBounds.top + 15
     } );
     thisNode.addChild( equationNode );
 
@@ -120,7 +120,7 @@ define( function( require ) {
       contentSize: options.contentSize,
       expandedProperty: new Property( true ),
       right: arrowNode.left - 5,
-      top: equationNode.bottom + 20
+      top: equationNode.bottom + 15
     } );
     thisNode.addChild( thisNode.beforeBox );
     arrowNode.centerY = thisNode.beforeBox.centerY;
