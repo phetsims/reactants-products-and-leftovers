@@ -5,10 +5,11 @@ DESIGN
 - title feels cramped in navigation bar
 
 HIGH
-- 'Replay' causes the box that's supposed to remain constant to clear
-- Before/After boxes with random layout strategy for molecules
-- break up BeforeAfterNode into smaller reusable components
-- implement ChallengeNode
+- Game: 'Replay' causes the box that's supposed to remain constant to clear
+- Game: Before/After boxes with random layout strategy for molecules
+- Game: stuff below Before/After boxes, similar to BeforeAfterNode
+- Game: 'hide molecules' feature
+- Game: 'hide numbers' feature
 
 MEDIUM
 - adjust pointerAreas for game buttons & spinners
