@@ -36,13 +36,13 @@ define( function( require ) {
   var reactantsString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants' );
 
   // constants
-  var TITLE_FONT = new RPALFont( 14 ); // font for the titles that appear in the collapsed boxes
+  var TITLE_OPTIONS = { font: new RPALFont( 14 ), fill: 'white' }; // AccordionBox titles
   var QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
   var SYMBOL_FONT = new RPALFont( 16 ); // font for the symbols that appear below the boxes
   var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
-  var BRACKET_FONT = new RPALFont( 12 ); // font for the bracket labels
+  var BRACKET_LABEL_OPTIONS = { font: new RPALFont( 12 ), fill: 'black' };
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
   var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by eye
@@ -71,12 +71,14 @@ define( function( require ) {
 
     thisNode.reaction = reaction; // @private
 
-    var titleOptions = { font: TITLE_FONT, fill: 'white' };
-
     // explicitly hoist vars that are reused
     var numberOfItems, reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode;
 
-    // items in the 'Before Reaction' box, including their horizontal alignment
+    //------------------------------------------------------------------------------------
+    // items
+    //------------------------------------------------------------------------------------
+
+    // items in the 'Before Reaction' box, including their horizontal positions
     var beforeItems = [];
     numberOfItems = reaction.reactants.length;
     xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.contentSize.width ); // make 2-items case look nice
@@ -87,7 +89,7 @@ define( function( require ) {
       centerX += deltaX;
     } );
 
-    // items in the 'After Reaction' box, including their horizontal alignment
+    // items in the 'After Reaction' box, including their horizontal positions
     var afterItems = [];
     numberOfItems = reaction.products.length + reaction.reactants.length;
     xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.contentSize.width ); // make 2-items case look nice
@@ -98,19 +100,24 @@ define( function( require ) {
       centerX += deltaX;
     } );
     reaction.reactants.forEach( function( reactant ) {
+      // for 'After', we use display each reactant's leftovers quantity
       afterItems.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.leftoversProperty, centerX: centerX } );
       centerX += deltaX;
     } );
 
-    // 'Before Reaction' accordion box, with stacks of reactants
-    var beforeTitleNode = new Text( options.beforeTitle, titleOptions );
+    //------------------------------------------------------------------------------------
+    // Accordion boxes & arrow
+    //------------------------------------------------------------------------------------
+
+    // 'Before Reaction' box, with stacks of reactants
+    var beforeTitleNode = new Text( options.beforeTitle, TITLE_OPTIONS );
     thisNode.beforeBox = new StacksAccordionBox( beforeItems, _.extend( {
       expandedProperty: beforeExpandedProperty,
       titleNode: beforeTitleNode
     }, options ) );
 
-    // 'After Reaction' accordion box, with stacks of products and leftovers
-    var afterTitleNode = new Text( options.afterTitle, titleOptions );
+    // 'After Reaction' box, with stacks of products and leftovers
+    var afterTitleNode = new Text( options.afterTitle, TITLE_OPTIONS );
     thisNode.afterBox = new StacksAccordionBox( afterItems, _.extend( {
       expandedProperty: afterExpandedProperty,
       titleNode: afterTitleNode
@@ -127,13 +134,17 @@ define( function( require ) {
     );
     thisNode.addChild( hBox );
 
+    //------------------------------------------------------------------------------------
+    // Quantities, images and symbols below the boxes
+    //------------------------------------------------------------------------------------
+
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     thisNode.quantityNodes = []; // @private
     thisNode.imageNodes = []; // @protected
     thisNode.productImageNode = []; // @private needed for 'custom sandwich' scenario
     var symbolNodes = [];
 
-    // reactants: stuff below the 'Before' box
+    // reactants, below the 'Before' box
     var reactantsParent = new Node();
     thisNode.addChild( reactantsParent );
     for ( i = 0; i < reaction.reactants.length; i++ ) {
@@ -162,7 +173,7 @@ define( function( require ) {
       centerX += deltaX;
     }
 
-    // products: stuff below the 'After' box
+    // products, below the 'After' box
     var productsParent = new Node();
     thisNode.addChild( productsParent );
     for ( i = 0; i < reaction.products.length; i++ ) {
@@ -191,7 +202,7 @@ define( function( require ) {
       centerX += deltaX;
     }
 
-    // leftovers: stuff below the 'After' box, to the right of the products
+    // leftovers, below the 'After' box, to the right of the products
     var leftoversParent = new Node();
     thisNode.addChild( leftoversParent );
     for ( i = 0; i < reaction.reactants.length; i++ ) {
@@ -239,17 +250,17 @@ define( function( require ) {
       componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
 
-    // brackets to denote 'reactants', 'products' and 'leftovers'
-    var bracketLabelOptions = {
-      font: BRACKET_FONT,
-      fill: 'black'
-    };
+    //------------------------------------------------------------------------------------
+    // Brackets
+    //------------------------------------------------------------------------------------
+
     var bracketOptions = {
       bracketColor: RPALColors.REACTION_BAR_COLOR,
       top: componentsBottom + BRACKET_Y_SPACING
     };
 
-    var reactantsLabel = new Text( reactantsString, bracketLabelOptions );
+    // reactants bracket
+    var reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
     reactantsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / reactantsLabel.width ) ); // i18n
     var reactantsBracket = new HBracketNode( _.extend( {
       labelNode: reactantsLabel,
@@ -258,7 +269,8 @@ define( function( require ) {
     }, bracketOptions ) );
     thisNode.addChild( reactantsBracket );
 
-    var productsLabel = new Text( productsString, bracketLabelOptions );
+    // products bracket
+    var productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
     productsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / productsLabel.width ) ); // i18n
     var productsBracket = new HBracketNode( _.extend( {
       labelNode: productsLabel,
@@ -267,7 +279,8 @@ define( function( require ) {
     }, bracketOptions ) );
     thisNode.addChild( productsBracket );
 
-    var leftoversLabel = new Text( leftoversString, bracketLabelOptions );
+    // leftovers bracket
+    var leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
     leftoversLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / leftoversLabel.width ) ); // i18n
     var leftoversBracket = new HBracketNode( _.extend( {
       labelNode: leftoversLabel,
