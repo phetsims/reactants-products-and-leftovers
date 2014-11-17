@@ -16,19 +16,19 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
 
-  //TODO collapse first 3 params into item?
   /**
+   * @param {number} height height of the stack
    * @param {Property.<Node>} nodeProperty the node to display
    * @param {Property.<number>} quantityProperty the number of nodes to display
-   * @param {number} centerX //TODO move to options
    * @param {number} startCenterY the centerY of the bottom node in the stack
    * @param {number} deltaY the vertical spacing between nodes in the stack
    * @param {Object} [options]
    * @constructor
    */
-  function StackNode( nodeProperty, quantityProperty, centerX, startCenterY, deltaY, options ) {
+  function StackNode( height, nodeProperty, quantityProperty, startCenterY, deltaY, options ) {
 
     var thisNode = this;
     Node.call( thisNode );
@@ -36,19 +36,29 @@ define( function( require ) {
     thisNode.nodeProperty = nodeProperty; // @private
     thisNode.quantityProperty = quantityProperty; // @private
 
+    /*
+     * This line is not visible, but defines the height of the stack,
+     * and ensures that the stack always has well-defined bounds.
+     */
+    thisNode.addChild( new Line( 0, 0, 0, height ) );
+
+    // parent for all items in the stack
+    var itemsParent = new Node();
+    thisNode.addChild( itemsParent );
+
     // @private When the quantity changes ...
     thisNode.quantityPropertyObserver = function( quantity ) {
-      var count = Math.max( quantity, thisNode.getChildrenCount() );
+      var count = Math.max( quantity, itemsParent.getChildrenCount() );
       for ( var i = 0; i < count; i++ ) {
-        if ( i < thisNode.getChildrenCount() ) {
+        if ( i < itemsParent.getChildrenCount() ) {
           // set visibility of a node that already exists
-          thisNode.getChildAt( i ).visible = ( i < quantity );
+          itemsParent.getChildAt( i ).visible = ( i < quantity );
         }
         else {
           // add a node, wrapped because the node will appear in the scenegraph multiple times
-          thisNode.addChild( new Node( {
+          itemsParent.addChild( new Node( {
             children: [ thisNode.nodeProperty.get() ],
-            centerX: centerX,
+            centerX: 0,
             centerY: startCenterY - ( i * deltaY )
           } ) );
         }
@@ -58,7 +68,7 @@ define( function( require ) {
 
     // @private When the node that represents the substance changes ...
     thisNode.nodePropertyObserver = function( node ) {
-      thisNode.removeAllChildren();
+      itemsParent.removeAllChildren();
       thisNode.quantityPropertyObserver( thisNode.quantityProperty.get() );
     };
     thisNode.nodeProperty.link( thisNode.nodePropertyObserver );

@@ -76,7 +76,9 @@ define( function( require ) {
     // stacks inside the box
     for ( var i = 0; i < items.length; i++ ) {
       var item = items[i];
-      var stackNode = new StackNode( item.nodeProperty, item.quantityProperty, item.centerX, startCenterY, deltaY );
+      var stackNode = new StackNode( options.contentSize.height, item.nodeProperty, item.quantityProperty, startCenterY, deltaY, {
+        centerX: item.centerX
+      } );
       content.addChild( stackNode );
       this.stackNodes.push( stackNode );
     }
