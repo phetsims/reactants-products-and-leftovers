@@ -41,9 +41,26 @@ define( function( require ) {
     }
   }, {
 
-    // @static Creates a copy of a reactant. AXON.Property observers are not copied.
-    clone: function( reactant ) {
-      return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, reactant.quantity, reactant.leftovers );
+    /**
+     * Creates a copy of a reactant with a specified quantity. AXON.Property observers are not copied.
+     * @param {Reactant} reactant
+     * @param {number} quantity
+     * @returns {Reactant}
+     * @static
+     */
+    cloneWithQuantity: function( reactant, quantity ) {
+      return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, quantity, reactant.leftovers );
+    },
+
+    /**
+     * Creates a copy of a reactant with specified leftovers. AXON.Property observers are not copied.
+     * @param {Reactant} reactant
+     * @param {number} leftovers
+     * @returns {Reactant}
+     * @static
+     */
+    cloneWithLeftovers: function( reactant, leftovers ) {
+      return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, reactant.quantity, leftovers );
     }
   } );
 } );

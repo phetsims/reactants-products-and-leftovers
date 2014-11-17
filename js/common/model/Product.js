@@ -38,9 +38,25 @@ define( function( require ) {
     }
   }, {
 
-    // @static Creates a copy of a product. AXON.Property observers are not copied.
+    /**
+     * Creates a copy of a product. AXON.Property observers are not copied.
+     * @param {Product} product
+     * @returns {Product}
+     * @static
+     */
     clone: function( product ) {
       return new Product( product.coefficient, product.symbol, product.node, product.quantity );
+    },
+
+    /**
+     * Creates a copy of a product with a specified quantity. AXON.Property observers are not copied.
+     * @param {Product} product
+     * @param {number} quantity
+     * @returns {Product}
+     * @static
+     */
+    cloneWithQuantity: function( product, quantity ) {
+      return new Product( product.coefficient, product.symbol, product.node, quantity );
     }
   } );
 } );

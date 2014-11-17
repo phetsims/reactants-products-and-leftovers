@@ -31,6 +31,7 @@ define( function( require ) {
    * @constructor
    */
   function GameGuess( reaction, challengeType ) {
+    assert && assert( challengeType === ChallengeType.BEFORE || challengeType === ChallengeType.AFTER );
     this.reactants = createGuessReactants( reaction.reactants, challengeType );
     this.products = createGuessProducts( reaction.products, challengeType );
   }
@@ -47,15 +48,11 @@ define( function( require ) {
     var guessReactants = [];
     var guessReactant;
     for ( var i = 0; i < reactants.length; i++ ) {
-      guessReactant = Reactant.clone( reactants[i] );
-      // When 'dev' query parameter is present, guess will be initialized to correct answer.
-      if ( !RPALQueryParameters.DEV ) {
-        if ( challengeType === ChallengeType.AFTER ) {
-          guessReactant.leftovers = 0;
-        }
-        else {
-          guessReactant.quantity = 0;
-        }
+      if ( challengeType === ChallengeType.BEFORE ) {
+        guessReactant = Reactant.cloneWithQuantity( reactants[i], 0 );
+      }
+      else {
+        guessReactant = Reactant.cloneWithLeftovers( reactants[i], 0 );
       }
       guessReactants.push( guessReactant );
     }
@@ -75,10 +72,11 @@ define( function( require ) {
     var guessProducts = [];
     var guessProduct;
     for ( var i = 0; i < products.length; i++ ) {
-      guessProduct = Product.clone( products[i] );
-      // When 'dev' query parameter is present, guess will be initialized to correct answer.
-      if ( challengeType === ChallengeType.AFTER && !RPALQueryParameters.DEV ) {
-        guessProduct.quantity = 0;
+      if ( challengeType === ChallengeType.BEFORE  ) {
+        guessProduct = Product.clone( products[i] )
+      }
+      else {
+        guessProduct = Product.cloneWithQuantity( products[i], 0 );
       }
       guessProducts.push( guessProduct );
     }
