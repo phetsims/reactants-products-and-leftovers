@@ -74,26 +74,26 @@ define( function( require ) {
     var titleOptions = { font: TITLE_FONT, fill: 'white' };
 
     // 'Before Reaction' accordion box, with stacks of reactants
-    var beforeThings = [];
+    var beforeItems = [];
     reaction.reactants.forEach( function( reactant ) {
-      beforeThings.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.quantityProperty } );
+      beforeItems.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.quantityProperty } );
     });
     var beforeTitleNode = new Text( options.beforeTitle, titleOptions );
-    thisNode.beforeBox = new StacksAccordionBox( beforeThings, _.extend( {
+    thisNode.beforeBox = new StacksAccordionBox( beforeItems, _.extend( {
       expandedProperty: beforeExpandedProperty,
       titleNode: beforeTitleNode
     }, options ) );
 
     // 'After Reaction' accordion box, with stacks of products and leftovers
-    var afterThings = [];
+    var afterItems = [];
     reaction.products.forEach( function( product ) {
-      afterThings.push( { nodeProperty: product.nodeProperty, quantityProperty: product.quantityProperty } );
+      afterItems.push( { nodeProperty: product.nodeProperty, quantityProperty: product.quantityProperty } );
     } );
     reaction.reactants.forEach( function( reactant ) {
-      afterThings.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.leftoversProperty } );
+      afterItems.push( { nodeProperty: reactant.nodeProperty, quantityProperty: reactant.leftoversProperty } );
     } );
     var afterTitleNode = new Text( options.afterTitle, titleOptions );
-    thisNode.afterBox = new StacksAccordionBox( afterThings, _.extend( {
+    thisNode.afterBox = new StacksAccordionBox( afterItems, _.extend( {
       expandedProperty: afterExpandedProperty,
       titleNode: afterTitleNode
     }, options ) );

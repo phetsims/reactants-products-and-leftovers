@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- *  Accordion box that shows stacks of things.
+ *  Accordion box that shows stacks of items.
  *
  *  @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,11 +23,11 @@ define( function( require ) {
   var MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
 
   /**
-   * @param {[ { {Property.<Node>} nodeProperty, {Property.<number>} quantityProperty} ]} things things in the box
+   * @param {[ { {Property.<Node>} nodeProperty, {Property.<number>} quantityProperty} ]} items items in the box
    * @param {Object} [options]
    * @constructor
    */
-  function StacksAccordionBox( things, options ) {
+  function StacksAccordionBox( items, options ) {
 
     // options common to both accordion boxes
     options = _.extend( {
@@ -63,23 +63,23 @@ define( function( require ) {
     var rectangle = new Rectangle( 0, 0, options.contentSize.width, options.contentSize.height, options.cornerRadius, options.cornerRadius );
     content.addChild( rectangle );
 
-    // compute max height of the things in the box
+    // compute max height of the items in the box
     var maxThingHeight = Math.max(
       options.maxImageSize.height,
-      _.max( things, function( thing ) { return thing.nodeProperty.get().height; } ).nodeProperty.get().height );
+      _.max( items, function( item ) { return item.nodeProperty.get().height; } ).nodeProperty.get().height );
 
-    // vertical stacks of things inside the box
+    // vertical stacks of items inside the box
     this.stackNodes = []; // @private
-    var xMargin = ( things.length > 2 ) ? 0 : ( 0.15 * rectangle.width ); // make 2-reactants case look nice
-    var deltaX = ( rectangle.width - ( 2 * xMargin ) ) / things.length;
+    var xMargin = ( items.length > 2 ) ? 0 : ( 0.15 * rectangle.width ); // make 2-reactants case look nice
+    var deltaX = ( rectangle.width - ( 2 * xMargin ) ) / items.length;
     var startCenterX = rectangle.left + xMargin + ( deltaX / 2 );
     var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxThingHeight ) / ( options.quantityRange.max - 1 );
     var startCenterY = rectangle.height - options.boxYMargin - ( maxThingHeight / 2 );
 
     // stacks inside the box
-    for ( var i = 0; i < things.length; i++ ) {
-      var thing = things[i];
-      var stackNode = new StackNode( thing.nodeProperty, thing.quantityProperty, startCenterX + ( i * deltaX ), startCenterY, deltaY );
+    for ( var i = 0; i < items.length; i++ ) {
+      var item = items[i];
+      var stackNode = new StackNode( item.nodeProperty, item.quantityProperty, startCenterX + ( i * deltaX ), startCenterY, deltaY );
       content.addChild( stackNode );
       this.stackNodes.push( stackNode );
     }
