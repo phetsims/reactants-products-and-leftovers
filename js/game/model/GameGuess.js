@@ -49,10 +49,10 @@ define( function( require ) {
     var guessReactant;
     for ( var i = 0; i < reactants.length; i++ ) {
       if ( challengeType === ChallengeType.BEFORE ) {
-        guessReactant = Reactant.cloneWithQuantity( reactants[i], 0 );
+        guessReactant = Reactant.withQuantity( reactants[i], 0 );
       }
       else {
-        guessReactant = Reactant.cloneWithLeftovers( reactants[i], 0 );
+        guessReactant = Reactant.withLeftovers( reactants[i], 0 );
       }
       guessReactants.push( guessReactant );
     }
@@ -76,7 +76,7 @@ define( function( require ) {
         guessProduct = Product.clone( products[i] )
       }
       else {
-        guessProduct = Product.cloneWithQuantity( products[i], 0 );
+        guessProduct = Product.withQuantity( products[i], 0 );
       }
       guessProducts.push( guessProduct );
     }

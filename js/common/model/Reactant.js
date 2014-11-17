@@ -48,7 +48,7 @@ define( function( require ) {
      * @returns {Reactant}
      * @static
      */
-    cloneWithQuantity: function( reactant, quantity ) {
+    withQuantity: function( reactant, quantity ) {
       return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, quantity, reactant.leftovers );
     },
 
@@ -59,7 +59,7 @@ define( function( require ) {
      * @returns {Reactant}
      * @static
      */
-    cloneWithLeftovers: function( reactant, leftovers ) {
+    withLeftovers: function( reactant, leftovers ) {
       return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, reactant.quantity, leftovers );
     }
   } );

@@ -55,7 +55,7 @@ define( function( require ) {
      * @returns {Product}
      * @static
      */
-    cloneWithQuantity: function( product, quantity ) {
+    withQuantity: function( product, quantity ) {
       return new Product( product.coefficient, product.symbol, product.node, quantity );
     }
   } );
