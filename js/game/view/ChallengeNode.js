@@ -238,7 +238,7 @@ define( function( require ) {
       thisNode.addChild( new LayoutBox( {
         children: children,
         orientation: 'horizontal',
-        spacing: 30,
+        spacing: 50,
         centerX: challengeBounds.centerX,
         top: thisNode.beforeBox.bottom + 20
       } ) );
