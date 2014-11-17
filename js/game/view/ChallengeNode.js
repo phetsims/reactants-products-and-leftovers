@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
   var GameButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameButtons' );
@@ -28,6 +29,7 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var StacksAccordionBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/StacksAccordionBox' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var SPINNER_OPTIONS = { font: new RPALFont( 28 ) };
@@ -71,6 +73,8 @@ define( function( require ) {
     // Items
     //------------------------------------------------------------------------------------
 
+    //TODO there's some duplicate code here, factor out?
+
     // items in the 'Before Reaction' box, including their horizontal positions
     var beforeItems = [];
     numberOfItems = challenge.reaction.reactants.length;
@@ -99,6 +103,36 @@ define( function( require ) {
       // for 'After', we use display each reactant's leftovers quantity
       afterItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
       centerX += deltaX;
+    } );
+
+    //------------------------------------------------------------------------------------
+    // Property that tells us whether the user has made a valid guess.
+    //------------------------------------------------------------------------------------
+
+    // dependencies is the set of quantities that the user can guess
+    var dependencies = [];
+    if ( challenge.challengeType === ChallengeType.BEFORE ) {
+      challenge.guess.reactants.forEach( function( reactant ) {
+        dependencies.push( reactant.quantityProperty );
+      } );
+    }
+    else {
+      challenge.guess.products.forEach( function( product ) {
+        dependencies.push( product.quantityProperty );
+      } );
+      challenge.guess.reactants.forEach( function( reactant ) {
+        dependencies.push( reactant.leftoversProperty );
+      } );
+    }
+    // @private
+    thisNode.guessIsValidProperty = new DerivedProperty( dependencies, function() {
+      // true if any quantity that the user can guess is non-zero
+      for ( var i = 0, j = arguments.length; i < j; i++ ) {
+        if ( arguments[i] !== 0 ) {
+          return true;
+        }
+      }
+      return false;
     } );
 
     //------------------------------------------------------------------------------------
@@ -146,12 +180,29 @@ define( function( require ) {
     faceNode.center = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.center : thisNode.afterBox.center;
 
     //------------------------------------------------------------------------------------
+    // Question mark
+    //------------------------------------------------------------------------------------
+
+    var questionMark = new Text( '?', {
+      font: new RPALFont( { size: 150, weight: 'bold' } )
+    } );
+    thisNode.addChild( questionMark );
+    questionMark.center = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.center : thisNode.afterBox.center;
+
+    // visible only until the user has entered a valid guess
+    var guessIsValidObserver = function( guessIsValid ) {
+      questionMark.visible = !guessIsValid;
+      if ( guessIsValid ) { thisNode.guessIsValidProperty.unlink( guessIsValidObserver ) }
+    };
+    thisNode.guessIsValidProperty.link( guessIsValidObserver );
+
+    //------------------------------------------------------------------------------------
     // Buttons (Check, Try Again, ...)
     //------------------------------------------------------------------------------------
 
     // buttons (Check, Try Again, ...)
-    var buttons = new GameButtons( model, challenge, audioPlayer, faceNode );
-    this.addChild( buttons );
+    var buttons = new GameButtons( model, challenge, audioPlayer, faceNode, thisNode.guessIsValidProperty );
+    thisNode.addChild( buttons );
     buttons.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     buttons.bottom = thisNode.beforeBox.bottom - 10;
 
@@ -269,6 +320,8 @@ define( function( require ) {
       // boxes
       this.beforeBox.dispose();
       this.afterBox.dispose();
+
+      this.guessIsValidProperty.detach();
 
       // quantity spinners and displays
 //      this.quantityNodes.forEach( function( node ) { node.dispose(); } ); //TODO

@@ -5,6 +5,7 @@ DESIGN
 - title feels cramped in navigation bar
 
 HIGH
+- Game: big question mark in box that we're guessing
 - Game: 'Replay' causes the box that's supposed to remain constant to clear
 - Game: Before/After boxes with random layout strategy for molecules
 - Game: stuff below Before/After boxes, similar to BeforeAfterNode

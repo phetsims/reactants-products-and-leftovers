@@ -38,10 +38,11 @@ define( function( require ) {
    * @param {Challenge} challenge
    * @param {GameAudioPlayer} audioPlayer
    * @param {FaceWithPointsNode} faceNode
+   * @param {Property.<boolean>} guessIsValidProperty is the user's guess valid?
    * @param {Object} [options]
    * @constructor
    */
-  function GameButtons( model, challenge, audioPlayer, faceNode, options ) {
+  function GameButtons( model, challenge, audioPlayer, faceNode, guessIsValidProperty, options ) {
 
     options = options || {};
 
@@ -72,35 +73,10 @@ define( function( require ) {
         model.playState = ( model.playState === PlayState.FIRST_CHECK ) ? PlayState.TRY_AGAIN : PlayState.SHOW_ANSWER;
       }
     } );
-
-    // Disable the Check button when guessed quantities are zero.
-    thisNode.checkButtonDependencies = []; // private
-    thisNode.checkButtonUpdater = null; // @private
-    if ( challenge.challengeType === ChallengeType.BEFORE ) {
-      thisNode.checkButtonUpdater = function() {
-        // enabled Check button if any reactant quantity is non-zero
-        checkButton.enabled = _.any( challenge.guess.reactants, function( reactant ) { return reactant.quantity > 0; } );
-      };
-      challenge.guess.reactants.forEach( function( reactant ) {
-        reactant.quantityProperty.link( thisNode.checkButtonUpdater );
-        thisNode.checkButtonDependencies.push( reactant.quantityProperty );
-      } );
-    }
-    else {
-      thisNode.checkButtonUpdater = function() {
-        // enabled Check button if any product or leftover quantity is non-zero
-        checkButton.enabled = _.any( challenge.guess.products, function( product ) { return product.quantity > 0; } ) ||
-                              _.any( challenge.guess.reactants, function( reactant ) { return reactant.leftovers > 0; } );
-      };
-      challenge.guess.products.forEach( function( product ) {
-        product.quantityProperty.link( thisNode.checkButtonUpdater );
-        thisNode.checkButtonDependencies.push( product.quantityProperty );
-      } );
-      challenge.guess.reactants.forEach( function( reactant ) {
-        reactant.leftoversProperty.link( thisNode.checkButtonUpdater );
-        thisNode.checkButtonDependencies.push( reactant.leftoversProperty );
-      } );
-    }
+    // no need to unlink from this property in dispose, it's lifetime is the same as this node
+    guessIsValidProperty.link( function( guessIsValid ) {
+      checkButton.enabled = guessIsValid;
+    } );
 
     // 'Try Again' button
     tryAgainButton.addListener( function() {
@@ -133,7 +109,6 @@ define( function( require ) {
 
     dispose: function() {
       this.playStateProperty.unlink( this.playStateObserver );
-      this.checkButtonDependencies.forEach( function( property ) { property.unlink( this.checkButtonUpdater ); } );
     }
   } );
 } );
