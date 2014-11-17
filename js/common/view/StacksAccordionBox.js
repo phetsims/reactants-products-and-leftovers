@@ -38,7 +38,6 @@ define( function( require ) {
       cornerRadius: 3,
       buttonTouchAreaDilatedX: 10,
       buttonTouchAreaDilatedY: 10,
-      titleNode: new Rectangle( 0, 0, 1, 1 ),
       titleBarFill: RPALColors.REACTION_BAR_COLOR,
       titleAlign: 'center',
       buttonAlign: 'right',
@@ -55,7 +54,9 @@ define( function( require ) {
     }, options );
 
     // title, scaled to fit
-    options.titleNode.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * options.contentSize.width / options.titleNode.width ) );
+    if ( options.titleNode ) {
+      options.titleNode.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * options.contentSize.width / options.titleNode.width ) );
+    }
 
     // content for the accordion box
     var content = new Node();

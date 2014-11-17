@@ -25,8 +25,9 @@ define( function( require ) {
 
   // constants
   var BUTTON_OPTIONS = {
-    font: new RPALFont( { size: 24, weight: 'bold' } ),
-    baseColor: 'rgba( 255, 255, 0, 0.5)', // transparent yellow
+    font: new RPALFont( { size: 20, weight: 'bold' } ),
+    baseColor: 'yellow',
+    opacity: 0.75,
     xMargin: 20,
     yMargin: 5,
     centerX: 0 // so that all buttons are center aligned
@@ -42,13 +43,17 @@ define( function( require ) {
    */
   function GameButtons( model, challenge, audioPlayer, faceNode, options ) {
 
+    options = options || {};
+
     var checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
     var tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
     var showAnswerButton = new TextPushButton( showAnswerString, BUTTON_OPTIONS );
     var nextButton = new TextPushButton( nextString, BUTTON_OPTIONS );
 
     options.children = [ checkButton, tryAgainButton, showAnswerButton, nextButton ];
-    Node.call( this, options );
+
+    var thisNode = this;
+    Node.call( thisNode, options );
 
     // 'Check' button
     checkButton.addListener( function() {
@@ -69,27 +74,31 @@ define( function( require ) {
     } );
 
     // Disable the Check button when guessed quantities are zero.
-    var checkButtonUpdater = null;
+    thisNode.checkButtonDependencies = []; // private
+    thisNode.checkButtonUpdater = null; // @private
     if ( challenge.challengeType === ChallengeType.BEFORE ) {
-      checkButtonUpdater = function() {
+      thisNode.checkButtonUpdater = function() {
         // enabled Check button if any reactant quantity is non-zero
         checkButton.enabled = _.any( challenge.guess.reactants, function( reactant ) { return reactant.quantity > 0; } );
       };
       challenge.guess.reactants.forEach( function( reactant ) {
-        reactant.quantityProperty.link( checkButtonUpdater );
+        reactant.quantityProperty.link( thisNode.checkButtonUpdater );
+        thisNode.checkButtonDependencies.push( reactant.quantityProperty );
       } );
     }
     else {
-      checkButtonUpdater = function() {
+      thisNode.checkButtonUpdater = function() {
         // enabled Check button if any product or leftover quantity is non-zero
         checkButton.enabled = _.any( challenge.guess.products, function( product ) { return product.quantity > 0; } ) ||
                               _.any( challenge.guess.reactants, function( reactant ) { return reactant.leftovers > 0; } );
       };
       challenge.guess.products.forEach( function( product ) {
-        product.quantityProperty.link( checkButtonUpdater );
+        product.quantityProperty.link( thisNode.checkButtonUpdater );
+        thisNode.checkButtonDependencies.push( product.quantityProperty );
       } );
       challenge.guess.reactants.forEach( function( reactant ) {
-        reactant.leftoversProperty.link( checkButtonUpdater );
+        reactant.leftoversProperty.link( thisNode.checkButtonUpdater );
+        thisNode.checkButtonDependencies.push( reactant.leftoversProperty );
       } );
     }
 
@@ -108,14 +117,23 @@ define( function( require ) {
       model.playState = PlayState.FIRST_CHECK;
     } );
 
-    // make the proper button visible for the {PlayState} state
-    model.playStateProperty.link( function( state ) {
+    // @private
+    thisNode.playStateObserver = function( state ) {
+       // make the proper button visible for the {PlayState} state
       checkButton.visible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK );
       tryAgainButton.visible = ( state === PlayState.TRY_AGAIN );
       showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER );
       nextButton.visible = ( state === PlayState.NEXT );
-    } );
+    };
+    thisNode.playStateProperty = model.playStateProperty; // @private
+    thisNode.playStateProperty.link( this.playStateObserver );
   }
 
-  return inherit( Node, GameButtons );
+  return inherit( Node, GameButtons, {
+
+    dispose: function() {
+      this.playStateProperty.unlink( this.playStateObserver );
+      this.checkButtonDependencies.forEach( function( property ) { property.unlink( this.checkButtonUpdater ); } );
+    }
+  } );
 } );
