@@ -32,8 +32,12 @@ define( function( require ) {
    */
   function GameGuess( reaction, challengeType ) {
     assert && assert( challengeType === ChallengeType.BEFORE || challengeType === ChallengeType.AFTER );
+
     this.reactants = createGuessReactants( reaction.reactants, challengeType );
+    assert && assert( this.reactants.length === reaction.reactants.length );
+
     this.products = createGuessProducts( reaction.products, challengeType );
+    assert && assert( this.products.length === reaction.products.length );
   }
 
   /**
@@ -59,7 +63,6 @@ define( function( require ) {
       }
       guessReactants.push( guessReactant );
     }
-    assert && assert( guessReactants.length === reactants.length );
     return guessReactants;
   };
 

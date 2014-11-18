@@ -28,13 +28,23 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var StacksAccordionBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/StacksAccordionBox' );
+  var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var SPINNER_OPTIONS = { font: new RPALFont( 28 ) };
+  var QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
+  var SYMBOL_FONT = new RPALFont( 16 ); // font for the symbols that appear below the boxes
+  var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
+  var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
+  var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
+  var BRACKET_LABEL_OPTIONS = { font: new RPALFont( 12 ), fill: 'black' };
+  var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
+  var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
+  var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by eye
 
   /**
    * @param {GameModel} model
@@ -46,25 +56,33 @@ define( function( require ) {
    */
   function ChallengeNode( model, challenge, challengeBounds, audioPlayer, options ) {
 
+    // convenience variables, to improve readability
+    var reaction = challenge.reaction;
+    var guess = challenge.guess;
+    assert && assert( reaction.reactants.length === guess.reactants.length );
+    assert && assert( reaction.products.length === guess.products.length );
     var challengeType = challenge.challengeType;
     assert && assert( challengeType === ChallengeType.BEFORE || challengeType === ChallengeType.AFTER );
 
     options = _.extend( {
-      boxSize: new Dimension2( 310, 240 ) // size of the 'Before' and 'After' boxes
+      boxSize: new Dimension2( 310, 240 ), // size of the 'Before' and 'After' boxes
+      quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
+      maxImageSize: new Dimension2( 0, 0 ) // our best guess at the maximum image size
     }, options );
 
     var thisNode = this;
     Node.call( thisNode );
 
     // explicitly hoist vars that are reused
-    var numberOfItems, reactants, products, reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode;
+    var numberOfItems, reactants, products, reactant, product, i,
+      xMargin, centerX, deltaX, spinnerNode, numberNode, imageNode, symbolNode;
 
     //------------------------------------------------------------------------------------
     // Equation
     //------------------------------------------------------------------------------------
 
     // equation
-    var equationNode = new MoleculesEquationNode( model.challenge.reaction, {
+    var equationNode = new MoleculesEquationNode( reaction, {
       fill: 'black',
       top: challengeBounds.top + 15,
       plusXSpacing: 25,
@@ -90,11 +108,11 @@ define( function( require ) {
 
     // items in the 'Before Reaction' box, including their horizontal positions
     var beforeItems = [];
-    numberOfItems = challenge.reaction.reactants.length;
+    numberOfItems = reaction.reactants.length;
     xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2-items case look nice
     deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfItems;
     centerX = xMargin + ( deltaX / 2 );
-    reactants = ( challengeType === ChallengeType.BEFORE ) ? challenge.guess.reactants : challenge.reaction.reactants;
+    reactants = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants : reaction.reactants;
     reactants.forEach( function( reactant ) {
       //TODO StacksAccordionBox shouldn't be involved
       beforeItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
@@ -103,12 +121,12 @@ define( function( require ) {
 
     // items in the 'After Reaction' box, including their horizontal positions
     var afterItems = [];
-    numberOfItems = challenge.reaction.products.length + challenge.reaction.reactants.length;
+    numberOfItems = reaction.products.length + reaction.reactants.length;
     xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2-items case look nice
     deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfItems;
     centerX = xMargin + ( deltaX / 2 );
-    products = ( challengeType === ChallengeType.AFTER ) ? challenge.guess.products : challenge.reaction.products;
-    reactants = ( challengeType === ChallengeType.AFTER ) ? challenge.guess.reactants : challenge.reaction.reactants;
+    products = ( challengeType === ChallengeType.AFTER ) ? guess.products : reaction.products;
+    reactants = ( challengeType === ChallengeType.AFTER ) ? guess.reactants : reaction.reactants;
     products.forEach( function( product ) {
       //TODO StacksAccordionBox shouldn't be involved
       afterItems.push( StacksAccordionBox.item( product.nodeProperty, product.quantityProperty, centerX ) );
@@ -128,11 +146,11 @@ define( function( require ) {
     // dependencies is the set of quantities that the user can guess
     var dependencies = [];
     if ( challenge.challengeType === ChallengeType.BEFORE ) {
-      challenge.guess.reactants.forEach( function( reactant ) { dependencies.push( reactant.quantityProperty ); } );
+      guess.reactants.forEach( function( reactant ) { dependencies.push( reactant.quantityProperty ); } );
     }
     else {
-      challenge.guess.products.forEach( function( product ) { dependencies.push( product.quantityProperty ); } );
-      challenge.guess.reactants.forEach( function( reactant ) { dependencies.push( reactant.leftoversProperty ); } );
+      guess.products.forEach( function( product ) { dependencies.push( product.quantityProperty ); } );
+      guess.reactants.forEach( function( reactant ) { dependencies.push( reactant.leftoversProperty ); } );
     }
     // @private
     thisNode.guessIsValidProperty = new DerivedProperty( dependencies, function() {
@@ -217,92 +235,149 @@ define( function( require ) {
     buttons.bottom = thisNode.beforeBox.bottom - 10;
 
     //------------------------------------------------------------------------------------
-    // Controls below the boxes
+    // Quantities, images and symbols below the boxes
     //------------------------------------------------------------------------------------
 
-    //TODO temporary UI, to get the game working
-    {
-      var quantityRange = new Range( 0, model.maxQuantity );
-      var children = [];
-      if ( challenge.challengeType === ChallengeType.BEFORE ) {
+    // keep track of components that appear below the boxes, so we can handle their vertical alignment
+    thisNode.spinnerNodes = []; // @private see dispose
+    thisNode.numberNodes = []; // @private see dispose
+    thisNode.imageNodes = []; // @private see dispose
+    var symbolNodes = [];
 
-        // guess the reactants
-        challenge.guess.reactants.forEach( function( reactant ) {
-          children.push( new LayoutBox( {
-            orientation: 'vertical',
-            spacing: 8,
-            children: [
-              new NumberSpinner( reactant.quantityProperty, quantityRange, SPINNER_OPTIONS ),
-              new SubSupText( reactant.symbol )
-            ] } ) );
-        } );
+    // reactants, below the 'Before' box
+    var reactantsParent = new Node();
+    thisNode.addChild( reactantsParent );
+    for ( i = 0; i < reaction.reactants.length; i++ ) {
 
-        // space
-        children.push( new HStrut( 40 ) );
+      reactant = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants[i] : reaction.reactants[i];
+      centerX = thisNode.beforeBox.left + beforeItems[i].centerX;
 
-        // show the products & leftovers
-        challenge.reaction.products.forEach( function( product ) {
-          children.push( new LayoutBox( {
-            orientation: 'vertical',
-            spacing: 8,
-            children: [
-              new NumberNode( product.quantityProperty, SPINNER_OPTIONS ),
-              new SubSupText( product.symbol )
-            ] } ) );
-        } );
-        challenge.reaction.reactants.forEach( function( reactant ) {
-          children.push( new LayoutBox( {
-            orientation: 'vertical',
-            spacing: 8,
-            children: [
-              new NumberNode( reactant.leftoversProperty, SPINNER_OPTIONS ),
-              new SubSupText( reactant.symbol )
-            ] } ) );
-        } );
+      // non-editable number
+      numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+      reactantsParent.addChild( numberNode );
+      thisNode.numberNodes.push( numberNode );
+
+      // spinner
+      if ( challengeType === ChallengeType.BEFORE ) {
+        spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
+          { font: QUANTITY_FONT, centerX: centerX } );
+        reactantsParent.addChild( spinnerNode );
+        thisNode.spinnerNodes.push( spinnerNode );
       }
-      else {
 
-        // show the reactants
-        challenge.reaction.reactants.forEach( function( reactant ) {
-          children.push( new LayoutBox( {
-            orientation: 'vertical',
-            spacing: 8,
-            children: [
-              new NumberNode( reactant.quantityProperty, SPINNER_OPTIONS ),
-              new SubSupText( reactant.symbol )
-            ] } ) );
-        } );
+      // image
+      imageNode = new SubstanceNode( reactant, { centerX: centerX } );
+      reactantsParent.addChild( imageNode );
+      thisNode.imageNodes.push( imageNode );
 
-        // space
-        children.push( new HStrut( 40 ) );
-
-        // guess the products and leftovers
-        challenge.guess.products.forEach( function( product ) {
-          children.push( new LayoutBox( {
-            orientation: 'vertical',
-            spacing: 8,
-            children: [
-              new NumberSpinner( product.quantityProperty, quantityRange, SPINNER_OPTIONS ),
-              new SubSupText( product.symbol )
-            ] } ) );
-        } );
-        challenge.guess.reactants.forEach( function( reactant ) {
-          children.push( new LayoutBox( {
-            orientation: 'vertical',
-            spacing: 8,
-            children: [
-              new NumberSpinner( reactant.leftoversProperty, quantityRange, SPINNER_OPTIONS ),
-              new SubSupText( reactant.symbol )
-            ] } ) );
-        } );
+      // symbol
+      if ( options.showSymbols ) {
+        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+        reactantsParent.addChild( symbolNode );
+        symbolNodes.push( symbolNode );
       }
-      thisNode.addChild( new LayoutBox( {
-        children: children,
-        orientation: 'horizontal',
-        spacing: 50,
-        centerX: challengeBounds.centerX,
-        top: thisNode.beforeBox.bottom + 20
-      } ) );
+
+      centerX += deltaX;
+    }
+
+    // products, below the 'After' box
+    var productsParent = new Node();
+    thisNode.addChild( productsParent );
+    for ( i = 0; i < reaction.products.length; i++ ) {
+
+      product = ( challengeType === ChallengeType.AFTER ) ? guess.products[i] : reaction.products[i];
+      centerX = thisNode.afterBox.left + afterItems[i].centerX;
+
+      // non-editable number
+      numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+      productsParent.addChild( numberNode );
+      thisNode.numberNodes.push( numberNode );
+
+      // spinner
+      if ( challengeType === ChallengeType.AFTER ) {
+        spinnerNode = new NumberSpinner( product.quantityProperty, options.quantityRange,
+          { font: QUANTITY_FONT, centerX: centerX } );
+        productsParent.addChild( spinnerNode );
+        thisNode.spinnerNodes.push( spinnerNode );
+      }
+
+      // image
+      imageNode = new SubstanceNode( product, { centerX: centerX } );
+      productsParent.addChild( imageNode );
+      thisNode.imageNodes.push( imageNode );
+
+      // symbol
+      if ( options.showSymbols ) {
+        symbolNode = new SubSupText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+        productsParent.addChild( symbolNode );
+        symbolNodes.push( symbolNode );
+      }
+
+      centerX += deltaX;
+    }
+
+    // leftovers, below the 'After' box, to the right of the products
+    var leftoversParent = new Node();
+    thisNode.addChild( leftoversParent );
+    for ( i = 0; i < reaction.reactants.length; i++ ) {
+
+      reactant = ( challengeType === ChallengeType.AFTER ) ? guess.reactants[i] : reaction.reactants[i];
+      centerX = thisNode.afterBox.left + afterItems[ i + reaction.products.length ].centerX;
+
+      // non-editable number
+      numberNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
+      leftoversParent.addChild( numberNode );
+      thisNode.numberNodes.push( numberNode );
+
+      // spinner
+      if ( challengeType === ChallengeType.AFTER ) {
+        spinnerNode = new NumberSpinner( reactant.leftoversProperty, options.quantityRange,
+          { font: QUANTITY_FONT, centerX: centerX } );
+        leftoversParent.addChild( spinnerNode );
+        thisNode.spinnerNodes.push( spinnerNode );
+      }
+
+      // image
+      imageNode = new SubstanceNode( reactant, { centerX: centerX } );
+      leftoversParent.addChild( imageNode );
+      thisNode.imageNodes.push( imageNode );
+
+      // symbol
+      if ( options.showSymbols ) {
+        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+        leftoversParent.addChild( symbolNode );
+        symbolNodes.push( symbolNode );
+      }
+
+      centerX += deltaX;
+    }
+
+    // vertical layout of components below the boxes
+    var maxQuantityHeight = _.max( thisNode.spinnerNodes, function( node ) { return node.height; } ).height;
+    var maxImageHeight = Math.max(
+      options.maxImageSize.height,
+      _.max( thisNode.imageNodes, function( node ) { return node.height; } ).height );
+    var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
+    var componentsTop = thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
+
+    thisNode.spinnerNodes.forEach( function( spinnerNode ) {
+      spinnerNode.centerY = componentsTop + ( maxQuantityHeight / 2 );
+    } );
+    thisNode.numberNodes.forEach( function( numberNode ) {
+      numberNode.centerY = componentsTop + ( maxQuantityHeight / 2 );
+    } );
+    thisNode.imageNodes.forEach( function( imageNode ) {
+      imageNode.centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
+    } );
+    if ( options.showSymbols ) {
+      symbolNodes.forEach( function( symbolNode ) {
+        symbolNodes.top = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
+      });
+    }
+
+    var componentsBottom = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
+    if ( options.showSymbols ) {
+      componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
 
     //------------------------------------------------------------------------------------
@@ -338,7 +413,7 @@ define( function( require ) {
     // Observers
     //------------------------------------------------------------------------------------
 
-    // play-state changes
+    // {PlayState} state changes
     model.playStateProperty.link( function( state ) {
 
       // visibility of face
@@ -351,7 +426,22 @@ define( function( require ) {
       if ( hideMoleculesBox ) { hideMoleculesBox.visible = hideBoxVisible; }
       if ( hideNumbersBox ) { hideNumbersBox.visible = hideBoxVisible; }
 
-      //TODO if ( state === PlayState.NEXT ) { show answer }
+      // switch between spinners and static numbers
+      var spinnersVisible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK  );
+      thisNode.spinnerNodes.forEach( function( spinnerNode ) { spinnerNode.visible = spinnersVisible; } );
+      if ( challengeType === ChallengeType.BEFORE ) {
+        for ( i = 0; i < reaction.reactants.length; i++ ) {
+          thisNode.numberNodes[i].visible = !spinnersVisible;
+        }
+      }
+      else {
+        for ( i = reaction.reactants.length; i < thisNode.numberNodes.length; i++ ) {
+          thisNode.numberNodes[i].visible = !spinnersVisible;
+        }
+      }
+
+      // reveal the correct answer
+      if ( state === PlayState.NEXT ) { challenge.showAnswer(); }
     } );
 
     thisNode.mutate( options );
@@ -367,11 +457,10 @@ define( function( require ) {
 
       this.guessIsValidProperty.detach();
 
-      // quantity spinners and displays
-//      this.quantityNodes.forEach( function( node ) { node.dispose(); } ); //TODO
-
-      // substance images
-//      this.imageNodes.forEach( function( node ) { node.dispose(); } ); //TODO
+      // stuff below the boxes
+      this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
+      this.numberNodes.forEach( function( node ) { node.dispose(); } );
+      this.imageNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );

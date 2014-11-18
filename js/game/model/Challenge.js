@@ -56,6 +56,18 @@ define( function( require ) {
         }
       }
       return true;
+    },
+
+    // Reveals the correct answer by copying the reaction quantities to the guess.
+    showAnswer: function() {
+      var i;
+      for ( i = 0; i < this.guess.reactants.length; i++ ) {
+        this.guess.reactants[i].quantity = this.reaction.reactants[i].quantity;
+        this.guess.reactants[i].leftovers = this.reaction.reactants[i].leftovers;
+      }
+      for ( i = 0; i < this.guess.products.length; i++ ) {
+        this.guess.products[i].quantity = this.reaction.products[i].quantity;
+      }
     }
   } );
 } );
