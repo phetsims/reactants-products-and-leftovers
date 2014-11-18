@@ -153,6 +153,7 @@ define( function( require ) {
     } );
     thisNode.addChild( arrowNode );
 
+    //TODO use GridBox
     // 'Before Reaction' box, with stacks of reactants
     thisNode.beforeBox = new StacksAccordionBox( beforeItems, {
       contentSize: options.boxSize,
@@ -163,6 +164,7 @@ define( function( require ) {
     thisNode.addChild( thisNode.beforeBox );
     arrowNode.centerY = thisNode.beforeBox.centerY;
 
+    //TODO use GridBox
     // 'After Reaction' box, with stacks of products and leftovers
     thisNode.afterBox = new StacksAccordionBox( afterItems, {
       contentSize: options.boxSize,
