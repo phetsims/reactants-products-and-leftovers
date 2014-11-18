@@ -2,7 +2,6 @@ TODO list for reactants-products-and-leftovers
 
 DESIGN
 - where should we put the 'Reset All' button in the first 2 screens?
-- title feels cramped in navigation bar
 
 HIGH
 - Game: Before/After boxes with random layout strategy for molecules
