@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
+  var Color = require( 'SCENERY/util/Color' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
@@ -25,6 +26,7 @@ define( function( require ) {
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
@@ -69,8 +71,17 @@ define( function( require ) {
       plusXSpacing: 25,
       arrowXSpacing: 25
     } );
-    thisNode.addChild( equationNode );
     equationNode.left = challengeBounds.centerX - equationNode.arrowCenterX; // arrow at center of bounds
+
+    // equations background
+    var equationBackground = new Rectangle( 0, 0, equationNode.width + 30, equationNode.height + 6, 3, 3, {
+      fill: 'white',
+      stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.3 ),
+      center: equationNode.center
+    } );
+
+    thisNode.addChild( equationBackground );
+    thisNode.addChild( equationNode );
 
     //------------------------------------------------------------------------------------
     // Items

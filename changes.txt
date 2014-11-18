@@ -1,3 +1,4 @@
+11/18/14 Game: add equation background, as in design doc
 11/17/14 horizontally align arrows in Game
 11/17/14 increase horizontal spacing in Game equation
 11/17/14 Game: baby steps towards GridBox
