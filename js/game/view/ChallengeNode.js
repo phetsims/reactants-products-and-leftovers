@@ -437,20 +437,19 @@ define( function( require ) {
         iconHeight: 0.4 * options.boxSize.height,
         cornerRadius: 3,
         left: ( challengeType === ChallengeType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
-        top: thisNode.beforeBox.top
+        bottom: thisNode.beforeBox.bottom
       } );
       thisNode.addChild( hideMoleculesBox );
     }
 
     var hideNumbersBox = null;
-    var boxHeight = 50; //TODO compute height
     if ( !model.numbersVisible ) {
       hideNumbersBox = new HideBox( {
-        boxSize: new Dimension2( options.boxSize.width, boxHeight ),
-        iconHeight: 0.65 * boxHeight,
+        boxSize: new Dimension2( options.boxSize.width, spinnerHeight ),
+        iconHeight: 0.65 * spinnerHeight,
         cornerRadius: 3,
         left: ( challengeType === ChallengeType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
-        top: thisNode.beforeBox.bottom + 5 //TODO compute position
+        centerY: thisNode.spinnerNodes[0].centerY
       } );
       thisNode.addChild( hideNumbersBox );
     }
