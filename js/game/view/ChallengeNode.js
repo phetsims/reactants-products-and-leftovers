@@ -107,7 +107,8 @@ define( function( require ) {
     // Items
     //------------------------------------------------------------------------------------
 
-    //TODO there's some duplicate code here, factor out?
+    //TODO this section is similar to BeforeAfterNode
+    //TODO StacksAccordionBox shouldn't be involved here
 
     // items in the 'Before Reaction' box, including their horizontal positions
     var beforeItems = [];
@@ -117,7 +118,6 @@ define( function( require ) {
     centerX = xMargin + ( deltaX / 2 );
     reactants = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants : reaction.reactants;
     reactants.forEach( function( reactant ) {
-      //TODO StacksAccordionBox shouldn't be involved
       beforeItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
@@ -131,13 +131,11 @@ define( function( require ) {
     products = ( challengeType === ChallengeType.AFTER ) ? guess.products : reaction.products;
     reactants = ( challengeType === ChallengeType.AFTER ) ? guess.reactants : reaction.reactants;
     products.forEach( function( product ) {
-      //TODO StacksAccordionBox shouldn't be involved
       afterItems.push( StacksAccordionBox.item( product.nodeProperty, product.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
     reactants.forEach( function( reactant ) {
       // for 'After', we use display each reactant's leftovers quantity
-      //TODO StacksAccordionBox shouldn't be involved
       afterItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
       centerX += deltaX;
     } );
@@ -240,6 +238,8 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
     // Quantities, images and symbols below the boxes
     //------------------------------------------------------------------------------------
+
+    //TODO this section is similar to BeforeAfterNode
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     thisNode.spinnerNodes = []; // @private see dispose
@@ -355,8 +355,10 @@ define( function( require ) {
       centerX += deltaX;
     }
 
+    //TODO this section is identical to BeforeAfterNode
+
     // vertical layout of components below the boxes
-    var maxQuantityHeight = _.max( thisNode.spinnerNodes, function( node ) { return node.height; } ).height;
+    var spinnerHeight = thisNode.spinnerNodes[0].height;
     var maxImageHeight = Math.max(
       options.maxImageSize.height,
       _.max( thisNode.imageNodes, function( node ) { return node.height; } ).height );
@@ -364,21 +366,21 @@ define( function( require ) {
     var componentsTop = thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
 
     thisNode.spinnerNodes.forEach( function( spinnerNode ) {
-      spinnerNode.centerY = componentsTop + ( maxQuantityHeight / 2 );
+      spinnerNode.centerY = componentsTop + ( spinnerHeight / 2 );
     } );
     thisNode.numberNodes.forEach( function( numberNode ) {
-      numberNode.centerY = componentsTop + ( maxQuantityHeight / 2 );
+      numberNode.centerY = componentsTop + ( spinnerHeight / 2 );
     } );
     thisNode.imageNodes.forEach( function( imageNode ) {
-      imageNode.centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
+      imageNode.centerY = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
     } );
     if ( options.showSymbols ) {
       symbolNodes.forEach( function( symbolNode ) {
-        symbolNodes.top = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
+        symbolNode.top = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
       });
     }
 
-    var componentsBottom = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
+    var componentsBottom = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
     if ( options.showSymbols ) {
       componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
