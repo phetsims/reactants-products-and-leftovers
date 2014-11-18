@@ -71,6 +71,7 @@ define( function( require ) {
       if ( challengeNode ) {
         challengeParent.removeChild( challengeNode );
         challengeNode.dispose();
+        challengeNode = null;
       }
 
       // set up new challenge
