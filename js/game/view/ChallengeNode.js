@@ -255,7 +255,7 @@ define( function( require ) {
       reactant = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants[i] : reaction.reactants[i];
       centerX = thisNode.beforeBox.left + beforeItems[i].centerX;
 
-      // non-editable number
+      // noneditable number
       numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
       reactantsParent.addChild( numberNode );
       thisNode.numberNodes.push( numberNode );
@@ -291,7 +291,7 @@ define( function( require ) {
       product = ( challengeType === ChallengeType.AFTER ) ? guess.products[i] : reaction.products[i];
       centerX = thisNode.afterBox.left + afterItems[i].centerX;
 
-      // non-editable number
+      // noneditable number
       numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
       productsParent.addChild( numberNode );
       thisNode.numberNodes.push( numberNode );
@@ -327,7 +327,7 @@ define( function( require ) {
       reactant = ( challengeType === ChallengeType.AFTER ) ? guess.reactants[i] : reaction.reactants[i];
       centerX = thisNode.afterBox.left + afterItems[ i + reaction.products.length ].centerX;
 
-      // non-editable number
+      // noneditable number
       numberNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
       leftoversParent.addChild( numberNode );
       thisNode.numberNodes.push( numberNode );

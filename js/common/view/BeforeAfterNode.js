@@ -184,7 +184,7 @@ define( function( require ) {
       product = reaction.products[i];
       centerX = thisNode.afterBox.left + afterItems[i].centerX;
 
-      // un-editable number
+      // noneditable number
       numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
       productsParent.addChild( numberNode );
       thisNode.numberNodes.push( numberNode );
@@ -212,7 +212,7 @@ define( function( require ) {
       reactant = reaction.reactants[i];
       centerX = thisNode.afterBox.left + afterItems[ i + reaction.products.length ].centerX;
 
-      // un-editable number
+      // noneditable number
       numberNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
       leftoversParent.addChild( numberNode );
       thisNode.numberNodes.push( numberNode );
