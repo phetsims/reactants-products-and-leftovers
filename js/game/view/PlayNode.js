@@ -83,10 +83,10 @@ define( function( require ) {
     // developer mode
     if ( RPALQueryParameters.DEV ) {
 
-      // Developer controls at rightBottom
+      // Developer controls at right, below scoreboard
       this.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
-        bottom: layoutBounds.bottom - 5
+        top: scoreboardNode.bottom + 5
       } ) );
 
       // The answer to the current challenge, bottom center

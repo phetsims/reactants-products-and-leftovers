@@ -34,11 +34,11 @@ define( function( require ) {
     }, options );
 
     // replays the current challenge
-    var replayButton = new TextPushButton( 'Replay', BUTTON_OPTIONS );
+    var replayButton = new TextPushButton( '<', BUTTON_OPTIONS );
     replayButton.addListener( function() { model.replayCurrentChallenge(); } );
 
     // skips the current challenge
-    var skipButton = new TextPushButton( 'Skip', BUTTON_OPTIONS );
+    var skipButton = new TextPushButton( '>', BUTTON_OPTIONS );
     skipButton.addListener( function() { model.skipCurrentChallenge(); } );
 
     options.children = [ replayButton, skipButton ];

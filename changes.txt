@@ -1,3 +1,6 @@
+11/18/14 dev: relocate 'Replay' and 'Skip' buttons, change labels to '<' and '>'
+11/18/14 dev: shorten the answer string to just the quantities
+11/18/14 dev: start with correct answer only when 'playAll' query parameter is present
 11/18/14 Game: add icons, spinner and static numbers below boxes
 11/18/14 factor out colors used to fill panels, stroke boxes
 11/18/14 Game: add equation background, as in design doc

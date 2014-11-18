@@ -52,7 +52,7 @@ define( function( require ) {
     var guessReactants = [];
     var guessReactant;
     for ( var i = 0; i < reactants.length; i++ ) {
-      if ( RPALQueryParameters.DEV ) {
+      if ( RPALQueryParameters.PLAY_ALL ) {
         guessReactant = Reactant.clone( reactants[i] );
       }
       else if ( challengeType === ChallengeType.BEFORE ) {
@@ -78,7 +78,7 @@ define( function( require ) {
     var guessProducts = [];
     var guessProduct;
     for ( var i = 0; i < products.length; i++ ) {
-      if ( challengeType === ChallengeType.BEFORE || RPALQueryParameters.DEV ) {
+      if ( challengeType === ChallengeType.BEFORE || RPALQueryParameters.PLAY_ALL ) {
         guessProduct = Product.clone( products[i] );
       }
       else {
