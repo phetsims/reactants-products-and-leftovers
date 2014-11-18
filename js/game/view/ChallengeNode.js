@@ -65,10 +65,12 @@ define( function( require ) {
     // equation
     var equationNode = new MoleculesEquationNode( model.challenge.reaction, {
       fill: 'black',
-      centerX: challengeBounds.centerX,
-      top: challengeBounds.top + 15
+      top: challengeBounds.top + 15,
+      plusXSpacing: 25,
+      arrowXSpacing: 25
     } );
     thisNode.addChild( equationNode );
+    equationNode.left = challengeBounds.centerX - equationNode.arrowCenterX; // arrow at center of bounds
 
     //------------------------------------------------------------------------------------
     // Items

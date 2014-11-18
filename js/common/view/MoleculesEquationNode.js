@@ -17,11 +17,6 @@ define( function( require ) {
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  // constants
-  var COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
-  var PLUS_X_SPACING = 15; // space on both sides of the plus signs
-  var ARROW_X_SPACING = 15; // space on both sides of arrow
-
   /**
    * @param {Reaction} reaction
    * @param {Object} [options]
@@ -31,7 +26,10 @@ define( function( require ) {
 
     options = _.extend( {
       fill: 'white',
-      font: new RPALFont( 28 )
+      font: new RPALFont( 28 ),
+      coefficientXSpacing: 8, // space between coefficient and node to its right
+      plusXSpacing: 15, // space on both sides of the plus signs
+      arrowXSpacing: 15 // space on both sides of arrow
     }, options );
 
     Node.call( this );
@@ -42,15 +40,17 @@ define( function( require ) {
 
     // right arrow
     var arrowNode = new RightArrowNode( { fill: options.fill, stroke: null, scale: 0.65 } );
-    arrowNode.left = reactantsNode.right + ARROW_X_SPACING;
+    arrowNode.left = reactantsNode.right + options.arrowXSpacing;
     var coefficientHeight = new Text( '1', { font: options.font, fill: options.fill } ).height;
     arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
     this.addChild( arrowNode );
 
     // right-hand side (products)
     var productsNode = createTermsNode( reaction.products, options );
-    productsNode.left = arrowNode.right + ARROW_X_SPACING;
+    productsNode.left = arrowNode.right + options.arrowXSpacing;
     this.addChild( productsNode );
+
+    this.arrowCenterX = arrowNode.centerX; // @public, needed for aligning arrows in Game layout
 
     this.mutate( options );
   }
@@ -70,18 +70,18 @@ define( function( require ) {
 
       // coefficient
       coefficientNode = new Text( terms[i].coefficient, { font: options.font, fill: options.fill } );
-      coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
+      coefficientNode.left = plusNode ? ( plusNode.right + options.plusXSpacing ) : 0;
       parentNode.addChild( coefficientNode );
 
       // molecule
       symbolNode = new SubSupText( terms[i].symbol, { font: options.font, fill: options.fill } );
-      symbolNode.left = coefficientNode.right + COEFFICIENT_X_SPACING;
+      symbolNode.left = coefficientNode.right + options.coefficientXSpacing;
       parentNode.addChild( symbolNode );
 
       // plus sign between terms
       if ( i < numberOfTerms - 1 ) {
         plusNode = new PlusNode( { fill: options.fill } );
-        plusNode.left = symbolNode.right + PLUS_X_SPACING;
+        plusNode.left = symbolNode.right + options.plusXSpacing;
         plusNode.centerY = coefficientNode.centerY;
         parentNode.addChild( plusNode );
       }
