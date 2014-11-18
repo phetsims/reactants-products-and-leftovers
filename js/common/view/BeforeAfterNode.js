@@ -73,7 +73,7 @@ define( function( require ) {
     thisNode.reaction = reaction; // @private
 
     // explicitly hoist vars that are reused
-    var numberOfItems, reactant, product, i, xMargin, centerX, deltaX, spinnerNode, numberNode, imageNode, symbolNode;
+    var numberOfItems, reactant, product, i, xMargin, centerX, deltaX, spinnerNode, numberNode, substanceNode, symbolNode;
 
     //------------------------------------------------------------------------------------
     // items
@@ -144,7 +144,7 @@ define( function( require ) {
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     thisNode.spinnerNodes = []; // @private see dispose
     thisNode.numberNodes = []; // @private see dispose
-    thisNode.imageNodes = []; // @private see dispose
+    thisNode.substanceNodes = []; // @private see dispose
     var symbolNodes = [];
 
     // reactants, below the 'Before' box
@@ -161,10 +161,10 @@ define( function( require ) {
       reactantsParent.addChild( spinnerNode );
       thisNode.spinnerNodes.push( spinnerNode );
 
-      // image
-      imageNode = new SubstanceNode( reactant, { centerX: centerX } );
-      reactantsParent.addChild( imageNode );
-      thisNode.imageNodes.push( imageNode );
+      // substance icon
+      substanceNode = new SubstanceNode( reactant, { centerX: centerX } );
+      reactantsParent.addChild( substanceNode );
+      thisNode.substanceNodes.push( substanceNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -189,10 +189,10 @@ define( function( require ) {
       productsParent.addChild( numberNode );
       thisNode.numberNodes.push( numberNode );
 
-      // image
-      imageNode = new SubstanceNode( product, { centerX: centerX } );
-      productsParent.addChild( imageNode );
-      thisNode.imageNodes.push( imageNode );
+      // substance icon
+      substanceNode = new SubstanceNode( product, { centerX: centerX } );
+      productsParent.addChild( substanceNode );
+      thisNode.substanceNodes.push( substanceNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -217,10 +217,10 @@ define( function( require ) {
       leftoversParent.addChild( numberNode );
       thisNode.numberNodes.push( numberNode );
 
-      // image
-      imageNode = new SubstanceNode( reactant, { centerX: centerX } );
-      leftoversParent.addChild( imageNode );
-      thisNode.imageNodes.push( imageNode );
+      // substance icon
+      substanceNode = new SubstanceNode( reactant, { centerX: centerX } );
+      leftoversParent.addChild( substanceNode );
+      thisNode.substanceNodes.push( substanceNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -236,7 +236,7 @@ define( function( require ) {
     var spinnerHeight = thisNode.spinnerNodes[0].height;
     var maxImageHeight = Math.max(
       options.maxImageSize.height,
-      _.max( thisNode.imageNodes, function( node ) { return node.height; } ).height );
+      _.max( thisNode.substanceNodes, function( node ) { return node.height; } ).height );
     var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
     var componentsTop = thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
 
@@ -246,8 +246,8 @@ define( function( require ) {
     thisNode.numberNodes.forEach( function( numberNode ) {
       numberNode.centerY = componentsTop + ( spinnerHeight / 2 );
     } );
-    thisNode.imageNodes.forEach( function( imageNode ) {
-      imageNode.centerY = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
+    thisNode.substanceNodes.forEach( function( substanceNode ) {
+      substanceNode.centerY = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
     } );
     if ( options.showSymbols ) {
       symbolNodes.forEach( function( symbolNode ) {
@@ -315,7 +315,7 @@ define( function( require ) {
       // stuff below the boxes
       this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
       this.numberNodes.forEach( function( node ) { node.dispose(); } );
-      this.imageNodes.forEach( function( node ) { node.dispose(); } );
+      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );
