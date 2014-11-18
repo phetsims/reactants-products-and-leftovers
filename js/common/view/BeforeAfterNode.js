@@ -79,7 +79,7 @@ define( function( require ) {
     // items
     //------------------------------------------------------------------------------------
 
-    //TODO there's some duplicate code here, factor out?
+    //TODO there's some duplicated code here, factor out?
 
     // items in the 'Before Reaction' box, including their horizontal positions
     var beforeItems = [];
