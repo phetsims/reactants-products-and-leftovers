@@ -96,6 +96,7 @@ define( function( require ) {
     centerX = xMargin + ( deltaX / 2 );
     reactants = ( challengeType === ChallengeType.BEFORE ) ? challenge.guess.reactants : challenge.reaction.reactants;
     reactants.forEach( function( reactant ) {
+      //TODO StacksAccordionBox shouldn't be involved
       beforeItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
@@ -109,11 +110,13 @@ define( function( require ) {
     products = ( challengeType === ChallengeType.AFTER ) ? challenge.guess.products : challenge.reaction.products;
     reactants = ( challengeType === ChallengeType.AFTER ) ? challenge.guess.reactants : challenge.reaction.reactants;
     products.forEach( function( product ) {
+      //TODO StacksAccordionBox shouldn't be involved
       afterItems.push( StacksAccordionBox.item( product.nodeProperty, product.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
     reactants.forEach( function( reactant ) {
       // for 'After', we use display each reactant's leftovers quantity
+      //TODO StacksAccordionBox shouldn't be involved
       afterItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
       centerX += deltaX;
     } );
