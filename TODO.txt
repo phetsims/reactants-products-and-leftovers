@@ -4,7 +4,6 @@ DESIGN
 - where should we put the 'Reset All' button in the first 2 screens?
 
 HIGH
-- Game: Reset All doesn't work correctly for radio buttons
 - Game: Before/After boxes with random layout strategy for molecules
 
 MEDIUM

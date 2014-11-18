@@ -1,3 +1,4 @@
+11/18/14 Game: fix Reset All for radio buttons
 11/18/14 Game: center face in negative space above buttons
 11/18/14 Game: compute height and location of 'hide' boxes
 11/18/14 dev: relocate 'Replay' and 'Skip' buttons, change labels to '<' and '>'

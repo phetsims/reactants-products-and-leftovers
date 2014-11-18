@@ -68,11 +68,17 @@ define( function( require ) {
         numbersVisibleProperty.set( true ); // if molecules are hidden, then numbers must be shown
         showAllProperty.set( false );
       }
+      else {
+        showAllProperty.set( visible && numbersVisibleProperty.get() );
+      }
     } );
     numbersVisibleProperty.link( function( visible ) {
       if ( !visible ) {
         moleculesVisibleProperty.set( true ); // if numbers are hidden, then molecules must be shown
         showAllProperty.set( false );
+      }
+      else {
+        showAllProperty.set( visible && moleculesVisibleProperty.get() );
       }
     } );
 
