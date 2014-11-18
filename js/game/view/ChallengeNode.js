@@ -14,6 +14,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
   var GameButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameButtons' );
+  var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/HideBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculesEquationNode' );
@@ -31,6 +32,11 @@ define( function( require ) {
   var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
+
+  // strings
+  var leftoversString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/leftovers' );
+  var productsString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/products' );
+  var reactantsString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants' );
 
   // constants
   var QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
@@ -376,6 +382,47 @@ define( function( require ) {
     if ( options.showSymbols ) {
       componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
+
+    //------------------------------------------------------------------------------------
+    // Brackets
+    //------------------------------------------------------------------------------------
+
+    //TODO this section is identical to BeforeAfterNode
+
+    var bracketOptions = {
+      bracketColor: RPALColors.PANEL_FILL,
+      top: componentsBottom + BRACKET_Y_SPACING
+    };
+
+    // reactants bracket
+    var reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
+    reactantsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / reactantsLabel.width ) ); // i18n
+    var reactantsBracket = new HBracketNode( _.extend( {
+      labelNode: reactantsLabel,
+      bracketWidth: Math.max( options.maxImageSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: reactantsParent.centerX
+    }, bracketOptions ) );
+    thisNode.addChild( reactantsBracket );
+
+    // products bracket
+    var productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
+    productsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / productsLabel.width ) ); // i18n
+    var productsBracket = new HBracketNode( _.extend( {
+      labelNode: productsLabel,
+      bracketWidth: Math.max( options.maxImageSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: productsParent.centerX
+    }, bracketOptions ) );
+    thisNode.addChild( productsBracket );
+
+    // leftovers bracket
+    var leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
+    leftoversLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / leftoversLabel.width ) ); // i18n
+    var leftoversBracket = new HBracketNode( _.extend( {
+      labelNode: leftoversLabel,
+      bracketWidth: Math.max( options.maxImageSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: leftoversParent.centerX
+    }, bracketOptions ) );
+    thisNode.addChild( leftoversBracket );
 
     //------------------------------------------------------------------------------------
     // Optional 'hide' boxes on top of molecules and numbers
