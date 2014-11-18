@@ -49,7 +49,7 @@ define( function( require ) {
     assert && assert( challengeType === ChallengeType.BEFORE || challengeType === ChallengeType.AFTER );
 
     options = _.extend( {
-      contentSize: new Dimension2( 310, 240 ) // size of the 'Before' and 'After' boxes
+      boxSize: new Dimension2( 310, 240 ) // size of the 'Before' and 'After' boxes
     }, options );
 
     var thisNode = this;
@@ -79,8 +79,8 @@ define( function( require ) {
     // items in the 'Before Reaction' box, including their horizontal positions
     var beforeItems = [];
     numberOfItems = challenge.reaction.reactants.length;
-    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.contentSize.width ); // make 2-items case look nice
-    deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfItems;
+    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2-items case look nice
+    deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfItems;
     centerX = xMargin + ( deltaX / 2 );
     reactants = ( challengeType === ChallengeType.BEFORE ) ? challenge.guess.reactants : challenge.reaction.reactants;
     reactants.forEach( function( reactant ) {
@@ -91,8 +91,8 @@ define( function( require ) {
     // items in the 'After Reaction' box, including their horizontal positions
     var afterItems = [];
     numberOfItems = challenge.reaction.products.length + challenge.reaction.reactants.length;
-    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.contentSize.width ); // make 2-items case look nice
-    deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfItems;
+    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2-items case look nice
+    deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfItems;
     centerX = xMargin + ( deltaX / 2 );
     products = ( challengeType === ChallengeType.AFTER ) ? challenge.guess.products : challenge.reaction.products;
     reactants = ( challengeType === ChallengeType.AFTER ) ? challenge.guess.reactants : challenge.reaction.reactants;
@@ -143,7 +143,7 @@ define( function( require ) {
 
     // 'Before Reaction' box, with stacks of reactants
     thisNode.beforeBox = new StacksAccordionBox( beforeItems, {
-      contentSize: options.contentSize,
+      contentSize: options.boxSize,
       expandedProperty: new Property( true ),
       right: arrowNode.left - 5,
       top: equationNode.bottom + 15
@@ -153,7 +153,7 @@ define( function( require ) {
 
     // 'After Reaction' box, with stacks of products and leftovers
     thisNode.afterBox = new StacksAccordionBox( afterItems, {
-      contentSize: options.contentSize,
+      contentSize: options.boxSize,
       expandedProperty: new Property( true ),
       left: arrowNode.right + 5,
       top: thisNode.beforeBox.top
@@ -295,8 +295,8 @@ define( function( require ) {
     var hideMoleculesBox = null;
     if ( !model.moleculesVisible ) {
       hideMoleculesBox = new HideBox( {
-        boxSize: options.contentSize,
-        iconHeight: 0.4 * options.contentSize.height,
+        boxSize: options.boxSize,
+        iconHeight: 0.4 * options.boxSize.height,
         cornerRadius: 3,
         left: ( challengeType === ChallengeType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
         top: thisNode.beforeBox.top
@@ -308,7 +308,7 @@ define( function( require ) {
     var boxHeight = 50; //TODO compute height
     if ( !model.numbersVisible ) {
       hideNumbersBox = new HideBox( {
-        boxSize: new Dimension2( options.contentSize.width, boxHeight ),
+        boxSize: new Dimension2( options.boxSize.width, boxHeight ),
         iconHeight: 0.65 * boxHeight,
         cornerRadius: 3,
         left: ( challengeType === ChallengeType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
