@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
-  var Color = require( 'SCENERY/util/Color' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
@@ -76,7 +75,7 @@ define( function( require ) {
     // equations background
     var equationBackground = new Rectangle( 0, 0, equationNode.width + 30, equationNode.height + 6, 3, 3, {
       fill: 'white',
-      stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.3 ),
+      stroke: RPALColors.BOX_STROKE,
       center: equationNode.center
     } );
 
@@ -147,7 +146,7 @@ define( function( require ) {
 
     // Arrow between boxes
     var arrowNode = new RightArrowNode( {
-      fill: RPALColors.REACTION_BAR_COLOR,
+      fill: RPALColors.PANEL_FILL,
       stroke: null,
       scale: 0.75,
       centerX: challengeBounds.centerX

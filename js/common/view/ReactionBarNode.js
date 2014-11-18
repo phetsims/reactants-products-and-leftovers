@@ -28,7 +28,7 @@ define( function( require ) {
       screenWidth: 1000, // width of the screen's safe area
       xMargin: 20,
       yMargin: 10,
-      fill: RPALColors.REACTION_BAR_COLOR,
+      fill: RPALColors.PANEL_FILL,
       showSymbols: true // true = show symbols, false = show nodes
     }, options );
 

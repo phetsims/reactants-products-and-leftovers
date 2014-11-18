@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
-  var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -34,11 +33,11 @@ define( function( require ) {
 
       // AccordionBox options
       fill: 'white',
-      stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.3 ),
+      stroke: RPALColors.BOX_STROKE,
       cornerRadius: 3,
       buttonTouchAreaDilatedX: 10,
       buttonTouchAreaDilatedY: 10,
-      titleBarFill: RPALColors.REACTION_BAR_COLOR,
+      titleBarFill: RPALColors.PANEL_FILL,
       titleAlign: 'center',
       buttonAlign: 'right',
       contentXMargin: 0,

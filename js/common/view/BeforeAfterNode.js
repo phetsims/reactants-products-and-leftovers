@@ -127,7 +127,7 @@ define( function( require ) {
     }, options ) );
 
     // Arrow between boxes
-    var arrowNode = new RightArrowNode( { fill: RPALColors.REACTION_BAR_COLOR, stroke: null, scale: 0.75 } );
+    var arrowNode = new RightArrowNode( { fill: RPALColors.PANEL_FILL, stroke: null, scale: 0.75 } );
 
     // layout of boxes and arrow
     var hBox = new LayoutBox( {
@@ -256,7 +256,7 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     var bracketOptions = {
-      bracketColor: RPALColors.REACTION_BAR_COLOR,
+      bracketColor: RPALColors.PANEL_FILL,
       top: componentsBottom + BRACKET_Y_SPACING
     };
 
