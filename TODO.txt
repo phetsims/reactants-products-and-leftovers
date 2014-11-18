@@ -6,11 +6,11 @@ DESIGN
 
 HIGH
 - Game: Before/After boxes with random layout strategy for molecules
-- Game: stuff below Before/After boxes, similar to BeforeAfterNode
 
 MEDIUM
 - adjust pointerAreas for game buttons & spinners
 - review model-view responsibilities for PlayState and GamePhase changes
+- factor out common code in BeforeAfterNode and ChallengeNode?
 
 LOW
 - TODO items in code
