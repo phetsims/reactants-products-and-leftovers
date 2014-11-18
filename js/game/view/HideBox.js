@@ -19,14 +19,15 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function HiddenBox( options ) {
+  function HideBox( options ) {
 
     options = _.extend( {
       boxSize: new Dimension2( 300, 50 ),
-      iconHeight: 35
+      iconHeight: 35,
+      cornerRadius: 0
     }, options );
 
-    var rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, {
+    var rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
       fill: 'white',
       stroke: 'rgb(180,180,180)',
       lineDash: [ 4, 4 ]
@@ -40,5 +41,5 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  return inherit( Node, HiddenBox );
+  return inherit( Node, HideBox );
 } );

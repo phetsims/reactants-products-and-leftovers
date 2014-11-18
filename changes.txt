@@ -1,3 +1,4 @@
+11/17/14 add boxes for 'hide molecules' and 'hide numbers' features
 11/17/14 add '?' to before/after box until the user makes a valid guess
 11/17/14 factor 'valid guess' logic out of GameButtons
 11/17/14 dev: default to correct answer when running with 'dev' query param

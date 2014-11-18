@@ -14,6 +14,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
   var GameButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameButtons' );
+  var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/HideBox' );
   var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
@@ -288,6 +289,35 @@ define( function( require ) {
     }
 
     //------------------------------------------------------------------------------------
+    // Optional 'hide' boxes on top of molecules and numbers
+    //------------------------------------------------------------------------------------
+
+    var hideMoleculesBox = null;
+    if ( !model.moleculesVisible ) {
+      hideMoleculesBox = new HideBox( {
+        boxSize: options.contentSize,
+        iconHeight: 0.4 * options.contentSize.height,
+        cornerRadius: 3,
+        left: ( challengeType === ChallengeType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
+        top: thisNode.beforeBox.top
+      } );
+      thisNode.addChild( hideMoleculesBox );
+    }
+
+    var hideNumbersBox = null;
+    var boxHeight = 50; //TODO compute height
+    if ( !model.numbersVisible ) {
+      hideNumbersBox = new HideBox( {
+        boxSize: new Dimension2( options.contentSize.width, boxHeight ),
+        iconHeight: 0.65 * boxHeight,
+        cornerRadius: 3,
+        left: ( challengeType === ChallengeType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
+        top: thisNode.beforeBox.bottom + 5 //TODO compute position
+      } );
+      thisNode.addChild( hideNumbersBox );
+    }
+
+    //------------------------------------------------------------------------------------
     // Observers
     //------------------------------------------------------------------------------------
 
@@ -298,6 +328,11 @@ define( function( require ) {
       faceNode.visible = ( state === PlayState.TRY_AGAIN ||
                            state === PlayState.SHOW_ANSWER ||
                            ( state === PlayState.NEXT && challenge.isCorrect() ) );
+
+      // 'hide' boxes
+      var hideBoxVisible = ( state !== PlayState.NEXT );
+      if ( hideMoleculesBox ) { hideMoleculesBox.visible = hideBoxVisible; }
+      if ( hideNumbersBox ) { hideNumbersBox.visible = hideBoxVisible; }
 
       //TODO if ( state === PlayState.NEXT ) { show answer }
     } );
