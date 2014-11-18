@@ -206,7 +206,8 @@ define( function( require ) {
       pointsAlignment: 'rightCenter'
     } );
     thisNode.addChild( faceNode );
-    faceNode.center = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.center : thisNode.afterBox.center;
+    faceNode.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
+    // centerY is handled below
 
     //------------------------------------------------------------------------------------
     // Question mark
@@ -233,7 +234,10 @@ define( function( require ) {
     var buttons = new GameButtons( model, challenge, audioPlayer, faceNode, thisNode.guessIsValidProperty );
     thisNode.addChild( buttons );
     buttons.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
-    buttons.bottom = thisNode.beforeBox.bottom - 10;
+    buttons.bottom = thisNode.beforeBox.bottom - 15;
+
+    // center face in negative space above buttons
+    faceNode.centerY = thisNode.beforeBox.top + ( buttons.top - thisNode.beforeBox.top ) / 2;
 
     //------------------------------------------------------------------------------------
     // Quantities, images and symbols below the boxes
