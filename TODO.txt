@@ -12,8 +12,8 @@ MEDIUM
 
 LOW
 - TODO items in code
-- code review #5
-- reactants-products-and-leftovers-screenshot.png
+- #5 code review
+- #6 screenshot
 - remove 'equation' query parameter, decide on optimal placement of equation
 - remove 'coefficients' query parameter, decide whether to use spinners or pickers
 
