@@ -12,9 +12,9 @@
  * </ul>
  */
 define( function( require ) {
+  'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -34,7 +34,7 @@ define( function( require ) {
       boxSize: new Dimension2( 200, 200 ),
       cornerRadius: 3,
       fill: 'white',
-      stroke: Color.toColor( RPALColors.REACTION_BAR_COLOR ).withAlpha( 0.3 )
+      stroke: RPALColors.BOX_STROKE
     }, options );
 
     var thisNode = this;
