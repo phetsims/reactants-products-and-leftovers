@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * States during the 'play' phase of a game, mutually exclusive. (See GamePhase.)
+ * States during the 'play' phase of a game (GamePhase.PlayState), mutually exclusive.
  * For lack of better names, the state names correspond to the button that is visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
