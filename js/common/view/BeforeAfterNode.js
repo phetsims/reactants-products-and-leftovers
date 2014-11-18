@@ -73,7 +73,7 @@ define( function( require ) {
     thisNode.reaction = reaction; // @private
 
     // explicitly hoist vars that are reused
-    var numberOfItems, reactant, product, i, xMargin, centerX, deltaX, quantityNode, imageNode, symbolNode;
+    var numberOfItems, reactant, product, i, xMargin, centerX, deltaX, spinnerNode, numberNode, imageNode, symbolNode;
 
     //------------------------------------------------------------------------------------
     // items
@@ -142,7 +142,8 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    thisNode.quantityNodes = []; // @private see dispose
+    thisNode.spinnerNodes = []; // @private see dispose
+    thisNode.numberNodes = []; // @private see dispose
     thisNode.imageNodes = []; // @private see dispose
     var symbolNodes = [];
 
@@ -155,10 +156,10 @@ define( function( require ) {
       centerX = thisNode.beforeBox.left + beforeItems[i].centerX;
 
       // quantity is editable via a spinner
-      quantityNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
+      spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
         { font: QUANTITY_FONT, centerX: centerX } );
-      reactantsParent.addChild( quantityNode );
-      thisNode.quantityNodes.push( quantityNode );
+      reactantsParent.addChild( spinnerNode );
+      thisNode.spinnerNodes.push( spinnerNode );
 
       // image
       imageNode = new SubstanceNode( reactant, { centerX: centerX } );
@@ -183,10 +184,10 @@ define( function( require ) {
       product = reaction.products[i];
       centerX = thisNode.afterBox.left + afterItems[i].centerX;
 
-      // quantity is not editable
-      quantityNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      productsParent.addChild( quantityNode );
-      thisNode.quantityNodes.push( quantityNode );
+      // un-editable number
+      numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+      productsParent.addChild( numberNode );
+      thisNode.numberNodes.push( numberNode );
 
       // image
       imageNode = new SubstanceNode( product, { centerX: centerX } );
@@ -211,10 +212,10 @@ define( function( require ) {
       reactant = reaction.reactants[i];
       centerX = thisNode.afterBox.left + afterItems[ i + reaction.products.length ].centerX;
 
-      // quantity is not editable
-      quantityNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      leftoversParent.addChild( quantityNode );
-      thisNode.quantityNodes.push( quantityNode );
+      // un-editable number
+      numberNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
+      leftoversParent.addChild( numberNode );
+      thisNode.numberNodes.push( numberNode );
 
       // image
       imageNode = new SubstanceNode( reactant, { centerX: centerX } );
@@ -232,21 +233,29 @@ define( function( require ) {
     }
 
     // vertical layout of components below the boxes
-    var maxQuantityHeight = _.max( thisNode.quantityNodes, function( node ) { return node.height; } ).height;
+    var spinnerHeight = thisNode.spinnerNodes[0].height;
     var maxImageHeight = Math.max(
       options.maxImageSize.height,
       _.max( thisNode.imageNodes, function( node ) { return node.height; } ).height );
     var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
-    var numberOfColumns = thisNode.quantityNodes.length;
     var componentsTop = thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
-    for ( i = 0; i < numberOfColumns; i++ ) {
-      thisNode.quantityNodes[i].centerY = componentsTop + ( maxQuantityHeight / 2 );
-      thisNode.imageNodes[i].centerY = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
-      if ( options.showSymbols ) {
-        symbolNodes[i].top = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
-      }
+
+    thisNode.spinnerNodes.forEach( function( spinnerNode ) {
+      spinnerNode.centerY = componentsTop + ( spinnerHeight / 2 );
+    } );
+    thisNode.numberNodes.forEach( function( numberNode ) {
+      numberNode.centerY = componentsTop + ( spinnerHeight / 2 );
+    } );
+    thisNode.imageNodes.forEach( function( imageNode ) {
+      imageNode.centerY = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
+    } );
+    if ( options.showSymbols ) {
+      symbolNodes.forEach( function( symbolNode ) {
+        symbolNode.top = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
+      } );
     }
-    var componentsBottom = componentsTop + maxQuantityHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
+
+    var componentsBottom = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
     if ( options.showSymbols ) {
       componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
@@ -303,10 +312,9 @@ define( function( require ) {
       this.beforeBox.dispose();
       this.afterBox.dispose();
 
-      // quantity spinners and displays
-      this.quantityNodes.forEach( function( node ) { node.dispose(); } );
-
-      // substance images
+      // stuff below the boxes
+      this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
+      this.numberNodes.forEach( function( node ) { node.dispose(); } );
       this.imageNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
