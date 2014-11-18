@@ -15,16 +15,13 @@ define( function( require ) {
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
   var GameButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameButtons' );
   var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/HideBox' );
-  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculesEquationNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
   var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
@@ -220,7 +217,7 @@ define( function( require ) {
     // visible only until the user has entered a valid guess
     var guessIsValidObserver = function( guessIsValid ) {
       questionMark.visible = !guessIsValid;
-      if ( guessIsValid ) { thisNode.guessIsValidProperty.unlink( guessIsValidObserver ) }
+      if ( guessIsValid ) { thisNode.guessIsValidProperty.unlink( guessIsValidObserver ); }
     };
     thisNode.guessIsValidProperty.link( guessIsValidObserver );
 
