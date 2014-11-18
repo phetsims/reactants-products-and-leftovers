@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
@@ -95,7 +94,7 @@ define( function( require ) {
 
     // @private
     thisNode.playStateObserver = function( state ) {
-       // make the proper button visible for the {PlayState} state
+      // make the proper button visible for the {PlayState} state
       checkButton.visible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK );
       tryAgainButton.visible = ( state === PlayState.TRY_AGAIN );
       showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER );
