@@ -1,3 +1,4 @@
+11/19/14 Game: refine random placement of molecules in boxes
 11/19/14 Game: put PCl5 (biggest molecule) first in ChallengeFactory.LEVEL2_POOL, to speed layout debugging
 11/19/14 Game: first stab at random placement of molecules in boxes
 11/19/14 change constructor signature for SubstanceNode, use it in StackNode

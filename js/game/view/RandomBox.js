@@ -23,17 +23,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * Gets a random value from an array of values.
-   * @param {[*]} coordinates
-   * @returns {*}
-   */
-  var getRandomValue = function( values ) {
-    assert && assert( values.length > 0 );
-    var index = _.random( 0, values.length - 1 );
-    return values[index];
-  };
-
-  /**
    * @param items the items in the box TODO type?
    * @param {number} maxQuantity the maximum quantity of each item in the box
    * @param {Object} [options]
@@ -46,7 +35,8 @@ define( function( require ) {
       cornerRadius: 3,
       fill: 'white',
       stroke: RPALColors.BOX_STROKE,
-      margin: 30
+      margin: 5, // margin around the inside edge of the box
+      randomOffset: 8 // larger numbers make the layout look less like a grid, but increase overlapping
     }, options );
 
     var thisNode = this;
@@ -55,15 +45,17 @@ define( function( require ) {
     // Assume that the box is approximately square, so can have the same number of rows and columns.
     var rows = Math.round( Math.sqrt( items.length * maxQuantity ) );
     var columns = rows;
-    console.log( 'row=' + rows + ' columns=' + columns );
-    
+
     // Compute x and y coordinates
     var positions = [];
-    var dx = Math.floor( ( options.boxSize.width - ( 2 * options.margin ) ) / columns );
-    var dy = Math.floor( ( options.boxSize.height - ( 2 * options.margin ) ) / rows );
-    for ( var column = 1; column <= columns; column++ ) {
-      for ( var row = 1; row <= rows; row++ ) {
-        positions.push( new Vector2( column * dx, row * dy ) );
+    var x, y;
+    var dx = Math.floor( ( options.boxSize.width - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / columns );
+    var dy = Math.floor( ( options.boxSize.height - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / rows );
+    for ( var column = 0; column < columns; column++ ) {
+      for ( var row = 0; row < rows; row++ ) {
+        x = options.margin + options.randomOffset + ( dx / 2 ) + ( column * dx );
+        y = options.margin + options.randomOffset + ( dy / 2 ) + ( row * dy );
+        positions.push( new Vector2( x, y ) );
       }
     }
     assert && assert( positions.length === rows * columns );
@@ -94,7 +86,7 @@ define( function( require ) {
     thisNode.randomNodes = []; // @private see dispose
     var parent = new Node();
     items.forEach( function( item ) {
-      var randomNode = new RandomNode( item, choosePosition, releasePosition );
+      var randomNode = new RandomNode( item, options.randomOffset, choosePosition, releasePosition );
       parent.addChild( randomNode );
       thisNode.randomNodes.push( randomNode );
     } );
@@ -106,48 +98,57 @@ define( function( require ) {
   /**
    * Responsible for managing all instances of one item.
    * @param item TODO type?
+   * @param {number} randomOffset
    * @param {function} choosePosition returns {Vector2}
+   * @param {function} releasePosition @param {Vector2}
    * @constructor
    */
-  function RandomNode( item, choosePosition, releasePosition ) {
+  function RandomNode( item, randomOffset, choosePosition, releasePosition ) {
 
     var thisNode = this;
     Node.call( thisNode );
 
     thisNode.quantityProperty = item.quantityProperty; // @private see dispose
-    thisNode.substanceNodes = []; // @private see dispose
+    thisNode.substanceObjects = []; // {[ {node,position} ]} @private see dispose
 
     thisNode.quantityPropertyObserver = function( quantity ) {
 
-      var position; // explicitly hoist reused vars
+      var position, x, y; // explicitly hoist reused vars
 
       var count = Math.max( quantity, thisNode.getChildrenCount() );
 
       for ( var i = 0; i < count; i++ ) {
+
         if ( i < thisNode.getChildrenCount() ) {
 
-          // show a node that already exists
+          // node already exists
           var node = thisNode.getChildAt( i );
           var nodeWasVisible = node.visible;
+
           node.visible = ( i < quantity );
 
           if ( node.visible && !nodeWasVisible ) {
             // when an existing node becomes visible, choose a new position for it
             position = choosePosition();
+            thisNode.substanceObjects[i].position = position;
             node.centerX = position.x;
             node.centerY = position.y;
           }
           else if ( !node.visible && nodeWasVisible ) {
             // when a visible node becomes invisible, make its position available
-            releasePosition( new Vector2( node.centerX, node.centerY ) );
+            releasePosition( thisNode.substanceObjects[i].position );
           }
         }
         else {
           // add a node
           position = choosePosition();
-          var substanceNode = new SubstanceNode( item.nodeProperty, { centerX: position.x, centerY: position.y } );
+          // randomize the position to make the grid look less regular
+          x = position.x + _.random( -randomOffset, randomOffset );
+          y = position.y + _.random( -randomOffset, randomOffset );
+          var substanceNode = new SubstanceNode( item.nodeProperty, { centerX: x, centerY: y } );
           thisNode.addChild( substanceNode );
-          thisNode.substanceNodes.push( substanceNode );
+          // keep track of node and un-randomized position
+          thisNode.substanceObjects.push( { node: substanceNode, position: position } );
         }
       }
     };
@@ -159,7 +160,7 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.quantityProperty.unlink( this.quantityPropertyObserver );
-      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+      this.substanceObjects.forEach( function( obj ) { obj.node.dispose(); } );
     }
   } );
 
