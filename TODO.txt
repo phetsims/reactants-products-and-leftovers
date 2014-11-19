@@ -1,7 +1,7 @@
 TODO list for reactants-products-and-leftovers
 
 HIGH
-- Game: Before/After boxes with random layout strategy for molecules
+- Game: make BeforeItem unnecessary
 
 MEDIUM
 - factor out common code in BeforeAfterNode and ChallengeNode?
