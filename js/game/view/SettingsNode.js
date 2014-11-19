@@ -101,7 +101,7 @@ define( function( require ) {
     } );
 
     options.children = [
-      // title and level-selection buttons centered
+      // title and level-selection buttons, centered
       new LayoutBox( {
         children: [ title, buttonsParent ],
         orientation: 'vertical',
@@ -125,7 +125,7 @@ define( function( require ) {
     Node.call( this, options );
 
     if ( RPALQueryParameters.DEV ) {
-      // 'Test' button at rightTop, runs a sanity test on the challenge generator
+      // 'Test' button at top right, runs a sanity test on the challenge generator
       var testButton = new TextPushButton( 'Test', {
         font: new RPALFont( 10 ),
         baseColor: 'red',
