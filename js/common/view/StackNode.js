@@ -75,7 +75,7 @@ define( function( require ) {
 
   return inherit( Node, StackNode, {
 
-    // Unlinks all property observers. The node is no longer functional after calling this function.
+    // Ensures that this node is eligible for GC.
     dispose: function() {
       this.quantityProperty.unlink( this.quantityPropertyObserver );
       this.substanceNodes.forEach( function( node ) { node.dispose(); } );

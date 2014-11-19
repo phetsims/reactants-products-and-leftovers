@@ -106,6 +106,7 @@ define( function( require ) {
 
   return inherit( Node, GameButtons, {
 
+    // Ensures that this node is eligible for GC.
     dispose: function() {
       this.playStateProperty.unlink( this.playStateObserver );
     }

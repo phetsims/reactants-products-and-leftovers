@@ -135,7 +135,7 @@ define( function( require ) {
 
   return inherit( Node, SandwichesEquationNode, {
 
-    // Unlinks from properties. The node is no longer functional after calling this function.
+    // Ensures that this node is eligible for GC.
     dispose: function() {
       this.substanceNodes.forEach( function( node ) { node.dispose(); } );
       this.coefficientNodes.forEach( function( node ) { node.dispose(); } );

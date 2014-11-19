@@ -305,7 +305,7 @@ define( function( require ) {
 
   return inherit( Node, BeforeAfterNode, {
 
-    // Unlinks all property observers. The node is no longer functional after calling this function.
+    // Ensures that this node is eligible for GC.
     dispose: function() {
 
       // accordion boxes

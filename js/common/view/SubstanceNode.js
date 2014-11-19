@@ -51,7 +51,7 @@ define( function( require ) {
 
   return inherit( Node, SubstanceNode, {
 
-    // Unlinks property observers. The node is no longer functional after calling this function.
+    // Ensures that this node is eligible for GC.
     dispose: function() {
       this.nodeProperty.unlink( this.nodePropertyObserver );
     }

@@ -67,6 +67,7 @@ define( function( require ) {
 
   return inherit( Node, GridBox, {
 
+    // Ensures that this node is eligible for GC.
     dispose: function() {
       //TODO
     }

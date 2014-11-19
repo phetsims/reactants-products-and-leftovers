@@ -40,7 +40,7 @@ define( function( require ) {
 
   return inherit( Text, NumberNode, {
 
-    // Unlinks from the property. The node is no longer functional after calling this function.
+    // Ensures that this node is eligible for GC.
     dispose: function() {
       this.numberProperty.unlink( this.numberPropertyObserver );
     }

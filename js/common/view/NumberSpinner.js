@@ -101,7 +101,7 @@ define( function( require ) {
 
   return inherit( LayoutBox, NumberSpinner, {
 
-    // Unlinks from the property. The spinner is no longer functional after calling this function.
+    // Ensures that this node is eligible for GC.
     dispose: function() {
       this.numberProperty.unlink( this.numberPropertyObserver );
     }
