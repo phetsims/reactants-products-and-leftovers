@@ -119,16 +119,18 @@ define( function( require ) {
 
     thisNode.quantityPropertyObserver = function( quantity ) {
 
-      var position;
+      var position; // explicitly hoist reused vars
 
       var count = Math.max( quantity, thisNode.getChildrenCount() );
 
       for ( var i = 0; i < count; i++ ) {
         if ( i < thisNode.getChildrenCount() ) {
+
+          // show a node that already exists
           var node = thisNode.getChildAt( i );
           var nodeWasVisible = node.visible;
-          // set visibility of a node that already exists
           node.visible = ( i < quantity );
+
           if ( node.visible && !nodeWasVisible ) {
             // when an existing node becomes visible, choose a new position for it
             position = choosePosition();
@@ -141,8 +143,8 @@ define( function( require ) {
           }
         }
         else {
-          position = choosePosition();
           // add a node
+          position = choosePosition();
           var substanceNode = new SubstanceNode( item.nodeProperty, { centerX: position.x, centerY: position.y } );
           thisNode.addChild( substanceNode );
           thisNode.substanceNodes.push( substanceNode );
