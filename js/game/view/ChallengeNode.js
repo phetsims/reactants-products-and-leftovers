@@ -205,7 +205,8 @@ define( function( require ) {
       faceOpacity: 0.65,
       pointsAlignment: 'rightCenter',
       pointsFill: 'yellow',
-      pointsStroke: 'black'
+      pointsStroke: 'rgb(50,50,50)',
+      pointsOpacity: 0.65
     } );
     thisNode.addChild( faceNode );
     faceNode.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
