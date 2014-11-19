@@ -201,9 +201,11 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     var faceNode = new FaceWithPointsNode( {
-      faceDiameter: 120,
+      faceDiameter: 150,
       faceOpacity: 0.65,
-      pointsAlignment: 'rightCenter'
+      pointsAlignment: 'rightCenter',
+      pointsFill: 'yellow',
+      pointsStroke: 'black'
     } );
     thisNode.addChild( faceNode );
     faceNode.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
