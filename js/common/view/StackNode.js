@@ -34,9 +34,6 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    thisNode.quantityProperty = quantityProperty; // @private see dispose
-    thisNode.substanceNodes = []; // @private see dispose
-
     /*
      * This line is not visible (has no stroke), but defines the height of the stack,
      * and ensures that the stack always has well-defined bounds.
@@ -48,6 +45,8 @@ define( function( require ) {
     thisNode.addChild( itemsParent );
 
     // @private When the quantity changes ...
+    thisNode.quantityProperty = quantityProperty; // @private see dispose
+    thisNode.substanceNodes = []; // @private see dispose
     thisNode.quantityPropertyObserver = function( quantity ) {
 
       var count = Math.max( quantity, itemsParent.getChildrenCount() );
