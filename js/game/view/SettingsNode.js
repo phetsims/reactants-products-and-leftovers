@@ -92,7 +92,7 @@ define( function( require ) {
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
 
-    // Reset All button, at rightBottom
+    // Reset All button, at bottom right
     var resetAllButton = new ResetAllButton( {
       listener: function() { model.reset(); },
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
