@@ -36,17 +36,24 @@ define( function( require ) {
       fill: 'white',
       stroke: RPALColors.BOX_STROKE,
       margin: 5, // margin around the inside edge of the box
-      randomOffset: 8 // larger numbers make the layout look less like a grid, but increase overlapping
+      /*
+       * Maximum x- and y-offset of molecules from the center of a cell in the grid.
+       * Larger numbers make the layout look less like a grid, but increase overlapping.
+       */
+      randomOffset: 8
     }, options );
 
     var thisNode = this;
     Node.call( thisNode );
 
-    // Assume that the box is approximately square, so can have the same number of rows and columns.
+    /*
+     * Compute the size of the grid needed to accommodate the maximum number of items.
+     * Assume that the box is approximately square, so can have the same number of rows and columns.
+     */
     var rows = Math.round( Math.sqrt( items.length * maxQuantity ) );
     var columns = rows;
 
-    // Compute x and y coordinates
+    // Compute positions in the grid, this is our 'pool' of positions.
     var positions = [];
     var x, y;
     var dx = Math.floor( ( options.boxSize.width - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / columns );
@@ -61,7 +68,10 @@ define( function( require ) {
     assert && assert( positions.length === rows * columns );
     positions = _.shuffle( positions );
 
-    // choose a random position and remove it from further consideration
+    /**
+     * Chooses a random position and remove it from the pool of positions.
+     * @returns {Vector2}
+     */
     var choosePosition = function() {
       assert && assert( positions.length > 0 );
       var index = _.random( 0, positions.length - 1 );
@@ -70,7 +80,10 @@ define( function( require ) {
       return position;
     };
 
-    // release a position, making it available for use by other nodes
+    /**
+     * Puts a position back in the pool of position.
+     * @param {Vector2} position
+     */
     var releasePosition = function( position ) {
       positions.push( position );
     };
@@ -86,7 +99,7 @@ define( function( require ) {
     thisNode.randomNodes = []; // @private see dispose
     var parent = new Node();
     items.forEach( function( item ) {
-      var randomNode = new RandomNode( item, options.randomOffset, choosePosition, releasePosition );
+      var randomNode = new RandomNode( item.nodeProperty, item.quantityProperty, options.randomOffset, choosePosition, releasePosition );
       parent.addChild( randomNode );
       thisNode.randomNodes.push( randomNode );
     } );
@@ -96,24 +109,23 @@ define( function( require ) {
   }
 
   /**
-   * Responsible for managing all instances of one item.
-   * @param item TODO type?
+   * Responsible for managing all nodes for one item.
+   * @param {Property.<Node>} nodeProperty
+   * @param {Property.<number> quantityProperty
    * @param {number} randomOffset
    * @param {function} choosePosition returns {Vector2}
    * @param {function} releasePosition @param {Vector2}
    * @constructor
    */
-  function RandomNode( item, randomOffset, choosePosition, releasePosition ) {
+  function RandomNode( nodeProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
 
     var thisNode = this;
     Node.call( thisNode );
 
-    thisNode.quantityProperty = item.quantityProperty; // @private see dispose
-    thisNode.substanceObjects = []; // {[ {node,position} ]} @private see dispose
+    thisNode.quantityProperty = quantityProperty; // @private see dispose
+    thisNode.substanceNodes = []; // {[SubstanceNodeWithPosition]} @private see dispose
 
     thisNode.quantityPropertyObserver = function( quantity ) {
-
-      var position, x, y; // explicitly hoist reused vars
 
       var count = Math.max( quantity, thisNode.getChildrenCount() );
 
@@ -124,31 +136,22 @@ define( function( require ) {
           // node already exists
           var node = thisNode.getChildAt( i );
           var nodeWasVisible = node.visible;
-
           node.visible = ( i < quantity );
 
           if ( node.visible && !nodeWasVisible ) {
             // when an existing node becomes visible, choose a new position for it
-            position = choosePosition();
-            thisNode.substanceObjects[i].position = position;
-            node.centerX = position.x;
-            node.centerY = position.y;
+            node.setGridPosition( choosePosition() );
           }
           else if ( !node.visible && nodeWasVisible ) {
             // when a visible node becomes invisible, make its position available
-            releasePosition( thisNode.substanceObjects[i].position );
+            releasePosition( node.gridPosition );
           }
         }
         else {
           // add a node
-          position = choosePosition();
-          // randomize the position to make the grid look less regular
-          x = position.x + _.random( -randomOffset, randomOffset );
-          y = position.y + _.random( -randomOffset, randomOffset );
-          var substanceNode = new SubstanceNode( item.nodeProperty, { centerX: x, centerY: y } );
+          var substanceNode = new SubstanceNodeWithPosition( nodeProperty, randomOffset, choosePosition() );
           thisNode.addChild( substanceNode );
-          // keep track of node and un-randomized position
-          thisNode.substanceObjects.push( { node: substanceNode, position: position } );
+          thisNode.substanceNodes.push( substanceNode );
         }
       }
     };
@@ -160,7 +163,31 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.quantityProperty.unlink( this.quantityPropertyObserver );
-      this.substanceObjects.forEach( function( obj ) { obj.node.dispose(); } );
+      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+    }
+  } );
+
+  /**
+   * Specialization of SubstanceNode that keeps track of its grid position,
+   * and randomizes it position to make the grid look less regular.
+   * @param {Property.<Node>} nodeProperty
+   * @param {number} randomOffset
+   * @param {Vector2} gridPosition
+   * @constructor
+   */
+  function SubstanceNodeWithPosition( nodeProperty, randomOffset, gridPosition ) {
+    SubstanceNode.call( this, nodeProperty );
+    this.randomOffset = randomOffset;
+    this.setGridPosition( gridPosition );
+  }
+
+  inherit( SubstanceNode, SubstanceNodeWithPosition, {
+
+    setGridPosition: function( gridPosition ) {
+      this.gridPosition = gridPosition; // keep track of this so that it can be returned to the pool
+      // randomize the position to make the grid look less regular
+      this.centerX = gridPosition.x + _.random( -this.randomOffset, this.randomOffset );
+      this.centerY = gridPosition.y + _.random( -this.randomOffset, this.randomOffset );
     }
   } );
 
