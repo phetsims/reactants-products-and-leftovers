@@ -86,7 +86,7 @@ define( function( require ) {
     var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, TOGGLE_BUTTON_OPTIONS );
     var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, TOGGLE_BUTTON_OPTIONS );
 
-    // Visibility control
+    // Visibility control, bottom center
     var visibilityControl = new VisibilityControl( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
