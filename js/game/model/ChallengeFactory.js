@@ -36,6 +36,7 @@ define( function( require ) {
 
   // level 2 is all the one-product reactions
   var LEVEL2_POOL = [
+    ReactionFactory.Reaction_PCl3_Cl2__PCl5, // PCl5 is the largest molecule, so put this first for layout debugging
     ReactionFactory.makeWater,
     ReactionFactory.Reaction_H2_F2__2HF,
     ReactionFactory.Reaction_H2_Cl2__2HCl,
@@ -55,7 +56,6 @@ define( function( require ) {
     ReactionFactory.Reaction_P4_6H2__4PH3,
     ReactionFactory.Reaction_P4_6F2__4PF3,
     ReactionFactory.Reaction_P4_6Cl2__4PCl3,
-    ReactionFactory.Reaction_PCl3_Cl2__PCl5,
     ReactionFactory.Reaction_2SO2_O2__2SO3
   ];
 
