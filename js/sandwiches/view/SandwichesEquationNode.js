@@ -43,10 +43,6 @@ define( function( require ) {
   var PICKER_OPTIONS = { font: new RPALFont( 28 ), color: 'yellow', xMargin: 6, cornerRadius: 3 };
   var SPINNER_OPTIONS = { font: new RPALFont( 28 ) };
   var COEFFICIENT_RANGE_PROPERTY = new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE );
-  var NO_REACTION_NODE = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
-
-  // Limit the width of this node, max width determined empirically.
-  NO_REACTION_NODE.setScaleMagnitude( Math.min( 1, 75 / NO_REACTION_NODE.width ) );
 
   /**
    * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
@@ -60,13 +56,13 @@ define( function( require ) {
 
     options = options || {};
 
-    this.substanceNodes = [];
+    this.substanceNodes = []; // @private see dispose
+    this.coefficientNodes = []; // @private see dispose
 
     // left-hand side is the sandwich ingredients
     var leftNode = new Node();
-    var numberOfReactants = reaction.reactants.length;
     var reactant, coefficientNode, ingredientNode, plusNode; // hoist loop vars explicitly
-    this.coefficientNodes = []; // @private so we can unlink UI components in dispose
+    var numberOfReactants = reaction.reactants.length;
     for ( var i = 0; i < numberOfReactants; i++ ) {
 
       reactant = reaction.reactants[i];
@@ -114,12 +110,26 @@ define( function( require ) {
 
     // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
     assert && assert( reaction.products.length === 1 );
-    var sandwichNode = new SubstanceNode( reaction.products[0] );
+    this.sandwich = reaction.products[0]; // @private
+    var sandwichNode = new SubstanceNode( this.sandwich );
     this.substanceNodes.push( sandwichNode );
     sandwichNode.centerX = arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 );
     sandwichNode.centerY = arrowNode.centerY;
 
-    options.children = [ leftNode, arrowNode, sandwichNode ];
+    // "No Reaction", max width determined empirically.
+    var noReactionNode = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
+    noReactionNode.setScaleMagnitude( Math.min( 1, 75 / noReactionNode.width ) );
+    noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
+    noReactionNode.centerY = arrowNode.centerY;
+
+    // Display "No Reaction" if we don't have a valid sandwich.
+    this.sandwichNodePropertyObserver = function( node ) {
+      sandwichNode.visible = reaction.isReaction();
+      noReactionNode.visible = !sandwichNode.visible;
+    };
+    this.sandwich.nodeProperty.link( this.sandwichNodePropertyObserver );
+
+    options.children = [ leftNode, arrowNode, sandwichNode, noReactionNode ];
     Node.call( this, options );
   }
 
@@ -129,6 +139,7 @@ define( function( require ) {
     dispose: function() {
       this.substanceNodes.forEach( function( node ) { node.dispose(); } );
       this.coefficientNodes.forEach( function( node ) { node.dispose(); } );
+      this.sandwich.nodeProperty.unlink( this.sandwichNodePropertyObserver );
     }
   } );
 } );

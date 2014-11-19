@@ -1,3 +1,4 @@
+11/18/14 Sandwiches fix: restore 'No reaction' when we don't have a valid sandwich
 11/18/14 Game: fix stale reference to challengeNode on Reset All
 11/18/14 Game: fix Reset All for radio buttons
 11/18/14 Game: center face in negative space above buttons
