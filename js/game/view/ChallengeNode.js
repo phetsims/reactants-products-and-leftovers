@@ -14,6 +14,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
   var GameButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameButtons' );
+  var RandomBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/RandomBox' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/HideBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -175,22 +176,18 @@ define( function( require ) {
     } );
     thisNode.addChild( arrowNode );
 
-    //TODO use GridBox
-    // 'Before Reaction' box, with stacks of reactants
-    thisNode.beforeBox = new StacksAccordionBox( beforeItems, {
-      contentSize: options.boxSize,
-      expandedProperty: new Property( true ),
+    // 'Before Reaction' box, with molecules at random locations
+    thisNode.beforeBox = new RandomBox( beforeItems, options.quantityRange.max, {
+      boxSize: options.boxSize,
       right: arrowNode.left - 5,
       top: equationNode.bottom + 15
     } );
     thisNode.addChild( thisNode.beforeBox );
     arrowNode.centerY = thisNode.beforeBox.centerY;
 
-    //TODO use GridBox
-    // 'After Reaction' box, with stacks of products and leftovers
-    thisNode.afterBox = new StacksAccordionBox( afterItems, {
-      contentSize: options.boxSize,
-      expandedProperty: new Property( true ),
+    // 'After Reaction' box, with molecules at random locations
+    thisNode.afterBox = new RandomBox( afterItems, options.quantityRange.max, {
+      boxSize: options.boxSize,
       left: arrowNode.right + 5,
       top: thisNode.beforeBox.top
     } );

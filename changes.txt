@@ -1,3 +1,4 @@
+11/19/14 Game: first stab at random placement of molecules in boxes
 11/19/14 change constructor signature for SubstanceNode, use it in StackNode
 11/18/14 Game: show points (next to face) in yellow with black stroke, so that they stand out
 11/18/14 Sandwiches fix: restore 'No reaction' when we don't have a valid sandwich
