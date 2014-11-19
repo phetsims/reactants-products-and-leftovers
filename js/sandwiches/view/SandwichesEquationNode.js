@@ -84,7 +84,7 @@ define( function( require ) {
       leftNode.addChild( coefficientNode );
 
       // ingredient
-      ingredientNode = new SubstanceNode( reactant, {
+      ingredientNode = new SubstanceNode( reactant.nodeProperty, {
         left: coefficientNode.right + COEFFICIENT_X_SPACING,
         centerY: coefficientNode.centerY
       } );
@@ -111,7 +111,7 @@ define( function( require ) {
     // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
     assert && assert( reaction.products.length === 1 );
     this.sandwich = reaction.products[0]; // @private
-    var sandwichNode = new SubstanceNode( this.sandwich );
+    var sandwichNode = new SubstanceNode( this.sandwich.nodeProperty );
     this.substanceNodes.push( sandwichNode );
     sandwichNode.centerX = arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 );
     sandwichNode.centerY = arrowNode.centerY;

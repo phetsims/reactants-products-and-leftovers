@@ -18,6 +18,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
 
   /**
    * @param {number} height height of the stack
@@ -33,8 +34,8 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    thisNode.nodeProperty = nodeProperty; // @private
-    thisNode.quantityProperty = quantityProperty; // @private
+    thisNode.quantityProperty = quantityProperty; // @private see dispose
+    thisNode.substanceNodes = []; // @private see dispose
 
     /*
      * This line is not visible (has no stroke), but defines the height of the stack,
@@ -48,30 +49,26 @@ define( function( require ) {
 
     // @private When the quantity changes ...
     thisNode.quantityPropertyObserver = function( quantity ) {
+
       var count = Math.max( quantity, itemsParent.getChildrenCount() );
+
       for ( var i = 0; i < count; i++ ) {
         if ( i < itemsParent.getChildrenCount() ) {
           // set visibility of a node that already exists
           itemsParent.getChildAt( i ).visible = ( i < quantity );
         }
         else {
-          // add a node, wrapped because the node will appear in the scenegraph multiple times
-          itemsParent.addChild( new Node( {
-            children: [ thisNode.nodeProperty.get() ],
+          // add a node
+          var substanceNode = new SubstanceNode( nodeProperty, {
             centerX: 0,
             centerY: startCenterY - ( i * deltaY )
-          } ) );
+          } );
+          itemsParent.addChild( substanceNode );
+          thisNode.substanceNodes.push( substanceNode );
         }
       }
     };
     thisNode.quantityProperty.link( thisNode.quantityPropertyObserver );
-
-    // @private When the node that represents the substance changes ...
-    thisNode.nodePropertyObserver = function( node ) {
-      itemsParent.removeAllChildren();
-      thisNode.quantityPropertyObserver( thisNode.quantityProperty.get() );
-    };
-    thisNode.nodeProperty.link( thisNode.nodePropertyObserver );
 
     thisNode.mutate( options );
   }
@@ -81,7 +78,7 @@ define( function( require ) {
     // Unlinks all property observers. The node is no longer functional after calling this function.
     dispose: function() {
       this.quantityProperty.unlink( this.quantityPropertyObserver );
-      this.nodeProperty.unlink( this.nodePropertyObserver );
+      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );
