@@ -81,7 +81,7 @@ define( function( require ) {
         viewProperties.beforeExpandedProperty,
         viewProperties.afterExpandedProperty, {
           left: 40,
-          top: playAreaTop + 10
+          top: playAreaTop + 12
         } );
       thisView.addChild( beforeAfterNode );
     } );
