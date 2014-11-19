@@ -1,8 +1,5 @@
 TODO list for reactants-products-and-leftovers
 
-DESIGN
-- where should we put the 'Reset All' button in the first 2 screens?
-
 HIGH
 - Game: Before/After boxes with random layout strategy for molecules
 
@@ -16,6 +13,7 @@ LOW
 - #6 screenshot
 - #7 remove 'equation' query parameter, decide on optimal placement of equation
 - #8 remove 'coefficients' query parameter, decide whether to use spinners or pickers
+- #9 location of 'Reset All' button
 
 MIGRATE TO COMMON
 - HBracketNode
