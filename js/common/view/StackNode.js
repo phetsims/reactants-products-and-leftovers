@@ -46,7 +46,7 @@ define( function( require ) {
 
     // @private When the quantity changes ...
     thisNode.quantityProperty = quantityProperty; // @private see dispose
-    thisNode.substanceNodes = []; // @private see dispose
+    thisNode.substanceNodes = []; // @private {[SubstanceNode]} see dispose
     thisNode.quantityPropertyObserver = function( quantity ) {
 
       var count = Math.max( quantity, itemsParent.getChildrenCount() );
