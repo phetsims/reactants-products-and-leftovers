@@ -63,17 +63,15 @@ define( function( require ) {
     var rectangle = new Rectangle( 0, 0, options.contentSize.width, options.contentSize.height, options.cornerRadius, options.cornerRadius );
     content.addChild( rectangle );
 
-    // compute max height of the items in the box
+    // compute max height of the nodes in the box
     var maxThingHeight = Math.max(
       options.maxImageSize.height,
       _.max( items, function( item ) { return item.nodeProperty.get().height; } ).nodeProperty.get().height );
 
-    // vertical stacks of items inside the box
+    // vertical stacks of nodes inside the box
     this.stackNodes = []; // @private
     var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxThingHeight ) / ( options.quantityRange.max - 1 );
     var startCenterY = rectangle.height - options.boxYMargin - ( maxThingHeight / 2 );
-
-    // stacks inside the box
     for ( var i = 0; i < items.length; i++ ) {
       var item = items[i];
       var stackNode = new StackNode( options.contentSize.height, item.nodeProperty, item.quantityProperty, startCenterY, deltaY, {
