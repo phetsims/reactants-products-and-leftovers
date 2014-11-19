@@ -88,7 +88,7 @@ define( function( require ) {
     // equation
     var equationNode = new MoleculesEquationNode( reaction, {
       fill: 'black',
-      top: challengeBounds.top + 15,
+      top: challengeBounds.top + 18,
       plusXSpacing: 25,
       arrowXSpacing: 25
     } );
@@ -179,7 +179,7 @@ define( function( require ) {
     thisNode.beforeBox = new RandomBox( beforeItems, options.quantityRange.max, {
       boxSize: options.boxSize,
       right: arrowNode.left - 5,
-      top: equationNode.bottom + 15
+      top: equationNode.bottom + 18
     } );
     thisNode.addChild( thisNode.beforeBox );
     arrowNode.centerY = thisNode.beforeBox.centerY;
