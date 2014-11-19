@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BoxItem = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BoxItem' );
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -29,7 +30,6 @@ define( function( require ) {
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var StacksAccordionBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/StacksAccordionBox' );
   var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -109,7 +109,6 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     //TODO this section is similar to BeforeAfterNode
-    //TODO StacksAccordionBox shouldn't be involved here
 
     // items in the 'Before Reaction' box, including their horizontal positions
     var beforeItems = [];
@@ -119,7 +118,7 @@ define( function( require ) {
     centerX = xMargin + ( deltaX / 2 );
     reactants = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants : reaction.reactants;
     reactants.forEach( function( reactant ) {
-      beforeItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
+      beforeItems.push( new BoxItem( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
 
@@ -132,12 +131,12 @@ define( function( require ) {
     products = ( challengeType === ChallengeType.AFTER ) ? guess.products : reaction.products;
     reactants = ( challengeType === ChallengeType.AFTER ) ? guess.reactants : reaction.reactants;
     products.forEach( function( product ) {
-      afterItems.push( StacksAccordionBox.item( product.nodeProperty, product.quantityProperty, centerX ) );
+      afterItems.push( new BoxItem( product.nodeProperty, product.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
     reactants.forEach( function( reactant ) {
       // for 'After', we use display each reactant's leftovers quantity
-      afterItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
+      afterItems.push( new BoxItem( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
       centerX += deltaX;
     } );
 

@@ -13,6 +13,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BoxItem = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BoxItem' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -88,7 +89,7 @@ define( function( require ) {
     deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfItems;
     centerX = xMargin + ( deltaX / 2 );
     reaction.reactants.forEach( function( reactant ) {
-      beforeItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
+      beforeItems.push( new BoxItem( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
 
@@ -99,12 +100,12 @@ define( function( require ) {
     deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfItems;
     centerX = xMargin + ( deltaX / 2 );
     reaction.products.forEach( function( product ) {
-      afterItems.push( StacksAccordionBox.item( product.nodeProperty, product.quantityProperty, centerX ) );
+      afterItems.push( new BoxItem( product.nodeProperty, product.quantityProperty, centerX ) );
       centerX += deltaX;
     } );
     reaction.reactants.forEach( function( reactant ) {
       // for 'After', we use display each reactant's leftovers quantity
-      afterItems.push( StacksAccordionBox.item( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
+      afterItems.push( new BoxItem( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
       centerX += deltaX;
     } );
 

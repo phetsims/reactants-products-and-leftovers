@@ -1,3 +1,4 @@
+11/19/14 formal 'items' in BoxItem
 11/19/14 clean up RandomBox
 11/19/14 Game: refine random placement of molecules in boxes
 11/19/14 Game: put PCl5 (biggest molecule) first in ChallengeFactory.LEVEL2_POOL, to speed layout debugging
