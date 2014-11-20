@@ -13,16 +13,23 @@ define( function( require ) {
   // modules
   var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/HideBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
-  var RPALBrackets = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALBrackets' );
+  var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
+  // strings
+  var leftoversString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/leftovers' );
+  var productsString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/products' );
+  var reactantsString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants' );
 
   // constants
   var QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
@@ -30,6 +37,9 @@ define( function( require ) {
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
   var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
+  var BRACKET_LABEL_OPTIONS = { font: new RPALFont( 12 ), fill: 'black' };
+  var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
+  var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by ey
 
   function QuantitiesNode( reactants, products, leftovers, beforeItems, afterItems, challengeType, options ) {
 
@@ -190,14 +200,41 @@ define( function( require ) {
       componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
 
-    // Brackets
-    thisNode.addChild( new RPALBrackets(
-      reactantsParent.width, reactantsParent.centerX,
-      productsParent.width, productsParent.centerX,
-      leftoversParent.width, leftoversParent.centerX,
-      options.maxImageSize.width,
-      { top: componentsBottom + BRACKET_Y_SPACING }
-    ) );
+    // 'Reactants' bracket
+    var reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
+    reactantsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / reactantsLabel.width ) ); // i18n
+    var reactantsBracket = new HBracketNode( {
+      bracketColor: RPALColors.PANEL_FILL,
+      labelNode: reactantsLabel,
+      bracketWidth: Math.max( options.maxImageSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: reactantsParent.centerX,
+      top: componentsBottom + BRACKET_Y_SPACING
+    } );
+    thisNode.addChild( reactantsBracket );
+
+    // 'Products' bracket
+    var productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
+    productsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / productsLabel.width ) ); // i18n
+    var productsBracket = new HBracketNode( {
+      bracketColor: RPALColors.PANEL_FILL,
+      labelNode: productsLabel,
+      bracketWidth: Math.max( options.maxImageSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: productsParent.centerX,
+      top: componentsBottom + BRACKET_Y_SPACING
+    } );
+    thisNode.addChild( productsBracket );
+
+    // 'Leftovers' bracket
+    var leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
+    leftoversLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / leftoversLabel.width ) ); // i18n
+    var leftoversBracket = new HBracketNode( {
+      bracketColor: RPALColors.PANEL_FILL,
+      labelNode: leftoversLabel,
+      bracketWidth: Math.max( options.maxImageSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: leftoversParent.centerX,
+      top: componentsBottom + BRACKET_Y_SPACING
+    } );
+    thisNode.addChild( leftoversBracket );
 
     // Optional 'Hide numbers' box on top of the static quantities
     this.hideNumbersBox = null;  // @private
