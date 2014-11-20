@@ -3,6 +3,7 @@ TODO list for reactants-products-and-leftovers
 HIGH
 
 MEDIUM
+- absorb RPALBrackets into QuantitiesNode
 - rename ChallengeType to something that is basically 'which side of the equation is interactive'
 
 LOW
