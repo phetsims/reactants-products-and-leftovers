@@ -444,6 +444,7 @@ define( function( require ) {
       this.beforeBox.dispose();
       this.afterBox.dispose();
 
+      // derived property, unlink dependencies
       this.guessIsValidProperty.detach();
 
       // stuff below the boxes
