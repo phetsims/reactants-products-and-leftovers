@@ -1,3 +1,4 @@
+11/19/14 Game: center '?' in space above buttons
 # 1.0.0-dev.11 11/19/14
 11/19/14 Game: add 'randomOffset' query parameter, for setting how much molecules are offset from grid cells
 11/19/14 delete unused query params

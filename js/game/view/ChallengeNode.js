@@ -215,7 +215,8 @@ define( function( require ) {
       font: new RPALFont( { size: 150, weight: 'bold' } )
     } );
     thisNode.addChild( questionMark );
-    questionMark.center = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.center : thisNode.afterBox.center;
+    questionMark.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
+    // centerY is handled below
 
     // visible only until the user has entered a valid guess
     var guessIsValidObserver = function( guessIsValid ) {
@@ -234,8 +235,8 @@ define( function( require ) {
     buttons.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     buttons.bottom = thisNode.beforeBox.bottom - 15;
 
-    // center face in negative space above buttons
-    faceNode.centerY = thisNode.beforeBox.top + ( buttons.top - thisNode.beforeBox.top ) / 2;
+    // center face and '?' in negative space above buttons
+    faceNode.centerY = questionMark.centerY = thisNode.beforeBox.top + ( buttons.top - thisNode.beforeBox.top ) / 2;
 
     //------------------------------------------------------------------------------------
     // Quantities, images and symbols below the boxes
