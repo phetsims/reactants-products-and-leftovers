@@ -493,7 +493,7 @@ define( function( require ) {
           // quantity-range violation?
           if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
             console.log( 'ERROR: challenge has quantity-range violation, level=' + level + ' : ' +
-                         DevStringUtils.reactionString( challenge.reaction ));
+                         DevStringUtils.reactionString( challenge.reaction ) );
             numberOfQuantityRangeErrors++;
           }
         } );
