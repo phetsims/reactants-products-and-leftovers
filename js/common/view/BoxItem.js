@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * This is a data structure, useful the user interfaces that involve Before/After boxes.
+ * This is a data structure, useful in the user interfaces that involve Before/After boxes.
  * Since it's used in several places, I chose to formalize its definition, rather than
  * rely on duck typing.
  * <p>
