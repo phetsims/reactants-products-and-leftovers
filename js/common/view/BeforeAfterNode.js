@@ -143,9 +143,9 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    thisNode.spinnerNodes = []; // @private see dispose
-    thisNode.numberNodes = []; // @private see dispose
-    thisNode.substanceNodes = []; // @private see dispose
+    thisNode.spinnerNodes = []; // @private {[NumberSpinner]} see dispose
+    thisNode.numberNodes = []; // @private {[NumberNode]} see dispose
+    thisNode.substanceNodes = []; // @private {[SubstanceNode]} see dispose
     var symbolNodes = [];
 
     // reactants, below the 'Before' box
