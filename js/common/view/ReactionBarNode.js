@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var ReactionChoiceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionChoiceNode' );
+  var ReactionRadioButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionRadioButtons' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
 
@@ -34,20 +34,19 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // control for choosing a reaction
-    var reactionChoiceNode = new ReactionChoiceNode( reactionProperty, reactions );
-    // i18n, scale to fit
-    reactionChoiceNode.setScaleMagnitude( Math.min( 1, 0.25 * options.screenWidth / reactionChoiceNode.width ) );
+    // radio buttons for choosing a reaction, scaled to fit for i18n
+    var radioButtons = new ReactionRadioButtons( reactionProperty, reactions );
+    radioButtons.setScaleMagnitude( Math.min( 1, 0.25 * options.screenWidth / radioButtons.width ) );
 
-    // background, extra wide so that it will appear to fill the screen width for all but extreme window sizes
-    var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, reactionChoiceNode.height + ( 2 * options.yMargin ),
+    // background, extra wide so that it will appear to fill the window for all but extreme window sizes
+    var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, radioButtons.height + ( 2 * options.yMargin ),
       { fill: options.fill, centerX: options.screenWidth / 2 } );
 
-    // control at right, vertically centered
-    reactionChoiceNode.right = options.screenWidth - options.xMargin;
-    reactionChoiceNode.centerY = backgroundNode.centerY;
+    // radio buttons at right, vertically centered
+    radioButtons.right = options.screenWidth - options.xMargin;
+    radioButtons.centerY = backgroundNode.centerY;
 
-    options.children = [ backgroundNode, reactionChoiceNode ];
+    options.children = [ backgroundNode, radioButtons ];
     Node.call( thisNode, options );
 
     // update the equation to match the reaction
@@ -65,7 +64,7 @@ define( function( require ) {
       thisNode.addChild( equationNode );
 
       // scale the equation if it's too wide to fit the available space
-      var availableWidth = reactionChoiceNode.left - ( 2 * options.xMargin );
+      var availableWidth = radioButtons.left - ( 2 * options.xMargin );
       var scale = Math.min( 1, availableWidth / equationNode.width );
       equationNode.setScaleMagnitude( scale );
 
