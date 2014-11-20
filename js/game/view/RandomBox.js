@@ -43,7 +43,6 @@ define( function( require ) {
        */
       randomOffset: RPALQueryParameters.RANDOM_OFFSET
     }, options );
-    console.log( 'randomOffset=' + options.randomOffset );//XXX
 
     var thisNode = this;
     Node.call( thisNode );
