@@ -1,6 +1,7 @@
 TODO list for reactants-products-and-leftovers
 
 HIGH
+- Game: center '?' in space above buttons
 
 MEDIUM
 - factor out common code in BeforeAfterNode and ChallengeNode?
