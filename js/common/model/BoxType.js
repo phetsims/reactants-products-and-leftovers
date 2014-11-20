@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Enum for the 2 boxes that represent a reaction.
+ * Enum for the 2 boxes that represent the 2 states of a reaction.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
