@@ -26,7 +26,7 @@ define( function( require ) {
    */
   function NumberSpinner( numberProperty, range, options ) {
 
-    assert && assert( range.contains( numberProperty.get() ) ); // value is in range
+    assert && assert( range.contains( numberProperty.get() ), 'value ' + numberProperty.get() + ' is out of range ' + range.toString() );
 
     options = _.extend( {
       decimalPlaces: 0,
@@ -38,8 +38,6 @@ define( function( require ) {
       touchXDilated: 20,
       touchYDilated: 10
     }, options );
-
-    this.numberProperty = numberProperty; // @private
 
     var valueOptions = {
       font: options.font,
@@ -96,7 +94,8 @@ define( function( require ) {
       upButton.enabled = ( value < range.max );
       downButton.enabled = ( value > range.min );
     };
-    numberProperty.link( this.numberPropertyObserver );
+    this.numberProperty = numberProperty; // @private see dispose
+    this.numberProperty.link( this.numberPropertyObserver );
   }
 
   return inherit( LayoutBox, NumberSpinner, {
