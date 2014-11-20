@@ -19,7 +19,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
+  var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
   var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
@@ -27,16 +27,16 @@ define( function( require ) {
 
   /**
    * @param {Reaction} reaction
-   * @param {ChallengeType} challengeType
+   * @param {BoxType} interactiveBox which box is interactive
    * @constructor
    */
-  function GameGuess( reaction, challengeType ) {
-    assert && assert( challengeType === ChallengeType.BEFORE || challengeType === ChallengeType.AFTER );
+  function GameGuess( reaction, interactiveBox ) {
+    assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
-    this.reactants = createGuessReactants( reaction.reactants, challengeType );
+    this.reactants = createGuessReactants( reaction.reactants, interactiveBox );
     assert && assert( this.reactants.length === reaction.reactants.length );
 
-    this.products = createGuessProducts( reaction.products, challengeType );
+    this.products = createGuessProducts( reaction.products, interactiveBox );
     assert && assert( this.products.length === reaction.products.length );
   }
 
@@ -45,17 +45,17 @@ define( function( require ) {
    * Clones the reactants in the same order that they appear in the challenge.
    * Depending on the challenge type, either quantities or leftovers are initialized to zero.
    * @param {[Reactant]} reactants the challenge's reactants
-   * @param {ChallengeType} challengeType
+   * @param {BoxType} interactiveBox box is interactive
    * @returns {[Reactants]}
    */
-  var createGuessReactants = function( reactants, challengeType ) {
+  var createGuessReactants = function( reactants, interactiveBox ) {
     var guessReactants = [];
     var guessReactant;
     for ( var i = 0; i < reactants.length; i++ ) {
       if ( RPALQueryParameters.PLAY_ALL ) {
         guessReactant = Reactant.clone( reactants[i] );
       }
-      else if ( challengeType === ChallengeType.BEFORE ) {
+      else if ( interactiveBox === BoxType.BEFORE ) {
         guessReactant = Reactant.withQuantity( reactants[i], 0 );
       }
       else {
@@ -71,14 +71,14 @@ define( function( require ) {
    * Clones the products in the same order that they appear in the challenge.
    * Quantities are initialized to zero for 'After' challenges.
    * @param {[Product]} products the challenge's products
-   * @param {ChallengeType} challengeType
+   * @param {BoxType} interactiveBox which box is interactive
    * @returns {[Product]}
    */
-  var createGuessProducts = function( products, challengeType ) {
+  var createGuessProducts = function( products, interactiveBox ) {
     var guessProducts = [];
     var guessProduct;
     for ( var i = 0; i < products.length; i++ ) {
-      if ( challengeType === ChallengeType.BEFORE || RPALQueryParameters.PLAY_ALL ) {
+      if ( interactiveBox === BoxType.BEFORE || RPALQueryParameters.PLAY_ALL ) {
         guessProduct = Product.clone( products[i] );
       }
       else {

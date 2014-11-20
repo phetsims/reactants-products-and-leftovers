@@ -1,7 +1,6 @@
 TODO list for reactants-products-and-leftovers
 
 HIGH
-- rename ChallengeType to something that is basically 'which side of the equation is interactive'
 - get rid of (or minimize) use of BoxItem
 
 MEDIUM

@@ -14,7 +14,7 @@ define( function( require ) {
 
   // modules
   var BoxItem = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BoxItem' );
-  var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
+  var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
@@ -104,7 +104,7 @@ define( function( require ) {
 
     thisNode.quantitiesNode = new QuantitiesNode(
       reaction.reactants, reaction.products, reaction.reactants,
-      beforeItems, afterItems, ChallengeType.BEFORE,
+      beforeItems, afterItems, BoxType.BEFORE,
       {
         boxWidth: options.contentSize.width,
         beforeBoxLeft: thisNode.beforeBox.left,

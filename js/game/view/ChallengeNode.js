@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var BoxItem = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BoxItem' );
-  var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
+  var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
@@ -47,8 +47,8 @@ define( function( require ) {
     var guess = challenge.guess;
     assert && assert( reaction.reactants.length === guess.reactants.length );
     assert && assert( reaction.products.length === guess.products.length );
-    var challengeType = challenge.challengeType;
-    assert && assert( challengeType === ChallengeType.BEFORE || challengeType === ChallengeType.AFTER );
+    var interactiveBox = challenge.interactiveBox;
+    assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
     options = _.extend( {
       boxSize: new Dimension2( 310, 240 ), // size of the 'Before' and 'After' boxes
@@ -88,12 +88,12 @@ define( function( require ) {
 
     // items in the 'Before Reaction' box
     var beforeItems = BoxItem.createBeforeBoxItems(
-      ( challengeType === ChallengeType.BEFORE ) ? guess.reactants : reaction.reactants, options.boxSize.width );
+      ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants, options.boxSize.width );
 
     // items in the 'After Reaction' box
     var afterItems = BoxItem.createAfterBoxItems(
-      ( challengeType === ChallengeType.AFTER ) ? guess.products : reaction.products,
-      ( challengeType === ChallengeType.AFTER ) ? guess.reactants : reaction.reactants,
+      ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products,
+      ( interactiveBox === BoxType.AFTER ) ? guess.reactants : reaction.reactants,
       options.boxSize.width );
 
     //------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ define( function( require ) {
 
     // dependencies is the set of quantities that the user can guess
     var dependencies = [];
-    if ( challenge.challengeType === ChallengeType.BEFORE ) {
+    if ( challenge.interactiveBox === BoxType.BEFORE ) {
       guess.reactants.forEach( function( reactant ) { dependencies.push( reactant.quantityProperty ); } );
     }
     else {
@@ -161,7 +161,7 @@ define( function( require ) {
       pointsOpacity: 0.65
     } );
     thisNode.addChild( faceNode );
-    faceNode.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
+    faceNode.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     // centerY is handled below
 
     //------------------------------------------------------------------------------------
@@ -172,7 +172,7 @@ define( function( require ) {
       font: new RPALFont( { size: 150, weight: 'bold' } )
     } );
     thisNode.addChild( questionMark );
-    questionMark.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
+    questionMark.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     // centerY is handled below
 
     // visible only until the user has entered a valid guess
@@ -189,7 +189,7 @@ define( function( require ) {
     // buttons (Check, Try Again, ...)
     var buttons = new GameButtons( model, challenge, audioPlayer, faceNode, thisNode.guessIsValidProperty );
     thisNode.addChild( buttons );
-    buttons.centerX = ( challengeType === ChallengeType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
+    buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     buttons.bottom = thisNode.beforeBox.bottom - 15;
 
     // center face and '?' in negative space above buttons
@@ -199,11 +199,11 @@ define( function( require ) {
     // Quantities, images, symbols and brackets below the boxes
     //------------------------------------------------------------------------------------
 
-    var reactants = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants : reaction.reactants;
-    var products = ( challengeType === ChallengeType.AFTER ) ? guess.products : reaction.products;
-    var leftovers = ( challengeType === ChallengeType.AFTER ) ? guess.reactants : reaction.reactants;
+    var reactants = ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants;
+    var products = ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products;
+    var leftovers = ( interactiveBox === BoxType.AFTER ) ? guess.reactants : reaction.reactants;
     thisNode.quantitiesNode = new QuantitiesNode(
-      reactants, products, leftovers, beforeItems, afterItems, challengeType,
+      reactants, products, leftovers, beforeItems, afterItems, interactiveBox,
       {
         boxWidth: options.boxSize.width,
         beforeBoxLeft: thisNode.beforeBox.left,
@@ -225,7 +225,7 @@ define( function( require ) {
         boxSize: options.boxSize,
         iconHeight: 0.4 * options.boxSize.height,
         cornerRadius: 3,
-        left: ( challengeType === ChallengeType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
+        left: ( interactiveBox === BoxType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
         bottom: thisNode.beforeBox.bottom
       } );
       thisNode.addChild( hideMoleculesBox );

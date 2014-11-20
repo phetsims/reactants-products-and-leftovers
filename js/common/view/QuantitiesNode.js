@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
+  var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/HideBox' );
@@ -41,7 +41,17 @@ define( function( require ) {
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
   var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by ey
 
-  function QuantitiesNode( reactants, products, leftovers, beforeItems, afterItems, challengeType, options ) {
+  /**
+   * @param {[Reactants]} reactants
+   * @param {[Products]} products
+   * @param {[Reactants]} leftovers
+   * @param {[BoxItem]} beforeItems
+   * @param {[BoxItem]} afterItems
+   * @param {BoxType} interactiveBox which box is interactive
+   * @param {Object} [options]
+   * @constructor
+   */
+  function QuantitiesNode( reactants, products, leftovers, beforeItems, afterItems, interactiveBox, options ) {
 
     options = _.extend( {
       boxWidth: 100,
@@ -56,7 +66,7 @@ define( function( require ) {
     Node.call( thisNode );
 
     this.numberOfReactants = reactants.length; // @private
-    this.challengeType = challengeType; // @private
+    this.interactiveBox = interactiveBox; // @private
 
     // explicitly hoist reused vars
     var i, reactant, product, leftover, centerX, numberNode, spinnerNode, substanceNode, symbolNode;
@@ -81,7 +91,7 @@ define( function( require ) {
       thisNode.numberNodes.push( numberNode );
 
       // spinner
-      if ( challengeType === ChallengeType.BEFORE ) {
+      if ( interactiveBox === BoxType.BEFORE ) {
         numberNode.visible = false;
         spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
@@ -116,7 +126,7 @@ define( function( require ) {
       thisNode.numberNodes.push( numberNode );
 
       // spinner
-      if ( challengeType === ChallengeType.AFTER ) {
+      if ( interactiveBox === BoxType.AFTER ) {
         numberNode.visible = false;
         spinnerNode = new NumberSpinner( product.quantityProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
@@ -151,7 +161,7 @@ define( function( require ) {
       thisNode.numberNodes.push( numberNode );
 
       // spinner
-      if ( challengeType === ChallengeType.AFTER ) {
+      if ( interactiveBox === BoxType.AFTER ) {
         numberNode.visible = false;
         spinnerNode = new NumberSpinner( leftover.leftoversProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
@@ -243,7 +253,7 @@ define( function( require ) {
         boxSize: new Dimension2( options.boxWidth, spinnerHeight ),
         iconHeight: 0.65 * spinnerHeight,
         cornerRadius: 3,
-        left: ( challengeType === ChallengeType.BEFORE ) ? options.afterBoxLeft : options.beforeBoxLeft,
+        left: ( interactiveBox === BoxType.BEFORE ) ? options.afterBoxLeft : options.beforeBoxLeft,
         centerY: thisNode.spinnerNodes[0].centerY
       } );
       thisNode.addChild( this.hideNumbersBox );
@@ -266,7 +276,7 @@ define( function( require ) {
 
       // static numbers
       var i;
-      if ( this.challengeType === ChallengeType.BEFORE ) {
+      if ( this.interactiveBox === BoxType.BEFORE ) {
         for ( i = 0; i < this.numberOfReactants; i++ ) {
           this.numberNodes[i].visible = !interactive;
         }

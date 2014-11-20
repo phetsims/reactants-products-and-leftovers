@@ -24,8 +24,8 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var Challenge = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/Challenge' );
-  var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
   var DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevStringUtils' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
@@ -87,8 +87,8 @@ define( function( require ) {
   // 'pools' of factory functions, indexed by level
   var POOLS = [ LEVEL1_POOL, LEVEL2_POOL, LEVEL3_POOL ];
 
-  // challenge type, indexed by level
-  var CHALLENGE_TYPE = [ ChallengeType.BEFORE, ChallengeType.AFTER, ChallengeType.AFTER ];
+  // which box is interactive, indexed by level
+  var INTERACTIVE_BOXES = [ BoxType.BEFORE, BoxType.AFTER, BoxType.AFTER ];
 
   var ChallengeFactory = {
 
@@ -158,7 +158,7 @@ define( function( require ) {
       // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
       fixQuantityRangeViolation( reaction, maxQuantity );
 
-      challenges.push( new Challenge( reaction, CHALLENGE_TYPE[ level ], challengeOptions ) );
+      challenges.push( new Challenge( reaction, INTERACTIVE_BOXES[ level ], challengeOptions ) );
     }
 
     assert && assert( challenges.length === numberOfChallenges );
@@ -195,7 +195,7 @@ define( function( require ) {
       // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
       fixQuantityRangeViolation( reaction, maxQuantity );
 
-      challenges.push( new Challenge( reaction, CHALLENGE_TYPE[ level ], challengeOptions ) );
+      challenges.push( new Challenge( reaction, INTERACTIVE_BOXES[ level ], challengeOptions ) );
     }
 
     return challenges;

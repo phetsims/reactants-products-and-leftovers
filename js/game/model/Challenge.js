@@ -16,11 +16,11 @@ define( function( require ) {
 
   /**
    * @param {Reaction} reaction
-   * @param {ChallengeType} challengeType whether this is a 'Before' or 'After' challenge
+   * @param {BoxType} interactiveBox which box is interactive
    * @param {Object} [options]
    * @constructor
    */
-  function Challenge( reaction, challengeType, options ) {
+  function Challenge( reaction, interactiveBox, options ) {
 
     options = _.extend( {
       moleculesVisible: true, // {boolean} are molecules visible when playing the challenge?
@@ -28,10 +28,10 @@ define( function( require ) {
     }, options );
 
     this.reaction = reaction;
-    this.challengeType = challengeType;
+    this.interactiveBox = interactiveBox;
     this.moleculesVisible = options.moleculesVisible;
     this.numbersVisible = options.numbersVisible;
-    this.guess = new GameGuess( reaction, challengeType );
+    this.guess = new GameGuess( reaction, interactiveBox );
   }
 
   return inherit( Object, Challenge, {
