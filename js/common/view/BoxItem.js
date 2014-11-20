@@ -36,6 +36,7 @@ define( function( require ) {
      * @param {[Reactant]} reactants
      * @param {number} boxWidth
      * @returns {[BoxItem]}
+     * @static
      */
     createBeforeBoxItems: function( reactants, boxWidth ) {
       var beforeItems = [];
@@ -55,6 +56,7 @@ define( function( require ) {
      * @param {[Reactant]} reactants in this case, the leftovers
      * @param {number} boxWidth
      * @returns {[BoxItem]}
+     * @static
      */
     createAfterBoxItems: function( products, reactants, boxWidth ) {
       var afterItems = [];
