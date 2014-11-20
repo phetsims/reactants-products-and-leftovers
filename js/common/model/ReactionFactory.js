@@ -2,6 +2,11 @@
 
 /**
  * Factory functions for creating specific chemical reactions.
+ * <p>
+ * Note that the function names all have a specific format.
+ * For example, the function for creating reaction '2C + O2 -> 2CO' is named Reaction_2C_O2__2CO.
+ * Underscore is substituted for '+'.
+ * Double underscore is substituted for '->'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

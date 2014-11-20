@@ -16,7 +16,7 @@ define( function( require ) {
    * @param {number} coefficient substance's coefficient in the reaction equation
    * @param {string} symbol used in reaction equation
    * @param {SCENERY.Node} node visual representation of the substance
-   * @param {number} [quantity] how much of a substance we have before the reaction occurs, defaults to zero
+   * @param {number} [quantity] how much of a substance we have, defaults to zero
    * @constructor
    */
   function Substance( coefficient, symbol, node, quantity ) {
@@ -31,7 +31,7 @@ define( function( require ) {
     PropertySet.call( this, {
       coefficient: coefficient, // {number} substance's coefficient in the reaction equation
       node: node, // {Node} visual representation of the substance, mutable to support the 'custom sandwich' case
-      quantity: quantity  // {number} how much of the substance we have before the reaction occurs
+      quantity: quantity  // {number} how much of the substance we have
     } );
   }
 
