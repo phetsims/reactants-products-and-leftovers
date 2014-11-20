@@ -74,39 +74,17 @@ define( function( require ) {
     thisNode.reaction = reaction; // @private
 
     // explicitly hoist vars that are reused
-    var numberOfItems, reactant, product, i, xMargin, centerX, deltaX, spinnerNode, numberNode, substanceNode, symbolNode;
+    var reactant, product, i, centerX, deltaX, spinnerNode, numberNode, substanceNode, symbolNode;
 
     //------------------------------------------------------------------------------------
     // items
     //------------------------------------------------------------------------------------
 
-    //TODO there's some duplicated code here, factor out?
+    // items in the 'Before Reaction' box
+    var beforeItems = BoxItem.createBeforeBoxItems( reaction.reactants, options.contentSize.width );
 
-    // items in the 'Before Reaction' box, including their horizontal positions
-    var beforeItems = [];
-    numberOfItems = reaction.reactants.length;
-    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.contentSize.width ); // make 2-reactants case look nice
-    deltaX = ( options.contentSize.width - ( 2 * xMargin ) ) / numberOfItems;
-    centerX = xMargin + ( deltaX / 2 );
-    reaction.reactants.forEach( function( reactant ) {
-      beforeItems.push( new BoxItem( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
-      centerX += deltaX;
-    } );
-
-    // items in the 'After Reaction' box, including their horizontal positions
-    var afterItems = [];
-    numberOfItems = reaction.products.length + reaction.reactants.length;
-    deltaX = options.contentSize.width / numberOfItems;
-    centerX = deltaX / 2;
-    reaction.products.forEach( function( product ) {
-      afterItems.push( new BoxItem( product.nodeProperty, product.quantityProperty, centerX ) );
-      centerX += deltaX;
-    } );
-    reaction.reactants.forEach( function( reactant ) {
-      // for 'After', we use display each reactant's leftovers quantity
-      afterItems.push( new BoxItem( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
-      centerX += deltaX;
-    } );
+    // items in the 'After Reaction' box
+    var afterItems = BoxItem.createAfterBoxItems( reaction.products, reaction.reactants, options.contentSize.width );
 
     //------------------------------------------------------------------------------------
     // Accordion boxes & arrow

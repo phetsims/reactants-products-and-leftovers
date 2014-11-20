@@ -29,5 +29,47 @@ define( function( require ) {
     this.centerX = centerX;
   }
 
-  return inherit( Object, BoxItem );
+  return inherit( Object, BoxItem, {}, {
+
+    /**
+     * Creates items for the 'Before' side of a reaction equation.
+     * @param {[Reactant]} reactants
+     * @param {number} boxWidth
+     * @returns {[BoxItem]}
+     */
+    createBeforeBoxItems: function( reactants, boxWidth ) {
+      var beforeItems = [];
+      var xMargin = ( reactants.length > 2 ) ? 0 : ( 0.15 * boxWidth ); // make 2-reactant case look nice
+      var deltaX = ( boxWidth - ( 2 * xMargin ) ) / reactants.length;
+      var centerX = xMargin + ( deltaX / 2 );
+      reactants.forEach( function( reactant ) {
+        beforeItems.push( new BoxItem( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
+        centerX += deltaX;
+      } );
+      return beforeItems;
+    },
+
+    /**
+     * Creates items for the 'After' side of a reaction equation.
+     * @param {[Product]} products
+     * @param {[Reactant]} reactants in this case, the leftovers
+     * @param {number} boxWidth
+     * @returns {[BoxItem]}
+     */
+    createAfterBoxItems: function( products, reactants, boxWidth ) {
+      var afterItems = [];
+      var deltaX = boxWidth / ( products.length + reactants.length );
+      var centerX = deltaX / 2;
+      products.forEach( function( product ) {
+        afterItems.push( new BoxItem( product.nodeProperty, product.quantityProperty, centerX ) );
+        centerX += deltaX;
+      } );
+      reactants.forEach( function( reactant ) {
+        // for 'After', we use display each reactant's leftovers quantity
+        afterItems.push( new BoxItem( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
+        centerX += deltaX;
+      } );
+      return afterItems;
+    }
+  } );
 } );

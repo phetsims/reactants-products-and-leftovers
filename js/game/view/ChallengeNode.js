@@ -77,8 +77,7 @@ define( function( require ) {
     Node.call( thisNode );
 
     // explicitly hoist vars that are reused
-    var numberOfItems, reactants, products, reactant, product, i,
-      xMargin, centerX, deltaX, spinnerNode, numberNode, substanceNode, symbolNode;
+    var reactant, product, i, centerX, deltaX, spinnerNode, numberNode, substanceNode, symbolNode;
 
     //------------------------------------------------------------------------------------
     // Equation
@@ -107,36 +106,15 @@ define( function( require ) {
     // Items
     //------------------------------------------------------------------------------------
 
-    //TODO this section is similar to BeforeAfterNode
+    // items in the 'Before Reaction' box
+    var beforeItems = BoxItem.createBeforeBoxItems(
+      ( challengeType === ChallengeType.BEFORE ) ? guess.reactants : reaction.reactants, options.boxSize.width );
 
-    // items in the 'Before Reaction' box, including their horizontal positions
-    var beforeItems = [];
-    numberOfItems = reaction.reactants.length;
-    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2-reactants case look nice
-    deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfItems;
-    centerX = xMargin + ( deltaX / 2 );
-    reactants = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants : reaction.reactants;
-    reactants.forEach( function( reactant ) {
-      beforeItems.push( new BoxItem( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
-      centerX += deltaX;
-    } );
-
-    // items in the 'After Reaction' box, including their horizontal positions
-    var afterItems = [];
-    numberOfItems = reaction.products.length + reaction.reactants.length;
-    deltaX = options.boxSize.width / numberOfItems;
-    centerX = deltaX / 2;
-    products = ( challengeType === ChallengeType.AFTER ) ? guess.products : reaction.products;
-    reactants = ( challengeType === ChallengeType.AFTER ) ? guess.reactants : reaction.reactants;
-    products.forEach( function( product ) {
-      afterItems.push( new BoxItem( product.nodeProperty, product.quantityProperty, centerX ) );
-      centerX += deltaX;
-    } );
-    reactants.forEach( function( reactant ) {
-      // for 'After', we use display each reactant's leftovers quantity
-      afterItems.push( new BoxItem( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
-      centerX += deltaX;
-    } );
+    // items in the 'After Reaction' box
+    var afterItems = BoxItem.createAfterBoxItems(
+      ( challengeType === ChallengeType.AFTER ) ? guess.products : reaction.products,
+      ( challengeType === ChallengeType.AFTER ) ? guess.reactants : reaction.reactants,
+      options.boxSize.width );
 
     //------------------------------------------------------------------------------------
     // Property that tells us whether the user has made a valid guess.
