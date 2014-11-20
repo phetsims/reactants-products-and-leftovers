@@ -55,18 +55,16 @@ define( function( require ) {
 
     // Compute positions in the grid, this is our 'pool' of positions.
     var positions = [];
-    var x, y;
     var dx = Math.floor( ( options.boxSize.width - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / columns );
     var dy = Math.floor( ( options.boxSize.height - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / rows );
     for ( var column = 0; column < columns; column++ ) {
       for ( var row = 0; row < rows; row++ ) {
-        x = options.margin + options.randomOffset + ( dx / 2 ) + ( column * dx );
-        y = options.margin + options.randomOffset + ( dy / 2 ) + ( row * dy );
+        var x = options.margin + options.randomOffset + ( dx / 2 ) + ( column * dx );
+        var y = options.margin + options.randomOffset + ( dy / 2 ) + ( row * dy );
         positions.push( new Vector2( x, y ) );
       }
     }
     assert && assert( positions.length === rows * columns );
-    positions = _.shuffle( positions );
 
     /**
      * Chooses a random position and remove it from the pool of positions.
