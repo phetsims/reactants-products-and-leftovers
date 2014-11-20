@@ -214,7 +214,7 @@ define( function( require ) {
     var reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
     reactantsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / reactantsLabel.width ) ); // i18n
     var reactantsBracket = new HBracketNode( {
-      bracketColor: RPALColors.PANEL_FILL,
+      bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
       bracketWidth: Math.max( options.maxImageSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: reactantsParent.centerX,
@@ -226,7 +226,7 @@ define( function( require ) {
     var productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
     productsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / productsLabel.width ) ); // i18n
     var productsBracket = new HBracketNode( {
-      bracketColor: RPALColors.PANEL_FILL,
+      bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
       bracketWidth: Math.max( options.maxImageSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: productsParent.centerX,
@@ -238,7 +238,7 @@ define( function( require ) {
     var leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
     leftoversLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / leftoversLabel.width ) ); // i18n
     var leftoversBracket = new HBracketNode( {
-      bracketColor: RPALColors.PANEL_FILL,
+      bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,
       bracketWidth: Math.max( options.maxImageSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: leftoversParent.centerX,

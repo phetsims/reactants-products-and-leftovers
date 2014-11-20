@@ -21,19 +21,19 @@ define( function( require ) {
   function HBracketNode( options ) {
 
     options = _.extend( {
-      labelNode: null, // optional {Node} label that will be centered below bracket's tip
+      labelNode: null, // {Node} optional label that will be centered below bracket's tip
       bracketWidth: 100,
       bracketEndHeight: 5,
       bracketCurveXOffset: 5, // x-offset of the bracket's curved segments
       bracketTipWidth: 6,
       bracketTipHeight: 6,
-      bracketColor: 'black',
+      bracketStroke: 'black',
       ySpacing: 2 // vertical space between label and tip of bracket
     }, options );
 
     Node.call( this );
 
-    // bracket, create shape left-to-right
+    // bracket shape, created left-to-right
     var bracketShape = new Shape()
       // left end curves up
       .moveTo( 0, 0 )
@@ -47,8 +47,10 @@ define( function( require ) {
       // right end curves up
       .lineTo( options.bracketWidth - options.bracketCurveXOffset, options.bracketEndHeight )
       .quadraticCurveTo( options.bracketWidth, options.bracketEndHeight, options.bracketWidth, 0 );
+
+    // bracket node
     var bracketNode = new Path( bracketShape, {
-      stroke: options.bracketColor
+      stroke: options.bracketStroke
     } );
     this.addChild( bracketNode );
 
