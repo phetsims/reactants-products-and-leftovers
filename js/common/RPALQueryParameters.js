@@ -25,7 +25,13 @@ define( function( require ) {
     REWARD: getQueryParameter( 'reward' ) || false,
 
     // whether to use 'spinners' or 'pickers' for changing equation coefficients
-    COEFFICIENTS: getQueryParameter( 'coefficients' ) || 'spinners'
+    COEFFICIENTS: getQueryParameter( 'coefficients' ) || 'spinners',
+
+    /**
+     * Molecules in game boxes are arranged in a grid. This controls how much the molecules are randomly offset from the center
+     * of cells in the grid. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
+     */
+    RANDOM_OFFSET: parseInt( getQueryParameter( 'randomOffset' ), 10 ) || 8
   };
 
   return RPALQueryParameters;

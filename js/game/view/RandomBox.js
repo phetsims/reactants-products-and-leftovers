@@ -19,6 +19,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -40,8 +41,9 @@ define( function( require ) {
        * Maximum x- and y-offset of molecules from the center of a cell in the grid.
        * Larger numbers make the layout look less like a grid, but increase overlapping.
        */
-      randomOffset: 8
+      randomOffset: RPALQueryParameters.RANDOM_OFFSET
     }, options );
+    console.log( 'randomOffset=' + options.randomOffset );//XXX
 
     var thisNode = this;
     Node.call( thisNode );
