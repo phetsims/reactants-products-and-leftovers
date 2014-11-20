@@ -3,7 +3,7 @@ TODO list for reactants-products-and-leftovers
 HIGH
 
 MEDIUM
-- factor out common code in BeforeAfterNode and ChallengeNode?
+- rename ChallengeType to something that is basically 'which side of the equation is interactive'
 
 LOW
 - TODO items in code

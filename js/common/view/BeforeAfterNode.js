@@ -14,12 +14,14 @@ define( function( require ) {
 
   // modules
   var BoxItem = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BoxItem' );
+  var ChallengeType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeType' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
+  var QuantitiesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/QuantitiesNode' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALBrackets = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALBrackets' );
@@ -36,12 +38,7 @@ define( function( require ) {
 
   // constants
   var TITLE_OPTIONS = { font: new RPALFont( 14 ), fill: 'white' }; // AccordionBox titles
-  var QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
-  var SYMBOL_FONT = new RPALFont( 16 ); // font for the symbols that appear below the boxes
   var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
-  var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
-  var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
-  var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
@@ -66,9 +63,6 @@ define( function( require ) {
     Node.call( thisNode );
 
     thisNode.reaction = reaction; // @private
-
-    // explicitly hoist vars that are reused
-    var reactant, product, i, centerX, deltaX, spinnerNode, numberNode, substanceNode, symbolNode;
 
     //------------------------------------------------------------------------------------
     // items
@@ -110,139 +104,21 @@ define( function( require ) {
     thisNode.addChild( hBox );
 
     //------------------------------------------------------------------------------------
-    // Quantities, images and symbols below the boxes
+    // Quantities, images, symbols and brackets below the boxes
     //------------------------------------------------------------------------------------
 
-    // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    thisNode.spinnerNodes = []; // @private {[NumberSpinner]} see dispose
-    thisNode.numberNodes = []; // @private {[NumberNode]} see dispose
-    thisNode.substanceNodes = []; // @private {[SubstanceNode]} see dispose
-    var symbolNodes = [];
-
-    // reactants, below the 'Before' box
-    var reactantsParent = new Node();
-    thisNode.addChild( reactantsParent );
-    for ( i = 0; i < reaction.reactants.length; i++ ) {
-
-      reactant = reaction.reactants[i];
-      centerX = thisNode.beforeBox.left + beforeItems[i].centerX;
-
-      // quantity is editable via a spinner
-      spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
-        { font: QUANTITY_FONT, centerX: centerX } );
-      reactantsParent.addChild( spinnerNode );
-      thisNode.spinnerNodes.push( spinnerNode );
-
-      // substance icon
-      substanceNode = new SubstanceNode( reactant.nodeProperty, { centerX: centerX } );
-      reactantsParent.addChild( substanceNode );
-      thisNode.substanceNodes.push( substanceNode );
-
-      // symbol
-      if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        reactantsParent.addChild( symbolNode );
-        symbolNodes.push( symbolNode );
-      }
-
-      centerX += deltaX;
-    }
-
-    // products, below the 'After' box
-    var productsParent = new Node();
-    thisNode.addChild( productsParent );
-    for ( i = 0; i < reaction.products.length; i++ ) {
-
-      product = reaction.products[i];
-      centerX = thisNode.afterBox.left + afterItems[i].centerX;
-
-      // noneditable number
-      numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      productsParent.addChild( numberNode );
-      thisNode.numberNodes.push( numberNode );
-
-      // substance icon
-      substanceNode = new SubstanceNode( product.nodeProperty, { centerX: centerX } );
-      productsParent.addChild( substanceNode );
-      thisNode.substanceNodes.push( substanceNode );
-
-      // symbol
-      if ( options.showSymbols ) {
-        symbolNode = new SubSupText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        productsParent.addChild( symbolNode );
-        symbolNodes.push( symbolNode );
-      }
-
-      centerX += deltaX;
-    }
-
-    // leftovers, below the 'After' box, to the right of the products
-    var leftoversParent = new Node();
-    thisNode.addChild( leftoversParent );
-    for ( i = 0; i < reaction.reactants.length; i++ ) {
-
-      reactant = reaction.reactants[i];
-      centerX = thisNode.afterBox.left + afterItems[ i + reaction.products.length ].centerX;
-
-      // noneditable number
-      numberNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      leftoversParent.addChild( numberNode );
-      thisNode.numberNodes.push( numberNode );
-
-      // substance icon
-      substanceNode = new SubstanceNode( reactant.nodeProperty, { centerX: centerX } );
-      leftoversParent.addChild( substanceNode );
-      thisNode.substanceNodes.push( substanceNode );
-
-      // symbol
-      if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        leftoversParent.addChild( symbolNode );
-        symbolNodes.push( symbolNode );
-      }
-
-      centerX += deltaX;
-    }
-
-    // vertical layout of components below the boxes
-    var spinnerHeight = thisNode.spinnerNodes[0].height;
-    var maxImageHeight = Math.max(
-      options.maxImageSize.height,
-      _.max( thisNode.substanceNodes, function( node ) { return node.height; } ).height );
-    var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
-    var componentsTop = thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
-
-    thisNode.spinnerNodes.forEach( function( spinnerNode ) {
-      spinnerNode.centerY = componentsTop + ( spinnerHeight / 2 );
-    } );
-    thisNode.numberNodes.forEach( function( numberNode ) {
-      numberNode.centerY = componentsTop + ( spinnerHeight / 2 );
-    } );
-    thisNode.substanceNodes.forEach( function( substanceNode ) {
-      substanceNode.centerY = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
-    } );
-    if ( options.showSymbols ) {
-      symbolNodes.forEach( function( symbolNode ) {
-        symbolNode.top = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
+    thisNode.quantitiesNode = new QuantitiesNode(
+      reaction.reactants, reaction.products, reaction.reactants,
+      beforeItems, afterItems, ChallengeType.BEFORE,
+      {
+        boxWidth: options.contentSize.width,
+        beforeBoxLeft: thisNode.beforeBox.left,
+        afterBoxLeft: thisNode.afterBox.left,
+        maxImageSize: options.maxImageSize,
+        quantityRange: options.quantityRange,
+        top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
       } );
-    }
-
-    var componentsBottom = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
-    if ( options.showSymbols ) {
-      componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
-    }
-
-    //------------------------------------------------------------------------------------
-    // Brackets
-    //------------------------------------------------------------------------------------
-
-    thisNode.addChild( new RPALBrackets(
-      reactantsParent.width, reactantsParent.centerX,
-      productsParent.width, productsParent.centerX,
-      leftoversParent.width, leftoversParent.centerX,
-      options.maxImageSize.width,
-      { top: componentsBottom + BRACKET_Y_SPACING }
-    ) );
+    thisNode.addChild( thisNode.quantitiesNode );
 
     // pass options to supertype
     thisNode.mutate( options );
@@ -258,9 +134,7 @@ define( function( require ) {
       this.afterBox.dispose();
 
       // stuff below the boxes
-      this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
-      this.numberNodes.forEach( function( node ) { node.dispose(); } );
-      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+      this.quantitiesNode.dispose();
     }
   } );
 } );

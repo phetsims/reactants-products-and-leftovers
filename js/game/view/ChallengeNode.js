@@ -23,9 +23,9 @@ define( function( require ) {
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
+  var QuantitiesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/QuantitiesNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
-  var RPALBrackets = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALBrackets' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
@@ -34,12 +34,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
-  var SYMBOL_FONT = new RPALFont( 16 ); // font for the symbols that appear below the boxes
   var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
-  var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
-  var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
-  var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
 
   /**
    * @param {GameModel} model
@@ -67,9 +62,6 @@ define( function( require ) {
 
     var thisNode = this;
     Node.call( thisNode );
-
-    // explicitly hoist vars that are reused
-    var reactant, product, i, centerX, deltaX, spinnerNode, numberNode, substanceNode, symbolNode;
 
     //------------------------------------------------------------------------------------
     // Equation
@@ -208,169 +200,27 @@ define( function( require ) {
     faceNode.centerY = questionMark.centerY = thisNode.beforeBox.top + ( buttons.top - thisNode.beforeBox.top ) / 2;
 
     //------------------------------------------------------------------------------------
-    // Quantities, images and symbols below the boxes
+    // Quantities, images, symbols and brackets below the boxes
     //------------------------------------------------------------------------------------
 
-    //TODO this section is similar to BeforeAfterNode
-
-    // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    thisNode.spinnerNodes = []; // @private {[NumberSpinner]} see dispose
-    thisNode.numberNodes = []; // @private {[NumberNode]} see dispose
-    thisNode.substanceNodes = []; // @private {[SubstanceNode]} see dispose
-    var symbolNodes = [];
-
-    // reactants, below the 'Before' box
-    var reactantsParent = new Node();
-    thisNode.addChild( reactantsParent );
-    for ( i = 0; i < reaction.reactants.length; i++ ) {
-
-      reactant = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants[i] : reaction.reactants[i];
-      centerX = thisNode.beforeBox.left + beforeItems[i].centerX;
-
-      // noneditable number
-      numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      reactantsParent.addChild( numberNode );
-      thisNode.numberNodes.push( numberNode );
-
-      // spinner
-      if ( challengeType === ChallengeType.BEFORE ) {
-        spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
-          { font: QUANTITY_FONT, centerX: centerX } );
-        reactantsParent.addChild( spinnerNode );
-        thisNode.spinnerNodes.push( spinnerNode );
-      }
-
-      // substance icon
-      substanceNode = new SubstanceNode( reactant.nodeProperty, { centerX: centerX } );
-      reactantsParent.addChild( substanceNode );
-      thisNode.substanceNodes.push( substanceNode );
-
-      // symbol
-      if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        reactantsParent.addChild( symbolNode );
-        symbolNodes.push( symbolNode );
-      }
-
-      centerX += deltaX;
-    }
-
-    // products, below the 'After' box
-    var productsParent = new Node();
-    thisNode.addChild( productsParent );
-    for ( i = 0; i < reaction.products.length; i++ ) {
-
-      product = ( challengeType === ChallengeType.AFTER ) ? guess.products[i] : reaction.products[i];
-      centerX = thisNode.afterBox.left + afterItems[i].centerX;
-
-      // noneditable number
-      numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      productsParent.addChild( numberNode );
-      thisNode.numberNodes.push( numberNode );
-
-      // spinner
-      if ( challengeType === ChallengeType.AFTER ) {
-        spinnerNode = new NumberSpinner( product.quantityProperty, options.quantityRange,
-          { font: QUANTITY_FONT, centerX: centerX } );
-        productsParent.addChild( spinnerNode );
-        thisNode.spinnerNodes.push( spinnerNode );
-      }
-
-      // substance icon
-      substanceNode = new SubstanceNode( product.nodeProperty, { centerX: centerX } );
-      productsParent.addChild( substanceNode );
-      thisNode.substanceNodes.push( substanceNode );
-
-      // symbol
-      if ( options.showSymbols ) {
-        symbolNode = new SubSupText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        productsParent.addChild( symbolNode );
-        symbolNodes.push( symbolNode );
-      }
-
-      centerX += deltaX;
-    }
-
-    // leftovers, below the 'After' box, to the right of the products
-    var leftoversParent = new Node();
-    thisNode.addChild( leftoversParent );
-    for ( i = 0; i < reaction.reactants.length; i++ ) {
-
-      reactant = ( challengeType === ChallengeType.AFTER ) ? guess.reactants[i] : reaction.reactants[i];
-      centerX = thisNode.afterBox.left + afterItems[ i + reaction.products.length ].centerX;
-
-      // noneditable number
-      numberNode = new NumberNode( reactant.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      leftoversParent.addChild( numberNode );
-      thisNode.numberNodes.push( numberNode );
-
-      // spinner
-      if ( challengeType === ChallengeType.AFTER ) {
-        spinnerNode = new NumberSpinner( reactant.leftoversProperty, options.quantityRange,
-          { font: QUANTITY_FONT, centerX: centerX } );
-        leftoversParent.addChild( spinnerNode );
-        thisNode.spinnerNodes.push( spinnerNode );
-      }
-
-      // substance icon
-      substanceNode = new SubstanceNode( reactant.nodeProperty, { centerX: centerX } );
-      leftoversParent.addChild( substanceNode );
-      thisNode.substanceNodes.push( substanceNode );
-
-      // symbol
-      if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        leftoversParent.addChild( symbolNode );
-        symbolNodes.push( symbolNode );
-      }
-
-      centerX += deltaX;
-    }
-
-    //TODO this section is identical to BeforeAfterNode
-
-    // vertical layout of components below the boxes
-    var spinnerHeight = thisNode.spinnerNodes[0].height;
-    var maxImageHeight = Math.max(
-      options.maxImageSize.height,
-      _.max( thisNode.substanceNodes, function( node ) { return node.height; } ).height );
-    var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
-    var componentsTop = thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING;
-
-    thisNode.spinnerNodes.forEach( function( spinnerNode ) {
-      spinnerNode.centerY = componentsTop + ( spinnerHeight / 2 );
-    } );
-    thisNode.numberNodes.forEach( function( numberNode ) {
-      numberNode.centerY = componentsTop + ( spinnerHeight / 2 );
-    } );
-    thisNode.substanceNodes.forEach( function( substanceNode ) {
-      substanceNode.centerY = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
-    } );
-    if ( options.showSymbols ) {
-      symbolNodes.forEach( function( symbolNode ) {
-        symbolNode.top = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
+    var reactants = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants : reaction.reactants;
+    var products = ( challengeType === ChallengeType.AFTER ) ? guess.products : reaction.products;
+    var leftovers = ( challengeType === ChallengeType.AFTER ) ? guess.reactants : reaction.reactants;
+    thisNode.quantitiesNode = new QuantitiesNode(
+      reactants, products, leftovers, beforeItems, afterItems, challengeType,
+      {
+        boxWidth: options.boxSize.width,
+        beforeBoxLeft: thisNode.beforeBox.left,
+        afterBoxLeft: thisNode.afterBox.left,
+        maxImageSize: options.maxImageSize,
+        quantityRange: options.quantityRange,
+        hideNumbersBox: !model.numbersVisible,
+        top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
       } );
-    }
-
-    var componentsBottom = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
-    if ( options.showSymbols ) {
-      componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
-    }
+    thisNode.addChild( thisNode.quantitiesNode );
 
     //------------------------------------------------------------------------------------
-    // Brackets
-    //------------------------------------------------------------------------------------
-
-    thisNode.addChild( new RPALBrackets(
-      reactantsParent.width, reactantsParent.centerX,
-      productsParent.width, productsParent.centerX,
-      leftoversParent.width, leftoversParent.centerX,
-      options.maxImageSize.width,
-      { top: componentsBottom + BRACKET_Y_SPACING }
-    ) );
-
-    //------------------------------------------------------------------------------------
-    // Optional 'hide' boxes on top of molecules and numbers
+    // Optional 'Hide molecules' box on top of Before or After box
     //------------------------------------------------------------------------------------
 
     var hideMoleculesBox = null;
@@ -383,18 +233,6 @@ define( function( require ) {
         bottom: thisNode.beforeBox.bottom
       } );
       thisNode.addChild( hideMoleculesBox );
-    }
-
-    var hideNumbersBox = null;
-    if ( !model.numbersVisible ) {
-      hideNumbersBox = new HideBox( {
-        boxSize: new Dimension2( options.boxSize.width, spinnerHeight ),
-        iconHeight: 0.65 * spinnerHeight,
-        cornerRadius: 3,
-        left: ( challengeType === ChallengeType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
-        centerY: thisNode.spinnerNodes[0].centerY
-      } );
-      thisNode.addChild( hideNumbersBox );
     }
 
     //------------------------------------------------------------------------------------
@@ -412,21 +250,10 @@ define( function( require ) {
       // 'hide' boxes
       var hideBoxVisible = ( state !== PlayState.NEXT );
       if ( hideMoleculesBox ) { hideMoleculesBox.visible = hideBoxVisible; }
-      if ( hideNumbersBox ) { hideNumbersBox.visible = hideBoxVisible; }
+      thisNode.quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
 
       // switch between spinners and static numbers
-      var spinnersVisible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK  );
-      thisNode.spinnerNodes.forEach( function( spinnerNode ) { spinnerNode.visible = spinnersVisible; } );
-      if ( challengeType === ChallengeType.BEFORE ) {
-        for ( i = 0; i < reaction.reactants.length; i++ ) {
-          thisNode.numberNodes[i].visible = !spinnersVisible;
-        }
-      }
-      else {
-        for ( i = reaction.reactants.length; i < thisNode.numberNodes.length; i++ ) {
-          thisNode.numberNodes[i].visible = !spinnersVisible;
-        }
-      }
+      thisNode.quantitiesNode.setInteractive( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK );
 
       // reveal the correct answer
       if ( state === PlayState.NEXT ) { challenge.showAnswer(); }
@@ -448,9 +275,7 @@ define( function( require ) {
       this.guessIsValidProperty.detach();
 
       // stuff below the boxes
-      this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
-      this.numberNodes.forEach( function( node ) { node.dispose(); } );
-      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+      this.quantitiesNode.dispose();
     }
   } );
 } );
