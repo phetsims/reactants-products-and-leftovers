@@ -8,10 +8,16 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var Color = require( 'SCENERY/util/Color' );
+
+  // constants
+  var DARK_BLUE = new Color( 51, 118, 196 );
+
   var RPALColors = {
     SCREEN_BACKGROUND: 'rgb(218,236,255)',
-    PANEL_FILL: 'rgb(51,118,196)',
-    BOX_STROKE: 'rgba(51,118,196,0.3)'
+    PANEL_FILL: DARK_BLUE,
+    BOX_STROKE: DARK_BLUE.withAlpha( 0.3 )
   };
 
   return RPALColors;
