@@ -28,10 +28,6 @@ define( function( require ) {
    */
   function SubstanceNode( nodeProperty, options ) {
 
-    options = _.extend( {
-      centerY: 0
-    }, options );
-
     Node.call( this );
 
     // Add an additional wrapper, so that we can maintain the node's center.
