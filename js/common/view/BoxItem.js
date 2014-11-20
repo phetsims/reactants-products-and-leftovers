@@ -6,7 +6,7 @@
  * rely on duck typing.
  * <p>
  * This is needed mainly because Reactants have 2 associated quantity properties:
- * quantity (before reaction) and leftovers (after reaction) and we want to
+ * quantity (before reaction) and leftovers (after reaction) and we need to
  * pass the correct quantity to the Before vs After user interface.
  *
  * @author Chris Malley (PixelZoom, Inc.)
