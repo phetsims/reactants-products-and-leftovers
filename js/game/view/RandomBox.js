@@ -23,7 +23,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param items the items in the box TODO type?
+   * @param {[BoxItem]} items the items in the box
    * @param {number} maxQuantity the maximum quantity of each item in the box
    * @param {Object} [options]
    * @constructor
@@ -94,12 +94,12 @@ define( function( require ) {
     thisNode.addChild( boxNode );
 
     // items inside the box
-    thisNode.randomNodes = []; // @private see dispose
+    thisNode.itemLayers = []; // @private [{ItemLayer}] see dispose
     var parent = new Node();
     items.forEach( function( item ) {
-      var randomNode = new RandomNode( item.nodeProperty, item.quantityProperty, options.randomOffset, choosePosition, releasePosition );
-      parent.addChild( randomNode );
-      thisNode.randomNodes.push( randomNode );
+      var itemLayer = new ItemLayer( item.nodeProperty, item.quantityProperty, options.randomOffset, choosePosition, releasePosition );
+      parent.addChild( itemLayer );
+      thisNode.itemLayers.push( itemLayer );
     } );
     thisNode.addChild( parent );
 
@@ -108,14 +108,15 @@ define( function( require ) {
 
   /**
    * Responsible for managing all nodes for one item.
+   *
    * @param {Property.<Node>} nodeProperty
-   * @param {Property.<number> quantityProperty
+   * @param {Property.<number>} quantityProperty
    * @param {number} randomOffset
    * @param {function} choosePosition returns {Vector2}
    * @param {function} releasePosition @param {Vector2}
    * @constructor
    */
-  function RandomNode( nodeProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
+  function ItemLayer( nodeProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
 
     var thisNode = this;
     Node.call( thisNode );
@@ -156,7 +157,7 @@ define( function( require ) {
     thisNode.quantityProperty.link( thisNode.quantityPropertyObserver );
   }
 
-  inherit( Node, RandomNode, {
+  inherit( Node, ItemLayer, {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
@@ -193,7 +194,7 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-      this.randomNodes.forEach( function( node ) { node.dispose(); } );
+      this.itemLayers.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );
