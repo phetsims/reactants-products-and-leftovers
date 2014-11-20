@@ -2,6 +2,7 @@
 
 /**
  * Font used throughout this simulation.
+ * Allows us to quickly change font properties for the entire simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
