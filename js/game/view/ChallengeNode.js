@@ -112,7 +112,7 @@ define( function( require ) {
     // items in the 'Before Reaction' box, including their horizontal positions
     var beforeItems = [];
     numberOfItems = reaction.reactants.length;
-    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2-items case look nice
+    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2-reactants case look nice
     deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfItems;
     centerX = xMargin + ( deltaX / 2 );
     reactants = ( challengeType === ChallengeType.BEFORE ) ? guess.reactants : reaction.reactants;
@@ -124,9 +124,8 @@ define( function( require ) {
     // items in the 'After Reaction' box, including their horizontal positions
     var afterItems = [];
     numberOfItems = reaction.products.length + reaction.reactants.length;
-    xMargin = ( numberOfItems > 2 ) ? 0 : ( 0.15 * options.boxSize.width ); // make 2-items case look nice
-    deltaX = ( options.boxSize.width - ( 2 * xMargin ) ) / numberOfItems;
-    centerX = xMargin + ( deltaX / 2 );
+    deltaX = options.boxSize.width / numberOfItems;
+    centerX = deltaX / 2;
     products = ( challengeType === ChallengeType.AFTER ) ? guess.products : reaction.products;
     reactants = ( challengeType === ChallengeType.AFTER ) ? guess.reactants : reaction.reactants;
     products.forEach( function( product ) {
