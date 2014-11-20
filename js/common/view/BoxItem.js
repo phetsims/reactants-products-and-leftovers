@@ -69,7 +69,7 @@ define( function( require ) {
         centerX += deltaX;
       } );
       reactants.forEach( function( reactant ) {
-        // for 'After', we use display each reactant's leftovers quantity
+        // for 'After', we display each reactant's leftovers value
         afterItems.push( new BoxItem( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
         centerX += deltaX;
       } );
