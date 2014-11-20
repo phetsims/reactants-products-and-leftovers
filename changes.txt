@@ -1,3 +1,4 @@
+11/19/14 factor out duplicate bracket code into RPALBrackets
 11/19/14 factor out duplicate code for creating BoxItems into factory functions
 11/19/14 simplify horizontal-layout code for 'After', will always have at least 3 items (>=1 product + >=2 reactants)
 11/19/14 Game: center '?' in space above buttons
