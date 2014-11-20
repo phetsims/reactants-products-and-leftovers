@@ -1,8 +1,10 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * This is a data structure, useful in the user interfaces that involve Before/After boxes.
- * Since it's used in several places, I chose to formalize its definition, rather than
+ * Items are basically a data structure that repackages reactants and products.
+ * An item contains only the information needed by the user interface, as well as
+ * information that's specific to user-interface layout.  Since this data structure
+ * is used in several places, I chose to formalize its definition, rather than
  * rely on duck typing.
  * <p>
  * This is needed mainly because Reactants have 2 associated quantity properties:
