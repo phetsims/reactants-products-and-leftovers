@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Base type for the view used in the 'Sandwiches' and 'Molecules' screens.
+ * Base type for the ScreenView used in the 'Sandwiches' and 'Molecules' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,7 +23,7 @@ define( function( require ) {
    * @param {function} createBeforeAfterNode creates the Before/After boxes for a specified reaction
    * @constructor
    */
-  function RPALBaseView( model, createEquationNode, createBeforeAfterNode ) {
+  function RPALScreenView( model, createEquationNode, createBeforeAfterNode ) {
 
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
@@ -87,5 +87,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( ScreenView, RPALBaseView );
+  return inherit( ScreenView, RPALScreenView );
 } );

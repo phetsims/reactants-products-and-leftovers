@@ -12,8 +12,8 @@ define( function( require ) {
   var BeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BeforeAfterNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var RPALBaseView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALBaseView' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
+  var RPALScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALScreenView' );
   var SandwichesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesEquationNode' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
 
@@ -32,7 +32,7 @@ define( function( require ) {
     var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient );
     var maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
 
-    RPALBaseView.call( this, model,
+    RPALScreenView.call( this, model,
 
       /*
        * Creates an equation for a specified reaction.
@@ -63,5 +63,5 @@ define( function( require ) {
     );
   }
 
-  return inherit( RPALBaseView, SandwichesView );
+  return inherit( RPALScreenView, SandwichesView );
 } );
