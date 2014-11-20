@@ -59,7 +59,7 @@ define( function( require ) {
       beforeTitle: beforeReactionString,
       afterTitle: afterReactionString,
       boxYMargin: 6, // vertical margin between the inner edge of box and the tallest node
-      maxImageSize: new Dimension2( 0, 0 ) // our best guess at the maximum image size
+      maxImageSize: new Dimension2( 0, 0 ) // our best guess at the size of the biggest substance in the reaction
     }, options );
 
     var thisNode = this;
