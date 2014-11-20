@@ -24,7 +24,6 @@ define( function( require ) {
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
-  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
@@ -380,7 +379,7 @@ define( function( require ) {
     if ( options.showSymbols ) {
       symbolNodes.forEach( function( symbolNode ) {
         symbolNode.top = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
-      });
+      } );
     }
 
     var componentsBottom = componentsTop + spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
