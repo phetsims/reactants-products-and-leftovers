@@ -28,7 +28,6 @@ define( function( require ) {
    */
   function StacksAccordionBox( items, options ) {
 
-    // options common to both accordion boxes
     options = _.extend( {
 
       // AccordionBox options
@@ -60,6 +59,7 @@ define( function( require ) {
     // content for the accordion box
     var content = new Node();
 
+    // rectangle with no fill, this ensures constant size of the content
     var rectangle = new Rectangle( 0, 0, options.contentSize.width, options.contentSize.height, options.cornerRadius, options.cornerRadius );
     content.addChild( rectangle );
 
@@ -69,7 +69,7 @@ define( function( require ) {
       _.max( items, function( item ) { return item.nodeProperty.get().height; } ).nodeProperty.get().height );
 
     // vertical stacks of nodes inside the box
-    this.stackNodes = []; // @private
+    this.stackNodes = []; // @private see dispose
     var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxThingHeight ) / ( options.quantityRange.max - 1 );
     var startCenterY = rectangle.height - options.boxYMargin - ( maxThingHeight / 2 );
     for ( var i = 0; i < items.length; i++ ) {
