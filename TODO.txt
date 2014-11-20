@@ -4,7 +4,6 @@ HIGH
 
 MEDIUM
 - factor out common code in BeforeAfterNode and ChallengeNode?
-- Game: for checking layout, PCl5 is the tallest molecule
 
 LOW
 - TODO items in code
