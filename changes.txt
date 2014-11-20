@@ -1,3 +1,4 @@
+11/20/14 QuantitiesNode: move constructor param to options
 11/20/14 rename ChallengeType to BoxType, so that it's not specific to the Game screen
 11/20/14 absorb RPALBrackets into QuantitiesNode
 11/20/14 factor out common code in BeforeAfterNode and ChallengeNode into QuantitiesNode

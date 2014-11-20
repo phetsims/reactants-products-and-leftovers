@@ -3,6 +3,7 @@ TODO list for reactants-products-and-leftovers
 HIGH
 - get rid of (or minimize) use of BoxItem
 - make Leftover a type, instead of a Reactant property
+- rename maxImageSize to minImageSize
 
 MEDIUM
 

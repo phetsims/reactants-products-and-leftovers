@@ -47,13 +47,13 @@ define( function( require ) {
    * @param {[Reactants]} leftovers
    * @param {[BoxItem]} beforeItems
    * @param {[BoxItem]} afterItems
-   * @param {BoxType} interactiveBox which box is interactive
    * @param {Object} [options]
    * @constructor
    */
-  function QuantitiesNode( reactants, products, leftovers, beforeItems, afterItems, interactiveBox, options ) {
+  function QuantitiesNode( reactants, products, leftovers, beforeItems, afterItems, options ) {
 
     options = _.extend( {
+      interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
       boxWidth: 100,
       beforeBoxLeft: 0,
       afterBoxLeft: 200,
@@ -66,7 +66,7 @@ define( function( require ) {
     Node.call( thisNode );
 
     this.numberOfReactants = reactants.length; // @private
-    this.interactiveBox = interactiveBox; // @private
+    this.interactiveBox = options.interactiveBox; // @private
 
     // explicitly hoist reused vars
     var i, reactant, product, leftover, centerX, numberNode, spinnerNode, substanceNode, symbolNode;
@@ -91,7 +91,7 @@ define( function( require ) {
       thisNode.numberNodes.push( numberNode );
 
       // spinner
-      if ( interactiveBox === BoxType.BEFORE ) {
+      if ( this.interactiveBox === BoxType.BEFORE ) {
         numberNode.visible = false;
         spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
@@ -126,7 +126,7 @@ define( function( require ) {
       thisNode.numberNodes.push( numberNode );
 
       // spinner
-      if ( interactiveBox === BoxType.AFTER ) {
+      if ( this.interactiveBox === BoxType.AFTER ) {
         numberNode.visible = false;
         spinnerNode = new NumberSpinner( product.quantityProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
@@ -161,7 +161,7 @@ define( function( require ) {
       thisNode.numberNodes.push( numberNode );
 
       // spinner
-      if ( interactiveBox === BoxType.AFTER ) {
+      if ( this.interactiveBox === BoxType.AFTER ) {
         numberNode.visible = false;
         spinnerNode = new NumberSpinner( leftover.leftoversProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
@@ -253,7 +253,7 @@ define( function( require ) {
         boxSize: new Dimension2( options.boxWidth, spinnerHeight ),
         iconHeight: 0.65 * spinnerHeight,
         cornerRadius: 3,
-        left: ( interactiveBox === BoxType.BEFORE ) ? options.afterBoxLeft : options.beforeBoxLeft,
+        left: ( this.interactiveBox === BoxType.BEFORE ) ? options.afterBoxLeft : options.beforeBoxLeft,
         centerY: thisNode.spinnerNodes[0].centerY
       } );
       thisNode.addChild( this.hideNumbersBox );

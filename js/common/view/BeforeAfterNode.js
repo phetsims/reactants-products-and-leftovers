@@ -46,18 +46,16 @@ define( function( require ) {
 
     options = _.extend( {
       contentSize: new Dimension2( 310, 240 ), // size of the 'Before' and 'After' boxes
-      quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
-      showSymbols: true, // whether to show the symbols
-      beforeTitle: beforeReactionString,
-      afterTitle: afterReactionString,
-      boxYMargin: 6, // vertical margin between the inner edge of box and the tallest node
+      quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
+      showSymbols: true, // whether to show symbols (eg, H2O) for the substances in the reactions
+      beforeTitle: beforeReactionString,  // {string} title on the 'Before' box
+      afterTitle: afterReactionString, // {string} title on the 'After' box
+      boxYMargin: 6, // {number} vertical margin between the inner edge of box and the tallest node
       maxImageSize: new Dimension2( 0, 0 ) // best guess at the size of the biggest substance in the reaction
     }, options );
 
     var thisNode = this;
     Node.call( thisNode );
-
-    thisNode.reaction = reaction; // @private
 
     //------------------------------------------------------------------------------------
     // items
@@ -102,17 +100,14 @@ define( function( require ) {
     // Quantities, images, symbols and brackets below the boxes
     //------------------------------------------------------------------------------------
 
-    thisNode.quantitiesNode = new QuantitiesNode(
-      reaction.reactants, reaction.products, reaction.reactants,
-      beforeItems, afterItems, BoxType.BEFORE,
-      {
-        boxWidth: options.contentSize.width,
-        beforeBoxLeft: thisNode.beforeBox.left,
-        afterBoxLeft: thisNode.afterBox.left,
-        maxImageSize: options.maxImageSize,
-        quantityRange: options.quantityRange,
-        top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
-      } );
+    thisNode.quantitiesNode = new QuantitiesNode( reaction.reactants, reaction.products, reaction.reactants, beforeItems, afterItems, {
+      boxWidth: options.contentSize.width,
+      beforeBoxLeft: thisNode.beforeBox.left,
+      afterBoxLeft: thisNode.afterBox.left,
+      maxImageSize: options.maxImageSize,
+      quantityRange: options.quantityRange,
+      top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
+    } );
     thisNode.addChild( thisNode.quantitiesNode );
 
     // pass options to supertype

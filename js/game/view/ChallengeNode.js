@@ -202,17 +202,16 @@ define( function( require ) {
     var reactants = ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants;
     var products = ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products;
     var leftovers = ( interactiveBox === BoxType.AFTER ) ? guess.reactants : reaction.reactants;
-    thisNode.quantitiesNode = new QuantitiesNode(
-      reactants, products, leftovers, beforeItems, afterItems, interactiveBox,
-      {
-        boxWidth: options.boxSize.width,
-        beforeBoxLeft: thisNode.beforeBox.left,
-        afterBoxLeft: thisNode.afterBox.left,
-        maxImageSize: options.maxImageSize,
-        quantityRange: options.quantityRange,
-        hideNumbersBox: !model.numbersVisible,
-        top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
-      } );
+    thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeItems, afterItems, {
+      interactiveBox: interactiveBox,
+      boxWidth: options.boxSize.width,
+      beforeBoxLeft: thisNode.beforeBox.left,
+      afterBoxLeft: thisNode.afterBox.left,
+      maxImageSize: options.maxImageSize,
+      quantityRange: options.quantityRange,
+      hideNumbersBox: !model.numbersVisible,
+      top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
+    } );
     thisNode.addChild( thisNode.quantitiesNode );
 
     //------------------------------------------------------------------------------------
