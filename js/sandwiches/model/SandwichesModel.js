@@ -27,9 +27,10 @@ define( function( require ) {
 
   function SandwichesModel() {
     RPALBaseModel.call( this, [
-      // sandwich recipe (reaction) choices, numeric args are: bread, meat, cheese
+      // sandwich recipe choices, numeric args are: bread, meat, cheese
       new SandwichRecipe( cheeseString, 2, 0, 1 ),
       new SandwichRecipe( meatAndCheeseString, 2, 1, 1 ),
+      // for Custom sandwich, the user can change coefficients of the ingredients
       new SandwichRecipe( customString, 0, 0, 0, { coefficientsMutable: true } )
     ] );
   }

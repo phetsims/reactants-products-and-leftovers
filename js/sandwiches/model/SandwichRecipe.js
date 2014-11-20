@@ -93,5 +93,6 @@ define( function( require ) {
     }
   }
 
+  // for analogy purposes, a sandwich recipe is a specialized type of reaction
   return inherit( Reaction, SandwichRecipe );
 } );

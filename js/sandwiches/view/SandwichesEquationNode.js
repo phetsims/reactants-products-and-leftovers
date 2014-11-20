@@ -109,9 +109,7 @@ define( function( require ) {
     arrowNode.centerY = leftNode.centerY;
 
     // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
-    assert && assert( reaction.products.length === 1 );
-    this.sandwich = reaction.products[0]; // @private
-    var sandwichNode = new SubstanceNode( this.sandwich.nodeProperty );
+    var sandwichNode = new SubstanceNode( reaction.sandwich.nodeProperty );
     this.substanceNodes.push( sandwichNode );
     sandwichNode.centerX = arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 );
     sandwichNode.centerY = arrowNode.centerY;
@@ -127,6 +125,7 @@ define( function( require ) {
       sandwichNode.visible = reaction.isReaction();
       noReactionNode.visible = !sandwichNode.visible;
     };
+    this.sandwich = reaction.sandwich; // @private see dispose
     this.sandwich.nodeProperty.link( this.sandwichNodePropertyObserver );
 
     options.children = [ leftNode, arrowNode, sandwichNode, noReactionNode ];
