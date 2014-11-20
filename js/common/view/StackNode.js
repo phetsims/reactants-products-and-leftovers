@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * A vertical stack of some item, built from the bottom up.
+ * A vertical stack of substances, built from the bottom up.
  * To improve performance:
  * <ul>
  * <li>Nodes are created as needed.</li>
@@ -36,7 +36,8 @@ define( function( require ) {
 
     /*
      * This line is not visible (has no stroke), but defines the height of the stack,
-     * and ensures that the stack always has well-defined bounds.
+     * and ensures that the stack always has well-defined bounds, even when the stack
+     * contains zero items. All other nodes will be horizontally centered on this line.
      */
     thisNode.addChild( new Line( 0, 0, 0, height ) );
 
@@ -45,7 +46,6 @@ define( function( require ) {
     thisNode.addChild( itemsParent );
 
     // @private When the quantity changes ...
-    thisNode.quantityProperty = quantityProperty; // @private see dispose
     thisNode.substanceNodes = []; // @private {[SubstanceNode]} see dispose
     thisNode.quantityPropertyObserver = function( quantity ) {
 
@@ -67,6 +67,7 @@ define( function( require ) {
         }
       }
     };
+    thisNode.quantityProperty = quantityProperty; // @private see dispose
     thisNode.quantityProperty.link( thisNode.quantityPropertyObserver );
 
     thisNode.mutate( options );
@@ -76,8 +77,8 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-      this.quantityProperty.unlink( this.quantityPropertyObserver );
       this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+      this.quantityProperty.unlink( this.quantityPropertyObserver );
     }
   } );
 } );
