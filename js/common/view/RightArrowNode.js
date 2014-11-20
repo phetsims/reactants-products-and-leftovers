@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado
 
 /**
- * An arrow that points left to right, from reactants to products.
+ * An arrow that points from left to right, used in equations to point from reactants to products.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
