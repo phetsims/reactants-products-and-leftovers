@@ -1,3 +1,4 @@
+# 1.0.0-dev.11 11/19/14
 11/19/14 'Game' screen feature complete
 11/19/14 formalize 'items' in BoxItem
 11/19/14 clean up RandomBox
