@@ -21,7 +21,7 @@ define( function( require ) {
   function NumberNode( numberProperty, options ) {
 
     options = _.extend( {
-      decimalPlaces: 0
+      decimalPlaces: 0  // number of decimal places to be displayed
     }, options );
 
     var thisNode = this;

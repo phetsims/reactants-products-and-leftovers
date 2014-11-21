@@ -57,7 +57,7 @@ define( function( require ) {
       boxWidth: 100,
       beforeBoxLeft: 0,
       afterBoxLeft: 200,
-      quantityRange: RPALConstants.QUANTITY_RANGE,
+      quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of spinners
       hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
       minIconSize: new Dimension2( 0, 0 ) // minimum amount of layout space reserved for Substance icons
     }, options );

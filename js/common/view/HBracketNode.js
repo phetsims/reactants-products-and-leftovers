@@ -21,7 +21,7 @@ define( function( require ) {
   function HBracketNode( options ) {
 
     options = _.extend( {
-      labelNode: null, // {Node} optional label that will be centered below bracket's tip
+      labelNode: null, // {Node|null} optional label that will be centered below bracket's tip
       bracketWidth: 100,
       bracketEndHeight: 5,
       bracketCurveXOffset: 5, // x-offset of the bracket's curved segments

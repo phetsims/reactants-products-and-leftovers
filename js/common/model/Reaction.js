@@ -25,7 +25,7 @@ define( function( require ) {
     assert && assert( products.length > 0, 'a reaction requires at least 1 product' );
 
     options = _.extend( {
-      name: null // optional name, suitable for display to the user
+      name: null // {string|null} optional name, suitable for display to the user
     }, options );
 
     var thisReaction = this;
