@@ -22,7 +22,7 @@ define( function( require ) {
   var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
 
   // constants
-  var X_MARGIN = 50;
+  var SCOREBOARD_X_MARGIN = 50;
 
   /**
    * @param {GameModel} model
@@ -32,7 +32,8 @@ define( function( require ) {
    */
   function PlayNode( model, layoutBounds, audioPlayer ) {
 
-    Node.call( this );
+    var thisNode = this;
+    Node.call( thisNode );
 
     // scoreboard, across the top of the screen
     var scoreboardNode = new ScoreboardBar(
@@ -43,33 +44,30 @@ define( function( require ) {
       model.scoreProperty,
       model.timer.elapsedTimeProperty,
       model.timerEnabledProperty,
+      // callback for the 'New Game' button
       function() {
         model.gamePhaseProperty.set( GamePhase.SETTINGS );
       },
+      // ScoreboardBar options
       {
-        // ScoreboardBar options
         font: new RPALFont( 16 ),
-        leftMargin: X_MARGIN,
-        rightMargin: X_MARGIN,
+        leftMargin: SCOREBOARD_X_MARGIN,
+        rightMargin: SCOREBOARD_X_MARGIN,
         centerX: layoutBounds.centerX,
         top: 0
       } );
-    this.addChild( scoreboardNode );
+    thisNode.addChild( scoreboardNode );
 
     // challenge can use the area below the scoreboard
     var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
-    // ChallengeNode parent, to preserve rendering order
-    var challengeParent = new Node();
-    this.addChild( challengeParent );
-
-    // Set up a new challenge
+    // update the challenge view
     var challengeNode = null;
     model.challengeProperty.link( function( challenge ) {
 
       // clean up previous challenge
       if ( challengeNode ) {
-        challengeParent.removeChild( challengeNode );
+        thisNode.removeChild( challengeNode );
         challengeNode.dispose();
         challengeNode = null;
       }
@@ -77,7 +75,7 @@ define( function( require ) {
       // set up new challenge
       if ( challenge ) { // challenge will be null on startup and 'Reset All'
         challengeNode = new ChallengeNode( model, challenge, challengeBounds, audioPlayer );
-        challengeParent.addChild( challengeNode );
+        thisNode.addChild( challengeNode );
       }
     } );
 
@@ -85,13 +83,13 @@ define( function( require ) {
     if ( RPALQueryParameters.DEV ) {
 
       // Developer controls at right, below scoreboard
-      this.addChild( new DevGameControls( model, {
+      thisNode.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
         top: scoreboardNode.bottom + 5
       } ) );
 
       // The answer to the current challenge, bottom center
-      this.addChild( new DevAnswerNode( model.challengeProperty, {
+      thisNode.addChild( new DevAnswerNode( model.challengeProperty, {
         centerX: layoutBounds.centerX,
         bottom: layoutBounds.bottom - 5
       } ) );
