@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   var GamePhase = {
-    SETTINGS: 'SETTINGS', // user is choosing game settings
+    SETTINGS: 'SETTINGS', // user is choosing game settings (level, sound, timer, ...)
     PLAY: 'PLAY', // user is playing the game
     RESULTS: 'RESULTS' // user is viewing results at end of a game
   };

@@ -1,3 +1,4 @@
+11/20/14 rename PreProperty to BeforeProperty
 11/20/14 delete dev options from main.js
 11/20/14 doc cleanup
 11/20/14 rename RPALBaseView to RPALScreenView

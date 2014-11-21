@@ -3,15 +3,15 @@
 /**
  * A 'guess' is the user's answer to a game challenge, and it may or may not be correct.
  * We call it a 'guess' to distinguish the user's answer from the correct answer.
- * (And yes, 'guess' is semantically incorrect, since a guess is uninformed. Live with it.)
- * <p>
- * A guess is correct if all of the reactants and products in the guess are equal to
- * the reactants and products in the reaction (the correct answer), as defined by method equals.
+ * (And yes, 'guess' is semantically incorrect, since a guess is uninformed. Live with it :-)
  * <p>
  * A guess is constructed based on a reaction and challenge type.
  * The guess will have the same number of reactants and products as the reaction,
  * and they are guaranteed to be in the same order.
  * Depending on the challenge type, values in the guess will be initialized to zero.
+ * <p>
+ * A guess is correct if the reaction and guess have the same quantities of reactants,
+ * products and leftovers.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -31,6 +31,8 @@ define( function( require ) {
    * @constructor
    */
   function GameGuess( reaction, interactiveBox ) {
+
+    // validate so we can use if-else in private methods
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
     this.reactants = createGuessReactants( reaction.reactants, interactiveBox );
@@ -58,7 +60,7 @@ define( function( require ) {
       else if ( interactiveBox === BoxType.BEFORE ) {
         guessReactant = Reactant.withQuantity( reactants[i], 0 );
       }
-      else {
+      else { // BoxType.AFTER
         guessReactant = Reactant.withLeftovers( reactants[i], 0 );
       }
       guessReactants.push( guessReactant );
@@ -81,7 +83,7 @@ define( function( require ) {
       if ( interactiveBox === BoxType.BEFORE || RPALQueryParameters.PLAY_ALL ) {
         guessProduct = Product.clone( products[i] );
       }
-      else {
+      else { // BoxType.AFTER
         guessProduct = Product.withQuantity( products[i], 0 );
       }
       guessProducts.push( guessProduct );

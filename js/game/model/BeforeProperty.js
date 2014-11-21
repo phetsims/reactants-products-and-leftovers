@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Property that calls a 'pre' function before its value is changed.
+ * Property that calls a function before its value is changed.
  * This is useful for doing things before observers are notified.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -15,19 +15,19 @@ define( function( require ) {
 
   /**
    * @param {*} value
-   * @param {function(value)} pre called before setting the value
+   * @param {function(value)} beforeFunction called before setting the value
    * @constructor
    */
-  function PreProperty( value, pre ) {
-    this.pre = pre; // @private
+  function BeforeProperty( value, beforeFunction ) {
+    this.beforeFunction = beforeFunction; // @private
     Property.call( this, value );
   }
 
-  return inherit( Property, PreProperty, {
+  return inherit( Property, BeforeProperty, {
 
-    // @override Call the pre function before setting the {*} value.
+    // @override Call beforeFunction before setting the value.
     set: function( value ) {
-      this.pre( value );
+      this.beforeFunction( value );
       Property.prototype.set.call( this, value );
     }
   } );

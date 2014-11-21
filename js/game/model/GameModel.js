@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BeforeProperty = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/BeforeProperty' );
   var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var GameTimer = require( 'VEGAS/GameTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
-  var PreProperty = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PreProperty' );
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
@@ -33,7 +33,7 @@ define( function( require ) {
 
     var thisModel = this;
 
-    PropertySet.call( this, {
+    PropertySet.call( thisModel, {
       soundEnabled: true, // {boolean} is sound turned on?
       timerEnabled: false, // {boolean} is the timer turned on?
       moleculesVisible: true, // {boolean} are molecules shown in the challenge?
@@ -51,7 +51,7 @@ define( function( require ) {
     thisModel.maxPointsPerChallenge = 2;
     thisModel.maxQuantity = options.maxQuantity;
 
-    // These things change as game-play progresses.
+    // These things are read-only, they change as game-play progresses.
     thisModel.challenges = []; // {[Challenge]} the set of challenges for the current game being played
     thisModel.bestScoreProperties = []; // [Property.<number>] best scores for each level
     thisModel.bestTimeProperties = []; // [Property.<number>] best times for each level, in ms
@@ -63,8 +63,8 @@ define( function( require ) {
 
     thisModel.timer = new GameTimer();
 
-    // {GamePhase} the phase that the current game being played is in
-    thisModel.gamePhaseProperty = new PreProperty( GamePhase.SETTINGS,
+    // the phase that the game is in, see GamePhase
+    thisModel.gamePhaseProperty = new BeforeProperty( GamePhase.SETTINGS,
       /*
        * This function will be called prior to setting the gamePhaseProperty value.
        * Updates fields so that they are accurate before property observers are notified.
@@ -101,7 +101,7 @@ define( function( require ) {
           }
         }
         else {
-          // next challenge
+          // advance to next challenge
           thisModel.challengeIndex = thisModel.challengeIndex + 1;
           thisModel.challenge = thisModel.challenges[thisModel.challengeIndex];
         }
@@ -155,6 +155,7 @@ define( function( require ) {
     },
 
     /**
+     * DEBUG
      * Skips the current challenge.
      * Score and best times are meaningless after using this.
      * This is a developer feature.
@@ -165,6 +166,7 @@ define( function( require ) {
     },
 
     /**
+     * DEBUG
      * Skips all challenges, advances immediately to the game results.
      * This is a developer feature.
      */
@@ -173,6 +175,7 @@ define( function( require ) {
     },
 
     /**
+     * DEBUG
      * Replays the current challenge.
      * Score and best times are meaningless after using this.
      * This is a developer feature.
