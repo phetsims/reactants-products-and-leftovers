@@ -48,25 +48,16 @@ define( function( require ) {
     thisRecipe.coefficientsMutable = options.coefficientsMutable;
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
+    var ingredients = [];
     var bread = new Reactant( breadCount, 'bread', SandwichNode.createBreadNode() );
     var meat = new Reactant( meatCount, 'meat', SandwichNode.createMeatNode() );
     var cheese = new Reactant( cheeseCount, 'cheese', SandwichNode.createCheeseNode() );
+    if ( breadCount > 0 || options.coefficientsMutable ) { ingredients.push( bread ); }
+    if ( meatCount > 0 || options.coefficientsMutable ) { ingredients.push( meat ); }
+    if ( cheeseCount > 0 || options.coefficientsMutable ) { ingredients.push( cheese ); }
 
     // sandwich image will be updated below
     thisRecipe.sandwich = new Product( 1, 'sandwich', NO_SANDWICH_NODE );
-
-    var ingredients;
-    if ( options.coefficientsMutable ) {
-      // if coefficients are mutable, include all ingredients
-      ingredients = [ bread, meat, cheese ];
-    }
-    else {
-      // if coefficients are immutable, include all non-zero ingredients
-      ingredients = [];
-      if ( breadCount > 0 ) { ingredients.push( bread ); }
-      if ( meatCount > 0 ) { ingredients.push( meat ); }
-      if ( cheeseCount > 0 ) { ingredients.push( cheese ); }
-    }
 
     Reaction.call( thisRecipe, ingredients, [ thisRecipe.sandwich ], { name: name } );
 
