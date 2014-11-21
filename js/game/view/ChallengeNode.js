@@ -187,7 +187,7 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // buttons (Check, Try Again, ...)
-    var buttons = new GameButtons( model, challenge, audioPlayer, faceNode, thisNode.guessIsValidProperty );
+    var buttons = new GameButtons( model, audioPlayer, faceNode, thisNode.guessIsValidProperty );
     thisNode.addChild( buttons );
     buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     buttons.bottom = thisNode.beforeBox.bottom - 15;

@@ -1,3 +1,4 @@
+11/20/14 remove redundant @param challenge from GameButtons constructor
 11/20/14 rename SubstanceNode to SubstanceIcon
 11/20/14 rename Substance.node to Substance.icon
 11/20/14 rename options.maxImageSize to minIconSize throughout

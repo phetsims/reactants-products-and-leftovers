@@ -34,14 +34,13 @@ define( function( require ) {
 
   /**
    * @param {GameModel} model
-   * @param {Challenge} challenge
    * @param {GameAudioPlayer} audioPlayer
    * @param {FaceWithPointsNode} faceNode
    * @param {Property.<boolean>} guessIsValidProperty is the user's guess valid?
    * @param {Object} [options]
    * @constructor
    */
-  function GameButtons( model, challenge, audioPlayer, faceNode, guessIsValidProperty, options ) {
+  function GameButtons( model, audioPlayer, faceNode, guessIsValidProperty, options ) {
 
     options = options || {};
 
@@ -57,7 +56,7 @@ define( function( require ) {
 
     // 'Check' button
     checkButton.addListener( function() {
-      if ( challenge.isCorrect() ) {
+      if ( model.challenge.isCorrect() ) {
         audioPlayer.correctAnswer();
         faceNode.smile();
         var points = model.computePoints();
