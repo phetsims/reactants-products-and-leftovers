@@ -5,7 +5,6 @@ HIGH
 - get rid of (or minimize) use of BoxItem to improve: BeforeAfterNode, ChallengeNode, StacksAccordionBox, RandomBox, QuantitiesNode
 
 MEDIUM
-- TODO items in code
 - #5 code review
 - #6 screenshot
 - #7 remove 'equation' query parameter, decide on optimal placement of equation
