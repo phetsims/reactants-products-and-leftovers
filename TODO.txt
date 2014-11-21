@@ -6,14 +6,14 @@ HIGH
 - get rid of (or minimize) use of BoxItem to improve: BeforeAfterNode, ChallengeNode, StacksAccordionBox, RandomBox, QuantitiesNode
 
 MEDIUM
-
-LOW
 - TODO items in code
 - #5 code review
 - #6 screenshot
 - #7 remove 'equation' query parameter, decide on optimal placement of equation
 - #8 remove 'coefficients' query parameter, decide whether to use spinners or pickers
 - #9 location of 'Reset All' button
+
+LOW
 
 MIGRATE TO COMMON
 - HBracketNode
