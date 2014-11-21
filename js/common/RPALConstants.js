@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var Range = require( 'DOT/Range' );
 
   var RPALConstants = {
@@ -18,7 +19,8 @@ define( function( require ) {
     QUANTITY_RANGE: new Range( 0, 8 ),
     SANDWICH_COEFFICIENT_RANGE: new Range( 0, 3 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
-    GAME_BUTTON_COLOR: 'yellow'
+    GAME_BUTTON_COLOR: 'yellow',
+    BEFORE_AFTER_BOX_SIZE: new Dimension2( 310, 240 )
   };
 
   return RPALConstants;

@@ -45,7 +45,7 @@ define( function( require ) {
   function BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
     options = _.extend( {
-      contentSize: new Dimension2( 310, 240 ), // size of the 'Before' and 'After' boxes
+      contentSize: RPALConstants.BEFORE_AFTER_BOX_SIZE, // size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
       showSymbols: true, // whether to show symbols (eg, H2O) for the substances in the reactions
       beforeTitle: beforeReactionString,  // {string} title on the 'Before' box

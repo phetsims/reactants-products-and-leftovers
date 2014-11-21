@@ -51,7 +51,7 @@ define( function( require ) {
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
     options = _.extend( {
-      boxSize: new Dimension2( 310, 240 ), // size of the 'Before' and 'After' boxes
+      boxSize: RPALConstants.BEFORE_AFTER_BOX_SIZE, // size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
       maxImageSize: new Dimension2( 0, 0 ) // our best guess at the maximum image size
     }, options );

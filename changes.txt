@@ -1,3 +1,4 @@
+11/20/14 factor out box size to RPALConstants.BEFORE_AFTER_BOX_SIZE
 11/20/14 rename VisibilityControl to VisibilityRadioButtons
 11/20/14 add gridPositionProperty to RandomBox inner type
 11/20/14 rename PreProperty to BeforeProperty

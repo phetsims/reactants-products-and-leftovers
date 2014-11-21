@@ -44,7 +44,7 @@ define( function( require ) {
       contentYSpacing: 0,
 
       // StacksAccordionBox options
-      contentSize: new Dimension2( 310, 240 ), // size of box's content
+      contentSize: new Dimension2( 100, 100 ), // size of box's content
       quantityRange: RPALConstants.QUANTITY_RANGE,
       maxImageSize: new Dimension2( 0, 0 ), // our best guess at the maximum image size
       boxYMargin: 6 // vertical margin between the inner edge of box and the tallest node

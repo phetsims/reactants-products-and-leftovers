@@ -59,7 +59,7 @@ define( function( require ) {
       afterBoxLeft: 200,
       quantityRange: RPALConstants.QUANTITY_RANGE,
       hideNumbersBox: false,
-      maxImageSize: new Dimension2( 0, 0 )
+      maxImageSize: RPALConstants.BEFORE_AFTER_BOX_SIZE
     }, options );
 
     var thisNode = this;
