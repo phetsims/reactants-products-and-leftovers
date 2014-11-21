@@ -27,7 +27,7 @@ define( function( require ) {
    */
   function SandwichesView( model ) {
 
-    // compute the size of the largest sandwich, used for layout of Before/After boxes
+    // compute the size of the largest sandwich, used for view layout
     var maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
     var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient );
     var maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
@@ -43,7 +43,7 @@ define( function( require ) {
       function( reaction ) { return new SandwichesEquationNode( reaction, maxSandwichSize ); },
 
       /*
-       * Creates the Before/After boxes for a specified reaction.
+       * Creates the Before/After interface for a specified reaction.
        * @param {Reaction} reaction the reaction displayed in the boxes
        * @param {Property.<boolean>} beforeExpandedProperty is the 'Before' box expanded?
        * @param {Property.<boolean>} afterExpandedProperty is the 'After' box expanded?
