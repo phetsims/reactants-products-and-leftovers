@@ -45,7 +45,7 @@ define( function( require ) {
 
       // StacksAccordionBox options
       contentSize: new Dimension2( 100, 100 ), // size of box's content
-      maxQuantity: RPALConstants.QUANTITY_RANGE.max, // max items in the stack
+      maxQuantity: 2, // max items in the stack
       minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons
       boxYMargin: 6 // vertical margin between the inner edge of box and the tallest node
 

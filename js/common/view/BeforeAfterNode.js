@@ -75,14 +75,16 @@ define( function( require ) {
     var beforeTitleNode = new Text( options.beforeTitle, TITLE_OPTIONS );
     thisNode.beforeBox = new StacksAccordionBox( beforeItems, _.extend( {
       expandedProperty: beforeExpandedProperty,
-      titleNode: beforeTitleNode
+      titleNode: beforeTitleNode,
+      maxQuantity: options.quantityRange.max
     }, options ) );
 
     // 'After Reaction' box, with stacks of products and leftovers
     var afterTitleNode = new Text( options.afterTitle, TITLE_OPTIONS );
     thisNode.afterBox = new StacksAccordionBox( afterItems, _.extend( {
       expandedProperty: afterExpandedProperty,
-      titleNode: afterTitleNode
+      titleNode: afterTitleNode,
+      maxQuantity: options.quantityRange.max
     }, options ) );
 
     // Arrow between boxes
