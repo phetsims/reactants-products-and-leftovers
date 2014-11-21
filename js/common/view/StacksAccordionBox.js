@@ -46,7 +46,7 @@ define( function( require ) {
       // StacksAccordionBox options
       contentSize: new Dimension2( 100, 100 ), // size of box's content
       quantityRange: RPALConstants.QUANTITY_RANGE,
-      maxImageSize: new Dimension2( 0, 0 ), // our best guess at the maximum image size
+      minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons
       boxYMargin: 6 // vertical margin between the inner edge of box and the tallest node
 
     }, options );
@@ -64,14 +64,14 @@ define( function( require ) {
     content.addChild( rectangle );
 
     // compute max height of the nodes in the box
-    var maxThingHeight = Math.max(
-      options.maxImageSize.height,
+    var maxIconHeight = Math.max(
+      options.minIconSize.height,
       _.max( items, function( item ) { return item.nodeProperty.get().height; } ).nodeProperty.get().height );
 
     // vertical stacks of nodes inside the box
     this.stackNodes = []; // @private see dispose
-    var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxThingHeight ) / ( options.quantityRange.max - 1 );
-    var startCenterY = rectangle.height - options.boxYMargin - ( maxThingHeight / 2 );
+    var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxIconHeight ) / ( options.quantityRange.max - 1 );
+    var startCenterY = rectangle.height - options.boxYMargin - ( maxIconHeight / 2 );
     for ( var i = 0; i < items.length; i++ ) {
       var item = items[i];
       var stackNode = new StackNode( options.contentSize.height, item.nodeProperty, item.quantityProperty, startCenterY, deltaY, {

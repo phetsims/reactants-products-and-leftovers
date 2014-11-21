@@ -56,7 +56,7 @@ define( function( require ) {
             showSymbols: false,
             beforeTitle: beforeSandwichString,
             afterTitle: afterSandwichString,
-            maxImageSize: maxSandwichSize,
+            minIconSize: maxSandwichSize,
             boxYMargin: 8 // large enough to accommodate biggest sandwich
           } ) );
       }

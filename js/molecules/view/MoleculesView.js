@@ -42,7 +42,7 @@ define( function( require ) {
       function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
         return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
           _.extend( {}, options, {
-            maxImageSize: new Dimension2( 30, 25 ) // eyeballed
+            minIconSize: new Dimension2( 30, 25 ) // eyeballed
           } ) );
       }
     );

@@ -53,7 +53,7 @@ define( function( require ) {
     options = _.extend( {
       boxSize: RPALConstants.BEFORE_AFTER_BOX_SIZE, // size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
-      maxImageSize: new Dimension2( 0, 0 ) // our best guess at the maximum image size
+      minIconSize: new Dimension2( 0, 0 ) // minimum amount of layout space reserved for Substance icons
     }, options );
 
     var thisNode = this;
@@ -207,7 +207,7 @@ define( function( require ) {
       boxWidth: options.boxSize.width,
       beforeBoxLeft: thisNode.beforeBox.left,
       afterBoxLeft: thisNode.afterBox.left,
-      maxImageSize: options.maxImageSize,
+      minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
       hideNumbersBox: !model.numbersVisible,
       top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING

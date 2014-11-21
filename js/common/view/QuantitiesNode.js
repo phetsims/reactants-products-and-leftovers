@@ -59,7 +59,7 @@ define( function( require ) {
       afterBoxLeft: 200,
       quantityRange: RPALConstants.QUANTITY_RANGE,
       hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
-      maxImageSize: new Dimension2( 0, 0 )
+      minIconSize: new Dimension2( 0, 0 ) // minimum amount of layout space reserved for Substance icons
     }, options );
 
     var thisNode = this;
@@ -184,8 +184,8 @@ define( function( require ) {
 
     // vertical layout of components below the boxes
     var spinnerHeight = thisNode.spinnerNodes[0].height;
-    var maxImageHeight = Math.max(
-      options.maxImageSize.height,
+    var maxIconHeight = Math.max(
+      options.minIconSize.height,
       _.max( thisNode.substanceNodes, function( node ) { return node.height; } ).height );
     var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
 
@@ -196,16 +196,16 @@ define( function( require ) {
       numberNode.centerY = ( spinnerHeight / 2 );
     } );
     thisNode.substanceNodes.forEach( function( substanceNode ) {
-      substanceNode.centerY = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxImageHeight / 2 );
+      substanceNode.centerY = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxIconHeight / 2 );
     } );
     if ( options.showSymbols ) {
       symbolNodes.forEach( function( symbolNode ) {
-        symbolNode.top = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight + IMAGE_SYMBOL_Y_SPACING;
+        symbolNode.top = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight + IMAGE_SYMBOL_Y_SPACING;
       } );
     }
 
     // compute the bottom of all of the above stuff
-    var componentsBottom = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxImageHeight;
+    var componentsBottom = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight;
     if ( options.showSymbols ) {
       componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
@@ -216,7 +216,7 @@ define( function( require ) {
     var reactantsBracket = new HBracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
-      bracketWidth: Math.max( options.maxImageSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      bracketWidth: Math.max( options.minIconSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: reactantsParent.centerX,
       top: componentsBottom + BRACKET_Y_SPACING
     } );
@@ -228,7 +228,7 @@ define( function( require ) {
     var productsBracket = new HBracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
-      bracketWidth: Math.max( options.maxImageSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      bracketWidth: Math.max( options.minIconSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: productsParent.centerX,
       top: componentsBottom + BRACKET_Y_SPACING
     } );
@@ -240,7 +240,7 @@ define( function( require ) {
     var leftoversBracket = new HBracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,
-      bracketWidth: Math.max( options.maxImageSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      bracketWidth: Math.max( options.minIconSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: leftoversParent.centerX,
       top: componentsBottom + BRACKET_Y_SPACING
     } );

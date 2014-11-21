@@ -51,7 +51,7 @@ define( function( require ) {
       beforeTitle: beforeReactionString,  // {string} title on the 'Before' box
       afterTitle: afterReactionString, // {string} title on the 'After' box
       boxYMargin: 6, // {number} vertical margin between the inner edge of box and the tallest node
-      maxImageSize: new Dimension2( 0, 0 ) // best guess at the size of the biggest substance in the reaction
+      minIconSize: new Dimension2( 0, 0 ) // minimum amount of layout space reserved for Substance icons
     }, options );
 
     var thisNode = this;
@@ -104,7 +104,7 @@ define( function( require ) {
       boxWidth: options.contentSize.width,
       beforeBoxLeft: thisNode.beforeBox.left,
       afterBoxLeft: thisNode.afterBox.left,
-      maxImageSize: options.maxImageSize,
+      minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
       top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
     } );
