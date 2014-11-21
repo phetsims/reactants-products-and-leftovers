@@ -17,6 +17,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
@@ -80,7 +81,7 @@ define( function( require ) {
     };
 
     /**
-     * Puts a position back in the pool of position.
+     * Puts a position back in the pool of positions.
      * @param {Vector2} position
      */
     var releasePosition = function( position ) {
@@ -140,16 +141,16 @@ define( function( require ) {
 
           if ( node.visible && !nodeWasVisible ) {
             // when an existing node becomes visible, choose a new position for it
-            node.setGridPosition( choosePosition() );
+            node.gridPositionProperty.set( choosePosition() );
           }
           else if ( !node.visible && nodeWasVisible ) {
             // when a visible node becomes invisible, make its position available
-            releasePosition( node.gridPosition );
+            releasePosition( node.gridPositionProperty.get() );
           }
         }
         else {
           // add a node
-          var substanceNode = new SubstanceNodeWithPosition( nodeProperty, randomOffset, choosePosition() );
+          var substanceNode = new SubstanceNodeWithPosition( nodeProperty, choosePosition(), randomOffset );
           thisNode.addChild( substanceNode );
           thisNode.substanceNodes.push( substanceNode );
         }
@@ -169,27 +170,26 @@ define( function( require ) {
 
   /**
    * Specialization of SubstanceNode that keeps track of its grid position,
-   * and randomizes it position to make the grid look less regular.
+   * and randomizes its position to make the grid look less regular.
    * @param {Property.<Node>} nodeProperty
-   * @param {number} randomOffset
    * @param {Vector2} gridPosition
+   * @param {number} randomOffset
    * @constructor
    */
-  function SubstanceNodeWithPosition( nodeProperty, randomOffset, gridPosition ) {
-    SubstanceNode.call( this, nodeProperty );
-    this.randomOffset = randomOffset;
-    this.setGridPosition( gridPosition );
+  function SubstanceNodeWithPosition( nodeProperty, gridPosition, randomOffset ) {
+
+    var thisNode = this;
+    SubstanceNode.call( thisNode, nodeProperty );
+
+    thisNode.gridPositionProperty = new Property( gridPosition );
+    thisNode.gridPositionProperty.link( function( gridPosition ) {
+      // Move this node to the specified grid position, with some randomized offset.
+      thisNode.centerX = gridPosition.x + _.random( -randomOffset, randomOffset );
+      thisNode.centerY = gridPosition.y + _.random( -randomOffset, randomOffset );
+    } );
   }
 
-  inherit( SubstanceNode, SubstanceNodeWithPosition, {
-
-    setGridPosition: function( gridPosition ) {
-      this.gridPosition = gridPosition; // keep track of this so that it can be returned to the pool
-      // randomize the position to make the grid look less regular
-      this.centerX = gridPosition.x + _.random( -this.randomOffset, this.randomOffset );
-      this.centerY = gridPosition.y + _.random( -this.randomOffset, this.randomOffset );
-    }
-  } );
+  inherit( SubstanceNode, SubstanceNodeWithPosition );
 
   return inherit( Node, RandomBox, {
 
