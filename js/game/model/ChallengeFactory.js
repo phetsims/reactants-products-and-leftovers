@@ -2,7 +2,7 @@
 
 /**
  * Creates challenges where level-of-difficulty is based on the number variables that
- * we're solving for, and whether the variables are 'before' or 'after' terms.
+ * we're solving for, and whether the variables are 'Before' or 'After' terms.
  * <p>
  * Behavior is:
  * <ul>
@@ -105,7 +105,7 @@ define( function( require ) {
         return createChallengesPlayAll( level, maxQuantity, challengeOptions );
       }
       else {
-        return createChallengesProduction( level, maxQuantity, challengeOptions );
+        return createChallenges( level, maxQuantity, challengeOptions );
       }
     },
 
@@ -131,7 +131,7 @@ define( function( require ) {
    * @param {Object} challengeOptions options to the Challenge constructor
    * @returns {[Challenge]}
    */
-  var createChallengesProduction = function( level, maxQuantity, challengeOptions ) {
+  var createChallenges = function( level, maxQuantity, challengeOptions ) {
 
     assert && assert( level >= 0 && level < POOLS.length );
     assert && assert( maxQuantity > 0 );
@@ -168,7 +168,7 @@ define( function( require ) {
   /**
    * DEBUG: This is called when 'playAll' query parameter is present, same interface as createRandomChallenges.
    * A challenge is randomly generated for every reaction in the level's pool, and the reactions always
-   * appear in the same order.
+   * appear in the same order. Quantities are randomly generated, so they will vary each a level is played.
    *
    * @param level
    * @param maxQuantity
@@ -509,7 +509,7 @@ define( function( require ) {
       }
     }
 
-    // This is the bit that you want to look at, when the test has completed.
+    // This is the bit that you want to look at, when the test has completed.  Errors should all be zero.
     console.log( '----------------------------------------------------------' );
     console.log( 'Summary' );
     console.log( '----------------------------------------------------------' );

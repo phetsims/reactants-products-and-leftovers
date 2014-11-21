@@ -16,7 +16,7 @@ define( function( require ) {
 
   /**
    * @param {Reaction} reaction
-   * @param {BoxType} interactiveBox which box is interactive
+   * @param {BoxType} interactiveBox which box (Before or After) needs to be guessed
    * @param {Object} [options]
    * @constructor
    */
