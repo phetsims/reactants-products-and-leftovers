@@ -132,8 +132,9 @@ define( function( require ) {
     thisNode.addChild( arrowNode );
 
     // 'Before Reaction' box, with molecules at random locations
-    thisNode.beforeBox = new RandomBox( beforeItems, options.quantityRange.max, {
+    thisNode.beforeBox = new RandomBox( beforeItems, {
       boxSize: options.boxSize,
+      maxQuantity: options.quantityRange.max,
       right: arrowNode.left - 5,
       top: equationNode.bottom + 18
     } );
@@ -141,8 +142,9 @@ define( function( require ) {
     arrowNode.centerY = thisNode.beforeBox.centerY;
 
     // 'After Reaction' box, with molecules at random locations
-    thisNode.afterBox = new RandomBox( afterItems, options.quantityRange.max, {
+    thisNode.afterBox = new RandomBox( afterItems, {
       boxSize: options.boxSize,
+      maxQuantity: options.quantityRange.max,
       left: arrowNode.right + 5,
       top: thisNode.beforeBox.top
     } );

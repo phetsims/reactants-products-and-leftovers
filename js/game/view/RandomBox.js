@@ -26,14 +26,14 @@ define( function( require ) {
 
   /**
    * @param {[BoxItem]} items the items in the box
-   * @param {number} maxQuantity the maximum quantity of each item in the box
    * @param {Object} [options]
    * @constructor
    */
-  function RandomBox( items, maxQuantity, options ) {
+  function RandomBox( items, options ) {
 
     options = _.extend( {
       boxSize: new Dimension2( 100, 100 ),
+      maxQuantity: 4, // the maximum quantity of each item in the box
       cornerRadius: 3,
       fill: 'white',
       stroke: RPALColors.BOX_STROKE,
@@ -52,7 +52,7 @@ define( function( require ) {
      * Compute the size of the grid needed to accommodate the maximum number of items.
      * Assume that the box is approximately square, so can have the same number of rows and columns.
      */
-    var rows = Math.round( Math.sqrt( items.length * maxQuantity ) );
+    var rows = Math.round( Math.sqrt( items.length * options.maxQuantity ) );
     var columns = rows;
 
     // Compute positions in the grid, this is our 'pool' of positions.
