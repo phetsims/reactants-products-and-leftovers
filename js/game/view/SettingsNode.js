@@ -41,11 +41,9 @@ define( function( require ) {
   // constants
   var SCREEN_X_MARGIN = 40;
   var SCREEN_Y_MARGIN = 40;
-  var LABEL_OPTIONS = { font: new RPALFont( 45 ) };
   var QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
-  var ARROW_OPTIONS = { headHeight: 20, headWidth: 20, tailWidth: 6 };
-  var TOGGLE_BUTTON_OPTIONS = { stroke: 'gray', scale: 1 };
-  var MOLECULE_SCALE = 3; // scale of the icons used on the level-selection buttons
+  var TOGGLE_BUTTON_OPTIONS = { stroke: 'gray', scale: 1 }; // options for the Sound and Timer toggle buttons
+  var MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
   /**
    * @param {GameModel} model
@@ -182,8 +180,8 @@ define( function( require ) {
    *  leftNode -> rightNode
    */
   var createIcon = function( level, leftNode, rightNode ) {
-    var labelNode = new Text( StringUtils.format( pattern_Level_0, level ), LABEL_OPTIONS );
-    var arrowNode = new ArrowNode( 0, 0, 50, 0, ARROW_OPTIONS );
+    var labelNode = new Text( StringUtils.format( pattern_Level_0, level ), { font: new RPALFont( 45 ) } );
+    var arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
     var icon = new LayoutBox( { children: [ leftNode, arrowNode, rightNode ], orientation: 'horizontal', spacing: 20 } );
     labelNode.setScaleMagnitude( Math.min( 1, icon.width / labelNode.width ) ); // i18n: label can be no wider than image
     return new LayoutBox( { children: [ labelNode, icon ], orientation: 'vertical', spacing: 30 } );
