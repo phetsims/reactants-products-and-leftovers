@@ -1,10 +1,9 @@
 TODO list for reactants-products-and-leftovers
 
 HIGH
-- get rid of (or minimize) use of BoxItem
-- make Leftover a type, instead of a Reactant property
 - rename maxImageSize to minImageSize
 - ChallengeNode and GameButtons are passed both model and challenge params, the latter is redundant
+- get rid of (or minimize) use of BoxItem to improve: BeforeAfterNode, ChallengeNode, StacksAccordionBox, RandomBox, QuantitiesNode
 
 MEDIUM
 
