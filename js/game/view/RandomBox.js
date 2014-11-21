@@ -117,6 +117,7 @@ define( function( require ) {
    * @param {function} choosePosition returns {Vector2}
    * @param {function} releasePosition @param {Vector2}
    * @constructor
+   * @private
    */
   function ItemLayer( nodeProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
 
@@ -175,6 +176,7 @@ define( function( require ) {
    * @param {Vector2} gridPosition
    * @param {number} randomOffset
    * @constructor
+   * @private
    */
   function SubstanceNodeWithPosition( nodeProperty, gridPosition, randomOffset ) {
 
