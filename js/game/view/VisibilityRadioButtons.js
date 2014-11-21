@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Radio buttons for selecting what's visible or hidden in Game challenges.
+ * Radio buttons for selecting what's visible/hidden in Game challenges.
  * Provides the ability to hide either molecules or numbers (but not both).
  *
  * @author Chris Malley (PixelZoom, Inc.)
