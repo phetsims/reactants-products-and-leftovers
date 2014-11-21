@@ -4,6 +4,7 @@ HIGH
 - get rid of (or minimize) use of BoxItem
 - make Leftover a type, instead of a Reactant property
 - rename maxImageSize to minImageSize
+- ChallengeNode and GameButtons are passed both model and challenge params, the latter is redundant
 
 MEDIUM
 
