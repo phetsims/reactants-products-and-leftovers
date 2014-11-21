@@ -22,4 +22,4 @@ MIGRATE TO COMMON
 - BeforeProperty (or add an option to Property?)
 
 MISC
-- watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524
+- watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524 (correct answer treated as wrong)
