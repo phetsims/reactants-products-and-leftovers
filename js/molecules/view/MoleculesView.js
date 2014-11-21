@@ -32,7 +32,7 @@ define( function( require ) {
       function( reaction ) { return new MoleculesEquationNode( reaction ); },
 
       /*
-       * Creates the Before/After boxes for a specified reaction.
+       * Creates the Before/After interface for a specified reaction.
        * @param {Reaction} reaction the reaction displayed in the boxes
        * @param {Property.<boolean>} beforeExpandedProperty is the 'Before' box expanded?
        * @param {Property.<boolean>} afterExpandedProperty is the 'After' box expanded?
