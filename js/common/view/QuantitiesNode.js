@@ -14,7 +14,7 @@ define( function( require ) {
   var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
-  var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/HideBox' );
+  var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HideBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
@@ -58,7 +58,7 @@ define( function( require ) {
       beforeBoxLeft: 0,
       afterBoxLeft: 200,
       quantityRange: RPALConstants.QUANTITY_RANGE,
-      hideNumbersBox: false,
+      hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
       maxImageSize: new Dimension2( 0, 0 )
     }, options );
 
@@ -294,7 +294,7 @@ define( function( require ) {
      */
     setHideNumbersBoxVisible: function( visible ) {
       if ( this.hideNumbersBox ) {
-        this.hideNumbersBox.visible = !visible;
+        this.hideNumbersBox.visible = visible;
       }
     },
 

@@ -1,3 +1,4 @@
+11/20/14 move HideBox to common/view, fix bug with visibility of 'Hide numbers' box
 11/20/14 factor out box size to RPALConstants.BEFORE_AFTER_BOX_SIZE
 11/20/14 rename VisibilityControl to VisibilityRadioButtons
 11/20/14 add gridPositionProperty to RandomBox inner type
