@@ -17,3 +17,7 @@ Generation of challenges for the Game screen is described in the documentation f
 
 Game 'level' is numbered starting from zero throughout the model, and displayed from 1 in the view.
 Ie, model.level === 0 is displayed as 'Level 1'.
+
+In this sim, view components typically have a lifetime that is shorter than the model components. To prevent
+memory leaks, it's important to call dispose when you're done with a node. Calling dispose unlinks observers
+from AXON properties in the model. Failure to unlink tends to be the main cause of memory leaks.
