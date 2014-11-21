@@ -51,9 +51,9 @@ define( function( require ) {
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
     options = _.extend( {
-      boxSize: RPALConstants.BEFORE_AFTER_BOX_SIZE, // size of the 'Before' and 'After' boxes
-      quantityRange: RPALConstants.QUANTITY_RANGE, // range of the quantity values
-      minIconSize: new Dimension2( 0, 0 ) // minimum amount of layout space reserved for Substance icons
+      boxSize: RPALConstants.BEFORE_AFTER_BOX_SIZE, // {Dimension2} size of the 'Before' and 'After' boxes
+      quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
+      minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
     }, options );
 
     var thisNode = this;
