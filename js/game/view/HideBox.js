@@ -2,6 +2,7 @@
 
 /**
  * Box that is placed over things that are 'hidden' while playing a challenge.
+ * Has a dashed border and a 'closed eye' icon in the center of the box.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -27,12 +28,14 @@ define( function( require ) {
       cornerRadius: 0
     }, options );
 
+    // dashed box
     var rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
       fill: 'white',
       stroke: 'rgb(180,180,180)',
       lineDash: [ 4, 4 ]
     } );
 
+    // closed-eye icon
     var iconNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
     iconNode.setScaleMagnitude( options.iconHeight / iconNode.height );
     iconNode.center = rectangleNode.center;

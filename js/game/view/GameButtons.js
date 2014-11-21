@@ -100,7 +100,7 @@ define( function( require ) {
       showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER );
       nextButton.visible = ( state === PlayState.NEXT );
     };
-    thisNode.playStateProperty = model.playStateProperty; // @private
+    thisNode.playStateProperty = model.playStateProperty; // @private see dispose
     thisNode.playStateProperty.link( this.playStateObserver );
   }
 

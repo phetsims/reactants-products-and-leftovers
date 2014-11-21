@@ -30,7 +30,7 @@ define( function( require ) {
     // audio
     var audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
 
-    // one node for each 'phase' of the game, creation deferred to improve startup time
+    // one node for each 'phase' of the game, created on demand to improve startup time
     thisView.settingsNode = null;
     thisView.playNode = null;
     thisView.resultsNode = null;
