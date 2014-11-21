@@ -36,11 +36,11 @@ define( function( require ) {
    * @param {GameModel} model
    * @param {GameAudioPlayer} audioPlayer
    * @param {FaceWithPointsNode} faceNode
-   * @param {Property.<boolean>} guessIsValidProperty is the user's guess valid?
+   * @param {Property.<boolean>} checkButtonEnabledProperty is the 'Check' button enabled?
    * @param {Object} [options]
    * @constructor
    */
-  function GameButtons( model, audioPlayer, faceNode, guessIsValidProperty, options ) {
+  function GameButtons( model, audioPlayer, faceNode, checkButtonEnabledProperty, options ) {
 
     options = options || {};
 
@@ -72,8 +72,8 @@ define( function( require ) {
       }
     } );
     // no need to unlink from this property in dispose, it's lifetime is the same as this node
-    guessIsValidProperty.link( function( guessIsValid ) {
-      checkButton.enabled = guessIsValid;
+    checkButtonEnabledProperty.link( function( enabled ) {
+      checkButton.enabled = enabled;
     } );
 
     // 'Try Again' button

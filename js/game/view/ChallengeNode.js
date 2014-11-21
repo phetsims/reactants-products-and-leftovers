@@ -97,20 +97,20 @@ define( function( require ) {
       options.boxSize.width );
 
     //------------------------------------------------------------------------------------
-    // Property that tells us whether the user has made a valid guess.
+    // Property that tells us whether the 'Check' button should be enabled
     //------------------------------------------------------------------------------------
 
-    // dependencies is the set of quantities that the user can guess
-    var dependencies = [];
+    // Check button is disabled if all guessable quantities are zero
+    var quantityProperties = [];
     if ( challenge.interactiveBox === BoxType.BEFORE ) {
-      guess.reactants.forEach( function( reactant ) { dependencies.push( reactant.quantityProperty ); } );
+      guess.reactants.forEach( function( reactant ) { quantityProperties.push( reactant.quantityProperty ); } );
     }
     else {
-      guess.products.forEach( function( product ) { dependencies.push( product.quantityProperty ); } );
-      guess.reactants.forEach( function( reactant ) { dependencies.push( reactant.leftoversProperty ); } );
+      guess.products.forEach( function( product ) { quantityProperties.push( product.quantityProperty ); } );
+      guess.reactants.forEach( function( reactant ) { quantityProperties.push( reactant.leftoversProperty ); } );
     }
     // @private
-    thisNode.guessIsValidProperty = new DerivedProperty( dependencies, function() {
+    thisNode.checkButtonEnabledProperty = new DerivedProperty( quantityProperties, function() {
       // true if any quantity that the user can guess is non-zero
       for ( var i = 0, j = arguments.length; i < j; i++ ) {
         if ( arguments[i] !== 0 ) { return true; }
@@ -176,18 +176,18 @@ define( function( require ) {
     // centerY is handled below
 
     // visible only until the user has entered a valid guess
-    var guessIsValidObserver = function( guessIsValid ) {
+    var checkButtonEnabledObserver = function( guessIsValid ) {
       questionMark.visible = !guessIsValid;
-      if ( guessIsValid ) { thisNode.guessIsValidProperty.unlink( guessIsValidObserver ); }
+      if ( guessIsValid ) { thisNode.checkButtonEnabledProperty.unlink( checkButtonEnabledObserver ); }
     };
-    thisNode.guessIsValidProperty.link( guessIsValidObserver );
+    thisNode.checkButtonEnabledProperty.link( checkButtonEnabledObserver );
 
     //------------------------------------------------------------------------------------
     // Buttons (Check, Try Again, ...)
     //------------------------------------------------------------------------------------
 
     // buttons (Check, Try Again, ...)
-    var buttons = new GameButtons( model, audioPlayer, faceNode, thisNode.guessIsValidProperty );
+    var buttons = new GameButtons( model, audioPlayer, faceNode, thisNode.checkButtonEnabledProperty );
     thisNode.addChild( buttons );
     buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     buttons.bottom = thisNode.beforeBox.bottom - 15;
@@ -267,7 +267,7 @@ define( function( require ) {
       this.afterBox.dispose();
 
       // derived property, unlink dependencies
-      this.guessIsValidProperty.detach();
+      this.checkButtonEnabledProperty.detach();
 
       // stuff below the boxes
       this.quantitiesNode.dispose();
