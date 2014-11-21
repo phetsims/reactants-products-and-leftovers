@@ -29,14 +29,6 @@ define( function( require ) {
     }
   };
 
-  // developer-only features
-  if ( RPALQueryParameters.DEV ) {
-    options = _.extend( {
-      showHomeScreen: false,
-      screenIndex: 2
-    }, options );
-  }
-
   SimLauncher.launch( function() {
     var sim = new Sim( title, screens, options );
     sim.start();
