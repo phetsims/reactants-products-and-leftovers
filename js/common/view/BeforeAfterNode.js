@@ -14,7 +14,6 @@ define( function( require ) {
 
   // modules
   var BoxItem = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BoxItem' );
-  var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
