@@ -30,7 +30,10 @@ define( function( require ) {
     );
   }
 
-  // creates the {Node} icon for this screen
+  /**
+   * Creates the icon for this screen, an H2O molecule.
+   * @returns {Node}
+   */
   var createIcon = function() {
 
     // background rectangle
@@ -38,7 +41,7 @@ define( function( require ) {
     var height = Screen.HOME_SCREEN_ICON_SIZE.height;
     var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
-    // H2O molecules, scaled to fit and centered on background
+    // H2O molecule, scaled to fit and centered on background
     var moleculeNode = new H2ONode( { stroke: 'gray', lineWidth: 0.1 } );
     moleculeNode.setScaleMagnitude(
       Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );

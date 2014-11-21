@@ -33,14 +33,17 @@ define( function( require ) {
     );
   }
 
-  // creates the {Node} icon for this screen
+  /**
+   * Creates the icon for this screen, a smiley face with up/down arrows.
+   * @returns {Node}
+   */
   var createIcon = function() {
 
     // background rectangle
     var background = new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height,
       { fill: 'white' } );
 
-    // face
+    // smiley face
     var faceNode = new FaceNode( 200, { headStroke: 'black', headLineWidth: 4 } );
 
     // up/down arrows
@@ -62,11 +65,12 @@ define( function( require ) {
       ARROW_OPTIONS );
     var arrowsBox = new LayoutBox( { children: [ upArrowNode, downArrowNode ], orientation: 'vertical', spacing: 20 } );
 
-    // scale to fit, center in background
+    // centered in background, scaled to fit
     var contentNode = new LayoutBox( { children: [ arrowsBox, faceNode ], orientation: 'horizontal', spacing: 25 } );
     contentNode.setScaleMagnitude(
       Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
     contentNode.center = background.center;
+
     return new Node( { children: [ background, contentNode ] } );
   };
 
