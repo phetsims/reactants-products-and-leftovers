@@ -38,7 +38,7 @@ define( function( require ) {
       timerEnabled: false, // {boolean} is the timer turned on?
       moleculesVisible: true, // {boolean} are molecules shown in the challenge?
       numbersVisible: true, // {boolean} are quantities shown in the challenge?
-      level: 0, // {number} the current level
+      level: 0, // {number} the current level, starts at 0 in the model, presented as starting from 1 in the view
       challenge: null, // {Challenge} the current challenge being played
       numberOfChallenges: 0, // {number} the number of challenges in the current game being played
       score: 0, // {number} how many points the user has earned for the current game
