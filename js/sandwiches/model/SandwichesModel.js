@@ -26,13 +26,14 @@ define( function( require ) {
   var meatAndCheeseString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/meatAndCheese' );
 
   function SandwichesModel() {
-    RPALBaseModel.call( this, [
+    RPALBaseModel.call( this,
       // sandwich recipe choices, numeric args are: bread, meat, cheese
-      new SandwichRecipe( cheeseString, 2, 0, 1 ),
-      new SandwichRecipe( meatAndCheeseString, 2, 1, 1 ),
-      // for Custom sandwich, the user can change coefficients of the ingredients
-      new SandwichRecipe( customString, 0, 0, 0, { coefficientsMutable: true } )
-    ] );
+      [
+        new SandwichRecipe( cheeseString, 2, 0, 1 ),
+        new SandwichRecipe( meatAndCheeseString, 2, 1, 1 ),
+        // for Custom sandwich, the user can change coefficients of the ingredients
+        new SandwichRecipe( customString, 0, 0, 0, { coefficientsMutable: true } )
+      ] );
   }
 
   return inherit( RPALBaseModel, SandwichesModel );

@@ -14,12 +14,13 @@ define( function( require ) {
   var RPALBaseModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/RPALBaseModel' );
 
   function MoleculesModel() {
-    RPALBaseModel.call( this, [
+    RPALBaseModel.call( this,
       // reaction choices
-      ReactionFactory.makeWater(),
-      ReactionFactory.makeAmmonia(),
-      ReactionFactory.combustMethane()
-    ] );
+      [
+        ReactionFactory.makeWater(),
+        ReactionFactory.makeAmmonia(),
+        ReactionFactory.combustMethane()
+      ] );
   }
 
   return inherit( RPALBaseModel, MoleculesModel );
