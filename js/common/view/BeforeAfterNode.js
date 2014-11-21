@@ -5,7 +5,8 @@
  * It displays a reaction as 2 boxes, representing the 'Before' and 'After' states of the reaction.
  * The 'Before' box is on the left, and shows the initial reactants.
  * The 'After' box is on the right, and shows the products and leftovers when the reaction has completed.
- * Below the 'Before' box are a set of spinners for changing the reactant quantities.
+ * Below the 'Before' box is a set of spinners for changing the reactant quantities.
+ * Below the 'After' box is a set of noneditable quantities for products and leftovers.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
