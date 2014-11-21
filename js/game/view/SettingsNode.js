@@ -2,7 +2,7 @@
 
 /**
  * Portion of the scenegraph that corresponds to GamePhase.SETTINGS.
- * Displays a panel with controls used to configure a game.
+ * Displays a panel with controls used to configure a game (level selection, timer, sound, ...)
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -30,7 +30,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
-  var VisibilityControl = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/VisibilityControl' );
+  var VisibilityRadioButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/VisibilityRadioButtons' );
 
   // strings
   var chooseYourLevelString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/chooseYourLevel' );
@@ -86,8 +86,8 @@ define( function( require ) {
     var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, TOGGLE_BUTTON_OPTIONS );
     var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, TOGGLE_BUTTON_OPTIONS );
 
-    // Visibility control, bottom center
-    var visibilityControl = new VisibilityControl( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
+    // Visibility radio buttons, bottom center
+    var visibilityRadioButtons = new VisibilityRadioButtons( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
@@ -108,7 +108,7 @@ define( function( require ) {
         align: 'center',
         spacing: 40,
         centerX: layoutBounds.centerX,
-        centerY: ( visibilityControl.top - layoutBounds.top ) / 2
+        centerY: ( visibilityRadioButtons.top - layoutBounds.top ) / 2
       } ),
       // timer and sound buttons at leftBottom
       new LayoutBox( {
@@ -119,7 +119,7 @@ define( function( require ) {
         left: layoutBounds.left + SCREEN_X_MARGIN,
         bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
       } ),
-      visibilityControl,
+      visibilityRadioButtons,
       resetAllButton
     ];
     Node.call( this, options );

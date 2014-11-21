@@ -1,8 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Visibility control for the 'Game' screen.
- * Provides the ability to hide either molecules or numbers (but not both) in challenges.
+ * Radio buttons for selecting what's visible or hidden in Game challenges.
+ * Provides the ability to hide either molecules or numbers (but not both).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -40,7 +40,7 @@ define( function( require ) {
    * @param options
    * @constructor
    */
-  function VisibilityControl( moleculesVisibleProperty, numbersVisibleProperty, options ) {
+  function VisibilityRadioButtons( moleculesVisibleProperty, numbersVisibleProperty, options ) {
 
     options = _.extend( {
       xMargin: 15,
@@ -104,7 +104,7 @@ define( function( require ) {
   }
 
   /**
-   * Creates the node for the 'Show All' radio button, an open eye with text to the right of it.
+   * Creates the content for the 'Show All' radio button, an open eye with text to the right of it.
    * @returns {Node}
    */
   var createShowAllNode = function() {
@@ -118,7 +118,7 @@ define( function( require ) {
   };
 
   /**
-   * Creates the node for the 'Hide Molecules' radio button,
+   * Creates the content for the 'Hide Molecules' radio button,
    * a closed eye with '123' at lower right, and text to the right.
    * @returns {Node}
    */
@@ -140,7 +140,7 @@ define( function( require ) {
   };
 
   /**
-   * Creates the node for the 'Hide Numbers' radio button,
+   * Creates the content for the 'Hide Numbers' radio button,
    * a closed eye with H2O molecule at lower right, and text to the right.
    * @returns {Node}
    */
@@ -159,5 +159,5 @@ define( function( require ) {
     } );
   };
 
-  return inherit( Panel, VisibilityControl );
+  return inherit( Panel, VisibilityRadioButtons );
 } );
