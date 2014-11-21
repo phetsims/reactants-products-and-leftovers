@@ -14,3 +14,6 @@ The Game screen is controlled by a state machine. There are 3 top-level "phases"
 GamePhase. While playing a challenge, the Game will be in one of the "states" described in PlayState.
 
 Generation of challenges for the Game screen is described in the documentation for ChallengeFactory.
+
+Game 'level' is numbered starting from zero throughout the model, and displayed from 1 in the view.
+Ie, model.level === 0 is displayed as 'Level 1'.
