@@ -1,7 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays items at random positions in a box.
+ * Displays items at random positions in a box. This is used for the 'Before' and 'After' boxes in the Game screen.
+ * <p>
  * To improve performance:
  * <ul>
  * <li>Nodes are created as needed.</li>
