@@ -108,7 +108,7 @@ define( function( require ) {
   }
 
   /**
-   * Responsible for managing all nodes for one item.
+   * Responsible for managing all nodes for one item type.
    *
    * @param {Property.<Node>} nodeProperty
    * @param {Property.<number>} quantityProperty
