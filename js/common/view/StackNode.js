@@ -18,7 +18,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
+  var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
 
   /**
    * @param {number} height height of the stack
@@ -46,7 +46,7 @@ define( function( require ) {
     thisNode.addChild( itemsParent );
 
     // @private When the quantity changes ...
-    thisNode.substanceNodes = []; // @private {[SubstanceNode]} see dispose
+    thisNode.iconNodes = []; // @private {[SubstanceIcon]} see dispose
     thisNode.quantityPropertyObserver = function( quantity ) {
 
       var count = Math.max( quantity, itemsParent.getChildrenCount() );
@@ -58,12 +58,12 @@ define( function( require ) {
         }
         else {
           // add a node
-          var substanceNode = new SubstanceNode( iconProperty, {
+          var iconNode = new SubstanceIcon( iconProperty, {
             centerX: 0,
             centerY: startCenterY - ( i * deltaY )
           } );
-          itemsParent.addChild( substanceNode );
-          thisNode.substanceNodes.push( substanceNode );
+          itemsParent.addChild( iconNode );
+          thisNode.iconNodes.push( iconNode );
         }
       }
     };
@@ -77,7 +77,7 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+      this.iconNodes.forEach( function( node ) { node.dispose(); } );
       this.quantityProperty.unlink( this.quantityPropertyObserver );
     }
   } );

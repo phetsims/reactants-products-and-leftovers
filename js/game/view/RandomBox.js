@@ -21,7 +21,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
-  var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
+  var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -125,7 +125,7 @@ define( function( require ) {
     Node.call( thisNode );
 
     thisNode.quantityProperty = quantityProperty; // @private see dispose
-    thisNode.substanceNodes = []; // {[SubstanceNodeWithPosition]} @private see dispose
+    thisNode.iconNodes = []; // {[SubstanceIconWithPosition]} @private see dispose
 
     thisNode.quantityPropertyObserver = function( quantity ) {
 
@@ -151,9 +151,9 @@ define( function( require ) {
         }
         else {
           // add a node
-          var substanceNode = new SubstanceNodeWithPosition( iconProperty, choosePosition(), randomOffset );
-          thisNode.addChild( substanceNode );
-          thisNode.substanceNodes.push( substanceNode );
+          var iconNode = new SubstanceIconWithPosition( iconProperty, choosePosition(), randomOffset );
+          thisNode.addChild( iconNode );
+          thisNode.iconNodes.push( iconNode );
         }
       }
     };
@@ -165,12 +165,12 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.quantityProperty.unlink( this.quantityPropertyObserver );
-      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+      this.iconNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 
   /**
-   * Specialization of SubstanceNode that keeps track of its grid position,
+   * Specialization of SubstanceIcon that keeps track of its grid position,
    * and randomizes its position to make the grid look less regular.
    * @param {Property.<Node>} iconProperty
    * @param {Vector2} gridPosition
@@ -178,10 +178,10 @@ define( function( require ) {
    * @constructor
    * @private
    */
-  function SubstanceNodeWithPosition( iconProperty, gridPosition, randomOffset ) {
+  function SubstanceIconWithPosition( iconProperty, gridPosition, randomOffset ) {
 
     var thisNode = this;
-    SubstanceNode.call( thisNode, iconProperty );
+    SubstanceIcon.call( thisNode, iconProperty );
 
     thisNode.gridPositionProperty = new Property( gridPosition );
     thisNode.gridPositionProperty.link( function( gridPosition ) {
@@ -191,7 +191,7 @@ define( function( require ) {
     } );
   }
 
-  inherit( SubstanceNode, SubstanceNodeWithPosition );
+  inherit( SubstanceIcon, SubstanceIconWithPosition );
 
   return inherit( Node, RandomBox, {
 

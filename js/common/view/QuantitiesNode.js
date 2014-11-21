@@ -22,7 +22,7 @@ define( function( require ) {
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
+  var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -69,12 +69,12 @@ define( function( require ) {
     this.interactiveBox = options.interactiveBox; // @private
 
     // explicitly hoist reused vars
-    var i, reactant, product, leftover, centerX, numberNode, spinnerNode, substanceNode, symbolNode;
+    var i, reactant, product, leftover, centerX, numberNode, spinnerNode, iconNode, symbolNode;
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     thisNode.spinnerNodes = []; // @private {[NumberSpinner]} see dispose
     thisNode.numberNodes = []; // @private {[NumberNode]} see dispose
-    thisNode.substanceNodes = []; // @private {[SubstanceNode]} see dispose
+    thisNode.iconNodes = []; // @private {[SubstanceIcon]} see dispose
     var symbolNodes = [];
 
     // reactants, below the 'Before' box
@@ -100,9 +100,9 @@ define( function( require ) {
       }
 
       // substance icon
-      substanceNode = new SubstanceNode( reactant.iconProperty, { centerX: centerX } );
-      reactantsParent.addChild( substanceNode );
-      thisNode.substanceNodes.push( substanceNode );
+      iconNode = new SubstanceIcon( reactant.iconProperty, { centerX: centerX } );
+      reactantsParent.addChild( iconNode );
+      thisNode.iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -135,9 +135,9 @@ define( function( require ) {
       }
 
       // substance icon
-      substanceNode = new SubstanceNode( product.iconProperty, { centerX: centerX } );
-      productsParent.addChild( substanceNode );
-      thisNode.substanceNodes.push( substanceNode );
+      iconNode = new SubstanceIcon( product.iconProperty, { centerX: centerX } );
+      productsParent.addChild( iconNode );
+      thisNode.iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -170,9 +170,9 @@ define( function( require ) {
       }
 
       // substance icon
-      substanceNode = new SubstanceNode( leftover.iconProperty, { centerX: centerX } );
-      leftoversParent.addChild( substanceNode );
-      thisNode.substanceNodes.push( substanceNode );
+      iconNode = new SubstanceIcon( leftover.iconProperty, { centerX: centerX } );
+      leftoversParent.addChild( iconNode );
+      thisNode.iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -186,7 +186,7 @@ define( function( require ) {
     var spinnerHeight = thisNode.spinnerNodes[0].height;
     var maxIconHeight = Math.max(
       options.minIconSize.height,
-      _.max( thisNode.substanceNodes, function( node ) { return node.height; } ).height );
+      _.max( thisNode.iconNodes, function( node ) { return node.height; } ).height );
     var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
 
     thisNode.spinnerNodes.forEach( function( spinnerNode ) {
@@ -195,8 +195,8 @@ define( function( require ) {
     thisNode.numberNodes.forEach( function( numberNode ) {
       numberNode.centerY = ( spinnerHeight / 2 );
     } );
-    thisNode.substanceNodes.forEach( function( substanceNode ) {
-      substanceNode.centerY = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxIconHeight / 2 );
+    thisNode.iconNodes.forEach( function( iconNode ) {
+      iconNode.centerY = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxIconHeight / 2 );
     } );
     if ( options.showSymbols ) {
       symbolNodes.forEach( function( symbolNode ) {
@@ -302,7 +302,7 @@ define( function( require ) {
     dispose: function() {
       this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
       this.numberNodes.forEach( function( node ) { node.dispose(); } );
-      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+      this.iconNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );

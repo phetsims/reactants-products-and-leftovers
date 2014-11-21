@@ -27,7 +27,7 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
-  var SubstanceNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceNode' );
+  var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -56,7 +56,7 @@ define( function( require ) {
 
     options = options || {};
 
-    this.substanceNodes = []; // @private see dispose
+    this.iconNodes = []; // @private see dispose
     this.coefficientNodes = []; // @private see dispose
 
     // left-hand side is the sandwich ingredients
@@ -84,12 +84,12 @@ define( function( require ) {
       leftNode.addChild( coefficientNode );
 
       // ingredient
-      ingredientNode = new SubstanceNode( reactant.iconProperty, {
+      ingredientNode = new SubstanceIcon( reactant.iconProperty, {
         left: coefficientNode.right + COEFFICIENT_X_SPACING,
         centerY: coefficientNode.centerY
       } );
       leftNode.addChild( ingredientNode );
-      this.substanceNodes.push( ingredientNode );
+      this.iconNodes.push( ingredientNode );
 
       // plus sign between reactants
       if ( i < numberOfReactants - 1 ) {
@@ -109,8 +109,8 @@ define( function( require ) {
     arrowNode.centerY = leftNode.centerY;
 
     // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
-    var sandwichNode = new SubstanceNode( reaction.sandwich.iconProperty );
-    this.substanceNodes.push( sandwichNode );
+    var sandwichNode = new SubstanceIcon( reaction.sandwich.iconProperty );
+    this.iconNodes.push( sandwichNode );
     sandwichNode.centerX = arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 );
     sandwichNode.centerY = arrowNode.centerY;
 
@@ -136,7 +136,7 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-      this.substanceNodes.forEach( function( node ) { node.dispose(); } );
+      this.iconNodes.forEach( function( node ) { node.dispose(); } );
       this.coefficientNodes.forEach( function( node ) { node.dispose(); } );
       this.sandwich.iconProperty.unlink( this.sandwichNodePropertyObserver );
     }
