@@ -100,7 +100,7 @@ define( function( require ) {
       }
 
       // substance icon
-      substanceNode = new SubstanceNode( reactant.nodeProperty, { centerX: centerX } );
+      substanceNode = new SubstanceNode( reactant.iconProperty, { centerX: centerX } );
       reactantsParent.addChild( substanceNode );
       thisNode.substanceNodes.push( substanceNode );
 
@@ -135,7 +135,7 @@ define( function( require ) {
       }
 
       // substance icon
-      substanceNode = new SubstanceNode( product.nodeProperty, { centerX: centerX } );
+      substanceNode = new SubstanceNode( product.iconProperty, { centerX: centerX } );
       productsParent.addChild( substanceNode );
       thisNode.substanceNodes.push( substanceNode );
 
@@ -170,7 +170,7 @@ define( function( require ) {
       }
 
       // substance icon
-      substanceNode = new SubstanceNode( leftover.nodeProperty, { centerX: centerX } );
+      substanceNode = new SubstanceNode( leftover.iconProperty, { centerX: centerX } );
       leftoversParent.addChild( substanceNode );
       thisNode.substanceNodes.push( substanceNode );
 

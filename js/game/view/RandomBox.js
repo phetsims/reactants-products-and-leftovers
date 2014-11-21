@@ -99,7 +99,7 @@ define( function( require ) {
     thisNode.itemLayers = []; // @private [{ItemLayer}] see dispose
     var parent = new Node();
     items.forEach( function( item ) {
-      var itemLayer = new ItemLayer( item.nodeProperty, item.quantityProperty, options.randomOffset, choosePosition, releasePosition );
+      var itemLayer = new ItemLayer( item.iconProperty, item.quantityProperty, options.randomOffset, choosePosition, releasePosition );
       parent.addChild( itemLayer );
       thisNode.itemLayers.push( itemLayer );
     } );
@@ -111,7 +111,7 @@ define( function( require ) {
   /**
    * Responsible for managing all nodes for one item type.
    *
-   * @param {Property.<Node>} nodeProperty
+   * @param {Property.<Node>} iconProperty
    * @param {Property.<number>} quantityProperty
    * @param {number} randomOffset
    * @param {function} choosePosition returns {Vector2}
@@ -119,7 +119,7 @@ define( function( require ) {
    * @constructor
    * @private
    */
-  function ItemLayer( nodeProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
+  function ItemLayer( iconProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
 
     var thisNode = this;
     Node.call( thisNode );
@@ -151,7 +151,7 @@ define( function( require ) {
         }
         else {
           // add a node
-          var substanceNode = new SubstanceNodeWithPosition( nodeProperty, choosePosition(), randomOffset );
+          var substanceNode = new SubstanceNodeWithPosition( iconProperty, choosePosition(), randomOffset );
           thisNode.addChild( substanceNode );
           thisNode.substanceNodes.push( substanceNode );
         }
@@ -172,16 +172,16 @@ define( function( require ) {
   /**
    * Specialization of SubstanceNode that keeps track of its grid position,
    * and randomizes its position to make the grid look less regular.
-   * @param {Property.<Node>} nodeProperty
+   * @param {Property.<Node>} iconProperty
    * @param {Vector2} gridPosition
    * @param {number} randomOffset
    * @constructor
    * @private
    */
-  function SubstanceNodeWithPosition( nodeProperty, gridPosition, randomOffset ) {
+  function SubstanceNodeWithPosition( iconProperty, gridPosition, randomOffset ) {
 
     var thisNode = this;
-    SubstanceNode.call( thisNode, nodeProperty );
+    SubstanceNode.call( thisNode, iconProperty );
 
     thisNode.gridPositionProperty = new Property( gridPosition );
     thisNode.gridPositionProperty.link( function( gridPosition ) {

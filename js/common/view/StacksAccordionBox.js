@@ -66,7 +66,7 @@ define( function( require ) {
     // compute max height of the nodes in the box
     var maxIconHeight = Math.max(
       options.minIconSize.height,
-      _.max( items, function( item ) { return item.nodeProperty.get().height; } ).nodeProperty.get().height );
+      _.max( items, function( item ) { return item.iconProperty.get().height; } ).iconProperty.get().height );
 
     // vertical stacks of nodes inside the box
     this.stackNodes = []; // @private see dispose
@@ -74,7 +74,7 @@ define( function( require ) {
     var startCenterY = rectangle.height - options.boxYMargin - ( maxIconHeight / 2 );
     for ( var i = 0; i < items.length; i++ ) {
       var item = items[i];
-      var stackNode = new StackNode( options.contentSize.height, item.nodeProperty, item.quantityProperty, startCenterY, deltaY, {
+      var stackNode = new StackNode( options.contentSize.height, item.iconProperty, item.quantityProperty, startCenterY, deltaY, {
         centerX: item.centerX
       } );
       content.addChild( stackNode );

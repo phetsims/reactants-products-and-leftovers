@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * A vertical stack of substances, built from the bottom up.
+ * A vertical stack of Substances, built from the bottom up.
  * To improve performance:
  * <ul>
  * <li>Nodes are created as needed.</li>
@@ -22,14 +22,14 @@ define( function( require ) {
 
   /**
    * @param {number} height height of the stack
-   * @param {Property.<Node>} nodeProperty the node to display
+   * @param {Property.<Node>} iconProperty the icon to display
    * @param {Property.<number>} quantityProperty the number of nodes to display
    * @param {number} startCenterY the centerY of the bottom node in the stack
    * @param {number} deltaY the vertical spacing between nodes in the stack
    * @param {Object} [options]
    * @constructor
    */
-  function StackNode( height, nodeProperty, quantityProperty, startCenterY, deltaY, options ) {
+  function StackNode( height, iconProperty, quantityProperty, startCenterY, deltaY, options ) {
 
     var thisNode = this;
     Node.call( thisNode );
@@ -58,7 +58,7 @@ define( function( require ) {
         }
         else {
           // add a node
-          var substanceNode = new SubstanceNode( nodeProperty, {
+          var substanceNode = new SubstanceNode( iconProperty, {
             centerX: 0,
             centerY: startCenterY - ( i * deltaY )
           } );

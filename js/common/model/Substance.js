@@ -15,11 +15,11 @@ define( function( require ) {
   /**
    * @param {number} coefficient substance's coefficient in the reaction equation
    * @param {string} symbol used in reaction equation
-   * @param {SCENERY.Node} node visual representation of the substance
+   * @param {SCENERY.Node} icon visual representation of the substance
    * @param {number} [quantity] how much of a substance we have, defaults to zero
    * @constructor
    */
-  function Substance( coefficient, symbol, node, quantity ) {
+  function Substance( coefficient, symbol, icon, quantity ) {
 
     quantity = quantity || 0;
 
@@ -30,7 +30,7 @@ define( function( require ) {
 
     PropertySet.call( this, {
       coefficient: coefficient, // {number} substance's coefficient in the reaction equation
-      node: node, // {Node} visual representation of the substance, mutable to support the 'custom sandwich' case
+      icon: icon, // {Node} visual representation of the substance, mutable to support the 'custom sandwich' case
       quantity: quantity  // {number} how much of the substance we have
     } );
   }
@@ -44,9 +44,9 @@ define( function( require ) {
      */
     equals: function( substance ) {
       return ( substance instanceof Substance &&
-               this.coefficient === substance.coefficient &&
                this.symbol === substance.symbol &&
-               this.node === substance.node &&
+               this.coefficient === substance.coefficient &&
+               this.icon === substance.icon &&
                this.quantity === substance.quantity );
     }
   } );

@@ -45,7 +45,7 @@ define( function( require ) {
      * @static
      */
     clone: function( product ) {
-      return new Product( product.coefficient, product.symbol, product.node, product.quantity );
+      return new Product( product.coefficient, product.symbol, product.icon, product.quantity );
     },
 
     /**
@@ -56,7 +56,7 @@ define( function( require ) {
      * @static
      */
     withQuantity: function( product, quantity ) {
-      return new Product( product.coefficient, product.symbol, product.node, quantity );
+      return new Product( product.coefficient, product.symbol, product.icon, quantity );
     }
   } );
 } );

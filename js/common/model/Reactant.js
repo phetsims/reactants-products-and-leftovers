@@ -48,7 +48,7 @@ define( function( require ) {
      * @static
      */
     clone: function( reactant ) {
-      return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, reactant.quantity, reactant.leftovers );
+      return new Reactant( reactant.coefficient, reactant.symbol, reactant.icon, reactant.quantity, reactant.leftovers );
     },
 
     /**
@@ -59,7 +59,7 @@ define( function( require ) {
      * @static
      */
     withQuantity: function( reactant, quantity ) {
-      return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, quantity, reactant.leftovers );
+      return new Reactant( reactant.coefficient, reactant.symbol, reactant.icon, quantity, reactant.leftovers );
     },
 
     /**
@@ -70,7 +70,7 @@ define( function( require ) {
      * @static
      */
     withLeftovers: function( reactant, leftovers ) {
-      return new Reactant( reactant.coefficient, reactant.symbol, reactant.node, reactant.quantity, leftovers );
+      return new Reactant( reactant.coefficient, reactant.symbol, reactant.icon, reactant.quantity, leftovers );
     }
   } );
 } );

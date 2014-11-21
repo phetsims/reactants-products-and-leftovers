@@ -84,7 +84,7 @@ define( function( require ) {
       leftNode.addChild( coefficientNode );
 
       // ingredient
-      ingredientNode = new SubstanceNode( reactant.nodeProperty, {
+      ingredientNode = new SubstanceNode( reactant.iconProperty, {
         left: coefficientNode.right + COEFFICIENT_X_SPACING,
         centerY: coefficientNode.centerY
       } );
@@ -109,7 +109,7 @@ define( function( require ) {
     arrowNode.centerY = leftNode.centerY;
 
     // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
-    var sandwichNode = new SubstanceNode( reaction.sandwich.nodeProperty );
+    var sandwichNode = new SubstanceNode( reaction.sandwich.iconProperty );
     this.substanceNodes.push( sandwichNode );
     sandwichNode.centerX = arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 );
     sandwichNode.centerY = arrowNode.centerY;
@@ -126,7 +126,7 @@ define( function( require ) {
       noReactionNode.visible = !sandwichNode.visible;
     };
     this.sandwich = reaction.sandwich; // @private see dispose
-    this.sandwich.nodeProperty.link( this.sandwichNodePropertyObserver );
+    this.sandwich.iconProperty.link( this.sandwichNodePropertyObserver );
 
     options.children = [ leftNode, arrowNode, sandwichNode, noReactionNode ];
     Node.call( this, options );
@@ -138,7 +138,7 @@ define( function( require ) {
     dispose: function() {
       this.substanceNodes.forEach( function( node ) { node.dispose(); } );
       this.coefficientNodes.forEach( function( node ) { node.dispose(); } );
-      this.sandwich.nodeProperty.unlink( this.sandwichNodePropertyObserver );
+      this.sandwich.iconProperty.unlink( this.sandwichNodePropertyObserver );
     }
   } );
 } );

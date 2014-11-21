@@ -22,11 +22,11 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {Property.<Node>} nodeProperty
+   * @param {Property.<Node>} iconProperty
    * @param {Object} [options]
    * @constructor
    */
-  function SubstanceNode( nodeProperty, options ) {
+  function SubstanceNode( iconProperty, options ) {
 
     Node.call( this );
 
@@ -34,13 +34,13 @@ define( function( require ) {
     var wrapperNode = new Node();
     this.addChild( wrapperNode );
 
-    this.nodeProperty = nodeProperty;
-    this.nodePropertyObserver = function( node ) {
+    this.iconProperty = iconProperty;
+    this.iconPropertyObserver = function( node ) {
       wrapperNode.removeAllChildren();
       wrapperNode.addChild( node );
       wrapperNode.center = Vector2.ZERO;
     };
-    this.nodeProperty.link( this.nodePropertyObserver );
+    this.iconProperty.link( this.iconPropertyObserver );
 
     this.mutate( options );
   }
@@ -49,7 +49,7 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-      this.nodeProperty.unlink( this.nodePropertyObserver );
+      this.iconProperty.unlink( this.iconPropertyObserver );
     }
   } );
 } );

@@ -1,3 +1,4 @@
+11/20/14 rename Substance.node to Substance.icon
 11/20/14 rename options.maxImageSize to minIconSize throughout
 11/20/14 move HideBox to common/view, fix bug with visibility of 'Hide numbers' box
 11/20/14 factor out box size to RPALConstants.BEFORE_AFTER_BOX_SIZE

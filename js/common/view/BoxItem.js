@@ -20,13 +20,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {Property.<Node>} nodeProperty the node that represents some substance
-   * @param {Property.<number>} quantityProperty the amount of the substance that we have
+   * @param {Property.<Node>} iconProperty the Substance's icon
+   * @param {Property.<number>} quantityProperty the amount of the Substance that we have
    * @param {number} centerX the node's horizontal position relative to the left edge of the box
    * @constructor
    */
-  function BoxItem( nodeProperty, quantityProperty, centerX ) {
-    this.nodeProperty = nodeProperty;
+  function BoxItem( iconProperty, quantityProperty, centerX ) {
+    this.iconProperty = iconProperty;
     this.quantityProperty = quantityProperty;
     this.centerX = centerX;
   }
@@ -46,7 +46,7 @@ define( function( require ) {
       var deltaX = ( boxWidth - ( 2 * xMargin ) ) / reactants.length;
       var centerX = xMargin + ( deltaX / 2 );
       reactants.forEach( function( reactant ) {
-        beforeItems.push( new BoxItem( reactant.nodeProperty, reactant.quantityProperty, centerX ) );
+        beforeItems.push( new BoxItem( reactant.iconProperty, reactant.quantityProperty, centerX ) );
         centerX += deltaX;
       } );
       return beforeItems;
@@ -65,12 +65,12 @@ define( function( require ) {
       var deltaX = boxWidth / ( products.length + reactants.length );
       var centerX = deltaX / 2;
       products.forEach( function( product ) {
-        afterItems.push( new BoxItem( product.nodeProperty, product.quantityProperty, centerX ) );
+        afterItems.push( new BoxItem( product.iconProperty, product.quantityProperty, centerX ) );
         centerX += deltaX;
       } );
       reactants.forEach( function( reactant ) {
         // for 'After', we display each reactant's leftovers value
-        afterItems.push( new BoxItem( reactant.nodeProperty, reactant.leftoversProperty, centerX ) );
+        afterItems.push( new BoxItem( reactant.iconProperty, reactant.leftoversProperty, centerX ) );
         centerX += deltaX;
       } );
       return afterItems;

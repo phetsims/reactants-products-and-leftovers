@@ -66,10 +66,10 @@ define( function( require ) {
       // Update the sandwich image to match the coefficients.
       var updateSandwichNode = function() {
         if ( thisRecipe.isReaction() ) {
-          thisRecipe.sandwich.node = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient );
+          thisRecipe.sandwich.icon = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient );
         }
         else {
-          thisRecipe.sandwich.node = NO_SANDWICH_NODE;
+          thisRecipe.sandwich.icon = NO_SANDWICH_NODE;
         }
       };
 
@@ -80,7 +80,7 @@ define( function( require ) {
     }
     else {
       assert && assert( thisRecipe.isReaction() );
-      thisRecipe.sandwich.node = new SandwichNode( breadCount, meatCount, cheeseCount );
+      thisRecipe.sandwich.icon = new SandwichNode( breadCount, meatCount, cheeseCount );
     }
   }
 
