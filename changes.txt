@@ -1,4 +1,5 @@
 # 1.0.0-dev.12 11/24/14
+11/24/14 fix memory leak, call GameButtons.dispose to unlink from model.playStateProperty
 11/24/14 clear best times on Game 'Reset All'
 11/24/14 move all state-change responsibilities into GameModel to reduce coupling and prevent order dependencies (major change!)
 11/24/14 move responsibility for computing points and score into GameModel

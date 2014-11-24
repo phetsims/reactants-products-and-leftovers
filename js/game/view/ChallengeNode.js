@@ -180,13 +180,13 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // buttons (Check, Try Again, ...)
-    var buttons = new GameButtons( model, thisNode.checkButtonEnabledProperty );
-    thisNode.addChild( buttons );
-    buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
-    buttons.bottom = thisNode.beforeBox.bottom - 15;
+    this.buttons = new GameButtons( model, thisNode.checkButtonEnabledProperty );
+    thisNode.addChild( this.buttons );
+    this.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
+    this.buttons.bottom = thisNode.beforeBox.bottom - 15;
 
     // center face and '?' in negative space above buttons
-    faceNode.centerY = questionMark.centerY = thisNode.beforeBox.top + ( buttons.top - thisNode.beforeBox.top ) / 2;
+    faceNode.centerY = questionMark.centerY = thisNode.beforeBox.top + ( this.buttons.top - thisNode.beforeBox.top ) / 2;
 
     //------------------------------------------------------------------------------------
     // Quantities, images, symbols and brackets below the boxes
@@ -286,7 +286,8 @@ define( function( require ) {
       this.beforeBox.dispose();
       this.afterBox.dispose();
 
-      // derived property, unlink dependencies
+      // buttons
+      this.buttons.dispose();
       this.checkButtonEnabledProperty.detach();
 
       // stuff below the boxes
