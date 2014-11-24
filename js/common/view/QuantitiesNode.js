@@ -279,14 +279,15 @@ define( function( require ) {
       // spinners
       this.spinnerNodes.forEach( function( spinnerNode ) { spinnerNode.visible = interactive; } );
 
-      // static numbers
       var i;
       if ( this.interactiveBox === BoxType.BEFORE ) {
+        // static numbers for reactants
         for ( i = 0; i < this.numberOfReactants; i++ ) {
           this.numberNodes[i].visible = !interactive;
         }
       }
       else {
+        // static numbers for products and leftovers
         for ( i = this.numberOfReactants; i < this.numberNodes.length; i++ ) {
           this.numberNodes[i].visible = !interactive;
         }
@@ -312,7 +313,7 @@ define( function( require ) {
   }, {
 
     /**
-     * Creates items x-offsets for substances, relative to the left edge of their 'Before' or 'After' box.
+     * Creates x-offsets for substances, relative to the left edge of their 'Before' or 'After' box.
      * @param {number} numberOfSubstances
      * @param {number} boxWidth
      * @returns {[number]}
