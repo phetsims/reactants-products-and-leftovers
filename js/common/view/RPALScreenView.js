@@ -80,7 +80,7 @@ define( function( require ) {
       beforeAfterNode = createBeforeAfterNode( reaction,
         viewProperties.beforeExpandedProperty,
         viewProperties.afterExpandedProperty, {
-          left: 40,
+          centerX: thisView.layoutBounds.centerX,
           top: playAreaTop + 12
         } );
       thisView.addChild( beforeAfterNode );
