@@ -240,7 +240,16 @@ define( function( require ) {
 
       // 'hide' boxes
       var hideBoxVisible = ( state !== PlayState.NEXT );
-      if ( hideMoleculesBox ) { hideMoleculesBox.visible = hideBoxVisible; }
+      if ( hideMoleculesBox ) {
+        hideMoleculesBox.visible = hideBoxVisible;
+        // also hide the Before/After box, so we don't see its stroke
+        if ( interactiveBox === BoxType.BEFORE ) {
+          thisNode.afterBox.visible = !hideBoxVisible;
+        }
+        else {
+          thisNode.beforeBox.visible = !hideBoxVisible;
+        }
+      }
       thisNode.quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
 
       // switch between spinners and static numbers

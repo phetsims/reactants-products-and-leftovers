@@ -1,3 +1,4 @@
+11/24/14 when 'hide molecules' is on, hide the Before/After box, so we don't see its stroke
 11/24/14 make Game boxes a little wider, since we have the space and there's a lot of stuff in them
 11/24/14 add ability to specify Before/After box size per screen
 11/24/14 center UI in first 2 screens
