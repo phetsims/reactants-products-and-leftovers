@@ -320,7 +320,7 @@ define( function( require ) {
       var xOffset = xMargin + ( deltaX / 2 );
       for ( var i = 0; i < numberOfSubstances; i++ ) {
         xOffsets.push( xOffset );
-        xOffset += deltaX
+        xOffset += deltaX;
       }
       return xOffsets;
     }
