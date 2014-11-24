@@ -32,7 +32,7 @@ define( function( require ) {
     var rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
       fill: 'white',
       stroke: 'rgb(180,180,180)',
-      lineDash: [ 4, 4 ]
+      lineDash: [ 14, 14 ]
     } );
 
     // closed-eye icon

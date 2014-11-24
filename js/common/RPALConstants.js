@@ -20,7 +20,7 @@ define( function( require ) {
     SANDWICH_COEFFICIENT_RANGE: new Range( 0, 3 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
     GAME_BUTTON_COLOR: 'yellow',
-    BEFORE_AFTER_BOX_SIZE: new Dimension2( 310, 240 )
+    BEFORE_AFTER_BOX_SIZE: new Dimension2( 320, 240 )
   };
 
   return RPALConstants;
