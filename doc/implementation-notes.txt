@@ -2,13 +2,13 @@ Implementation notes for "Reactants, Products and Leftovers" simulation
 
 Start by reading model.txt.
 
-Substances, reactants and products are implemented by types Substance, Reactant and Product, respectively.
+Reactants, products and leftovers are implemented by type Substance.
 
 Chemical reactions are implemented by type Reaction. The algorithm for computing quantities (described in model.txt)
 is implemented in methods getNumberOfReactions and update.
 
 The "Sandwiches" analogy is implemented as a single-product reaction. The sandwich recipe defines the reaction equation.
-Sandwich ingredients are reactants, and the completed sandwich is the product.
+Sandwich ingredients are reactants (and leftovers), and the completed sandwich is the product.
 
 The Game screen is controlled by a state machine. There are 3 top-level "phases" of a game, as described in
 GamePhase. While playing a challenge, the Game will be in one of the "states" described in PlayState.
