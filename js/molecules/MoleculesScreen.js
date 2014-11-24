@@ -23,24 +23,26 @@ define( function( require ) {
 
   function MoleculesScreen() {
     Screen.call( this, screenTitle,
-      createIcon( 0.1 ),
+      createIcon( { moleculeLineWidth: 0.1 } ),
       function() { return new MoleculesModel(); },
       function( model ) { return new MoleculesView( model ); },
       {
         backgroundColor: RPALColors.SCREEN_BACKGROUND,
-        navigationBarIcon: createIcon( 0.5 )
+        navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } )
       }
     );
   }
 
   /**
    * Creates the icon for this screen, an H2O molecule.
-   * @param {number} moleculeLineWidth lineWidth used to stroke the molecule icon
+   * @param {Object} [options]
    * @returns {Node}
    */
-  var createIcon = function( moleculeLineWidth ) {
+  var createIcon = function( options ) {
 
-    moleculeLineWidth = moleculeLineWidth || 1;
+    options = _.extend( {
+      moleculeLineWidth: 1 // lineWidth used to stroke the molecule icon
+    }, options );
 
     // background rectangle
     var width = Screen.HOME_SCREEN_ICON_SIZE.width;
@@ -48,7 +50,7 @@ define( function( require ) {
     var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
     // H2O molecule, scaled to fit and centered on background
-    var moleculeNode = new H2ONode( { atomOptions: { stroke: 'black', lineWidth: moleculeLineWidth } } );
+    var moleculeNode = new H2ONode( { atomOptions: { stroke: 'black', lineWidth: options.moleculeLineWidth } } );
     moleculeNode.setScaleMagnitude(
       Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
     moleculeNode.center = background.center;
