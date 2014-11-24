@@ -47,6 +47,7 @@ define( function( require ) {
     var guess = challenge.guess;
     assert && assert( reaction.reactants.length === guess.reactants.length );
     assert && assert( reaction.products.length === guess.products.length );
+    assert && assert( reaction.leftovers.length === guess.leftovers.length );
     var interactiveBox = challenge.interactiveBox;
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
@@ -93,7 +94,7 @@ define( function( require ) {
     // items in the 'After Reaction' box
     var afterItems = BoxItem.createAfterBoxItems(
       ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products,
-      ( interactiveBox === BoxType.AFTER ) ? guess.reactants : reaction.reactants,
+      ( interactiveBox === BoxType.AFTER ) ? guess.leftovers : reaction.leftovers,
       options.boxSize.width );
 
     //------------------------------------------------------------------------------------
@@ -107,7 +108,7 @@ define( function( require ) {
     }
     else {
       guess.products.forEach( function( product ) { quantityProperties.push( product.quantityProperty ); } );
-      guess.reactants.forEach( function( reactant ) { quantityProperties.push( reactant.leftoversProperty ); } );
+      guess.leftovers.forEach( function( leftover ) { quantityProperties.push( leftover.quantityProperty ); } );
     }
     // @private
     thisNode.checkButtonEnabledProperty = new DerivedProperty( quantityProperties, function() {
@@ -203,7 +204,7 @@ define( function( require ) {
 
     var reactants = ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants;
     var products = ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products;
-    var leftovers = ( interactiveBox === BoxType.AFTER ) ? guess.reactants : reaction.reactants;
+    var leftovers = ( interactiveBox === BoxType.AFTER ) ? guess.leftovers : reaction.leftovers;
     thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeItems, afterItems, {
       interactiveBox: interactiveBox,
       boxWidth: options.boxSize.width,

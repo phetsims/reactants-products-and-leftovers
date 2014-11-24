@@ -65,7 +65,7 @@ define( function( require ) {
     var beforeItems = BoxItem.createBeforeBoxItems( reaction.reactants, options.contentSize.width );
 
     // items in the 'After Reaction' box
-    var afterItems = BoxItem.createAfterBoxItems( reaction.products, reaction.reactants, options.contentSize.width );
+    var afterItems = BoxItem.createAfterBoxItems( reaction.products, reaction.leftovers, options.contentSize.width );
 
     //------------------------------------------------------------------------------------
     // Accordion boxes & arrow
@@ -102,7 +102,7 @@ define( function( require ) {
     // Quantities, images, symbols and brackets below the boxes
     //------------------------------------------------------------------------------------
 
-    thisNode.quantitiesNode = new QuantitiesNode( reaction.reactants, reaction.products, reaction.reactants, beforeItems, afterItems, {
+    thisNode.quantitiesNode = new QuantitiesNode( reaction.reactants, reaction.products, reaction.leftovers, beforeItems, afterItems, {
       boxWidth: options.contentSize.width,
       beforeBoxLeft: thisNode.beforeBox.left,
       afterBoxLeft: thisNode.afterBox.left,

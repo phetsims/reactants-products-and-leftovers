@@ -18,11 +18,10 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Product = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Product' );
-  var Reactant = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reactant' );
   var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
+  var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
   // constants
   // used when the product is undefined, any invisible node with well-defined bounds
@@ -49,15 +48,15 @@ define( function( require ) {
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
     var ingredients = [];
-    var bread = new Reactant( breadCount, 'bread', SandwichNode.createBreadNode() );
-    var meat = new Reactant( meatCount, 'meat', SandwichNode.createMeatNode() );
-    var cheese = new Reactant( cheeseCount, 'cheese', SandwichNode.createCheeseNode() );
+    var bread = new Substance( breadCount, 'bread', SandwichNode.createBreadNode() );
+    var meat = new Substance( meatCount, 'meat', SandwichNode.createMeatNode() );
+    var cheese = new Substance( cheeseCount, 'cheese', SandwichNode.createCheeseNode() );
     if ( breadCount > 0 || options.coefficientsMutable ) { ingredients.push( bread ); }
     if ( meatCount > 0 || options.coefficientsMutable ) { ingredients.push( meat ); }
     if ( cheeseCount > 0 || options.coefficientsMutable ) { ingredients.push( cheese ); }
 
     // sandwich image will be updated below
-    thisRecipe.sandwich = new Product( 1, 'sandwich', NO_SANDWICH_NODE );
+    thisRecipe.sandwich = new Substance( 1, 'sandwich', NO_SANDWICH_NODE );
 
     Reaction.call( thisRecipe, ingredients, [ thisRecipe.sandwich ], { name: name } );
 

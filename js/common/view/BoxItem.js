@@ -35,7 +35,7 @@ define( function( require ) {
 
     /**
      * Creates items for the 'Before' side of a reaction equation.
-     * @param {[Reactant]} reactants
+     * @param {[Substance]} reactants
      * @param {number} boxWidth
      * @returns {[BoxItem]}
      * @static
@@ -54,23 +54,23 @@ define( function( require ) {
 
     /**
      * Creates items for the 'After' side of a reaction equation.
-     * @param {[Product]} products
-     * @param {[Reactant]} reactants in this case, the leftovers
+     * @param {[Substance]} products
+     * @param {[Substance]} leftovers
      * @param {number} boxWidth
      * @returns {[BoxItem]}
      * @static
      */
-    createAfterBoxItems: function( products, reactants, boxWidth ) {
+    createAfterBoxItems: function( products, leftovers, boxWidth ) {
       var afterItems = [];
-      var deltaX = boxWidth / ( products.length + reactants.length );
+      var deltaX = boxWidth / ( products.length + leftovers.length );
       var centerX = deltaX / 2;
       products.forEach( function( product ) {
         afterItems.push( new BoxItem( product.iconProperty, product.quantityProperty, centerX ) );
         centerX += deltaX;
       } );
-      reactants.forEach( function( reactant ) {
+      leftovers.forEach( function( leftover ) {
         // for 'After', we display each reactant's leftovers value
-        afterItems.push( new BoxItem( reactant.iconProperty, reactant.leftoversProperty, centerX ) );
+        afterItems.push( new BoxItem( leftover.iconProperty, leftover.quantityProperty, centerX ) );
         centerX += deltaX;
       } );
       return afterItems;

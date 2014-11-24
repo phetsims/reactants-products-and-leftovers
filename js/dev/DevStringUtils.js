@@ -41,30 +41,29 @@ define( function( require ) {
     /**
      * String representation of quantities for reactants, products and leftovers.
      * Example: 4,1 -> 1,2,2,0
-     * @param {[Reactant]} reactants
-     * @param {[Product]} products
+     * @param {Reaction} reaction
      * @returns {string}
      * @static
      */
-    quantitiesString: function( reactants, products ) {
+    quantitiesString: function( reaction ) {
       var s = '';
       var i = 0;
       // reactants
-      for ( i = 0; i < reactants.length; i++ ) {
+      for ( i = 0; i < reaction.reactants.length; i++ ) {
         if ( i !== 0 ) { s += ','; }
-        s += reactants[i].quantity;
+        s += reaction.reactants[i].quantity;
       }
       // right arrow
       s += ' \u2192 ';
       // products
-      for ( i = 0; i < products.length; i++ ) {
+      for ( i = 0; i < reaction.products.length; i++ ) {
         if ( i !== 0 ) { s += ','; }
-        s += products[i].quantity;
+        s += reaction.products[i].quantity;
       }
       // leftovers
-      for ( i = 0; i < reactants.length; i++ ) {
+      for ( i = 0; i < reaction.leftovers.length; i++ ) {
         s += ',';
-        s += reactants[i].leftovers;
+        s += reaction.leftovers[i].quantity;
       }
       return s;
     },
@@ -77,21 +76,7 @@ define( function( require ) {
      * @static
      */
     reactionString: function( reaction ) {
-      return DevStringUtils.equationString( reaction ) + ' : ' +
-             DevStringUtils.quantitiesString( reaction.reactants, reaction.products );
-    },
-
-    /**
-     * String representation of a game challenge.
-     * Example: 2H2 + 1O2 -> 2H2O : 2,2 -> 2,0,1 : 3,2 -> 2,1,1 : AFTER
-     * @param {Challenge} challenge
-     * @returns {string}
-     * @static
-     */
-    challengeString: function( challenge ) {
-      return DevStringUtils.reactionString( challenge.reaction ) + ' : ' +
-             DevStringUtils.quantitiesString( challenge.guess.reactants, challenge.guess.products ) + ' : ' +
-             challenge.challengeType;
+      return DevStringUtils.equationString( reaction ) + ' : ' + DevStringUtils.quantitiesString( reaction );
     }
   };
 

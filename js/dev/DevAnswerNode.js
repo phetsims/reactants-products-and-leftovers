@@ -26,7 +26,7 @@ define( function( require ) {
     var textNode = new Text( '', { fill: 'red', font: new RPALFont( 12 ) } );
     challengeProperty.link( function( challenge ) {
       if ( challenge ) { // challenge will be null on startup and 'Reset All'
-        textNode.text = DevStringUtils.quantitiesString( challenge.reaction.reactants, challenge.reaction.products );
+        textNode.text = DevStringUtils.quantitiesString( challenge.reaction );
         textNode.centerX = 0;
       }
     } );

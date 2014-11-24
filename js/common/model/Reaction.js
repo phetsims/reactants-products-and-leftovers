@@ -2,8 +2,8 @@
 
 /**
  * A chemical reaction is a process that leads to the transformation of one set of
- * chemical substances (reactants) to another (products).  The reactants that do not
- * transform to products are referred to herein as leftovers.
+ * chemical substances (reactants) to another (products).
+ * The reactants that do not transform to products are referred to herein as leftovers.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,10 +12,11 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
   /**
-   * @param {Reactant[]} reactants
-   * @param {Product[]} products
+   * @param {Substance[]} reactants
+   * @param {Substance[]} products
    * @param {Object} [options]
    * @constructor
    */
@@ -30,9 +31,15 @@ define( function( require ) {
 
     var thisReaction = this;
 
+    thisReaction.name = options.name;
     thisReaction.reactants = reactants;
     thisReaction.products = products;
-    thisReaction.name = options.name;
+
+    // Create a leftover for each reactant, in the same order.
+    thisReaction.leftovers = [];
+    thisReaction.reactants.forEach( function( reactant ) {
+      thisReaction.leftovers.push( new Substance( 1, reactant.symbol, reactant.icon, 0 ) );
+    } );
 
     thisReaction.reactants.forEach( function( reactant ) {
       reactant.quantityProperty.link( thisReaction.update.bind( thisReaction ) );
@@ -44,6 +51,7 @@ define( function( require ) {
     reset: function() {
       this.reactants.forEach( function( reactant ) { reactant.reset(); } );
       this.products.forEach( function( product ) { product.reset(); } );
+      this.leftovers.forEach( function( leftover ) { leftover.reset(); } );
     },
 
     /**
@@ -69,9 +77,10 @@ define( function( require ) {
       this.products.forEach( function( product ) {
         product.quantity = numberOfReactions * product.coefficient;
       } );
-      this.reactants.forEach( function( reactant ) {
-        reactant.leftovers = reactant.quantity - ( numberOfReactions * reactant.coefficient );
-      } );
+      // reactants and leftovers array have identical orders
+      for ( var i = 0; i < this.reactants.length; i++ ) {
+        this.leftovers[i].quantity = this.reactants[i].quantity - ( numberOfReactions * this.reactants[i].coefficient );
+      }
     },
 
     /**

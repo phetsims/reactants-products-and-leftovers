@@ -42,9 +42,9 @@ define( function( require ) {
   var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by ey
 
   /**
-   * @param {[Reactants]} reactants
-   * @param {[Products]} products
-   * @param {[Reactants]} leftovers
+   * @param {[Substance]} reactants
+   * @param {[Substance]} products
+   * @param {[Substance]} leftovers
    * @param {[BoxItem]} beforeItems
    * @param {[BoxItem]} afterItems
    * @param {Object} [options]
@@ -65,6 +65,7 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
+    assert && assert( reactants.length === leftovers.length );
     this.numberOfReactants = reactants.length; // @private
     this.interactiveBox = options.interactiveBox; // @private
 
@@ -156,14 +157,14 @@ define( function( require ) {
       centerX = options.afterBoxLeft + afterItems[ i + products.length ].centerX;
 
       // noneditable number
-      numberNode = new NumberNode( leftover.leftoversProperty, { font: QUANTITY_FONT, centerX: centerX } );
+      numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
       leftoversParent.addChild( numberNode );
       thisNode.numberNodes.push( numberNode );
 
       // spinner
       if ( this.interactiveBox === BoxType.AFTER ) {
         numberNode.visible = false;
-        spinnerNode = new NumberSpinner( leftover.leftoversProperty, options.quantityRange,
+        spinnerNode = new NumberSpinner( leftover.quantityProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
         leftoversParent.addChild( spinnerNode );
         thisNode.spinnerNodes.push( spinnerNode );

@@ -309,14 +309,13 @@ define( function( require ) {
     var violation = false;
     var i;
     for ( i = 0; !violation && i < reaction.reactants.length; i++ ) {
-      if ( reaction.reactants[i].quantity > maxQuantity || reaction.reactants[i].leftovers > maxQuantity ) {
-        violation = true;
-      }
+      violation = ( reaction.reactants[i].quantity > maxQuantity );
     }
     for ( i = 0; !violation && i < reaction.products.length; i++ ) {
-      if ( reaction.products[i].quantity > maxQuantity ) {
-        violation = true;
-      }
+      violation = ( reaction.products[i].quantity > maxQuantity );
+    }
+    for ( i = 0; !violation && i < reaction.leftovers.length; i++ ) {
+      violation = ( reaction.leftovers[i].quantity > maxQuantity );
     }
     return violation;
   };
@@ -374,7 +373,7 @@ define( function( require ) {
 
       if ( enableDebugOutput ) {
         console.log( 'quantity range violation: ' + beforeFixString +
-                     ' fixed: ' + DevStringUtils.quantitiesString( reaction.reactants, reaction.products ) );
+                     ' fixed: ' + DevStringUtils.quantitiesString( reaction ) );
       }
     }
   };
@@ -423,7 +422,14 @@ define( function( require ) {
       reaction = factoryFunction();
       for ( i = 0; i < reaction.reactants.length; i++ ) {
         if ( reaction.reactants[i].coefficient > maxQuantity ) {
-          console.log( 'ERROR: coefficient out of range : ' + DevStringUtils.equationString( reaction ) );
+          console.log( 'ERROR: reactant coefficient out of range : ' + DevStringUtils.equationString( reaction ) );
+          numberOfCoefficientRangeErrors++;
+          break;
+        }
+      }
+      for ( i = 0; i < reaction.products.length; i++ ) {
+        if ( reaction.products[i].coefficient > maxQuantity ) {
+          console.log( 'ERROR: product coefficient out of range : ' + DevStringUtils.equationString( reaction ) );
           numberOfCoefficientRangeErrors++;
           break;
         }

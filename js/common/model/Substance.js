@@ -29,9 +29,12 @@ define( function( require ) {
     this.symbol = symbol; // {String}
 
     PropertySet.call( this, {
-      coefficient: coefficient, // {number} substance's coefficient in the reaction equation
-      icon: icon, // {Node} visual representation of the substance, mutable to support the 'custom sandwich' case
-      quantity: quantity  // {number} how much of the substance we have
+      // {number} substance's coefficient in the reaction equation, mutable to support 'Custom' sandwich
+      coefficient: coefficient,
+      // {Node} visual representation of the substance, mutable to support the 'Custom' sandwich
+      icon: icon,
+      // {number} how much of the substance we have
+      quantity: quantity
     } );
   }
 
@@ -48,6 +51,28 @@ define( function( require ) {
                this.coefficient === substance.coefficient &&
                this.icon === substance.icon &&
                this.quantity === substance.quantity );
+    }
+  }, {
+
+    /**
+     * Creates a shallow copy of a substance. AXON.Property observers are not copied.
+     * @param {Substance} substance
+     * @returns {Substance}
+     * @static
+     */
+    clone: function( substance ) {
+      return new Substance( substance.coefficient, substance.symbol, substance.icon, substance.quantity );
+    },
+
+    /**
+     * Creates a shallow copy of a substance with a specified quantity. AXON.Property observers are not copied.
+     * @param {Substance} substance
+     * @param {number} quantity
+     * @returns {Substance}
+     * @static
+     */
+    withQuantity: function( substance, quantity ) {
+      return new Substance( substance.coefficient, substance.symbol, substance.icon, quantity );
     }
   } );
 } );
