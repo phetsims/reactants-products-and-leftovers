@@ -189,7 +189,7 @@ define( function( require ) {
     faceNode.centerY = questionMark.centerY = thisNode.beforeBox.top + ( this.buttons.top - thisNode.beforeBox.top ) / 2;
 
     //------------------------------------------------------------------------------------
-    // Quantities, images, symbols and brackets below the boxes
+    // Everything below the boxes
     //------------------------------------------------------------------------------------
 
     // x-offsets of substances relative to their boxes
@@ -229,7 +229,7 @@ define( function( require ) {
     // Observers
     //------------------------------------------------------------------------------------
 
-    // {PlayState} state changes
+    // handle PlayState changes
     model.playStateProperty.link( function( playState ) {
 
       // face and score

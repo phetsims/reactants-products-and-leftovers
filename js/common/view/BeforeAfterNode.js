@@ -61,16 +61,9 @@ define( function( require ) {
     var products = reaction.products;
     var leftovers = reaction.leftovers;
 
-    //------------------------------------------------------------------------------------
     // x-offsets of the substances relative to their boxes
-    //------------------------------------------------------------------------------------
-
     var beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.contentSize.width );
     var afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
-
-    //------------------------------------------------------------------------------------
-    // Accordion boxes & arrow
-    //------------------------------------------------------------------------------------
 
     // @private 'Before Reaction' box, with stacks of reactants
     thisNode.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, _.extend( {
@@ -97,11 +90,7 @@ define( function( require ) {
     );
     thisNode.addChild( hBox );
 
-    //------------------------------------------------------------------------------------
-    // Quantities, images, symbols and brackets below the boxes
-    //------------------------------------------------------------------------------------
-
-    // @private
+    // @private Everything below the boxes
     thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       boxWidth: options.contentSize.width,
       afterBoxXOffset: thisNode.afterBox.left - thisNode.beforeBox.left,
