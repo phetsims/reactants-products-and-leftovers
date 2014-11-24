@@ -179,7 +179,7 @@ define( function( require ) {
     // Buttons (Check, Try Again, ...)
     //------------------------------------------------------------------------------------
 
-    // buttons (Check, Try Again, ...)
+    // @private
     this.buttons = new GameButtons( model, thisNode.checkButtonEnabledProperty );
     thisNode.addChild( this.buttons );
     this.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
