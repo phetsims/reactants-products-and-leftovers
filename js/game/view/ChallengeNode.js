@@ -119,10 +119,11 @@ define( function( require ) {
       stroke: null,
       scale: 0.75,
       centerX: challengeBounds.centerX
+      // y position handled below
     } );
     thisNode.addChild( arrowNode );
 
-    // 'Before Reaction' box, with molecules at random locations
+    // @private 'Before Reaction' box, with molecules at random locations
     thisNode.beforeBox = new RandomBox( reactants, {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
@@ -132,7 +133,7 @@ define( function( require ) {
     thisNode.addChild( thisNode.beforeBox );
     arrowNode.centerY = thisNode.beforeBox.centerY;
 
-    // 'After Reaction' box, with molecules at random locations
+    // @private 'After Reaction' box, with molecules at random locations
     thisNode.afterBox = new RandomBox( products.concat( leftovers ), {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
@@ -196,6 +197,7 @@ define( function( require ) {
     var beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.boxSize.width );
     var afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.boxSize.width );
 
+    // @private
     thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       interactiveBox: interactiveBox,
       boxWidth: options.boxSize.width,

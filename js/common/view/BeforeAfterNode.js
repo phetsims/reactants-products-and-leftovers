@@ -72,19 +72,17 @@ define( function( require ) {
     // Accordion boxes & arrow
     //------------------------------------------------------------------------------------
 
-    // 'Before Reaction' box, with stacks of reactants
-    var beforeTitleNode = new Text( options.beforeTitle, TITLE_OPTIONS );
+    // @private 'Before Reaction' box, with stacks of reactants
     thisNode.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, _.extend( {
       expandedProperty: beforeExpandedProperty,
-      titleNode: beforeTitleNode,
+      titleNode: new Text( options.beforeTitle, TITLE_OPTIONS ),
       maxQuantity: options.quantityRange.max
     }, options ) );
 
-    // 'After Reaction' box, with stacks of products and leftovers
-    var afterTitleNode = new Text( options.afterTitle, TITLE_OPTIONS );
+    // @private 'After Reaction' box, with stacks of products and leftovers
     thisNode.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, _.extend( {
       expandedProperty: afterExpandedProperty,
-      titleNode: afterTitleNode,
+      titleNode: new Text( options.afterTitle, TITLE_OPTIONS ),
       maxQuantity: options.quantityRange.max
     }, options ) );
 
@@ -103,6 +101,7 @@ define( function( require ) {
     // Quantities, images, symbols and brackets below the boxes
     //------------------------------------------------------------------------------------
 
+    // @private
     thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       boxWidth: options.contentSize.width,
       afterBoxXOffset: thisNode.afterBox.left - thisNode.beforeBox.left,
