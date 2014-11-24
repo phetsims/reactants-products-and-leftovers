@@ -45,7 +45,7 @@ define( function( require ) {
     var itemsParent = new Node();
     thisNode.addChild( itemsParent );
 
-    // @private When the quantity changes ...
+    // update the number of nodes in the stack
     thisNode.iconNodes = []; // @private {[SubstanceIcon]} see dispose
     thisNode.quantityPropertyObserver = function( quantity ) {
 
