@@ -2,7 +2,7 @@ TODO list for reactants-products-and-leftovers
 
 HIGH
 - ChallengeNode constructor is passed both model and challenge params, the latter is redundant
-- get rid of (or minimize) use of BoxItem to improve: BeforeAfterNode, ChallengeNode, StacksAccordionBox, RandomBox, QuantitiesNode
+- QuantitiesNode: delete options.beforeBoxLeft, change options.afterBoxLeft to afterBoxXOffset
 
 MEDIUM
 - #5 code review

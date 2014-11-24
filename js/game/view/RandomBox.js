@@ -1,7 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays items at random positions in a box. This is used for the 'Before' and 'After' boxes in the Game screen.
+ * Displays substances at random positions in a box.
+ * This is used for the 'Before' and 'After' boxes in the Game screen.
  * <p>
  * To improve performance:
  * <ul>
@@ -26,15 +27,15 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {[BoxItem]} items the items in the box
+   * @param {[Substance]} substances the substances in the box
    * @param {Object} [options]
    * @constructor
    */
-  function RandomBox( items, options ) {
+  function RandomBox( substances, options ) {
 
     options = _.extend( {
       boxSize: new Dimension2( 100, 100 ),
-      maxQuantity: 4, // the maximum quantity of each item in the box
+      maxQuantity: 4, // the maximum quantity of each substance in the box
       cornerRadius: 3,
       fill: 'white',
       stroke: RPALColors.BOX_STROKE,
@@ -50,10 +51,10 @@ define( function( require ) {
     Node.call( thisNode );
 
     /*
-     * Compute the size of the grid needed to accommodate the maximum number of items.
+     * Compute the size of the grid needed to accommodate the maximum number of nodes.
      * Assume that the box is approximately square, so can have the same number of rows and columns.
      */
-    var rows = Math.round( Math.sqrt( items.length * options.maxQuantity ) );
+    var rows = Math.round( Math.sqrt( substances.length * options.maxQuantity ) );
     var columns = rows;
 
     // Compute positions in the grid, this is our 'pool' of positions.
@@ -96,13 +97,13 @@ define( function( require ) {
     } );
     thisNode.addChild( boxNode );
 
-    // items inside the box
-    thisNode.itemLayers = []; // @private [{ItemLayer}] see dispose
+    // substances inside the box
+    thisNode.substanceLayer = []; // @private [{SubstanceLayer}] see dispose
     var parent = new Node();
-    items.forEach( function( item ) {
-      var itemLayer = new ItemLayer( item.iconProperty, item.quantityProperty, options.randomOffset, choosePosition, releasePosition );
-      parent.addChild( itemLayer );
-      thisNode.itemLayers.push( itemLayer );
+    substances.forEach( function( substance ) {
+      var substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty, options.randomOffset, choosePosition, releasePosition );
+      parent.addChild( substanceLayer );
+      thisNode.substanceLayer.push( substanceLayer );
     } );
     thisNode.addChild( parent );
 
@@ -110,7 +111,7 @@ define( function( require ) {
   }
 
   /**
-   * Responsible for managing all nodes for one item type.
+   * Responsible for managing all nodes for one substance type.
    *
    * @param {Property.<Node>} iconProperty
    * @param {Property.<number>} quantityProperty
@@ -120,7 +121,7 @@ define( function( require ) {
    * @constructor
    * @private
    */
-  function ItemLayer( iconProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
+  function SubstanceLayer( iconProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
 
     var thisNode = this;
     Node.call( thisNode );
@@ -161,7 +162,7 @@ define( function( require ) {
     thisNode.quantityProperty.link( thisNode.quantityPropertyObserver );
   }
 
-  inherit( Node, ItemLayer, {
+  inherit( Node, SubstanceLayer, {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
@@ -198,7 +199,7 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-      this.itemLayers.forEach( function( node ) { node.dispose(); } );
+      this.substanceLayer.forEach( function( node ) { node.dispose(); } );
     }
   } );
 } );

@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BoxItem = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BoxItem' );
   var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -42,6 +41,15 @@ define( function( require ) {
    */
   function ChallengeNode( model, challenge, challengeBounds, audioPlayer, options ) {
 
+    options = _.extend( {
+      boxSize: RPALConstants.BEFORE_AFTER_BOX_SIZE, // {Dimension2} size of the 'Before' and 'After' boxes
+      quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
+      minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
+    }, options );
+
+    var thisNode = this;
+    Node.call( thisNode );
+
     // convenience variables, to improve readability
     var reaction = challenge.reaction;
     var guess = challenge.guess;
@@ -51,14 +59,10 @@ define( function( require ) {
     var interactiveBox = challenge.interactiveBox;
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
-    options = _.extend( {
-      boxSize: RPALConstants.BEFORE_AFTER_BOX_SIZE, // {Dimension2} size of the 'Before' and 'After' boxes
-      quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
-      minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
-    }, options );
-
-    var thisNode = this;
-    Node.call( thisNode );
+    // which substances are visible depends on whether we're guessing 'Before' or 'After' quantities
+    var reactants = ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants;
+    var products = ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products;
+    var leftovers = ( interactiveBox === BoxType.AFTER ) ? guess.leftovers : reaction.leftovers;
 
     //------------------------------------------------------------------------------------
     // Equation
@@ -82,20 +86,6 @@ define( function( require ) {
 
     thisNode.addChild( equationBackground );
     thisNode.addChild( equationNode );
-
-    //------------------------------------------------------------------------------------
-    // Items
-    //------------------------------------------------------------------------------------
-
-    // items in the 'Before Reaction' box
-    var beforeItems = BoxItem.createBeforeBoxItems(
-      ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants, options.boxSize.width );
-
-    // items in the 'After Reaction' box
-    var afterItems = BoxItem.createAfterBoxItems(
-      ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products,
-      ( interactiveBox === BoxType.AFTER ) ? guess.leftovers : reaction.leftovers,
-      options.boxSize.width );
 
     //------------------------------------------------------------------------------------
     // Property that tells us whether the 'Check' button should be enabled
@@ -133,7 +123,7 @@ define( function( require ) {
     thisNode.addChild( arrowNode );
 
     // 'Before Reaction' box, with molecules at random locations
-    thisNode.beforeBox = new RandomBox( beforeItems, {
+    thisNode.beforeBox = new RandomBox( reactants, {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
       right: arrowNode.left - 5,
@@ -143,7 +133,7 @@ define( function( require ) {
     arrowNode.centerY = thisNode.beforeBox.centerY;
 
     // 'After Reaction' box, with molecules at random locations
-    thisNode.afterBox = new RandomBox( afterItems, {
+    thisNode.afterBox = new RandomBox( products.concat( leftovers ), {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
       left: arrowNode.right + 5,
@@ -202,10 +192,11 @@ define( function( require ) {
     // Quantities, images, symbols and brackets below the boxes
     //------------------------------------------------------------------------------------
 
-    var reactants = ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants;
-    var products = ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products;
-    var leftovers = ( interactiveBox === BoxType.AFTER ) ? guess.leftovers : reaction.leftovers;
-    thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeItems, afterItems, {
+    // x-offsets of substances relative to their boxes
+    var beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.boxSize.width );
+    var afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.boxSize.width );
+
+    thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       interactiveBox: interactiveBox,
       boxWidth: options.boxSize.width,
       beforeBoxLeft: thisNode.beforeBox.left,

@@ -45,12 +45,12 @@ define( function( require ) {
    * @param {[Substance]} reactants
    * @param {[Substance]} products
    * @param {[Substance]} leftovers
-   * @param {[BoxItem]} beforeItems
-   * @param {[BoxItem]} afterItems
+   * @param {[number]} beforeXOffsets
+   * @param {[number]} afterXOffsets
    * @param {Object} [options]
    * @constructor
    */
-  function QuantitiesNode( reactants, products, leftovers, beforeItems, afterItems, options ) {
+  function QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, options ) {
 
     options = _.extend( {
       interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
@@ -84,7 +84,7 @@ define( function( require ) {
     for ( i = 0; i < reactants.length; i++ ) {
 
       reactant = reactants[i];
-      centerX = options.beforeBoxLeft + beforeItems[i].centerX;
+      centerX = options.beforeBoxLeft + beforeXOffsets[i];
 
       // noneditable number
       numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
@@ -119,7 +119,7 @@ define( function( require ) {
     for ( i = 0; i < products.length; i++ ) {
 
       product = products[i];
-      centerX = options.afterBoxLeft + afterItems[i].centerX;
+      centerX = options.afterBoxLeft + afterXOffsets[i];
 
       // noneditable number
       numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
@@ -154,7 +154,7 @@ define( function( require ) {
     for ( i = 0; i < leftovers.length; i++ ) {
 
       leftover = leftovers[i];
-      centerX = options.afterBoxLeft + afterItems[ i + products.length ].centerX;
+      centerX = options.afterBoxLeft + afterXOffsets[ i + products.length ];
 
       // noneditable number
       numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
@@ -304,6 +304,26 @@ define( function( require ) {
       this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
       this.numberNodes.forEach( function( node ) { node.dispose(); } );
       this.iconNodes.forEach( function( node ) { node.dispose(); } );
+    }
+  }, {
+
+    /**
+     * Creates items x-offsets for substances, relative to the left edge of their 'Before' or 'After' box.
+     * @param {number} numberOfSubstances
+     * @param {number} boxWidth
+     * @returns {[number]}
+     * @static
+     */
+    createXOffsets: function( numberOfSubstances, boxWidth ) {
+      var xOffsets = [];
+      var xMargin = ( numberOfSubstances > 2 ) ? 0 : ( 0.15 * boxWidth ); // make 2-reactant case look nice
+      var deltaX = ( boxWidth - ( 2 * xMargin ) ) / numberOfSubstances;
+      var xOffset = xMargin + ( deltaX / 2 );
+      for ( var i = 0; i < numberOfSubstances; i++ ) {
+        xOffsets.push( xOffset );
+        xOffset += deltaX
+      }
+      return xOffsets;
     }
   } );
 } );

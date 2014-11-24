@@ -14,7 +14,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BoxItem = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BoxItem' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
@@ -57,15 +56,17 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
+    // vars to improve readability
+    var reactants = reaction.reactants;
+    var products = reaction.products;
+    var leftovers = reaction.leftovers;
+
     //------------------------------------------------------------------------------------
-    // items
+    // x-offsets of the substances relative to their boxes
     //------------------------------------------------------------------------------------
 
-    // items in the 'Before Reaction' box
-    var beforeItems = BoxItem.createBeforeBoxItems( reaction.reactants, options.contentSize.width );
-
-    // items in the 'After Reaction' box
-    var afterItems = BoxItem.createAfterBoxItems( reaction.products, reaction.leftovers, options.contentSize.width );
+    var beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.contentSize.width );
+    var afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
 
     //------------------------------------------------------------------------------------
     // Accordion boxes & arrow
@@ -73,7 +74,7 @@ define( function( require ) {
 
     // 'Before Reaction' box, with stacks of reactants
     var beforeTitleNode = new Text( options.beforeTitle, TITLE_OPTIONS );
-    thisNode.beforeBox = new StacksAccordionBox( beforeItems, _.extend( {
+    thisNode.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, _.extend( {
       expandedProperty: beforeExpandedProperty,
       titleNode: beforeTitleNode,
       maxQuantity: options.quantityRange.max
@@ -81,7 +82,7 @@ define( function( require ) {
 
     // 'After Reaction' box, with stacks of products and leftovers
     var afterTitleNode = new Text( options.afterTitle, TITLE_OPTIONS );
-    thisNode.afterBox = new StacksAccordionBox( afterItems, _.extend( {
+    thisNode.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, _.extend( {
       expandedProperty: afterExpandedProperty,
       titleNode: afterTitleNode,
       maxQuantity: options.quantityRange.max
@@ -102,7 +103,7 @@ define( function( require ) {
     // Quantities, images, symbols and brackets below the boxes
     //------------------------------------------------------------------------------------
 
-    thisNode.quantitiesNode = new QuantitiesNode( reaction.reactants, reaction.products, reaction.leftovers, beforeItems, afterItems, {
+    thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       boxWidth: options.contentSize.width,
       beforeBoxLeft: thisNode.beforeBox.left,
       afterBoxLeft: thisNode.afterBox.left,

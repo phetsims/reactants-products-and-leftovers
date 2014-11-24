@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- *  Accordion box that shows stacks of 'items', used in the 'Sandwiches' and 'Molecules' screens.
+ *  Accordion box that shows stacks of substances. Used in the 'Sandwiches' and 'Molecules' screens.
  *
  *  @author Chris Malley (PixelZoom, Inc.)
  */
@@ -21,11 +21,14 @@ define( function( require ) {
   var MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
 
   /**
-   * @param {[BoxItem]} items items in the box
+   * @param {[Substances]} substances substances in the box
+   * @param {[number]} xOffsets x-offsets of each substance, in the same order as substances param
    * @param {Object} [options]
    * @constructor
    */
-  function StacksAccordionBox( items, options ) {
+  function StacksAccordionBox( substances, xOffsets, options ) {
+
+    assert && assert( substances.length === xOffsets.length );
 
     options = _.extend( {
 
@@ -44,7 +47,7 @@ define( function( require ) {
 
       // StacksAccordionBox options
       contentSize: new Dimension2( 100, 100 ), // size of box's content
-      maxQuantity: 2, // max items in the stack
+      maxQuantity: 2, // max substances in a stack
       minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons
       boxYMargin: 6 // vertical margin between the inner edge of box and the tallest node
 
@@ -65,16 +68,16 @@ define( function( require ) {
     // compute max height of the nodes in the box
     var maxIconHeight = Math.max(
       options.minIconSize.height,
-      _.max( items, function( item ) { return item.iconProperty.get().height; } ).iconProperty.get().height );
+      _.max( substances, function( substance ) { return substance.iconProperty.get().height; } ).iconProperty.get().height );
 
     // vertical stacks of nodes inside the box
     this.stackNodes = []; // @private see dispose
     var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxIconHeight ) / ( options.maxQuantity - 1 );
     var startCenterY = rectangle.height - options.boxYMargin - ( maxIconHeight / 2 );
-    for ( var i = 0; i < items.length; i++ ) {
-      var item = items[i];
-      var stackNode = new StackNode( options.contentSize.height, item.iconProperty, item.quantityProperty, startCenterY, deltaY, {
-        centerX: item.centerX
+    for ( var i = 0; i < substances.length; i++ ) {
+      var substance = substances[i];
+      var stackNode = new StackNode( options.contentSize.height, substance.iconProperty, substance.quantityProperty, startCenterY, deltaY, {
+        centerX: xOffsets[i]
       } );
       content.addChild( stackNode );
       this.stackNodes.push( stackNode );
