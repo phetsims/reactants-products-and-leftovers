@@ -53,6 +53,7 @@ define( function( require ) {
 
     // These things are read-only, they change as game-play progresses.
     thisModel.challenges = []; // {[Challenge]} the set of challenges for the current game being played
+    thisModel.points = 0; // {number} points awarded for the current challenge
     thisModel.bestScoreProperties = []; // [Property.<number>] best scores for each level
     thisModel.bestTimeProperties = []; // [Property.<number>] best times for each level, in ms
     thisModel.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
@@ -78,11 +79,13 @@ define( function( require ) {
           thisModel.initChallenges();
           thisModel.playState = PlayState.FIRST_CHECK;
           thisModel.score = 0;
+          thisModel.points = 0;
           thisModel.timer.start();
         }
         else if ( gamePhase === GamePhase.RESULTS ) {
           thisModel.playState = PlayState.NONE;
           thisModel.timer.stop();
+          thisModel.updateBestScore();
           thisModel.updateBestTime();
         }
         else {
@@ -90,20 +93,18 @@ define( function( require ) {
         }
       } );
 
-    // Defer until the user starts playing a game.
+    // End the game or advance to the next challenge
     thisModel.playStateProperty.lazyLink( function( playState ) {
       if ( playState === PlayState.FIRST_CHECK ) {
         if ( thisModel.challengeIndex === thisModel.challenges.length - 1 ) {
           // game has been completed
           thisModel.gamePhaseProperty.set( GamePhase.RESULTS );
-          if ( thisModel.score > thisModel.bestScoreProperties[ thisModel.level ].get() ) {
-            thisModel.bestScoreProperties[ thisModel.level ].set( thisModel.score );
-          }
         }
         else {
           // advance to next challenge
           thisModel.challengeIndex = thisModel.challengeIndex + 1;
           thisModel.challenge = thisModel.challenges[thisModel.challengeIndex];
+          thisModel.points = 0;
         }
       }
     } );
@@ -114,8 +115,46 @@ define( function( require ) {
     // Resets the model to its initial state.
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      this.gamePhaseProperty.reset();
       this.bestScoreProperties.forEach( function( property ) { property.set( 0 ); } );
+      this.bestTimeProperties.forEach( function( property ) { property.set( null ); } );
+      this.gamePhaseProperty.reset();
+    },
+
+    // Checks the current guess
+    check: function() {
+      assert && assert( this.playState === PlayState.FIRST_CHECK || this.playState === PlayState.SECOND_CHECK );
+
+      if ( this.challenge.isCorrect() ) {
+        // stop the timer as soon as we successfully complete the last challenge
+        if ( this.challengeIndex === this.challenges.length - 1 ) {
+          this.timer.stop();
+        }
+        this.points = ( this.playState === PlayState.FIRST_CHECK ) ? 2 : 1;
+        this.score = this.score + this.points;
+        this.playState = PlayState.NEXT;
+      }
+      else {
+        this.playState = ( this.playState === PlayState.FIRST_CHECK ) ? PlayState.TRY_AGAIN : PlayState.SHOW_ANSWER;
+      }
+    },
+
+    // Makes another attempt at solving the challenge
+    tryAgain: function() {
+      assert && assert( this.playState === PlayState.TRY_AGAIN );
+      this.playState = PlayState.SECOND_CHECK;
+    },
+
+    // Shows the correct answer
+    showAnswer: function() {
+      assert && assert( this.playState === PlayState.SHOW_ANSWER );
+      this.challenge.showAnswer();
+      this.playState = PlayState.NEXT;
+    },
+
+    // Advances to the next challenge
+    next: function() {
+      assert && assert( this.playState === PlayState.NEXT );
+      this.playState = PlayState.FIRST_CHECK;
     },
 
     /**
@@ -145,33 +184,20 @@ define( function( require ) {
     },
 
     /**
-     * Computes points that would be awarded if the current guess were correct.
-     * @returns {number}
-     */
-    computePoints: function() {
-      assert && assert( this.playState === PlayState.FIRST_CHECK || this.playState === PlayState.SECOND_CHECK );
-      var attempts = ( this.playState === PlayState.FIRST_CHECK ) ? 1 : 2;
-      return Math.max( 0, this.maxPointsPerChallenge - attempts + 1 );
-    },
-
-    /**
      * DEBUG
      * Skips the current challenge.
      * Score and best times are meaningless after using this.
      * This is a developer feature.
      */
     skipCurrentChallenge: function() {
-      this.playState = PlayState.NEXT;
-      this.playState = PlayState.FIRST_CHECK;
-    },
-
-    /**
-     * DEBUG
-     * Skips all challenges, advances immediately to the game results.
-     * This is a developer feature.
-     */
-    skipAllChallenges: function() {
-      this.gamePhaseProperty.set( GamePhase.RESULTS );
+      if ( this.challengeIndex === this.challenges.length - 1 ) {
+        // if we're on the last challenge, then game over
+        this.gamePhaseProperty.set( GamePhase.RESULTS );
+      }
+      else {
+        this.playState = PlayState.NEXT; // force a state change, in case we're in PlayState.FIRST_CHECK
+        this.playState = PlayState.FIRST_CHECK;
+      }
     },
 
     /**
@@ -185,6 +211,13 @@ define( function( require ) {
       if ( this.playState !== PlayState.FIRST_CHECK ) {
         this.challengeIndex = this.challengeIndex - 1;
         this.playState = PlayState.FIRST_CHECK;
+      }
+    },
+
+    // @private Updates the best score for the current level.
+    updateBestScore: function() {
+      if ( this.score > this.bestScoreProperties[ this.level ].get() ) {
+        this.bestScoreProperties[ this.level ].set( this.score );
       }
     },
 

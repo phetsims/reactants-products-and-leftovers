@@ -34,13 +34,11 @@ define( function( require ) {
 
   /**
    * @param {GameModel} model
-   * @param {GameAudioPlayer} audioPlayer
-   * @param {FaceWithPointsNode} faceNode
    * @param {Property.<boolean>} checkButtonEnabledProperty is the 'Check' button enabled?
    * @param {Object} [options]
    * @constructor
    */
-  function GameButtons( model, audioPlayer, faceNode, checkButtonEnabledProperty, options ) {
+  function GameButtons( model, checkButtonEnabledProperty, options ) {
 
     options = options || {};
 
@@ -56,20 +54,7 @@ define( function( require ) {
 
     // 'Check' button
     checkButton.addListener( function() {
-      if ( model.challenge.isCorrect() ) {
-        audioPlayer.correctAnswer();
-        faceNode.smile();
-        var points = model.computePoints();
-        faceNode.setPoints( points );
-        model.score = model.score + points;
-        model.playState = PlayState.NEXT;
-      }
-      else {
-        audioPlayer.wrongAnswer();
-        faceNode.frown();
-        faceNode.setPoints( 0 );
-        model.playState = ( model.playState === PlayState.FIRST_CHECK ) ? PlayState.TRY_AGAIN : PlayState.SHOW_ANSWER;
-      }
+      model.check();
     } );
     // no need to unlink from this property in dispose, it's lifetime is the same as this node
     checkButtonEnabledProperty.link( function( enabled ) {
@@ -78,17 +63,17 @@ define( function( require ) {
 
     // 'Try Again' button
     tryAgainButton.addListener( function() {
-      model.playState = PlayState.SECOND_CHECK;
+      model.tryAgain();
     } );
 
     // 'Show Answer' button
     showAnswerButton.addListener( function() {
-      model.playState = PlayState.NEXT;
+      model.showAnswer();
     } );
 
     // 'Next' button
     nextButton.addListener( function() {
-      model.playState = PlayState.FIRST_CHECK;
+      model.next();
     } );
 
     // @private

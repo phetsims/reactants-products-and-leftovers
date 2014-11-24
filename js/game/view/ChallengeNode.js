@@ -33,13 +33,12 @@ define( function( require ) {
 
   /**
    * @param {GameModel} model
-   * @param {Challenge} challenge
    * @param {Bounds2} challengeBounds portion of the screen where the Challenge can be displayed
    * @param {GameAudioPlayer} audioPlayer
    * @param {Object} [options]
    * @constructor
    */
-  function ChallengeNode( model, challenge, challengeBounds, audioPlayer, options ) {
+  function ChallengeNode( model, challengeBounds, audioPlayer, options ) {
 
     options = _.extend( {
       boxSize: RPALConstants.GAME_BEFORE_AFTER_BOX_SIZE, // {Dimension2} size of the 'Before' and 'After' boxes
@@ -51,12 +50,12 @@ define( function( require ) {
     Node.call( thisNode );
 
     // convenience variables, to improve readability
-    var reaction = challenge.reaction;
-    var guess = challenge.guess;
+    var reaction = model.challenge.reaction;
+    var guess = model.challenge.guess;
     assert && assert( reaction.reactants.length === guess.reactants.length );
     assert && assert( reaction.products.length === guess.products.length );
     assert && assert( reaction.leftovers.length === guess.leftovers.length );
-    var interactiveBox = challenge.interactiveBox;
+    var interactiveBox = model.challenge.interactiveBox;
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
     // which substances are visible depends on whether we're guessing 'Before' or 'After' quantities
@@ -93,7 +92,7 @@ define( function( require ) {
 
     // Check button is disabled if all guessable quantities are zero
     var quantityProperties = [];
-    if ( challenge.interactiveBox === BoxType.BEFORE ) {
+    if ( interactiveBox === BoxType.BEFORE ) {
       guess.reactants.forEach( function( reactant ) { quantityProperties.push( reactant.quantityProperty ); } );
     }
     else {
@@ -181,7 +180,7 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // buttons (Check, Try Again, ...)
-    var buttons = new GameButtons( model, audioPlayer, faceNode, thisNode.checkButtonEnabledProperty );
+    var buttons = new GameButtons( model, thisNode.checkButtonEnabledProperty );
     thisNode.addChild( buttons );
     buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     buttons.bottom = thisNode.beforeBox.bottom - 15;
@@ -231,15 +230,34 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // {PlayState} state changes
-    model.playStateProperty.link( function( state ) {
+    model.playStateProperty.link( function( playState ) {
 
-      // visibility of face
-      faceNode.visible = ( state === PlayState.TRY_AGAIN ||
-                           state === PlayState.SHOW_ANSWER ||
-                           ( state === PlayState.NEXT && challenge.isCorrect() ) );
+      // face and score
+      if ( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK ) {
+        faceNode.visible = false;
+      }
+      else if ( playState === PlayState.TRY_AGAIN || playState === PlayState.SHOW_ANSWER ) {
+        audioPlayer.wrongAnswer();
+        faceNode.frown();
+        faceNode.setPoints( 0 );
+        faceNode.visible = true;
+      }
+      else if ( playState === PlayState.NEXT ) {
+         // Check points instead of correctness of challenge, because correct answer has been filled in at this state.
+        faceNode.setPoints( model.points );
+        if ( model.points > 0 ) {
+          audioPlayer.correctAnswer();
+          faceNode.smile();
+          faceNode.visible = true;
+        }
+        else {
+          faceNode.frown();
+          faceNode.visible = false;
+        }
+      }
 
       // 'hide' boxes
-      var hideBoxVisible = ( state !== PlayState.NEXT );
+      var hideBoxVisible = ( playState !== PlayState.NEXT );
       if ( hideMoleculesBox ) {
         hideMoleculesBox.visible = hideBoxVisible;
         // also hide the Before/After box, so we don't see its stroke
@@ -253,10 +271,7 @@ define( function( require ) {
       thisNode.quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
 
       // switch between spinners and static numbers
-      thisNode.quantitiesNode.setInteractive( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK );
-
-      // reveal the correct answer
-      if ( state === PlayState.NEXT ) { challenge.showAnswer(); }
+      thisNode.quantitiesNode.setInteractive( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
     } );
 
     thisNode.mutate( options );

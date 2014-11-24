@@ -1,7 +1,6 @@
 TODO list for reactants-products-and-leftovers
 
 HIGH
-- ChallengeNode constructor is passed both model and challenge params, the latter is redundant
 
 MEDIUM
 - #5 code review

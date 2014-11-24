@@ -1,3 +1,7 @@
+11/24/14 clear best times on Game 'Reset All'
+11/24/14 move all state-change responsibilities into GameModel to reduce coupling and prevent order dependencies (major change!)
+11/24/14 move responsibility for computing points and score into GameModel
+11/24/14 remove redundant @param challenge from ChallengeNode constructor
 11/24/14 when 'hide molecules' is on, hide the Before/After box, so we don't see its stroke
 11/24/14 make Game boxes a little wider, since we have the space and there's a lot of stuff in them
 11/24/14 add ability to specify Before/After box size per screen

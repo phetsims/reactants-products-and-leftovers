@@ -74,7 +74,7 @@ define( function( require ) {
 
       // set up new challenge
       if ( challenge ) { // challenge will be null on startup and 'Reset All'
-        challengeNode = new ChallengeNode( model, challenge, challengeBounds, audioPlayer );
+        challengeNode = new ChallengeNode( model, challengeBounds, audioPlayer );
         thisNode.addChild( challengeNode );
       }
     } );
