@@ -1,3 +1,4 @@
+11/24/14 change request: use stroke:'black', lineWidth:1 for equation background in 'Game' screen
 11/24/14 change request: use a thicker stroke on molecule in the navbar icon for 'Molecules' screen
 11/24/14 QuantitiesNode: delete options.beforeBoxLeft, change options.afterBoxLeft to afterBoxXOffset
 11/24/14 get rid of BoxItem

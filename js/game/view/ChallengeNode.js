@@ -80,7 +80,7 @@ define( function( require ) {
     // equations background
     var equationBackground = new Rectangle( 0, 0, equationNode.width + 30, equationNode.height + 6, 3, 3, {
       fill: 'white',
-      stroke: RPALColors.BOX_STROKE,
+      stroke: 'black',
       center: equationNode.center
     } );
 
