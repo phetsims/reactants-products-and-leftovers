@@ -15,7 +15,7 @@ define( function( require ) {
   /**
    * @param {number} coefficient substance's coefficient in the reaction equation
    * @param {string} symbol used in reaction equation
-   * @param {SCENERY.Node} icon visual representation of the substance
+   * @param {Node} icon visual representation of the substance
    * @param {number} [quantity] how much of a substance we have, defaults to zero
    * @constructor
    */
