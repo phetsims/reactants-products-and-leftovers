@@ -1,8 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * The quantities interface includes everything that's displayed below the Before/After boxes.
- * It indicates the quantities of reactants, products and leftovers, and allows interactive
+ * The 'quantities' interface includes everything that's displayed below the Before/After boxes.
+ * It indicates the quantities of reactants, products and leftovers, and allows interaction
  * with either the Before or After quantities.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -45,12 +45,15 @@ define( function( require ) {
    * @param {[Substance]} reactants
    * @param {[Substance]} products
    * @param {[Substance]} leftovers
-   * @param {[number]} beforeXOffsets
-   * @param {[number]} afterXOffsets
+   * @param {[number]} beforeXOffsets offsets of reactants relative to the left edge of the 'Before' box
+   * @param {[number]} afterXOffsets offsets of products and leftovers relative to the left edge of the 'Before' box
    * @param {Object} [options]
    * @constructor
    */
   function QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, options ) {
+
+    assert && assert( reactants.length === beforeXOffsets.length );
+    assert && assert( products.length + leftovers.length === afterXOffsets.length );
 
     options = _.extend( {
       interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
@@ -64,7 +67,6 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    assert && assert( reactants.length === leftovers.length );
     this.numberOfReactants = reactants.length; // @private
     this.interactiveBox = options.interactiveBox; // @private
 
@@ -182,7 +184,10 @@ define( function( require ) {
       }
     }
 
-    // vertical layout of components below the boxes
+    /*
+     * Vertical layout of components below the boxes.
+     * Ensures that all similar components (spinners, numbers, icons, symbols) are vertically centered.
+     */
     var spinnerHeight = thisNode.spinnerNodes[0].height;
     var maxIconHeight = Math.max(
       options.minIconSize.height,
@@ -204,10 +209,10 @@ define( function( require ) {
       } );
     }
 
-    // compute the bottom of all of the above stuff
-    var componentsBottom = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight;
+    // top of brackets is relative to the bottom of the stuff above
+    var bracketsTop = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight + BRACKET_Y_SPACING;
     if ( options.showSymbols ) {
-      componentsBottom += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
+      bracketsTop += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
 
     // 'Reactants' bracket
@@ -218,7 +223,7 @@ define( function( require ) {
       labelNode: reactantsLabel,
       bracketWidth: Math.max( options.minIconSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: reactantsParent.centerX,
-      top: componentsBottom + BRACKET_Y_SPACING
+      top: bracketsTop
     } );
     thisNode.addChild( reactantsBracket );
 
@@ -230,7 +235,7 @@ define( function( require ) {
       labelNode: productsLabel,
       bracketWidth: Math.max( options.minIconSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: productsParent.centerX,
-      top: componentsBottom + BRACKET_Y_SPACING
+      top: bracketsTop
     } );
     thisNode.addChild( productsBracket );
 
@@ -242,7 +247,7 @@ define( function( require ) {
       labelNode: leftoversLabel,
       bracketWidth: Math.max( options.minIconSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: leftoversParent.centerX,
-      top: componentsBottom + BRACKET_Y_SPACING
+      top: bracketsTop
     } );
     thisNode.addChild( leftoversBracket );
 
