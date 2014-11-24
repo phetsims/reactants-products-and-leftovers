@@ -199,11 +199,11 @@ define( function( require ) {
     thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       interactiveBox: interactiveBox,
       boxWidth: options.boxSize.width,
-      beforeBoxLeft: thisNode.beforeBox.left,
-      afterBoxLeft: thisNode.afterBox.left,
+      afterBoxXOffset: thisNode.afterBox.left - thisNode.beforeBox.left,
       minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
       hideNumbersBox: !model.numbersVisible,
+      x: thisNode.beforeBox.x,
       top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
     } );
     thisNode.addChild( thisNode.quantitiesNode );

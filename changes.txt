@@ -1,3 +1,4 @@
+11/24/14 QuantitiesNode: delete options.beforeBoxLeft, change options.afterBoxLeft to afterBoxXOffset
 11/24/14 get rid of BoxItem
 11/24/14 promote 'leftover' to a first-class part of a Reaction, instead of a Reactant property
 11/20/14 rename guessIsValidProperty to checkButtonEnabledProperty

@@ -2,7 +2,6 @@ TODO list for reactants-products-and-leftovers
 
 HIGH
 - ChallengeNode constructor is passed both model and challenge params, the latter is redundant
-- QuantitiesNode: delete options.beforeBoxLeft, change options.afterBoxLeft to afterBoxXOffset
 
 MEDIUM
 - #5 code review

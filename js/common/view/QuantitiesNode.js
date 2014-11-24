@@ -55,8 +55,7 @@ define( function( require ) {
     options = _.extend( {
       interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
       boxWidth: 100,
-      beforeBoxLeft: 0,
-      afterBoxLeft: 200,
+      afterBoxXOffset: 200,
       quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of spinners
       hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
       minIconSize: new Dimension2( 0, 0 ) // minimum amount of layout space reserved for Substance icons
@@ -84,7 +83,7 @@ define( function( require ) {
     for ( i = 0; i < reactants.length; i++ ) {
 
       reactant = reactants[i];
-      centerX = options.beforeBoxLeft + beforeXOffsets[i];
+      centerX = beforeXOffsets[i];
 
       // noneditable number
       numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
@@ -119,7 +118,7 @@ define( function( require ) {
     for ( i = 0; i < products.length; i++ ) {
 
       product = products[i];
-      centerX = options.afterBoxLeft + afterXOffsets[i];
+      centerX = options.afterBoxXOffset + afterXOffsets[i];
 
       // noneditable number
       numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
@@ -154,7 +153,7 @@ define( function( require ) {
     for ( i = 0; i < leftovers.length; i++ ) {
 
       leftover = leftovers[i];
-      centerX = options.afterBoxLeft + afterXOffsets[ i + products.length ];
+      centerX = options.afterBoxXOffset + afterXOffsets[ i + products.length ]; // leftovers follow products in afterXOffsets
 
       // noneditable number
       numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
@@ -254,7 +253,7 @@ define( function( require ) {
         boxSize: new Dimension2( options.boxWidth, spinnerHeight ),
         iconHeight: 0.65 * spinnerHeight,
         cornerRadius: 3,
-        left: ( this.interactiveBox === BoxType.BEFORE ) ? options.afterBoxLeft : options.beforeBoxLeft,
+        left: ( this.interactiveBox === BoxType.BEFORE ) ? options.afterBoxXOffset : 0,
         centerY: thisNode.spinnerNodes[0].centerY
       } );
       thisNode.addChild( this.hideNumbersBox );
