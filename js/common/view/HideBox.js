@@ -23,7 +23,7 @@ define( function( require ) {
   function HideBox( options ) {
 
     options = _.extend( {
-      boxSize: new Dimension2( 300, 50 ),
+      boxSize: new Dimension2( 100, 100 ),
       iconHeight: 35,
       cornerRadius: 0
     }, options );
