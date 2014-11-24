@@ -52,10 +52,10 @@ define( function( require ) {
 
     /*
      * Compute the size of the grid needed to accommodate the maximum number of nodes.
-     * Assume that the box is approximately square, so can have the same number of rows and columns.
+     * Assume that the box is square-ish, so can have the same number of rows and columns.
      */
     var aspectRatio = options.boxSize.width / options.boxSize.height;
-    assert && assert( aspectRatio > 0.65 && aspectRatio < 1.35 ); // approximately square
+    assert && assert( aspectRatio > 0.6 && aspectRatio < 1.4 ); // approximately square
     var rows = Math.round( Math.sqrt( substances.length * options.maxQuantity ) );
     var columns = rows;
 

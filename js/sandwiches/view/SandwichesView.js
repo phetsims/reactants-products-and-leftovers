@@ -53,6 +53,7 @@ define( function( require ) {
       function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
         return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
           _.extend( {}, options, {
+            contentSize: RPALConstants.SANDWICHES_BEFORE_AFTER_BOX_SIZE,
             showSymbols: false,
             beforeTitle: beforeSandwichString,
             afterTitle: afterSandwichString,

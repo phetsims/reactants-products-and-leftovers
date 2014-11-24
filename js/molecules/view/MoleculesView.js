@@ -13,6 +13,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculesEquationNode' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALScreenView' );
 
   /**
@@ -42,6 +43,7 @@ define( function( require ) {
       function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
         return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
           _.extend( {}, options, {
+            contentSize: RPALConstants.MOLECULES_BEFORE_AFTER_BOX_SIZE,
             minIconSize: new Dimension2( 30, 25 ) // eyeballed
           } ) );
       }

@@ -14,13 +14,18 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
 
   var RPALConstants = {
+
     SCREEN_VIEW_OPTIONS: { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
     MOLECULE_OPTIONS: { atomOptions: { stroke: 'black', lineWidth: 0.5, scale: 1 } },
     QUANTITY_RANGE: new Range( 0, 8 ),
     SANDWICH_COEFFICIENT_RANGE: new Range( 0, 3 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
     GAME_BUTTON_COLOR: 'yellow',
-    BEFORE_AFTER_BOX_SIZE: new Dimension2( 320, 240 )
+
+    // box size requested to be configurable per screen
+    SANDWICHES_BEFORE_AFTER_BOX_SIZE: new Dimension2( 310, 240 ),
+    MOLECULES_BEFORE_AFTER_BOX_SIZE: new Dimension2( 310, 240 ),
+    GAME_BEFORE_AFTER_BOX_SIZE: new Dimension2( 330, 240 )
   };
 
   return RPALConstants;

@@ -1,3 +1,5 @@
+11/24/14 make Game boxes a little wider, since we have the space and there's a lot of stuff in them
+11/24/14 add ability to specify Before/After box size per screen
 11/24/14 center UI in first 2 screens
 11/24/14 change request: make HideBox dashed line look more like mockups (required making boxes slightly wider)
 11/24/14 change request: use stroke:'black', lineWidth:1 for equation background in 'Game' screen
