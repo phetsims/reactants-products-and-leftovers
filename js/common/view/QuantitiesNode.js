@@ -39,7 +39,7 @@ define( function( require ) {
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
   var BRACKET_LABEL_OPTIONS = { font: new RPALFont( 12 ), fill: 'black' };
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
-  var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by ey
+  var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by eye
 
   /**
    * @param {[Substance]} reactants
