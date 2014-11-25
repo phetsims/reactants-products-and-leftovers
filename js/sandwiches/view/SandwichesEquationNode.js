@@ -46,7 +46,7 @@ define( function( require ) {
 
   /**
    * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
-   * @param {Dimensions2} maxSandwichSize dimensions of largest sandwich
+   * @param {Dimension2} maxSandwichSize dimensions of largest sandwich
    * @param {Object} [options]
    * @constructor
    */
