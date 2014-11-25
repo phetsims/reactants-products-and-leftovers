@@ -26,7 +26,7 @@ define( function( require ) {
     assert && assert( coefficient >= 0 );
     assert && assert( quantity >= 0 );
 
-    this.symbol = symbol; // {String}
+    this.symbol = symbol; // {string}
 
     PropertySet.call( this, {
       // {number} substance's coefficient in the reaction equation, mutable to support 'Custom' sandwich
