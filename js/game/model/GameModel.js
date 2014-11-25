@@ -19,6 +19,10 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
 
+  // constants
+  var POINTS_FIRST_CHECK = 2;
+  var POINTS_SECOND_CHECK = 1;
+
   /**
    * @param {Object} [options]
    * @constructor
@@ -26,9 +30,9 @@ define( function( require ) {
   function GameModel( options ) {
 
     options = _.extend( {
-      level: 0,
-      numberOfLevels: 3,
-      maxQuantity: RPALConstants.QUANTITY_RANGE.max
+      level: 0, // the current level in the game, numbered starting with zero
+      numberOfLevels: 3, // number of levels in the game
+      maxQuantity: RPALConstants.QUANTITY_RANGE.max // maximum quantity of any substance in a reaction
     }, options );
 
     var thisModel = this;
@@ -39,21 +43,20 @@ define( function( require ) {
       moleculesVisible: true, // {boolean} are molecules shown in the challenge?
       numbersVisible: true, // {boolean} are quantities shown in the challenge?
       level: 0, // {number} the current level, starts at 0 in the model, presented as starting from 1 in the view
-      challenge: null, // {Challenge} the current challenge being played
-      numberOfChallenges: 0, // {number} the number of challenges in the current game being played
-      score: 0, // {number} how many points the user has earned for the current game
-      challengeIndex: -1, // {number} the index of the current challenge, -1 indicates no challenge
-      playState: PlayState.NONE  // {PlayState} the current 'play state' of the game (see PlayState)
+      challenge: null, // {Challenge} read-only, the current challenge being played
+      numberOfChallenges: 0, // {number} read-only, the number of challenges in the current game being played
+      score: 0, // {number} read-only, how many points the user has earned for the current game
+      challengeIndex: -1, // {number} read-only, the index of the current challenge, -1 indicates no challenge
+      playState: PlayState.NONE  // {PlayState} read-only, the current 'play state' of the game
     } );
 
-    // These things are read-only, they should not be changed once the model is instantiated.
+    // These fields are read-only, they should not be changed once the model is instantiated.
     thisModel.numberOfLevels = options.numberOfLevels;
-    thisModel.maxPointsPerChallenge = 2;
     thisModel.maxQuantity = options.maxQuantity;
 
-    // These things are read-only, they change as game-play progresses.
+    // These fields are read-only, they change as game-play progresses.
     thisModel.challenges = []; // {[Challenge]} the set of challenges for the current game being played
-    thisModel.points = 0; // {number} points awarded for the current challenge
+    thisModel.points = 0; // {number} points awarded for the current challenge, read-only
     thisModel.bestScoreProperties = []; // [Property.<number>] best scores for each level
     thisModel.bestTimeProperties = []; // [Property.<number>] best times for each level, in ms
     thisModel.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
@@ -129,7 +132,7 @@ define( function( require ) {
         if ( this.challengeIndex === this.challenges.length - 1 ) {
           this.timer.stop();
         }
-        this.points = ( this.playState === PlayState.FIRST_CHECK ) ? 2 : 1;
+        this.points = ( this.playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
         this.score = this.score + this.points;
         this.playState = PlayState.NEXT;
       }
@@ -172,7 +175,7 @@ define( function( require ) {
      * @returns {number}
      */
     getPerfectScore: function( level ) {
-      return ChallengeFactory.getNumberOfChallenges( level ) * this.maxPointsPerChallenge;
+      return ChallengeFactory.getNumberOfChallenges( level ) * POINTS_FIRST_CHECK;
     },
 
     /**

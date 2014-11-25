@@ -1,3 +1,5 @@
+11/24/13 clean up how points are awarded in GameModel
+11/24/13 document read-only properties and fields in GameModel
 # 1.0.0-dev.12 11/24/14
 11/24/14 fix memory leak, call GameButtons.dispose to unlink from model.playStateProperty
 11/24/14 clear best times on Game 'Reset All'
