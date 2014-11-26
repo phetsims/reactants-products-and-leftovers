@@ -38,6 +38,7 @@ define( function( require ) {
       cornerRadius: 3,
       buttonTouchAreaDilatedX: 10,
       buttonTouchAreaDilatedY: 10,
+      titleNode: null, // {Node} optional title for the box
       titleBarFill: RPALColors.PANEL_FILL,
       titleAlign: 'center',
       buttonAlign: 'right',
@@ -53,7 +54,7 @@ define( function( require ) {
 
     }, options );
 
-    // title, scaled to fit
+    // scale the title to fit
     if ( options.titleNode ) {
       options.titleNode.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * options.contentSize.width / options.titleNode.width ) );
     }
