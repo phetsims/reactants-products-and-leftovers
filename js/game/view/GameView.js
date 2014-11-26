@@ -31,23 +31,23 @@ define( function( require ) {
     var audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
 
     // one node for each 'phase' of the game, created on demand to improve startup time
-    thisView.settingsNode = null;
-    thisView.playNode = null;
-    thisView.resultsNode = null;
+    var settingsNode = null;
+    var playNode = null;
+    thisView.resultsNode = null; // @private
 
     // game 'phase' changes
     model.gamePhaseProperty.link( function( gamePhase ) {
 
       // create when first needed
-      if ( gamePhase === GamePhase.SETTINGS && thisView.settingsNode === null ) {
-        thisView.settingsNode = new SettingsNode( model, thisView.layoutBounds );
-        thisView.addChild( thisView.settingsNode );
+      if ( gamePhase === GamePhase.SETTINGS && settingsNode === null ) {
+        settingsNode = new SettingsNode( model, thisView.layoutBounds );
+        thisView.addChild( settingsNode );
       }
 
       // create when first needed
-      if ( gamePhase === GamePhase.PLAY && thisView.playNode === null ) {
-        thisView.playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
-        thisView.addChild( thisView.playNode );
+      if ( gamePhase === GamePhase.PLAY && playNode === null ) {
+        playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
+        thisView.addChild( playNode );
       }
 
       // create when first needed
@@ -57,8 +57,8 @@ define( function( require ) {
       }
 
       // make the node visible that corresponds to the game phase
-      thisView.settingsNode && ( thisView.settingsNode.visible = ( gamePhase === GamePhase.SETTINGS ) );
-      thisView.playNode && ( thisView.playNode.visible = ( gamePhase === GamePhase.PLAY ) );
+      settingsNode && ( settingsNode.visible = ( gamePhase === GamePhase.SETTINGS ) );
+      playNode && ( playNode.visible = ( gamePhase === GamePhase.PLAY ) );
       thisView.resultsNode && ( thisView.resultsNode.visible = ( gamePhase === GamePhase.RESULTS ) );
     } );
   }
