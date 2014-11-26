@@ -189,7 +189,7 @@ define( function( require ) {
       // Create a reaction with non-zero quantities of at least one product.
       var reaction = factoryFunctions[ i ]();
       reaction.reactants.forEach( function( reactant ) {
-        reactant.quantity = getRandomNumber( reactant.coefficient, maxQuantity );
+        reactant.quantity = _.random( reactant.coefficient, maxQuantity );
       } );
 
       // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
@@ -199,19 +199,6 @@ define( function( require ) {
     }
 
     return challenges;
-  };
-
-  /**
-   * Generates a random number in some range.
-   * @param {number} min
-   * @param {number} max
-   * @returns {number}
-   */
-  var getRandomNumber = function( min, max ) {
-    assert && assert( min <= max, 'getRandomNumber failure: min=' + min + ' max=' + max );
-    var value = min + Math.floor( Math.random() * ( max - min + 1 ) );
-    assert && assert( value >= min && value <= max );
-    return value;
   };
 
   /**
@@ -226,14 +213,14 @@ define( function( require ) {
     assert && assert( maxQuantity > 0 );
 
     // Choose a function and remove it from the further consideration.
-    var randomIndex = getRandomNumber( 0, factoryFunctions.length - 1 );
+    var randomIndex = _.random( 0, factoryFunctions.length - 1 );
     var factoryFunction = factoryFunctions[ randomIndex ];
     factoryFunctions.splice( randomIndex, 1 );
 
     // Create a reaction with non-zero quantities of at least one product.
     var reaction = factoryFunction();
     reaction.reactants.forEach( function( reactant ) {
-      reactant.quantity = getRandomNumber( reactant.coefficient, maxQuantity );
+      reactant.quantity = _.random( reactant.coefficient, maxQuantity );
     } );
 
     return reaction;
@@ -257,7 +244,7 @@ define( function( require ) {
       assert && assert( factoryFunctions.length > 0 );
 
       // Choose a function and remove it from the further consideration.
-      var randomIndex = getRandomNumber( 0, factoryFunctions.length - 1 );
+      var randomIndex = _.random( 0, factoryFunctions.length - 1 );
       var factoryFunction = factoryFunctions[ randomIndex ];
       factoryFunctions.splice( randomIndex, 1 );
 
@@ -277,7 +264,7 @@ define( function( require ) {
 
     // set quantities
     reaction.reactants.forEach( function( reactant ) {
-      reactant.quantity = getRandomNumber( 1, Math.max( 1, reactant.coefficient - 1 ) );
+      reactant.quantity = _.random( 1, Math.max( 1, reactant.coefficient - 1 ) );
     } );
 
     return reaction;
