@@ -15,10 +15,10 @@ GamePhase. While playing a challenge, the Game will be in one of the "states" de
 
 Generation of challenges for the Game screen is described in the documentation for ChallengeFactory.
 
-Game 'level' is numbered starting from zero throughout the model, and displayed from 1 in the view.
+Game 'level' is numbered starting from zero throughout the model, and displayed starting from 1 in the view.
 Ie, model.level === 0 is displayed as 'Level 1'.
 
 In this sim, view components typically have a lifetime that is shorter than their associated model components.
 Those view components implement a dispose function, which unlinks observers from AXON properties in the model.
-To prevent memory leaks, it's essential to call dispose when you're done view components. Failure to unlink
+To prevent memory leaks, it's essential to call dispose when you're done with view components. Failure to unlink
 from AXON properties tends to be the main cause of memory leaks.
