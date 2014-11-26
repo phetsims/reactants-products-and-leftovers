@@ -32,7 +32,6 @@ define( function( require ) {
 
   // constants
   var TITLE_OPTIONS = { font: new RPALFont( 14 ), fill: 'white' }; // AccordionBox titles
-  var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
@@ -92,12 +91,13 @@ define( function( require ) {
 
     // @private Everything below the boxes
     thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
+      showSymbols: options.showSymbols,
       boxWidth: options.contentSize.width,
       afterBoxXOffset: thisNode.afterBox.left - thisNode.beforeBox.left,
       minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
       x: thisNode.beforeBox.x,
-      top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
+      top: thisNode.beforeBox.bottom + 6
     } );
     thisNode.addChild( thisNode.quantitiesNode );
 

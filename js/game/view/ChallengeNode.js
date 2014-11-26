@@ -28,9 +28,6 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  // constants
-  var BOX_QUANTITY_Y_SPACING = 6; // vertical space between box and quantity
-
   /**
    * @param {GameModel} model
    * @param {Bounds2} challengeBounds portion of the screen where the Challenge can be displayed
@@ -70,7 +67,7 @@ define( function( require ) {
     // equation
     var equationNode = new MoleculesEquationNode( reaction, {
       fill: 'black',
-      top: challengeBounds.top + 18,
+      top: challengeBounds.top + 10,
       plusXSpacing: 25,
       arrowXSpacing: 25
     } );
@@ -127,7 +124,7 @@ define( function( require ) {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
       right: arrowNode.left - 5,
-      top: equationNode.bottom + 18
+      top: equationNode.bottom + 10
     } );
     thisNode.addChild( thisNode.beforeBox );
     arrowNode.centerY = thisNode.beforeBox.centerY;
@@ -205,7 +202,7 @@ define( function( require ) {
       quantityRange: options.quantityRange,
       hideNumbersBox: !model.numbersVisible,
       x: thisNode.beforeBox.x,
-      top: thisNode.beforeBox.bottom + BOX_QUANTITY_Y_SPACING
+      top: thisNode.beforeBox.bottom + 4
     } );
     thisNode.addChild( thisNode.quantitiesNode );
 

@@ -34,8 +34,8 @@ define( function( require ) {
   // constants
   var QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
   var SYMBOL_FONT = new RPALFont( 16 ); // font for the symbols that appear below the boxes
+  var QUANTITY_IMAGE_Y_SPACING = 4; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
-  var QUANTITY_IMAGE_Y_SPACING = 6; // vertical space between quantity and image
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
   var BRACKET_LABEL_OPTIONS = { font: new RPALFont( 12 ), fill: 'black' };
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
@@ -61,7 +61,8 @@ define( function( require ) {
       afterBoxXOffset: 200,
       quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of spinners
       hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
-      minIconSize: new Dimension2( 0, 0 ) // minimum amount of layout space reserved for Substance icons
+      minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons
+      showSymbols: true // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
     }, options );
 
     var thisNode = this;
