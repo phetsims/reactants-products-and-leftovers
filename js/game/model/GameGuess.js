@@ -31,87 +31,38 @@ define( function( require ) {
    */
   function GameGuess( reaction, interactiveBox ) {
 
-    // validate so we can use if-else in private methods
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
-    // all of these are of type {[Substance]}
-    this.reactants = createGuessReactants( reaction.reactants, interactiveBox );
-    this.products = createGuessProducts( reaction.products, interactiveBox );
-    this.leftovers = createGuessLeftovers( reaction.leftovers, interactiveBox );
+    var thisNode = this;
 
-    assert && assert( this.reactants.length === reaction.reactants.length );
-    assert && assert( this.products.length === reaction.products.length );
-    assert && assert( this.leftovers.length === reaction.leftovers.length );
+    // Clone reactants, quantities are initialized to zero for 'Before' challenges.
+    thisNode.reactants = [];
+    reaction.reactants.forEach( function( reactant ) {
+      thisNode.reactants.push( ( interactiveBox === BoxType.AFTER || RPALQueryParameters.PLAY_ALL ) ?
+                               Substance.clone( reactant ) :
+                               Substance.withQuantity( reactant, 0 ) );
+    } );
+
+    // Clone products, quantities are initialized to zero for 'After' challenges.
+    thisNode.products = [];
+    reaction.products.forEach( function( product ) {
+      thisNode.products.push( ( interactiveBox === BoxType.BEFORE || RPALQueryParameters.PLAY_ALL ) ?
+                              Substance.clone( product ) :
+                              Substance.withQuantity( product, 0 ) );
+    } );
+
+    // Clone leftovers, quantities are initialized to zero for 'After' challenges.
+    thisNode.leftovers = [];
+    reaction.leftovers.forEach( function( leftover ) {
+      thisNode.leftovers.push( ( interactiveBox === BoxType.BEFORE || RPALQueryParameters.PLAY_ALL ) ?
+                               Substance.clone( leftover ) :
+                               Substance.withQuantity( leftover, 0 ) );
+    } );
+
+    assert && assert( thisNode.reactants.length === reaction.reactants.length );
+    assert && assert( thisNode.products.length === reaction.products.length );
+    assert && assert( thisNode.leftovers.length === reaction.leftovers.length );
   }
-
-  /**
-   * Creates reactants for the user's guess.
-   * Clones the reactants in the same order that they appear in the challenge.
-   * Quantities are initialized to zero for 'Before' challenges.
-   * @param {[Substance]} reactants the challenge's reactants
-   * @param {BoxType} interactiveBox box is interactive
-   * @returns {[Substance]}
-   */
-  var createGuessReactants = function( reactants, interactiveBox ) {
-    var guessReactants = [];
-    var guessReactant;
-    for ( var i = 0; i < reactants.length; i++ ) {
-      if ( interactiveBox === BoxType.AFTER || RPALQueryParameters.PLAY_ALL ) {
-        guessReactant = Substance.clone( reactants[i] );
-      }
-      else {
-        guessReactant = Substance.withQuantity( reactants[i], 0 );
-      }
-      guessReactants.push( guessReactant );
-    }
-    return guessReactants;
-  };
-
-  /**
-   * Creates products for the user's guess.
-   * Clones the products in the same order that they appear in the challenge.
-   * Quantities are initialized to zero for 'After' challenges.
-   * @param {[Substance]} products the challenge's products
-   * @param {BoxType} interactiveBox which box is interactive
-   * @returns {[Substance]}
-   */
-  var createGuessProducts = function( products, interactiveBox ) {
-    var guessProducts = [];
-    var guessProduct;
-    for ( var i = 0; i < products.length; i++ ) {
-      if ( interactiveBox === BoxType.BEFORE || RPALQueryParameters.PLAY_ALL ) {
-        guessProduct = Substance.clone( products[i] );
-      }
-      else {
-        guessProduct = Substance.withQuantity( products[i], 0 );
-      }
-      guessProducts.push( guessProduct );
-    }
-    return guessProducts;
-  };
-
-  /**
-   * Creates leftovers for the user's guess.
-   * Clones the leftovers in the same order that they appear in the challenge.
-   * Quantities are initialized to zero for 'After' challenges.
-   * @param {[Substance]} leftovers the challenge's leftovers
-   * @param {BoxType} interactiveBox which box is interactive
-   * @returns {[Substance]}
-   */
-  var createGuessLeftovers = function( leftovers, interactiveBox ) {
-    var guessLeftovers = [];
-    var guessLeftover;
-    for ( var i = 0; i < leftovers.length; i++ ) {
-      if ( interactiveBox === BoxType.BEFORE || RPALQueryParameters.PLAY_ALL ) {
-        guessLeftover = Substance.clone( leftovers[i] );
-      }
-      else {
-        guessLeftover = Substance.withQuantity( leftovers[i], 0 );
-      }
-      guessLeftovers.push( guessLeftover );
-    }
-    return guessLeftovers;
-  };
 
   return inherit( Object, GameGuess, {
 
