@@ -73,7 +73,7 @@ define( function( require ) {
       };
 
       ingredients.forEach( function( ingredient ) {
-        ingredient.coefficientProperty.link( thisRecipe.update.bind( thisRecipe ) );
+        ingredient.coefficientProperty.link( thisRecipe.updateQuantities.bind( thisRecipe ) );
         ingredient.coefficientProperty.link( updateSandwichNode );
       } );
     }

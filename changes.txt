@@ -1,3 +1,4 @@
+11/25/14 rename Reaction.update to updateQuantities, to be more descriptive
 # 1.0.0-dev.13 11/25/14
 11/25/14 #12 add mission default for options.titleNode in StacksAccordionBox
 11/25/14 #11 fix: show molecule symbols below boxes in 'Molecules' and 'Games' screens (steal some vertical space to make this work in Game)

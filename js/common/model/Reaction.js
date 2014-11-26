@@ -42,7 +42,7 @@ define( function( require ) {
     } );
 
     thisReaction.reactants.forEach( function( reactant ) {
-      reactant.quantityProperty.link( thisReaction.update.bind( thisReaction ) );
+      reactant.quantityProperty.link( thisReaction.updateQuantities.bind( thisReaction ) );
     } );
   }
 
@@ -72,7 +72,7 @@ define( function( require ) {
      * Updates the quantities of products and leftovers.
      * @protected
      */
-    update: function() {
+    updateQuantities: function() {
       var numberOfReactions = this.getNumberOfReactions();
       this.products.forEach( function( product ) {
         product.quantity = numberOfReactions * product.coefficient;
