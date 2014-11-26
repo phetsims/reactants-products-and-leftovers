@@ -17,6 +17,7 @@ define( function( require ) {
 
   /**
    * @param {Property.<Challenge>} challengeProperty
+   * @param {Object} [options]
    * @constructor
    */
   function DevAnswerNode( challengeProperty, options ) {
