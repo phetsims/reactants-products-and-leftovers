@@ -97,7 +97,7 @@ define( function( require ) {
      * @param {number} level game level, starting at zero
      * @param {number} maxQuantity maximum quantity of any substance in the reaction
      * @param {Object} [challengeOptions] options passed to Challenge constructor
-     * @returns {Challenge[]}
+     * @returns {[Challenge]}
      */
     createChallenges: function( level, maxQuantity, challengeOptions ) {
       challengeOptions = challengeOptions || {};

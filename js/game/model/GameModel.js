@@ -57,8 +57,8 @@ define( function( require ) {
     // These fields are read-only, they change as game-play progresses.
     thisModel.challenges = []; // {[Challenge]} the set of challenges for the current game being played
     thisModel.points = 0; // {number} points awarded for the current challenge, read-only
-    thisModel.bestScoreProperties = []; // [Property.<number>] best scores for each level
-    thisModel.bestTimeProperties = []; // [Property.<number>] best times for each level, in ms
+    thisModel.bestScoreProperties = []; // {[Property.<number>]} best scores for each level
+    thisModel.bestTimeProperties = []; // {[Property.<number>]} best times for each level, in ms
     thisModel.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
     for ( var level = 0; level < thisModel.numberOfLevels; level++ ) {
       thisModel.bestScoreProperties.push( new Property( 0 ) );

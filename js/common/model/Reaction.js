@@ -15,8 +15,8 @@ define( function( require ) {
   var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
   /**
-   * @param {Substance[]} reactants
-   * @param {Substance[]} products
+   * @param {[Substance]} reactants
+   * @param {[Substance]} products
    * @param {Object} [options]
    * @constructor
    */
