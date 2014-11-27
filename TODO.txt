@@ -6,9 +6,5 @@ HIGH
 - #8 remove 'coefficients' query parameter, decide whether to use spinners or pickers
 - #9 location of 'Reset All' button
 
-MIGRATE TO COMMON
-- NumberNode
-- BeforeProperty (or add an option to Property?)
-
 MISC
 - watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524 (correct answer treated as wrong)
