@@ -24,7 +24,7 @@ define( function( require ) {
   var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
   // constants
-  // used when the product is undefined, any invisible node with well-defined bounds
+  // used when the product is undefined, this can be any non-visible node with well-defined bounds
   var NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
 
   /**
