@@ -61,7 +61,7 @@ define( function( require ) {
   var makeWaterString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/makeWater' );
 
   // constants
-  var MOLECULE_OPTIONS = RPALConstants.MOLECULE_OPTIONS;
+  var MOLECULE_OPTIONS = RPALConstants.MOLECULE_OPTIONS; // to improve readability
 
   var ReactionFactory = {
 
