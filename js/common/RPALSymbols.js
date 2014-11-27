@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var ChemUtils = require( 'NITROGLYCERIN/ChemUtils' );
 
-  // Plain-text versions of the symbols
+  // Plain-text versions of the symbols (i18n not required)
   var SYMBOLS = [
     'C', 'C2H2', 'C2H4', 'C2H5Cl', 'C2H5OH', 'C2H6', 'CH2O', 'CH3OH', 'CH4', 'Cl2', 'CO', 'CO2', 'CS2',
     'F2', 'H2', 'H2O', 'H2S', 'HCl', 'HF', 'N2', 'N2O', 'NH3', 'NO', 'NO2', 'O2', 'OF2',
