@@ -106,7 +106,7 @@ define( function( require ) {
     } );
 
     options.children = [
-      // title and level-selection buttons, centered
+      // title and level-selection buttons, centered in space above visibility radio buttons
       new LayoutBox( {
         children: [ title, buttonsParent ],
         orientation: 'vertical',
