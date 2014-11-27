@@ -65,6 +65,7 @@ define( function( require ) {
 
   return inherit( ScreenView, GameView, {
 
+    // @param {number} elapsedTime time between step calls, in seconds
     step: function( elapsedTime ) {
       if ( this.resultsNode && this.resultsNode.visible ) {
         this.resultsNode.step( elapsedTime );
