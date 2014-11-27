@@ -1,3 +1,4 @@
+11/26/14 misc cleanup in GameModel
 11/26/14 eliminate the need for BeforeProperty by making GameModel solely responsible for setting GamePhase
 11/26/14 decided not to migrate anything to common code, defer until something herein is needed by another sim
 11/26/14 misc documentation tweaks
