@@ -46,7 +46,7 @@ define( function( require ) {
       model.timerEnabledProperty,
       // callback for the 'New Game' button
       function() {
-        model.gamePhaseProperty.set( GamePhase.SETTINGS );
+        model.settings();
       },
       // ScoreboardBar options
       {

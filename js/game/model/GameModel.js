@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BeforeProperty = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/BeforeProperty' );
   var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var GameTimer = require( 'VEGAS/GameTimer' );
@@ -42,11 +41,12 @@ define( function( require ) {
       timerEnabled: false, // {boolean} is the timer turned on?
       moleculesVisible: true, // {boolean} are molecules shown in the challenge?
       numbersVisible: true, // {boolean} are quantities shown in the challenge?
-      level: 0, // {number} the current level, starts at 0 in the model, presented as starting from 1 in the view
+      level: 0, // {number} read-only, the current level, starts at 0 in the model, presented as starting from 1 in the view
       challenge: null, // {Challenge} read-only, the current challenge being played
       numberOfChallenges: 0, // {number} read-only, the number of challenges in the current game being played
       score: 0, // {number} read-only, how many points the user has earned for the current game
       challengeIndex: -1, // {number} read-only, the index of the current challenge, -1 indicates no challenge
+      gamePhase: GamePhase.SETTINGS, // {GamePhase} read-only, the current 'phase' of the game
       playState: PlayState.NONE  // {PlayState} read-only, the current 'play state' of the game
     } );
 
@@ -67,41 +67,12 @@ define( function( require ) {
 
     thisModel.timer = new GameTimer();
 
-    // the phase that the game is in, see GamePhase
-    thisModel.gamePhaseProperty = new BeforeProperty( GamePhase.SETTINGS,
-      /*
-       * This function will be called prior to setting the gamePhaseProperty value.
-       * Updates fields so that they are accurate before property observers are notified.
-       */
-      function( gamePhase ) {
-        if ( gamePhase === GamePhase.SETTINGS ) {
-          thisModel.playState = PlayState.NONE;
-          thisModel.timer.stop();
-        }
-        else if ( gamePhase === GamePhase.PLAY ) {
-          thisModel.initChallenges();
-          thisModel.playState = PlayState.FIRST_CHECK;
-          thisModel.score = 0;
-          thisModel.points = 0;
-          thisModel.timer.start();
-        }
-        else if ( gamePhase === GamePhase.RESULTS ) {
-          thisModel.playState = PlayState.NONE;
-          thisModel.timer.stop();
-          thisModel.updateBestScore();
-          thisModel.updateBestTime();
-        }
-        else {
-          throw new Error( 'unsupported game phase: ' + gamePhase );
-        }
-      } );
-
     // End the game or advance to the next challenge
     thisModel.playStateProperty.lazyLink( function( playState ) {
       if ( playState === PlayState.FIRST_CHECK ) {
         if ( thisModel.challengeIndex === thisModel.challenges.length - 1 ) {
-          // game has been completed
-          thisModel.gamePhaseProperty.set( GamePhase.RESULTS );
+          // game has been completed, advance to GamePhase.RESULTS
+          thisModel.results();
         }
         else {
           // advance to next challenge
@@ -121,6 +92,34 @@ define( function( require ) {
       this.bestScoreProperties.forEach( function( property ) { property.set( 0 ); } );
       this.bestTimeProperties.forEach( function( property ) { property.set( null ); } );
       this.gamePhaseProperty.reset();
+    },
+
+    // @private Advances to GamePhase.SETTINGS, shows the user-interface for selecting game settings
+    settings: function() {
+      this.timer.stop();
+      this.playState = PlayState.NONE;
+      this.gamePhase = GamePhase.SETTINGS; // do this last, so that other stuff is set up before observers are notified
+    },
+
+    // @private Advances to GamePhase.PLAY, plays a game for the specified {number} level
+    play: function( level ) {
+      this.level = level;
+      this.score = 0;
+      this.points = 0;
+      this.initChallenges();
+      this.timer.start();
+      this.playState = PlayState.FIRST_CHECK;
+      this.gamePhase = GamePhase.PLAY; // do this last, so that other stuff is set up before observers are notified
+    },
+
+    // @private Advances to GamePhase.RESULTS, ends the current game and display results
+    results: function() {
+      assert && assert( this.gamePhase === GamePhase.PLAY );
+      this.timer.stop();
+      this.updateBestScore();
+      this.updateBestTime();
+      this.playState = PlayState.NONE;
+      this.gamePhase = GamePhase.RESULTS; // do this last, so that other stuff is set up before observers are notified
     },
 
     // Checks the current guess

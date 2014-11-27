@@ -157,8 +157,7 @@ define( function( require ) {
       content,
       model.getNumberOfChallenges( level ),
       function() {
-        model.level = level;
-        model.gamePhaseProperty.set( GamePhase.PLAY );
+        model.play( level );
       },
       model.bestScoreProperties[ level ],
       model.getPerfectScore( level ),

@@ -59,7 +59,7 @@ define( function( require ) {
           model.bestTimeProperties[ model.level ].get(),
           model.isNewBestTime,
           function() {
-            model.gamePhaseProperty.set( GamePhase.SETTINGS );
+            model.settings();
           }, {
             starDiameter: 45,
             buttonFill: RPALConstants.GAME_BUTTON_COLOR,
