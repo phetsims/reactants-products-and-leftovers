@@ -40,7 +40,7 @@ define( function( require ) {
       { screenWidth: thisView.layoutBounds.width } );
     thisView.addChild( reactionBarNode );
 
-    // play area top/bottom varies depending on where reaction bar is located
+    // play area top/bottom varies depending on where the reaction equation is located
     var playAreaTop = null;
     var playAreaBottom;
     if ( RPALQueryParameters.EQUATION === 'bottom' ) {

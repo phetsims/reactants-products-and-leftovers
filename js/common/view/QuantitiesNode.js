@@ -57,8 +57,8 @@ define( function( require ) {
 
     options = _.extend( {
       interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
-      boxWidth: 100,
-      afterBoxXOffset: 200,
+      boxWidth: 100, // {number} width of the Before and After boxes
+      afterBoxXOffset: 200, // {number} x-offset of left of After box, relative to left of Before box
       quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of spinners
       hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
       minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons

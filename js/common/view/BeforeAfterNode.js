@@ -31,7 +31,7 @@ define( function( require ) {
   var beforeReactionString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/beforeReaction' );
 
   // constants
-  var TITLE_OPTIONS = { font: new RPALFont( 14 ), fill: 'white' }; // AccordionBox titles
+  var TITLE_OPTIONS = { font: new RPALFont( 14 ), fill: 'white' }; // box titles
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
