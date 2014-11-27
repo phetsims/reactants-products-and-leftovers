@@ -80,11 +80,19 @@ define( function( require ) {
       center: layoutBounds.center
     } );
 
-    // Timer and Sound controls
+    // Timer and Sound toggle buttons, at bottom left
     var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, TOGGLE_BUTTON_OPTIONS );
     var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, TOGGLE_BUTTON_OPTIONS );
+    var toggleButtons = new LayoutBox( {
+      children: [ timerToggleButton, soundToggleButton ],
+      orientation: 'vertical',
+      align: 'center',
+      spacing: 15,
+      left: layoutBounds.left + SCREEN_X_MARGIN,
+      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
+    } );
 
-    // Visibility radio buttons, bottom center
+    // Visibility radio buttons, at bottom center
     var visibilityRadioButtons = new VisibilityRadioButtons( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
@@ -108,15 +116,7 @@ define( function( require ) {
         centerX: layoutBounds.centerX,
         centerY: ( visibilityRadioButtons.top - layoutBounds.top ) / 2
       } ),
-      // timer and sound buttons at leftBottom
-      new LayoutBox( {
-        children: [ timerToggleButton, soundToggleButton ],
-        orientation: 'vertical',
-        align: 'center',
-        spacing: 15,
-        left: layoutBounds.left + SCREEN_X_MARGIN,
-        bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
-      } ),
+      toggleButtons,
       visibilityRadioButtons,
       resetAllButton
     ];
