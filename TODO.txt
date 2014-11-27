@@ -1,7 +1,6 @@
 TODO list for reactants-products-and-leftovers
 
 HIGH
-- #5 code review
 - #6 screenshot
 - #7 remove 'equation' query parameter, decide on optimal placement of equation
 - #8 remove 'coefficients' query parameter, decide whether to use spinners or pickers
