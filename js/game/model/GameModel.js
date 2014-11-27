@@ -185,31 +185,6 @@ define( function( require ) {
       return this.score === this.getPerfectScore( this.level );
     },
 
-    /**
-     * DEBUG
-     * Skips the current challenge.
-     * Score and best times are meaningless after using this.
-     * This is a developer feature.
-     */
-    skipCurrentChallenge: function() {
-      this.playState = PlayState.NEXT; // force a state change, in case we're in PlayState.FIRST_CHECK
-      this.playState = PlayState.FIRST_CHECK;
-    },
-
-    /**
-     * DEBUG
-     * Replays the current challenge.
-     * Score and best times are meaningless after using this.
-     * This is a developer feature.
-     */
-    replayCurrentChallenge: function() {
-      this.challenge.reset();
-      if ( this.playState !== PlayState.FIRST_CHECK ) {
-        this.challengeIndex = this.challengeIndex - 1;
-        this.playState = PlayState.FIRST_CHECK;
-      }
-    },
-
     // @private Updates the best score for the current level.
     updateBestScore: function() {
       if ( this.score > this.bestScoreProperties[ this.level ].get() ) {
@@ -244,6 +219,31 @@ define( function( require ) {
         numbersVisible: this.numbersVisible
       } );
       this.numberOfChallenges = this.challenges.length;
+    },
+
+    /**
+     * DEBUG
+     * Skips the current challenge.
+     * Score and best times are meaningless after using this.
+     * This is a developer feature.
+     */
+    skipCurrentChallenge: function() {
+      this.playState = PlayState.NEXT; // force a state change, in case we're in PlayState.FIRST_CHECK
+      this.playState = PlayState.FIRST_CHECK;
+    },
+
+    /**
+     * DEBUG
+     * Replays the current challenge.
+     * Score and best times are meaningless after using this.
+     * This is a developer feature.
+     */
+    replayCurrentChallenge: function() {
+      this.challenge.reset();
+      if ( this.playState !== PlayState.FIRST_CHECK ) {
+        this.challengeIndex = this.challengeIndex - 1;
+        this.playState = PlayState.FIRST_CHECK;
+      }
     }
   } );
 } );
