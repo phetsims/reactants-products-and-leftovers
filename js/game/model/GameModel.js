@@ -102,6 +102,7 @@ define( function( require ) {
 
     // @private Advances to GamePhase.PLAY, plays a game for the specified {number} level
     play: function( level ) {
+      assert && assert( this.gamePhase === GamePhase.SETTINGS );
       this.level = level;
       this.score = 0;
       this.points = 0;
