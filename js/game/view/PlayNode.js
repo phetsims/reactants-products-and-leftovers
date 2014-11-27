@@ -58,10 +58,10 @@ define( function( require ) {
       } );
     thisNode.addChild( scoreboardNode );
 
-    // challenge can use the area below the scoreboard
+    // challenge will be displayed in the area below the scoreboard
     var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
-    // update the challenge view
+    // display the current challenge
     var challengeNode = null;
     model.challengeProperty.link( function( challenge ) {
 
