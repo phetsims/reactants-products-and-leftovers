@@ -8,7 +8,6 @@ HIGH
 
 MIGRATE TO COMMON
 - HBracketNode
-- NumberSpinner
 - NumberNode
 - BeforeProperty (or add an option to Property?)
 
