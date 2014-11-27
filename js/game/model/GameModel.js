@@ -192,14 +192,8 @@ define( function( require ) {
      * This is a developer feature.
      */
     skipCurrentChallenge: function() {
-      if ( this.challengeIndex === this.challenges.length - 1 ) {
-        // if we're on the last challenge, then game over
-        this.gamePhaseProperty.set( GamePhase.RESULTS );
-      }
-      else {
-        this.playState = PlayState.NEXT; // force a state change, in case we're in PlayState.FIRST_CHECK
-        this.playState = PlayState.FIRST_CHECK;
-      }
+      this.playState = PlayState.NEXT; // force a state change, in case we're in PlayState.FIRST_CHECK
+      this.playState = PlayState.FIRST_CHECK;
     },
 
     /**
