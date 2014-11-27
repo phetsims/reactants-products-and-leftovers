@@ -12,6 +12,8 @@
  * <p>
  * A guess is correct if the reaction and guess have the same quantities of reactants,
  * products and leftovers.
+ * <p>
+ * Run with the 'playAll' query parameter to fill in the correct answer.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
