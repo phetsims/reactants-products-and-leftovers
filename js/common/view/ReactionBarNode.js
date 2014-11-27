@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Horizontal bar that contains a control for selecting a reaction, and displays the reaction's equation.
+ * Horizontal bar that contains radio buttons for selecting a reaction, and displays the selected reaction's equation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
