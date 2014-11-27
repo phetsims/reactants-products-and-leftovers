@@ -1,3 +1,5 @@
+11/26/14 misc documentation tweaks
+11/26/14 #5 code review completed
 11/26/14 #15 use _.random in ChallengeFactory
 11/26/14 #14 make instance variables private that are not used outside of GameView constructor
 11/26/14 #13 simplify implementation of GameGuess
