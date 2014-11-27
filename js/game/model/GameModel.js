@@ -91,7 +91,6 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
       this.bestScoreProperties.forEach( function( property ) { property.set( 0 ); } );
       this.bestTimeProperties.forEach( function( property ) { property.set( null ); } );
-      this.gamePhaseProperty.reset();
     },
 
     // @private Advances to GamePhase.SETTINGS, shows the user-interface for selecting game settings
