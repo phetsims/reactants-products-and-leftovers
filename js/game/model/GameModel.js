@@ -42,9 +42,9 @@ define( function( require ) {
       moleculesVisible: true, // {boolean} are molecules shown in the challenge?
       numbersVisible: true, // {boolean} are quantities shown in the challenge?
       level: 0, // {number} read-only, the current level, starts at 0 in the model, presented as starting from 1 in the view
-      challenge: null, // {Challenge} read-only, the current challenge being played
-      numberOfChallenges: 0, // {number} read-only, the number of challenges in the current game being played
       score: 0, // {number} read-only, how many points the user has earned for the current game
+      numberOfChallenges: 0, // {number} read-only, the number of challenges in the current game being played
+      challenge: null, // {Challenge} read-only, the current challenge being played
       challengeIndex: -1, // {number} read-only, the index of the current challenge, -1 indicates no challenge
       gamePhase: GamePhase.SETTINGS, // {GamePhase} read-only, the current 'phase' of the game
       playState: PlayState.NONE  // {PlayState} read-only, the current 'play state' of the game
