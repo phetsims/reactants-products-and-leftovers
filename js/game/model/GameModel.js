@@ -112,7 +112,7 @@ define( function( require ) {
       this.gamePhase = GamePhase.PLAY; // do this last, so that other stuff is set up before observers are notified
     },
 
-    // @private Advances to GamePhase.RESULTS, ends the current game and display results
+    // @private Advances to GamePhase.RESULTS, ends the current game and displays results
     results: function() {
       assert && assert( this.gamePhase === GamePhase.PLAY );
       this.timer.stop();
