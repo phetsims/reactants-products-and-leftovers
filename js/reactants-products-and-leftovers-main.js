@@ -24,7 +24,8 @@ define( function( require ) {
     credits: {
       leadDesign: 'Yuen-ying Carpenter, Kelly Lancaster',
       softwareDevelopment: 'Chris Malley',
-      team: 'Wendy Adams, Julia Chamberlain, Patricia Loeblein, Emily B. Moore,\nRobert Parson, Ariel Paul, Kathy Perkins'
+      team: 'Wendy Adams, Julia Chamberlain, Patricia Loeblein, Emily B. Moore,\n' +
+            'Robert Parson, Ariel Paul, Kathy Perkins'
     }
   };
 
