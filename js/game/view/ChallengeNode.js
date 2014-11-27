@@ -49,9 +49,6 @@ define( function( require ) {
     // convenience variables, to improve readability
     var reaction = model.challenge.reaction;
     var guess = model.challenge.guess;
-    assert && assert( reaction.reactants.length === guess.reactants.length );
-    assert && assert( reaction.products.length === guess.products.length );
-    assert && assert( reaction.leftovers.length === guess.leftovers.length );
     var interactiveBox = model.challenge.interactiveBox;
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
