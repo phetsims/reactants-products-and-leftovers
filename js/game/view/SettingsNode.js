@@ -12,7 +12,6 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
-  var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   var HClNode = require( 'NITROGLYCERIN/nodes/HClNode' );
   var inherit = require( 'PHET_CORE/inherit' );
