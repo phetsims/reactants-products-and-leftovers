@@ -279,6 +279,7 @@ define( function( require ) {
     /**
      * Determines whether this UI component is interactive.
      * When it's interactive, spinners are visible; when not, static numbers are visible.
+     * When created, this node is interactive by default.
      * @param {boolean} interactive
      */
     setInteractive: function( interactive ) {
