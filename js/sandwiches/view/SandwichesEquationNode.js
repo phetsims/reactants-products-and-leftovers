@@ -18,14 +18,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
-  var Property = require( 'AXON/Property' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
   var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -40,9 +37,7 @@ define( function( require ) {
   var TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
   var PLUS_OPTIONS = { fill: 'white' };
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
-  var PICKER_OPTIONS = { font: new RPALFont( 28 ), color: 'yellow', xMargin: 6, cornerRadius: 3 };
   var SPINNER_OPTIONS = { font: new RPALFont( 28 ) };
-  var COEFFICIENT_RANGE_PROPERTY = new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE );
 
   /**
    * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
@@ -69,12 +64,7 @@ define( function( require ) {
 
       // coefficient
       if ( reaction.coefficientsMutable ) {
-        if ( RPALQueryParameters.COEFFICIENTS === 'spinners' ) {
-          coefficientNode = new NumberSpinner( reactant.coefficientProperty, RPALConstants.SANDWICH_COEFFICIENT_RANGE, SPINNER_OPTIONS );
-        }
-        else {
-          coefficientNode = new NumberPicker( reactant.coefficientProperty, COEFFICIENT_RANGE_PROPERTY, PICKER_OPTIONS );
-        }
+        coefficientNode = new NumberSpinner( reactant.coefficientProperty, RPALConstants.SANDWICH_COEFFICIENT_RANGE, SPINNER_OPTIONS );
         this.coefficientNodes.push( coefficientNode );
       }
       else {
