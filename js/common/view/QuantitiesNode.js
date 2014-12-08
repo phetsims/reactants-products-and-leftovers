@@ -68,7 +68,9 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    this.numberOfReactants = reactants.length; // @private
+    this.reactants = reactants; // @private
+    this.products = products; // @private
+    this.leftovers = leftovers; // @private
     this.interactiveBox = options.interactiveBox; // @private
 
     // explicitly hoist reused vars
@@ -76,117 +78,112 @@ define( function( require ) {
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     thisNode.spinnerNodes = []; // @private {[NumberSpinner]} see dispose
-    thisNode.numberNodes = []; // @private {[NumberNode]} see dispose
+    thisNode.beforeNumberNodes = []; // @private {[NumberNode]} see dispose
+    thisNode.afterNumberNodes = []; // @private {[NumberNode]} see dispose
     thisNode.iconNodes = []; // @private {[SubstanceIcon]} see dispose
     var symbolNodes = [];
 
     // reactants, below the 'Before' box
-    var reactantsParent = new Node();
-    thisNode.addChild( reactantsParent );
+    this.reactantsParent = new Node(); // @private
+    thisNode.addChild( this.reactantsParent );
     for ( i = 0; i < reactants.length; i++ ) {
 
       reactant = reactants[i];
       centerX = beforeXOffsets[i];
 
-      // noneditable number
-      numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      if ( this.interactiveBox === BoxType.AFTER ) {
-        reactantsParent.addChild( numberNode ); // defer adding unless there will be no spinner
-      }
-      thisNode.numberNodes.push( numberNode );
-
-      // spinner
       if ( this.interactiveBox === BoxType.BEFORE ) {
-        numberNode.visible = false;
+        // spinner
         spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
-        reactantsParent.addChild( spinnerNode );
+        this.reactantsParent.addChild( spinnerNode );
         thisNode.spinnerNodes.push( spinnerNode );
+      }
+      else {
+        // static number
+        numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+        this.reactantsParent.addChild( numberNode );
+        thisNode.beforeNumberNodes.push( numberNode );
       }
 
       // substance icon
       iconNode = new SubstanceIcon( reactant.iconProperty, { centerX: centerX } );
-      reactantsParent.addChild( iconNode );
+      this.reactantsParent.addChild( iconNode );
       thisNode.iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
         symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        reactantsParent.addChild( symbolNode );
+        this.reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
     }
 
     // products, below the 'After' box
-    var productsParent = new Node();
-    thisNode.addChild( productsParent );
+    this.productsParent = new Node(); // @private
+    thisNode.addChild( this.productsParent );
     for ( i = 0; i < products.length; i++ ) {
 
       product = products[i];
       centerX = options.afterBoxXOffset + afterXOffsets[i];
 
-      // noneditable number
-      numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      if ( this.interactiveBox === BoxType.BEFORE ) {
-        productsParent.addChild( numberNode ); // defer adding unless there will be no spinner
-      }
-      thisNode.numberNodes.push( numberNode );
-
-      // spinner
       if ( this.interactiveBox === BoxType.AFTER ) {
-        numberNode.visible = false;
+        // spinner
         spinnerNode = new NumberSpinner( product.quantityProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
-        productsParent.addChild( spinnerNode );
+        this.productsParent.addChild( spinnerNode );
         thisNode.spinnerNodes.push( spinnerNode );
+      }
+      else {
+        // static number
+        numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+        this.productsParent.addChild( numberNode );
+        thisNode.afterNumberNodes.push( numberNode );
       }
 
       // substance icon
       iconNode = new SubstanceIcon( product.iconProperty, { centerX: centerX } );
-      productsParent.addChild( iconNode );
+      this.productsParent.addChild( iconNode );
       thisNode.iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
         symbolNode = new SubSupText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        productsParent.addChild( symbolNode );
+        this.productsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
     }
 
     // leftovers, below the 'After' box, to the right of the products
-    var leftoversParent = new Node();
-    thisNode.addChild( leftoversParent );
+    this.leftoversParent = new Node(); // @private
+    thisNode.addChild( this.leftoversParent );
     for ( i = 0; i < leftovers.length; i++ ) {
 
       leftover = leftovers[i];
       centerX = options.afterBoxXOffset + afterXOffsets[ i + products.length ]; // leftovers follow products in afterXOffsets
 
-      // noneditable number
-      numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      if ( this.interactiveBox === BoxType.BEFORE ) {
-        leftoversParent.addChild( numberNode ); // defer adding unless there will be no spinner
-      }
-      thisNode.numberNodes.push( numberNode );
-
-      // spinner
       if ( this.interactiveBox === BoxType.AFTER ) {
-        numberNode.visible = false;
+        // spinner
         spinnerNode = new NumberSpinner( leftover.quantityProperty, options.quantityRange,
           { font: QUANTITY_FONT, centerX: centerX } );
-        leftoversParent.addChild( spinnerNode );
+        this.leftoversParent.addChild( spinnerNode );
         thisNode.spinnerNodes.push( spinnerNode );
+      }
+      else {
+        // static number
+        numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+        this.leftoversParent.addChild( numberNode );
+        thisNode.afterNumberNodes.push( numberNode );
       }
 
       // substance icon
       iconNode = new SubstanceIcon( leftover.iconProperty, { centerX: centerX } );
-      leftoversParent.addChild( iconNode );
+      this.leftoversParent.addChild( iconNode );
       thisNode.iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
         symbolNode = new SubSupText( leftover.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        leftoversParent.addChild( symbolNode );
+        this.leftoversParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
     }
@@ -204,7 +201,10 @@ define( function( require ) {
     thisNode.spinnerNodes.forEach( function( spinnerNode ) {
       spinnerNode.centerY = ( spinnerHeight / 2 );
     } );
-    thisNode.numberNodes.forEach( function( numberNode ) {
+    thisNode.beforeNumberNodes.forEach( function( numberNode ) {
+      numberNode.centerY = ( spinnerHeight / 2 );
+    } );
+    thisNode.afterNumberNodes.forEach( function( numberNode ) {
       numberNode.centerY = ( spinnerHeight / 2 );
     } );
     thisNode.iconNodes.forEach( function( iconNode ) {
@@ -228,8 +228,8 @@ define( function( require ) {
     var reactantsBracket = new HBracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
-      bracketWidth: Math.max( options.minIconSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
-      centerX: reactantsParent.centerX,
+      bracketWidth: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: this.reactantsParent.centerX,
       top: bracketsTop
     } );
     thisNode.addChild( reactantsBracket );
@@ -240,8 +240,8 @@ define( function( require ) {
     var productsBracket = new HBracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
-      bracketWidth: Math.max( options.minIconSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
-      centerX: productsParent.centerX,
+      bracketWidth: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: this.productsParent.centerX,
       top: bracketsTop
     } );
     thisNode.addChild( productsBracket );
@@ -252,8 +252,8 @@ define( function( require ) {
     var leftoversBracket = new HBracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,
-      bracketWidth: Math.max( options.minIconSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
-      centerX: leftoversParent.centerX,
+      bracketWidth: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: this.leftoversParent.centerX,
       top: bracketsTop
     } );
     thisNode.addChild( leftoversBracket );
@@ -277,9 +277,11 @@ define( function( require ) {
   return inherit( Node, QuantitiesNode, {
 
     /**
-     * Determines whether this UI component is interactive.
+     * Determines whether this UI component is interactive (true on creation).
      * When it's interactive, spinners are visible; when not, static numbers are visible.
-     * When created, this node is interactive by default.
+     * Static numbers are created on demand, so that we don't have unnecessary nodes for situations
+     * that are always interactive, and to improve performance on creation.
+     *
      * @param {boolean} interactive
      */
     setInteractive: function( interactive ) {
@@ -287,25 +289,54 @@ define( function( require ) {
       // spinners
       this.spinnerNodes.forEach( function( spinnerNode ) { spinnerNode.visible = interactive; } );
 
-      var i;
+      var centerY = this.spinnerNodes[0].height / 2;
+      var i, numberNode, centerX; // explicitly hoist loop vars
+
       if ( this.interactiveBox === BoxType.BEFORE ) {
-        // static numbers for reactants
-        for ( i = 0; i < this.numberOfReactants; i++ ) {
-          // add to scenegraph when needed
-          if ( !interactive && this.indexOfChild( this.numberNodes[i] ) === -1 ) {
-            this.addChild( this.numberNodes[i] );
+
+        // reactants, create static numbers on demand
+        if ( !interactive && this.beforeNumberNodes.length === 0 ) {
+          for ( i = 0; i < this.reactants.length; i++ ) {
+            centerX = this.spinnerNodes[i].centerX;
+            numberNode = new NumberNode( this.reactants[i].quantityProperty,
+              { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
+            this.reactantsParent.addChild( numberNode );
+            this.beforeNumberNodes.push( numberNode );
           }
-          this.numberNodes[i].visible = !interactive;
+        }
+
+        // visibility
+        if ( this.beforeNumberNodes.length > 0 ) {
+          this.beforeNumberNodes.forEach( function( node ) { node.visible = !interactive } );
         }
       }
       else {
-        // static numbers for products and leftovers
-        for ( i = this.numberOfReactants; i < this.numberNodes.length; i++ ) {
-          // add to scenegraph when needed
-          if ( !interactive && this.indexOfChild( this.numberNodes[i] ) === -1 ) {
-            this.addChild( this.numberNodes[i] );
+
+        // create static numbers on demand
+        if ( !interactive && this.afterNumberNodes.length === 0 ) {
+
+          // products
+          for ( i = 0; i < this.products.length; i++ ) {
+            centerX = this.spinnerNodes[i].centerX;
+            numberNode = new NumberNode( this.products[i].quantityProperty,
+              { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
+            this.productsParent.addChild( numberNode );
+            this.afterNumberNodes.push( numberNode );
           }
-          this.numberNodes[i].visible = !interactive;
+
+          // leftovers
+          for ( i = 0; i < this.products.length; i++ ) {
+            centerX = this.spinnerNodes[i + this.products.length].centerX; // leftover spinners follow product spinners
+            numberNode = new NumberNode( this.leftovers[i].quantityProperty,
+              { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
+            this.leftoversParent.addChild( numberNode );
+            this.afterNumberNodes.push( numberNode );
+          }
+        }
+
+        // visibility
+        if ( this.afterNumberNodes.length > 0 ) {
+          this.afterNumberNodes.forEach( function( node ) { node.visible = !interactive } );
         }
       }
     },
@@ -323,7 +354,8 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
-      this.numberNodes.forEach( function( node ) { node.dispose(); } );
+      this.beforeNumberNodes.forEach( function( node ) { node.dispose(); } );
+      this.afterNumberNodes.forEach( function( node ) { node.dispose(); } );
       this.iconNodes.forEach( function( node ) { node.dispose(); } );
     }
   }, {
