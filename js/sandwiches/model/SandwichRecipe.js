@@ -56,7 +56,8 @@ define( function( require ) {
     if ( cheeseCount > 0 || options.coefficientsMutable ) { ingredients.push( cheese ); }
 
     // sandwich image will be updated below
-    thisRecipe.sandwich = new Substance( 1, 'sandwich', NO_SANDWICH_NODE );
+    thisRecipe.sandwich = new Substance( 1, 'sandwich',
+      options.coefficientsMutable ? NO_SANDWICH_NODE: new SandwichNode( breadCount, meatCount, cheeseCount ) );
 
     Reaction.call( thisRecipe, ingredients, [ thisRecipe.sandwich ], { name: name } );
 
@@ -79,7 +80,6 @@ define( function( require ) {
     }
     else {
       assert && assert( thisRecipe.isReaction() );
-      thisRecipe.sandwich.icon = new SandwichNode( breadCount, meatCount, cheeseCount );
     }
   }
 
