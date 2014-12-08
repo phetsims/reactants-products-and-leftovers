@@ -1,3 +1,4 @@
+# 1.0.0-dev.14 12/8/14
 12/8/14 #21 set proper initial icon for sandwich in 'Cheese' and 'Meat & Cheese' equations, so that 'Rest All' works properly
 12/8/14 #17 create NumberNodes on demand, so that they aren't created for first 2 screens, and to improve performance of "next challenge" (<1% gain)
 12/8/14 #17 defer adding NumberNodes to scenegraph until they are needed, to improve performance of "next challenge" (<2% gain)
