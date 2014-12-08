@@ -90,7 +90,9 @@ define( function( require ) {
 
       // noneditable number
       numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      reactantsParent.addChild( numberNode );
+      if ( this.interactiveBox === BoxType.AFTER ) {
+        reactantsParent.addChild( numberNode ); // defer adding unless there will be no spinner
+      }
       thisNode.numberNodes.push( numberNode );
 
       // spinner
@@ -125,7 +127,9 @@ define( function( require ) {
 
       // noneditable number
       numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      productsParent.addChild( numberNode );
+      if ( this.interactiveBox === BoxType.BEFORE ) {
+        productsParent.addChild( numberNode ); // defer adding unless there will be no spinner
+      }
       thisNode.numberNodes.push( numberNode );
 
       // spinner
@@ -160,7 +164,9 @@ define( function( require ) {
 
       // noneditable number
       numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-      leftoversParent.addChild( numberNode );
+      if ( this.interactiveBox === BoxType.BEFORE ) {
+        leftoversParent.addChild( numberNode ); // defer adding unless there will be no spinner
+      }
       thisNode.numberNodes.push( numberNode );
 
       // spinner
@@ -284,12 +290,20 @@ define( function( require ) {
       if ( this.interactiveBox === BoxType.BEFORE ) {
         // static numbers for reactants
         for ( i = 0; i < this.numberOfReactants; i++ ) {
+          // add to scenegraph when needed
+          if ( !interactive && this.indexOfChild( this.numberNodes[i] ) === -1 ) {
+            this.addChild( this.numberNodes[i] );
+          }
           this.numberNodes[i].visible = !interactive;
         }
       }
       else {
         // static numbers for products and leftovers
         for ( i = this.numberOfReactants; i < this.numberNodes.length; i++ ) {
+          // add to scenegraph when needed
+          if ( !interactive && this.indexOfChild( this.numberNodes[i] ) === -1 ) {
+            this.addChild( this.numberNodes[i] );
+          }
           this.numberNodes[i].visible = !interactive;
         }
       }

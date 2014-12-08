@@ -1,3 +1,4 @@
+12/8/14 #17 defer adding NumberNodes to scenegraph until they are needed, to improve performance of "next challenge" (<2% gain)
 12/8/14 #17 create face on demand, to improve performance of "next challenge" (<5% gain)
 12/8/14 #17 create game buttons on demand, to improve performance of "next challenge" (20% gain)
 12/8/14 move color for game buttons to RPALColors.GAME_BUTTON
