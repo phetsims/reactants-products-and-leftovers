@@ -139,17 +139,7 @@ define( function( require ) {
     // Face
     //------------------------------------------------------------------------------------
 
-    var faceNode = new FaceWithPointsNode( {
-      faceDiameter: 150,
-      faceOpacity: 0.65,
-      pointsAlignment: 'rightCenter',
-      pointsFill: 'yellow',
-      pointsStroke: 'rgb(50,50,50)',
-      pointsOpacity: 0.65
-    } );
-    thisNode.addChild( faceNode );
-    faceNode.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
-    // centerY is handled below
+    var faceNode = null; // created on demand
 
     //------------------------------------------------------------------------------------
     // Question mark
@@ -174,13 +164,10 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // @private
-    this.buttons = new GameButtons( model, thisNode.checkButtonEnabledProperty );
-    thisNode.addChild( this.buttons );
-    this.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
-    this.buttons.bottom = thisNode.beforeBox.bottom - 15;
-
-    // center face and '?' in negative space above buttons
-    faceNode.centerY = questionMark.centerY = thisNode.beforeBox.top + ( this.buttons.top - thisNode.beforeBox.top ) / 2;
+    thisNode.buttons = new GameButtons( model, thisNode.checkButtonEnabledProperty );
+    thisNode.addChild( thisNode.buttons );
+    thisNode.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
+    thisNode.buttons.bottom = thisNode.beforeBox.bottom - 15;
 
     //------------------------------------------------------------------------------------
     // Everything below the boxes
@@ -226,28 +213,42 @@ define( function( require ) {
     // handle PlayState changes
     model.playStateProperty.link( function( playState ) {
 
-      // face and score
-      if ( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK ) {
-        faceNode.visible = false;
-      }
-      else if ( playState === PlayState.TRY_AGAIN || playState === PlayState.SHOW_ANSWER ) {
+      // face
+      var faceVisible = false;
+      var facePoints = 0;
+      if ( playState === PlayState.TRY_AGAIN || playState === PlayState.SHOW_ANSWER ) {
         audioPlayer.wrongAnswer();
-        faceNode.frown();
-        faceNode.setPoints( 0 );
-        faceNode.visible = true;
+        facePoints = 0;
+        faceVisible = true;
       }
       else if ( playState === PlayState.NEXT ) {
-         // Check points instead of correctness of challenge, because correct answer has been filled in at this state.
-        faceNode.setPoints( model.points );
+         // Check facePoints instead of correctness of challenge, because correct answer has been filled in by now.
+        facePoints = model.points;
         if ( model.points > 0 ) {
           audioPlayer.correctAnswer();
-          faceNode.smile();
-          faceNode.visible = true;
+          faceVisible = true;
         }
-        else {
-          faceNode.frown();
-          faceNode.visible = false;
-        }
+      }
+
+      // create face on demand
+      if ( !faceNode && faceVisible ) {
+        faceNode = new FaceWithPointsNode( {
+          faceDiameter: 150,
+          faceOpacity: 0.65,
+          pointsAlignment: 'rightCenter',
+          pointsFill: 'yellow',
+          pointsStroke: 'rgb(50,50,50)',
+          pointsOpacity: 0.65
+        } );
+        thisNode.addChild( faceNode );
+        // put it in the correct box
+        faceNode.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
+        faceNode.centerY = questionMark.centerY = thisNode.beforeBox.top + ( thisNode.buttons.top - thisNode.beforeBox.top ) / 2;
+      }
+      if ( faceNode ) {
+        faceNode.setPoints( facePoints );
+        ( facePoints === 0 ) ? faceNode.frown() : faceNode.smile();
+        faceNode.visible = faceVisible;
       }
 
       // 'hide' boxes
