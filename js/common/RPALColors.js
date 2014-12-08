@@ -18,7 +18,8 @@ define( function( require ) {
     SCREEN_BACKGROUND: 'rgb(218,236,255)',
     PANEL_FILL: DARK_BLUE,
     BOX_STROKE: DARK_BLUE.withAlpha( 0.3 ),
-    BOX_FILL: 'white'
+    BOX_FILL: 'white',
+    GAME_BUTTON: 'yellow'
   };
 
   return RPALColors;

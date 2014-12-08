@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
+  var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
@@ -25,7 +26,7 @@ define( function( require ) {
   // constants
   var BUTTON_OPTIONS = {
     font: new RPALFont( { size: 20, weight: 'bold' } ),
-    baseColor: 'yellow',
+    baseColor: RPALColors.GAME_BUTTON,
     opacity: 0.75,
     xMargin: 20,
     yMargin: 5,

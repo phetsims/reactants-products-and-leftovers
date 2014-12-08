@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
+  var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var RPALRewardNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/RPALRewardNode' );
 
@@ -62,7 +62,7 @@ define( function( require ) {
             model.settings();
           }, {
             starDiameter: 45,
-            buttonFill: RPALConstants.GAME_BUTTON_COLOR,
+            buttonFill: RPALColors.GAME_BUTTON,
             centerX: layoutBounds.centerX,
             centerY: layoutBounds.centerY
           } ) );
