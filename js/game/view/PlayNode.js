@@ -64,8 +64,6 @@ define( function( require ) {
     var challengeNode = null;
     model.challengeProperty.link( function( challenge ) {
 
-      var t = new Date().getTime();
-
       // clean up previous challenge
       if ( challengeNode ) {
         thisNode.removeChild( challengeNode );
@@ -78,8 +76,6 @@ define( function( require ) {
         challengeNode = new ChallengeNode( model, challengeBounds, audioPlayer );
         thisNode.addChild( challengeNode );
       }
-
-      console.log( 'load time = ' + ( new Date().getTime() - t ) + ' ms'  );
     } );
 
     // developer mode
