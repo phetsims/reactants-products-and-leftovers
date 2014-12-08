@@ -33,7 +33,7 @@ define( function( require ) {
     options = _.extend( {
 
       // AccordionBox options
-      fill: 'white',
+      fill: RPALColors.BOX_FILL,
       stroke: RPALColors.BOX_STROKE,
       cornerRadius: 3,
       buttonTouchAreaDilatedX: 10,

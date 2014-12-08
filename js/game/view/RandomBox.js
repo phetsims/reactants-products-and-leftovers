@@ -37,7 +37,7 @@ define( function( require ) {
       boxSize: new Dimension2( 100, 100 ),
       maxQuantity: 4, // the maximum quantity of each substance in the box
       cornerRadius: 3,
-      fill: 'white',
+      fill: RPALColors.BOX_FILL,
       stroke: RPALColors.BOX_STROKE,
       margin: 5, // margin around the inside edge of the box
       /*
