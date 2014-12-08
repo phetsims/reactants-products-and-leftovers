@@ -3,6 +3,7 @@
 /**
  * Group of mutually-exclusive buttons that are used to advance a challenge through its states.
  * The buttons are 'Check', 'Try Again', 'Show Answer' and 'Next'.
+ * Buttons are created on demand to improve overall performance of creating a game challenge.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -43,47 +44,47 @@ define( function( require ) {
 
     options = options || {};
 
-    var checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
-    var tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
-    var showAnswerButton = new TextPushButton( showAnswerString, BUTTON_OPTIONS );
-    var nextButton = new TextPushButton( nextString, BUTTON_OPTIONS );
-
-    options.children = [ checkButton, tryAgainButton, showAnswerButton, nextButton ];
-
     var thisNode = this;
     Node.call( thisNode, options );
 
-    // 'Check' button
-    checkButton.addListener( function() {
-      model.check();
-    } );
-    // no need to unlink from this property in dispose, it's lifetime is the same as this node
-    checkButtonEnabledProperty.link( function( enabled ) {
-      checkButton.enabled = enabled;
-    } );
-
-    // 'Try Again' button
-    tryAgainButton.addListener( function() {
-      model.tryAgain();
-    } );
-
-    // 'Show Answer' button
-    showAnswerButton.addListener( function() {
-      model.showAnswer();
-    } );
-
-    // 'Next' button
-    nextButton.addListener( function() {
-      model.next();
-    } );
+    // buttons, created on demand
+    var checkButton, tryAgainButton, showAnswerButton, nextButton;
 
     // @private
     thisNode.playStateObserver = function( state ) {
+
+      // create buttons on demand
+      if ( !checkButton && ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK ) ) {
+        checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
+        thisNode.addChild( checkButton );
+        checkButton.addListener( function() { model.check(); } );
+        // no need to unlink from this property in dispose, it's lifetime is the same as this node
+        checkButtonEnabledProperty.link( function( enabled ) { checkButton.enabled = enabled; } );
+      }
+
+      if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
+        tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
+        thisNode.addChild( tryAgainButton );
+        tryAgainButton.addListener( function() { model.tryAgain(); } );
+      }
+
+      if ( !showAnswerButton && state === PlayState.SHOW_ANSWER ) {
+        showAnswerButton = new TextPushButton( showAnswerString, BUTTON_OPTIONS );
+        thisNode.addChild( showAnswerButton );
+        showAnswerButton.addListener( function() { model.showAnswer(); } );
+      }
+
+      if ( !nextButton && state === PlayState.NEXT ) {
+        nextButton = new TextPushButton( nextString, BUTTON_OPTIONS );
+        thisNode.addChild( nextButton );
+        nextButton.addListener( function() { model.next(); } );
+      }
+
       // make the proper button visible for the {PlayState} state
-      checkButton.visible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK );
-      tryAgainButton.visible = ( state === PlayState.TRY_AGAIN );
-      showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER );
-      nextButton.visible = ( state === PlayState.NEXT );
+      checkButton && ( checkButton.visible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK ) );
+      tryAgainButton && ( tryAgainButton.visible = ( state === PlayState.TRY_AGAIN ) );
+      showAnswerButton && ( showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER ) );
+      nextButton && ( nextButton.visible = ( state === PlayState.NEXT ) );
     };
     thisNode.playStateProperty = model.playStateProperty; // @private see dispose
     thisNode.playStateProperty.link( this.playStateObserver );

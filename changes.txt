@@ -1,3 +1,4 @@
+12/8/14 #17 create game buttons on demand, to improve performance of "next challenge"
 12/8/14 move color for game buttons to RPALColors.GAME_BUTTON
 12/8/14 #19 add RPALColors.BOX_FILL, so it's easy to change the box fill for the entire sim
 12/8/14 #8 remove 'coefficients' query parameter, use spinners for custom sandwich equation
