@@ -4,6 +4,8 @@ HIGH
 - #6 screenshot
 - #7 remove 'equation' query parameter, decide on optimal placement of equation
 - #9 location of 'Reset All' button
+- #19 not immediately obvious what action to take in the Game
+- #20 decide on value for 'randomOffset' query parameter
 
 MISC
 - watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524 (correct answer treated as wrong)
