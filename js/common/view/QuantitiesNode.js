@@ -307,7 +307,7 @@ define( function( require ) {
 
         // visibility
         if ( this.beforeNumberNodes.length > 0 ) {
-          this.beforeNumberNodes.forEach( function( node ) { node.visible = !interactive } );
+          this.beforeNumberNodes.forEach( function( node ) { node.visible = !interactive; } );
         }
       }
       else {
@@ -336,7 +336,7 @@ define( function( require ) {
 
         // visibility
         if ( this.afterNumberNodes.length > 0 ) {
-          this.afterNumberNodes.forEach( function( node ) { node.visible = !interactive } );
+          this.afterNumberNodes.forEach( function( node ) { node.visible = !interactive; } );
         }
       }
     },
