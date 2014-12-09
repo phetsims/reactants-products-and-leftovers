@@ -59,8 +59,11 @@ define( function( require ) {
         checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
         thisNode.addChild( checkButton );
         checkButton.addListener( function() { model.check(); } );
-        // no need to unlink from this property in dispose, it's lifetime is the same as this node
-        checkButtonEnabledProperty.link( function( enabled ) { checkButton.enabled = enabled; } );
+
+        // enable/disable the check button
+        thisNode.checkButtonEnabledObserver = function( enabled ) { checkButton.enabled = enabled; }; // @private
+        thisNode.checkButtonEnabledProperty = checkButtonEnabledProperty; // @private
+        thisNode.checkButtonEnabledProperty.link( thisNode.checkButtonEnabledObserver ); // must be unlinked in dispose
       }
 
       if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
@@ -87,14 +90,15 @@ define( function( require ) {
       showAnswerButton && ( showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER ) );
       nextButton && ( nextButton.visible = ( state === PlayState.NEXT ) );
     };
-    thisNode.playStateProperty = model.playStateProperty; // @private see dispose
-    thisNode.playStateProperty.link( this.playStateObserver );
+    thisNode.playStateProperty = model.playStateProperty; // @private
+    thisNode.playStateProperty.link( this.playStateObserver ); // must be unlinked in dispose
   }
 
   return inherit( Node, GameButtons, {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
+      this.checkButtonEnabledObserver && this.checkButtonEnabledProperty.unlink( this.checkButtonEnabledObserver );
       this.playStateProperty.unlink( this.playStateObserver );
     }
   } );
