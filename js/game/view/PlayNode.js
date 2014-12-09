@@ -78,16 +78,16 @@ define( function( require ) {
       }
     } );
 
-    // developer mode
+    // Developer controls at right, below scoreboard
     if ( RPALQueryParameters.DEV ) {
-
-      // Developer controls at right, below scoreboard
       thisNode.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
         top: scoreboardNode.bottom + 5
       } ) );
+    }
 
-      // The answer to the current challenge, bottom center
+    // The answer to the current challenge, bottom center
+    if ( RPALQueryParameters.CHEAT || RPALQueryParameters.DEV ) {
       thisNode.addChild( new DevAnswerNode( model.challengeProperty, {
         centerX: layoutBounds.centerX,
         bottom: layoutBounds.bottom - 5

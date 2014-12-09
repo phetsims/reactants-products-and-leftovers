@@ -21,6 +21,9 @@ define( function( require ) {
     // shows the game reward regardless of score
     REWARD: getQueryParameter( 'reward' ) || false,
 
+    // show challenge answers at the bottom of the Game screen
+    CHEAT: getQueryParameter( 'cheat' ) || false,
+
     /**
      * Molecules in game boxes are arranged in a grid. This controls how much the molecules are randomly offset from the center
      * of cells in the grid. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
