@@ -34,25 +34,12 @@ define( function( require ) {
       afterExpanded: true  // {boolean} is the After box expanded
     } );
 
-    // reaction bar, location is determined by a query parameter
+    // reaction bar at top of screen
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
       createEquationNode,
       { screenWidth: thisView.layoutBounds.width } );
     thisView.addChild( reactionBarNode );
-
-    // play area top/bottom varies depending on where the reaction equation is located
-    var playAreaTop = null;
-    var playAreaBottom;
-    if ( RPALQueryParameters.EQUATION === 'bottom' ) {
-      reactionBarNode.bottom = thisView.layoutBounds.bottom;
-      playAreaTop = thisView.layoutBounds.top;
-      playAreaBottom = reactionBarNode.top;
-    }
-    else {
-      reactionBarNode.top = thisView.layoutBounds.top;
-      playAreaTop = reactionBarNode.bottom;
-      playAreaBottom = thisView.layoutBounds.bottom;
-    }
+    reactionBarNode.top = thisView.layoutBounds.top;
 
     // Reset All button
     var resetAllButton = new ResetAllButton( {
@@ -64,7 +51,7 @@ define( function( require ) {
     } );
     thisView.addChild( resetAllButton );
     resetAllButton.left = thisView.layoutBounds.left + 10;
-    resetAllButton.bottom = playAreaBottom - 10;
+    resetAllButton.bottom = thisView.layoutBounds.bottom - 10;
 
     // When the reaction changes, create new Before/After boxes
     var beforeAfterNode;
@@ -81,7 +68,7 @@ define( function( require ) {
         viewProperties.beforeExpandedProperty,
         viewProperties.afterExpandedProperty, {
           centerX: thisView.layoutBounds.centerX,
-          top: playAreaTop + 12
+          top: reactionBarNode.bottom + 12 // below the reaction equation
         } );
       thisView.addChild( beforeAfterNode );
     } );

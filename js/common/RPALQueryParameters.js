@@ -15,9 +15,6 @@ define( function( require ) {
     // enables developer-only features
     DEV: getQueryParameter( 'dev' ) || false,
 
-    // puts the equation at the 'top' or 'bottom' of the screen
-    EQUATION: getQueryParameter( 'equation' ) || 'top',
-
     // plays all challenges for each level of the game, to get 100% test coverage
     PLAY_ALL: getQueryParameter( 'playAll' ) || false,
 
