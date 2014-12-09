@@ -35,7 +35,7 @@ define( function( require ) {
     var playNode = null;
     thisView.resultsNode = null; // @private
 
-    // game 'phase' changes
+    // game 'phase' changes, nodes created on demand to reduce startup time
     model.gamePhaseProperty.link( function( gamePhase ) {
 
       // create when first needed
