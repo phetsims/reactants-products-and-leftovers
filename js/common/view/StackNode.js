@@ -47,7 +47,7 @@ define( function( require ) {
 
     // update the number of nodes in the stack
     thisNode.iconNodes = []; // @private {[DynamicIcon]} see dispose
-    thisNode.quantityPropertyObserver = function( quantity ) {
+    thisNode.quantityPropertyObserver = function( quantity ) { // @private see dispose
 
       var count = Math.max( quantity, itemsParent.getChildrenCount() );
 

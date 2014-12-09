@@ -34,8 +34,8 @@ define( function( require ) {
     var wrapperNode = new Node();
     this.addChild( wrapperNode );
 
-    this.iconProperty = iconProperty;
-    this.iconPropertyObserver = function( node ) {
+    this.iconProperty = iconProperty; // @private
+    this.iconPropertyObserver = function( node ) { // @private
       wrapperNode.removeAllChildren();
       wrapperNode.addChild( node );
       wrapperNode.center = Vector2.ZERO;
