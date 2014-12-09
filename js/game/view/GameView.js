@@ -39,19 +39,19 @@ define( function( require ) {
     model.gamePhaseProperty.link( function( gamePhase ) {
 
       // create when first needed
-      if ( gamePhase === GamePhase.SETTINGS && settingsNode === null ) {
+      if ( settingsNode === null && gamePhase === GamePhase.SETTINGS ) {
         settingsNode = new SettingsNode( model, thisView.layoutBounds );
         thisView.addChild( settingsNode );
       }
 
       // create when first needed
-      if ( gamePhase === GamePhase.PLAY && playNode === null ) {
+      if ( playNode === null && gamePhase === GamePhase.PLAY ) {
         playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
         thisView.addChild( playNode );
       }
 
       // create when first needed
-      if ( gamePhase === GamePhase.RESULTS && thisView.resultsNode === null ) {
+      if ( thisView.resultsNode === null && gamePhase === GamePhase.RESULTS ) {
         thisView.resultsNode = new ResultsNode( model, thisView.layoutBounds, audioPlayer );
         thisView.addChild( thisView.resultsNode );
       }
