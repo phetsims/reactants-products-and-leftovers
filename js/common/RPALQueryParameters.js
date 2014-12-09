@@ -30,9 +30,11 @@ define( function( require ) {
      */
     RANDOM_OFFSET: parseInt( getQueryParameter( 'randomOffset' ), 10 ) || 8,
 
+    //TODO delete when #22 is closed
     // opacity of buttons in Game, 0 (invisible) to 1 (opaque)
     BUTTONS_OPACITY: parseFloat( getQueryParameter( 'buttonsOpacity' ), 10 ) || 0.75,
 
+    //TODO delete when #22 is closed
     // opacity of face in Game, 0 (invisible) to 1 (opaque)
     FACE_OPACITY: parseFloat( getQueryParameter( 'faceOpacity' ), 10 ) || 0.65
   };
