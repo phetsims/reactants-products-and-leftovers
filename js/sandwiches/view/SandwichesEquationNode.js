@@ -15,6 +15,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DynamicIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DynamicIcon' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -24,7 +25,6 @@ define( function( require ) {
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
-  var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -51,7 +51,6 @@ define( function( require ) {
 
     options = options || {};
 
-    this.iconNodes = []; // @private see dispose
     this.coefficientNodes = []; // @private see dispose
 
     // left-hand side is the sandwich ingredients
@@ -74,12 +73,12 @@ define( function( require ) {
       leftNode.addChild( coefficientNode );
 
       // ingredient
-      ingredientNode = new SubstanceIcon( reactant.iconProperty, {
+      ingredientNode = new Node( {
+        children: [ reactant.iconProperty.get() ], // wrap icon in a Node
         left: coefficientNode.right + COEFFICIENT_X_SPACING,
         centerY: coefficientNode.centerY
       } );
       leftNode.addChild( ingredientNode );
-      this.iconNodes.push( ingredientNode );
 
       // plus sign between reactants
       if ( i < numberOfReactants - 1 ) {
@@ -98,11 +97,11 @@ define( function( require ) {
     arrowNode.left = leftNode.right + ARROW_X_SPACING;
     arrowNode.centerY = leftNode.centerY;
 
-    // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
-    var sandwichNode = new SubstanceIcon( reaction.sandwich.iconProperty );
-    this.iconNodes.push( sandwichNode );
-    sandwichNode.centerX = arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 );
-    sandwichNode.centerY = arrowNode.centerY;
+    // @private right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
+    this.sandwichNode = new DynamicIcon( reaction.sandwich.iconProperty, {
+      centerX: arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 ),
+      centerY: arrowNode.centerY
+    } );
 
     // "No Reaction", max width determined empirically.
     var noReactionNode = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
@@ -111,14 +110,15 @@ define( function( require ) {
     noReactionNode.centerY = arrowNode.centerY;
 
     // Display "No Reaction" if we don't have a valid sandwich.
+    var thisNode = this;
     this.sandwichNodePropertyObserver = function( node ) {
-      sandwichNode.visible = reaction.isReaction();
-      noReactionNode.visible = !sandwichNode.visible;
+      thisNode.sandwichNode.visible = reaction.isReaction();
+      noReactionNode.visible = !thisNode.sandwichNode.visible;
     };
     this.sandwich = reaction.sandwich; // @private see dispose
     this.sandwich.iconProperty.link( this.sandwichNodePropertyObserver );
 
-    options.children = [ leftNode, arrowNode, sandwichNode, noReactionNode ];
+    options.children = [ leftNode, arrowNode, this.sandwichNode, noReactionNode ];
     Node.call( this, options );
   }
 
@@ -126,7 +126,7 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-      this.iconNodes.forEach( function( node ) { node.dispose(); } );
+      this.sandwichNode.dispose();
       this.coefficientNodes.forEach( function( node ) { node.dispose(); } );
       this.sandwich.iconProperty.unlink( this.sandwichNodePropertyObserver );
     }

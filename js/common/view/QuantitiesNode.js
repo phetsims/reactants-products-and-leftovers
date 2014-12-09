@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var DynamicIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DynamicIcon' );
   var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HideBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -22,7 +23,6 @@ define( function( require ) {
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -80,7 +80,7 @@ define( function( require ) {
     thisNode.spinnerNodes = []; // @private {[NumberSpinner]} see dispose
     thisNode.beforeNumberNodes = []; // @private {[NumberNode]} see dispose
     thisNode.afterNumberNodes = []; // @private {[NumberNode]} see dispose
-    thisNode.iconNodes = []; // @private {[SubstanceIcon]} see dispose
+    thisNode.iconNodes = []; // @private {[DynamicIcon]} see dispose
     var symbolNodes = [];
 
     // reactants, below the 'Before' box
@@ -106,7 +106,7 @@ define( function( require ) {
       }
 
       // substance icon
-      iconNode = new SubstanceIcon( reactant.iconProperty, { centerX: centerX } );
+      iconNode = new DynamicIcon( reactant.iconProperty, { centerX: centerX } );
       this.reactantsParent.addChild( iconNode );
       thisNode.iconNodes.push( iconNode );
 
@@ -141,7 +141,7 @@ define( function( require ) {
       }
 
       // substance icon
-      iconNode = new SubstanceIcon( product.iconProperty, { centerX: centerX } );
+      iconNode = new DynamicIcon( product.iconProperty, { centerX: centerX } );
       this.productsParent.addChild( iconNode );
       thisNode.iconNodes.push( iconNode );
 
@@ -176,7 +176,7 @@ define( function( require ) {
       }
 
       // substance icon
-      iconNode = new SubstanceIcon( leftover.iconProperty, { centerX: centerX } );
+      iconNode = new DynamicIcon( leftover.iconProperty, { centerX: centerX } );
       this.leftoversParent.addChild( iconNode );
       thisNode.iconNodes.push( iconNode );
 
