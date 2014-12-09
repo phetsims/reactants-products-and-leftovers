@@ -1,3 +1,4 @@
+12/9/14 use !!getQueryParameter for boolean query parameters
 # 1.0.0-dev.15 12/9/14
 12/9/14 #22 add query parameters for experimenting with opacity of buttons and face in Game (buttonsOpacity, faceOpacity)
 12/9/14 #18 reduce axon dependencies: eliminate use of DynamicIcon in RandomBox, axon.Property in RandomBox.CellNode
