@@ -41,8 +41,8 @@ define( function( require ) {
       stroke: RPALColors.BOX_STROKE,
       margin: 5, // margin around the inside edge of the box
       /**
-       * Molecules in game boxes are arranged in a grid. This controls how much the molecules are randomly offset from the center
-       * of cells in the grid. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
+       * Molecules in the box are arranged in a grid. This option controls how much the molecules are randomly offset from the center
+       * of the grid's cells. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
        */
       randomOffset: RPALQueryParameters.RANDOM_OFFSET
     }, options );
