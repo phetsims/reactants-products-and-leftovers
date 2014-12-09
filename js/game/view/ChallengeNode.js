@@ -240,7 +240,7 @@ define( function( require ) {
       if ( !faceNode && faceVisible ) {
         faceNode = new FaceWithPointsNode( {
           faceDiameter: 150,
-          faceOpacity: RPALQueryParameters.FACE_OPACITY,
+          faceOpacity: 0.5,
           pointsAlignment: 'rightCenter',
           pointsFill: 'yellow',
           pointsStroke: 'rgb(50,50,50)',

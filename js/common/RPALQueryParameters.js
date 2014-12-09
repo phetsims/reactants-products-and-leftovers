@@ -22,13 +22,7 @@ define( function( require ) {
     REWARD: !!getQueryParameter( 'reward' ) || false,
 
     // shows challenge answers at the bottom of the Game screen
-    CHEAT: !!getQueryParameter( 'cheat' ) || false,
-
-    //TODO delete when #22 is closed
-    BUTTONS_OPACITY: parseFloat( getQueryParameter( 'buttonsOpacity' ), 10 ) || 0.75,
-
-    //TODO delete when #22 is closed
-    FACE_OPACITY: parseFloat( getQueryParameter( 'faceOpacity' ), 10 ) || 0.65
+    CHEAT: !!getQueryParameter( 'cheat' ) || false
   };
 
   return RPALQueryParameters;

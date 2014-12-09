@@ -1,3 +1,4 @@
+12/9/14 #22 Game: reduce button opacity to 0.65, face opacity to 0.5, delete query parameters
 12/9/14 #20 delete 'randomOffset' query parameter, keep default at 8
 12/9/14 #18 document all axon link calls as (a) must be unlinked in dispose, (b) unnecessary because property is owned by instance, or (c) unnecessary because observer exists for sim lifetime
 12/9/14 #18 unlink from checkButtonEnabledProperty in GameButtons.dispose, even though it's not really necessary
