@@ -1,3 +1,4 @@
+12/9/14 #22 add query parameters for experimenting with opacity of buttons and face in Game (buttonsOpacity, faceOpacity)
 12/9/14 #18 reduce axon dependencies: eliminate use of DynamicIcon in RandomBox, axon.Property in RandomBox.CellNode
 12/9/14 #17 fix vertical position of '?' in challenges, broken in previous commit
 12/9/14 #18 use DynamicIcon only for products in SandwichesEquationNode, to reduce axon linkage

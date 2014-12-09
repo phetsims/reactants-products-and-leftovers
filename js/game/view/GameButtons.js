@@ -16,6 +16,7 @@ define( function( require ) {
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // strings
@@ -28,7 +29,7 @@ define( function( require ) {
   var BUTTON_OPTIONS = {
     font: new RPALFont( { size: 20, weight: 'bold' } ),
     baseColor: RPALColors.GAME_BUTTON,
-    opacity: 0.75,
+    opacity: RPALQueryParameters.BUTTONS_OPACITY,
     xMargin: 20,
     yMargin: 5,
     centerX: 0 // so that all buttons are center aligned

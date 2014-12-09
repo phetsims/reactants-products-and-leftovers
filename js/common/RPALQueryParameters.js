@@ -28,7 +28,13 @@ define( function( require ) {
      * Molecules in game boxes are arranged in a grid. This controls how much the molecules are randomly offset from the center
      * of cells in the grid. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
      */
-    RANDOM_OFFSET: parseInt( getQueryParameter( 'randomOffset' ), 10 ) || 8
+    RANDOM_OFFSET: parseInt( getQueryParameter( 'randomOffset' ), 10 ) || 8,
+
+    // opacity of buttons in Game, 0 (invisible) to 1 (opaque)
+    BUTTONS_OPACITY: parseFloat( getQueryParameter( 'buttonsOpacity' ), 10 ) || 0.75,
+
+    // opacity of face in Game, 0 (invisible) to 1 (opaque)
+    FACE_OPACITY: parseFloat( getQueryParameter( 'faceOpacity' ), 10 ) || 0.65
   };
 
   return RPALQueryParameters;
