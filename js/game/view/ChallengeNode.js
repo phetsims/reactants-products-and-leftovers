@@ -95,7 +95,7 @@ define( function( require ) {
       guess.products.forEach( function( product ) { quantityProperties.push( product.quantityProperty ); } );
       guess.leftovers.forEach( function( leftover ) { quantityProperties.push( leftover.quantityProperty ); } );
     }
-    // @private
+    // @private must be detached in dispose
     thisNode.checkButtonEnabledProperty = new DerivedProperty( quantityProperties, function() {
       // true if any quantity that the user can guess is non-zero
       for ( var i = 0, j = arguments.length; i < j; i++ ) {
@@ -159,6 +159,7 @@ define( function( require ) {
       questionMark.visible = !guessIsValid;
       if ( guessIsValid ) { thisNode.checkButtonEnabledProperty.unlink( checkButtonEnabledObserver ); }
     };
+    // unlink is unnecessary, since this property belongs to this instance
     thisNode.checkButtonEnabledProperty.link( checkButtonEnabledObserver );
 
     //------------------------------------------------------------------------------------
@@ -215,8 +216,8 @@ define( function( require ) {
     // Observers
     //------------------------------------------------------------------------------------
 
-    // handle PlayState changes
-    model.playStateProperty.link( function( playState ) {
+    // @private handle PlayState changes
+    this.playStateObserver = function( playState ) {
 
       // face
       var faceVisible = false;
@@ -272,7 +273,9 @@ define( function( require ) {
 
       // switch between spinners and static numbers
       thisNode.quantitiesNode.setInteractive( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
-    } );
+    };
+    this.playStateProperty = model.playStateProperty; // @private
+    this.playStateProperty.link( this.playStateObserver ); // must be unlinked in dispose
 
     //------------------------------------------------------------------------------------
     // Developer
@@ -295,6 +298,9 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
+
+      // model
+      this.playStateProperty.unlink( this.playStateObserver );
 
       // boxes
       this.beforeBox.dispose();
