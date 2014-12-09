@@ -15,7 +15,7 @@ define( function( require ) {
     // enables developer-only features
     DEV: getQueryParameter( 'dev' ) || false,
 
-    // plays all challenges for each level of the game, to exercise the entire pool of reactions
+    // plays all reactions for each level of the game
     PLAY_ALL: getQueryParameter( 'playAll' ) || false,
 
     // shows the game reward regardless of score
