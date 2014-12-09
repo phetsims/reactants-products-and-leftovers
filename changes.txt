@@ -1,3 +1,4 @@
+12/9/14 #17 fix vertical position of '?' in challenges, broken in previous commit
 12/9/14 use DynamicIcon only for products in SandwichesEquationNode, to reduce axon linkage
 12/9/14 rename SubstanceIcon to DynamicIcon, since it has no dependency on Substance
 12/8/14 more detailed doc for 'dev' query parameter

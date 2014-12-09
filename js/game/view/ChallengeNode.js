@@ -169,6 +169,9 @@ define( function( require ) {
     thisNode.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     thisNode.buttons.bottom = thisNode.beforeBox.bottom - 15;
 
+    // center '?' in negative space above buttons
+    questionMark.centerY = thisNode.beforeBox.top + ( this.buttons.top - thisNode.beforeBox.top ) / 2;
+
     //------------------------------------------------------------------------------------
     // Everything below the boxes
     //------------------------------------------------------------------------------------
