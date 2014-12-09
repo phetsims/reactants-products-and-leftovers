@@ -17,10 +17,8 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
-  var DynamicIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DynamicIcon' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
@@ -127,7 +125,6 @@ define( function( require ) {
     Node.call( thisNode );
 
     thisNode.quantityProperty = quantityProperty; // @private see dispose
-    thisNode.iconNodes = []; // {[DynamicIconWithPosition]} @private see dispose
 
     thisNode.quantityPropertyObserver = function( quantity ) {
 
@@ -144,18 +141,16 @@ define( function( require ) {
 
           if ( node.visible && !nodeWasVisible ) {
             // when an existing node becomes visible, choose a new position for it
-            node.gridPositionProperty.set( choosePosition() );
+            node.setGridPosition( choosePosition() );
           }
           else if ( !node.visible && nodeWasVisible ) {
             // when a visible node becomes invisible, make its position available
-            releasePosition( node.gridPositionProperty.get() );
+            releasePosition( node.getGridPosition() );
           }
         }
         else {
           // add a node
-          var iconNode = new DynamicIconWithPosition( iconProperty, choosePosition(), randomOffset );
-          thisNode.addChild( iconNode );
-          thisNode.iconNodes.push( iconNode );
+          thisNode.addChild( new CellNode( iconProperty.get(), choosePosition(), randomOffset ) );
         }
       }
     };
@@ -167,33 +162,38 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.quantityProperty.unlink( this.quantityPropertyObserver );
-      this.iconNodes.forEach( function( node ) { node.dispose(); } );
     }
   } );
 
   /**
-   * Specialization of DynamicIcon that keeps track of its grid position,
-   * and randomizes its position to make the grid look less regular.
-   * @param {Property.<Node>} iconProperty
+   * A cell in the grid, randomizes the position of its icon to make the grid look less regular.
+   * @param {Node} icon
    * @param {Vector2} gridPosition
    * @param {number} randomOffset
    * @constructor
    * @private
    */
-  function DynamicIconWithPosition( iconProperty, gridPosition, randomOffset ) {
+  function CellNode( icon, gridPosition, randomOffset ) {
 
-    var thisNode = this;
-    DynamicIcon.call( thisNode, iconProperty );
+    Node.call( this, { children: [ icon ] } ); // wrap icon
 
-    thisNode.gridPositionProperty = new Property( gridPosition );
-    thisNode.gridPositionProperty.link( function( gridPosition ) {
-      // Move this node to the specified grid position, with some randomized offset.
-      thisNode.centerX = gridPosition.x + _.random( -randomOffset, randomOffset );
-      thisNode.centerY = gridPosition.y + _.random( -randomOffset, randomOffset );
-    } );
+    this.gridPosition = gridPosition; // @private
+    this.randomOffset = randomOffset; // @private
+
+    this.setGridPosition( gridPosition ); // initialize position
   }
 
-  inherit( DynamicIcon, DynamicIconWithPosition );
+  inherit( Node, CellNode, {
+
+    getGridPosition: function() { return this.gridPosition; },
+
+    setGridPosition: function( gridPosition ) {
+      this.gridPosition = gridPosition;
+       // Move this node to the specified grid position, with some randomized offset.
+      this.centerX = gridPosition.x + _.random( -this.randomOffset, this.randomOffset );
+      this.centerY = gridPosition.y + _.random( -this.randomOffset, this.randomOffset );
+    }
+  } );
 
   return inherit( Node, RandomBox, {
 
