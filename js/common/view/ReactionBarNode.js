@@ -49,7 +49,10 @@ define( function( require ) {
     options.children = [ backgroundNode, radioButtons ];
     Node.call( thisNode, options );
 
-    // update the equation to match the reaction
+    /*
+     * Updates the equation to match the reaction
+     * Unlink is unnecessary because this node exists for the lifetime of the simulation.
+     */
     var equationNode = null;
     reactionProperty.link( function( reaction ) {
 

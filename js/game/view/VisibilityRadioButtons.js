@@ -56,6 +56,7 @@ define( function( require ) {
      * But the view makes them dependent on each other, and this control mixes 'show' and 'hide'.
      * This could be fixed by modeling this dependency, but I prefer to keep the model clean.
      */
+    // unlink is unnecessary because this property is owned by this node
     var showAllProperty = new Property( moleculesVisibleProperty.get() && numbersVisibleProperty.get() );
     showAllProperty.link( function( value ) {
       if ( value ) {
@@ -63,6 +64,8 @@ define( function( require ) {
         numbersVisibleProperty.set( true );
       }
     } );
+
+    // unlink is unnecessary because this node exists for the lifetime of the simulation
     moleculesVisibleProperty.link( function( visible ) {
       if ( !visible ) {
         numbersVisibleProperty.set( true ); // if molecules are hidden, then numbers must be shown
@@ -72,6 +75,8 @@ define( function( require ) {
         showAllProperty.set( visible && numbersVisibleProperty.get() );
       }
     } );
+
+    // unlink is unnecessary because this node exists for the lifetime of the simulation
     numbersVisibleProperty.link( function( visible ) {
       if ( !visible ) {
         moleculesVisibleProperty.set( true ); // if numbers are hidden, then molecules must be shown

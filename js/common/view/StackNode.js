@@ -46,8 +46,8 @@ define( function( require ) {
     thisNode.addChild( itemsParent );
 
     // update the number of nodes in the stack
-    thisNode.iconNodes = []; // @private {[DynamicIcon]} see dispose
-    thisNode.quantityPropertyObserver = function( quantity ) { // @private see dispose
+    thisNode.iconNodes = []; // @private {[DynamicIcon]}
+    thisNode.quantityPropertyObserver = function( quantity ) { // @private
 
       var count = Math.max( quantity, itemsParent.getChildrenCount() );
 
@@ -67,8 +67,8 @@ define( function( require ) {
         }
       }
     };
-    thisNode.quantityProperty = quantityProperty; // @private see dispose
-    thisNode.quantityProperty.link( thisNode.quantityPropertyObserver );
+    thisNode.quantityProperty = quantityProperty; // @private
+    thisNode.quantityProperty.link( thisNode.quantityPropertyObserver ); // must be unlinked in dispose
 
     thisNode.mutate( options );
   }

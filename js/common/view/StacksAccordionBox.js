@@ -72,7 +72,7 @@ define( function( require ) {
       _.max( substances, function( substance ) { return substance.iconProperty.get().height; } ).iconProperty.get().height );
 
     // vertical stacks of nodes inside the box
-    this.stackNodes = []; // @private see dispose
+    this.stackNodes = []; // @private
     var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxIconHeight ) / ( options.maxQuantity - 1 );
     var startCenterY = rectangle.height - options.boxYMargin - ( maxIconHeight / 2 );
     for ( var i = 0; i < substances.length; i++ ) {

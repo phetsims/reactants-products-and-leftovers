@@ -96,7 +96,7 @@ define( function( require ) {
     thisNode.addChild( boxNode );
 
     // substances inside the box
-    thisNode.substanceLayer = []; // @private [{SubstanceLayer}] see dispose
+    thisNode.substanceLayer = []; // @private [{SubstanceLayer}]
     var parent = new Node();
     substances.forEach( function( substance ) {
       var substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty, options.randomOffset, choosePosition, releasePosition );
@@ -124,7 +124,7 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    thisNode.quantityProperty = quantityProperty; // @private see dispose
+    thisNode.quantityProperty = quantityProperty; // @private
 
     thisNode.quantityPropertyObserver = function( quantity ) {
 
@@ -154,7 +154,7 @@ define( function( require ) {
         }
       }
     };
-    thisNode.quantityProperty.link( thisNode.quantityPropertyObserver );
+    thisNode.quantityProperty.link( thisNode.quantityPropertyObserver ); // must be unlinked in dispose
   }
 
   inherit( Node, SubstanceLayer, {

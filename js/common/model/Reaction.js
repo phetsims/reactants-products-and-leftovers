@@ -42,6 +42,7 @@ define( function( require ) {
     } );
 
     thisReaction.reactants.forEach( function( reactant ) {
+      // internal, no corresponding unlink needed
       reactant.quantityProperty.link( thisReaction.updateQuantities.bind( thisReaction ) );
     } );
   }

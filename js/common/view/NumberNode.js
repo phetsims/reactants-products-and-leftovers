@@ -33,7 +33,7 @@ define( function( require ) {
     thisNode.numberPropertyObserver = function( value ) {
       thisNode.text = Util.toFixed( value, options.decimalPlaces );
     };
-    numberProperty.link( thisNode.numberPropertyObserver );
+    numberProperty.link( thisNode.numberPropertyObserver ); // must be unlinked in dispose
 
     thisNode.mutate( options );
   }

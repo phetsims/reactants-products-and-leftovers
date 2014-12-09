@@ -40,7 +40,7 @@ define( function( require ) {
       wrapperNode.addChild( node );
       wrapperNode.center = Vector2.ZERO;
     };
-    this.iconProperty.link( this.iconPropertyObserver );
+    this.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
 
     this.mutate( options );
   }

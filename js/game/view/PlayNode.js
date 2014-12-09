@@ -59,7 +59,10 @@ define( function( require ) {
     // challenge will be displayed in the area below the scoreboard
     var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
-    // display the current challenge
+    /*
+     * Displays the current challenge.
+     * Unlink unnecessary because this node exists for the lifetime of the simulation.
+     */
     var challengeNode = null;
     model.challengeProperty.link( function( challenge ) {
 

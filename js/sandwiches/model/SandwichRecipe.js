@@ -74,6 +74,7 @@ define( function( require ) {
       };
 
       ingredients.forEach( function( ingredient ) {
+        // unlink is unnecessary because these properties exist for the lifetime of the simulation
         ingredient.coefficientProperty.link( thisRecipe.updateQuantities.bind( thisRecipe ) );
         ingredient.coefficientProperty.link( updateSandwichNode );
       } );

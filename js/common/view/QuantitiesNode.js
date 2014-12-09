@@ -77,10 +77,10 @@ define( function( require ) {
     var i, reactant, product, leftover, centerX, numberNode, spinnerNode, iconNode, symbolNode;
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    thisNode.spinnerNodes = []; // @private {[NumberSpinner]} see dispose
-    thisNode.beforeNumberNodes = []; // @private {[NumberNode]} see dispose
-    thisNode.afterNumberNodes = []; // @private {[NumberNode]} see dispose
-    thisNode.iconNodes = []; // @private {[DynamicIcon]} see dispose
+    thisNode.spinnerNodes = []; // @private {[NumberSpinner]}
+    thisNode.beforeNumberNodes = []; // @private {[NumberNode]}
+    thisNode.afterNumberNodes = []; // @private {[NumberNode]}
+    thisNode.iconNodes = []; // @private {[DynamicIcon]}
     var symbolNodes = [];
 
     // reactants, below the 'Before' box

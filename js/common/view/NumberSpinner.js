@@ -94,8 +94,8 @@ define( function( require ) {
       upButton.enabled = ( value < range.max );
       downButton.enabled = ( value > range.min );
     };
-    this.numberProperty = numberProperty; // @private see dispose
-    this.numberProperty.link( this.numberPropertyObserver );
+    this.numberProperty = numberProperty; // @private
+    this.numberProperty.link( this.numberPropertyObserver ); // must be unlinked in dispose
   }
 
   return inherit( LayoutBox, NumberSpinner, {

@@ -51,7 +51,7 @@ define( function( require ) {
 
     options = options || {};
 
-    this.coefficientNodes = []; // @private see dispose
+    this.coefficientNodes = []; // @private
 
     // left-hand side is the sandwich ingredients
     var leftNode = new Node();
@@ -115,8 +115,8 @@ define( function( require ) {
       thisNode.sandwichNode.visible = reaction.isReaction();
       noReactionNode.visible = !thisNode.sandwichNode.visible;
     };
-    this.sandwich = reaction.sandwich; // @private see dispose
-    this.sandwich.iconProperty.link( this.sandwichNodePropertyObserver );
+    this.sandwich = reaction.sandwich; // @private
+    this.sandwich.iconProperty.link( this.sandwichNodePropertyObserver ); // must be unlinked in dispose
 
     options.children = [ leftNode, arrowNode, this.sandwichNode, noReactionNode ];
     Node.call( this, options );

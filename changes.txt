@@ -1,3 +1,6 @@
+12/9/14 #18 document all axon link calls as (a) must be unlinked in dispose, (b) unnecessary because property is owned by instance, or (c) unnecessary because observer exists for sim lifetime
+12/9/14 #18 unlink from checkButtonEnabledProperty in GameButtons.dispose, even though it's not really necessary
+12/9/14 #18 fix memory leak in ChallengeNode, was not unlinking from model.playState
 12/9/14 #18 delete DevAnswerNode to reduce axon coupling, handle 'cheat' feature in ChallengeNode
 12/9/14 use !!getQueryParameter for boolean query parameters
 # 1.0.0-dev.15 12/9/14

@@ -31,6 +31,10 @@ define( function( require ) {
 
     thisNode.rewardNode = null;
 
+    /*
+     * Displays the game results, possibly with a 'reward'.
+     * Unlink is unnecessary because this node exists for the lifetime of the simulation.
+     */
     model.gamePhaseProperty.link( function( gamePhase ) {
 
       // show results when we enter this phase

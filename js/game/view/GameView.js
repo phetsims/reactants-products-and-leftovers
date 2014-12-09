@@ -35,22 +35,23 @@ define( function( require ) {
     var playNode = null;
     thisView.resultsNode = null; // @private
 
-    // game 'phase' changes, nodes created on demand to reduce startup time
+    /*
+     * Handle game 'phase' changes, nodes created on demand to reduce startup time.
+     * Unlink is unnecessary because this node exists for the lifetime of the simulation.
+     */
     model.gamePhaseProperty.link( function( gamePhase ) {
 
-      // create when first needed
+      // create nodes on demand
       if ( settingsNode === null && gamePhase === GamePhase.SETTINGS ) {
         settingsNode = new SettingsNode( model, thisView.layoutBounds );
         thisView.addChild( settingsNode );
       }
 
-      // create when first needed
       if ( playNode === null && gamePhase === GamePhase.PLAY ) {
         playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
         thisView.addChild( playNode );
       }
 
-      // create when first needed
       if ( thisView.resultsNode === null && gamePhase === GamePhase.RESULTS ) {
         thisView.resultsNode = new ResultsNode( model, thisView.layoutBounds, audioPlayer );
         thisView.addChild( thisView.resultsNode );
