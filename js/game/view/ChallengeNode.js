@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevStringUtils' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FaceWithPointsNode = require( 'SCENERY_PHET/FaceWithPointsNode' );
   var GameButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameButtons' );
@@ -272,6 +273,20 @@ define( function( require ) {
       // switch between spinners and static numbers
       thisNode.quantitiesNode.setInteractive( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
     } );
+
+    //------------------------------------------------------------------------------------
+    // Developer
+    //------------------------------------------------------------------------------------
+
+    // The answer to the current challenge, bottom center
+    if ( RPALQueryParameters.CHEAT || RPALQueryParameters.DEV ) {
+      thisNode.addChild( new Text( DevStringUtils.quantitiesString( model.challenge.reaction ), {
+        fill: 'red',
+        font: new RPALFont( 12 ),
+        centerX: challengeBounds.centerX,
+        bottom: challengeBounds.bottom - 5
+      } ) );
+    }
 
     thisNode.mutate( options );
   }

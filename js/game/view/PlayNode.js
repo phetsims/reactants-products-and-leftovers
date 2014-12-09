@@ -12,7 +12,6 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var ChallengeNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ChallengeNode' );
-  var DevAnswerNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevAnswerNode' );
   var DevGameControls = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevGameControls' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -78,19 +77,11 @@ define( function( require ) {
       }
     } );
 
-    // Developer controls at right, below scoreboard
+    // Developer controls at top-right, below scoreboard
     if ( RPALQueryParameters.DEV ) {
       thisNode.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
         top: scoreboardNode.bottom + 5
-      } ) );
-    }
-
-    // The answer to the current challenge, bottom center
-    if ( RPALQueryParameters.CHEAT || RPALQueryParameters.DEV ) {
-      thisNode.addChild( new DevAnswerNode( model.challengeProperty, {
-        centerX: layoutBounds.centerX,
-        bottom: layoutBounds.bottom - 5
       } ) );
     }
   }
