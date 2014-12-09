@@ -40,9 +40,9 @@ define( function( require ) {
       fill: RPALColors.BOX_FILL,
       stroke: RPALColors.BOX_STROKE,
       margin: 5, // margin around the inside edge of the box
-      /*
-       * Maximum x- and y-offset of molecules from the center of a cell in the grid.
-       * Larger numbers make the layout look less like a grid, but increase overlapping.
+      /**
+       * Molecules in game boxes are arranged in a grid. This controls how much the molecules are randomly offset from the center
+       * of cells in the grid. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
        */
       randomOffset: RPALQueryParameters.RANDOM_OFFSET
     }, options );
