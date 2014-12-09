@@ -1,3 +1,4 @@
+12/8/14 more detailed doc for 'dev' query parameter
 12/8/14 add 'cheat' query parameter, which shows challenge answer at bottom center of screen
 12/8/14 #7 remove 'equation' query parameter, locate equation at top of screen in 'Sandwiches' and 'Molecules' screens
 # 1.0.0-dev.14 12/8/14
