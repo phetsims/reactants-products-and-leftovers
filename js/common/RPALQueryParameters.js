@@ -24,9 +24,6 @@ define( function( require ) {
     // shows challenge answers at the bottom of the Game screen
     CHEAT: !!getQueryParameter( 'cheat' ) || false,
 
-    //TODO delete when #20 is closed
-    RANDOM_OFFSET: parseInt( getQueryParameter( 'randomOffset' ), 10 ) || 8,
-
     //TODO delete when #22 is closed
     BUTTONS_OPACITY: parseFloat( getQueryParameter( 'buttonsOpacity' ), 10 ) || 0.75,
 

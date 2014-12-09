@@ -21,7 +21,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
-  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -42,7 +41,7 @@ define( function( require ) {
        * Molecules in the box are arranged in a grid. This option controls how much the molecules are randomly offset from the center
        * of the grid's cells. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
        */
-      randomOffset: RPALQueryParameters.RANDOM_OFFSET
+      randomOffset: 8
     }, options );
 
     var thisNode = this;
