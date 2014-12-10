@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevStringUtils' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
@@ -53,6 +54,10 @@ define( function( require ) {
       this.reactants.forEach( function( reactant ) { reactant.reset(); } );
       this.products.forEach( function( product ) { product.reset(); } );
       this.leftovers.forEach( function( leftover ) { leftover.reset(); } );
+    },
+
+    toString: function() {
+      return DevStringUtils.equationString( this );
     },
 
     /**
