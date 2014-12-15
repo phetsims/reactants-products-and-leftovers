@@ -31,8 +31,8 @@ define( function( require ) {
     Node.call( this );
 
     // Add an additional wrapper, so that we can maintain the node's center.
-    var wrapperNode = new Node();
-    this.addChild( wrapperNode );
+    var wrapperNode = this.wrapperNode = new Node();
+    this.addChild( this.wrapperNode );
 
     this.iconProperty = iconProperty; // @private
     this.iconPropertyObserver = function( node ) { // @private
@@ -50,6 +50,7 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.iconProperty.unlink( this.iconPropertyObserver );
+      this.wrapperNode.removeAllChildren();
     }
   } );
 } );
