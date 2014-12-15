@@ -17,7 +17,7 @@ define( function( require ) {
 
   /**
    * @param {Property.<Reaction>} reactionProperty the selected reaction
-   * @param {[Reaction]} reactions the reaction choices
+   * @param {Reaction[]} reactions the reaction choices
    * @param {function} createEquationNode takes one {Reaction} parameter, returns {Node}
    * @param {Object} [options]
    * @constructor

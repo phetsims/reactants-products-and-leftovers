@@ -46,7 +46,7 @@ define( function( require ) {
     thisNode.addChild( itemsParent );
 
     // update the number of nodes in the stack
-    thisNode.iconNodes = []; // @private {[DynamicIcon]}
+    thisNode.iconNodes = []; // @private {DynamicIcon[]}
     thisNode.quantityPropertyObserver = function( quantity ) { // @private
 
       var count = Math.max( quantity, itemsParent.getChildrenCount() );

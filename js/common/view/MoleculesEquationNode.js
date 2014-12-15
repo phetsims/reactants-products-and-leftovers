@@ -57,7 +57,7 @@ define( function( require ) {
 
   /**
    * Creates terms for equation.
-   * @param {[Substance]} terms the terms to be added
+   * @param {Substance[]} terms the terms to be added
    * @returns {Node}
    */
   var createTermsNode = function( terms, options ) {

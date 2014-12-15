@@ -13,12 +13,12 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
-   * @param {[Reaction]} reactions
+   * @param {Reaction[]} reactions
    * @constructor
    */
   function RPALBaseModel( reactions ) {
 
-    this.reactions = reactions; // {[Reaction]} reaction choices
+    this.reactions = reactions; // {Reaction[]} reaction choices
 
     PropertySet.call( this, {
       reaction: this.reactions[0] // {Reaction} the selected reaction

@@ -97,7 +97,7 @@ define( function( require ) {
      * @param {number} level game level, starting at zero
      * @param {number} maxQuantity maximum quantity of any substance in the reaction
      * @param {Object} [challengeOptions] options passed to Challenge constructor
-     * @returns {[Challenge]}
+     * @returns {Challenge[]}
      */
     createChallenges: function( level, maxQuantity, challengeOptions ) {
       challengeOptions = challengeOptions || {};
@@ -129,7 +129,7 @@ define( function( require ) {
    * @param {number} level
    * @param {number} maxQuantity
    * @param {Object} challengeOptions options to the Challenge constructor
-   * @returns {[Challenge]}
+   * @returns {Challenge[]}
    */
   var createChallenges = function( level, maxQuantity, challengeOptions ) {
 
@@ -203,7 +203,7 @@ define( function( require ) {
 
   /**
    * Creates a reaction with non-zero quantities of at least one product.
-   * @param {[function]} factoryFunctions
+   * @param {function[]} factoryFunctions
    * @param {number} maxQuantity
    * @returns {Reaction}
    */
@@ -228,7 +228,7 @@ define( function( require ) {
 
   /**
    * Creates a reaction with zero quantities of all products.
-   * @param {[function]} factoryFunctions
+   * @param {function[]} factoryFunctions
    * @returns {Reaction}
    */
   var createChallengeWithoutProducts = function( factoryFunctions ) {

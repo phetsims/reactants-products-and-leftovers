@@ -21,8 +21,8 @@ define( function( require ) {
   var MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
 
   /**
-   * @param {[Substance]} substances substances in the box
-   * @param {[number]} xOffsets x-offsets of each substance, in the same order as substances param
+   * @param {Substance[]} substances substances in the box
+   * @param {number[]} xOffsets x-offsets of each substance, in the same order as substances param
    * @param {Object} [options]
    * @constructor
    */

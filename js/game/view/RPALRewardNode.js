@@ -36,7 +36,7 @@ define( function( require ) {
     RewardNode.call( this, { nodes: nodeFactoryFunctions[level]() } );
   }
 
-  // Level 1: molecules, @returns {[Node]}
+  // Level 1: molecules, @returns {Node[]}
   var createNodesLevel1 = function() {
     var nodes = [];
     ReactionFactory.moleculeNodeConstructors.forEach( function( MoleculeNodeConstructor ) {
@@ -45,7 +45,7 @@ define( function( require ) {
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
   };
 
-  // Level 2: smiley faces (various colors), @returns {[Node]}
+  // Level 2: smiley faces (various colors), @returns {Node[]}
   var createNodesLevel2 = function() {
     var nodes = [];
     FACE_COLORS.forEach( function( color ) {
@@ -54,7 +54,7 @@ define( function( require ) {
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
   };
 
-  // Level 3: sandwiches, @returns {[Node]}
+  // Level 3: sandwiches, @returns {Node[]}
   var createNodesLevel3 = function() {
     var nodes = [
       // args: bread, meat, cheese

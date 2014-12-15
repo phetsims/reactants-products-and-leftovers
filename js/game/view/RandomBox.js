@@ -24,7 +24,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {[Substance]} substances the substances in the box
+   * @param {Substance[]} substances the substances in the box
    * @param {Object} [options]
    * @constructor
    */

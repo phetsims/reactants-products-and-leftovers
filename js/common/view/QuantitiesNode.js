@@ -42,11 +42,11 @@ define( function( require ) {
   var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by eye
 
   /**
-   * @param {[Substance]} reactants
-   * @param {[Substance]} products
-   * @param {[Substance]} leftovers
-   * @param {[number]} beforeXOffsets offsets of reactants relative to the left edge of the 'Before' box
-   * @param {[number]} afterXOffsets offsets of products and leftovers relative to the left edge of the 'Before' box
+   * @param {Substance[]} reactants
+   * @param {Substance[]} products
+   * @param {Substance[]} leftovers
+   * @param {number[]} beforeXOffsets offsets of reactants relative to the left edge of the 'Before' box
+   * @param {number[]} afterXOffsets offsets of products and leftovers relative to the left edge of the 'Before' box
    * @param {Object} [options]
    * @constructor
    */
@@ -77,10 +77,10 @@ define( function( require ) {
     var i, reactant, product, leftover, centerX, numberNode, spinnerNode, iconNode, symbolNode;
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    thisNode.spinnerNodes = []; // @private {[NumberSpinner]}
-    thisNode.beforeNumberNodes = []; // @private {[NumberNode]}
-    thisNode.afterNumberNodes = []; // @private {[NumberNode]}
-    thisNode.iconNodes = []; // @private {[DynamicIcon]}
+    thisNode.spinnerNodes = []; // @private {NumberSpinner[]}
+    thisNode.beforeNumberNodes = []; // @private {NumberNode[]}
+    thisNode.afterNumberNodes = []; // @private {NumberNode[]}
+    thisNode.iconNodes = []; // @private {DynamicIcon[]}
     var symbolNodes = [];
 
     // reactants, below the 'Before' box
@@ -368,7 +368,7 @@ define( function( require ) {
      * Creates x-offsets for substances, relative to the left edge of their 'Before' or 'After' box.
      * @param {number} numberOfSubstances
      * @param {number} boxWidth
-     * @returns {[number]}
+     * @returns {number[]}
      * @static
      */
     createXOffsets: function( numberOfSubstances, boxWidth ) {
