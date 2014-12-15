@@ -23,6 +23,7 @@ define( function( require ) {
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var StacksAccordionBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/StacksAccordionBox' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -59,6 +60,11 @@ define( function( require ) {
     var reactants = reaction.reactants;
     var products = reaction.products;
     var leftovers = reaction.leftovers;
+
+    this.reactionDebug = reaction; // @private for debug output
+    if ( RPALQueryParameters.MEMORY_DEBUG ) {
+      console.log( 'BeforeAfterNode.constructor ' + thisNode.reactionDebug.toString() );
+    }
 
     // x-offsets of the substances relative to their boxes
     var beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.contentSize.width );
@@ -109,6 +115,10 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
+
+      if ( RPALQueryParameters.MEMORY_DEBUG ) {
+        console.log( 'BeforeAfterNode.dispose ' + this.reactionDebug.toString() );
+      }
 
       // accordion boxes
       this.beforeBox.dispose();
