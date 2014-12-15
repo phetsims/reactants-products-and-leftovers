@@ -57,7 +57,7 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.iconProperty.unlink( this.iconPropertyObserver );
-      this.wrapperNode.removeAllChildren();
+      this.wrapperNode.removeAllChildren(); // to disconnect from icon
     }
   } );
 } );
