@@ -51,7 +51,9 @@ define( function( require ) {
 
     options = options || {};
 
-    this.coefficientNodes = []; // @private
+    var thisNode = this;
+
+    thisNode.coefficientNodes = []; // @private
 
     // left-hand side is the sandwich ingredients
     var leftNode = new Node();
@@ -64,7 +66,7 @@ define( function( require ) {
       // coefficient
       if ( reaction.coefficientsMutable ) {
         coefficientNode = new NumberSpinner( reactant.coefficientProperty, RPALConstants.SANDWICH_COEFFICIENT_RANGE, SPINNER_OPTIONS );
-        this.coefficientNodes.push( coefficientNode );
+        thisNode.coefficientNodes.push( coefficientNode );
       }
       else {
         coefficientNode = new Text( reactant.coefficient, TEXT_OPTIONS );
@@ -98,7 +100,7 @@ define( function( require ) {
     arrowNode.centerY = leftNode.centerY;
 
     // @private right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
-    this.sandwichNode = new DynamicIcon( reaction.sandwich.iconProperty, {
+    thisNode.sandwichNode = new DynamicIcon( reaction.sandwich.iconProperty, {
       centerX: arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 ),
       centerY: arrowNode.centerY
     } );
@@ -110,16 +112,15 @@ define( function( require ) {
     noReactionNode.centerY = arrowNode.centerY;
 
     // Display "No Reaction" if we don't have a valid sandwich.
-    var thisNode = this;
-    this.sandwichNodePropertyObserver = function( node ) {
+    thisNode.sandwichIconPropertyObserver = function( node ) {
       thisNode.sandwichNode.visible = reaction.isReaction();
       noReactionNode.visible = !thisNode.sandwichNode.visible;
     };
-    this.sandwich = reaction.sandwich; // @private
-    this.sandwich.iconProperty.link( this.sandwichNodePropertyObserver ); // must be unlinked in dispose
+    thisNode.sandwichIconProperty = reaction.sandwich.iconProperty; // @private
+    thisNode.sandwichIconProperty.link( thisNode.sandwichIconPropertyObserver ); // must be unlinked in dispose
 
-    options.children = [ leftNode, arrowNode, this.sandwichNode, noReactionNode ];
-    Node.call( this, options );
+    options.children = [ leftNode, arrowNode, thisNode.sandwichNode, noReactionNode ];
+    Node.call( thisNode, options );
   }
 
   return inherit( Node, SandwichesEquationNode, {
@@ -127,8 +128,10 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.sandwichNode.dispose();
+      this.sandwichNode = null;
       this.coefficientNodes.forEach( function( node ) { node.dispose(); } );
-      this.sandwich.iconProperty.unlink( this.sandwichNodePropertyObserver );
+      this.coefficientNodes = null;
+      this.sandwichIconProperty.unlink( this.sandwichIconPropertyObserver );
     }
   } );
 } );
