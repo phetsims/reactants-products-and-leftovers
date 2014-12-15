@@ -17,6 +17,7 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
+  var DynamicIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DynamicIcon' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -123,6 +124,8 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
+    thisNode.cellNodes = []; // @private {CellNode[]}
+
     thisNode.quantityPropertyObserver = function( quantity ) {
 
       var count = Math.max( quantity, thisNode.getChildrenCount() );
@@ -147,7 +150,9 @@ define( function( require ) {
         }
         else {
           // add a node
-          thisNode.addChild( new CellNode( iconProperty.get(), choosePosition(), randomOffset ) );
+          var cellNode = new CellNode( iconProperty, choosePosition(), randomOffset );
+          thisNode.addChild( cellNode );
+          thisNode.cellNodes.push( cellNode );
         }
       }
     };
@@ -159,21 +164,23 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
+      this.cellNodes.forEach( function( node ) { node.dispose(); } );
+      this.cellNodes = null;
       this.quantityProperty.unlink( this.quantityPropertyObserver );
     }
   } );
 
   /**
-   * A cell in the grid, randomizes the position of its icon to make the grid look less regular.
-   * @param {Node} icon
+   * Icon that occupies a cell in the grid, randomizes its position to make the grid look less regular.
+   * @param {Property.<Node>} iconProperty
    * @param {Vector2} gridPosition
    * @param {number} randomOffset
    * @constructor
    * @private
    */
-  function CellNode( icon, gridPosition, randomOffset ) {
+  function CellNode( iconProperty, gridPosition, randomOffset ) {
 
-    Node.call( this, { children: [ icon ] } ); // wrap icon
+    DynamicIcon.call( this, iconProperty );
 
     this.gridPosition = gridPosition; // @private
     this.randomOffset = randomOffset; // @private
@@ -181,7 +188,7 @@ define( function( require ) {
     this.setGridPosition( gridPosition ); // initialize position
   }
 
-  inherit( Node, CellNode, {
+  inherit( DynamicIcon, CellNode, {
 
     getGridPosition: function() { return this.gridPosition; },
 
