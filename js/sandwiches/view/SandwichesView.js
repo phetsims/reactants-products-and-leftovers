@@ -73,7 +73,7 @@ define( function( require ) {
     // cycle through the sandwiches
     step: function( dt ) {
       this.steps++;
-      if ( this.steps % 20 == 0 ) {
+      if ( this.steps % 20 === 0 ) {
         this.model.reaction = this.model.reactions[this.reactionIndex++];
         if ( this.reactionIndex >= this.model.reactions.length ) {
           this.reactionIndex = 0;
