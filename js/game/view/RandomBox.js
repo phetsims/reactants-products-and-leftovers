@@ -95,12 +95,12 @@ define( function( require ) {
     thisNode.addChild( boxNode );
 
     // substances inside the box
-    thisNode.substanceLayer = []; // @private [{SubstanceLayer}]
+    thisNode.substanceLayers = []; // @private [{SubstanceLayer}]
     var parent = new Node();
     substances.forEach( function( substance ) {
       var substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty, options.randomOffset, choosePosition, releasePosition );
       parent.addChild( substanceLayer );
-      thisNode.substanceLayer.push( substanceLayer );
+      thisNode.substanceLayers.push( substanceLayer );
     } );
     thisNode.addChild( parent );
 
@@ -197,7 +197,8 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-      this.substanceLayer.forEach( function( node ) { node.dispose(); } );
+      this.substanceLayers.forEach( function( node ) { node.dispose(); } );
+      this.substanceLayers = null;
     }
   } );
 } );

@@ -60,6 +60,7 @@ define( function( require ) {
       if ( equationNode ) {
         thisNode.removeChild( equationNode );
         equationNode.dispose && equationNode.dispose(); // dispose of the node, if supported
+        equationNode = null;
       }
 
       // create equation for the reaction

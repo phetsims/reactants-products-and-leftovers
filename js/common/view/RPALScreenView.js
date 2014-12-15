@@ -60,6 +60,7 @@ define( function( require ) {
       if ( beforeAfterNode ) {
         thisView.removeChild( beforeAfterNode );
         beforeAfterNode.dispose && beforeAfterNode.dispose(); // dispose of the node, if supported
+        beforeAfterNode = null;
       }
 
       // create the new boxes

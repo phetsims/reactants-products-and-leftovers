@@ -217,7 +217,7 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // @private handle PlayState changes
-    this.playStateObserver = function( playState ) {
+    thisNode.playStateObserver = function( playState ) {
 
       // face
       var faceVisible = false;
@@ -269,13 +269,14 @@ define( function( require ) {
           thisNode.beforeBox.visible = !hideBoxVisible;
         }
       }
+      console.log( 'reaction = ' + reaction.toString() );//XXX
       thisNode.quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
 
       // switch between spinners and static numbers
       thisNode.quantitiesNode.setInteractive( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
     };
-    this.playStateProperty = model.playStateProperty; // @private
-    this.playStateProperty.link( this.playStateObserver ); // must be unlinked in dispose
+    thisNode.playStateProperty = model.playStateProperty; // @private
+    thisNode.playStateProperty.link( thisNode.playStateObserver ); // must be unlinked in dispose
 
     //------------------------------------------------------------------------------------
     // Developer
@@ -304,14 +305,18 @@ define( function( require ) {
 
       // boxes
       this.beforeBox.dispose();
+      this.beforeBox = null;
       this.afterBox.dispose();
+      this.afterBox = null;
 
       // buttons
       this.buttons.dispose();
+      this.buttons = null;
       this.checkButtonEnabledProperty.detach();
 
       // stuff below the boxes
       this.quantitiesNode.dispose();
+//      this.quantitiesNode = null; //TODO this causes an error
     }
   } );
 } );

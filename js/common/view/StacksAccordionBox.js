@@ -93,6 +93,7 @@ define( function( require ) {
     dispose: function() {
       AccordionBox.prototype.dispose.call( this );
       this.stackNodes.forEach( function( node ) { node.dispose(); } );
+      this.stackNodes = null;
     }
   } );
 } );

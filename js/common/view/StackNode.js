@@ -78,6 +78,7 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.iconNodes.forEach( function( node ) { node.dispose(); } );
+      this.iconNodes = null;
       this.quantityProperty.unlink( this.quantityPropertyObserver );
     }
   } );

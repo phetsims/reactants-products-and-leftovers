@@ -112,10 +112,13 @@ define( function( require ) {
 
       // accordion boxes
       this.beforeBox.dispose();
+      this.beforeBox = null;
       this.afterBox.dispose();
+      this.afterBox = null;
 
       // stuff below the boxes
       this.quantitiesNode.dispose();
+      this.quantitiesNode = null;
     }
   } );
 } );
