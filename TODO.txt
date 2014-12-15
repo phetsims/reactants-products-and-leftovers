@@ -1,7 +1,6 @@
 TODO list for reactants-products-and-leftovers
 
 HIGH
-- #18 track down calls to disposed objects in QuantitiesNode and ChallengeNode (see TODO items)
 - GitHub issues
 
 MISC

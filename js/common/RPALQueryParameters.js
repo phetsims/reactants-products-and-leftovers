@@ -22,7 +22,10 @@ define( function( require ) {
     REWARD: !!getQueryParameter( 'reward' ) || false,
 
     // shows challenge answers at the bottom of the Game screen
-    CHEAT: !!getQueryParameter( 'cheat' ) || false
+    CHEAT: !!getQueryParameter( 'cheat' ) || false,
+
+    // enables console output related to instantiation and disposal of top-level objects
+    MEMORY_DEBUG: !!getQueryParameter( 'memoryDebug' ) || false
   };
 
   return RPALQueryParameters;

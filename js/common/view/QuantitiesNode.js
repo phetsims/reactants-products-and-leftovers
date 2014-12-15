@@ -354,9 +354,9 @@ define( function( require ) {
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
-//      this.spinnerNodes = null; //TODO this causes an error
+      this.spinnerNodes = null;
       this.beforeNumberNodes.forEach( function( node ) { node.dispose(); } );
-//      this.beforeNumberNodes = null; //TODO this causes an error
+      this.beforeNumberNodes = null;
       this.afterNumberNodes.forEach( function( node ) { node.dispose(); } );
       this.afterNumberNodes = null;
       this.iconNodes.forEach( function( node ) { node.dispose(); } );

@@ -66,22 +66,6 @@ define( function( require ) {
     }
 
     thisModel.timer = new GameTimer();
-
-    // End the game or advance to the next challenge
-    thisModel.playStateProperty.lazyLink( function( playState ) {
-      if ( playState === PlayState.FIRST_CHECK ) {
-        if ( thisModel.challengeIndex === thisModel.challenges.length - 1 ) {
-          // game has been completed, advance to GamePhase.RESULTS
-          thisModel.results();
-        }
-        else {
-          // advance to next challenge
-          thisModel.challengeIndex = thisModel.challengeIndex + 1;
-          thisModel.challenge = thisModel.challenges[thisModel.challengeIndex];
-          thisModel.points = 0;
-        }
-      }
-    } );
   }
 
   return inherit( PropertySet, GameModel, {
@@ -125,7 +109,6 @@ define( function( require ) {
     // Checks the current guess
     check: function() {
       assert && assert( this.playState === PlayState.FIRST_CHECK || this.playState === PlayState.SECOND_CHECK );
-
       if ( this.challenge.isCorrect() ) {
         // stop the timer as soon as we successfully complete the last challenge
         if ( this.challengeIndex === this.challenges.length - 1 ) {
@@ -155,8 +138,17 @@ define( function( require ) {
 
     // Advances to the next challenge
     next: function() {
-      assert && assert( this.playState === PlayState.NEXT );
-      this.playState = PlayState.FIRST_CHECK;
+      if ( this.challengeIndex === this.challenges.length - 1 ) {
+        // game has been completed, advance to GamePhase.RESULTS
+        this.results();
+      }
+      else {
+        // advance to next challenge
+        this.points = 0;
+        this.challengeIndex = this.challengeIndex + 1;
+        this.challenge = this.challenges[this.challengeIndex];
+        this.playState = PlayState.FIRST_CHECK;
+      }
     },
 
     /**
@@ -213,12 +205,13 @@ define( function( require ) {
 
     // @private initializes a new set of challenges for the current level
     initChallenges: function() {
-      this.challengeIndex = -1;
       this.challenges = ChallengeFactory.createChallenges( this.level, this.maxQuantity, {
         moleculesVisible: this.moleculesVisible,
         numbersVisible: this.numbersVisible
       } );
       this.numberOfChallenges = this.challenges.length;
+      this.challengeIndex = 0;
+      this.challenge = this.challenges[this.challengeIndex];
     },
 
     /**
@@ -228,8 +221,7 @@ define( function( require ) {
      * This is a developer feature.
      */
     skipCurrentChallenge: function() {
-      this.playState = PlayState.NEXT; // force a state change, in case we're in PlayState.FIRST_CHECK
-      this.playState = PlayState.FIRST_CHECK;
+      this.next();
     },
 
     /**
@@ -240,10 +232,7 @@ define( function( require ) {
      */
     replayCurrentChallenge: function() {
       this.challenge.reset();
-      if ( this.playState !== PlayState.FIRST_CHECK ) {
-        this.challengeIndex = this.challengeIndex - 1;
-        this.playState = PlayState.FIRST_CHECK;
-      }
+      this.playState = PlayState.FIRST_CHECK;
     }
   } );
 } );

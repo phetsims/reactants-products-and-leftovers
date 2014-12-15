@@ -1,3 +1,5 @@
+12/13/14 #18 fix problem that was resulting in calls to disposed instances of ChallengeNode
+12/13/14 #18 add debug output for instantiation and disposal of challenges, 'memoryDebug' query parameter
 12/13/14 #18 after calling dispose on any object, set it to null (to induce errors for calls to disposed objects)
 12/9/14 add Reaction.toString, useful for debugging
 # 1.0.0-dev.16 12/9/14
