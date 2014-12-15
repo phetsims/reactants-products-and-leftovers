@@ -27,13 +27,12 @@ define( function( require ) {
     var thisNode = this;
     Text.call( thisNode, '' );
 
-    thisNode.numberProperty = numberProperty; // @private
-
     // @private update the displayed number
     thisNode.numberPropertyObserver = function( value ) {
       thisNode.text = Util.toFixed( value, options.decimalPlaces );
     };
-    numberProperty.link( thisNode.numberPropertyObserver ); // must be unlinked in dispose
+    thisNode.numberProperty = numberProperty; // @private
+    thisNode.numberProperty.link( thisNode.numberPropertyObserver ); // must be unlinked in dispose
 
     thisNode.mutate( options );
   }
