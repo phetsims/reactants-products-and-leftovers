@@ -12,13 +12,13 @@ define( function( require ) {
 
   var RPALQueryParameters = {
 
-    // adds 'Test', 'Skip', 'Replay' buttons to Game, shows challenge answers at the bottom of the Game screen
+    // adds 'Test', 'Skip', 'Replay' buttons to the Game, shows challenge answers at the bottom of the Game screen
     DEV: !!getQueryParameter( 'dev' ) || false,
 
     // plays all reactions for each level of the game
     PLAY_ALL: !!getQueryParameter( 'playAll' ) || false,
 
-    // shows the game reward regardless of score
+    // shows the game reward, regardless of score
     REWARD: !!getQueryParameter( 'reward' ) || false,
 
     // shows challenge answers at the bottom of the Game screen
