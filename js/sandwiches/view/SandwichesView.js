@@ -27,6 +27,8 @@ define( function( require ) {
    */
   function SandwichesView( model ) {
 
+    this.model = model; //XXX
+
     // compute the size of the largest sandwich, used for view layout
     var maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
     var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient );
@@ -64,5 +66,19 @@ define( function( require ) {
     );
   }
 
-  return inherit( RPALScreenView, SandwichesView );
+  return inherit( RPALScreenView, SandwichesView, {
+    //XXX
+    steps: 0,
+    reactionIndex: 0,
+    // cycle through the sandwiches
+    step: function( dt ) {
+      this.steps++;
+      if ( this.steps % 20 == 0 ) {
+        this.model.reaction = this.model.reactions[this.reactionIndex++];
+        if ( this.reactionIndex >= this.model.reactions.length ) {
+          this.reactionIndex = 0;
+        }
+      }
+    }
+  } );
 } );
