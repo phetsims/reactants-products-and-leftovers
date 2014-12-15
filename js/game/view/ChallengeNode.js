@@ -56,7 +56,7 @@ define( function( require ) {
 
     this.reactionDebug = reaction; // @private for debug output
     if ( RPALQueryParameters.MEMORY_DEBUG ) {
-      console.log( 'ChallengeNode instantiate: ' + thisNode.reactionDebug.toString() );
+      console.log( 'ChallengeNode.constructor ' + thisNode.reactionDebug.toString() );
     }
 
     // which substances are visible depends on whether we're guessing 'Before' or 'After' quantities
