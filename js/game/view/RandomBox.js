@@ -17,11 +17,11 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
-  var DynamicIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DynamicIcon' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
+  var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -180,7 +180,7 @@ define( function( require ) {
    */
   function CellNode( iconProperty, gridPosition, randomOffset ) {
 
-    DynamicIcon.call( this, iconProperty );
+    SubstanceIcon.call( this, iconProperty );
 
     this.gridPosition = gridPosition; // @private
     this.randomOffset = randomOffset; // @private
@@ -188,7 +188,7 @@ define( function( require ) {
     this.setGridPosition( gridPosition ); // initialize position
   }
 
-  inherit( DynamicIcon, CellNode, {
+  inherit( SubstanceIcon, CellNode, {
 
     getGridPosition: function() { return this.gridPosition; },
 

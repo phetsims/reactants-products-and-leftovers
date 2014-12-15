@@ -15,10 +15,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var DynamicIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DynamicIcon' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
 
   /**
    * @param {number} height height of the stack
@@ -46,7 +46,7 @@ define( function( require ) {
     thisNode.addChild( itemsParent );
 
     // update the number of nodes in the stack
-    thisNode.iconNodes = []; // @private {DynamicIcon[]}
+    thisNode.iconNodes = []; // @private {SubstanceIcon[]}
     thisNode.quantityPropertyObserver = function( quantity ) { // @private
 
       var count = Math.max( quantity, itemsParent.getChildrenCount() );
@@ -58,7 +58,7 @@ define( function( require ) {
         }
         else {
           // add a node
-          var iconNode = new DynamicIcon( iconProperty, {
+          var iconNode = new SubstanceIcon( iconProperty, {
             centerX: 0,
             centerY: startCenterY - ( i * deltaY )
           } );

@@ -1,3 +1,4 @@
+12/14/14 #18 rename DynamicIcon to SubstanceIcon to associate it with Substance, document memory issue in implementation-notes.txt
 12/14/14 #18 fix memory leak in RandomBox by using DynamicIcon
 12/14/14 #18 fix memory leak in SandwichesEquationNode by using DynamicIcon
 12/14/14 #18 fix memory leak in DynamicIcon, must explicitly remove icon from its parent

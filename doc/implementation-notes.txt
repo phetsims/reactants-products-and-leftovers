@@ -22,3 +22,14 @@ In this sim, view components typically have a lifetime that is shorter than thei
 Those view components implement a dispose function, which unlinks observers from AXON properties in the model.
 To prevent memory leaks, it's essential to call dispose when you're done with view components. Failure to unlink
 from AXON properties tends to be the main cause of memory leaks.
+
+Another source of memory leaks (see GitHub issue #18) is the Substance.icon property. This property is a scenery Node
+that is used to represent an instance of a Substance. Scenery is a DAG and allows one instance of a Node to
+appear in the scenegraph in multiple places, with 2 caveats: (1) a Node cannot be a sibling of itself, and
+(2) transforming a node will do so everywhere that it appears. Because a Substance's icon can appear in multiple
+places in the view (equation, Before/After box,...), the icon must be wrapped in another node, so that we don't
+accidentally make it a sibling of itself, or attempt to position it. VERY IMPORTANT is that when the wrapper node
+is removed from the scenegraph, the Substance's icon needs to be explicitly removed from the wrapper.  This is
+because scenery nodes keep a reference to their parent. If we don't explicitly remove the icon from the scene graph,
+then all of its ancestors will be retained, creating a memory leak. More details can be found in SubstanceIcon, which
+is the wrapper for Substance icons.

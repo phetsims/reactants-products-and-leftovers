@@ -1,7 +1,9 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Displays an icon that may change dynamically.
+ * Displays a Substance's icon, which may change dynamically.
+ * <p>
+ * VERY IMPORTANT NOTES!
  * <p>
  * Scenery is a DAG and allows one instance of a Node to appear in the scenegraph in
  * multiple places, with 2 caveats: (1) a Node cannot be a sibling of itself, and (2)
@@ -11,10 +13,11 @@
  * attempt to position it.  It also ensures that the icon's origin (0,0) is at the
  * center of its bounds, which we take advantage of in layout code.
  * <p>
- * VERY IMPORTANT (see issue #18): When this node is disposed of, the icon needs
- * to be explicitly removed from its parent.  This is because scenery nodes keep
- * a reference to their parent. If we don't explicitly remove the icon from the
- * scene graph, then all of its ancestors will be retained, creating a memory leak.
+ * Substances typically have a lifetime that is longer than this node.
+ * When this node is disposed of, the icon needs to be explicitly removed from its parent.
+ * This is because scenery nodes keep a reference to their parent. If we don't explicitly
+ * remove the icon from the scene graph, then all of its ancestors will be retained,
+ * creating a memory leak.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -31,7 +34,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function DynamicIcon( iconProperty, options ) {
+  function SubstanceIcon( iconProperty, options ) {
 
     var thisNode = this;
     Node.call( thisNode );
@@ -52,7 +55,7 @@ define( function( require ) {
     thisNode.mutate( options );
   }
 
-  return inherit( Node, DynamicIcon, {
+  return inherit( Node, SubstanceIcon, {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {

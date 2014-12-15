@@ -15,7 +15,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var DynamicIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/DynamicIcon' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -25,6 +24,7 @@ define( function( require ) {
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var SandwichRecipe = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichRecipe' );
+  var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -76,7 +76,7 @@ define( function( require ) {
       leftNode.addChild( coefficientNode );
 
       // icon
-      iconNode = new DynamicIcon( reactant.iconProperty, {
+      iconNode = new SubstanceIcon( reactant.iconProperty, {
         left: coefficientNode.right + COEFFICIENT_X_SPACING,
         centerY: coefficientNode.centerY
       } );
@@ -101,7 +101,7 @@ define( function( require ) {
     arrowNode.centerY = leftNode.centerY;
 
     // @private right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
-    var sandwichNode = new DynamicIcon( reaction.sandwich.iconProperty, {
+    var sandwichNode = new SubstanceIcon( reaction.sandwich.iconProperty, {
       centerX: arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 ),
       centerY: arrowNode.centerY
     } );
