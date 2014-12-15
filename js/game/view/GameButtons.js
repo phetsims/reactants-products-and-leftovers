@@ -47,24 +47,23 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode, options );
 
-    // buttons, created on demand
-    var checkButton, tryAgainButton, showAnswerButton, nextButton;
+    // check button is needed immediately, so create it so this node has well-defined bounds (needed for layout)
+    var checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
+    thisNode.addChild( checkButton );
+    checkButton.addListener( function() { model.check(); } );
+
+    // enable/disable the check button
+    thisNode.checkButtonEnabledObserver = function( enabled ) { checkButton.enabled = enabled; }; // @private
+    thisNode.checkButtonEnabledProperty = checkButtonEnabledProperty; // @private
+    thisNode.checkButtonEnabledProperty.link( thisNode.checkButtonEnabledObserver ); // must be unlinked in dispose
+
+    // other buttons, created on demand
+    var tryAgainButton, showAnswerButton, nextButton;
 
     // @private
     thisNode.playStateObserver = function( state ) {
 
       // create buttons on demand
-      if ( !checkButton && ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK ) ) {
-        checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
-        thisNode.addChild( checkButton );
-        checkButton.addListener( function() { model.check(); } );
-
-        // enable/disable the check button
-        thisNode.checkButtonEnabledObserver = function( enabled ) { checkButton.enabled = enabled; }; // @private
-        thisNode.checkButtonEnabledProperty = checkButtonEnabledProperty; // @private
-        thisNode.checkButtonEnabledProperty.link( thisNode.checkButtonEnabledObserver ); // must be unlinked in dispose
-      }
-
       if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
         tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
         thisNode.addChild( tryAgainButton );
@@ -97,7 +96,7 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-      this.checkButtonEnabledObserver && this.checkButtonEnabledProperty.unlink( this.checkButtonEnabledObserver );
+      this.checkButtonEnabledProperty.unlink( this.checkButtonEnabledObserver );
       this.playStateProperty.unlink( this.playStateObserver );
     }
   } );

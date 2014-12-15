@@ -1,3 +1,4 @@
+12/13/14 fix: create 'Check' button immediately, so that GameButtons has well-defined bounds for layout
 12/13/14 #18 fix problem that was resulting in calls to disposed instances of ChallengeNode
 12/13/14 #18 add debug output for instantiation and disposal of challenges, 'memoryDebug' query parameter
 12/13/14 #18 after calling dispose on any object, set it to null (to induce errors for calls to disposed objects)
