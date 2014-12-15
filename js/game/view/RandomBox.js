@@ -123,8 +123,6 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    thisNode.quantityProperty = quantityProperty; // @private
-
     thisNode.quantityPropertyObserver = function( quantity ) {
 
       var count = Math.max( quantity, thisNode.getChildrenCount() );
@@ -153,6 +151,7 @@ define( function( require ) {
         }
       }
     };
+    thisNode.quantityProperty = quantityProperty; // @private
     thisNode.quantityProperty.link( thisNode.quantityPropertyObserver ); // must be unlinked in dispose
   }
 
