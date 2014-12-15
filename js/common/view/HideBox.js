@@ -36,11 +36,11 @@ define( function( require ) {
     } );
 
     // closed-eye icon
-    var iconNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
-    iconNode.setScaleMagnitude( options.iconHeight / iconNode.height );
-    iconNode.center = rectangleNode.center;
+    var eyeNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
+    eyeNode.setScaleMagnitude( options.iconHeight / eyeNode.height );
+    eyeNode.center = rectangleNode.center;
 
-    options.children = [ rectangleNode, iconNode ];
+    options.children = [ rectangleNode, eyeNode ];
     Node.call( this, options );
   }
 
