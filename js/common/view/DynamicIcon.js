@@ -10,6 +10,11 @@
  * wrap an icon, so that we don't accidentally make it a sibling of itself, or
  * attempt to position it.  It also ensures that the icon's origin (0,0) is at the
  * center of its bounds, which we take advantage of in layout code.
+ * <p>
+ * VERY IMPORTANT (see issue #18): When this node is disposed of, the icon needs
+ * to be explicitly removed from its parent.  This is because scenery nodes keep
+ * a reference to their parent. If we don't explicitly remove the icon from the
+ * scene graph, then all of its ancestors will be retained, creating a memory leak.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -28,21 +33,23 @@ define( function( require ) {
    */
   function DynamicIcon( iconProperty, options ) {
 
-    Node.call( this );
+    var thisNode = this;
+    Node.call( thisNode );
 
-    // Add an additional wrapper, so that we can maintain the node's center.
-    var wrapperNode = this.wrapperNode = new Node();
-    this.addChild( this.wrapperNode );
+    // @private Add an additional wrapper, so that we can maintain the node's center.
+    thisNode.wrapperNode = new Node();
+    thisNode.addChild( thisNode.wrapperNode );
 
-    this.iconProperty = iconProperty; // @private
-    this.iconPropertyObserver = function( node ) { // @private
-      wrapperNode.removeAllChildren();
-      wrapperNode.addChild( node );
-      wrapperNode.center = Vector2.ZERO;
+    thisNode.iconProperty = iconProperty; // @private
+    thisNode.iconPropertyObserver = function( icon ) { // @private
+      thisNode.wrapperNode.removeAllChildren();
+      // icon must be removed in dispose, since scenery children keep a reference to their parents
+      thisNode.wrapperNode.addChild( icon );
+      thisNode.wrapperNode.center = Vector2.ZERO;
     };
-    this.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
+    thisNode.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
 
-    this.mutate( options );
+    thisNode.mutate( options );
   }
 
   return inherit( Node, DynamicIcon, {
