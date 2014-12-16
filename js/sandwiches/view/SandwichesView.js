@@ -73,7 +73,6 @@ define( function( require ) {
     steps: 0,
     reactionIndex: 0,
     step: function( dt ) {
-      console.log( RPALQueryParameters.LEAK_STEP );//XXX
       if ( RPALQueryParameters.LEAK_STEP > 0 ) {
         this.steps++;
         if ( this.steps % RPALQueryParameters.LEAK_STEP ) {
