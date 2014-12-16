@@ -1,14 +1,14 @@
-12/14/14 #18 add 'leakTest' query parameter, iterates through sandwiches to test for memory leaks
-12/14/14 #18 rename DynamicIcon to SubstanceIcon to associate it with Substance, document memory issue in implementation-notes.txt
-12/14/14 #18 fix memory leak in RandomBox by using DynamicIcon
-12/14/14 #18 fix memory leak in SandwichesEquationNode by using DynamicIcon
-12/14/14 #18 fix memory leak in DynamicIcon, must explicitly remove icon from its parent
-12/13/14 fix JSdoc for array, use {Type[]}
-12/13/14 #18 add memoryDebug output for first 2 screens
-12/13/14 fix: create 'Check' button immediately, so that GameButtons has well-defined bounds for layout
-12/13/14 #18 fix problem that was resulting in calls to disposed instances of ChallengeNode
-12/13/14 #18 add debug output for instantiation and disposal of challenges, 'memoryDebug' query parameter
-12/13/14 #18 after calling dispose on any object, set it to null (to induce errors for calls to disposed objects)
+12/15/14 #18 add 'leakTest' query parameter, iterates through sandwiches to test for memory leaks
+12/15/14 #18 rename DynamicIcon to SubstanceIcon to associate it with Substance, document memory issue in implementation-notes.txt
+12/15/14 #18 fix memory leak in RandomBox by using DynamicIcon
+12/15/14 #18 fix memory leak in SandwichesEquationNode by using DynamicIcon
+12/15/14 #18 fix memory leak in DynamicIcon, must explicitly remove icon from its parent
+12/14/14 fix JSdoc for array, use {Type[]}
+12/14/14 #18 add memoryDebug output for first 2 screens
+12/14/14 fix: create 'Check' button immediately, so that GameButtons has well-defined bounds for layout
+12/14/14 #18 fix problem that was resulting in calls to disposed instances of ChallengeNode
+12/14/14 #18 add debug output for instantiation and disposal of challenges, 'memoryDebug' query parameter
+12/14/14 #18 after calling dispose on any object, set it to null (to induce errors for calls to disposed objects)
 12/9/14 add Reaction.toString, useful for debugging
 # 1.0.0-dev.16 12/9/14
 12/9/14 #22 Game: reduce button opacity to 0.65, face opacity to 0.5, delete query parameters
