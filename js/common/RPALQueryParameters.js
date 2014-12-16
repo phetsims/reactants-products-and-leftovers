@@ -27,8 +27,8 @@ define( function( require ) {
     // enables console output related to instantiation and disposal of top-level objects
     MEMORY_DEBUG: !!getQueryParameter( 'memoryDebug' ) || false,
 
-    //TODO remove this and related code in SandwichesView when #18 is resolved
-    // number of animation steps to wait before automatically switching sandwich equations, to test for memory leaks. 0 disables this feature.
+    //TODO remove this and related code in RPALScreenView when #18 is resolved
+    // number of animation steps to wait before automatically switching reactions, to test for memory leaks. 0 disables this feature.
     LEAK_STEP: parseInt( getQueryParameter( 'leakStep' ), 10 ) || 0
   };
 

@@ -14,6 +14,7 @@ define( function( require ) {
   var ReactionBarNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBarNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
+  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
@@ -23,6 +24,8 @@ define( function( require ) {
    * @constructor
    */
   function RPALScreenView( model, createEquationNode, createBeforeAfterNode ) {
+
+    this.model = model; // @private
 
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
@@ -74,5 +77,21 @@ define( function( require ) {
     } );
   }
 
-  return inherit( ScreenView, RPALScreenView );
+  return inherit( ScreenView, RPALScreenView, {
+
+    // Cycle through the reactions, for memory-leak debugging. See issue #18.
+    steps: 0,
+    reactionIndex: 0,
+    step: function( dt ) {
+      if ( RPALQueryParameters.LEAK_STEP > 0 ) {
+        this.steps++;
+        if ( this.steps % RPALQueryParameters.LEAK_STEP ) {
+          this.model.reaction = this.model.reactions[this.reactionIndex++];
+          if ( this.reactionIndex >= this.model.reactions.length ) {
+            this.reactionIndex = 0;
+          }
+        }
+      }
+    }
+  } );
 } );

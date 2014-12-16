@@ -13,7 +13,6 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var RPALScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALScreenView' );
   var SandwichesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesEquationNode' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
@@ -27,8 +26,6 @@ define( function( require ) {
    * @constructor
    */
   function SandwichesView( model ) {
-
-    this.model = model; // @private
 
     // compute the size of the largest sandwich, used for view layout
     var maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
@@ -67,21 +64,5 @@ define( function( require ) {
     );
   }
 
-  return inherit( RPALScreenView, SandwichesView, {
-
-    // Cycle through the sandwiches, for memory-leak debugging. See issue #18.
-    steps: 0,
-    reactionIndex: 0,
-    step: function( dt ) {
-      if ( RPALQueryParameters.LEAK_STEP > 0 ) {
-        this.steps++;
-        if ( this.steps % RPALQueryParameters.LEAK_STEP ) {
-          this.model.reaction = this.model.reactions[this.reactionIndex++];
-          if ( this.reactionIndex >= this.model.reactions.length ) {
-            this.reactionIndex = 0;
-          }
-        }
-      }
-    }
-  } );
+  return inherit( RPALScreenView, SandwichesView );
 } );
