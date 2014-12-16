@@ -28,8 +28,8 @@ define( function( require ) {
     MEMORY_DEBUG: !!getQueryParameter( 'memoryDebug' ) || false,
 
     //TODO remove this and related code in SandwichesView when #18 is resolved
-    // enables automatic iteration over sandwich equations, to test for memory leaks
-    LEAK_TEST: !!getQueryParameter( 'leakTest' ) || false
+    // number of animation steps to wait before automatically switching sandwich equations, to test for memory leaks. 0 disables this feature.
+    LEAK_STEP: parseInt( getQueryParameter( 'leakStep' ), 10 ) || 0
   };
 
   return RPALQueryParameters;

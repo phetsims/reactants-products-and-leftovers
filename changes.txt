@@ -1,3 +1,4 @@
+12/16/14 #18 change leakTest to leakStep, integer that specifies number of animation steps to wait before automatically switching sandwich equations
 12/15/14 #18 add 'leakTest' query parameter, iterates through sandwiches to test for memory leaks
 12/15/14 #18 rename DynamicIcon to SubstanceIcon to associate it with Substance, document memory issue in implementation-notes.txt
 12/15/14 #18 fix memory leak in RandomBox by using DynamicIcon
