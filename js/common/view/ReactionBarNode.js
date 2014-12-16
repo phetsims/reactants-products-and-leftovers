@@ -2,6 +2,10 @@
 
 /**
  * Horizontal bar that contains radio buttons for selecting a reaction, and displays the selected reaction's equation.
+ * <p>
+ * Equations are relatively expensive to create, and we have a small number of reactions.
+ * So equations are created on demand, then cached to improve the performance of switching between reactions.
+ *
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -34,6 +38,9 @@ define( function( require ) {
 
     var thisNode = this;
 
+    // equations will be created on demand, then cached
+    thisNode.equationCache = [];
+
     // radio buttons for choosing a reaction, scaled to fit for i18n
     var radioButtons = new ReactionRadioButtons( reactionProperty, reactions );
     radioButtons.setScaleMagnitude( Math.min( 1, 0.25 * options.screenWidth / radioButtons.width ) );
@@ -53,28 +60,31 @@ define( function( require ) {
      * Updates the equation to match the reaction
      * Unlink is unnecessary because this node exists for the lifetime of the simulation.
      */
-    var equationNode = null;
     reactionProperty.link( function( reaction ) {
 
-      // dispose of previous equation
-      if ( equationNode ) {
-        thisNode.removeChild( equationNode );
-        equationNode.dispose && equationNode.dispose(); // dispose of the node, if supported
-        equationNode = null;
+      // Create an equation for this reaction, if one isn't already in the cache.
+      if ( !_.find( thisNode.equationCache, { 'reaction': reaction } ) ) {
+
+        // create equation for the reaction
+        var equationNode = createEquationNode( reaction );
+        thisNode.addChild( equationNode );
+
+        // scale the equation if it's too wide to fit the available space
+        var availableWidth = radioButtons.left - ( 2 * options.xMargin );
+        var scale = Math.min( 1, availableWidth / equationNode.width );
+        equationNode.setScaleMagnitude( scale );
+
+        // center the equation in the space to the left of the controls
+        equationNode.centerX = options.xMargin + ( availableWidth / 2 );
+        equationNode.centerY = backgroundNode.centerY;
+
+        thisNode.equationCache.push( { reaction: reaction, equationNode: equationNode } );
       }
 
-      // create equation for the reaction
-      equationNode = createEquationNode( reaction );
-      thisNode.addChild( equationNode );
-
-      // scale the equation if it's too wide to fit the available space
-      var availableWidth = radioButtons.left - ( 2 * options.xMargin );
-      var scale = Math.min( 1, availableWidth / equationNode.width );
-      equationNode.setScaleMagnitude( scale );
-
-      // center the equation in the space to the left of the controls
-      equationNode.centerX = options.xMargin + ( availableWidth / 2 );
-      equationNode.centerY = backgroundNode.centerY;
+      // Make the reaction's equation visible.
+      thisNode.equationCache.forEach( function( item ) {
+        item.equationNode.visible = ( item.reaction === reaction );
+      } );
     } );
   }
 

@@ -1,3 +1,4 @@
+12/16/14 #17 cache equations at the top of the 'Sandwiches' and 'Molecules' screens, they are relatively expensive to create (~30% savings on Chrome)
 12/16/14 #17, #24 reimplement HBracketNode using arc instead of quadraticCurveTo, presumably making the stroked shape less expensive to compute
 12/16/14 #18 move leakStep memory-leak test to RPALScreenView, so that it applies to both 'Sandwiches' and 'Molecules' screens, in case those screens have different issues
 12/16/14 #18 change leakTest to leakStep, integer that specifies number of animation steps to wait before automatically switching sandwich equations
