@@ -85,7 +85,7 @@ define( function( require ) {
     step: function( dt ) {
       if ( RPALQueryParameters.LEAK_STEP > 0 ) {
         this.steps++;
-        if ( this.steps % RPALQueryParameters.LEAK_STEP ) {
+        if ( this.steps % RPALQueryParameters.LEAK_STEP === 0 ) {
           this.model.reaction = this.model.reactions[this.reactionIndex++];
           if ( this.reactionIndex >= this.model.reactions.length ) {
             this.reactionIndex = 0;
