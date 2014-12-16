@@ -25,7 +25,10 @@ define( function( require ) {
     CHEAT: !!getQueryParameter( 'cheat' ) || false,
 
     // enables console output related to instantiation and disposal of top-level objects
-    MEMORY_DEBUG: !!getQueryParameter( 'memoryDebug' ) || false
+    MEMORY_DEBUG: !!getQueryParameter( 'memoryDebug' ) || false,
+
+    // enables automatic iteration over sandwich equations, to test for memory leaks
+    LEAK_TEST: !!getQueryParameter( 'leakTest' ) || false
   };
 
   return RPALQueryParameters;
