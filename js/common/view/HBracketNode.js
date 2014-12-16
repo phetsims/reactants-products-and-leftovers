@@ -23,10 +23,8 @@ define( function( require ) {
     options = _.extend( {
       labelNode: null, // {Node|null} optional label that will be centered below bracket's tip
       bracketWidth: 100,
-      bracketEndHeight: 5,
-      bracketCurveXOffset: 5, // x-offset of the bracket's curved segments
-      bracketTipWidth: 6,
-      bracketTipHeight: 6,
+      bracketEndRadius: 5, // radius of the arcs at the ends of the bracket
+      bracketTipRadius: 6, // radius of the arcs at the tip (center) of the bracket
       bracketStroke: 'black',
       ySpacing: 2 // vertical space between label and tip of bracket
     }, options );
@@ -36,17 +34,14 @@ define( function( require ) {
     // bracket shape, created left-to-right
     var bracketShape = new Shape()
       // left end curves up
-      .moveTo( 0, 0 )
-      .quadraticCurveTo( 0, options.bracketEndHeight, options.bracketCurveXOffset, options.bracketEndHeight )
-      .lineTo( ( ( options.bracketWidth - options.bracketTipWidth ) / 2 ) - options.bracketCurveXOffset, options.bracketEndHeight )
+      .arc( options.bracketEndRadius, 0, options.bracketEndRadius, Math.PI, 0.5 * Math.PI, true )
+      .lineTo( ( options.bracketWidth / 2 ) - options.bracketTipRadius, options.bracketEndRadius )
       // tip points down
-      .quadraticCurveTo( options.bracketWidth / 2, options.bracketEndHeight,
-        options.bracketWidth / 2, ( options.bracketEndHeight + options.bracketTipHeight ) )
-      .quadraticCurveTo( ( options.bracketWidth / 2 ), options.bracketEndHeight,
-        ( ( options.bracketWidth + options.bracketTipWidth ) / 2 ) + options.bracketCurveXOffset, options.bracketEndHeight )
+      .arc( ( options.bracketWidth / 2 ) - options.bracketTipRadius, options.bracketEndRadius + options.bracketTipRadius, options.bracketTipRadius, 1.5 * Math.PI, 0 )
+      .arc( ( options.bracketWidth / 2 ) + options.bracketTipRadius, options.bracketEndRadius + options.bracketTipRadius, options.bracketTipRadius, Math.PI, 1.5 * Math.PI )
       // right end curves up
-      .lineTo( options.bracketWidth - options.bracketCurveXOffset, options.bracketEndHeight )
-      .quadraticCurveTo( options.bracketWidth, options.bracketEndHeight, options.bracketWidth, 0 );
+      .lineTo( options.bracketWidth - options.bracketEndRadius, options.bracketEndRadius )
+      .arc( options.bracketWidth - options.bracketEndRadius, 0, options.bracketEndRadius, 0.5 * Math.PI, 0, true );
 
     // bracket node
     var bracketNode = new Path( bracketShape, {
