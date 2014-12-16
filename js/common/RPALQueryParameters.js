@@ -27,6 +27,7 @@ define( function( require ) {
     // enables console output related to instantiation and disposal of top-level objects
     MEMORY_DEBUG: !!getQueryParameter( 'memoryDebug' ) || false,
 
+    //TODO remove this and related code in SandwichesView when #18 is resolved
     // enables automatic iteration over sandwich equations, to test for memory leaks
     LEAK_TEST: !!getQueryParameter( 'leakTest' ) || false
   };
