@@ -14,6 +14,7 @@ define( function( require ) {
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RectangularButtonView = require( 'SUN/buttons/RectangularButtonView' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
@@ -36,7 +37,8 @@ define( function( require ) {
       ySpacing: 5,
       cornerRadius: 5,
       touchXDilated: 20,
-      touchYDilated: 10
+      touchYDilated: 10,
+      buttonAppearanceStrategy: RectangularButtonView.flatAppearanceStrategy // determines 'look' of arrow buttons
     }, options );
 
     var valueOptions = {
@@ -61,8 +63,9 @@ define( function( require ) {
     var valueParent = new Node( { children: [ backgroundNode, numberNode ] } );
 
     // buttons
-    var upButton = new ArrowButton( 'up', function() { numberProperty.set( numberProperty.get() + 1 ); } );
-    var downButton = new ArrowButton( 'down', function() { numberProperty.set( numberProperty.get() - 1 ); } );
+    var arrowButtonOptions = { buttonAppearanceStrategy: options.buttonAppearanceStrategy };
+    var upButton = new ArrowButton( 'up', function() { numberProperty.set( numberProperty.get() + 1 ); }, arrowButtonOptions );
+    var downButton = new ArrowButton( 'down', function() { numberProperty.set( numberProperty.get() - 1 ); }, arrowButtonOptions );
     var buttonsParent = new LayoutBox( {
       children: [ upButton, downButton ],
       orientation: 'vertical',

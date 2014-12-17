@@ -66,6 +66,14 @@ define( function( require ) {
     var beforeAfterNode;
     model.reactionProperty.link( function( reaction ) {
 
+      //TODO #18 flush the cache while we're debugging memory leaks.
+      if ( RPALQueryParameters.LEAK_STEP > 0 ) {
+        thisView.beforeAfterCache.forEach( function( item ) {
+          thisView.removeChild( item.beforeAfterNode );
+        } );
+        thisView.beforeAfterCache = [];
+      }
+
       // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
       if ( !_.find( thisView.beforeAfterCache, { 'reaction': reaction } ) ) {
 
@@ -90,7 +98,7 @@ define( function( require ) {
 
   return inherit( ScreenView, RPALScreenView, {
 
-    // Cycle through the reactions, for memory-leak debugging. See issue #18.
+    //TODO #18 Cycle through the reactions, for memory-leak debugging.
     steps: 0,
     reactionIndex: 0,
     step: function( dt ) {
