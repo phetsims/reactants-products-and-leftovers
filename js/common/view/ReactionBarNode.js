@@ -6,7 +6,6 @@
  * Equations are relatively expensive to create, and we have a small number of reactions.
  * So equations are created on demand, then cached to improve the performance of switching between reactions.
  *
- *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
