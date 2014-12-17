@@ -37,9 +37,6 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // @private equations will be created on demand, then cached here
-    thisNode.equationCache = []; // { {Reaction} reaction, {Node} equationNode }[]
-
     // radio buttons for choosing a reaction, scaled to fit for i18n
     var radioButtons = new ReactionRadioButtons( reactionProperty, reactions );
     radioButtons.setScaleMagnitude( Math.min( 1, 0.25 * options.screenWidth / radioButtons.width ) );
@@ -56,9 +53,11 @@ define( function( require ) {
     Node.call( thisNode, options );
 
     /*
-     * Updates the equation to match the reaction
-     * Unlink is unnecessary because this node exists for the lifetime of the simulation.
+     * Updates the equation to match the reaction.
+     * Equations are created on demand and cached for reuse.
+     * Unlinking from reactionProperty is unnecessary because this node exists for the lifetime of the simulation.
      */
+    thisNode.equationCache = []; // @private { {Reaction} reaction, {Node} equationNode }[]
     reactionProperty.link( function( reaction ) {
 
       // Create an equation for this reaction, if one isn't already in the cache.

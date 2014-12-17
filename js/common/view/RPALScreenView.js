@@ -34,9 +34,6 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
-    // @private BeforeAfterNodes will be created on demand, then cached here
-    thisView.beforeAfterCache = []; // { {Reaction} reaction, {Node} beforeAfterNode }[]
-
     // Properties that are specific to the view
     var viewProperties = new PropertySet( {
       beforeExpanded: true, // {boolean} is the Before box expanded?
@@ -62,11 +59,15 @@ define( function( require ) {
     resetAllButton.left = thisView.layoutBounds.left + 10;
     resetAllButton.bottom = thisView.layoutBounds.bottom - 10;
 
-    // When the reaction changes, update the user interface
-    var beforeAfterNode;
+    /*
+     * Updates the user interface to match the reaction.
+     * BeforeAfterNodes are created on demand and cached for reuse.
+     * Unlinking from reactionProperty is unnecessary because this node exists for the lifetime of the simulation.
+     */
+    thisView.beforeAfterCache = []; // @private { {Reaction} reaction, {Node} beforeAfterNode }[]
     model.reactionProperty.link( function( reaction ) {
 
-      //TODO #18 flush the cache while we're debugging memory leaks.
+      //TODO #18 flush the cache if we're debugging memory leaks.
       if ( RPALQueryParameters.LEAK_STEP > 0 ) {
         thisView.beforeAfterCache.forEach( function( item ) {
           thisView.removeChild( item.beforeAfterNode );
@@ -77,7 +78,7 @@ define( function( require ) {
       // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
       if ( !_.find( thisView.beforeAfterCache, { 'reaction': reaction } ) ) {
 
-        beforeAfterNode = createBeforeAfterNode( reaction,
+        var beforeAfterNode = createBeforeAfterNode( reaction,
           viewProperties.beforeExpandedProperty,
           viewProperties.afterExpandedProperty, {
             centerX: thisView.layoutBounds.centerX,
