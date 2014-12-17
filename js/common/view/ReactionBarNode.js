@@ -77,6 +77,7 @@ define( function( require ) {
         equationNode.centerX = options.xMargin + ( availableWidth / 2 );
         equationNode.centerY = backgroundNode.centerY;
 
+        // cache it
         thisNode.equationCache.push( { reaction: reaction, equationNode: equationNode } );
       }
 
