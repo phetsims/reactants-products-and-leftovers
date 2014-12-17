@@ -2,6 +2,10 @@
 
 /**
  * Base type for the ScreenView used in the 'Sandwiches' and 'Molecules' screens.
+ * <p>
+ * The user interface is relatively expensive to create, and we have a small number of reactions.
+ * So user-interface components are created on demand, then cached to improve the performance of
+ * switching between reactions.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -30,13 +34,16 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
 
+    // @private BeforeAfterNodes will be created on demand, then cached here
+    thisView.beforeAfterCache = []; // { {Reaction} reaction, {Node} beforeAfterNode }[]
+
     // Properties that are specific to the view
     var viewProperties = new PropertySet( {
       beforeExpanded: true, // {boolean} is the Before box expanded?
       afterExpanded: true  // {boolean} is the After box expanded
     } );
 
-    // reaction bar at top of screen
+    // Equation and reaction radio buttons at top of screen
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
       createEquationNode,
       { screenWidth: thisView.layoutBounds.width } );
@@ -55,25 +62,29 @@ define( function( require ) {
     resetAllButton.left = thisView.layoutBounds.left + 10;
     resetAllButton.bottom = thisView.layoutBounds.bottom - 10;
 
-    // When the reaction changes, create new Before/After boxes
+    // When the reaction changes, update the user interface
     var beforeAfterNode;
     model.reactionProperty.link( function( reaction ) {
 
-      // dispose of the previous boxes
-      if ( beforeAfterNode ) {
-        thisView.removeChild( beforeAfterNode );
-        beforeAfterNode.dispose && beforeAfterNode.dispose(); // dispose of the node, if supported
-        beforeAfterNode = null;
+      // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
+      if ( !_.find( thisView.beforeAfterCache, { 'reaction': reaction } ) ) {
+
+        beforeAfterNode = createBeforeAfterNode( reaction,
+          viewProperties.beforeExpandedProperty,
+          viewProperties.afterExpandedProperty, {
+            centerX: thisView.layoutBounds.centerX,
+            top: reactionBarNode.bottom + 12 // below the reaction equation
+          } );
+        thisView.addChild( beforeAfterNode );
+
+        // cache it
+        thisView.beforeAfterCache.push( { reaction: reaction, beforeAfterNode: beforeAfterNode } );
       }
 
-      // create the new boxes
-      beforeAfterNode = createBeforeAfterNode( reaction,
-        viewProperties.beforeExpandedProperty,
-        viewProperties.afterExpandedProperty, {
-          centerX: thisView.layoutBounds.centerX,
-          top: reactionBarNode.bottom + 12 // below the reaction equation
-        } );
-      thisView.addChild( beforeAfterNode );
+      // Make the reaction's BeforeAfterNode visible.
+      thisView.beforeAfterCache.forEach( function( item ) {
+        item.beforeAfterNode.visible = ( item.reaction === reaction );
+      } );
     } );
   }
 
