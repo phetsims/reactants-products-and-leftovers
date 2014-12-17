@@ -37,8 +37,8 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // equations will be created on demand, then cached
-    thisNode.equationCache = [];
+    // @private equations will be created on demand, then cached here
+    thisNode.equationCache = []; // { {Reaction} reaction, {Node} equationNode }[]
 
     // radio buttons for choosing a reaction, scaled to fit for i18n
     var radioButtons = new ReactionRadioButtons( reactionProperty, reactions );
