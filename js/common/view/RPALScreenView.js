@@ -70,6 +70,7 @@ define( function( require ) {
       //TODO #18 flush the cache if we're debugging memory leaks.
       if ( RPALQueryParameters.LEAK_STEP > 0 ) {
         thisView.beforeAfterCache.forEach( function( item ) {
+          item.beforeAfterNode.dispose();
           thisView.removeChild( item.beforeAfterNode );
         } );
         thisView.beforeAfterCache = [];
