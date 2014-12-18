@@ -62,9 +62,8 @@ define( function( require ) {
     var valueParent = new Node( { children: [ backgroundNode, numberNode ] } );
 
     // buttons
-    var arrowButtonOptions = { buttonAppearanceStrategy: options.buttonAppearanceStrategy };
-    var upButton = new ArrowButton( 'up', function() { numberProperty.set( numberProperty.get() + 1 ); }, arrowButtonOptions );
-    var downButton = new ArrowButton( 'down', function() { numberProperty.set( numberProperty.get() - 1 ); }, arrowButtonOptions );
+    var upButton = new ArrowButton( 'up', function() { numberProperty.set( numberProperty.get() + 1 ); } );
+    var downButton = new ArrowButton( 'down', function() { numberProperty.set( numberProperty.get() - 1 ); } );
     var buttonsParent = new LayoutBox( {
       children: [ upButton, downButton ],
       orientation: 'vertical',
