@@ -1,3 +1,4 @@
+12/17/14 #18 remove leakStep query parameter for memory-leak debugging
 12/17/14 remove workaround for ArrowButton leak in NumberSpinner
 12/17/14 sun gradient leak was fixed, sun#146
 12/17/14 scenery gradient leak was fixed, scenery#328

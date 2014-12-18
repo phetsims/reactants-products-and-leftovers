@@ -67,15 +67,6 @@ define( function( require ) {
     thisView.beforeAfterCache = []; // @private { {Reaction} reaction, {Node} beforeAfterNode }[]
     model.reactionProperty.link( function( reaction ) {
 
-      //TODO #18 flush the cache if we're debugging memory leaks.
-      if ( RPALQueryParameters.LEAK_STEP > 0 ) {
-        thisView.beforeAfterCache.forEach( function( item ) {
-          item.beforeAfterNode.dispose();
-          thisView.removeChild( item.beforeAfterNode );
-        } );
-        thisView.beforeAfterCache = [];
-      }
-
       // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
       if ( !_.find( thisView.beforeAfterCache, { 'reaction': reaction } ) ) {
 
@@ -98,21 +89,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( ScreenView, RPALScreenView, {
-
-    //TODO #18 Cycle through the reactions, for memory-leak debugging.
-    steps: 0,
-    reactionIndex: 0,
-    step: function( dt ) {
-      if ( RPALQueryParameters.LEAK_STEP > 0 ) {
-        this.steps++;
-        if ( this.steps % RPALQueryParameters.LEAK_STEP === 0 ) {
-          this.model.reaction = this.model.reactions[this.reactionIndex++];
-          if ( this.reactionIndex >= this.model.reactions.length ) {
-            this.reactionIndex = 0;
-          }
-        }
-      }
-    }
-  } );
+  return inherit( ScreenView, RPALScreenView );
 } );
