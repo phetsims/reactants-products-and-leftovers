@@ -1,3 +1,4 @@
+12/17/14 remove workaround for ArrowButton leak in NumberSpinner
 12/17/14 sun gradient leak was fixed, sun#146
 12/17/14 scenery gradient leak was fixed, scenery#328
 # 1.0.0-dev.17 12/17/14

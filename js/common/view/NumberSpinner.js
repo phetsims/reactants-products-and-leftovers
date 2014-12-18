@@ -37,10 +37,7 @@ define( function( require ) {
       ySpacing: 5,
       cornerRadius: 5,
       touchXDilated: 20,
-      touchYDilated: 10,
-      buttonAppearanceStrategy: RectangularButtonView.threeDAppearanceStrategy // determines 'look' of arrow buttons
-      //TODO #18 this will be the workaround if gradient leak can't be fixed
-//      buttonAppearanceStrategy: RectangularButtonView.flatAppearanceStrategy // determines 'look' of arrow buttons
+      touchYDilated: 10
     }, options );
 
     var valueOptions = {
