@@ -30,6 +30,9 @@ define( function( require ) {
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var Text = require( 'SCENERY/nodes/Text' );
 
+  // strings
+  var questionMarkString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/questionMark' );
+
   /**
    * @param {GameModel} model
    * @param {Bounds2} challengeBounds portion of the screen where the Challenge can be displayed
@@ -152,7 +155,7 @@ define( function( require ) {
     // Question mark
     //------------------------------------------------------------------------------------
 
-    var questionMark = new Text( '?', {
+    var questionMark = new Text( questionMarkString, {
       font: new RPALFont( { size: 150, weight: 'bold' } )
     } );
     thisNode.addChild( questionMark );
@@ -177,7 +180,7 @@ define( function( require ) {
     thisNode.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     thisNode.buttons.bottom = thisNode.beforeBox.bottom - 15;
 
-    // center '?' in negative space above buttons
+    // center question mark in negative space above buttons
     questionMark.centerY = thisNode.beforeBox.top + ( this.buttons.top - thisNode.beforeBox.top ) / 2;
 
     //------------------------------------------------------------------------------------
