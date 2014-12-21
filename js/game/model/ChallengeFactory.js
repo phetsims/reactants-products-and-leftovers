@@ -110,7 +110,7 @@ define( function( require ) {
     },
 
     /**
-     * Gets the number of reactions in the "pool" for a specified level.
+     * Gets the number of reactions in the 'pool' for a specified level.
      * @param {number} level game level, starting at zero
      * @returns {number}
      */

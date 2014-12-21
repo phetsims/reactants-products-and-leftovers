@@ -107,13 +107,13 @@ define( function( require ) {
     } );
     thisNode.iconNodes.push( sandwichNode );
 
-    // "No Reaction", max width determined empirically.
+    // 'No Reaction', max width determined empirically.
     var noReactionNode = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
     noReactionNode.setScaleMagnitude( Math.min( 1, 75 / noReactionNode.width ) );
     noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
     noReactionNode.centerY = arrowNode.centerY;
 
-    // Display "No Reaction" if we don't have a valid sandwich.
+    // Display 'No Reaction' if we don't have a valid sandwich.
     thisNode.sandwichIconPropertyObserver = function( node ) {
       sandwichNode.visible = reaction.isReaction();
       noReactionNode.visible = !sandwichNode.visible;
