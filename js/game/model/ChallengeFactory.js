@@ -36,7 +36,7 @@ define( function( require ) {
 
   // level 2 is all the one-product reactions
   var LEVEL2_POOL = [
-    ReactionFactory.Reaction_PCl3_Cl2__PCl5, // PCl5 is the largest molecule, so put this first for layout debugging
+    ReactionFactory.Reaction_PCl3_Cl2__PCl5, // PCl5 is the largest molecule in this pool, so put this first for layout debugging
     ReactionFactory.makeWater,
     ReactionFactory.Reaction_H2_F2__2HF,
     ReactionFactory.Reaction_H2_Cl2__2HCl,
@@ -61,13 +61,13 @@ define( function( require ) {
 
   // level 3 is all the two-product reactions
   var LEVEL3_POOL = [
+    ReactionFactory.Reaction_C2H5OH_3O2__2CO2_3H2O, // C2H5OH has the most atoms in this pool, so put this first for performance debugging
     ReactionFactory.Reaction_2C_2H2O__CH4_CO2,
     ReactionFactory.Reaction_CH4_H2O__3H2_CO,
     ReactionFactory.combustMethane,
     ReactionFactory.Reaction_2C2H6_7O2__4CO2_6H2O,
     ReactionFactory.Reaction_C2H4_3O2__2CO2_2H2O,
     ReactionFactory.Reaction_2C2H2_5O2__4CO2_2H2O,
-    ReactionFactory.Reaction_C2H5OH_3O2__2CO2_3H2O,
     ReactionFactory.Reaction_C2H6_Cl2__C2H5Cl_HCl,
     ReactionFactory.Reaction_CH4_4S__CS2_2H2S,
     ReactionFactory.Reaction_CS2_3O2__CO2_2SO2,
@@ -104,6 +104,9 @@ define( function( require ) {
       if ( RPALQueryParameters.PLAY_ALL ) {
         return createChallengesPlayAll( level, maxQuantity, challengeOptions );
       }
+      else if ( RPALQueryParameters.PLAY_ONE ) {
+        return createChallengesPlayOne( level, maxQuantity, challengeOptions );
+      }
       else {
         return createChallenges( level, maxQuantity, challengeOptions );
       }
@@ -135,7 +138,6 @@ define( function( require ) {
 
     assert && assert( level >= 0 && level < POOLS.length );
     assert && assert( maxQuantity > 0 );
-    assert && assert( !RPALQueryParameters.PLAY_ALL );
 
     var numberOfChallenges = CHALLENGES_PER_LEVEL;
     var factoryFunctions = POOLS[level].slice( 0 ); // make a copy of the array for the specified level
@@ -166,7 +168,7 @@ define( function( require ) {
   };
 
   /**
-   * DEBUG: This is called when 'playAll' query parameter is present, same interface as createRandomChallenges.
+   * DEBUG: This is called when 'playAll' query parameter is present.
    * A challenge is randomly generated for every reaction in the level's pool, and the reactions always
    * appear in the same order. Quantities are randomly generated, so they will vary each a level is played.
    *
@@ -176,12 +178,7 @@ define( function( require ) {
    */
   var createChallengesPlayAll = function( level, maxQuantity, challengeOptions ) {
 
-    assert && assert( level >= 0 && level < POOLS.length );
-    assert && assert( maxQuantity > 0 );
-    assert && assert( RPALQueryParameters.PLAY_ALL );
-
     var challenges = []; // [{Challenge}]
-
     var factoryFunctions = POOLS[level].slice( 0 ); // make a copy of the array for the specified level
 
     for ( var i = 0; i < factoryFunctions.length; i++ ) {
@@ -200,6 +197,36 @@ define( function( require ) {
 
     return challenges;
   };
+
+  /**
+   * DEBUG: This is called when 'playOne' query parameter is present.
+   * The first challenge in the level's pool is repeated, with the maximum quantity of molecules.
+   *
+   * @param level
+   * @param maxQuantity
+   * @param challengeOptions
+   */
+  var createChallengesPlayOne = function( level, maxQuantity, challengeOptions ) {
+
+    var challenges = []; // [{Challenge}]
+    var factoryFunction = POOLS[level][0]; // first reaction in the pool
+
+    for ( var i = 0; i < CHALLENGES_PER_LEVEL; i++ ) {
+
+      var reaction = factoryFunction();
+      reaction.reactants.forEach( function( reactant ) {
+        reactant.quantity = maxQuantity;
+      } );
+
+      // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
+      fixQuantityRangeViolation( reaction, maxQuantity );
+
+      challenges.push( new Challenge( reaction, INTERACTIVE_BOXES[ level ], challengeOptions ) );
+    }
+
+    return challenges;
+  };
+
 
   /**
    * Creates a reaction with non-zero quantities of at least one product.
@@ -374,6 +401,8 @@ define( function( require ) {
    */
   var doTest = function() {
 
+    assert && assert( !RPALQueryParameters.PLAY_ALL && !RPALQueryParameters.PLAY_ONE ); // test doesn't work in these cases
+
     // Cumulative counts for this test
     var numberOfChallengesGenerated = 0;
     var numberOfCoefficientRangeErrors = 0;
@@ -445,11 +474,8 @@ define( function( require ) {
     console.log( 'Testing challenge generation ...' );
     console.log( '----------------------------------------------------------' );
 
-    // Limit iterations, so that this test doesn't take forever with 'playAll' query parameter.
-    var iterations = RPALQueryParameters.PLAY_ALL ? 1 : 100;
-
     for ( level = 0; level < POOLS.length; level++ ) {
-      for ( i = 0; i < iterations; i++ ) {
+      for ( i = 0; i < 100; i++ ) {
 
         // create challenges
         var challenges = ChallengeFactory.createChallenges( level, maxQuantity );
