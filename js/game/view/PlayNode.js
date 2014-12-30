@@ -65,15 +65,17 @@ define( function( require ) {
      * Unlink unnecessary because this node exists for the lifetime of the simulation.
      */
     var challengeNode = null;
-    var timeText = new Text( '?', {
+    //TODO #17 delete this time display
+    window.rpal = window.rpal || {};
+    window.rpal.timeText = new Text( '?????????', {
       font: new RPALFont( 24 ),
-      right: layoutBounds.right - 125,
-      top: scoreboardNode.bottom + 5
+      centerX: layoutBounds.centerX,
+      bottom: layoutBounds.bottom - 75
     } );
-    thisNode.addChild( timeText );
+    thisNode.addChild( window.rpal.timeText );
     model.challengeProperty.link( function( challenge ) {
 
-      var beforeTime = Date.now();
+      window.rpal.beforeTime = Date.now();
 
       // clean up previous challenge
       if ( challengeNode ) {
@@ -88,8 +90,7 @@ define( function( require ) {
         thisNode.addChild( challengeNode );
       }
 
-      var elapsedTime = Date.now() - beforeTime;
-      timeText.text = elapsedTime;
+      window.rpal.clientTime = Date.now() - window.rpal.beforeTime;
     } );
 
     // Developer controls at top-right, below scoreboard
