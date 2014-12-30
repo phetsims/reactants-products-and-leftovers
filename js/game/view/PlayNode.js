@@ -18,6 +18,7 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var SCOREBOARD_X_MARGIN = 50;
@@ -64,7 +65,15 @@ define( function( require ) {
      * Unlink unnecessary because this node exists for the lifetime of the simulation.
      */
     var challengeNode = null;
+    var timeText = new Text( '?', {
+      font: new RPALFont( 24 ),
+      right: layoutBounds.right - 125,
+      top: scoreboardNode.bottom + 5
+    } );
+    thisNode.addChild( timeText );
     model.challengeProperty.link( function( challenge ) {
+
+      var beforeTime = Date.now();
 
       // clean up previous challenge
       if ( challengeNode ) {
@@ -78,6 +87,9 @@ define( function( require ) {
         challengeNode = new ChallengeNode( model, challengeBounds, audioPlayer );
         thisNode.addChild( challengeNode );
       }
+
+      var elapsedTime = Date.now() - beforeTime;
+      timeText.text = elapsedTime;
     } );
 
     // Developer controls at top-right, below scoreboard
