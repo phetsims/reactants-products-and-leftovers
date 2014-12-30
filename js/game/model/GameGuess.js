@@ -37,13 +37,13 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // should we set the guessable quantities to zero?
-    var zeroOutQuantities = !( RPALQueryParameters.PLAY_ALL || RPALQueryParameters.PLAY_ONE );
+    // Should we show the answer?
+    var showAnswer = ( RPALQueryParameters.PLAY_ALL || RPALQueryParameters.PLAY_ONE );
 
     // Clone reactants, quantities are initialized to zero for 'Before' challenges.
     thisNode.reactants = [];
     reaction.reactants.forEach( function( reactant ) {
-      thisNode.reactants.push( ( interactiveBox === BoxType.BEFORE && zeroOutQuantities ) ?
+      thisNode.reactants.push( ( interactiveBox === BoxType.BEFORE && !showAnswer ) ?
                                Substance.withQuantity( reactant, 0 ) :
                                Substance.clone( reactant ) );
     } );
@@ -51,7 +51,7 @@ define( function( require ) {
     // Clone products, quantities are initialized to zero for 'After' challenges.
     thisNode.products = [];
     reaction.products.forEach( function( product ) {
-      thisNode.products.push( ( interactiveBox === BoxType.AFTER && zeroOutQuantities ) ?
+      thisNode.products.push( ( interactiveBox === BoxType.AFTER && !showAnswer ) ?
                               Substance.withQuantity( product, 0 ) :
                               Substance.clone( product ) );
     } );
@@ -59,7 +59,7 @@ define( function( require ) {
     // Clone leftovers, quantities are initialized to zero for 'After' challenges.
     thisNode.leftovers = [];
     reaction.leftovers.forEach( function( leftover ) {
-      thisNode.leftovers.push( ( interactiveBox === BoxType.AFTER && zeroOutQuantities ) ?
+      thisNode.leftovers.push( ( interactiveBox === BoxType.AFTER && !showAnswer ) ?
                                Substance.withQuantity( leftover, 0 ) :
                                Substance.clone( leftover ) );
     } );
