@@ -60,27 +60,32 @@ define( function( require ) {
     // challenge will be displayed in the area below the scoreboard
     var challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
+    // Displays the time required to switch between challenges
+    var timeText = new Text( '?', {
+      font: new RPALFont( 12 ),
+      fill: 'red',
+      bottom: layoutBounds.bottom - 25
+    } );
+    if ( RPALQueryParameters.DEV ) {
+      thisNode.addChild( timeText );
+    }
+
+    // for deferring removal of previous ChallengeNode, to improve responsiveness
+    this.oldChallengeNode = null;
+
     /*
      * Displays the current challenge.
      * Unlink unnecessary because this node exists for the lifetime of the simulation.
      */
     var challengeNode = null;
-    //TODO #17 delete this time display
-    window.rpal = window.rpal || {};
-    window.rpal.timeText = new Text( '?????????', {
-      font: new RPALFont( 24 ),
-      centerX: layoutBounds.centerX,
-      bottom: layoutBounds.bottom - 75
-    } );
-    thisNode.addChild( window.rpal.timeText );
     model.challengeProperty.link( function( challenge ) {
 
-      window.rpal.beforeTime = Date.now();
+      var beforeTime = Date.now();
 
       // clean up previous challenge
       if ( challengeNode ) {
-        thisNode.removeChild( challengeNode );
-        challengeNode.dispose();
+        thisNode.oldChallengeNode = challengeNode;  // defer removeChild to step()
+        challengeNode.visible = false;
         challengeNode = null;
       }
 
@@ -90,7 +95,9 @@ define( function( require ) {
         thisNode.addChild( challengeNode );
       }
 
-      window.rpal.clientTime = Date.now() - window.rpal.beforeTime;
+      // display the time required to switch challenges
+      timeText.text = ( Date.now() - beforeTime ) + ' ms';
+      timeText.centerX = layoutBounds.centerX;
     } );
 
     // Developer controls at top-right, below scoreboard
@@ -102,5 +109,26 @@ define( function( require ) {
     }
   }
 
-  return inherit( Node, PlayNode );
+  return inherit( Node, PlayNode, {
+
+    /**
+     * See issue #17
+     * To defer the cost of removing a ChallengeNode from the scene,
+     * schedule it to be removed on the tick *after* the tick that the new
+     * ChallengeNode was added on. This ensures that the previous ChallengeNode is
+     * removed after Scene.updateScene (when the new ChallengeNode is made visible).
+     */
+    stepsSinceRemoveChild: 0,
+    step: function( elapsedTime ) {
+      if ( this.oldChallengeNode ) {
+        this.stepsSinceRemoveChild++;
+        if ( this.stepsSinceRemoveChild === 2 ) {
+          this.removeChild( this.oldChallengeNode );
+          this.oldChallengeNode.dispose();
+          this.oldChallengeNode = null;
+          this.stepsSinceRemoveChild = 0;
+        }
+      }
+    }
+  } );
 } );

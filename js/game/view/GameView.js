@@ -31,8 +31,8 @@ define( function( require ) {
     var audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
 
     // one node for each 'phase' of the game, created on demand to improve startup time
-    var settingsNode = null;
-    var playNode = null;
+    var settingsNode = null; // @private
+    thisView.playNode = null; // @private
     thisView.resultsNode = null; // @private
 
     /*
@@ -47,9 +47,9 @@ define( function( require ) {
         thisView.addChild( settingsNode );
       }
 
-      if ( playNode === null && gamePhase === GamePhase.PLAY ) {
-        playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
-        thisView.addChild( playNode );
+      if ( thisView.playNode === null && gamePhase === GamePhase.PLAY ) {
+        thisView.playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
+        thisView.addChild( thisView.playNode );
       }
 
       if ( thisView.resultsNode === null && gamePhase === GamePhase.RESULTS ) {
@@ -59,7 +59,7 @@ define( function( require ) {
 
       // make the node visible that corresponds to the game phase
       settingsNode && ( settingsNode.visible = ( gamePhase === GamePhase.SETTINGS ) );
-      playNode && ( playNode.visible = ( gamePhase === GamePhase.PLAY ) );
+      thisView.playNode && ( thisView.playNode.visible = ( gamePhase === GamePhase.PLAY ) );
       thisView.resultsNode && ( thisView.resultsNode.visible = ( gamePhase === GamePhase.RESULTS ) );
     } );
   }
@@ -68,9 +68,14 @@ define( function( require ) {
 
     // @param {number} elapsedTime time between step calls, in seconds
     step: function( elapsedTime ) {
+
+      // animate the reward
       if ( this.resultsNode && this.resultsNode.visible ) {
         this.resultsNode.step( elapsedTime );
       }
+
+      // cleanup nodes
+      this.playNode && this.playNode.step( elapsedTime );
     }
   } );
 } );
