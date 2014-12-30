@@ -37,6 +37,7 @@ define( function( require ) {
 
     var thisNode = this;
 
+    // should we set the guessable quantities to zero?
     var zeroOutQuantities = !( RPALQueryParameters.PLAY_ALL || RPALQueryParameters.PLAY_ONE );
 
     // Clone reactants, quantities are initialized to zero for 'Before' challenges.
