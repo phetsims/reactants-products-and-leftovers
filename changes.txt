@@ -1,3 +1,5 @@
+# 1.0.0-dev.20 12/30/14
+12/30/14 dev version to demonstrate scenery#335, gradient problem that causes molecules to render incorrectly
 12/30/14 #17 create all molecule nodes statically, in MoleculeNodes, to improve level-selection performance in Game
 12/30/14 hide 'Test' button in Game if 'playAll' or 'playOne' query parameters are present, not intended for these situations
 12/30/14 restructure logic in GameGuess that's used to 'zero out' quantities
