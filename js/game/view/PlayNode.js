@@ -140,7 +140,7 @@ define( function( require ) {
        * ChallengeNodes when we leave the "play" phase of the game.
        */
       this.stepsSinceDisposal++;
-      if ( this.stepsSinceDisposal == 2 && this.disposeNodes.length > 0 ) {
+      if ( this.stepsSinceDisposal >= 2 && this.disposeNodes.length > 0 ) {
         for ( var i = 0; i < this.disposeNodes.length; i++ ) {
           this.removeChild( this.disposeNodes[i] );
           this.disposeNodes[i].dispose();
@@ -154,7 +154,7 @@ define( function( require ) {
        * The user will presumably be distracted processing what they see on the screen, so won't notice the brief interruption.
        */
       this.stepsSinceUpdate++;
-      if ( this.stepsSinceUpdate > 2 && this.visible && !this.nextChallengeNode && this.model.challengeIndex < this.model.challenges.length - 1 ) {
+      if ( this.stepsSinceUpdate >= 2 && this.visible && !this.nextChallengeNode && this.model.challengeIndex < this.model.challenges.length - 1 ) {
         this.nextChallengeNode = new ChallengeNode( this.model, this.model.challenges[this.model.challengeIndex + 1], this.challengeBounds, this.audioPlayer );
         this.nextChallengeNode.visible = false;
         this.addChild( this.nextChallengeNode );
