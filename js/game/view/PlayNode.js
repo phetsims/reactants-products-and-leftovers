@@ -81,7 +81,7 @@ define( function( require ) {
 
     /*
      * Displays the current challenge.
-     * Unlink unnecessary because this node exists for the lifetime of the simulation.
+     * Unlink is unnecessary because this node exists for the lifetime of the simulation.
      */
     model.challengeProperty.link( function( challenge ) {
 
@@ -111,7 +111,10 @@ define( function( require ) {
       }
     } );
 
-    // When we transition away from 'play' phase, schedule the current and preloaded nodes for disposal.
+    /*
+     * When we transition away from 'play' phase, schedule the current and preloaded nodes for disposal.
+     * Unlink is unnecessary because this node exists for the lifetime of the simulation.
+     */
     model.gamePhaseProperty.link( function( gamePhase ) {
       if ( gamePhase !== GamePhase.PLAY ) {
         if ( currentChallengeNode ) {
