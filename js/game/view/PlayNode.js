@@ -139,7 +139,7 @@ define( function( require ) {
        * To defer the cost of removing a ChallengeNode, handle the removal of the previous ChallengeNode after the current one
        * is made visible (2 steps). The user will presumably be distracted processing what they see on the screen, so won't notice
        * the brief interruption. this.disposeNodes is an array so that we can remove both the current and next (preloaded)
-       * ChallengeNodes when we leave the "play" phase of the game.
+       * ChallengeNodes when we leave the 'play' phase of the game.
        */
       this.stepsSinceDisposal++;
       if ( this.stepsSinceDisposal >= 2 && this.disposeNodes.length > 0 ) {
