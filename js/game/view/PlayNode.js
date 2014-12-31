@@ -19,7 +19,6 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var SCOREBOARD_X_MARGIN = 50;
