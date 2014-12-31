@@ -104,7 +104,7 @@ define( function( require ) {
       }
     } );
 
-    // When we transition away from 'play' state, schedule the current and preloaded nodes for disposal.
+    // When we transition away from 'play' phase, schedule the current and preloaded nodes for disposal.
     model.gamePhaseProperty.link( function( gamePhase ) {
       if ( gamePhase !== GamePhase.PLAY ) {
         if ( currentChallengeNode ) {
