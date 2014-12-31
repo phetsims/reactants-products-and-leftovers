@@ -36,9 +36,9 @@ define( function( require ) {
     Node.call( thisNode );
 
     // @private
-    this.model = model;
-    this.layoutBounds = layoutBounds;
-    this.audioPlayer = audioPlayer;
+    thisNode.model = model;
+    thisNode.layoutBounds = layoutBounds;
+    thisNode.audioPlayer = audioPlayer;
 
     // scoreboard, across the top of the screen
     var scoreboardNode = new ScoreboardBar(
@@ -72,13 +72,13 @@ define( function( require ) {
     }
 
     // @private challenge will be displayed in the area below the scoreboard
-    this.challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
+    thisNode.challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
     var currentChallengeNode = null; // {ChallengeNode} the challenge that is displayed
-    this.disposeNodes = [];  // @private {ChallengeNode[]} nodes in this array are scheduled for disposal
-    this.nextChallengeNode = null; // @private {ChallengeNode} the next challenge, preloaded to improve responsiveness
-    this.stepsSinceDisposal = 0;  // @private number of times that step() has been called since a node was schedule for disposal
-    this.stepsSinceUpdate = 0; // @private number of times that step() has been called since the challenge changed
+    thisNode.disposeNodes = [];  // @private {ChallengeNode[]} nodes in this array are scheduled for disposal
+    thisNode.nextChallengeNode = null; // @private {ChallengeNode} the next challenge, preloaded to improve responsiveness
+    thisNode.stepsSinceDisposal = 0;  // @private number of times that step() has been called since a node was schedule for disposal
+    thisNode.stepsSinceUpdate = 0; // @private number of times that step() has been called since the challenge changed
 
     /*
      * Displays the current challenge.
