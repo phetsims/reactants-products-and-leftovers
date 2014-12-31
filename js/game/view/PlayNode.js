@@ -63,6 +63,14 @@ define( function( require ) {
       } );
     thisNode.addChild( scoreboardNode );
 
+    // Developer controls at top-right, below scoreboard
+    if ( RPALQueryParameters.DEV ) {
+      thisNode.addChild( new DevGameControls( model, {
+        right: layoutBounds.right - 5,
+        top: scoreboardNode.bottom + 5
+      } ) );
+    }
+
     // @private challenge will be displayed in the area below the scoreboard
     this.challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
@@ -118,14 +126,6 @@ define( function( require ) {
         thisNode.stepsSinceDisposal = 0;
       }
     } );
-
-    // Developer controls at top-right, below scoreboard
-    if ( RPALQueryParameters.DEV ) {
-      thisNode.addChild( new DevGameControls( model, {
-        right: layoutBounds.right - 5,
-        top: scoreboardNode.bottom + 5
-      } ) );
-    }
   }
 
   return inherit( Node, PlayNode, {
