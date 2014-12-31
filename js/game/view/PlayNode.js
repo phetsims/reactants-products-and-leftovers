@@ -66,9 +66,9 @@ define( function( require ) {
     // @private challenge will be displayed in the area below the scoreboard
     this.challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
-    var currentChallengeNode = null; // the challenge that is displayed
-    this.disposeNodes = [];  // @private for scheduling disposal
-    this.nextChallengeNode = null; // @private the next challenge, preloaded to improve responsiveness
+    var currentChallengeNode = null; // {ChallengeNode} the challenge that is displayed
+    this.disposeNodes = [];  // @private {ChallengeNode[]} nodes in this array are scheduled for disposal
+    this.nextChallengeNode = null; // @private {ChallengeNode} the next challenge, preloaded to improve responsiveness
     this.stepsSinceDisposal = 0;  // @private number of times that step() has been called since a node was schedule for disposal
     this.stepsSinceUpdate = 0; // @private number of times that step() has been called since the challenge changed
 
