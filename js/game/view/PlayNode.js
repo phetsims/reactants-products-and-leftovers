@@ -66,16 +66,6 @@ define( function( require ) {
     // @private challenge will be displayed in the area below the scoreboard
     this.challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
-    // Displays the time required to switch between challenges
-    var timeText = new Text( '?', {
-      font: new RPALFont( 12 ),
-      fill: 'red',
-      bottom: layoutBounds.bottom - 25
-    } );
-    if ( RPALQueryParameters.DEV ) {
-      thisNode.addChild( timeText );
-    }
-
     var currentChallengeNode = null; // the challenge that is displayed
     this.disposeNodes = [];  // @private for scheduling disposal
     this.nextChallengeNode = null; // @private the next challenge, preloaded to improve responsiveness
@@ -87,8 +77,6 @@ define( function( require ) {
      * Unlink unnecessary because this node exists for the lifetime of the simulation.
      */
     model.challengeProperty.link( function( challenge ) {
-
-      var beforeTime = Date.now();
 
       // schedule previous challenge for deletion
       if ( currentChallengeNode ) {
@@ -114,10 +102,6 @@ define( function( require ) {
         currentChallengeNode.visible = true;
         thisNode.stepsSinceUpdate = 0;
       }
-
-      // display the time required to switch challenges
-      timeText.text = ( Date.now() - beforeTime ) + ' ms';
-      timeText.centerX = layoutBounds.centerX;
     } );
 
     // When we transition away from 'play' state, schedule the current and preloaded nodes for disposal.
