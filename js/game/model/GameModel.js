@@ -56,7 +56,6 @@ define( function( require ) {
 
     // These fields are read-only, they change as game-play progresses.
     thisModel.challenges = []; // {Challenge[]} the set of challenges for the current game being played
-    thisModel.points = 0; // {number} points awarded for the current challenge, read-only
     thisModel.bestScoreProperties = []; // {Property.<number>[]} best scores for each level
     thisModel.bestTimeProperties = []; // {Property.<number>[]} best times for each level, in ms
     thisModel.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
@@ -89,7 +88,6 @@ define( function( require ) {
       assert && assert( this.gamePhase === GamePhase.SETTINGS );
       this.level = level;
       this.score = 0;
-      this.points = 0;
       this.initChallenges();
       this.timer.start();
       this.playState = PlayState.FIRST_CHECK;
@@ -114,8 +112,8 @@ define( function( require ) {
         if ( this.challengeIndex === this.challenges.length - 1 ) {
           this.timer.stop();
         }
-        this.points = ( this.playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
-        this.score = this.score + this.points;
+        this.challenge.points = ( this.playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
+        this.score = this.score + this.challenge.points;
         this.playState = PlayState.NEXT;
       }
       else {
@@ -144,7 +142,6 @@ define( function( require ) {
       }
       else {
         // advance to next challenge
-        this.points = 0;
         this.challengeIndex = this.challengeIndex + 1;
         this.challenge = this.challenges[this.challengeIndex];
         this.playState = PlayState.FIRST_CHECK;

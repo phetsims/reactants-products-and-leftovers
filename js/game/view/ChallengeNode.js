@@ -1,7 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * View of a Game challenge.
+ * View of a Game challenge. This node is not 'active' (connected to the model) until the activate() function is called.
+ * This supports the ability to preload a node, then activate it at some later time.  See issue #17.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -35,12 +36,13 @@ define( function( require ) {
 
   /**
    * @param {GameModel} model
+   * @param {Challenge} challenge
    * @param {Bounds2} challengeBounds portion of the screen where the Challenge can be displayed
    * @param {GameAudioPlayer} audioPlayer
    * @param {Object} [options]
    * @constructor
    */
-  function ChallengeNode( model, challengeBounds, audioPlayer, options ) {
+  function ChallengeNode( model, challenge, challengeBounds, audioPlayer, options ) {
 
     options = _.extend( {
       boxSize: RPALConstants.GAME_BEFORE_AFTER_BOX_SIZE, // {Dimension2} size of the 'Before' and 'After' boxes
@@ -52,9 +54,9 @@ define( function( require ) {
     Node.call( thisNode );
 
     // convenience variables, to improve readability
-    var reaction = model.challenge.reaction;
-    var guess = model.challenge.guess;
-    var interactiveBox = model.challenge.interactiveBox;
+    var reaction = challenge.reaction;
+    var guess = challenge.guess;
+    var interactiveBox = challenge.interactiveBox;
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
     this.reactionDebug = reaction; // @private for debug output
@@ -198,7 +200,7 @@ define( function( require ) {
       afterBoxXOffset: thisNode.afterBox.left - thisNode.beforeBox.left,
       minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
-      hideNumbersBox: !model.numbersVisible,
+      hideNumbersBox: !challenge.numbersVisible,
       x: thisNode.beforeBox.x,
       top: thisNode.beforeBox.bottom + 4
     } );
@@ -209,7 +211,7 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     var hideMoleculesBox = null;
-    if ( !model.moleculesVisible ) {
+    if ( !challenge.moleculesVisible ) {
       hideMoleculesBox = new HideBox( {
         boxSize: options.boxSize,
         iconHeight: 0.4 * options.boxSize.height,
@@ -241,8 +243,8 @@ define( function( require ) {
       }
       else if ( playState === PlayState.NEXT ) {
          // Check facePoints instead of correctness of challenge, because correct answer has been filled in by now.
-        facePoints = model.points;
-        if ( model.points > 0 ) {
+        facePoints = challenge.points;
+        if ( challenge.points > 0 ) {
           audioPlayer.correctAnswer();
           faceVisible = true;
         }
@@ -286,9 +288,7 @@ define( function( require ) {
       // switch between spinners and static numbers
       thisNode.quantitiesNode.setInteractive( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
     };
-    thisNode.playStateProperty = model.playStateProperty; // @private
-    // optimization: we're set up in the correct initial state, so wait for state change
-    thisNode.playStateProperty.lazyLink( thisNode.playStateObserver ); // must be unlinked in dispose
+    thisNode.playStateProperty = null; // @private will be set by activate()
 
     //------------------------------------------------------------------------------------
     // Developer
@@ -309,6 +309,17 @@ define( function( require ) {
 
   return inherit( Node, ChallengeNode, {
 
+    /**
+     * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
+     * @param {Property.<PlayState>} playStateProperty
+     */
+    activate: function( playStateProperty ) {
+      this.buttons.activate( playStateProperty );
+      this.playStateProperty = playStateProperty;
+      // optimization: we're set up in the correct initial state, so wait for state change
+      this.playStateProperty.lazyLink( this.playStateObserver ); // must be unlinked in dispose
+    },
+
     // Ensures that this node is eligible for GC.
     dispose: function() {
 
@@ -317,7 +328,9 @@ define( function( require ) {
       }
 
       // model
-      this.playStateProperty.unlink( this.playStateObserver );
+      if ( this.playStateProperty ) {
+        this.playStateProperty.unlink( this.playStateObserver );
+      }
 
       // boxes
       this.beforeBox.dispose();

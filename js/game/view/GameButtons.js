@@ -88,16 +88,26 @@ define( function( require ) {
       showAnswerButton && ( showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER ) );
       nextButton && ( nextButton.visible = ( state === PlayState.NEXT ) );
     };
-    thisNode.playStateProperty = model.playStateProperty; // @private
-    thisNode.playStateProperty.link( this.playStateObserver ); // must be unlinked in dispose
+    thisNode.playStateProperty = null; // @private will be set by activate()
   }
 
   return inherit( Node, GameButtons, {
 
+    /**
+     * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
+     * @param {Property.<PlayState>} playStateProperty
+     */
+    activate: function( playStateProperty ) {
+      this.playStateProperty = playStateProperty;
+      this.playStateProperty.link( this.playStateObserver ); // must be unlinked in dispose
+    },
+
     // Ensures that this node is eligible for GC.
     dispose: function() {
       this.checkButtonEnabledProperty.unlink( this.checkButtonEnabledObserver );
-      this.playStateProperty.unlink( this.playStateObserver );
+      if ( this.playStateProperty ) {
+        this.playStateProperty.unlink( this.playStateObserver );
+      }
     }
   } );
 } );

@@ -32,6 +32,7 @@ define( function( require ) {
     this.moleculesVisible = options.moleculesVisible;
     this.numbersVisible = options.numbersVisible;
     this.guess = new GameGuess( reaction, interactiveBox );
+    this.points = 0;  // points awarded for this challenge
   }
 
   return inherit( Object, Challenge, {
@@ -39,6 +40,7 @@ define( function( require ) {
     // Resets this challenge to its initial state.
     reset: function() {
       this.guess.reset();
+      this.points = 0;
     },
 
     // Does the user's guess match the correct answer?

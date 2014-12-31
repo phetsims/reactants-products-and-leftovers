@@ -75,7 +75,9 @@ define( function( require ) {
       }
 
       // cleanup nodes
-      this.playNode && this.playNode.step( elapsedTime );
+      if ( this.playNode ) {
+        this.playNode.step( elapsedTime );
+      }
     }
   } );
 } );

@@ -1,3 +1,7 @@
+12/30/14 #17 hide the cost of creating ChallengeNodes by preload the next one
+12/30/14 #17 hide the cost of removeChild(previousChallengeNode) by deferring until after currentChallengeNode is displayed
+12/30/14 #17 add support for creating a ChallengeNode that is not 'active', for the purposes of preloading them
+12/30/14 #17 move 'points' from GameModel to Challenge, to support changes to ChallengeNode
 # 1.0.0-dev.20 12/30/14
 12/30/14 dev version to demonstrate scenery#335, gradient problem that causes molecules to render incorrectly
 12/30/14 #17 create all molecule nodes statically, in MoleculeNodes, to improve level-selection performance in Game
