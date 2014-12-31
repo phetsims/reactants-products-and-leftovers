@@ -1,3 +1,4 @@
+12/30/14 fix: static quantity for 2nd leftover wasn't being shown in 'After' challenges
 12/30/14 #17 hide the cost of creating ChallengeNodes by preload the next one
 12/30/14 #17 hide the cost of removeChild(previousChallengeNode) by deferring until after currentChallengeNode is displayed
 12/30/14 #17 add support for creating a ChallengeNode that is not 'active', for the purposes of preloading them

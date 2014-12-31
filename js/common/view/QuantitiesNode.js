@@ -325,7 +325,7 @@ define( function( require ) {
           }
 
           // leftovers
-          for ( i = 0; i < this.products.length; i++ ) {
+          for ( i = 0; i < this.leftovers.length; i++ ) {
             centerX = this.spinnerNodes[i + this.products.length].centerX; // leftover spinners follow product spinners
             numberNode = new NumberNode( this.leftovers[i].quantityProperty,
               { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
