@@ -150,7 +150,7 @@ define( function( require ) {
 
       /**
        * See issue #17
-       * To defer the cost of creating a ChallengeNode, preload the new one after the current one is made visible (2 steps).
+       * To defer the cost of adding a ChallengeNode, preload the new one after the current one is made visible (2 steps).
        * The user will presumably be distracted processing what they see on the screen, so won't notice the brief interruption.
        */
       this.stepsSinceUpdate++;
