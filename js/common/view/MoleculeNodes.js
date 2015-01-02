@@ -85,5 +85,11 @@ define( function( require ) {
     SO3: new SO3Node( MOLECULE_OPTIONS )
   };
 
+  for ( var property in MoleculeNodes ) {
+    if ( MoleculeNodes.hasOwnProperty( property ) ) {
+      MoleculeNodes[property].fillKept = true;
+    }
+  }
+
   return MoleculeNodes;
 } );

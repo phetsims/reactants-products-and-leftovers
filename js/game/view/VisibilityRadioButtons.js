@@ -12,12 +12,13 @@ define( function( require ) {
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
-  var MoleculeNodes = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculeNodes' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var Property = require( 'AXON/Property' );
+  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -129,7 +130,8 @@ define( function( require ) {
   var createHideMoleculesNode = function() {
     var eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
     var moleculeNode = new Node( {
-      children: [ MoleculeNodes.H2O ],
+      // wrap in a Node because H2ONode doesn't work with standard options
+      children: [ new H2ONode( RPALConstants.MOLECULE_OPTIONS ) ],
       scale: 0.4,
       centerX: eyeNode.right,
       centerY: eyeNode.bottom

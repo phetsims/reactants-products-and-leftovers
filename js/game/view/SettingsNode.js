@@ -12,10 +12,12 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
+  var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
+  var HClNode = require( 'NITROGLYCERIN/nodes/HClNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
-  var MoleculeNodes = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculeNodes' );
+  var NH3Node = require( 'NITROGLYCERIN/nodes/NH3Node' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -189,7 +191,7 @@ define( function( require ) {
    */
   var createLevelOneIcon = function() {
     var leftNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
-    var rightNode = new Node( { children: [ MoleculeNodes.HCl ] } );
+    var rightNode = new HClNode( RPALConstants.MOLECULE_OPTIONS );
     rightNode.setScaleMagnitude( MOLECULE_SCALE );
     return createIcon( 1, leftNode, rightNode );
   };
@@ -199,7 +201,7 @@ define( function( require ) {
    *  H2O -> ?
    */
   var createLevelTwoIcon = function() {
-    var leftNode = new Node( { children: [ MoleculeNodes.H2O ] } );
+    var leftNode = new H2ONode( RPALConstants.MOLECULE_OPTIONS );
     leftNode.setScaleMagnitude( MOLECULE_SCALE );
     var rightNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
     return createIcon( 2, leftNode, rightNode );
@@ -210,7 +212,7 @@ define( function( require ) {
    *  NH3 -> ??
    */
   var createLevelThreeIcon = function() {
-    var leftNode = new Node( { children: [ MoleculeNodes.NH3 ] } );
+    var leftNode = new NH3Node( RPALConstants.MOLECULE_OPTIONS );
     leftNode.setScaleMagnitude( MOLECULE_SCALE );
     var rightNode = new Text( doubleQuestionMarkString, QUESTION_MARK_OPTIONS );
     return createIcon( 3, leftNode, rightNode );
