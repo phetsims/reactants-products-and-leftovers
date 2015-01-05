@@ -1,7 +1,6 @@
 TODO list for reactants-products-and-leftovers
 
 HIGH
-- scenery#335, gradient problem that causes molecules to render incorrectly
 - GitHub issues
 - search code for TODO and XXX
 
