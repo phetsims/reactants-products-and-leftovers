@@ -59,11 +59,6 @@ define( function( require ) {
     var interactiveBox = challenge.interactiveBox;
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
-    this.reactionDebug = reaction; // @private for debug output
-    if ( RPALQueryParameters.MEMORY_DEBUG ) {
-      console.log( 'ChallengeNode.constructor ' + thisNode.reactionDebug.toString() );
-    }
-
     // which substances are visible depends on whether we're guessing 'Before' or 'After' quantities
     var reactants = ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants;
     var products = ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products;
@@ -229,10 +224,6 @@ define( function( require ) {
     // @private handle PlayState changes
     thisNode.playStateObserver = function( playState ) {
 
-      if ( RPALQueryParameters.MEMORY_DEBUG ) {
-        console.log( 'ChallengeNode.playStateObserver ' + playState + ' ' + thisNode.reactionDebug.toString() );
-      }
-
       // face
       var faceVisible = false;
       var facePoints = 0;
@@ -322,10 +313,6 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-
-      if ( RPALQueryParameters.MEMORY_DEBUG ) {
-        console.log( 'ChallengeNode.dispose ' + this.reactionDebug.toString() );
-      }
 
       // model
       if ( this.playStateProperty ) {

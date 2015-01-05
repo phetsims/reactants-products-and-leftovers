@@ -61,11 +61,6 @@ define( function( require ) {
     var products = reaction.products;
     var leftovers = reaction.leftovers;
 
-    this.reactionDebug = reaction; // @private for debug output
-    if ( RPALQueryParameters.MEMORY_DEBUG ) {
-      console.log( 'BeforeAfterNode.constructor ' + thisNode.reactionDebug.toString() );
-    }
-
     // x-offsets of the substances relative to their boxes
     var beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.contentSize.width );
     var afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
@@ -115,10 +110,6 @@ define( function( require ) {
 
     // Ensures that this node is eligible for GC.
     dispose: function() {
-
-      if ( RPALQueryParameters.MEMORY_DEBUG ) {
-        console.log( 'BeforeAfterNode.dispose ' + this.reactionDebug.toString() );
-      }
 
       // accordion boxes
       this.beforeBox.dispose();

@@ -25,10 +25,7 @@ define( function( require ) {
     CHEAT: !!getQueryParameter( 'cheat' ) || false,
 
     // shows the game reward, regardless of score
-    REWARD: !!getQueryParameter( 'reward' ) || false,
-
-    // enables console output related to instantiation and disposal of top-level objects
-    MEMORY_DEBUG: !!getQueryParameter( 'memoryDebug' ) || false
+    REWARD: !!getQueryParameter( 'reward' ) || false
   };
 
   return RPALQueryParameters;
