@@ -22,7 +22,7 @@ define( function( require ) {
     GUESS_CORRECT: !!getQueryParameter( 'guessCorrect' ) || false,
 
     // shows the game reward, regardless of score
-    REWARD: !!getQueryParameter( 'reward' ) || false
+    SHOW_REWARD: !!getQueryParameter( 'showReward' ) || false
   };
 
   return RPALQueryParameters;
