@@ -21,9 +21,6 @@ define( function( require ) {
     // initializes game spinners to the correct answer
     GUESS_CORRECT: !!getQueryParameter( 'guessCorrect' ) || false,
 
-    // shows challenge answers at the bottom of the Game screen
-    CHEAT: !!getQueryParameter( 'cheat' ) || false,
-
     // shows the game reward, regardless of score
     REWARD: !!getQueryParameter( 'reward' ) || false
   };

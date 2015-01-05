@@ -286,7 +286,7 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // The answer to the current challenge, bottom center
-    if ( RPALQueryParameters.CHEAT || RPALQueryParameters.DEV ) {
+    if ( RPALQueryParameters.DEV ) {
       thisNode.addChild( new Text( DevStringUtils.quantitiesString( reaction ), {
         fill: 'red',
         font: new RPALFont( 12 ),
