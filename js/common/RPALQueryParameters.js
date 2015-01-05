@@ -18,11 +18,14 @@ define( function( require ) {
     // plays all reactions for each level of the game
     PLAY_ALL: !!getQueryParameter( 'playAll' ) || false,
 
-    // shows the game reward, regardless of score
-    REWARD: !!getQueryParameter( 'reward' ) || false,
+    // initializes game spinners to the correct answer
+    GUESS_CORRECT: !!getQueryParameter( 'guessCorrect' ) || false,
 
     // shows challenge answers at the bottom of the Game screen
     CHEAT: !!getQueryParameter( 'cheat' ) || false,
+
+    // shows the game reward, regardless of score
+    REWARD: !!getQueryParameter( 'reward' ) || false,
 
     // enables console output related to instantiation and disposal of top-level objects
     MEMORY_DEBUG: !!getQueryParameter( 'memoryDebug' ) || false
