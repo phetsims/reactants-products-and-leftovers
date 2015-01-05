@@ -1,5 +1,6 @@
+1/5/15 #17 remove 'playOne' query parameter, no longer needed
 # 1.0.0-dev.21 1/2/15
-1/2/14 #25 revert enhancement to level-selection performance, no good workaround for scenery#335
+1/2/15 #25 revert enhancement to level-selection performance, no good workaround for scenery#335
 12/30/14 fix: static quantity for 2nd leftover wasn't being shown in 'After' challenges
 12/30/14 #17 hide the cost of creating ChallengeNodes by preload the next one
 12/30/14 #17 hide the cost of removeChild(previousChallengeNode) by deferring until after currentChallengeNode is displayed

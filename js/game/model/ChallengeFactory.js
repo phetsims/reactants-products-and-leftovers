@@ -104,9 +104,6 @@ define( function( require ) {
       if ( RPALQueryParameters.PLAY_ALL ) {
         return createChallengesPlayAll( level, maxQuantity, challengeOptions );
       }
-      else if ( RPALQueryParameters.PLAY_ONE ) {
-        return createChallengesPlayOne( level, maxQuantity, challengeOptions );
-      }
       else {
         return createChallenges( level, maxQuantity, challengeOptions );
       }
@@ -197,36 +194,6 @@ define( function( require ) {
 
     return challenges;
   };
-
-  /**
-   * DEBUG: This is called when 'playOne' query parameter is present.
-   * The first challenge in the level's pool is repeated, with the maximum quantity of molecules.
-   *
-   * @param level
-   * @param maxQuantity
-   * @param challengeOptions
-   */
-  var createChallengesPlayOne = function( level, maxQuantity, challengeOptions ) {
-
-    var challenges = []; // [{Challenge}]
-    var factoryFunction = POOLS[level][0]; // first reaction in the pool
-
-    for ( var i = 0; i < CHALLENGES_PER_LEVEL; i++ ) {
-
-      var reaction = factoryFunction();
-      reaction.reactants.forEach( function( reactant ) {
-        reactant.quantity = maxQuantity;
-      } );
-
-      // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
-      fixQuantityRangeViolation( reaction, maxQuantity );
-
-      challenges.push( new Challenge( reaction, INTERACTIVE_BOXES[ level ], challengeOptions ) );
-    }
-
-    return challenges;
-  };
-
 
   /**
    * Creates a reaction with non-zero quantities of at least one product.
@@ -401,7 +368,7 @@ define( function( require ) {
    */
   var doTest = function() {
 
-    assert && assert( !RPALQueryParameters.PLAY_ALL && !RPALQueryParameters.PLAY_ONE ); // test doesn't work in these cases
+    assert && assert( !RPALQueryParameters.PLAY_ALL ); // test doesn't work with some query parameters
 
     // Cumulative counts for this test
     var numberOfChallengesGenerated = 0;

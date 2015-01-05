@@ -18,9 +18,6 @@ define( function( require ) {
     // plays all reactions for each level of the game
     PLAY_ALL: !!getQueryParameter( 'playAll' ) || false,
 
-    // plays the first challenge in the pool repeatedly, with maximum quantities, for performance testing
-    PLAY_ONE: !!getQueryParameter( 'playOne' ) || false,
-
     // shows the game reward, regardless of score
     REWARD: !!getQueryParameter( 'reward' ) || false,
 
@@ -30,8 +27,6 @@ define( function( require ) {
     // enables console output related to instantiation and disposal of top-level objects
     MEMORY_DEBUG: !!getQueryParameter( 'memoryDebug' ) || false
   };
-
-  assert && assert( !( RPALQueryParameters.PLAY_ALL && RPALQueryParameters.PLAY_ONE ), 'playAll and playOne are mutually exclusive' );
 
   return RPALQueryParameters;
 } );

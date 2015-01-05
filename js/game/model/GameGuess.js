@@ -38,7 +38,7 @@ define( function( require ) {
     var thisNode = this;
 
     // Should we show the answer?
-    var showAnswer = ( RPALQueryParameters.PLAY_ALL || RPALQueryParameters.PLAY_ONE );
+    var showAnswer = RPALQueryParameters.PLAY_ALL;
 
     // Clone reactants, quantities are initialized to zero for 'Before' challenges.
     thisNode.reactants = [];
