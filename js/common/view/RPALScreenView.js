@@ -55,7 +55,7 @@ define( function( require ) {
       }
     } );
     thisView.addChild( resetAllButton );
-    resetAllButton.left = thisView.layoutBounds.left + 10;
+    resetAllButton.right = thisView.layoutBounds.right - 10;
     resetAllButton.bottom = thisView.layoutBounds.bottom - 10;
 
     /*
