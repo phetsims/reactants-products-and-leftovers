@@ -1,4 +1,3 @@
-1/5/15 #9 screens 1 & 2: horizontally center everything in space to left of 'Reset All' button, move 'Reset All' button up a bit
 # 1.0.0-dev.22 1/5/15
 1/5/15 #9 move 'Reset All' button to lower-right in first 2 screens
 1/5/15 #9 set aspect ratio of layout bounds to match iPad, so that "safe" area is wider
