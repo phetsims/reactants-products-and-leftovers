@@ -56,7 +56,7 @@ define( function( require ) {
     } );
     thisView.addChild( resetAllButton );
     resetAllButton.right = thisView.layoutBounds.right - 10;
-    resetAllButton.bottom = thisView.layoutBounds.bottom - 10;
+    resetAllButton.bottom = thisView.layoutBounds.bottom - 20;
 
     /*
      * Updates the user interface to match the reaction.
@@ -72,7 +72,7 @@ define( function( require ) {
         var beforeAfterNode = createBeforeAfterNode( reaction,
           viewProperties.beforeExpandedProperty,
           viewProperties.afterExpandedProperty, {
-            centerX: thisView.layoutBounds.centerX,
+            centerX: ( resetAllButton.left - thisView.layoutBounds.left ) / 2,
             top: reactionBarNode.bottom + 12 // below the reaction equation
           } );
         thisView.addChild( beforeAfterNode );
