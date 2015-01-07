@@ -25,7 +25,8 @@ define( function( require ) {
       leadDesign: 'Yuen-ying Carpenter, Kelly Lancaster',
       softwareDevelopment: 'Chris Malley',
       team: 'Wendy Adams, Julia Chamberlain, Patricia Loeblein, Emily B. Moore,\n' +
-            'Robert Parson, Ariel Paul, Kathy Perkins'
+            'Robert Parson, Ariel Paul, Kathy Perkins',
+      qualityAssurance: 'Oliver Orejola, Bryan Yoelin'
     }
   };
 
