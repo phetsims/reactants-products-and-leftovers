@@ -49,15 +49,15 @@ define( function( require ) {
       var correct = true;
       // all reactants must be equal
       for ( i = 0; correct && i < this.reaction.reactants.length; i++ ) {
-        correct = this.guess.reactants[i].equals( this.reaction.reactants[i] );
+        correct = this.guess.reactants[ i ].equals( this.reaction.reactants[ i ] );
       }
       // all products must be equal
       for ( i = 0; correct && i < this.reaction.products.length; i++ ) {
-        correct = this.guess.products[i].equals( this.reaction.products[i] );
+        correct = this.guess.products[ i ].equals( this.reaction.products[ i ] );
       }
       // all leftovers must be equal
       for ( i = 0; correct && i < this.reaction.leftovers.length; i++ ) {
-        correct = this.guess.leftovers[i].equals( this.reaction.leftovers[i] );
+        correct = this.guess.leftovers[ i ].equals( this.reaction.leftovers[ i ] );
       }
       return correct;
     },
@@ -66,13 +66,13 @@ define( function( require ) {
     showAnswer: function() {
       var i;
       for ( i = 0; i < this.guess.reactants.length; i++ ) {
-        this.guess.reactants[i].quantity = this.reaction.reactants[i].quantity;
+        this.guess.reactants[ i ].quantity = this.reaction.reactants[ i ].quantity;
       }
       for ( i = 0; i < this.guess.products.length; i++ ) {
-        this.guess.products[i].quantity = this.reaction.products[i].quantity;
+        this.guess.products[ i ].quantity = this.reaction.products[ i ].quantity;
       }
       for ( i = 0; i < this.guess.leftovers.length; i++ ) {
-        this.guess.leftovers[i].quantity = this.reaction.leftovers[i].quantity;
+        this.guess.leftovers[ i ].quantity = this.reaction.leftovers[ i ].quantity;
       }
     }
   } );

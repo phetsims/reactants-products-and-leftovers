@@ -70,7 +70,7 @@ define( function( require ) {
     // Level-selection buttons, arranged in a row
     var buttons = [];
     for ( var level = 0; level < model.numberOfLevels; level++ ) {
-      buttons.push( createLevelSelectionButton( level, model, levelIcons[level], maxIconWidth, maxIconHeight ) );
+      buttons.push( createLevelSelectionButton( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
     }
     var buttonsParent = new LayoutBox( {
       children: buttons,
@@ -87,7 +87,7 @@ define( function( require ) {
       orientation: 'vertical',
       align: 'center',
       spacing: 15,
-      left: layoutBounds.left + SCREEN_X_MARGIN,
+      left:   layoutBounds.left + SCREEN_X_MARGIN,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
 
@@ -101,7 +101,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() { model.reset(); },
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
-      right: layoutBounds.right - SCREEN_X_MARGIN,
+      right:  layoutBounds.right - SCREEN_X_MARGIN,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
 
@@ -128,7 +128,7 @@ define( function( require ) {
         baseColor: 'red',
         textFill: 'white',
         right: layoutBounds.right - 10,
-        top: layoutBounds.top + 10
+        top:   layoutBounds.top + 10
       } );
       testButton.addListener( function() { ChallengeFactory.test(); } );
       this.addChild( testButton );

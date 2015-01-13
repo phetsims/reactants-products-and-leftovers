@@ -116,7 +116,7 @@ define( function( require ) {
      */
     getNumberOfChallenges: function( level ) {
       assert && assert( level >= 0 && level < POOLS.length );
-      return RPALQueryParameters.PLAY_ALL ? POOLS[level].length : CHALLENGES_PER_LEVEL;
+      return RPALQueryParameters.PLAY_ALL ? POOLS[ level ].length : CHALLENGES_PER_LEVEL;
     },
 
     // DEBUG: Runs a sanity check on this factory, prints to console.
@@ -137,7 +137,7 @@ define( function( require ) {
     assert && assert( maxQuantity > 0 );
 
     var numberOfChallenges = CHALLENGES_PER_LEVEL;
-    var factoryFunctions = POOLS[level].slice( 0 ); // make a copy of the array for the specified level
+    var factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
 
     // Determine which challenge will have zero products.
     var zeroProductsIndex = Math.floor( Math.random() * numberOfChallenges );
@@ -176,7 +176,7 @@ define( function( require ) {
   var createChallengesPlayAll = function( level, maxQuantity, challengeOptions ) {
 
     var challenges = []; // [{Challenge}]
-    var factoryFunctions = POOLS[level].slice( 0 ); // make a copy of the array for the specified level
+    var factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
 
     for ( var i = 0; i < factoryFunctions.length; i++ ) {
 
@@ -290,13 +290,13 @@ define( function( require ) {
     var violation = false;
     var i;
     for ( i = 0; !violation && i < reaction.reactants.length; i++ ) {
-      violation = ( reaction.reactants[i].quantity > maxQuantity );
+      violation = ( reaction.reactants[ i ].quantity > maxQuantity );
     }
     for ( i = 0; !violation && i < reaction.products.length; i++ ) {
-      violation = ( reaction.products[i].quantity > maxQuantity );
+      violation = ( reaction.products[ i ].quantity > maxQuantity );
     }
     for ( i = 0; !violation && i < reaction.leftovers.length; i++ ) {
-      violation = ( reaction.leftovers[i].quantity > maxQuantity );
+      violation = ( reaction.leftovers[ i ].quantity > maxQuantity );
     }
     return violation;
   };
@@ -404,14 +404,14 @@ define( function( require ) {
     factoryFunctions.forEach( function( factoryFunction ) {
       reaction = factoryFunction();
       for ( i = 0; i < reaction.reactants.length; i++ ) {
-        if ( reaction.reactants[i].coefficient > maxQuantity ) {
+        if ( reaction.reactants[ i ].coefficient > maxQuantity ) {
           console.log( 'ERROR: reactant coefficient out of range : ' + DevStringUtils.equationString( reaction ) );
           numberOfCoefficientRangeErrors++;
           break;
         }
       }
       for ( i = 0; i < reaction.products.length; i++ ) {
-        if ( reaction.products[i].coefficient > maxQuantity ) {
+        if ( reaction.products[ i ].coefficient > maxQuantity ) {
           console.log( 'ERROR: product coefficient out of range : ' + DevStringUtils.equationString( reaction ) );
           numberOfCoefficientRangeErrors++;
           break;
@@ -430,7 +430,7 @@ define( function( require ) {
       reaction = factoryFunction();
       // set all reactant quantities to their max values.
       for ( i = 0; i < reaction.reactants.length; i++ ) {
-        reaction.reactants[i].quantity = maxQuantity;
+        reaction.reactants[ i ].quantity = maxQuantity;
       }
       // look for violations and try to fix them.
       fixQuantityRangeViolation( reaction, maxQuantity, true /* enableDebugOutput */ );
@@ -489,7 +489,7 @@ define( function( require ) {
           numberOfProductErrors++;
           console.log( 'ERROR: more than one challenge with zero products, level=' + level + ' challenges=' );
           for ( j = 0; j < challenges.length; j++ ) {
-            console.log( j + ': ' + DevStringUtils.reactionString( challenges[j].reaction ) );
+            console.log( j + ': ' + DevStringUtils.reactionString( challenges[ j ].reaction ) );
           }
         }
       }

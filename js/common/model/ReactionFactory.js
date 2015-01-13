@@ -332,7 +332,7 @@ define( function( require ) {
     Reaction_CH4_4S__CS2_2H2S: function() {
       return new Reaction(
         [ new Substance( 1, RPALSymbols.CH4, new CH4Node( MOLECULE_OPTIONS ) ),
-          new Substance( 4, RPALSymbols.S, new SNode( MOLECULE_OPTIONS ) )],
+          new Substance( 4, RPALSymbols.S, new SNode( MOLECULE_OPTIONS ) ) ],
         [ new Substance( 1, RPALSymbols.CS2, new CS2Node( MOLECULE_OPTIONS ) ),
           new Substance( 2, RPALSymbols.H2S, new H2SNode( MOLECULE_OPTIONS ) ) ] );
     },

@@ -85,7 +85,7 @@ define( function( require ) {
       } );
       // reactants and leftovers array have identical orders
       for ( var i = 0; i < this.reactants.length; i++ ) {
-        this.leftovers[i].quantity = this.reactants[i].quantity - ( numberOfReactions * this.reactants[i].coefficient );
+        this.leftovers[ i ].quantity = this.reactants[ i ].quantity - ( numberOfReactions * this.reactants[ i ].coefficient );
       }
     },
 

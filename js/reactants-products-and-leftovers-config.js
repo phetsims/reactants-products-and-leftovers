@@ -8,7 +8,7 @@
  */
 require.config( {
 
-  deps: ['reactants-products-and-leftovers-main'],
+  deps: [ 'reactants-products-and-leftovers-main' ],
 
   paths: {
 

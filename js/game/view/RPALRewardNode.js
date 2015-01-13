@@ -33,7 +33,7 @@ define( function( require ) {
    */
   function RPALRewardNode( level ) {
     assert && assert( level >= 0 && level < nodeFactoryFunctions.length );
-    RewardNode.call( this, { nodes: nodeFactoryFunctions[level]() } );
+    RewardNode.call( this, { nodes: nodeFactoryFunctions[ level ]() } );
   }
 
   // Level 1: molecules, @returns {Node[]}

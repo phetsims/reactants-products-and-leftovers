@@ -62,7 +62,7 @@ define( function( require ) {
     var numberOfReactants = reaction.reactants.length;
     for ( var i = 0; i < numberOfReactants; i++ ) {
 
-      reactant = reaction.reactants[i];
+      reactant = reaction.reactants[ i ];
 
       // coefficient
       if ( reaction.coefficientsMutable ) {

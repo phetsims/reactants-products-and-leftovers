@@ -104,7 +104,7 @@ define( function( require ) {
     thisNode.checkButtonEnabledProperty = new DerivedProperty( quantityProperties, function() {
       // true if any quantity that the user can guess is non-zero
       for ( var i = 0, j = arguments.length; i < j; i++ ) {
-        if ( arguments[i] !== 0 ) { return true; }
+        if ( arguments[ i ] !== 0 ) { return true; }
       }
       return false;
     } );
@@ -128,7 +128,7 @@ define( function( require ) {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
       right: arrowNode.left - 5,
-      top: equationNode.bottom + 10
+      top:   equationNode.bottom + 10
     } );
     thisNode.addChild( thisNode.beforeBox );
     arrowNode.centerY = thisNode.beforeBox.centerY;
@@ -197,7 +197,7 @@ define( function( require ) {
       quantityRange: options.quantityRange,
       hideNumbersBox: !challenge.numbersVisible,
       x: thisNode.beforeBox.x,
-      top: thisNode.beforeBox.bottom + 4
+      top:             thisNode.beforeBox.bottom + 4
     } );
     thisNode.addChild( thisNode.quantitiesNode );
 
@@ -233,7 +233,7 @@ define( function( require ) {
         faceVisible = true;
       }
       else if ( playState === PlayState.NEXT ) {
-         // Check facePoints instead of correctness of challenge, because correct answer has been filled in by now.
+        // Check facePoints instead of correctness of challenge, because correct answer has been filled in by now.
         facePoints = challenge.points;
         if ( challenge.points > 0 ) {
           audioPlayer.correctAnswer();

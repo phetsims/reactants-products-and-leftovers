@@ -88,8 +88,8 @@ define( function( require ) {
     thisNode.addChild( this.reactantsParent );
     for ( i = 0; i < reactants.length; i++ ) {
 
-      reactant = reactants[i];
-      centerX = beforeXOffsets[i];
+      reactant = reactants[ i ];
+      centerX = beforeXOffsets[ i ];
 
       if ( this.interactiveBox === BoxType.BEFORE ) {
         // spinner
@@ -123,8 +123,8 @@ define( function( require ) {
     thisNode.addChild( this.productsParent );
     for ( i = 0; i < products.length; i++ ) {
 
-      product = products[i];
-      centerX = options.afterBoxXOffset + afterXOffsets[i];
+      product = products[ i ];
+      centerX = options.afterBoxXOffset + afterXOffsets[ i ];
 
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
@@ -158,7 +158,7 @@ define( function( require ) {
     thisNode.addChild( this.leftoversParent );
     for ( i = 0; i < leftovers.length; i++ ) {
 
-      leftover = leftovers[i];
+      leftover = leftovers[ i ];
       centerX = options.afterBoxXOffset + afterXOffsets[ i + products.length ]; // leftovers follow products in afterXOffsets
 
       if ( this.interactiveBox === BoxType.AFTER ) {
@@ -192,7 +192,7 @@ define( function( require ) {
      * Vertical layout of components below the boxes.
      * Ensures that all similar components (spinners, numbers, icons, symbols) are vertically centered.
      */
-    var spinnerHeight = thisNode.spinnerNodes[0].height;
+    var spinnerHeight = thisNode.spinnerNodes[ 0 ].height;
     var maxIconHeight = Math.max(
       options.minIconSize.height,
       _.max( thisNode.iconNodes, function( node ) { return node.height; } ).height );
@@ -266,7 +266,7 @@ define( function( require ) {
         iconHeight: 0.65 * spinnerHeight,
         cornerRadius: 3,
         left: ( this.interactiveBox === BoxType.BEFORE ) ? options.afterBoxXOffset : 0,
-        centerY: thisNode.spinnerNodes[0].centerY
+        centerY: thisNode.spinnerNodes[ 0 ].centerY
       } );
       thisNode.addChild( this.hideNumbersBox );
     }
@@ -289,7 +289,7 @@ define( function( require ) {
       // spinners
       this.spinnerNodes.forEach( function( spinnerNode ) { spinnerNode.visible = interactive; } );
 
-      var centerY = this.spinnerNodes[0].height / 2;
+      var centerY = this.spinnerNodes[ 0 ].height / 2;
       var i, numberNode, centerX; // explicitly hoist loop vars
 
       if ( this.interactiveBox === BoxType.BEFORE ) {
@@ -297,8 +297,8 @@ define( function( require ) {
         // reactants, create static numbers on demand
         if ( !interactive && this.beforeNumberNodes.length === 0 ) {
           for ( i = 0; i < this.reactants.length; i++ ) {
-            centerX = this.spinnerNodes[i].centerX;
-            numberNode = new NumberNode( this.reactants[i].quantityProperty,
+            centerX = this.spinnerNodes[ i ].centerX;
+            numberNode = new NumberNode( this.reactants[ i ].quantityProperty,
               { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
             this.reactantsParent.addChild( numberNode );
             this.beforeNumberNodes.push( numberNode );
@@ -317,8 +317,8 @@ define( function( require ) {
 
           // products
           for ( i = 0; i < this.products.length; i++ ) {
-            centerX = this.spinnerNodes[i].centerX;
-            numberNode = new NumberNode( this.products[i].quantityProperty,
+            centerX = this.spinnerNodes[ i ].centerX;
+            numberNode = new NumberNode( this.products[ i ].quantityProperty,
               { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
             this.productsParent.addChild( numberNode );
             this.afterNumberNodes.push( numberNode );
@@ -326,8 +326,8 @@ define( function( require ) {
 
           // leftovers
           for ( i = 0; i < this.leftovers.length; i++ ) {
-            centerX = this.spinnerNodes[i + this.products.length].centerX; // leftover spinners follow product spinners
-            numberNode = new NumberNode( this.leftovers[i].quantityProperty,
+            centerX = this.spinnerNodes[ i + this.products.length ].centerX; // leftover spinners follow product spinners
+            numberNode = new NumberNode( this.leftovers[ i ].quantityProperty,
               { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
             this.leftoversParent.addChild( numberNode );
             this.afterNumberNodes.push( numberNode );

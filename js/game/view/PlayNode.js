@@ -66,7 +66,7 @@ define( function( require ) {
     if ( RPALQueryParameters.DEV ) {
       thisNode.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
-        top: scoreboardNode.bottom + 5
+        top:   scoreboardNode.bottom + 5
       } ) );
     }
 
@@ -144,8 +144,8 @@ define( function( require ) {
       this.stepsSinceDisposal++;
       if ( this.stepsSinceDisposal >= 2 && this.disposeNodes.length > 0 ) {
         for ( var i = 0; i < this.disposeNodes.length; i++ ) {
-          this.removeChild( this.disposeNodes[i] );
-          this.disposeNodes[i].dispose();
+          this.removeChild( this.disposeNodes[ i ] );
+          this.disposeNodes[ i ].dispose();
         }
         this.disposeNodes = [];
       }
@@ -157,7 +157,7 @@ define( function( require ) {
        */
       this.stepsSinceUpdate++;
       if ( this.stepsSinceUpdate >= 2 && this.visible && !this.nextChallengeNode && this.model.challengeIndex < this.model.challenges.length - 1 ) {
-        this.nextChallengeNode = new ChallengeNode( this.model, this.model.challenges[this.model.challengeIndex + 1], this.challengeBounds, this.audioPlayer );
+        this.nextChallengeNode = new ChallengeNode( this.model, this.model.challenges[ this.model.challengeIndex + 1 ], this.challengeBounds, this.audioPlayer );
         this.nextChallengeNode.visible = false;
         this.addChild( this.nextChallengeNode );
       }

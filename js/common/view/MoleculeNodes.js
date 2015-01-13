@@ -87,7 +87,7 @@ define( function( require ) {
 
   for ( var property in MoleculeNodes ) {
     if ( MoleculeNodes.hasOwnProperty( property ) ) {
-      MoleculeNodes[property].fillKept = true;
+      MoleculeNodes[ property ].fillKept = true;
     }
   }
 

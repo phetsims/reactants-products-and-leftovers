@@ -57,7 +57,7 @@ define( function( require ) {
 
     // sandwich image will be updated below
     thisRecipe.sandwich = new Substance( 1, 'sandwich',
-      options.coefficientsMutable ? NO_SANDWICH_NODE: new SandwichNode( breadCount, meatCount, cheeseCount ) );
+      options.coefficientsMutable ? NO_SANDWICH_NODE : new SandwichNode( breadCount, meatCount, cheeseCount ) );
 
     Reaction.call( thisRecipe, ingredients, [ thisRecipe.sandwich ], { name: name } );
 

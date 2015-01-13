@@ -76,9 +76,9 @@ define( function( require ) {
     var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxIconHeight ) / ( options.maxQuantity - 1 );
     var startCenterY = rectangle.height - options.boxYMargin - ( maxIconHeight / 2 );
     for ( var i = 0; i < substances.length; i++ ) {
-      var substance = substances[i];
+      var substance = substances[ i ];
       var stackNode = new StackNode( options.contentSize.height, substance.iconProperty, substance.quantityProperty, startCenterY, deltaY, {
-        centerX: xOffsets[i]
+        centerX: xOffsets[ i ]
       } );
       content.addChild( stackNode );
       this.stackNodes.push( stackNode );

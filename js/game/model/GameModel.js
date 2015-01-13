@@ -143,7 +143,7 @@ define( function( require ) {
       else {
         // advance to next challenge
         this.challengeIndex = this.challengeIndex + 1;
-        this.challenge = this.challenges[this.challengeIndex];
+        this.challenge = this.challenges[ this.challengeIndex ];
         this.playState = PlayState.FIRST_CHECK;
       }
     },
@@ -208,7 +208,7 @@ define( function( require ) {
       } );
       this.numberOfChallenges = this.challenges.length;
       this.challengeIndex = 0;
-      this.challenge = this.challenges[this.challengeIndex];
+      this.challenge = this.challenges[ this.challengeIndex ];
     },
 
     /**

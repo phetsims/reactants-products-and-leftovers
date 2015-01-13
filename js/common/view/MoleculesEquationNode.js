@@ -69,12 +69,12 @@ define( function( require ) {
     for ( var i = 0; i < numberOfTerms; i++ ) {
 
       // coefficient
-      coefficientNode = new Text( terms[i].coefficient, { font: options.font, fill: options.fill } );
+      coefficientNode = new Text( terms[ i ].coefficient, { font: options.font, fill: options.fill } );
       coefficientNode.left = plusNode ? ( plusNode.right + options.plusXSpacing ) : 0;
       parentNode.addChild( coefficientNode );
 
       // molecule
-      symbolNode = new SubSupText( terms[i].symbol, { font: options.font, fill: options.fill } );
+      symbolNode = new SubSupText( terms[ i ].symbol, { font: options.font, fill: options.fill } );
       symbolNode.left = coefficientNode.right + options.coefficientXSpacing;
       parentNode.addChild( symbolNode );
 

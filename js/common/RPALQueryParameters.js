@@ -13,16 +13,16 @@ define( function( require ) {
   var RPALQueryParameters = {
 
     // adds 'Test', 'Skip', 'Replay' buttons to the Game, shows challenge answers at the bottom of the Game screen
-    DEV: !!getQueryParameter( 'dev' ) || false,
+    DEV:           !!getQueryParameter( 'dev' ) || false,
 
     // plays all reactions for each level of the game
-    PLAY_ALL: !!getQueryParameter( 'playAll' ) || false,
+    PLAY_ALL:      !!getQueryParameter( 'playAll' ) || false,
 
     // initializes game spinners to the correct answer
     GUESS_CORRECT: !!getQueryParameter( 'guessCorrect' ) || false,
 
     // shows the game reward, regardless of score
-    SHOW_REWARD: !!getQueryParameter( 'showReward' ) || false
+    SHOW_REWARD:   !!getQueryParameter( 'showReward' ) || false
   };
 
   return RPALQueryParameters;
