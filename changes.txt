@@ -1,3 +1,4 @@
+1/15/15 check in dependencies.json for 1.0.0-dev.23
 # 1.0.0-dev.23 1/6/15
 1/6/15 add QA to credits
 # 1.0.0-dev.22 1/5/15
