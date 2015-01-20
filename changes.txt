@@ -1,3 +1,4 @@
+1/19/15 #28 add navbar-specific image for 'Sandwiches' screen
 1/15/15 create 1.0 branch
 1/15/15 check in dependencies.json for 1.0.0-dev.23
 # 1.0.0-dev.23 1/6/15
