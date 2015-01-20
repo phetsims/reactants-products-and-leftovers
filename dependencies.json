@@ -64,8 +64,8 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "29493200faa4d8aa1e3035b7705f87f1d2436995",
+    "sha": "415908d85ffa5429492e2c9724d0605afc36a95d",
     "branch": "1.0"
   },
-  "comment": "# reactants-products-and-leftovers 1.0.0-dev.24 Mon Jan 19 2015 18:47:02 GMT-0700 (MST)"
+  "comment": "# reactants-products-and-leftovers 1.0.0-dev.25 Tue Jan 20 2015 09:22:17 GMT-0700 (MST)"
 }
