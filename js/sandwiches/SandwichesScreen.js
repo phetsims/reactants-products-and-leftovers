@@ -20,14 +20,18 @@ define( function( require ) {
   var screenTitle = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.sandwiches' );
 
   // images
-  var screenImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-screen.png' );
+  var homeImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-home.png' );
+  var navbarImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-navbar.png' );
 
   function SandwichesScreen() {
     Screen.call( this, screenTitle,
-      new Image( screenImage ),
+      new Image( homeImage ),
       function() { return new SandwichesModel(); },
       function( model ) { return new SandwichesView( model ); },
-      { backgroundColor: RPALColors.SCREEN_BACKGROUND }
+      {
+        backgroundColor: RPALColors.SCREEN_BACKGROUND,
+        navigationBarIcon: new Image( navbarImage )
+      }
     );
   }
 
