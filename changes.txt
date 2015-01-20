@@ -1,3 +1,4 @@
+1/19/15 #6 screenshot for website, 1024x672
 1/19/15 check in dependencies.json for 1.0.0-dev.24
 # 1.0.0-dev.24 1/19/15
 1/19/15 #28 add navbar image for 'Sandwiches' screen
