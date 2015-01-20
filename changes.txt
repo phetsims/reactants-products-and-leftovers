@@ -1,3 +1,4 @@
+1/19/15 #6 screenshot for website, 1024x672
 1/19/15 #28 reduce 'Sandwiches' navbar image size to 70x48, so that Win+Firefox doesn't have to shrink it dramatically
 1/19/15 #28 add navbar-specific image for 'Sandwiches' screen
 1/15/15 create 1.0 branch
