@@ -1,3 +1,4 @@
+# 1.0.0 1/27/15
 1/20/15 check in dependencies.json for 1.0.0-dev.25
 # 1.0.0-dev.25 1/20/15
 1/20/15 #28 resize 'Sandwiches' navbar image to 147x100, as recommended by Screen.js
