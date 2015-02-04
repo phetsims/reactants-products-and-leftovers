@@ -6,6 +6,7 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
+
 require.config( {
 
   deps: [ 'reactants-products-and-leftovers-main' ],
@@ -39,5 +40,6 @@ require.config( {
     REACTANTS_PRODUCTS_AND_LEFTOVERS: '.'
   },
 
-  urlArgs: new Date().getTime()  // cache buster to make browser refresh load all included scripts
+  // optional cache buster to make browser refresh load all included scripts, can be disabled with ?cacheBuster=false
+  urlArgs: phet.phetcommon.getCacheBusterArgs()
 } );
