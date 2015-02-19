@@ -1,7 +1,0 @@
-TODO list for reactants-products-and-leftovers
-
-HIGH
-- GitHub issues
-
-MISC
-- watch for https://phet.unfuddle.com/a#/projects/9404/tickets/by_number/3524 (correct answer treated as wrong)
