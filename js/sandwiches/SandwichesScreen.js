@@ -14,7 +14,7 @@ define( function( require ) {
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var SandwichesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichesModel' );
   var SandwichesView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesView' );
-  var Screen = require( 'JOIST/SCREEN' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenTitle = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.sandwiches' );

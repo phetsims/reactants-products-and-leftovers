@@ -16,7 +16,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
-  var Screen = require( 'JOIST/SCREEN' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenTitle = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
