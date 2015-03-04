@@ -15,7 +15,7 @@ define( function( require ) {
 
   var RPALConstants = {
 
-    SCREEN_VIEW_OPTIONS: { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 835, 504 ) },
+    SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 835, 504 ) },
     MOLECULE_OPTIONS: { atomOptions: { stroke: 'black', lineWidth: 0.5, scale: 1 } },
     QUANTITY_RANGE: new Range( 0, 8 ),
     SANDWICH_COEFFICIENT_RANGE: new Range( 0, 3 ),
