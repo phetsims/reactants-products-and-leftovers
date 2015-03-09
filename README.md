@@ -40,7 +40,7 @@ git clone https://github.com/phetsims/vibe.git
 ```
 (2) Start an http-server
 
-(3) Open [http://localhost/reactants-products-and-leftovers/reactants-products-and-leftovers_en.html](http://localhost/reactants-products-and-leftovers/reactants-products-and-leftovers_en.html) (You will probably need to update this URL based on your HTTP port and relative path.)
+(3) Open [http://localhost/reactants-products-and-leftovers/reactants-products-and-leftovers_en.html](http://localhost/reactants-products-and-leftovers/reactants-products-and-leftovers_en.html) (You will probably need to modify this URL based on your HTTP port and relative path.)
 
 (4) Visit the [PhET Development Overview](http://bit.ly/phet-development-overview) for details on minification, testing, architecture, obtaining stable (tested) code, etc.
 
