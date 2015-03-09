@@ -8,6 +8,7 @@ For a description of this simulation, associated resources, and a link to the pu
 go to [the simulation's web page] (http://phet.colorado.edu/en/simulation/reactants-products-and-leftovers).
 
 [Launch "Reactants, Products and Leftovers"](http://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html)
+
 <a href="http://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html">
 <img src="https://raw.githubusercontent.com/phetsims/reactants-products-and-leftovers/master/assets/reactants-products-and-leftovers-screenshot.png" alt="Screenshot" style="width: 400px;"/>
 </a>
