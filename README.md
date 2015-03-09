@@ -4,6 +4,8 @@ Reactants, Products and Leftovers
 For a description of this simulation, associated resources, and a link to the published version, go to
 [the simulation's web page] (http://phet.colorado.edu/en/simulation/reactants-products-and-leftovers).
 
+### Try it!
+
 [Click here to run "Reactants, Products and Leftovers".](http://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html)
 
 <a href="http://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html">
