@@ -1,11 +1,8 @@
 Reactants, Products and Leftovers
 =============
-Reactants, Products and Leftovers
-an educational simulation in HTML5
-by [PhET Interactive Simulations](http://phet.colorado.edu/) at the University of Colorado Boulder
-
-For a description of this simulation, associated resources, and a link to the published version,
-go to [the simulation's web page] (http://phet.colorado.edu/en/simulation/reactants-products-and-leftovers).
+"Reactants, Products and Leftovers" is an educational simulation in HTML5, by [PhET Interactive Simulations](http://phet.colorado.edu/) at the University of Colorado Boulder.
+For a description of this simulation, associated resources, and a link to the published version, go to
+[the simulation's web page] (http://phet.colorado.edu/en/simulation/reactants-products-and-leftovers).
 
 [Launch "Reactants, Products and Leftovers"](http://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html)
 
