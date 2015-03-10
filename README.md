@@ -50,4 +50,4 @@ git clone https://github.com/phetsims/vibe.git
 (6) Help us improve, create a <a href="http://github.com/phetsims/reactants-products-and-leftovers/issues/new" target="_blank">New Issue</a>
 
 ### License
-See the <a href="https://github.com/phetsims/{REPOSITORY_NAME}/blob/master/LICENSE" target="_blank">LICENSE</a>
+See the <a href="https://github.com/phetsims/reactants-products-and-leftovers/blob/master/LICENSE" target="_blank">LICENSE</a>
