@@ -41,13 +41,11 @@ git clone https://github.com/phetsims/vibe.git
 ```
 (2) Start an http-server
 
-(3) Open `http://localhost/reactants-products-and-leftovers/reactants-products-and-leftovers_en.html` (You will probably need to modify this URL based on your HTTP port and relative path.)
+### Get Involved
 
-(4) Visit the <a href="http://bit.ly/phet-development-overview" target="_blank">PhET Development Overview</a> for details on minification, testing, architecture, obtaining stable (tested) code, etc.
+Contact us at our Google Group: <a href="http://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5" target="_blank">Developing Interactive Simulations in HTML5</a>
 
-(5) Contact us at our Google Group: <a href="http://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5" target="_blank">Developing Interactive Simulations in HTML5</a>
-
-(6) Help us improve, create a <a href="http://github.com/phetsims/reactants-products-and-leftovers/issues/new" target="_blank">New Issue</a>
+Help us improve, create a <a href="http://github.com/phetsims/reactants-products-and-leftovers/issues/new" target="_blank">New Issue</a>
 
 ### License
 See the <a href="https://github.com/phetsims/reactants-products-and-leftovers/blob/master/LICENSE" target="_blank">LICENSE</a>
