@@ -1,20 +1,21 @@
 Reactants, Products and Leftovers
 =============
-"Reactants, Products and Leftovers" is an educational simulation in HTML5, by [PhET Interactive Simulations](http://phet.colorado.edu/) at the University of Colorado Boulder.
+"Reactants, Products and Leftovers" is an educational simulation in HTML5, by <a href="http://phet.colorado.edu/" target="_blank">PhET Interactive Simulations</a>
+at the University of Colorado Boulder.
 For a description of this simulation, associated resources, and a link to the published version,
-[visit the simulation's web page] (http://phet.colorado.edu/en/simulation/reactants-products-and-leftovers).
+<a href="http://phet.colorado.edu/en/simulation/reactants-products-and-leftovers" target="_blank">visit the simulation's web page</a>.
 
 ### Try it!
 
-[Click here to run "Reactants, Products and Leftovers".](http://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html)
+<a href="http://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html" target="_blank">Click here to run "Reactants, Products and Leftovers".</a>
 
-<a href="http://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html">
+<a href="http://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html" target="_blank">
 <img src="https://raw.githubusercontent.com/phetsims/reactants-products-and-leftovers/master/assets/reactants-products-and-leftovers-screenshot.png" alt="Screenshot" style="width: 400px;"/>
 </a>
 
 ### Documentation
-The [PhET Development Overview](http://bit.ly/phet-development-overview) is the most complete guide to PhET Simulation Development.
-This guide includes how to obtain simulation code and its dependencies, notes about architecture & design, how to test and build
+The <a href="http://bit.ly/phet-development-overview" target="_blank">PhET Development Overview</a> is the most complete guide to PhET Simulation
+Development. This guide includes how to obtain simulation code and its dependencies, notes about architecture & design, how to test and build
 the sims, as well as other important issues.
 
 ### Quick Start
@@ -40,13 +41,13 @@ git clone https://github.com/phetsims/vibe.git
 ```
 (2) Start an http-server
 
-(3) Open [http://localhost/reactants-products-and-leftovers/reactants-products-and-leftovers_en.html](http://localhost/reactants-products-and-leftovers/reactants-products-and-leftovers_en.html) (You will probably need to modify this URL based on your HTTP port and relative path.)
+(3) Open `http://localhost/reactants-products-and-leftovers/reactants-products-and-leftovers_en.html` (You will probably need to modify this URL based on your HTTP port and relative path.)
 
-(4) Visit the [PhET Development Overview](http://bit.ly/phet-development-overview) for details on minification, testing, architecture, obtaining stable (tested) code, etc.
+(4) Visit the <a href="http://bit.ly/phet-development-overview" target="_blank">PhET Development Overview</a> for details on minification, testing, architecture, obtaining stable (tested) code, etc.
 
-(5) Contact us at our mailing list: [Developing Interactive Simulations in HTML5](http://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5)
+(5) Contact us at our Google Group: <a href="http://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5" target="_blank">Developing Interactive Simulations in HTML5</a>
 
-(6) Help us improve, create a [New Issue](http://github.com/phetsims/reactants-products-and-leftovers/issues/new)
+(6) Help us improve, create a <a href="http://github.com/phetsims/reactants-products-and-leftovers/issues/new" target="_blank">New Issue</a>
 
 ### License
 See the [license](LICENSE)
