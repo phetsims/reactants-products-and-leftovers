@@ -37,7 +37,7 @@ define( function( require ) {
   /**
    * @param {Property.<boolean>} moleculesVisibleProperty are molecules visible in challenges?
    * @param {Property.<boolean>} numbersVisibleProperty are quantities visible in challenges?
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function VisibilityRadioButtons( moleculesVisibleProperty, numbersVisibleProperty, options ) {
