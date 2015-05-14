@@ -228,7 +228,7 @@ define( function( require ) {
     var reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
-      bracketWidth: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      bracketLength: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: this.reactantsParent.centerX,
       top: bracketsTop
     } );
@@ -240,7 +240,7 @@ define( function( require ) {
     var productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
-      bracketWidth: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      bracketLength: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: this.productsParent.centerX,
       top: bracketsTop
     } );
@@ -252,7 +252,7 @@ define( function( require ) {
     var leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,
-      bracketWidth: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      bracketLength: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: this.leftoversParent.centerX,
       top: bracketsTop
     } );
