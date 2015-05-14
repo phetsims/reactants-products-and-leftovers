@@ -12,8 +12,8 @@ define( function( require ) {
 
   // modules
   var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
+  var BracketNode = require( 'SCENERY_PHET/BracketNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var HBracketNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HBracketNode' );
   var HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HideBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -225,7 +225,7 @@ define( function( require ) {
     // 'Reactants' bracket
     var reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
     reactantsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / reactantsLabel.width ) ); // i18n
-    var reactantsBracket = new HBracketNode( {
+    var reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
       bracketWidth: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
@@ -237,7 +237,7 @@ define( function( require ) {
     // 'Products' bracket
     var productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
     productsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / productsLabel.width ) ); // i18n
-    var productsBracket = new HBracketNode( {
+    var productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
       bracketWidth: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
@@ -249,7 +249,7 @@ define( function( require ) {
     // 'Leftovers' bracket
     var leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
     leftoversLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / leftoversLabel.width ) ); // i18n
-    var leftoversBracket = new HBracketNode( {
+    var leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,
       bracketWidth: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
