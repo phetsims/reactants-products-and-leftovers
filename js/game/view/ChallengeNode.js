@@ -328,7 +328,7 @@ define( function( require ) {
       // buttons
       this.buttons.dispose();
       this.buttons = null;
-      this.checkButtonEnabledProperty.detach();
+      this.checkButtonEnabledProperty.dispose();
 
       // stuff below the boxes
       this.quantitiesNode.dispose();
