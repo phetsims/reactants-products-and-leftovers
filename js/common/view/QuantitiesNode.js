@@ -37,9 +37,12 @@ define( function( require ) {
   var QUANTITY_IMAGE_Y_SPACING = 4; // vertical space between quantity and image
   var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
   var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
-  var BRACKET_LABEL_OPTIONS = { font: new RPALFont( 12 ), fill: 'black' };
   var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
-  var MAX_BRACKET_LABEL_WIDTH = 140; // maximum width of bracket labels, determined by eye
+  var BRACKET_LABEL_OPTIONS = {
+    font: new RPALFont( 12 ),
+    fill: 'black',
+    maxWidth: 140 // maximum width of bracket labels, determined empirically
+  };
 
   /**
    * @param {Substance[]} reactants
@@ -223,36 +226,33 @@ define( function( require ) {
     }
 
     // 'Reactants' bracket
-    var reactantsBracketLength = Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) );
-    var reactantsLabel = new Text( reactantsString, _.extend( { maxWidth: reactantsBracketLength }, BRACKET_LABEL_OPTIONS ) );
+    var reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
     var reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
-      bracketLength: reactantsBracketLength,
+      bracketLength: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: this.reactantsParent.centerX,
       top: bracketsTop
     } );
     thisNode.addChild( reactantsBracket );
 
     // 'Products' bracket
-    var productsBracketLength = Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) );
-    var productsLabel = new Text( productsString, _.extend( { maxWidth: 1.5 * productsBracketLength }, BRACKET_LABEL_OPTIONS ) );
+    var productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
     var productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
-      bracketLength: productsBracketLength,
+      bracketLength: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: this.productsParent.centerX,
       top: bracketsTop
     } );
     thisNode.addChild( productsBracket );
 
     // 'Leftovers' bracket
-    var leftoversBracketLength = Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) );
-    var leftoversLabel = new Text( leftoversString, _.extend( { maxWidth: leftoversBracketLength }, BRACKET_LABEL_OPTIONS ) );
+    var leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
     var leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,
-      bracketLength: leftoversBracketLength,
+      bracketLength: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: this.leftoversParent.centerX,
       top: bracketsTop
     } );
