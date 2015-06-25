@@ -38,12 +38,15 @@ define( function( require ) {
     var thisNode = this;
 
     // radio buttons for choosing a reaction, scaled to fit for i18n
-    var radioButtons = new ReactionRadioButtons( reactionProperty, reactions );
-    radioButtons.setScaleMagnitude( Math.min( 1, 0.25 * options.screenWidth / radioButtons.width ) );
+    var radioButtons = new ReactionRadioButtons( reactionProperty, reactions, {
+      maxWidth: 0.25 * options.screenWidth // constrain width for i18n
+    } );
 
     // background, extra wide so that it will appear to fill the window for all but extreme window sizes
-    var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, radioButtons.height + ( 2 * options.yMargin ),
-      { fill: options.fill, centerX: options.screenWidth / 2 } );
+    var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, radioButtons.height + ( 2 * options.yMargin ), {
+      fill: options.fill,
+      centerX: options.screenWidth / 2
+    } );
 
     // radio buttons at right, vertically centered
     radioButtons.right = options.screenWidth - options.xMargin;
