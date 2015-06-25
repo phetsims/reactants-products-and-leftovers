@@ -83,11 +83,10 @@ define( function( require ) {
 
     // layout of boxes and arrow
     var hBox = new LayoutBox( {
-        children: [ thisNode.beforeBox, arrowNode, thisNode.afterBox ],
-        orientation: 'horizontal',
-        spacing: 10
-      }
-    );
+      children: [ thisNode.beforeBox, arrowNode, thisNode.afterBox ],
+      orientation: 'horizontal',
+      spacing: 10
+    } );
     thisNode.addChild( hBox );
 
     // @private Everything below the boxes
@@ -98,7 +97,7 @@ define( function( require ) {
       minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
       x: thisNode.beforeBox.x,
-      top:             thisNode.beforeBox.bottom + 6
+      top: thisNode.beforeBox.bottom + 6
     } );
     thisNode.addChild( thisNode.quantitiesNode );
 
