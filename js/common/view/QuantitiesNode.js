@@ -223,36 +223,36 @@ define( function( require ) {
     }
 
     // 'Reactants' bracket
-    var reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
-    reactantsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / reactantsLabel.width ) ); // i18n
+    var reactantsBracketLength = Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) );
+    var reactantsLabel = new Text( reactantsString, _.extend( { maxWidth: reactantsBracketLength }, BRACKET_LABEL_OPTIONS ) );
     var reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
-      bracketLength: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      bracketLength: reactantsBracketLength,
       centerX: this.reactantsParent.centerX,
       top: bracketsTop
     } );
     thisNode.addChild( reactantsBracket );
 
     // 'Products' bracket
-    var productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
-    productsLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / productsLabel.width ) ); // i18n
+    var productsBracketLength = Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) );
+    var productsLabel = new Text( productsString, _.extend( { maxWidth: 1.5 * productsBracketLength }, BRACKET_LABEL_OPTIONS ) );
     var productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
-      bracketLength: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      bracketLength: productsBracketLength,
       centerX: this.productsParent.centerX,
       top: bracketsTop
     } );
     thisNode.addChild( productsBracket );
 
     // 'Leftovers' bracket
-    var leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
-    leftoversLabel.setScaleMagnitude( Math.min( 1, MAX_BRACKET_LABEL_WIDTH / leftoversLabel.width ) ); // i18n
+    var leftoversBracketLength = Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) );
+    var leftoversLabel = new Text( leftoversString, _.extend( { maxWidth: leftoversBracketLength }, BRACKET_LABEL_OPTIONS ) );
     var leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,
-      bracketLength: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      bracketLength: leftoversBracketLength,
       centerX: this.leftoversParent.centerX,
       top: bracketsTop
     } );
