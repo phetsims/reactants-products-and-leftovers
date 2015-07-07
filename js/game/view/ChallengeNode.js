@@ -173,7 +173,9 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // @private
-    thisNode.buttons = new GameButtons( model, thisNode.checkButtonEnabledProperty );
+    thisNode.buttons = new GameButtons( model, thisNode.checkButtonEnabledProperty, {
+      maxWidth: 0.85 * options.boxSize.width // constrain width for i18n
+    } );
     thisNode.addChild( thisNode.buttons );
     thisNode.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
     thisNode.buttons.bottom = thisNode.beforeBox.bottom - 15;
