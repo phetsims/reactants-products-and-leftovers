@@ -55,7 +55,10 @@ define( function( require ) {
     options = options || {};
 
     // Title
-    var title = new Text( chooseYourLevelString, { font: new RPALFont( 40 ) } );
+    var title = new Text( chooseYourLevelString, {
+      font: new RPALFont( 40 ),
+      maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
+    } );
 
     // Icons for the level-selection buttons, indexed by level
     var levelIcons = [
