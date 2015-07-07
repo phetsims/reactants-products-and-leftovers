@@ -153,7 +153,8 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     var questionMark = new Text( questionMarkString, {
-      font: new RPALFont( { size: 150, weight: 'bold' } )
+      font: new RPALFont( { size: 150, weight: 'bold' } ),
+      maxWidth: 0.75 * options.boxSize.width // constrain width for i18n
     } );
     thisNode.addChild( questionMark );
     questionMark.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
