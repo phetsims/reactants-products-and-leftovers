@@ -97,7 +97,8 @@ define( function( require ) {
     // Visibility radio buttons, at bottom center
     var visibilityRadioButtons = new VisibilityRadioButtons( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
       centerX: layoutBounds.centerX,
-      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
+      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN,
+      maxWidth: 0.65 * layoutBounds.width // constrain width for i18n
     } );
 
     // Reset All button, at bottom right
