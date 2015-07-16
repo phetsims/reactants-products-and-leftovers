@@ -63,10 +63,18 @@ define( function( require ) {
         .lineTo( ARROW_SIZE / 2, -ARROW_SIZE )
         .close(),
       ARROW_OPTIONS );
-    var arrowsBox = new LayoutBox( { children: [ upArrowNode, downArrowNode ], orientation: 'vertical', spacing: 20 } );
+    var arrowsBox = new LayoutBox( {
+      children: [ upArrowNode, downArrowNode ],
+      orientation: 'vertical',
+      spacing: 20
+    } );
 
     // centered in background, scaled to fit
-    var contentNode = new LayoutBox( { children: [ arrowsBox, faceNode ], orientation: 'horizontal', spacing: 25 } );
+    var contentNode = new LayoutBox( {
+      children: [ arrowsBox, faceNode ],
+      orientation: 'horizontal',
+      spacing: 25
+    } );
     contentNode.setScaleMagnitude(
       Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
     contentNode.center = background.center;

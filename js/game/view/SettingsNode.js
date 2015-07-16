@@ -90,7 +90,7 @@ define( function( require ) {
       orientation: 'vertical',
       align: 'center',
       spacing: 15,
-      left:   layoutBounds.left + SCREEN_X_MARGIN,
+      left: layoutBounds.left + SCREEN_X_MARGIN,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
 
@@ -105,7 +105,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() { model.reset(); },
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
-      right:  layoutBounds.right - SCREEN_X_MARGIN,
+      right: layoutBounds.right - SCREEN_X_MARGIN,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
 
@@ -132,7 +132,7 @@ define( function( require ) {
         baseColor: 'red',
         textFill: 'white',
         right: layoutBounds.right - 10,
-        top:   layoutBounds.top + 10
+        top: layoutBounds.top + 10
       } );
       testButton.addListener( function() { ChallengeFactory.test(); } );
       this.addChild( testButton );
@@ -184,9 +184,17 @@ define( function( require ) {
   var createIcon = function( level, leftNode, rightNode ) {
     var labelNode = new Text( StringUtils.format( pattern_Level_0, level ), { font: new RPALFont( 45 ) } );
     var arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
-    var icon = new LayoutBox( { children: [ leftNode, arrowNode, rightNode ], orientation: 'horizontal', spacing: 20 } );
+    var icon = new LayoutBox( {
+      children: [ leftNode, arrowNode, rightNode ],
+      orientation: 'horizontal',
+      spacing: 20
+    } );
     labelNode.setScaleMagnitude( Math.min( 1, icon.width / labelNode.width ) ); // i18n: label can be no wider than image
-    return new LayoutBox( { children: [ labelNode, icon ], orientation: 'vertical', spacing: 30 } );
+    return new LayoutBox( {
+      children: [ labelNode, icon ],
+      orientation: 'vertical',
+      spacing: 30
+    } );
   };
 
   /**
