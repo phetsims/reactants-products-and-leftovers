@@ -2,6 +2,7 @@
   "name": "reactants-products-and-leftovers",
   "version": "1.1.0-dev.1",
   "license": "GPLv3",
+  "requirejsNamespace": "REACTANTS_PRODUCTS_AND_LEFTOVERS",
   "simTitleStringKey": "REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants-products-and-leftovers.name",
   "phetLibs": [
     "reactants-products-and-leftovers",
