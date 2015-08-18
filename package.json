@@ -17,7 +17,6 @@
     "requirejsNamespace": "REACTANTS_PRODUCTS_AND_LEFTOVERS",
     "simTitleStringKey": "REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants-products-and-leftovers.name",
     "phetLibs": [
-      "reactants-products-and-leftovers",
       "nitroglycerin",
       "vegas",
       "vibe"
