@@ -21,6 +21,7 @@ define( function( require ) {
   var MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculesEquationNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
+  var Property = require( 'AXON/Property' );
   var QuantitiesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/QuantitiesNode' );
   var RandomBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/RandomBox' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -224,6 +225,14 @@ define( function( require ) {
     // Observers
     //------------------------------------------------------------------------------------
 
+    // @private must be disposed
+    // Move from "Try Again" to "Check" state when a quantity is changed, see reactants-products-and-leftovers#37.
+    this.answerChangedLink = Property.lazyMultilink( quantityProperties, function() {
+      if ( thisNode.playStateProperty.get() === PlayState.TRY_AGAIN ) {
+        thisNode.playStateProperty.set( PlayState.SECOND_CHECK )
+      }
+    } );
+
     // @private handle PlayState changes
     thisNode.playStateObserver = function( playState ) {
 
@@ -332,6 +341,7 @@ define( function( require ) {
       this.buttons.dispose();
       this.buttons = null;
       this.checkButtonEnabledProperty.dispose();
+      this.answerChangedLink.dispose();
 
       // stuff below the boxes
       this.quantitiesNode.dispose();
