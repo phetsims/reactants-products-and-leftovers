@@ -280,7 +280,7 @@ define( function( require ) {
       thisNode.quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
 
       // switch between spinners and static numbers
-      thisNode.quantitiesNode.setInteractive( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
+      thisNode.quantitiesNode.setInteractive( _.contains( [ PlayState.FIRST_CHECK, PlayState.SECOND_CHECK, PlayState.TRY_AGAIN ], playState ) );
     };
     thisNode.playStateProperty = null; // @private will be set by activate()
 
