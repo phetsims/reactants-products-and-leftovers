@@ -229,7 +229,7 @@ define( function( require ) {
     // Move from "Try Again" to "Check" state when a quantity is changed, see reactants-products-and-leftovers#37.
     this.answerChangedLink = Property.lazyMultilink( quantityProperties, function() {
       if ( thisNode.playStateProperty.get() === PlayState.TRY_AGAIN ) {
-        thisNode.playStateProperty.set( PlayState.SECOND_CHECK )
+        thisNode.playStateProperty.set( PlayState.SECOND_CHECK );
       }
     } );
 
