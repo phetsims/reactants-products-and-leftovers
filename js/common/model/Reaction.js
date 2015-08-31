@@ -32,11 +32,12 @@ define( function( require ) {
 
     var thisReaction = this;
 
+    // @public
     thisReaction.name = options.name;
     thisReaction.reactants = reactants;
     thisReaction.products = products;
 
-    // Create a leftover for each reactant, in the same order.
+    // @public Create a leftover for each reactant, in the same order.
     thisReaction.leftovers = [];
     thisReaction.reactants.forEach( function( reactant ) {
       thisReaction.leftovers.push( new Substance( 1, reactant.symbol, reactant.icon, 0 ) );
@@ -50,12 +51,14 @@ define( function( require ) {
 
   return inherit( Object, Reaction, {
 
+    // @public
     reset: function() {
       this.reactants.forEach( function( reactant ) { reactant.reset(); } );
       this.products.forEach( function( product ) { product.reset(); } );
       this.leftovers.forEach( function( leftover ) { leftover.reset(); } );
     },
 
+    // @public
     toString: function() {
       return DevStringUtils.equationString( this );
     },
@@ -63,6 +66,7 @@ define( function( require ) {
     /**
      * Formula is a reaction if more than one coefficient is non-zero, or if any coefficient is > 1.
      * @returns {boolean}
+     * @public
      */
     isReaction: function() {
       var greaterThanZero = 0;

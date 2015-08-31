@@ -44,7 +44,7 @@ define( function( require ) {
     }, options );
 
     var thisRecipe = this;
-    thisRecipe.coefficientsMutable = options.coefficientsMutable;
+    thisRecipe.coefficientsMutable = options.coefficientsMutable; // @public
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
     var ingredients = [];
@@ -55,7 +55,7 @@ define( function( require ) {
     if ( meatCount > 0 || options.coefficientsMutable ) { ingredients.push( meat ); }
     if ( cheeseCount > 0 || options.coefficientsMutable ) { ingredients.push( cheese ); }
 
-    // sandwich image will be updated below
+    // @public sandwich image will be updated below
     thisRecipe.sandwich = new Substance( 1, 'sandwich',
       options.coefficientsMutable ? NO_SANDWICH_NODE : new SandwichNode( breadCount, meatCount, cheeseCount ) );
 

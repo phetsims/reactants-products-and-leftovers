@@ -107,7 +107,7 @@ define( function( require ) {
 
   return inherit( Node, BeforeAfterNode, {
 
-    // Ensures that this node is eligible for GC.
+    // @public Ensures that this node is eligible for GC.
     dispose: function() {
 
       // accordion boxes

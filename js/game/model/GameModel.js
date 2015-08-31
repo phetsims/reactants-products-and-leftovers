@@ -37,6 +37,8 @@ define( function( require ) {
     var thisModel = this;
 
     PropertySet.call( thisModel, {
+
+      // @public
       soundEnabled: true, // {boolean} is sound turned on?
       timerEnabled: false, // {boolean} is the timer turned on?
       moleculesVisible: true, // {boolean} are molecules shown in the challenge?
@@ -50,11 +52,11 @@ define( function( require ) {
       playState: PlayState.NONE  // {PlayState} read-only, the current 'play state' of the game
     } );
 
-    // These fields are read-only, they should not be changed once the model is instantiated.
+    // These fields are @public (read-only), they should not be changed once the model is instantiated.
     thisModel.numberOfLevels = options.numberOfLevels;
     thisModel.maxQuantity = options.maxQuantity;
 
-    // These fields are read-only, they change as game-play progresses.
+    // These fields are @public (read-only), they change as game-play progresses.
     thisModel.challenges = []; // {Challenge[]} the set of challenges for the current game being played
     thisModel.bestScoreProperties = []; // {Property.<number>[]} best scores for each level
     thisModel.bestTimeProperties = []; // {Property.<number>[]} best times for each level, in ms
@@ -64,12 +66,12 @@ define( function( require ) {
       thisModel.bestTimeProperties.push( new Property( null ) ); // null if a level has no best time yet
     }
 
-    thisModel.timer = new GameTimer();
+    thisModel.timer = new GameTimer(); // @private
   }
 
   return inherit( PropertySet, GameModel, {
 
-    // Resets the model to its initial state.
+    // @pubic Resets the model to its initial state.
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.bestScoreProperties.forEach( function( property ) { property.set( 0 ); } );
@@ -104,7 +106,7 @@ define( function( require ) {
       this.gamePhase = GamePhase.RESULTS; // do this last, so that other stuff is set up before observers are notified
     },
 
-    // Checks the current guess
+    // @public Checks the current guess
     check: function() {
       assert && assert( this.playState === PlayState.FIRST_CHECK || this.playState === PlayState.SECOND_CHECK );
       if ( this.challenge.isCorrect() ) {
@@ -121,20 +123,20 @@ define( function( require ) {
       }
     },
 
-    // Makes another attempt at solving the challenge
+    // @public Makes another attempt at solving the challenge
     tryAgain: function() {
       assert && assert( this.playState === PlayState.TRY_AGAIN );
       this.playState = PlayState.SECOND_CHECK;
     },
 
-    // Shows the correct answer
+    // @public Shows the correct answer
     showAnswer: function() {
       assert && assert( this.playState === PlayState.SHOW_ANSWER );
       this.challenge.showAnswer();
       this.playState = PlayState.NEXT;
     },
 
-    // Advances to the next challenge
+    // @public Advances to the next challenge
     next: function() {
       if ( this.challengeIndex === this.challenges.length - 1 ) {
         // game has been completed, advance to GamePhase.RESULTS
@@ -152,6 +154,7 @@ define( function( require ) {
      * Gets the number of challenges for the specified level.
      * @param {number} level
      * @returns {number}
+     * @public
      */
     getNumberOfChallenges: function( level ) {
       return ChallengeFactory.getNumberOfChallenges( level );
@@ -161,6 +164,7 @@ define( function( require ) {
      * Gets the perfect score for the specified level.
      * @param {number} level
      * @returns {number}
+     * @public
      */
     getPerfectScore: function( level ) {
       return ChallengeFactory.getNumberOfChallenges( level ) * POINTS_FIRST_CHECK;
@@ -169,6 +173,7 @@ define( function( require ) {
     /**
      * Is the current score perfect?
      * @returns {boolean}
+     * @public
      */
     isPerfectScore: function() {
       return this.score === this.getPerfectScore( this.level );
@@ -216,6 +221,7 @@ define( function( require ) {
      * Skips the current challenge.
      * Score and best times are meaningless after using this.
      * This is a developer feature.
+     * @public
      */
     skipCurrentChallenge: function() {
       this.next();
@@ -226,6 +232,7 @@ define( function( require ) {
      * Replays the current challenge.
      * Score and best times are meaningless after using this.
      * This is a developer feature.
+     * @public
      */
     replayCurrentChallenge: function() {
       this.challenge.reset();

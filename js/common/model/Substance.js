@@ -26,14 +26,17 @@ define( function( require ) {
     assert && assert( coefficient >= 0 );
     assert && assert( quantity >= 0 );
 
-    this.symbol = symbol; // {string}
+    this.symbol = symbol; // @public {string}
 
     PropertySet.call( this, {
-      // {number} substance's coefficient in the reaction equation, mutable to support 'Custom' sandwich
+
+      // @public {number} substance's coefficient in the reaction equation, mutable to support 'Custom' sandwich
       coefficient: coefficient,
-      // {Node} visual representation of the substance, mutable to support the 'Custom' sandwich
+
+      // @public {Node} visual representation of the substance, mutable to support the 'Custom' sandwich
       icon: icon,
-      // {number} how much of the substance we have
+
+      // @public {number} how much of the substance we have
       quantity: quantity
     } );
   }
@@ -44,6 +47,7 @@ define( function( require ) {
      * Are 2 substances the same? AXON.Property observers are not considered.
      * @param {Substance} substance
      * @return {boolean}
+     * @public
      */
     equals: function( substance ) {
       return ( substance instanceof Substance &&
@@ -59,6 +63,7 @@ define( function( require ) {
      * @param {Substance} substance
      * @returns {Substance}
      * @static
+     * @public
      */
     clone: function( substance ) {
       return new Substance( substance.coefficient, substance.symbol, substance.icon, substance.quantity );
@@ -70,6 +75,7 @@ define( function( require ) {
      * @param {number} quantity
      * @returns {Substance}
      * @static
+     * @public
      */
     withQuantity: function( substance, quantity ) {
       return new Substance( substance.coefficient, substance.symbol, substance.icon, quantity );

@@ -18,16 +18,16 @@ define( function( require ) {
    */
   function RPALBaseModel( reactions ) {
 
-    this.reactions = reactions; // {Reaction[]} reaction choices
+    this.reactions = reactions; // @public {Reaction[]} reaction choices
 
     PropertySet.call( this, {
-      reaction: this.reactions[ 0 ] // {Reaction} the selected reaction
+      reaction: this.reactions[ 0 ] // @public {Reaction} the selected reaction
     } );
   }
 
   return inherit( PropertySet, RPALBaseModel, {
 
-    // @override
+    // @override @public
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.reactions.forEach( function( reaction ) { reaction.reset(); } );

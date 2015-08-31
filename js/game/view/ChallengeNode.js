@@ -315,6 +315,7 @@ define( function( require ) {
     /**
      * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
      * @param {Property.<PlayState>} playStateProperty
+     * @public
      */
     activate: function( playStateProperty ) {
       this.buttons.activate( playStateProperty );
@@ -323,7 +324,7 @@ define( function( require ) {
       this.playStateProperty.lazyLink( this.playStateObserver ); // must be unlinked in dispose
     },
 
-    // Ensures that this node is eligible for GC.
+    // @public Ensures that this node is eligible for GC.
     dispose: function() {
 
       // model

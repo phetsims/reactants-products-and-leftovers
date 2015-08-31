@@ -162,7 +162,7 @@ define( function( require ) {
 
   inherit( Node, SubstanceLayer, {
 
-    // Ensures that this node is eligible for GC.
+    // @public Ensures that this node is eligible for GC.
     dispose: function() {
       this.cellNodes.forEach( function( node ) { node.dispose(); } );
       this.cellNodes = null;
@@ -202,7 +202,7 @@ define( function( require ) {
 
   return inherit( Node, RandomBox, {
 
-    // Ensures that this node is eligible for GC.
+    // @public Ensures that this node is eligible for GC.
     dispose: function() {
       this.substanceLayers.forEach( function( node ) { node.dispose(); } );
       this.substanceLayers = null;

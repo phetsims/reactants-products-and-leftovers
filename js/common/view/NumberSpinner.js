@@ -100,7 +100,7 @@ define( function( require ) {
 
   return inherit( LayoutBox, NumberSpinner, {
 
-    // Ensures that this node is eligible for GC.
+    // @public Ensures that this node is eligible for GC.
     dispose: function() {
       this.numberProperty.unlink( this.numberPropertyObserver );
     }

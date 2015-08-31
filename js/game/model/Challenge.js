@@ -27,6 +27,7 @@ define( function( require ) {
       numbersVisible: true // {boolean} are numbers visible when playing the challenge?
     }, options );
 
+    // @public
     this.reaction = reaction;
     this.interactiveBox = interactiveBox;
     this.moleculesVisible = options.moleculesVisible;
@@ -37,13 +38,13 @@ define( function( require ) {
 
   return inherit( Object, Challenge, {
 
-    // Resets this challenge to its initial state.
+    // @public Resets this challenge to its initial state.
     reset: function() {
       this.guess.reset();
       this.points = 0;
     },
 
-    // Does the user's guess match the correct answer?
+    // @public Does the user's guess match the correct answer?
     isCorrect: function() {
       var i;
       var correct = true;
@@ -62,7 +63,7 @@ define( function( require ) {
       return correct;
     },
 
-    // Reveals the correct answer by copying the reaction quantities to the guess.
+    // @public Reveals the correct answer by copying the reaction quantities to the guess.
     showAnswer: function() {
       var i;
       for ( i = 0; i < this.guess.reactants.length; i++ ) {

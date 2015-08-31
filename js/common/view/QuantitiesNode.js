@@ -283,6 +283,7 @@ define( function( require ) {
      * that are always interactive, and to improve performance on creation.
      *
      * @param {boolean} interactive
+     * @public
      */
     setInteractive: function( interactive ) {
 
@@ -344,6 +345,7 @@ define( function( require ) {
     /**
      * Changes visibility of the 'Hide numbers' box.
      * @param {boolean} visible
+     * @public
      */
     setHideNumbersBoxVisible: function( visible ) {
       if ( this.hideNumbersBox ) {
@@ -351,7 +353,7 @@ define( function( require ) {
       }
     },
 
-    // Ensures that this node is eligible for GC.
+    // @public Ensures that this node is eligible for GC.
     dispose: function() {
       this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
       this.spinnerNodes = null;
@@ -370,6 +372,7 @@ define( function( require ) {
      * @param {number} boxWidth
      * @returns {number[]}
      * @static
+     * @public
      */
     createXOffsets: function( numberOfSubstances, boxWidth ) {
       var xOffsets = [];

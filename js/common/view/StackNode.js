@@ -75,7 +75,7 @@ define( function( require ) {
 
   return inherit( Node, StackNode, {
 
-    // Ensures that this node is eligible for GC.
+    // @pubic Ensures that this node is eligible for GC.
     dispose: function() {
       this.iconNodes.forEach( function( node ) { node.dispose(); } );
       this.iconNodes = null;

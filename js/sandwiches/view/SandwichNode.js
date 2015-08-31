@@ -107,7 +107,7 @@ define( function( require ) {
 
   return inherit( Node, SandwichNode, {}, {
 
-    // @static create nodes for individual ingredients
+    // @static @public create nodes for individual ingredients
     createBreadNode: function() { return new Image( breadImage, { scale: SANDWICH_SCALE } ); },
     createMeatNode: function() { return new Image( meatImage, { scale: SANDWICH_SCALE } ); },
     createCheeseNode: function() { return new Image( cheeseImage, { scale: SANDWICH_SCALE } ); }

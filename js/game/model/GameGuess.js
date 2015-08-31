@@ -37,7 +37,7 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // Clone reactants, quantities are initialized to zero for 'Before' challenges.
+    // @public Clone reactants, quantities are initialized to zero for 'Before' challenges.
     thisNode.reactants = [];
     reaction.reactants.forEach( function( reactant ) {
       thisNode.reactants.push( ( interactiveBox === BoxType.BEFORE && !RPALQueryParameters.GUESS_CORRECT ) ?
@@ -45,7 +45,7 @@ define( function( require ) {
                                Substance.clone( reactant ) );
     } );
 
-    // Clone products, quantities are initialized to zero for 'After' challenges.
+    // @public Clone products, quantities are initialized to zero for 'After' challenges.
     thisNode.products = [];
     reaction.products.forEach( function( product ) {
       thisNode.products.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.GUESS_CORRECT ) ?
@@ -53,7 +53,7 @@ define( function( require ) {
                               Substance.clone( product ) );
     } );
 
-    // Clone leftovers, quantities are initialized to zero for 'After' challenges.
+    // @public Clone leftovers, quantities are initialized to zero for 'After' challenges.
     thisNode.leftovers = [];
     reaction.leftovers.forEach( function( leftover ) {
       thisNode.leftovers.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.GUESS_CORRECT ) ?
@@ -68,6 +68,7 @@ define( function( require ) {
 
   return inherit( Object, GameGuess, {
 
+    // @public
     reset: function() {
       this.reactants.forEach( function( reactant ) { reactant.reset(); } );
       this.products.forEach( function( product ) { product.reset(); } );

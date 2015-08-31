@@ -96,13 +96,14 @@ define( function( require ) {
     /**
      * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
      * @param {Property.<PlayState>} playStateProperty
+     * @public
      */
     activate: function( playStateProperty ) {
       this.playStateProperty = playStateProperty;
       this.playStateProperty.link( this.playStateObserver ); // must be unlinked in dispose
     },
 
-    // Ensures that this node is eligible for GC.
+    // @public Ensures that this node is eligible for GC.
     dispose: function() {
       this.checkButtonEnabledProperty.unlink( this.checkButtonEnabledObserver );
       if ( this.playStateProperty ) {

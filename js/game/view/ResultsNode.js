@@ -29,7 +29,7 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    thisNode.rewardNode = null;
+    thisNode.rewardNode = null; // @private
 
     /*
      * Displays the game results, possibly with a 'reward'.
@@ -83,6 +83,7 @@ define( function( require ) {
     /**
      * Animates the game reward.
      * @param {number} elapsedTime time between step calls, in seconds
+     * @public
      */
     step: function( elapsedTime ) {
       if ( this.rewardNode ) {

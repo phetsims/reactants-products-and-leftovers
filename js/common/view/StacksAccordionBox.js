@@ -89,7 +89,7 @@ define( function( require ) {
 
   return inherit( AccordionBox, StacksAccordionBox, {
 
-    // @override Ensures that this node is eligible for GC.
+    // @override @public Ensures that this node is eligible for GC.
     dispose: function() {
       AccordionBox.prototype.dispose.call( this );
       this.stackNodes.forEach( function( node ) { node.dispose(); } );

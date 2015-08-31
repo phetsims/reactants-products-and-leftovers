@@ -66,7 +66,11 @@ define( function( require ) {
 
   return inherit( ScreenView, GameView, {
 
-    // @param {number} elapsedTime time between step calls, in seconds
+    /**
+     * Animation step function.
+     * @param {number} elapsedTime time between step calls, in seconds
+     * @public
+     */
     step: function( elapsedTime ) {
 
       // animate the reward

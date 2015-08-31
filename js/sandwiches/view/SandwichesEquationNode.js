@@ -127,7 +127,7 @@ define( function( require ) {
 
   return inherit( Node, SandwichesEquationNode, {
 
-    // Ensures that this node is eligible for GC.
+    // @public Ensures that this node is eligible for GC.
     dispose: function() {
       this.coefficientNodes.forEach( function( node ) { node.dispose(); } );
       this.coefficientNodes = null;

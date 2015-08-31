@@ -132,6 +132,7 @@ define( function( require ) {
 
   return inherit( Node, PlayNode, {
 
+    // @public
     step: function( elapsedTime ) {
 
       /**
