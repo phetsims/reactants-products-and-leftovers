@@ -161,9 +161,9 @@ define( function( require ) {
     // centerY is handled below
 
     // visible only until the user has entered a valid guess
-    var checkButtonEnabledObserver = function( guessIsValid ) {
-      questionMark.visible = !guessIsValid;
-      if ( guessIsValid ) { thisNode.checkButtonEnabledProperty.unlink( checkButtonEnabledObserver ); }
+    var checkButtonEnabledObserver = function( checkButtonEnabled ) {
+      questionMark.visible = !checkButtonEnabled;
+      if ( checkButtonEnabled ) { thisNode.checkButtonEnabledProperty.unlink( checkButtonEnabledObserver ); }
     };
     // unlink is unnecessary, since this property belongs to this instance
     thisNode.checkButtonEnabledProperty.link( checkButtonEnabledObserver );
