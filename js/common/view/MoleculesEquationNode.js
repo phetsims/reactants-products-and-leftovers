@@ -67,7 +67,7 @@ define( function( require ) {
 
     // hoist loop vars explicitly
     var coefficientNode;
-    var symbolNode
+    var symbolNode;
     var plusNode;
 
     for ( var i = 0; i < numberOfTerms; i++ ) {
