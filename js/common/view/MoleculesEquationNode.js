@@ -64,7 +64,11 @@ define( function( require ) {
 
     var parentNode = new Node();
     var numberOfTerms = terms.length;
-    var coefficientNode, symbolNode, plusNode; // hoist loop vars explicitly
+
+    // hoist loop vars explicitly
+    var coefficientNode;
+    var symbolNode
+    var plusNode;
 
     for ( var i = 0; i < numberOfTerms; i++ ) {
 

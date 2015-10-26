@@ -58,7 +58,12 @@ define( function( require ) {
 
     // left-hand side is the sandwich ingredients
     var leftNode = new Node();
-    var reactant, coefficientNode, iconNode, plusNode; // hoist loop vars explicitly
+
+    // hoist loop vars explicitly
+    var reactant;
+    var coefficientNode;
+    var iconNode;
+    var plusNode;
     var numberOfReactants = reaction.reactants.length;
     for ( var i = 0; i < numberOfReactants; i++ ) {
 

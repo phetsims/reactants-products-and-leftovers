@@ -58,7 +58,9 @@ define( function( require ) {
     thisNode.checkButtonEnabledProperty.link( thisNode.checkButtonEnabledObserver ); // must be unlinked in dispose
 
     // other buttons, created on demand
-    var tryAgainButton, showAnswerButton, nextButton;
+    var tryAgainButton;
+    var showAnswerButton;
+    var nextButton;
 
     // @private
     thisNode.playStateObserver = function( state ) {

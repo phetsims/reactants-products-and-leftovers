@@ -77,7 +77,15 @@ define( function( require ) {
     this.interactiveBox = options.interactiveBox; // @private
 
     // explicitly hoist reused vars
-    var i, reactant, product, leftover, centerX, numberNode, spinnerNode, iconNode, symbolNode;
+    var i;
+    var reactant;
+    var product;
+    var leftover;
+    var centerX;
+    var numberNode;
+    var spinnerNode;
+    var iconNode;
+    var symbolNode;
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     thisNode.spinnerNodes = []; // @private {NumberSpinner[]}
@@ -291,7 +299,9 @@ define( function( require ) {
       this.spinnerNodes.forEach( function( spinnerNode ) { spinnerNode.visible = interactive; } );
 
       var centerY = this.spinnerNodes[ 0 ].height / 2;
-      var i, numberNode, centerX; // explicitly hoist loop vars
+      var i;
+      var numberNode;
+      var centerX; // explicitly hoist loop vars
 
       if ( this.interactiveBox === BoxType.BEFORE ) {
 

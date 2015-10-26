@@ -378,7 +378,11 @@ define( function( require ) {
     var numberOfQuantityRangeErrors = 0;
 
     // hoist vars that will be reused
-    var factoryFunction, reaction, level, i, j;
+    var factoryFunction;
+    var reaction;
+    var level;
+    var i;
+    var j;
 
     // Print reactions by level. Put all reactions in a container, removing duplicates.
     var factoryFunctions = [];
