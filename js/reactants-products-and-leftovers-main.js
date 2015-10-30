@@ -26,7 +26,7 @@ define( function( require ) {
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
       team: 'Wendy Adams, Julia Chamberlain, Patricia Loeblein, Emily B. Moore,\n' +
             'Robert Parson, Ariel Paul, Kathy Perkins',
-      qualityAssurance: 'Oliver Orejola, Bryan Yoelin'
+      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan,\nOliver Orejola, Benjamin Roberts, Bryan Yoelin'
     }
   };
 
