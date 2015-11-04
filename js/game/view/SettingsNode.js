@@ -34,7 +34,7 @@ define( function( require ) {
   // strings
   var chooseYourLevelString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/chooseYourLevel' );
   var doubleQuestionMarkString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/doubleQuestionMark' );
-  var pattern_Level_0 = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/pattern_Level_0' );
+  var patternLevel0String = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/pattern_Level_0' );
   var questionMarkString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/questionMark' );
 
   // constants
@@ -182,7 +182,7 @@ define( function( require ) {
    *  leftNode -> rightNode
    */
   var createIcon = function( level, leftNode, rightNode ) {
-    var labelNode = new Text( StringUtils.format( pattern_Level_0, level ), { font: new RPALFont( 45 ) } );
+    var labelNode = new Text( StringUtils.format( patternLevel0String, level ), { font: new RPALFont( 45 ) } );
     var arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
     var icon = new LayoutBox( {
       children: [ leftNode, arrowNode, rightNode ],

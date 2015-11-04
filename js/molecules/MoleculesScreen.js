@@ -19,10 +19,10 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenTitle = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
+  var screenMoleculesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
 
   function MoleculesScreen() {
-    Screen.call( this, screenTitle,
+    Screen.call( this, screenMoleculesString,
       createIcon( { moleculeLineWidth: 0.1 } ),
       function() { return new MoleculesModel(); },
       function( model ) { return new MoleculesView( model ); },

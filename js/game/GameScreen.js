@@ -22,10 +22,10 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   // strings
-  var gameString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.game' );
+  var screenGameString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.game' );
 
   function GameScreen() {
-    Screen.call( this, gameString,
+    Screen.call( this, screenGameString,
       createIcon(),
       function() { return new GameModel(); },
       function( model ) { return new GameView( model ); },

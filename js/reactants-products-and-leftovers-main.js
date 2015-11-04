@@ -16,7 +16,7 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var title = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants-products-and-leftovers.title' );
+  var reactantsProductsAndLeftoversTitleString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants-products-and-leftovers.title' );
 
   var screens = [ new SandwichesScreen(), new MoleculesScreen(), new GameScreen() ];
 
@@ -31,7 +31,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( title, screens, options );
+    var sim = new Sim( reactantsProductsAndLeftoversTitleString, screens, options );
     sim.start();
   } );
 } );

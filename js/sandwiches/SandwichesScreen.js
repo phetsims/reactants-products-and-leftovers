@@ -17,14 +17,14 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenTitle = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.sandwiches' );
+  var screenSandwichesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.sandwiches' );
 
   // images
   var homeImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-home.png' );
   var navbarImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-navbar.png' );
 
   function SandwichesScreen() {
-    Screen.call( this, screenTitle,
+    Screen.call( this, screenSandwichesString,
       new Image( homeImage ),
       function() { return new SandwichesModel(); },
       function( model ) { return new SandwichesView( model ); },
