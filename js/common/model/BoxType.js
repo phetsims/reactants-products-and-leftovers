@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014, University of Colorado Boulder
 
 /**
  * Enum for the 2 boxes that represent the 2 states of a reaction.
