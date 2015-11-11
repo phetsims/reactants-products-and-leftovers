@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
@@ -44,6 +45,8 @@ define( function( require ) {
     options.children = [ replayButton, skipButton ];
     LayoutBox.call( this, options );
   }
+
+  reactantsProductsAndLeftovers.register( 'DevGameControls', DevGameControls );
 
   return inherit( LayoutBox, DevGameControls );
 } );

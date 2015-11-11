@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
@@ -92,6 +93,8 @@ define( function( require ) {
     };
     thisNode.playStateProperty = null; // @private will be set by activate()
   }
+
+  reactantsProductsAndLeftovers.register( 'GameButtons', GameButtons );
 
   return inherit( Node, GameButtons, {
 

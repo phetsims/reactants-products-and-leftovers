@@ -16,6 +16,7 @@ define( function( require ) {
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
@@ -129,6 +130,8 @@ define( function( require ) {
       }
     } );
   }
+
+  reactantsProductsAndLeftovers.register( 'PlayNode', PlayNode );
 
   return inherit( Node, PlayNode, {
 

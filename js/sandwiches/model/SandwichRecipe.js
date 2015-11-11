@@ -18,6 +18,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
@@ -83,6 +84,8 @@ define( function( require ) {
       assert && assert( thisRecipe.isReaction() );
     }
   }
+
+  reactantsProductsAndLeftovers.register( 'SandwichRecipe', SandwichRecipe );
 
   // for analogy purposes, a sandwich recipe is a specialized type of reaction
   return inherit( Reaction, SandwichRecipe );

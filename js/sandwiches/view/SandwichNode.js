@@ -13,6 +13,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   // images
   var breadImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/bread.png' );
@@ -104,6 +105,8 @@ define( function( require ) {
 
     thisNode.mutate( options );
   }
+
+  reactantsProductsAndLeftovers.register( 'SandwichNode', SandwichNode );
 
   return inherit( Node, SandwichNode, {}, {
 

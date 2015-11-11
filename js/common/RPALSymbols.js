@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var ChemUtils = require( 'NITROGLYCERIN/ChemUtils' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   // Plain-text versions of the symbols (i18n not required)
   var SYMBOLS = [
@@ -23,6 +24,8 @@ define( function( require ) {
   SYMBOLS.forEach( function( symbol ) {
     RPALSymbols[ symbol ] = ChemUtils.toSubscript( symbol );
   } );
+
+  reactantsProductsAndLeftovers.register( 'RPALSymbols', RPALSymbols );
 
   return RPALSymbols;
 } );

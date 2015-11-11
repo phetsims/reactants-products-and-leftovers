@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var RPALRewardNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/RPALRewardNode' );
@@ -77,6 +78,8 @@ define( function( require ) {
       }
     } );
   }
+
+  reactantsProductsAndLeftovers.register( 'ResultsNode', ResultsNode );
 
   return inherit( Node, ResultsNode, {
 

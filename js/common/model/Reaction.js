@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevStringUtils' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
   /**
@@ -48,6 +49,8 @@ define( function( require ) {
       reactant.quantityProperty.link( thisReaction.updateQuantities.bind( thisReaction ) );
     } );
   }
+
+  reactantsProductsAndLeftovers.register( 'Reaction', Reaction );
 
   return inherit( Object, Reaction, {
 

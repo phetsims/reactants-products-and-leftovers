@@ -10,6 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+
+  // modules (molecules)
   var C2H2Node = require( 'NITROGLYCERIN/nodes/C2H2Node' );
   var C2H4Node = require( 'NITROGLYCERIN/nodes/C2H4Node' );
   var C2H5ClNode = require( 'NITROGLYCERIN/nodes/C2H5ClNode' );
@@ -84,6 +87,8 @@ define( function( require ) {
     SO2: new SO2Node( MOLECULE_OPTIONS ),
     SO3: new SO3Node( MOLECULE_OPTIONS )
   };
+
+  reactantsProductsAndLeftovers.register( 'MoleculeNodes', MoleculeNodes );
 
   return MoleculeNodes;
 } );

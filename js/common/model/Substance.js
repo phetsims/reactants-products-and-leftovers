@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   /**
    * @param {number} coefficient substance's coefficient in the reaction equation
@@ -40,6 +41,8 @@ define( function( require ) {
       quantity: quantity
     } );
   }
+
+  reactantsProductsAndLeftovers.register( 'Substance', Substance );
 
   return inherit( PropertySet, Substance, {
 

@@ -24,6 +24,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var QuantitiesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/QuantitiesNode' );
   var RandomBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/RandomBox' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
@@ -309,6 +310,8 @@ define( function( require ) {
 
     thisNode.mutate( options );
   }
+
+  reactantsProductsAndLeftovers.register( 'ChallengeNode', ChallengeNode );
 
   return inherit( Node, ChallengeNode, {
 

@@ -19,6 +19,7 @@ define( function( require ) {
   // modules
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var RewardNode = require( 'VEGAS/RewardNode' );
   var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
@@ -35,6 +36,8 @@ define( function( require ) {
     assert && assert( level >= 0 && level < nodeFactoryFunctions.length );
     RewardNode.call( this, { nodes: nodeFactoryFunctions[ level ]() } );
   }
+
+  reactantsProductsAndLeftovers.register( 'RPALRewardNode', RPALRewardNode );
 
   // Level 1: molecules, @returns {Node[]}
   var createNodesLevel1 = function() {

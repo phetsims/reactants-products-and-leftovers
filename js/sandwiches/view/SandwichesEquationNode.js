@@ -20,6 +20,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberSpinner = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberSpinner' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
@@ -129,6 +130,8 @@ define( function( require ) {
     options.children = [ leftNode, arrowNode, sandwichNode, noReactionNode ];
     Node.call( thisNode, options );
   }
+
+  reactantsProductsAndLeftovers.register( 'SandwichesEquationNode', SandwichesEquationNode );
 
   return inherit( Node, SandwichesEquationNode, {
 

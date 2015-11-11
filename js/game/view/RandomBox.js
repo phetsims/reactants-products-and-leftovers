@@ -19,6 +19,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
@@ -108,6 +109,8 @@ define( function( require ) {
     thisNode.mutate( options );
   }
 
+  reactantsProductsAndLeftovers.register( 'RandomBox', RandomBox );
+
   /**
    * Responsible for managing all nodes for one substance type.
    *
@@ -160,6 +163,8 @@ define( function( require ) {
     thisNode.quantityProperty.link( thisNode.quantityPropertyObserver ); // must be unlinked in dispose
   }
 
+  reactantsProductsAndLeftovers.register( 'RandomBox.SubstanceLayer', SubstanceLayer );
+
   inherit( Node, SubstanceLayer, {
 
     // @public Ensures that this node is eligible for GC.
@@ -187,6 +192,8 @@ define( function( require ) {
 
     this.setGridPosition( gridPosition ); // initialize position
   }
+
+  reactantsProductsAndLeftovers.register( 'RandomBox.CellNode', CellNode );
 
   inherit( SubstanceIcon, CellNode, {
 

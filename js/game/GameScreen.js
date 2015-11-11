@@ -16,6 +16,7 @@ define( function( require ) {
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var Screen = require( 'JOIST/Screen' );
@@ -24,6 +25,9 @@ define( function( require ) {
   // strings
   var screenGameString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.game' );
 
+  /**
+   * @constructor
+   */
   function GameScreen() {
     Screen.call( this, screenGameString,
       createIcon(),
@@ -32,6 +36,8 @@ define( function( require ) {
       { backgroundColor: RPALColors.SCREEN_BACKGROUND }
     );
   }
+
+  reactantsProductsAndLeftovers.register( 'GameScreen', GameScreen );
 
   /**
    * Creates the icon for this screen, a smiley face with up/down arrows.

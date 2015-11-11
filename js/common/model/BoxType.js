@@ -8,6 +8,9 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+
   var BoxType = {
     BEFORE: 'BEFORE', // before the reaction started
     AFTER: 'AFTER' // after the reaction completes
@@ -15,6 +18,8 @@ define( function( require ) {
 
   // verify that enum is immutable, without the runtime penalty in production code
   if ( assert ) { Object.freeze( BoxType ); }
+
+  reactantsProductsAndLeftovers.register( 'BoxType', BoxType );
 
   return BoxType;
 } );

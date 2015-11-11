@@ -14,6 +14,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALSymbols = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALSymbols' );
@@ -418,6 +419,8 @@ define( function( require ) {
           new Substance( 2, RPALSymbols.HF, new HFNode( MOLECULE_OPTIONS ) ) ] );
     }
   };
+
+  reactantsProductsAndLeftovers.register( 'ReactionFactory', ReactionFactory );
 
   return ReactionFactory;
 } );

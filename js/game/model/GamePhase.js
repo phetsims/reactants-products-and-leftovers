@@ -8,6 +8,9 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+
   var GamePhase = {
     SETTINGS: 'SETTINGS', // user is choosing game settings (level, sound, timer, ...)
     PLAY: 'PLAY', // user is playing the game
@@ -16,6 +19,8 @@ define( function( require ) {
 
   // verify that enum is immutable, without the runtime penalty in production code
   if ( assert ) { Object.freeze( GamePhase ); }
+
+  reactantsProductsAndLeftovers.register( 'GamePhase', GamePhase );
 
   return GamePhase;
 } );

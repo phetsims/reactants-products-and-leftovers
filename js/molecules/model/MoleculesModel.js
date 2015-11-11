@@ -10,9 +10,13 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var RPALBaseModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/RPALBaseModel' );
 
+  /**
+   * @constructor
+   */
   function MoleculesModel() {
     RPALBaseModel.call( this,
       // reaction choices
@@ -22,6 +26,8 @@ define( function( require ) {
         ReactionFactory.combustMethane()
       ] );
   }
+
+  reactantsProductsAndLeftovers.register( 'MoleculesModel', MoleculesModel );
 
   return inherit( RPALBaseModel, MoleculesModel );
 } );

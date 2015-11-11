@@ -10,6 +10,9 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+
   var DevStringUtils = {
 
     /**
@@ -79,6 +82,8 @@ define( function( require ) {
       return DevStringUtils.equationString( reaction ) + ' : ' + DevStringUtils.quantitiesString( reaction );
     }
   };
+
+  reactantsProductsAndLeftovers.register( 'DevStringUtils', DevStringUtils );
 
   return DevStringUtils;
 } );

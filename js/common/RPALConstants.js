@@ -12,6 +12,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var Range = require( 'DOT/Range' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   var RPALConstants = {
 
@@ -26,6 +27,8 @@ define( function( require ) {
     MOLECULES_BEFORE_AFTER_BOX_SIZE: new Dimension2( 310, 240 ),
     GAME_BEFORE_AFTER_BOX_SIZE: new Dimension2( 330, 240 )
   };
+
+  reactantsProductsAndLeftovers.register( 'RPALConstants', RPALConstants );
 
   return RPALConstants;
 } );

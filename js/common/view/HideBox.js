@@ -14,6 +14,7 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
@@ -43,6 +44,8 @@ define( function( require ) {
     options.children = [ rectangleNode, eyeNode ];
     Node.call( this, options );
   }
+
+  reactantsProductsAndLeftovers.register( 'HideBox', HideBox );
 
   return inherit( Node, HideBox );
 } );

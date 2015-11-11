@@ -27,6 +27,7 @@ define( function( require ) {
   var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var Challenge = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/Challenge' );
   var DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevStringUtils' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
@@ -510,6 +511,8 @@ define( function( require ) {
     console.log( 'quantity-range errors = ' + numberOfQuantityRangeErrors );
     console.log( '<done>' );
   };
+
+  reactantsProductsAndLeftovers.register( 'ChallengeFactory', ChallengeFactory );
 
   return ChallengeFactory;
 } );

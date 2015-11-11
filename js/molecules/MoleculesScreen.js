@@ -14,6 +14,7 @@ define( function( require ) {
   var MoleculesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/model/MoleculesModel' );
   var MoleculesView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesView' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var Screen = require( 'JOIST/Screen' );
@@ -21,6 +22,9 @@ define( function( require ) {
   // strings
   var screenMoleculesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
 
+  /**
+   * @constructor
+   */
   function MoleculesScreen() {
     Screen.call( this, screenMoleculesString,
       createIcon( { moleculeLineWidth: 0.1 } ),
@@ -32,6 +36,8 @@ define( function( require ) {
       }
     );
   }
+
+  reactantsProductsAndLeftovers.register( 'MoleculesScreen', MoleculesScreen );
 
   /**
    * Creates the icon for this screen, an H2O molecule.

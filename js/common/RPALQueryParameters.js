@@ -8,6 +8,9 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+
   var getQueryParameter = phet.chipper.getQueryParameter;
 
   var RPALQueryParameters = {
@@ -24,6 +27,8 @@ define( function( require ) {
     // shows the game reward, regardless of score
     SHOW_REWARD:   !!getQueryParameter( 'showReward' ) || false
   };
+
+  reactantsProductsAndLeftovers.register( 'RPALQueryParameters', RPALQueryParameters );
 
   return RPALQueryParameters;
 } );

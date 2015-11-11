@@ -13,6 +13,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var StackNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/StackNode' );
@@ -86,6 +87,8 @@ define( function( require ) {
 
     AccordionBox.call( this, content, options );
   }
+
+  reactantsProductsAndLeftovers.register( 'StacksAccordionBox', StacksAccordionBox );
 
   return inherit( AccordionBox, StacksAccordionBox, {
 

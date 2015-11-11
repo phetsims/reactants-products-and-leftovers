@@ -18,6 +18,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
 
   /**
@@ -72,6 +73,8 @@ define( function( require ) {
 
     thisNode.mutate( options );
   }
+
+  reactantsProductsAndLeftovers.register( 'StackNode', StackNode );
 
   return inherit( Node, StackNode, {
 

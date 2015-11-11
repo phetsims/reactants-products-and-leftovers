@@ -13,6 +13,7 @@ define( function( require ) {
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlayNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/PlayNode' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var ResultsNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ResultsNode' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var SettingsNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/SettingsNode' );
@@ -63,6 +64,8 @@ define( function( require ) {
       thisView.resultsNode && ( thisView.resultsNode.visible = ( gamePhase === GamePhase.RESULTS ) );
     } );
   }
+
+  reactantsProductsAndLeftovers.register( 'GameView', GameView );
 
   return inherit( ScreenView, GameView, {
 

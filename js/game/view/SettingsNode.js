@@ -19,6 +19,7 @@ define( function( require ) {
   var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   var NH3Node = require( 'NITROGLYCERIN/nodes/NH3Node' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
@@ -138,6 +139,8 @@ define( function( require ) {
       this.addChild( testButton );
     }
   }
+
+  reactantsProductsAndLeftovers.register( 'SettingsNode', SettingsNode );
 
   /**
    * Creates a level-selection button

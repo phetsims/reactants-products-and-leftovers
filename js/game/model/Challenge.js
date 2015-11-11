@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var GameGuess = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GameGuess' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   /**
    * @param {Reaction} reaction
@@ -35,6 +36,8 @@ define( function( require ) {
     this.guess = new GameGuess( reaction, interactiveBox );
     this.points = 0;  // points awarded for this challenge
   }
+
+  reactantsProductsAndLeftovers.register( 'Challenge', Challenge );
 
   return inherit( Object, Challenge, {
 

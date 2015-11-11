@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   /**
    * @param {Reaction[]} reactions
@@ -24,6 +25,8 @@ define( function( require ) {
       reaction: this.reactions[ 0 ] // @public {Reaction} the selected reaction
     } );
   }
+
+  reactantsProductsAndLeftovers.register( 'RPALBaseModel', RPALBaseModel );
 
   return inherit( PropertySet, RPALBaseModel, {
 

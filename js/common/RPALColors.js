@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Color = require( 'SCENERY/util/Color' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   // constants
   var DARK_BLUE = new Color( 51, 118, 196 );
@@ -21,6 +22,8 @@ define( function( require ) {
     BOX_FILL: 'white',
     GAME_BUTTON: 'yellow'
   };
+
+  reactantsProductsAndLeftovers.register( 'RPALColors', RPALColors );
 
   return RPALColors;
 } );

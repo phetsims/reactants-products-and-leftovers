@@ -19,6 +19,7 @@ define( function( require ) {
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var QuantitiesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/QuantitiesNode' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
@@ -104,6 +105,8 @@ define( function( require ) {
     // pass options to supertype
     thisNode.mutate( options );
   }
+
+  reactantsProductsAndLeftovers.register( 'BeforeAfterNode', BeforeAfterNode );
 
   return inherit( Node, BeforeAfterNode, {
 

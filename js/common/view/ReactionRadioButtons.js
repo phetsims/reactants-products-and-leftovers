@@ -12,6 +12,7 @@ define( function( require ) {
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -44,6 +45,8 @@ define( function( require ) {
 
     LayoutBox.call( this, options );
   }
+
+  reactantsProductsAndLeftovers.register( 'ReactionRadioButtons', ReactionRadioButtons );
 
   return inherit( LayoutBox, ReactionRadioButtons );
 } );

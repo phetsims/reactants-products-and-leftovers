@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   /**
    * @param {Object|number} options {Object} font options or {number} font size
@@ -31,6 +32,8 @@ define( function( require ) {
 
     PhetFont.call( this, options );
   }
+
+  reactantsProductsAndLeftovers.register( 'RPALFont', RPALFont );
 
   return inherit( PhetFont, RPALFont );
 } );

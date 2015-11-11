@@ -18,6 +18,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var Property = require( 'AXON/Property' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -107,6 +108,8 @@ define( function( require ) {
 
     Panel.call( this, content, options );
   }
+
+  reactantsProductsAndLeftovers.register( 'VisibilityRadioButtons', VisibilityRadioButtons );
 
   /**
    * Creates the content for the 'Show All' radio button, an open eye with text to the right of it.

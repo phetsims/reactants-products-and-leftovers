@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var SandwichesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichesModel' );
   var SandwichesView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesView' );
@@ -23,6 +24,9 @@ define( function( require ) {
   var homeImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-home.png' );
   var navbarImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-navbar.png' );
 
+  /**
+   * @constructor
+   */
   function SandwichesScreen() {
     Screen.call( this, screenSandwichesString,
       new Image( homeImage ),
@@ -34,6 +38,8 @@ define( function( require ) {
       }
     );
   }
+
+  reactantsProductsAndLeftovers.register( 'SandwichesScreen', SandwichesScreen );
 
   return inherit( Screen, SandwichesScreen );
 } );

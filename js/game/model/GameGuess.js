@@ -23,6 +23,7 @@ define( function( require ) {
   // modules
   var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
@@ -65,6 +66,8 @@ define( function( require ) {
     assert && assert( thisNode.products.length === reaction.products.length );
     assert && assert( thisNode.leftovers.length === reaction.leftovers.length );
   }
+
+  reactantsProductsAndLeftovers.register( 'GameGuess', GameGuess );
 
   return inherit( Object, GameGuess, {
 

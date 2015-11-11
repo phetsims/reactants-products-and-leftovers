@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -97,6 +98,8 @@ define( function( require ) {
     this.numberProperty = numberProperty; // @private
     this.numberProperty.link( this.numberPropertyObserver ); // must be unlinked in dispose
   }
+
+  reactantsProductsAndLeftovers.register( 'NumberSpinner', NumberSpinner );
 
   return inherit( LayoutBox, NumberSpinner, {
 

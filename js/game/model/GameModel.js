@@ -16,6 +16,7 @@ define( function( require ) {
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
 
   // constants
@@ -68,6 +69,8 @@ define( function( require ) {
 
     thisModel.timer = new GameTimer(); // @private
   }
+
+  reactantsProductsAndLeftovers.register( 'GameModel', GameModel );
 
   return inherit( PropertySet, GameModel, {
 

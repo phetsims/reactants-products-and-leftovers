@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   /**
    * @param {Object} [options]
@@ -27,6 +28,8 @@ define( function( require ) {
 
     ArrowNode.call( this, 0, 0, options.length, 0, options );
   }
+
+  reactantsProductsAndLeftovers.register( 'RightArrowNode', RightArrowNode );
 
   return inherit( ArrowNode, RightArrowNode );
 } );
