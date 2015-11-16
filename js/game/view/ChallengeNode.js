@@ -344,6 +344,7 @@ define( function( require ) {
       // buttons
       this.buttons.dispose();
       this.buttons = null;
+      this.checkButtonEnabledProperty.unlinkAll();
       this.checkButtonEnabledProperty.dispose();
       this.answerChangedLink.dispose();
 
