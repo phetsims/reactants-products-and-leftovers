@@ -29,9 +29,6 @@
   "hideNumbers": {
     "value": "Hide Numbers"
   },
-  "pattern_Reaction_0_of_1": {
-    "value": "Reaction {0} of {1}"
-  },
   "cheese": {
     "value": "Cheese"
   },
@@ -49,18 +46,6 @@
   },
   "combustMethane": {
     "value": "Combust Methane"
-  },
-  "check": {
-    "value": "Check"
-  },
-  "tryAgain": {
-    "value": "Try Again"
-  },
-  "showAnswer": {
-    "value": "Show Answer"
-  },
-  "next": {
-    "value": "Next"
   },
   "beforeReaction": {
     "value": "Before Reaction"
