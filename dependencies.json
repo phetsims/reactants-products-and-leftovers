@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.1.0-rc.1 Sat Dec 12 2015 18:01:51 GMT-0700 (MST)",
+  "comment": "# reactants-products-and-leftovers 1.1.0-rc.2 Fri Jan 08 2016 17:37:12 GMT-0700 (MST)",
   "assert": {
     "sha": "3921bc3784dc67e9cbfa31cdec52b582fcfc68e7",
     "branch": "HEAD"
@@ -30,7 +30,7 @@
   },
   "nitroglycerin": {
     "sha": "ef8c55a2b61db794e3725f3d21165ab5ab1ce6f9",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-core": {
     "sha": "73a034c676ee7b14b99aeeb1e7aad79f579b91b1",
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "e0aa15ab6063300e91fa2c518b0f19bc37ec4071",
+    "sha": "2684de5dc94a0359f43c0c37b8caccabb92b2b6d",
     "branch": "1.1"
   },
   "scenery": {
@@ -57,8 +57,8 @@
     "branch": "HEAD"
   },
   "sun": {
-    "sha": "8d2903208596c74c91c2abe0df795d03a1689a56",
-    "branch": "HEAD"
+    "sha": "267450f1e87f8778b01baff3fd81a475fd19a409",
+    "branch": "reactants-products-and-leftovers-1.1"
   },
   "tandem": {
     "sha": "e98bd8c3370af1d1b7b207ad054bd408de5ad190",
