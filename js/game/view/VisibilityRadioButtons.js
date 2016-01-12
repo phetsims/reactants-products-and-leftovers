@@ -32,8 +32,8 @@ define( function( require ) {
   var TEXT_OPTIONS = { font: new RPALFont( 14 ) };
   var RADIO_BUTTON_OPTIONS = { radius: 8, xSpacing: 10 };
   var FONT_AWESOME_OPTIONS = { scale: 0.5 };
-  var DILATE_X = 10; // dilate touchArea for radio buttons
-  var DILATE_Y = 6; // dilate touchArea for radio buttons
+  var X_DILATION = 10; // dilate touchArea for radio buttons
+  var Y_DILATION = 6; // dilate touchArea for radio buttons
 
   /**
    * @param {Property.<boolean>} moleculesVisibleProperty are molecules visible in challenges?
@@ -94,9 +94,9 @@ define( function( require ) {
     var hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, createHideNumbersNode(), RADIO_BUTTON_OPTIONS );
 
     // expand touchArea
-    showAllRadioButton.touchArea = showAllRadioButton.localBounds.dilatedXY( DILATE_X, DILATE_Y );
-    hideMoleculesButton.touchArea = hideMoleculesButton.localBounds.dilatedXY( DILATE_X, DILATE_Y );
-    hideNumbersButton.touchArea = hideNumbersButton.localBounds.dilatedXY( DILATE_X, DILATE_Y );
+    showAllRadioButton.touchArea = showAllRadioButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
+    hideMoleculesButton.touchArea = hideMoleculesButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
+    hideNumbersButton.touchArea = hideNumbersButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
 
     // vertical layout
     var content = new LayoutBox( {
