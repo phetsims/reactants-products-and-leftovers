@@ -37,8 +37,8 @@ define( function( require ) {
       fill: RPALColors.BOX_FILL,
       stroke: RPALColors.BOX_STROKE,
       cornerRadius: 3,
-      buttonTouchAreaDilatedX: 10,
-      buttonTouchAreaDilatedY: 10,
+      buttonTouchAreaXDilation: 10,
+      buttonTouchAreaYDilation: 10,
       titleNode: null, // {Node} optional title for the box
       titleBarFill: RPALColors.PANEL_FILL,
       titleAlignX: 'center',
