@@ -18,8 +18,6 @@ define( function( require ) {
   // strings
   var reactantsProductsAndLeftoversTitleString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants-products-and-leftovers.title' );
 
-  var screens = [ new SandwichesScreen(), new MoleculesScreen(), new GameScreen() ];
-
   var options = {
     credits: {
       leadDesign: 'Yuen-ying Carpenter, Kelly Lancaster',
@@ -31,6 +29,11 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
+    var screens = [
+      new SandwichesScreen(),
+      new MoleculesScreen(),
+      new GameScreen()
+    ];
     var sim = new Sim( reactantsProductsAndLeftoversTitleString, screens, options );
     sim.start();
   } );
