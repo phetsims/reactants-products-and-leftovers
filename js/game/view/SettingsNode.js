@@ -185,16 +185,18 @@ define( function( require ) {
    *  leftNode -> rightNode
    */
   var createIcon = function( level, leftNode, rightNode ) {
-    var labelNode = new Text( StringUtils.format( patternLevel0String, level ), { font: new RPALFont( 45 ) } );
     var arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
-    var icon = new LayoutBox( {
+    var iconNode = new LayoutBox( {
       children: [ leftNode, arrowNode, rightNode ],
       orientation: 'horizontal',
       spacing: 20
     } );
-    labelNode.setScaleMagnitude( Math.min( 1, icon.width / labelNode.width ) ); // i18n: label can be no wider than image
+    var labelNode = new Text( StringUtils.format( patternLevel0String, level ), {
+      font: new RPALFont( 45 ),
+      maxWidth: iconNode.width
+    } );
     return new LayoutBox( {
-      children: [ labelNode, icon ],
+      children: [ labelNode, iconNode ],
       orientation: 'vertical',
       spacing: 30
     } );
