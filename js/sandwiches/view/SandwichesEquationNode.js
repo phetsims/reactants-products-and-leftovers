@@ -40,8 +40,8 @@ define( function( require ) {
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
   var SPINNER_OPTIONS = {
     font: new RPALFont( 28 ),
-    touchXDilated: 20,
-    touchYDilated: 10
+    touchAreaXDilation: 20,
+    touchAreaYDilation: 10
   };
 
   /**

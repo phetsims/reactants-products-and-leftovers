@@ -46,8 +46,8 @@ define( function( require ) {
   };
   var SPINNER_OPTIONS = {
     font: QUANTITY_FONT,
-    touchXDilated: 20,
-    touchYDilated: 10
+    touchAreaXDilation: 20,
+    touchAreaYDilation: 10
   };
 
   /**
