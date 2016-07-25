@@ -44,6 +44,11 @@ define( function( require ) {
     fill: 'black',
     maxWidth: 140 // maximum width of bracket labels, determined empirically
   };
+  var SPINNER_OPTIONS = {
+    font: QUANTITY_FONT,
+    touchXDilated: 20,
+    touchYDilated: 10
+  };
 
   /**
    * @param {Substance[]} reactants
@@ -106,7 +111,7 @@ define( function( require ) {
       if ( this.interactiveBox === BoxType.BEFORE ) {
         // spinner
         spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
-          { font: QUANTITY_FONT, centerX: centerX } );
+          _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.reactantsParent.addChild( spinnerNode );
         thisNode.spinnerNodes.push( spinnerNode );
       }
@@ -141,7 +146,7 @@ define( function( require ) {
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( product.quantityProperty, options.quantityRange,
-          { font: QUANTITY_FONT, centerX: centerX } );
+          _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.productsParent.addChild( spinnerNode );
         thisNode.spinnerNodes.push( spinnerNode );
       }
@@ -176,7 +181,7 @@ define( function( require ) {
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( leftover.quantityProperty, options.quantityRange,
-          { font: QUANTITY_FONT, centerX: centerX } );
+          _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.leftoversParent.addChild( spinnerNode );
         thisNode.spinnerNodes.push( spinnerNode );
       }

@@ -38,7 +38,11 @@ define( function( require ) {
   var TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
   var PLUS_OPTIONS = { fill: 'white' };
   var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
-  var SPINNER_OPTIONS = { font: new RPALFont( 28 ) };
+  var SPINNER_OPTIONS = {
+    font: new RPALFont( 28 ),
+    touchXDilated: 20,
+    touchYDilated: 10
+  };
 
   /**
    * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
