@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.1.5 Thu Jun 16 2016 17:55:29 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.1.5 Wed Aug 03 2016 16:57:44 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "3921bc3784dc67e9cbfa31cdec52b582fcfc68e7",
     "branch": "HEAD"
@@ -21,8 +21,8 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "d5aa04baf2b8fd73050c4933f2a4f946994ce4a7",
-    "branch": "HEAD"
+    "sha": "153ba264a759089e7eff2dd56fb386df7b4188e9",
+    "branch": "reactants-products-and-leftovers-1.1"
   },
   "kite": {
     "sha": "84e84bcaef87ea4be58ad08d4b61fb6fa591088d",
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "196a9d088f5811c978ef15a1be79abc94a64317c",
+    "sha": "44852f1e374d627a5b40df9aece166311871bb69",
     "branch": "1.1"
   },
   "scenery": {
