@@ -47,7 +47,8 @@ define( function( require ) {
   var SPINNER_OPTIONS = {
     font: QUANTITY_FONT,
     touchAreaXDilation: 20,
-    touchAreaYDilation: 10
+    touchAreaYDilation: 10,
+    backgroundLineWidth: 0.5
   };
 
   /**

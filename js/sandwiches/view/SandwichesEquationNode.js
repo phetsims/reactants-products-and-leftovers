@@ -41,7 +41,8 @@ define( function( require ) {
   var SPINNER_OPTIONS = {
     font: new RPALFont( 28 ),
     touchAreaXDilation: 20,
-    touchAreaYDilation: 10
+    touchAreaYDilation: 10,
+    backgroundLineWidth: 0.5
   };
 
   /**
