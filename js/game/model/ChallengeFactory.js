@@ -141,7 +141,7 @@ define( function( require ) {
     var factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
 
     // Determine which challenge will have zero products.
-    var zeroProductsIndex = Math.floor( Math.random() * numberOfChallenges );
+    var zeroProductsIndex = phet.joist.random.nextInt( numberOfChallenges );
 
     var challenges = []; // [{Challenge}]
     for ( var i = 0; i < numberOfChallenges; i++ ) {
