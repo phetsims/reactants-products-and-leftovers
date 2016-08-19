@@ -184,7 +184,7 @@ define( function( require ) {
       // Create a reaction with non-zero quantities of at least one product.
       var reaction = factoryFunctions[ i ]();
       reaction.reactants.forEach( function( reactant ) {
-        reactant.quantity = _.random( reactant.coefficient, maxQuantity );
+        reactant.quantity = phet.joist.random.randomIntegerBetween( reactant.coefficient, maxQuantity );
       } );
 
       // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
@@ -208,14 +208,14 @@ define( function( require ) {
     assert && assert( maxQuantity > 0 );
 
     // Choose a function and remove it from the further consideration.
-    var randomIndex = _.random( 0, factoryFunctions.length - 1 );
+    var randomIndex = phet.joist.random.randomIntegerBetween( 0, factoryFunctions.length - 1 );
     var factoryFunction = factoryFunctions[ randomIndex ];
     factoryFunctions.splice( randomIndex, 1 );
 
     // Create a reaction with non-zero quantities of at least one product.
     var reaction = factoryFunction();
     reaction.reactants.forEach( function( reactant ) {
-      reactant.quantity = _.random( reactant.coefficient, maxQuantity );
+      reactant.quantity = phet.joist.random.randomIntegerBetween( reactant.coefficient, maxQuantity );
     } );
 
     return reaction;
@@ -239,7 +239,7 @@ define( function( require ) {
       assert && assert( factoryFunctions.length > 0 );
 
       // Choose a function and remove it from the further consideration.
-      var randomIndex = _.random( 0, factoryFunctions.length - 1 );
+      var randomIndex = phet.joist.random.randomIntegerBetween( 0, factoryFunctions.length - 1 );
       var factoryFunction = factoryFunctions[ randomIndex ];
       factoryFunctions.splice( randomIndex, 1 );
 
@@ -259,7 +259,7 @@ define( function( require ) {
 
     // set quantities
     reaction.reactants.forEach( function( reactant ) {
-      reactant.quantity = _.random( 1, Math.max( 1, reactant.coefficient - 1 ) );
+      reactant.quantity = phet.joist.random.randomIntegerBetween( 1, Math.max( 1, reactant.coefficient - 1 ) );
     } );
 
     return reaction;

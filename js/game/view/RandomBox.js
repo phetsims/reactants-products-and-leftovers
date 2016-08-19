@@ -75,7 +75,7 @@ define( function( require ) {
      */
     var choosePosition = function() {
       assert && assert( positions.length > 0 );
-      var index = _.random( 0, positions.length - 1 );
+      var index = phet.joist.random.randomIntegerBetween( 0, positions.length - 1 );
       var position = positions[ index ];
       positions.splice( index, 1 );
       return position;
@@ -202,8 +202,8 @@ define( function( require ) {
     setGridPosition: function( gridPosition ) {
       this.gridPosition = gridPosition;
       // Move this node to the specified grid position, with some randomized offset.
-      this.centerX = gridPosition.x + _.random( -this.randomOffset, this.randomOffset );
-      this.centerY = gridPosition.y + _.random( -this.randomOffset, this.randomOffset );
+      this.centerX = gridPosition.x + phet.joist.random.randomIntegerBetween( -this.randomOffset, this.randomOffset );
+      this.centerY = gridPosition.y + phet.joist.random.randomIntegerBetween( -this.randomOffset, this.randomOffset );
     }
   } );
 
