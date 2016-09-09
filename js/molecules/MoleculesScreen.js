@@ -26,14 +26,18 @@ define( function( require ) {
    * @constructor
    */
   function MoleculesScreen() {
-    Screen.call( this, screenMoleculesString,
-      createIcon( { moleculeLineWidth: 0.1 } ),
+
+    var options = {
+      name: screenMoleculesString,
+      backgroundColor: RPALColors.SCREEN_BACKGROUND,
+      homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
+      navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } )
+    };
+
+    Screen.call( this,
       function() { return new MoleculesModel(); },
       function( model ) { return new MoleculesView( model ); },
-      {
-        backgroundColor: RPALColors.SCREEN_BACKGROUND,
-        navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } )
-      }
+      options
     );
   }
 

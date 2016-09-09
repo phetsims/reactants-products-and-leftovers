@@ -29,11 +29,17 @@ define( function( require ) {
    * @constructor
    */
   function GameScreen() {
-    Screen.call( this, screenGameString,
-      createIcon(),
+
+    var options = {
+      name: screenGameString,
+      backgroundColor: RPALColors.SCREEN_BACKGROUND,
+      homeScreenIcon: createIcon()
+    };
+
+    Screen.call( this,
       function() { return new GameModel(); },
       function( model ) { return new GameView( model ); },
-      { backgroundColor: RPALColors.SCREEN_BACKGROUND }
+      options
     );
   }
 

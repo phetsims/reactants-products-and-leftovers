@@ -28,14 +28,18 @@ define( function( require ) {
    * @constructor
    */
   function SandwichesScreen() {
-    Screen.call( this, screenSandwichesString,
-      new Image( homeImage ),
+
+    var options = {
+      name: screenSandwichesString,
+      backgroundColor: RPALColors.SCREEN_BACKGROUND,
+      homeScreenIcon: new Image( homeImage ),
+      navigationBarIcon: new Image( navbarImage )
+    };
+
+    Screen.call( this,
       function() { return new SandwichesModel(); },
       function( model ) { return new SandwichesView( model ); },
-      {
-        backgroundColor: RPALColors.SCREEN_BACKGROUND,
-        navigationBarIcon: new Image( navbarImage )
-      }
+      options
     );
   }
 
