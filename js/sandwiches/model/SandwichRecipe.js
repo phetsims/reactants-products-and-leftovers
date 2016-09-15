@@ -44,8 +44,8 @@ define( function( require ) {
       coefficientsMutable: false // {boolean} can coefficients of the ingredients can be changed?
     }, options );
 
-    var thisRecipe = this;
-    thisRecipe.coefficientsMutable = options.coefficientsMutable; // @public
+    var self = this;
+    this.coefficientsMutable = options.coefficientsMutable; // @public
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
     var ingredients = [];
@@ -57,31 +57,31 @@ define( function( require ) {
     if ( cheeseCount > 0 || options.coefficientsMutable ) { ingredients.push( cheese ); }
 
     // @public sandwich image will be updated below
-    thisRecipe.sandwich = new Substance( 1, 'sandwich',
+    this.sandwich = new Substance( 1, 'sandwich',
       options.coefficientsMutable ? NO_SANDWICH_NODE : new SandwichNode( breadCount, meatCount, cheeseCount ) );
 
-    Reaction.call( thisRecipe, ingredients, [ thisRecipe.sandwich ], { name: name } );
+    Reaction.call( this, ingredients, [ this.sandwich ], { name: name } );
 
     if ( options.coefficientsMutable ) {
 
       // Update the sandwich image to match the coefficients.
       var updateSandwichNode = function() {
-        if ( thisRecipe.isReaction() ) {
-          thisRecipe.sandwich.icon = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient );
+        if ( self.isReaction() ) {
+          self.sandwich.icon = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient );
         }
         else {
-          thisRecipe.sandwich.icon = NO_SANDWICH_NODE;
+          self.sandwich.icon = NO_SANDWICH_NODE;
         }
       };
 
       ingredients.forEach( function( ingredient ) {
         // unlink is unnecessary because these properties exist for the lifetime of the simulation
-        ingredient.coefficientProperty.link( thisRecipe.updateQuantities.bind( thisRecipe ) );
+        ingredient.coefficientProperty.link( self.updateQuantities.bind( self ) );
         ingredient.coefficientProperty.link( updateSandwichNode );
       } );
     }
     else {
-      assert && assert( thisRecipe.isReaction() );
+      assert && assert( this.isReaction() );
     }
   }
 

@@ -57,10 +57,8 @@ define( function( require ) {
 
     options = options || {};
 
-    var thisNode = this;
-
-    thisNode.coefficientNodes = []; // @private
-    thisNode.iconNodes = []; // @private
+    this.coefficientNodes = []; // @private
+    this.iconNodes = []; // @private
 
     // left-hand side is the sandwich ingredients
     var leftNode = new Node();
@@ -78,7 +76,7 @@ define( function( require ) {
       // coefficient
       if ( reaction.coefficientsMutable ) {
         coefficientNode = new NumberSpinner( reactant.coefficientProperty, RPALConstants.SANDWICH_COEFFICIENT_RANGE, SPINNER_OPTIONS );
-        thisNode.coefficientNodes.push( coefficientNode );
+        this.coefficientNodes.push( coefficientNode );
       }
       else {
         coefficientNode = new Text( reactant.coefficient, TEXT_OPTIONS );
@@ -92,7 +90,7 @@ define( function( require ) {
         centerY: coefficientNode.centerY
       } );
       leftNode.addChild( iconNode );
-      thisNode.iconNodes.push( iconNode );
+      this.iconNodes.push( iconNode );
 
       // plus sign between reactants
       if ( i < numberOfReactants - 1 ) {
@@ -116,7 +114,7 @@ define( function( require ) {
       centerX: arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 ),
       centerY: arrowNode.centerY
     } );
-    thisNode.iconNodes.push( sandwichNode );
+    this.iconNodes.push( sandwichNode );
 
     // 'No Reaction', max width determined empirically.
     var noReactionNode = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
@@ -125,15 +123,15 @@ define( function( require ) {
     noReactionNode.centerY = arrowNode.centerY;
 
     // Display 'No Reaction' if we don't have a valid sandwich.
-    thisNode.sandwichIconPropertyObserver = function( node ) {
+    this.sandwichIconPropertyObserver = function( node ) {
       sandwichNode.visible = reaction.isReaction();
       noReactionNode.visible = !sandwichNode.visible;
     };
-    thisNode.sandwichIconProperty = reaction.sandwich.iconProperty; // @private
-    thisNode.sandwichIconProperty.link( thisNode.sandwichIconPropertyObserver ); // must be unlinked in dispose
+    this.sandwichIconProperty = reaction.sandwich.iconProperty; // @private
+    this.sandwichIconProperty.link( this.sandwichIconPropertyObserver ); // must be unlinked in dispose
 
     options.children = [ leftNode, arrowNode, sandwichNode, noReactionNode ];
-    Node.call( thisNode, options );
+    Node.call( this, options );
   }
 
   reactantsProductsAndLeftovers.register( 'SandwichesEquationNode', SandwichesEquationNode );

@@ -36,35 +36,35 @@ define( function( require ) {
 
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
-    var thisNode = this;
+    var self = this;
 
     // @public Clone reactants, quantities are initialized to zero for 'Before' challenges.
-    thisNode.reactants = [];
+    this.reactants = [];
     reaction.reactants.forEach( function( reactant ) {
-      thisNode.reactants.push( ( interactiveBox === BoxType.BEFORE && !RPALQueryParameters.GUESS_CORRECT ) ?
+      self.reactants.push( ( interactiveBox === BoxType.BEFORE && !RPALQueryParameters.GUESS_CORRECT ) ?
                                Substance.withQuantity( reactant, 0 ) :
                                Substance.clone( reactant ) );
     } );
 
     // @public Clone products, quantities are initialized to zero for 'After' challenges.
-    thisNode.products = [];
+    this.products = [];
     reaction.products.forEach( function( product ) {
-      thisNode.products.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.GUESS_CORRECT ) ?
+      self.products.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.GUESS_CORRECT ) ?
                               Substance.withQuantity( product, 0 ) :
                               Substance.clone( product ) );
     } );
 
     // @public Clone leftovers, quantities are initialized to zero for 'After' challenges.
-    thisNode.leftovers = [];
+    this.leftovers = [];
     reaction.leftovers.forEach( function( leftover ) {
-      thisNode.leftovers.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.GUESS_CORRECT ) ?
+      self.leftovers.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.GUESS_CORRECT ) ?
                                Substance.withQuantity( leftover, 0 ) :
                                Substance.clone( leftover ) );
     } );
 
-    assert && assert( thisNode.reactants.length === reaction.reactants.length );
-    assert && assert( thisNode.products.length === reaction.products.length );
-    assert && assert( thisNode.leftovers.length === reaction.leftovers.length );
+    assert && assert( this.reactants.length === reaction.reactants.length );
+    assert && assert( this.products.length === reaction.products.length );
+    assert && assert( this.leftovers.length === reaction.leftovers.length );
   }
 
   reactantsProductsAndLeftovers.register( 'GameGuess', GameGuess );

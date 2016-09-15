@@ -36,7 +36,7 @@ define( function( require ) {
       showSymbols: true // true = show symbols, false = show nodes
     }, options );
 
-    var thisNode = this;
+    var self = this;
 
     // radio buttons for choosing a reaction, scaled to fit for i18n
     var radioButtons = new ReactionRadioButtons( reactionProperty, reactions, {
@@ -54,22 +54,22 @@ define( function( require ) {
     radioButtons.centerY = backgroundNode.centerY;
 
     options.children = [ backgroundNode, radioButtons ];
-    Node.call( thisNode, options );
+    Node.call( this, options );
 
     /*
      * Updates the equation to match the reaction.
      * Equations are created on demand and cached for reuse.
      * Unlinking from reactionProperty is unnecessary because this node exists for the lifetime of the simulation.
      */
-    thisNode.equationCache = []; // @private { {Reaction} reaction, {Node} equationNode }[]
+    this.equationCache = []; // @private { {Reaction} reaction, {Node} equationNode }[]
     reactionProperty.link( function( reaction ) {
 
       // Create an equation for this reaction, if one isn't already in the cache.
-      if ( !_.find( thisNode.equationCache, { 'reaction': reaction } ) ) {
+      if ( !_.find( self.equationCache, { 'reaction': reaction } ) ) {
 
         // create equation for the reaction
         var equationNode = createEquationNode( reaction );
-        thisNode.addChild( equationNode );
+        self.addChild( equationNode );
 
         // scale the equation if it's too wide to fit the available space
         var availableWidth = radioButtons.left - ( 2 * options.xMargin );
@@ -81,11 +81,11 @@ define( function( require ) {
         equationNode.centerY = backgroundNode.centerY;
 
         // cache it
-        thisNode.equationCache.push( { reaction: reaction, equationNode: equationNode } );
+        self.equationCache.push( { reaction: reaction, equationNode: equationNode } );
       }
 
       // Make the reaction's equation visible.
-      thisNode.equationCache.forEach( function( item ) {
+      self.equationCache.forEach( function( item ) {
         item.equationNode.visible = ( item.reaction === reaction );
       } );
     } );

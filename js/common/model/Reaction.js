@@ -31,22 +31,22 @@ define( function( require ) {
       name: null // {string|null} optional name, suitable for display to the user
     }, options );
 
-    var thisReaction = this;
+    var self = this;
 
     // @public
-    thisReaction.name = options.name;
-    thisReaction.reactants = reactants;
-    thisReaction.products = products;
+    this.name = options.name;
+    this.reactants = reactants;
+    this.products = products;
 
     // @public Create a leftover for each reactant, in the same order.
-    thisReaction.leftovers = [];
-    thisReaction.reactants.forEach( function( reactant ) {
-      thisReaction.leftovers.push( new Substance( 1, reactant.symbol, reactant.icon, 0 ) );
+    this.leftovers = [];
+    this.reactants.forEach( function( reactant ) {
+      self.leftovers.push( new Substance( 1, reactant.symbol, reactant.icon, 0 ) );
     } );
 
-    thisReaction.reactants.forEach( function( reactant ) {
+    this.reactants.forEach( function( reactant ) {
       // internal, no corresponding unlink needed
-      reactant.quantityProperty.link( thisReaction.updateQuantities.bind( thisReaction ) );
+      reactant.quantityProperty.link( self.updateQuantities.bind( self ) );
     } );
   }
 

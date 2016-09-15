@@ -32,23 +32,23 @@ define( function( require ) {
    */
   function StackNode( height, iconProperty, quantityProperty, startCenterY, deltaY, options ) {
 
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( this );
 
     /*
      * This line is not visible (has no stroke), but defines the height of the stack,
      * and ensures that the stack always has well-defined bounds, even when the stack
      * contains zero items. All other nodes will be horizontally centered on this line.
      */
-    thisNode.addChild( new Line( 0, 0, 0, height ) );
+    this.addChild( new Line( 0, 0, 0, height ) );
 
     // parent for all items in the stack
     var itemsParent = new Node();
-    thisNode.addChild( itemsParent );
+    this.addChild( itemsParent );
 
     // update the number of nodes in the stack
-    thisNode.iconNodes = []; // @private {SubstanceIcon[]}
-    thisNode.quantityPropertyObserver = function( quantity ) { // @private
+    this.iconNodes = []; // @private {SubstanceIcon[]}
+    this.quantityPropertyObserver = function( quantity ) { // @private
 
       var count = Math.max( quantity, itemsParent.getChildrenCount() );
 
@@ -64,14 +64,14 @@ define( function( require ) {
             centerY: startCenterY - ( i * deltaY )
           } );
           itemsParent.addChild( iconNode );
-          thisNode.iconNodes.push( iconNode );
+          self.iconNodes.push( iconNode );
         }
       }
     };
-    thisNode.quantityProperty = quantityProperty; // @private
-    thisNode.quantityProperty.link( thisNode.quantityPropertyObserver ); // must be unlinked in dispose
+    this.quantityProperty = quantityProperty; // @private
+    this.quantityProperty.link( this.quantityPropertyObserver ); // must be unlinked in dispose
 
-    thisNode.mutate( options );
+    this.mutate( options );
   }
 
   reactantsProductsAndLeftovers.register( 'StackNode', StackNode );

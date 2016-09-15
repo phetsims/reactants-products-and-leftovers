@@ -23,8 +23,7 @@ define( function( require ) {
    */
   function MoleculesView( model ) {
 
-    var thisView = this;
-    RPALScreenView.call( thisView, model,
+    RPALScreenView.call( this, model,
 
       /*
        * Creates an equation for a specified reaction.

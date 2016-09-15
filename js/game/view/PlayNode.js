@@ -32,13 +32,13 @@ define( function( require ) {
    */
   function PlayNode( model, layoutBounds, audioPlayer ) {
 
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( this );
 
     // @private
-    thisNode.model = model;
-    thisNode.layoutBounds = layoutBounds;
-    thisNode.audioPlayer = audioPlayer;
+    this.model = model;
+    this.layoutBounds = layoutBounds;
+    this.audioPlayer = audioPlayer;
 
     // scoreboard, across the top of the screen
     var scoreboardNode = new ScoreboardBar(
@@ -61,24 +61,24 @@ define( function( require ) {
         centerX: layoutBounds.centerX,
         top: 0
       } );
-    thisNode.addChild( scoreboardNode );
+    this.addChild( scoreboardNode );
 
     // Developer controls at top-right, below scoreboard
     if ( RPALQueryParameters.DEV ) {
-      thisNode.addChild( new DevGameControls( model, {
+      this.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
         top:   scoreboardNode.bottom + 5
       } ) );
     }
 
     // @private challenge will be displayed in the area below the scoreboard
-    thisNode.challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
+    this.challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
 
     var currentChallengeNode = null; // {ChallengeNode} the challenge that is displayed
-    thisNode.disposeNodes = [];  // @private {ChallengeNode[]} nodes in this array are scheduled for disposal
-    thisNode.nextChallengeNode = null; // @private {ChallengeNode} the next challenge, preloaded to improve responsiveness
-    thisNode.stepsSinceDisposal = 0;  // @private number of times that step() has been called since a node was schedule for disposal
-    thisNode.stepsSinceUpdate = 0; // @private number of times that step() has been called since the challenge changed
+    this.disposeNodes = [];  // @private {ChallengeNode[]} nodes in this array are scheduled for disposal
+    this.nextChallengeNode = null; // @private {ChallengeNode} the next challenge, preloaded to improve responsiveness
+    this.stepsSinceDisposal = 0;  // @private number of times that step() has been called since a node was schedule for disposal
+    this.stepsSinceUpdate = 0; // @private number of times that step() has been called since the challenge changed
 
     /*
      * Displays the current challenge.
@@ -88,27 +88,27 @@ define( function( require ) {
 
       // schedule previous challenge for deletion
       if ( currentChallengeNode ) {
-        thisNode.disposeNodes.push( currentChallengeNode );
+        self.disposeNodes.push( currentChallengeNode );
         currentChallengeNode.visible = false;
         currentChallengeNode = null;
-        thisNode.stepsSinceDisposal = 0;
+        self.stepsSinceDisposal = 0;
       }
 
       // activate current challenge
       if ( challenge ) { // challenge will be null on startup and 'Reset All'
-        if ( thisNode.nextChallengeNode ) {
+        if ( self.nextChallengeNode ) {
           // use preloaded node
-          currentChallengeNode = thisNode.nextChallengeNode;
-          thisNode.nextChallengeNode = null;
+          currentChallengeNode = self.nextChallengeNode;
+          self.nextChallengeNode = null;
         }
         else {
           // if a node hasn't been preloaded, create one
-          currentChallengeNode = new ChallengeNode( model, challenge, thisNode.challengeBounds, audioPlayer );
-          thisNode.addChild( currentChallengeNode );
+          currentChallengeNode = new ChallengeNode( model, challenge, self.challengeBounds, audioPlayer );
+          self.addChild( currentChallengeNode );
         }
         currentChallengeNode.activate( model.playStateProperty );
         currentChallengeNode.visible = true;
-        thisNode.stepsSinceUpdate = 0;
+        self.stepsSinceUpdate = 0;
       }
     } );
 
@@ -119,14 +119,14 @@ define( function( require ) {
     model.gamePhaseProperty.link( function( gamePhase ) {
       if ( gamePhase !== GamePhase.PLAY ) {
         if ( currentChallengeNode ) {
-          thisNode.disposeNodes.push( currentChallengeNode );
+          self.disposeNodes.push( currentChallengeNode );
           currentChallengeNode = null;
         }
-        if ( thisNode.nextChallengeNode ) {
-          thisNode.disposeNodes.push( thisNode.nextChallengeNode );
-          thisNode.nextChallengeNode = null;
+        if ( self.nextChallengeNode ) {
+          self.disposeNodes.push( self.nextChallengeNode );
+          self.nextChallengeNode = null;
         }
-        thisNode.stepsSinceDisposal = 0;
+        self.stepsSinceDisposal = 0;
       }
     } );
   }

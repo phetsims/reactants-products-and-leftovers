@@ -52,8 +52,8 @@ define( function( require ) {
       minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
     }, options );
 
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( this );
 
     // convenience variables, to improve readability
     var reaction = challenge.reaction;
@@ -86,8 +86,8 @@ define( function( require ) {
       center: equationNode.center
     } );
 
-    thisNode.addChild( equationBackground );
-    thisNode.addChild( equationNode );
+    this.addChild( equationBackground );
+    this.addChild( equationNode );
 
     //------------------------------------------------------------------------------------
     // Property that tells us whether the 'Check' button should be enabled
@@ -103,7 +103,7 @@ define( function( require ) {
       guess.leftovers.forEach( function( leftover ) { quantityProperties.push( leftover.quantityProperty ); } );
     }
     // @private must be detached in dispose
-    thisNode.checkButtonEnabledProperty = new DerivedProperty( quantityProperties, function() {
+    this.checkButtonEnabledProperty = new DerivedProperty( quantityProperties, function() {
       // true if any quantity that the user can guess is non-zero
       for ( var i = 0, j = arguments.length; i < j; i++ ) {
         if ( arguments[ i ] !== 0 ) { return true; }
@@ -123,26 +123,26 @@ define( function( require ) {
       centerX: challengeBounds.centerX
       // y position handled below
     } );
-    thisNode.addChild( arrowNode );
+    this.addChild( arrowNode );
 
     // @private 'Before Reaction' box, with molecules at random locations
-    thisNode.beforeBox = new RandomBox( reactants, {
+    this.beforeBox = new RandomBox( reactants, {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
       right: arrowNode.left - 5,
       top:   equationNode.bottom + 10
     } );
-    thisNode.addChild( thisNode.beforeBox );
-    arrowNode.centerY = thisNode.beforeBox.centerY;
+    this.addChild( this.beforeBox );
+    arrowNode.centerY = this.beforeBox.centerY;
 
     // @private 'After Reaction' box, with molecules at random locations
-    thisNode.afterBox = new RandomBox( products.concat( leftovers ), {
+    this.afterBox = new RandomBox( products.concat( leftovers ), {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
       left: arrowNode.right + 5,
-      top: thisNode.beforeBox.top
+      top: this.beforeBox.top
     } );
-    thisNode.addChild( thisNode.afterBox );
+    this.addChild( this.afterBox );
 
     //------------------------------------------------------------------------------------
     // Face
@@ -158,32 +158,32 @@ define( function( require ) {
       font: new RPALFont( { size: 150, weight: 'bold' } ),
       maxWidth: 0.75 * options.boxSize.width // constrain width for i18n
     } );
-    thisNode.addChild( questionMark );
-    questionMark.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
+    this.addChild( questionMark );
+    questionMark.centerX = ( interactiveBox === BoxType.BEFORE ) ? this.beforeBox.centerX : this.afterBox.centerX;
     // centerY is handled below
 
     // visible only until the user has entered a valid guess
     var checkButtonEnabledObserver = function( checkButtonEnabled ) {
       questionMark.visible = !checkButtonEnabled;
-      if ( checkButtonEnabled ) { thisNode.checkButtonEnabledProperty.unlink( checkButtonEnabledObserver ); }
+      if ( checkButtonEnabled ) { self.checkButtonEnabledProperty.unlink( checkButtonEnabledObserver ); }
     };
     // unlink is unnecessary, since this property belongs to this instance
-    thisNode.checkButtonEnabledProperty.link( checkButtonEnabledObserver );
+    this.checkButtonEnabledProperty.link( checkButtonEnabledObserver );
 
     //------------------------------------------------------------------------------------
     // Buttons (Check, Try Again, ...)
     //------------------------------------------------------------------------------------
 
     // @private
-    thisNode.buttons = new GameButtons( model, thisNode.checkButtonEnabledProperty, {
+    this.buttons = new GameButtons( model, this.checkButtonEnabledProperty, {
       maxWidth: 0.85 * options.boxSize.width // constrain width for i18n
     } );
-    thisNode.addChild( thisNode.buttons );
-    thisNode.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
-    thisNode.buttons.bottom = thisNode.beforeBox.bottom - 15;
+    this.addChild( this.buttons );
+    this.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? this.beforeBox.centerX : this.afterBox.centerX;
+    this.buttons.bottom = this.beforeBox.bottom - 15;
 
     // center question mark in negative space above buttons
-    questionMark.centerY = thisNode.beforeBox.top + ( this.buttons.top - thisNode.beforeBox.top ) / 2;
+    questionMark.centerY = this.beforeBox.top + ( this.buttons.top - this.beforeBox.top ) / 2;
 
     //------------------------------------------------------------------------------------
     // Everything below the boxes
@@ -194,17 +194,17 @@ define( function( require ) {
     var afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.boxSize.width );
 
     // @private
-    thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
+    this.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       interactiveBox: interactiveBox,
       boxWidth: options.boxSize.width,
-      afterBoxXOffset: thisNode.afterBox.left - thisNode.beforeBox.left,
+      afterBoxXOffset: this.afterBox.left - this.beforeBox.left,
       minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
       hideNumbersBox: !challenge.numbersVisible,
-      x: thisNode.beforeBox.x,
-      top:             thisNode.beforeBox.bottom + 4
+      x: this.beforeBox.x,
+      top: this.beforeBox.bottom + 4
     } );
-    thisNode.addChild( thisNode.quantitiesNode );
+    this.addChild( this.quantitiesNode );
 
     //------------------------------------------------------------------------------------
     // Optional 'Hide molecules' box on top of Before or After box
@@ -216,10 +216,10 @@ define( function( require ) {
         boxSize: options.boxSize,
         iconHeight: 0.4 * options.boxSize.height,
         cornerRadius: 3,
-        left: ( interactiveBox === BoxType.BEFORE ) ? thisNode.afterBox.left : thisNode.beforeBox.left,
-        bottom: thisNode.beforeBox.bottom
+        left: ( interactiveBox === BoxType.BEFORE ) ? this.afterBox.left : this.beforeBox.left,
+        bottom: this.beforeBox.bottom
       } );
-      thisNode.addChild( hideMoleculesBox );
+      this.addChild( hideMoleculesBox );
     }
 
     //------------------------------------------------------------------------------------
@@ -229,13 +229,13 @@ define( function( require ) {
     // @private must be disposed
     // Move from "Try Again" to "Check" state when a quantity is changed, see reactants-products-and-leftovers#37.
     this.answerChangedLink = Property.lazyMultilink( quantityProperties, function() {
-      if ( thisNode.playStateProperty.get() === PlayState.TRY_AGAIN ) {
-        thisNode.playStateProperty.set( PlayState.SECOND_CHECK );
+      if ( self.playStateProperty.get() === PlayState.TRY_AGAIN ) {
+        self.playStateProperty.set( PlayState.SECOND_CHECK );
       }
     } );
 
     // @private handle PlayState changes
-    thisNode.playStateObserver = function( playState ) {
+    this.playStateObserver = function( playState ) {
 
       // face
       var faceVisible = false;
@@ -264,10 +264,10 @@ define( function( require ) {
           pointsStroke: 'rgb(50,50,50)',
           pointsOpacity: 0.65
         } );
-        thisNode.addChild( faceNode );
+        self.addChild( faceNode );
         // put it in the correct box
-        faceNode.centerX = ( interactiveBox === BoxType.BEFORE ) ? thisNode.beforeBox.centerX : thisNode.afterBox.centerX;
-        faceNode.centerY = questionMark.centerY = thisNode.beforeBox.top + ( thisNode.buttons.top - thisNode.beforeBox.top ) / 2;
+        faceNode.centerX = ( interactiveBox === BoxType.BEFORE ) ? self.beforeBox.centerX : self.afterBox.centerX;
+        faceNode.centerY = questionMark.centerY = self.beforeBox.top + ( self.buttons.top - self.beforeBox.top ) / 2;
       }
       if ( faceNode ) {
         faceNode.setPoints( facePoints );
@@ -281,18 +281,18 @@ define( function( require ) {
         hideMoleculesBox.visible = hideBoxVisible;
         // also hide the Before/After box, so we don't see its stroke
         if ( interactiveBox === BoxType.BEFORE ) {
-          thisNode.afterBox.visible = !hideBoxVisible;
+          self.afterBox.visible = !hideBoxVisible;
         }
         else {
-          thisNode.beforeBox.visible = !hideBoxVisible;
+          self.beforeBox.visible = !hideBoxVisible;
         }
       }
-      thisNode.quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
+      self.quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
 
       // switch between spinners and static numbers
-      thisNode.quantitiesNode.setInteractive( _.contains( [ PlayState.FIRST_CHECK, PlayState.SECOND_CHECK, PlayState.TRY_AGAIN ], playState ) );
+      self.quantitiesNode.setInteractive( _.contains( [ PlayState.FIRST_CHECK, PlayState.SECOND_CHECK, PlayState.TRY_AGAIN ], playState ) );
     };
-    thisNode.playStateProperty = null; // @private will be set by activate()
+    this.playStateProperty = null; // @private will be set by activate()
 
     //------------------------------------------------------------------------------------
     // Developer
@@ -300,7 +300,7 @@ define( function( require ) {
 
     // The answer to the current challenge, bottom center
     if ( RPALQueryParameters.DEV ) {
-      thisNode.addChild( new Text( DevStringUtils.quantitiesString( reaction ), {
+      this.addChild( new Text( DevStringUtils.quantitiesString( reaction ), {
         fill: 'red',
         font: new RPALFont( 12 ),
         centerX: challengeBounds.centerX,
@@ -308,7 +308,7 @@ define( function( require ) {
       } ) );
     }
 
-    thisNode.mutate( options );
+    this.mutate( options );
   }
 
   reactantsProductsAndLeftovers.register( 'ChallengeNode', ChallengeNode );

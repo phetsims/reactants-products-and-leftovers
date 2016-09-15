@@ -27,10 +27,10 @@ define( function( require ) {
    */
   function ResultsNode( model, layoutBounds, audioPlayer ) {
 
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( this );
 
-    thisNode.rewardNode = null; // @private
+    this.rewardNode = null; // @private
 
     /*
      * Displays the game results, possibly with a 'reward'.
@@ -46,15 +46,15 @@ define( function( require ) {
 
           audioPlayer.gameOverPerfectScore();
 
-          thisNode.rewardNode = new RPALRewardNode( model.level );
-          thisNode.addChild( thisNode.rewardNode );
+          self.rewardNode = new RPALRewardNode( model.level );
+          self.addChild( self.rewardNode );
         }
         else {
           audioPlayer.gameOverImperfectScore();
         }
 
         // game results
-        thisNode.addChild( new LevelCompletedNode(
+        self.addChild( new LevelCompletedNode(
           model.level,
           model.score,
           model.getPerfectScore( model.level ),
@@ -73,11 +73,11 @@ define( function( require ) {
           } ) );
       }
       else {
-        thisNode.removeAllChildren();
-        if ( thisNode.rewardNode !== null ) {
-          thisNode.rewardNode.dispose();
+        self.removeAllChildren();
+        if ( self.rewardNode !== null ) {
+          self.rewardNode.dispose();
         }
-        thisNode.rewardNode = null;
+        self.rewardNode = null;
       }
     } );
   }

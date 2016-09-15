@@ -53,8 +53,7 @@ define( function( require ) {
       minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
     }, options );
 
-    var thisNode = this;
-    Node.call( thisNode );
+    Node.call( this );
 
     // vars to improve readability
     var reactants = reaction.reactants;
@@ -66,14 +65,14 @@ define( function( require ) {
     var afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
 
     // @private 'Before Reaction' box, with stacks of reactants
-    thisNode.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, _.extend( {
+    this.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, _.extend( {
       expandedProperty: beforeExpandedProperty,
       titleNode: new Text( options.beforeTitle, TITLE_OPTIONS ),
       maxQuantity: options.quantityRange.max
     }, options ) );
 
     // @private 'After Reaction' box, with stacks of products and leftovers
-    thisNode.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, _.extend( {
+    this.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, _.extend( {
       expandedProperty: afterExpandedProperty,
       titleNode: new Text( options.afterTitle, TITLE_OPTIONS ),
       maxQuantity: options.quantityRange.max
@@ -84,26 +83,26 @@ define( function( require ) {
 
     // layout of boxes and arrow
     var hBox = new LayoutBox( {
-      children: [ thisNode.beforeBox, arrowNode, thisNode.afterBox ],
+      children: [ this.beforeBox, arrowNode, this.afterBox ],
       orientation: 'horizontal',
       spacing: 10
     } );
-    thisNode.addChild( hBox );
+    this.addChild( hBox );
 
     // @private Everything below the boxes
-    thisNode.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
+    this.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       showSymbols: options.showSymbols,
       boxWidth: options.contentSize.width,
-      afterBoxXOffset: thisNode.afterBox.left - thisNode.beforeBox.left,
+      afterBoxXOffset: this.afterBox.left - this.beforeBox.left,
       minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
-      x: thisNode.beforeBox.x,
-      top: thisNode.beforeBox.bottom + 6
+      x: this.beforeBox.x,
+      top: this.beforeBox.bottom + 6
     } );
-    thisNode.addChild( thisNode.quantitiesNode );
+    this.addChild( this.quantitiesNode );
 
     // pass options to supertype
-    thisNode.mutate( options );
+    this.mutate( options );
   }
 
   reactantsProductsAndLeftovers.register( 'BeforeAfterNode', BeforeAfterNode );

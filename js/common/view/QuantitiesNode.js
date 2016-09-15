@@ -75,8 +75,7 @@ define( function( require ) {
       showSymbols: true // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
     }, options );
 
-    var thisNode = this;
-    Node.call( thisNode );
+    Node.call( this );
 
     this.reactants = reactants; // @private
     this.products = products; // @private
@@ -95,15 +94,15 @@ define( function( require ) {
     var symbolNode;
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    thisNode.spinnerNodes = []; // @private {NumberSpinner[]}
-    thisNode.beforeNumberNodes = []; // @private {NumberNode[]}
-    thisNode.afterNumberNodes = []; // @private {NumberNode[]}
-    thisNode.iconNodes = []; // @private {SubstanceIcon[]}
+    this.spinnerNodes = []; // @private {NumberSpinner[]}
+    this.beforeNumberNodes = []; // @private {NumberNode[]}
+    this.afterNumberNodes = []; // @private {NumberNode[]}
+    this.iconNodes = []; // @private {SubstanceIcon[]}
     var symbolNodes = [];
 
     // reactants, below the 'Before' box
     this.reactantsParent = new Node(); // @private
-    thisNode.addChild( this.reactantsParent );
+    this.addChild( this.reactantsParent );
     for ( i = 0; i < reactants.length; i++ ) {
 
       reactant = reactants[ i ];
@@ -114,19 +113,19 @@ define( function( require ) {
         spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
           _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.reactantsParent.addChild( spinnerNode );
-        thisNode.spinnerNodes.push( spinnerNode );
+        this.spinnerNodes.push( spinnerNode );
       }
       else {
         // static number
         numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
         this.reactantsParent.addChild( numberNode );
-        thisNode.beforeNumberNodes.push( numberNode );
+        this.beforeNumberNodes.push( numberNode );
       }
 
       // substance icon
       iconNode = new SubstanceIcon( reactant.iconProperty, { centerX: centerX } );
       this.reactantsParent.addChild( iconNode );
-      thisNode.iconNodes.push( iconNode );
+      this.iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -138,7 +137,7 @@ define( function( require ) {
 
     // products, below the 'After' box
     this.productsParent = new Node(); // @private
-    thisNode.addChild( this.productsParent );
+    this.addChild( this.productsParent );
     for ( i = 0; i < products.length; i++ ) {
 
       product = products[ i ];
@@ -149,19 +148,19 @@ define( function( require ) {
         spinnerNode = new NumberSpinner( product.quantityProperty, options.quantityRange,
           _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.productsParent.addChild( spinnerNode );
-        thisNode.spinnerNodes.push( spinnerNode );
+        this.spinnerNodes.push( spinnerNode );
       }
       else {
         // static number
         numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
         this.productsParent.addChild( numberNode );
-        thisNode.afterNumberNodes.push( numberNode );
+        this.afterNumberNodes.push( numberNode );
       }
 
       // substance icon
       iconNode = new SubstanceIcon( product.iconProperty, { centerX: centerX } );
       this.productsParent.addChild( iconNode );
-      thisNode.iconNodes.push( iconNode );
+      this.iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -173,7 +172,7 @@ define( function( require ) {
 
     // leftovers, below the 'After' box, to the right of the products
     this.leftoversParent = new Node(); // @private
-    thisNode.addChild( this.leftoversParent );
+    this.addChild( this.leftoversParent );
     for ( i = 0; i < leftovers.length; i++ ) {
 
       leftover = leftovers[ i ];
@@ -184,19 +183,19 @@ define( function( require ) {
         spinnerNode = new NumberSpinner( leftover.quantityProperty, options.quantityRange,
           _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.leftoversParent.addChild( spinnerNode );
-        thisNode.spinnerNodes.push( spinnerNode );
+        this.spinnerNodes.push( spinnerNode );
       }
       else {
         // static number
         numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
         this.leftoversParent.addChild( numberNode );
-        thisNode.afterNumberNodes.push( numberNode );
+        this.afterNumberNodes.push( numberNode );
       }
 
       // substance icon
       iconNode = new SubstanceIcon( leftover.iconProperty, { centerX: centerX } );
       this.leftoversParent.addChild( iconNode );
-      thisNode.iconNodes.push( iconNode );
+      this.iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -210,22 +209,22 @@ define( function( require ) {
      * Vertical layout of components below the boxes.
      * Ensures that all similar components (spinners, numbers, icons, symbols) are vertically centered.
      */
-    var spinnerHeight = thisNode.spinnerNodes[ 0 ].height;
+    var spinnerHeight = this.spinnerNodes[ 0 ].height;
     var maxIconHeight = Math.max(
       options.minIconSize.height,
-      _.max( thisNode.iconNodes, function( node ) { return node.height; } ).height );
+      _.max( this.iconNodes, function( node ) { return node.height; } ).height );
     var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
 
-    thisNode.spinnerNodes.forEach( function( spinnerNode ) {
+    this.spinnerNodes.forEach( function( spinnerNode ) {
       spinnerNode.centerY = ( spinnerHeight / 2 );
     } );
-    thisNode.beforeNumberNodes.forEach( function( numberNode ) {
+    this.beforeNumberNodes.forEach( function( numberNode ) {
       numberNode.centerY = ( spinnerHeight / 2 );
     } );
-    thisNode.afterNumberNodes.forEach( function( numberNode ) {
+    this.afterNumberNodes.forEach( function( numberNode ) {
       numberNode.centerY = ( spinnerHeight / 2 );
     } );
-    thisNode.iconNodes.forEach( function( iconNode ) {
+    this.iconNodes.forEach( function( iconNode ) {
       iconNode.centerY = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxIconHeight / 2 );
     } );
     if ( options.showSymbols ) {
@@ -249,7 +248,7 @@ define( function( require ) {
       centerX: this.reactantsParent.centerX,
       top: bracketsTop
     } );
-    thisNode.addChild( reactantsBracket );
+    this.addChild( reactantsBracket );
 
     // 'Products' bracket
     var productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
@@ -260,7 +259,7 @@ define( function( require ) {
       centerX: this.productsParent.centerX,
       top: bracketsTop
     } );
-    thisNode.addChild( productsBracket );
+    this.addChild( productsBracket );
 
     // 'Leftovers' bracket
     var leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
@@ -271,7 +270,7 @@ define( function( require ) {
       centerX: this.leftoversParent.centerX,
       top: bracketsTop
     } );
-    thisNode.addChild( leftoversBracket );
+    this.addChild( leftoversBracket );
 
     // Optional 'Hide numbers' box on top of the static quantities
     this.hideNumbersBox = null;  // @private
@@ -281,12 +280,12 @@ define( function( require ) {
         iconHeight: 0.65 * spinnerHeight,
         cornerRadius: 3,
         left: ( this.interactiveBox === BoxType.BEFORE ) ? options.afterBoxXOffset : 0,
-        centerY: thisNode.spinnerNodes[ 0 ].centerY
+        centerY: this.spinnerNodes[ 0 ].centerY
       } );
-      thisNode.addChild( this.hideNumbersBox );
+      this.addChild( this.hideNumbersBox );
     }
 
-    thisNode.mutate( options );
+    this.mutate( options );
   }
 
   reactantsProductsAndLeftovers.register( 'QuantitiesNode', QuantitiesNode );

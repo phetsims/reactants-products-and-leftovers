@@ -40,17 +40,17 @@ define( function( require ) {
       scale: SANDWICH_SCALE
     }, options );
 
-    var thisNode = this;
+    var self = this;
     Node.call( this );
 
     var centerY = 0;
 
     // ensure that all sandwiches are the same width
-    thisNode.addChild( new HStrut( MAX_WIDTH, { centerX: 0 } ) );
+    this.addChild( new HStrut( MAX_WIDTH, { centerX: 0 } ) );
 
     // Put a slice of bread on the bottom.
     if ( breadCount > 0 ) {
-      thisNode.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+      this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
       centerY -= Y_SPACING;
       breadCount--;
     }
@@ -82,7 +82,7 @@ define( function( require ) {
       // Add ingredients that go between the bread.
       ingredients.forEach( function( ingredient ) {
         if ( ingredient.count > 0 ) {
-          thisNode.addChild( new Image( ingredient.image, { centerX: 0, centerY: centerY } ) );
+          self.addChild( new Image( ingredient.image, { centerX: 0, centerY: centerY } ) );
           centerY -= Y_SPACING;
           imageAdded = true;
           ingredient.count--;
@@ -91,7 +91,7 @@ define( function( require ) {
 
       // Add a slice of bread, but save one slice of bread for the top.
       if ( breadCount > 1 ) {
-        thisNode.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+        this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
         centerY -= Y_SPACING;
         imageAdded = true;
         breadCount--;
@@ -100,10 +100,10 @@ define( function( require ) {
 
     // Put a slice of bread on the top.
     if ( breadCount > 0 ) {
-      thisNode.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+      this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
     }
 
-    thisNode.mutate( options );
+    this.mutate( options );
   }
 
   reactantsProductsAndLeftovers.register( 'SandwichNode', SandwichNode );

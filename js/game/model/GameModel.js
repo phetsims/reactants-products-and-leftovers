@@ -35,9 +35,7 @@ define( function( require ) {
       maxQuantity: RPALConstants.QUANTITY_RANGE.max // maximum quantity of any substance in a reaction
     }, options );
 
-    var thisModel = this;
-
-    PropertySet.call( thisModel, {
+    PropertySet.call( this, {
 
       // @public
       soundEnabled: true, // {boolean} is sound turned on?
@@ -54,20 +52,20 @@ define( function( require ) {
     } );
 
     // These fields are @public (read-only), they should not be changed once the model is instantiated.
-    thisModel.numberOfLevels = options.numberOfLevels;
-    thisModel.maxQuantity = options.maxQuantity;
+    this.numberOfLevels = options.numberOfLevels;
+    this.maxQuantity = options.maxQuantity;
 
     // These fields are @public (read-only), they change as game-play progresses.
-    thisModel.challenges = []; // {Challenge[]} the set of challenges for the current game being played
-    thisModel.bestScoreProperties = []; // {Property.<number>[]} best scores for each level
-    thisModel.bestTimeProperties = []; // {Property.<number>[]} best times for each level, in ms
-    thisModel.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
-    for ( var level = 0; level < thisModel.numberOfLevels; level++ ) {
-      thisModel.bestScoreProperties.push( new Property( 0 ) );
-      thisModel.bestTimeProperties.push( new Property( null ) ); // null if a level has no best time yet
+    this.challenges = []; // {Challenge[]} the set of challenges for the current game being played
+    this.bestScoreProperties = []; // {Property.<number>[]} best scores for each level
+    this.bestTimeProperties = []; // {Property.<number>[]} best times for each level, in ms
+    this.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
+    for ( var level = 0; level < this.numberOfLevels; level++ ) {
+      this.bestScoreProperties.push( new Property( 0 ) );
+      this.bestTimeProperties.push( new Property( null ) ); // null if a level has no best time yet
     }
 
-    thisModel.timer = new GameTimer(); // @private
+    this.timer = new GameTimer(); // @private
   }
 
   reactantsProductsAndLeftovers.register( 'GameModel', GameModel );

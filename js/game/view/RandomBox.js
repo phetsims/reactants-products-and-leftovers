@@ -46,8 +46,8 @@ define( function( require ) {
       randomOffset: 8
     }, options );
 
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( this );
 
     /*
      * Compute the size of the grid needed to accommodate the maximum number of nodes.
@@ -94,19 +94,19 @@ define( function( require ) {
       fill: options.fill,
       stroke: options.stroke
     } );
-    thisNode.addChild( boxNode );
+    this.addChild( boxNode );
 
     // substances inside the box
-    thisNode.substanceLayers = []; // @private [{SubstanceLayer}]
+    this.substanceLayers = []; // @private [{SubstanceLayer}]
     var parent = new Node();
     substances.forEach( function( substance ) {
       var substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty, options.randomOffset, choosePosition, releasePosition );
       parent.addChild( substanceLayer );
-      thisNode.substanceLayers.push( substanceLayer );
+      self.substanceLayers.push( substanceLayer );
     } );
-    thisNode.addChild( parent );
+    this.addChild( parent );
 
-    thisNode.mutate( options );
+    this.mutate( options );
   }
 
   reactantsProductsAndLeftovers.register( 'RandomBox', RandomBox );
@@ -124,21 +124,21 @@ define( function( require ) {
    */
   function SubstanceLayer( iconProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
 
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
-    thisNode.cellNodes = []; // @private {CellNode[]}
+    self.cellNodes = []; // @private {CellNode[]}
 
-    thisNode.quantityPropertyObserver = function( quantity ) {
+    self.quantityPropertyObserver = function( quantity ) {
 
-      var count = Math.max( quantity, thisNode.getChildrenCount() );
+      var count = Math.max( quantity, self.getChildrenCount() );
 
       for ( var i = 0; i < count; i++ ) {
 
-        if ( i < thisNode.getChildrenCount() ) {
+        if ( i < self.getChildrenCount() ) {
 
           // node already exists
-          var node = thisNode.getChildAt( i );
+          var node = self.getChildAt( i );
           var nodeWasVisible = node.visible;
           node.visible = ( i < quantity );
 
@@ -154,13 +154,13 @@ define( function( require ) {
         else {
           // add a node
           var cellNode = new CellNode( iconProperty, choosePosition(), randomOffset );
-          thisNode.addChild( cellNode );
-          thisNode.cellNodes.push( cellNode );
+          self.addChild( cellNode );
+          self.cellNodes.push( cellNode );
         }
       }
     };
-    thisNode.quantityProperty = quantityProperty; // @private
-    thisNode.quantityProperty.link( thisNode.quantityPropertyObserver ); // must be unlinked in dispose
+    self.quantityProperty = quantityProperty; // @private
+    self.quantityProperty.link( self.quantityPropertyObserver ); // must be unlinked in dispose
   }
 
   reactantsProductsAndLeftovers.register( 'RandomBox.SubstanceLayer', SubstanceLayer );

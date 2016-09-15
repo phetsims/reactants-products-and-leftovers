@@ -45,18 +45,18 @@ define( function( require ) {
 
     options = options || {};
 
-    var thisNode = this;
-    Node.call( thisNode, options );
+    var self = this;
+    Node.call( this, options );
 
     // check button is needed immediately, so create it so this node has well-defined bounds (needed for layout)
     var checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
-    thisNode.addChild( checkButton );
+    this.addChild( checkButton );
     checkButton.addListener( function() { model.check(); } );
 
     // enable/disable the check button
-    thisNode.checkButtonEnabledObserver = function( enabled ) { checkButton.enabled = enabled; }; // @private
-    thisNode.checkButtonEnabledProperty = checkButtonEnabledProperty; // @private
-    thisNode.checkButtonEnabledProperty.link( thisNode.checkButtonEnabledObserver ); // must be unlinked in dispose
+    this.checkButtonEnabledObserver = function( enabled ) { checkButton.enabled = enabled; }; // @private
+    this.checkButtonEnabledProperty = checkButtonEnabledProperty; // @private
+    this.checkButtonEnabledProperty.link( this.checkButtonEnabledObserver ); // must be unlinked in dispose
 
     // other buttons, created on demand
     var tryAgainButton;
@@ -64,24 +64,24 @@ define( function( require ) {
     var nextButton;
 
     // @private
-    thisNode.playStateObserver = function( state ) {
+    this.playStateObserver = function( state ) {
 
       // create buttons on demand
       if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
         tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
-        thisNode.addChild( tryAgainButton );
+        self.addChild( tryAgainButton );
         tryAgainButton.addListener( function() { model.tryAgain(); } );
       }
 
       if ( !showAnswerButton && state === PlayState.SHOW_ANSWER ) {
         showAnswerButton = new TextPushButton( showAnswerString, BUTTON_OPTIONS );
-        thisNode.addChild( showAnswerButton );
+        self.addChild( showAnswerButton );
         showAnswerButton.addListener( function() { model.showAnswer(); } );
       }
 
       if ( !nextButton && state === PlayState.NEXT ) {
         nextButton = new TextPushButton( nextString, BUTTON_OPTIONS );
-        thisNode.addChild( nextButton );
+        self.addChild( nextButton );
         nextButton.addListener( function() { model.next(); } );
       }
 
@@ -91,7 +91,7 @@ define( function( require ) {
       showAnswerButton && ( showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER ) );
       nextButton && ( nextButton.visible = ( state === PlayState.NEXT ) );
     };
-    thisNode.playStateProperty = null; // @private will be set by activate()
+    self.playStateProperty = null; // @private will be set by activate()
   }
 
   reactantsProductsAndLeftovers.register( 'GameButtons', GameButtons );

@@ -25,17 +25,18 @@ define( function( require ) {
       decimalPlaces: 0  // number of decimal places to be displayed
     }, options );
 
-    var thisNode = this;
-    Text.call( thisNode, '' );
+    var self = this;
+
+    Text.call( this, '' );
 
     // @private update the displayed number
-    thisNode.numberPropertyObserver = function( value ) {
-      thisNode.text = Util.toFixed( value, options.decimalPlaces );
+    this.numberPropertyObserver = function( value ) {
+      self.text = Util.toFixed( value, options.decimalPlaces );
     };
-    thisNode.numberProperty = numberProperty; // @private
-    thisNode.numberProperty.link( thisNode.numberPropertyObserver ); // must be unlinked in dispose
+    this.numberProperty = numberProperty; // @private
+    this.numberProperty.link( this.numberPropertyObserver ); // must be unlinked in dispose
 
-    thisNode.mutate( options );
+    this.mutate( options );
   }
 
   reactantsProductsAndLeftovers.register( 'NumberNode', NumberNode );

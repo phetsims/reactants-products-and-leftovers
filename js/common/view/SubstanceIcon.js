@@ -37,23 +37,23 @@ define( function( require ) {
    */
   function SubstanceIcon( iconProperty, options ) {
 
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( this );
 
     // @private Add an additional wrapper, so that we can maintain the node's center.
-    thisNode.wrapperNode = new Node();
-    thisNode.addChild( thisNode.wrapperNode );
+    this.wrapperNode = new Node();
+    this.addChild( this.wrapperNode );
 
-    thisNode.iconProperty = iconProperty; // @private
-    thisNode.iconPropertyObserver = function( icon ) { // @private
-      thisNode.wrapperNode.removeAllChildren();
+    this.iconProperty = iconProperty; // @private
+    this.iconPropertyObserver = function( icon ) { // @private
+      self.wrapperNode.removeAllChildren();
       // icon must be removed in dispose, since scenery children keep a reference to their parents
-      thisNode.wrapperNode.addChild( icon );
-      thisNode.wrapperNode.center = Vector2.ZERO;
+      self.wrapperNode.addChild( icon );
+      self.wrapperNode.center = Vector2.ZERO;
     };
-    thisNode.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
+    this.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
 
-    thisNode.mutate( options );
+    this.mutate( options );
   }
 
   reactantsProductsAndLeftovers.register( 'SubstanceIcon', SubstanceIcon );

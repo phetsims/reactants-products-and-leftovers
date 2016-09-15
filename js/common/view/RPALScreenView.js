@@ -31,8 +31,8 @@ define( function( require ) {
 
     this.model = model; // @private
 
-    var thisView = this;
-    ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
+    var self = this;
+    ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     // Properties that are specific to the view
     var viewProperties = new PropertySet( {
@@ -43,9 +43,9 @@ define( function( require ) {
     // Equation and reaction radio buttons at top of screen
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
       createEquationNode,
-      { screenWidth: thisView.layoutBounds.width } );
-    thisView.addChild( reactionBarNode );
-    reactionBarNode.top = thisView.layoutBounds.top;
+      { screenWidth: this.layoutBounds.width } );
+    this.addChild( reactionBarNode );
+    reactionBarNode.top = this.layoutBounds.top;
 
     // Reset All button
     var resetAllButton = new ResetAllButton( {
@@ -55,35 +55,35 @@ define( function( require ) {
         viewProperties.reset();
       }
     } );
-    thisView.addChild( resetAllButton );
-    resetAllButton.right = thisView.layoutBounds.right - 10;
-    resetAllButton.bottom = thisView.layoutBounds.bottom - 10;
+    this.addChild( resetAllButton );
+    resetAllButton.right = this.layoutBounds.right - 10;
+    resetAllButton.bottom = this.layoutBounds.bottom - 10;
 
     /*
      * Updates the user interface to match the reaction.
      * BeforeAfterNodes are created on demand and cached for reuse.
      * Unlinking from reactionProperty is unnecessary because this node exists for the lifetime of the simulation.
      */
-    thisView.beforeAfterCache = []; // @private { {Reaction} reaction, {Node} beforeAfterNode }[]
+    this.beforeAfterCache = []; // @private { {Reaction} reaction, {Node} beforeAfterNode }[]
     model.reactionProperty.link( function( reaction ) {
 
       // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
-      if ( !_.find( thisView.beforeAfterCache, { 'reaction': reaction } ) ) {
+      if ( !_.find( self.beforeAfterCache, { 'reaction': reaction } ) ) {
 
         var beforeAfterNode = createBeforeAfterNode( reaction,
           viewProperties.beforeExpandedProperty,
           viewProperties.afterExpandedProperty, {
-            centerX: thisView.layoutBounds.centerX,
+            centerX: self.layoutBounds.centerX,
             top: reactionBarNode.bottom + 12 // below the reaction equation
           } );
-        thisView.addChild( beforeAfterNode );
+        self.addChild( beforeAfterNode );
 
         // cache it
-        thisView.beforeAfterCache.push( { reaction: reaction, beforeAfterNode: beforeAfterNode } );
+        self.beforeAfterCache.push( { reaction: reaction, beforeAfterNode: beforeAfterNode } );
       }
 
       // Make the reaction's BeforeAfterNode visible.
-      thisView.beforeAfterCache.forEach( function( item ) {
+      self.beforeAfterCache.forEach( function( item ) {
         item.beforeAfterNode.visible = ( item.reaction === reaction );
       } );
     } );

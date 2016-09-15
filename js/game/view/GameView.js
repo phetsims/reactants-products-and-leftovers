@@ -25,16 +25,16 @@ define( function( require ) {
    */
   function GameView( model ) {
 
-    var thisView = this;
-    ScreenView.call( thisView, RPALConstants.SCREEN_VIEW_OPTIONS );
+    var self = this;
+    ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     // audio
     var audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
 
     // one node for each 'phase' of the game, created on demand to improve startup time
     var settingsNode = null; // @private
-    thisView.playNode = null; // @private
-    thisView.resultsNode = null; // @private
+    this.playNode = null; // @private
+    this.resultsNode = null; // @private
 
     /*
      * Handle game 'phase' changes, nodes created on demand to reduce startup time.
@@ -44,24 +44,24 @@ define( function( require ) {
 
       // create nodes on demand
       if ( settingsNode === null && gamePhase === GamePhase.SETTINGS ) {
-        settingsNode = new SettingsNode( model, thisView.layoutBounds );
-        thisView.addChild( settingsNode );
+        settingsNode = new SettingsNode( model, self.layoutBounds );
+        self.addChild( settingsNode );
       }
 
-      if ( thisView.playNode === null && gamePhase === GamePhase.PLAY ) {
-        thisView.playNode = new PlayNode( model, thisView.layoutBounds, audioPlayer );
-        thisView.addChild( thisView.playNode );
+      if ( self.playNode === null && gamePhase === GamePhase.PLAY ) {
+        self.playNode = new PlayNode( model, self.layoutBounds, audioPlayer );
+        self.addChild( self.playNode );
       }
 
-      if ( thisView.resultsNode === null && gamePhase === GamePhase.RESULTS ) {
-        thisView.resultsNode = new ResultsNode( model, thisView.layoutBounds, audioPlayer );
-        thisView.addChild( thisView.resultsNode );
+      if ( self.resultsNode === null && gamePhase === GamePhase.RESULTS ) {
+        self.resultsNode = new ResultsNode( model, self.layoutBounds, audioPlayer );
+        self.addChild( self.resultsNode );
       }
 
       // make the node visible that corresponds to the game phase
       settingsNode && ( settingsNode.visible = ( gamePhase === GamePhase.SETTINGS ) );
-      thisView.playNode && ( thisView.playNode.visible = ( gamePhase === GamePhase.PLAY ) );
-      thisView.resultsNode && ( thisView.resultsNode.visible = ( gamePhase === GamePhase.RESULTS ) );
+      self.playNode && ( self.playNode.visible = ( gamePhase === GamePhase.PLAY ) );
+      self.resultsNode && ( self.resultsNode.visible = ( gamePhase === GamePhase.RESULTS ) );
     } );
   }
 
