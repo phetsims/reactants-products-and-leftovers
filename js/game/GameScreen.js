@@ -52,7 +52,7 @@ define( function( require ) {
   var createIcon = function() {
 
     // background rectangle
-    var background = new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height,
+    var background = new Rectangle( 0, 0, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height,
       { fill: 'white' } );
 
     // smiley face

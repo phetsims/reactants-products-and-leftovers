@@ -55,8 +55,8 @@ define( function( require ) {
     }, options );
 
     // background rectangle
-    var width = Screen.HOME_SCREEN_ICON_SIZE.width;
-    var height = Screen.HOME_SCREEN_ICON_SIZE.height;
+    var width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
+    var height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
     var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
     // H2O molecule, scaled to fit and centered on background
