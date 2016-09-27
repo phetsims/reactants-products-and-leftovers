@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   /**
@@ -20,19 +20,16 @@ define( function( require ) {
   function RPALBaseModel( reactions ) {
 
     this.reactions = reactions; // @public {Reaction[]} reaction choices
-
-    PropertySet.call( this, {
-      reaction: this.reactions[ 0 ] // @public {Reaction} the selected reaction
-    } );
+    this.reactionProperty = new Property( this.reactions[ 0 ] ); // @public {Reaction} the selected reaction
   }
 
   reactantsProductsAndLeftovers.register( 'RPALBaseModel', RPALBaseModel );
 
-  return inherit( PropertySet, RPALBaseModel, {
+  return inherit( Object, RPALBaseModel, {
 
     // @override @public
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.reactionProperty.reset();
       this.reactions.forEach( function( reaction ) { reaction.reset(); } );
     }
   } );

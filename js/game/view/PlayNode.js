@@ -160,8 +160,9 @@ define( function( require ) {
        * The user will presumably be distracted processing what they see on the screen, so won't notice the brief interruption.
        */
       this.stepsSinceUpdate++;
-      if ( this.stepsSinceUpdate >= 2 && this.visible && !this.nextChallengeNode && this.model.challengeIndex < this.model.challenges.length - 1 ) {
-        this.nextChallengeNode = new ChallengeNode( this.model, this.model.challenges[ this.model.challengeIndex + 1 ], this.challengeBounds, this.audioPlayer );
+      var challengeIndex = this.model.challengeIndexProperty.get();
+      if ( this.stepsSinceUpdate >= 2 && this.visible && !this.nextChallengeNode && challengeIndex < this.model.challenges.length - 1 ) {
+        this.nextChallengeNode = new ChallengeNode( this.model, this.model.challenges[ challengeIndex + 1 ], this.challengeBounds, this.audioPlayer );
         this.nextChallengeNode.visible = false;
         this.addChild( this.nextChallengeNode );
       }

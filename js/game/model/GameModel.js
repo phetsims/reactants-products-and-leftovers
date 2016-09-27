@@ -15,7 +15,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
   var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
 
@@ -35,21 +34,20 @@ define( function( require ) {
       maxQuantity: RPALConstants.QUANTITY_RANGE.max // maximum quantity of any substance in a reaction
     }, options );
 
-    PropertySet.call( this, {
+    // @public
+    this.soundEnabledProperty = new Property( true ); // {boolean} is sound turned on?
+    this.timerEnabledProperty = new Property( false ); // {boolean} is the timer turned on?
+    this.moleculesVisibleProperty = new Property( true ); // {boolean} are molecules shown in the challenge?
+    this.numbersVisibleProperty = new Property( true ); // {boolean} are quantities shown in the challenge?
 
-      // @public
-      soundEnabled: true, // {boolean} is sound turned on?
-      timerEnabled: false, // {boolean} is the timer turned on?
-      moleculesVisible: true, // {boolean} are molecules shown in the challenge?
-      numbersVisible: true, // {boolean} are quantities shown in the challenge?
-      level: 0, // {number} read-only, the current level, starts at 0 in the model, presented as starting from 1 in the view
-      score: 0, // {number} read-only, how many points the user has earned for the current game
-      numberOfChallenges: 0, // {number} read-only, the number of challenges in the current game being played
-      challenge: null, // {Challenge} read-only, the current challenge being played
-      challengeIndex: -1, // {number} read-only, the index of the current challenge, -1 indicates no challenge
-      gamePhase: GamePhase.SETTINGS, // {GamePhase} read-only, the current 'phase' of the game
-      playState: PlayState.NONE  // {PlayState} read-only, the current 'play state' of the game
-    } );
+    // @public (read-only)
+    this.levelProperty = new Property( 0 ); // {number} the current level, starts at 0 in the model, presented as starting from 1 in the view
+    this.scoreProperty = new Property( 0 ); // {number} how many points the user has earned for the current game
+    this.numberOfChallengesProperty = new Property( 0 ); // {number} the number of challenges in the current game being played
+    this.challengeProperty = new Property( null ); // {Challenge} the current challenge being played
+    this.challengeIndexProperty = new Property( -1 ); // {number} the index of the current challenge, -1 indicates no challenge
+    this.gamePhaseProperty = new Property( GamePhase.SETTINGS ); // {GamePhase} the current 'phase' of the game
+    this.playStateProperty = new Property( PlayState.NONE ); // {PlayState} the current 'play state' of the game
 
     // These fields are @public (read-only), they should not be changed once the model is instantiated.
     this.numberOfLevels = options.numberOfLevels;
@@ -70,11 +68,25 @@ define( function( require ) {
 
   reactantsProductsAndLeftovers.register( 'GameModel', GameModel );
 
-  return inherit( PropertySet, GameModel, {
+  return inherit( Object, GameModel, {
 
     // @pubic Resets the model to its initial state.
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+
+      // reset Properties
+      this.soundEnabledProperty.reset();
+      this.timerEnabledProperty.reset();
+      this.moleculesVisibleProperty.reset();
+      this.numbersVisibleProperty.reset();
+      this.levelProperty.reset();
+      this.scoreProperty.reset();
+      this.numberOfChallengesProperty.reset();
+      this.challengeProperty.reset();
+      this.challengeIndexProperty.reset();
+      this.gamePhaseProperty.reset();
+      this.playStateProperty.reset();
+
+      // reset scores and times for each level
       this.bestScoreProperties.forEach( function( property ) { property.set( 0 ); } );
       this.bestTimeProperties.forEach( function( property ) { property.set( null ); } );
     },
@@ -82,72 +94,74 @@ define( function( require ) {
     // @private Advances to GamePhase.SETTINGS, shows the user-interface for selecting game settings
     settings: function() {
       this.timer.stop();
-      this.playState = PlayState.NONE;
-      this.gamePhase = GamePhase.SETTINGS; // do this last, so that other stuff is set up before observers are notified
+      this.playStateProperty.set( PlayState.NONE );
+      this.gamePhaseProperty.set( GamePhase.SETTINGS ); // do this last, so that other stuff is set up before observers are notified
     },
 
     // @private Advances to GamePhase.PLAY, plays a game for the specified {number} level
     play: function( level ) {
-      assert && assert( this.gamePhase === GamePhase.SETTINGS );
-      this.level = level;
-      this.score = 0;
+      assert && assert( this.gamePhaseProperty.get() === GamePhase.SETTINGS );
+      this.levelProperty.set( level );
+      this.scoreProperty.set( 0 );
       this.initChallenges();
       this.timer.start();
-      this.playState = PlayState.FIRST_CHECK;
-      this.gamePhase = GamePhase.PLAY; // do this last, so that other stuff is set up before observers are notified
+      this.playStateProperty.set( PlayState.FIRST_CHECK );
+      this.gamePhaseProperty.set( GamePhase.PLAY ); // do this last, so that other stuff is set up before observers are notified
     },
 
     // @private Advances to GamePhase.RESULTS, ends the current game and displays results
     results: function() {
-      assert && assert( this.gamePhase === GamePhase.PLAY );
+      assert && assert( this.gamePhaseProperty.get() === GamePhase.PLAY );
       this.timer.stop();
       this.updateBestScore();
       this.updateBestTime();
-      this.playState = PlayState.NONE;
-      this.gamePhase = GamePhase.RESULTS; // do this last, so that other stuff is set up before observers are notified
+      this.playStateProperty.set( PlayState.NONE );
+      this.gamePhaseProperty.set( GamePhase.RESULTS ); // do this last, so that other stuff is set up before observers are notified
     },
 
     // @public Checks the current guess
     check: function() {
-      assert && assert( this.playState === PlayState.FIRST_CHECK || this.playState === PlayState.SECOND_CHECK );
-      if ( this.challenge.isCorrect() ) {
+      var playState = this.playStateProperty.get();
+      assert && assert( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
+      if ( this.challengeProperty.get().isCorrect() ) {
         // stop the timer as soon as we successfully complete the last challenge
-        if ( this.challengeIndex === this.challenges.length - 1 ) {
+        if ( this.challengeIndexProperty.get() === this.challenges.length - 1 ) {
           this.timer.stop();
         }
-        this.challenge.points = ( this.playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
-        this.score = this.score + this.challenge.points;
-        this.playState = PlayState.NEXT;
+        var points = ( playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
+        this.challengeProperty.get().points = points;
+        this.scoreProperty.set( this.scoreProperty.get() + points );
+        this.playStateProperty.set( PlayState.NEXT );
       }
       else {
-        this.playState = ( this.playState === PlayState.FIRST_CHECK ) ? PlayState.TRY_AGAIN : PlayState.SHOW_ANSWER;
+        this.playStateProperty.set( ( playState === PlayState.FIRST_CHECK ) ? PlayState.TRY_AGAIN : PlayState.SHOW_ANSWER );
       }
     },
 
     // @public Makes another attempt at solving the challenge
     tryAgain: function() {
-      assert && assert( this.playState === PlayState.TRY_AGAIN );
-      this.playState = PlayState.SECOND_CHECK;
+      assert && assert( this.playStateProperty.get() === PlayState.TRY_AGAIN );
+      this.playStateProperty.set( PlayState.SECOND_CHECK );
     },
 
     // @public Shows the correct answer
     showAnswer: function() {
-      assert && assert( this.playState === PlayState.SHOW_ANSWER );
-      this.challenge.showAnswer();
-      this.playState = PlayState.NEXT;
+      assert && assert( this.playStateProperty.get() === PlayState.SHOW_ANSWER );
+      this.challengeProperty.get().showAnswer();
+      this.playStateProperty.set( PlayState.NEXT );
     },
 
     // @public Advances to the next challenge
     next: function() {
-      if ( this.challengeIndex === this.challenges.length - 1 ) {
+      if ( this.challengeIndexProperty.get() === this.challenges.length - 1 ) {
         // game has been completed, advance to GamePhase.RESULTS
         this.results();
       }
       else {
         // advance to next challenge
-        this.challengeIndex = this.challengeIndex + 1;
-        this.challenge = this.challenges[ this.challengeIndex ];
-        this.playState = PlayState.FIRST_CHECK;
+        this.challengeIndexProperty.set( this.challengeIndexProperty.get() + 1 );
+        this.challengeProperty.set( this.challenges[ this.challengeIndexProperty.get() ] );
+        this.playStateProperty.set( PlayState.FIRST_CHECK );
       }
     },
 
@@ -177,21 +191,22 @@ define( function( require ) {
      * @public
      */
     isPerfectScore: function() {
-      return this.score === this.getPerfectScore( this.level );
+      return this.scoreProperty.get() === this.getPerfectScore( this.levelProperty.get() );
     },
 
     // @private Updates the best score for the current level.
     updateBestScore: function() {
-      if ( this.score > this.bestScoreProperties[ this.level ].get() ) {
-        this.bestScoreProperties[ this.level ].set( this.score );
+      var level = this.levelProperty.get();
+      if ( this.scoreProperty.get() > this.bestScoreProperties[ level ].get() ) {
+        this.bestScoreProperties[ level ].set( this.scoreProperty.get() );
       }
     },
 
     // @private Updates the best time for the current level, at the end of a timed game with a perfect score.
     updateBestTime: function() {
       assert && assert( !this.timer.isRunning );
-      if ( this.timerEnabled && this.isPerfectScore() ) {
-        var level = this.level;
+      if ( this.timerEnabledProperty.get() && this.isPerfectScore() ) {
+        var level = this.levelProperty.get();
         var time = this.timer.elapsedTime;
         this.isNewBestTime = false;
         if ( !this.bestTimeProperties[ level ].get() ) {
@@ -208,13 +223,13 @@ define( function( require ) {
 
     // @private initializes a new set of challenges for the current level
     initChallenges: function() {
-      this.challenges = ChallengeFactory.createChallenges( this.level, this.maxQuantity, {
-        moleculesVisible: this.moleculesVisible,
-        numbersVisible: this.numbersVisible
+      this.challenges = ChallengeFactory.createChallenges( this.levelProperty.get(), this.maxQuantity, {
+        moleculesVisible: this.moleculesVisibleProperty.get(),
+        numbersVisible: this.numbersVisibleProperty.get()
       } );
-      this.numberOfChallenges = this.challenges.length;
-      this.challengeIndex = 0;
-      this.challenge = this.challenges[ this.challengeIndex ];
+      this.numberOfChallengesProperty.set( this.challenges.length );
+      this.challengeIndexProperty.set( 0 );
+      this.challengeProperty.set( this.challenges[ this.challengeIndexProperty.get() ] );
     },
 
     /**
@@ -236,8 +251,8 @@ define( function( require ) {
      * @public
      */
     replayCurrentChallenge: function() {
-      this.challenge.reset();
-      this.playState = PlayState.FIRST_CHECK;
+      this.challengeProperty.get().reset();
+      this.playStateProperty.set( PlayState.FIRST_CHECK );
     }
   } );
 } );

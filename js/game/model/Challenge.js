@@ -70,13 +70,13 @@ define( function( require ) {
     showAnswer: function() {
       var i;
       for ( i = 0; i < this.guess.reactants.length; i++ ) {
-        this.guess.reactants[ i ].quantity = this.reaction.reactants[ i ].quantity;
+        this.guess.reactants[ i ].quantityProperty.set( this.reaction.reactants[ i ].quantityProperty.get() );
       }
       for ( i = 0; i < this.guess.products.length; i++ ) {
-        this.guess.products[ i ].quantity = this.reaction.products[ i ].quantity;
+        this.guess.products[ i ].quantityProperty.set( this.reaction.products[ i ].quantityProperty.get() );
       }
       for ( i = 0; i < this.guess.leftovers.length; i++ ) {
-        this.guess.leftovers[ i ].quantity = this.reaction.leftovers[ i ].quantity;
+        this.guess.leftovers[ i ].quantityProperty.set( this.reaction.leftovers[ i ].quantityProperty.get() );
       }
     }
   } );

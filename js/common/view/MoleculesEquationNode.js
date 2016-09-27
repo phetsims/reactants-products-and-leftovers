@@ -76,7 +76,7 @@ define( function( require ) {
     for ( var i = 0; i < numberOfTerms; i++ ) {
 
       // coefficient
-      coefficientNode = new Text( terms[ i ].coefficient, { font: options.font, fill: options.fill } );
+      coefficientNode = new Text( terms[ i ].coefficientProperty.get(), { font: options.font, fill: options.fill } );
       coefficientNode.left = plusNode ? ( plusNode.right + options.plusXSpacing ) : 0;
       parentNode.addChild( coefficientNode );
 

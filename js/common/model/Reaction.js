@@ -41,7 +41,7 @@ define( function( require ) {
     // @public Create a leftover for each reactant, in the same order.
     this.leftovers = [];
     this.reactants.forEach( function( reactant ) {
-      self.leftovers.push( new Substance( 1, reactant.symbol, reactant.icon, 0 ) );
+      self.leftovers.push( new Substance( 1, reactant.symbol, reactant.iconProperty.get(), 0 ) );
     } );
 
     this.reactants.forEach( function( reactant ) {
@@ -75,8 +75,8 @@ define( function( require ) {
       var greaterThanZero = 0;
       var greaterThanOne = 0;
       this.reactants.forEach( function( reactant ) {
-        if ( reactant.coefficient > 0 ) { greaterThanZero++; }
-        if ( reactant.coefficient > 1 ) { greaterThanOne++; }
+        if ( reactant.coefficientProperty.get() > 0 ) { greaterThanZero++; }
+        if ( reactant.coefficientProperty.get() > 1 ) { greaterThanOne++; }
       } );
       return ( greaterThanZero > 1 || greaterThanOne > 0 );
     },
@@ -88,11 +88,12 @@ define( function( require ) {
     updateQuantities: function() {
       var numberOfReactions = this.getNumberOfReactions();
       this.products.forEach( function( product ) {
-        product.quantity = numberOfReactions * product.coefficient;
+        product.quantityProperty.set( numberOfReactions * product.coefficientProperty.get() );
       } );
       // reactants and leftovers array have identical orders
       for ( var i = 0; i < this.reactants.length; i++ ) {
-        this.leftovers[ i ].quantity = this.reactants[ i ].quantity - ( numberOfReactions * this.reactants[ i ].coefficient );
+        var quantity = this.reactants[ i ].quantityProperty.get() - ( numberOfReactions * this.reactants[ i ].coefficientProperty.get() );
+        this.leftovers[ i ].quantityProperty.set( quantity );
       }
     },
 
@@ -108,8 +109,8 @@ define( function( require ) {
       if ( this.isReaction() ) {
         var possibleValues = [];
         this.reactants.forEach( function( reactant ) {
-          if ( reactant.coefficient !== 0 ) {
-            possibleValues.push( Math.floor( reactant.quantity / reactant.coefficient ) );
+          if ( reactant.coefficientProperty.get() !== 0 ) {
+            possibleValues.push( Math.floor( reactant.quantityProperty.get() / reactant.coefficientProperty.get() ) );
           }
         } );
         assert && assert( possibleValues.length > 0 );

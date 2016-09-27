@@ -46,7 +46,7 @@ define( function( require ) {
 
           audioPlayer.gameOverPerfectScore();
 
-          self.rewardNode = new RPALRewardNode( model.level );
+          self.rewardNode = new RPALRewardNode( model.levelProperty.get() );
           self.addChild( self.rewardNode );
         }
         else {
@@ -54,14 +54,15 @@ define( function( require ) {
         }
 
         // game results
+        var level = model.levelProperty.get();
         self.addChild( new LevelCompletedNode(
-          model.level,
-          model.score,
-          model.getPerfectScore( model.level ),
-          model.numberOfChallenges, // number of stars in the progress indicator
-          model.timerEnabled,
+          level,
+          model.scoreProperty.get(),
+          model.getPerfectScore( level ),
+          model.numberOfChallengesProperty.get(), // number of stars in the progress indicator
+          model.timerEnabledProperty.get(),
           model.timer.elapsedTime,
-          model.bestTimeProperties[ model.level ].get(),
+          model.bestTimeProperties[ level ].get(),
           model.isNewBestTime,
           function() {
             model.settings();

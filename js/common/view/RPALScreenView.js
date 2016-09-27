@@ -14,7 +14,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var ReactionBarNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBarNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -35,10 +35,8 @@ define( function( require ) {
     ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     // Properties that are specific to the view
-    var viewProperties = new PropertySet( {
-      beforeExpanded: true, // {boolean} is the Before box expanded?
-      afterExpanded: true  // {boolean} is the After box expanded
-    } );
+    var beforeExpandedProperty = new Property( true ); // {boolean} is the Before box expanded?
+    var afterExpandedProperty = new Property( true ); // {boolean} is the After box expanded
 
     // Equation and reaction radio buttons at top of screen
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
@@ -52,7 +50,8 @@ define( function( require ) {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       listener: function() {
         model.reset();
-        viewProperties.reset();
+        beforeExpandedProperty.reset();
+        afterExpandedProperty.reset();
       }
     } );
     this.addChild( resetAllButton );
@@ -70,12 +69,10 @@ define( function( require ) {
       // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
       if ( !_.find( self.beforeAfterCache, { 'reaction': reaction } ) ) {
 
-        var beforeAfterNode = createBeforeAfterNode( reaction,
-          viewProperties.beforeExpandedProperty,
-          viewProperties.afterExpandedProperty, {
-            centerX: self.layoutBounds.centerX,
-            top: reactionBarNode.bottom + 12 // below the reaction equation
-          } );
+        var beforeAfterNode = createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
+          centerX: self.layoutBounds.centerX,
+          top: reactionBarNode.bottom + 12 // below the reaction equation
+        } );
         self.addChild( beforeAfterNode );
 
         // cache it

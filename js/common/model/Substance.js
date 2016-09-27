@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   /**
@@ -29,22 +29,26 @@ define( function( require ) {
 
     this.symbol = symbol; // @public {string}
 
-    PropertySet.call( this, {
+    // @public {number} substance's coefficient in the reaction equation, mutable to support 'Custom' sandwich
+    this.coefficientProperty = new Property( coefficient );
 
-      // @public {number} substance's coefficient in the reaction equation, mutable to support 'Custom' sandwich
-      coefficient: coefficient,
+    // @public {Node} visual representation of the substance, mutable to support the 'Custom' sandwich
+    this.iconProperty = new Property( icon );
 
-      // @public {Node} visual representation of the substance, mutable to support the 'Custom' sandwich
-      icon: icon,
-
-      // @public {number} how much of the substance we have
-      quantity: quantity
-    } );
+    // @public {number} how much of the substance we have
+    this.quantityProperty = new Property( quantity );
   }
 
   reactantsProductsAndLeftovers.register( 'Substance', Substance );
 
-  return inherit( PropertySet, Substance, {
+  return inherit( Object, Substance, {
+
+    // @public
+    reset: function() {
+      this.coefficientProperty.reset();
+      this.iconProperty.reset();
+      this.quantityProperty.reset();
+    },
 
     /*
      * Are 2 substances the same? AXON.Property observers are not considered.
@@ -55,9 +59,9 @@ define( function( require ) {
     equals: function( substance ) {
       return ( substance instanceof Substance &&
                this.symbol === substance.symbol &&
-               this.coefficient === substance.coefficient &&
-               this.icon === substance.icon &&
-               this.quantity === substance.quantity );
+               this.coefficientProperty.get() === substance.coefficientProperty.get() &&
+               this.iconProperty.get() === substance.iconProperty.get() &&
+               this.quantityProperty.get() === substance.quantityProperty.get() );
     }
   }, {
 
@@ -69,7 +73,7 @@ define( function( require ) {
      * @public
      */
     clone: function( substance ) {
-      return new Substance( substance.coefficient, substance.symbol, substance.icon, substance.quantity );
+      return new Substance( substance.coefficientProperty.get(), substance.symbol, substance.iconProperty.get(), substance.quantityProperty.get() );
     },
 
     /**
@@ -81,7 +85,7 @@ define( function( require ) {
      * @public
      */
     withQuantity: function( substance, quantity ) {
-      return new Substance( substance.coefficient, substance.symbol, substance.icon, quantity );
+      return new Substance( substance.coefficientProperty.get(), substance.symbol, substance.iconProperty.get(), quantity );
     }
   } );
 } );

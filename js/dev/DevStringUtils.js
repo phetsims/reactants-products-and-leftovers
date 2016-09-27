@@ -26,14 +26,14 @@ define( function( require ) {
       // reactants
       for ( var i = 0; i < reaction.reactants.length; i++ ) {
         if ( i !== 0 ) { s += '+ '; }
-        s += ( reaction.reactants[ i ].coefficient + ' ' + reaction.reactants[ i ].symbol + ' ' );
+        s += ( reaction.reactants[ i ].coefficientProperty.get() + ' ' + reaction.reactants[ i ].symbol + ' ' );
       }
       // right arrow
       s += '\u2192 ';
       // products
       for ( i = 0; i < reaction.products.length; i++ ) {
         if ( i !== 0 ) { s += '+ '; }
-        s += ( reaction.products[ i ].coefficient + ' ' + reaction.products[ i ].symbol );
+        s += ( reaction.products[ i ].coefficientProperty.get() + ' ' + reaction.products[ i ].symbol );
         if ( i < reaction.products.length - 1 ) {
           s += ' ';
         }
@@ -54,19 +54,19 @@ define( function( require ) {
       // reactants
       for ( i = 0; i < reaction.reactants.length; i++ ) {
         if ( i !== 0 ) { s += ','; }
-        s += reaction.reactants[ i ].quantity;
+        s += reaction.reactants[ i ].quantityProperty.get();
       }
       // right arrow
       s += ' \u2192 ';
       // products
       for ( i = 0; i < reaction.products.length; i++ ) {
         if ( i !== 0 ) { s += ','; }
-        s += reaction.products[ i ].quantity;
+        s += reaction.products[ i ].quantityProperty.get();
       }
       // leftovers
       for ( i = 0; i < reaction.leftovers.length; i++ ) {
         s += ',';
-        s += reaction.leftovers[ i ].quantity;
+        s += reaction.leftovers[ i ].quantityProperty.get();
       }
       return s;
     },

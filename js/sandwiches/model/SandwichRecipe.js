@@ -67,10 +67,11 @@ define( function( require ) {
       // Update the sandwich image to match the coefficients.
       var updateSandwichNode = function() {
         if ( self.isReaction() ) {
-          self.sandwich.icon = new SandwichNode( bread.coefficient, meat.coefficient, cheese.coefficient );
+          self.sandwich.iconProperty.set(
+            new SandwichNode( bread.coefficientProperty.get(), meat.coefficientProperty.get(), cheese.coefficientProperty.get() ) );
         }
         else {
-          self.sandwich.icon = NO_SANDWICH_NODE;
+          self.sandwich.iconProperty.set( NO_SANDWICH_NODE );
         }
       };
 
