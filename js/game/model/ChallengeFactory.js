@@ -102,7 +102,7 @@ define( function( require ) {
      */
     createChallenges: function( level, maxQuantity, challengeOptions ) {
       challengeOptions = challengeOptions || {};
-      if ( RPALQueryParameters.PLAY_ALL ) {
+      if ( RPALQueryParameters.playAll ) {
         return createChallengesPlayAll( level, maxQuantity, challengeOptions );
       }
       else {
@@ -117,7 +117,7 @@ define( function( require ) {
      */
     getNumberOfChallenges: function( level ) {
       assert && assert( level >= 0 && level < POOLS.length );
-      return RPALQueryParameters.PLAY_ALL ? POOLS[ level ].length : CHALLENGES_PER_LEVEL;
+      return RPALQueryParameters.playAll ? POOLS[ level ].length : CHALLENGES_PER_LEVEL;
     },
 
     // DEBUG: Runs a sanity check on this factory, prints to console.
@@ -369,7 +369,7 @@ define( function( require ) {
    */
   var doTest = function() {
 
-    assert && assert( !RPALQueryParameters.PLAY_ALL ); // test doesn't work with some query parameters
+    assert && assert( !RPALQueryParameters.playAll ); // test doesn't work with some query parameters
 
     // Cumulative counts for this test
     var numberOfChallengesGenerated = 0;
@@ -490,7 +490,7 @@ define( function( require ) {
         } );
 
         // should have exactly one challenge with zero products (irrelevant for 'playAll')
-        if ( numberWithZeroProducts !== 1 && !RPALQueryParameters.PLAY_ALL ) {
+        if ( numberWithZeroProducts !== 1 && !RPALQueryParameters.playAll ) {
           numberOfProductErrors++;
           console.log( 'ERROR: more than one challenge with zero products, level=' + level + ' challenges=' );
           for ( j = 0; j < challenges.length; j++ ) {

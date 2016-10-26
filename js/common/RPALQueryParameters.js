@@ -11,22 +11,20 @@ define( function( require ) {
   // modules
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  var getQueryParameter = phet.chipper.getQueryParameter;
-
-  var RPALQueryParameters = {
+  var RPALQueryParameters = QueryStringMachine.getAll( {
 
     // adds 'Test', 'Skip', 'Replay' buttons to the Game, shows challenge answers at the bottom of the Game screen
-    DEV:           !!getQueryParameter( 'dev' ) || false,
+    dev: { type: 'flag' },
 
     // plays all reactions for each level of the game
-    PLAY_ALL:      !!getQueryParameter( 'playAll' ) || false,
+    playAll: { type: 'flag' },
 
     // initializes game spinners to the correct answer
-    GUESS_CORRECT: !!getQueryParameter( 'guessCorrect' ) || false,
+    guessCorrect: { type: 'flag' },
 
     // shows the game reward, regardless of score
-    SHOW_REWARD:   !!getQueryParameter( 'showReward' ) || false
-  };
+    showReward: { type: 'flag' }
+  } );
 
   reactantsProductsAndLeftovers.register( 'RPALQueryParameters', RPALQueryParameters );
 

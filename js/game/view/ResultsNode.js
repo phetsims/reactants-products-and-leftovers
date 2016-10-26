@@ -42,7 +42,7 @@ define( function( require ) {
       if ( gamePhase === GamePhase.RESULTS ) {
 
         // game reward, shown for perfect score (or with 'reward' query parameter)
-        if ( model.isPerfectScore() || RPALQueryParameters.SHOW_REWARD ) {
+        if ( model.isPerfectScore() || RPALQueryParameters.showReward ) {
 
           audioPlayer.gameOverPerfectScore();
 

@@ -41,7 +41,7 @@ define( function( require ) {
     // @public Clone reactants, quantities are initialized to zero for 'Before' challenges.
     this.reactants = [];
     reaction.reactants.forEach( function( reactant ) {
-      self.reactants.push( ( interactiveBox === BoxType.BEFORE && !RPALQueryParameters.GUESS_CORRECT ) ?
+      self.reactants.push( ( interactiveBox === BoxType.BEFORE && !RPALQueryParameters.guessCorrect ) ?
                                Substance.withQuantity( reactant, 0 ) :
                                Substance.clone( reactant ) );
     } );
@@ -49,7 +49,7 @@ define( function( require ) {
     // @public Clone products, quantities are initialized to zero for 'After' challenges.
     this.products = [];
     reaction.products.forEach( function( product ) {
-      self.products.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.GUESS_CORRECT ) ?
+      self.products.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.guessCorrect ) ?
                               Substance.withQuantity( product, 0 ) :
                               Substance.clone( product ) );
     } );
@@ -57,7 +57,7 @@ define( function( require ) {
     // @public Clone leftovers, quantities are initialized to zero for 'After' challenges.
     this.leftovers = [];
     reaction.leftovers.forEach( function( leftover ) {
-      self.leftovers.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.GUESS_CORRECT ) ?
+      self.leftovers.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.guessCorrect ) ?
                                Substance.withQuantity( leftover, 0 ) :
                                Substance.clone( leftover ) );
     } );
