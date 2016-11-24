@@ -16,6 +16,8 @@ define( function( require ) {
   var SandwichesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichesModel' );
   var SandwichesView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesView' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenSandwichesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.sandwiches' );
@@ -31,7 +33,7 @@ define( function( require ) {
 
     var options = {
       name: screenSandwichesString,
-      backgroundColor: RPALColors.SCREEN_BACKGROUND,
+      backgroundColorProperty: new Property( Color.toColor( RPALColors.SCREEN_BACKGROUND ) ),
       homeScreenIcon: new Image( homeImage ),
       navigationBarIcon: new Image( navbarImage )
     };

@@ -21,6 +21,8 @@ define( function( require ) {
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var Screen = require( 'JOIST/Screen' );
   var Shape = require( 'KITE/Shape' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenGameString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.game' );
@@ -32,7 +34,7 @@ define( function( require ) {
 
     var options = {
       name: screenGameString,
-      backgroundColor: RPALColors.SCREEN_BACKGROUND,
+      backgroundColorProperty: new Property( Color.toColor( RPALColors.SCREEN_BACKGROUND ) ),
       homeScreenIcon: createIcon()
     };
 

@@ -18,6 +18,8 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenMoleculesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
@@ -29,7 +31,7 @@ define( function( require ) {
 
     var options = {
       name: screenMoleculesString,
-      backgroundColor: RPALColors.SCREEN_BACKGROUND,
+      backgroundColorProperty: new Property( Color.toColor( RPALColors.SCREEN_BACKGROUND ) ),
       homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
       navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } )
     };
