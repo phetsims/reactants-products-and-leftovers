@@ -290,7 +290,7 @@ define( function( require ) {
       self.quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
 
       // switch between spinners and static numbers
-      self.quantitiesNode.setInteractive( _.contains( [ PlayState.FIRST_CHECK, PlayState.SECOND_CHECK, PlayState.TRY_AGAIN ], playState ) );
+      self.quantitiesNode.setInteractive( _.includes( [ PlayState.FIRST_CHECK, PlayState.SECOND_CHECK, PlayState.TRY_AGAIN ], playState ) );
     };
     this.playStateProperty = null; // @private will be set by activate()
 

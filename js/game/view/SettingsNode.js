@@ -68,8 +68,8 @@ define( function( require ) {
       createLevelThreeIcon()
     ];
     assert && assert( levelIcons.length === model.numberOfLevels );
-    var maxIconWidth = _.max( levelIcons, function( icon ) { return icon.width; } ).width;
-    var maxIconHeight = _.max( levelIcons, function( icon ) { return icon.height; } ).height;
+    var maxIconWidth = _.maxBy( levelIcons, function( icon ) { return icon.width; } ).width;
+    var maxIconHeight = _.maxBy( levelIcons, function( icon ) { return icon.height; } ).height;
 
     // Level-selection buttons, arranged in a row
     var buttons = [];

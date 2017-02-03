@@ -212,8 +212,8 @@ define( function( require ) {
     var spinnerHeight = this.spinnerNodes[ 0 ].height;
     var maxIconHeight = Math.max(
       options.minIconSize.height,
-      _.max( this.iconNodes, function( node ) { return node.height; } ).height );
-    var maxSymbolHeight = _.max( symbolNodes, function( node ) { return node.height; } ).height;
+      _.maxBy( this.iconNodes, function( node ) { return node.height; } ).height );
+    var maxSymbolHeight = symbolNodes.length ? _.maxBy( symbolNodes, function( node ) { return node.height; } ).height: 0;
 
     this.spinnerNodes.forEach( function( spinnerNode ) {
       spinnerNode.centerY = ( spinnerHeight / 2 );

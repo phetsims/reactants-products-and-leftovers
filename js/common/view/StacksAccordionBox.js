@@ -70,7 +70,7 @@ define( function( require ) {
     // compute max height of the nodes in the box
     var maxIconHeight = Math.max(
       options.minIconSize.height,
-      _.max( substances, function( substance ) { return substance.iconProperty.get().height; } ).iconProperty.get().height );
+      _.maxBy( substances, function( substance ) { return substance.iconProperty.get().height; } ).iconProperty.get().height );
 
     // vertical stacks of nodes inside the box
     this.stackNodes = []; // @private
