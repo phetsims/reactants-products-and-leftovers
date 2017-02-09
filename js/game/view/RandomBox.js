@@ -172,6 +172,7 @@ define( function( require ) {
       this.cellNodes.forEach( function( node ) { node.dispose(); } );
       this.cellNodes = null;
       this.quantityProperty.unlink( this.quantityPropertyObserver );
+      Node.prototype.dispose.call( this );
     }
   } );
 
@@ -213,6 +214,7 @@ define( function( require ) {
     dispose: function() {
       this.substanceLayers.forEach( function( node ) { node.dispose(); } );
       this.substanceLayers = null;
+      Node.prototype.dispose.call( this );
     }
   } );
 } );

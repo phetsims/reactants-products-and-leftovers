@@ -114,6 +114,7 @@ define( function( require ) {
       if ( this.playStateProperty ) {
         this.playStateProperty.unlink( this.playStateObserver );
       }
+      Node.prototype.dispose.call( this );
     }
   } );
 } );

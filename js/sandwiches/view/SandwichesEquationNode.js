@@ -145,6 +145,7 @@ define( function( require ) {
       this.iconNodes.forEach( function( node ) { node.dispose(); } );
       this.iconNodes = null;
       this.sandwichIconProperty.unlink( this.sandwichIconPropertyObserver );
+      Node.prototype.dispose.call( this );
     }
   } );
 } );

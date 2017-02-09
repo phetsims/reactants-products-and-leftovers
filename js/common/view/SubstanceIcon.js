@@ -64,6 +64,7 @@ define( function( require ) {
     dispose: function() {
       this.iconProperty.unlink( this.iconPropertyObserver );
       this.wrapperNode.removeAllChildren(); // to disconnect from icon
+      Node.prototype.dispose.call( this );
     }
   } );
 } );

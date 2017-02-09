@@ -351,6 +351,8 @@ define( function( require ) {
       // stuff below the boxes
       this.quantitiesNode.dispose();
       this.quantitiesNode = null;
+
+      Node.prototype.dispose.call( this );
     }
   } );
 } );

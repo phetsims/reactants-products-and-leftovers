@@ -83,6 +83,7 @@ define( function( require ) {
       this.iconNodes.forEach( function( node ) { node.dispose(); } );
       this.iconNodes = null;
       this.quantityProperty.unlink( this.quantityPropertyObserver );
+      Node.prototype.dispose.call( this );
     }
   } );
 } );

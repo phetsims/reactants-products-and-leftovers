@@ -381,6 +381,8 @@ define( function( require ) {
       this.afterNumberNodes = null;
       this.iconNodes.forEach( function( node ) { node.dispose(); } );
       this.iconNodes = null;
+
+      Node.prototype.dispose.call( this );
     }
   }, {
 

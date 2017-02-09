@@ -46,6 +46,7 @@ define( function( require ) {
     // @public Ensures that this node is eligible for GC.
     dispose: function() {
       this.numberProperty.unlink( this.numberPropertyObserver );
+      Text.prototype.dispose.call( this );
     }
   } );
 } );
