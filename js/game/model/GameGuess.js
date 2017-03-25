@@ -1,18 +1,18 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * A 'guess' is the user's answer to a game challenge, and it may or may not be correct.
  * We call it a 'guess' to distinguish the user's answer from the correct answer.
  * (And yes, 'guess' is semantically incorrect, since a guess is uninformed. Live with it :-)
- * <p>
+ *
  * A guess is constructed based on a reaction and challenge type.
  * The guess will have the same number of reactants and products as the reaction,
  * and they are guaranteed to be in the same order.
  * Depending on the challenge type, values in the guess will be initialized to zero.
- * <p>
+ *
  * A guess is correct if the reaction and guess have the same quantities of reactants,
  * products and leftovers.
- * <p>
+ *
  * Run with the 'playAll' or 'playOne' query parameter to fill in the correct answer.
  *
  * @author Chris Malley (PixelZoom, Inc.)

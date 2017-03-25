@@ -2,13 +2,11 @@
 
 /**
  * Model for the 'Sandwiches' screen.
- * <p>
+ *
  * For the purposes of the 'sandwiches' analogy:
- * <ul>
- * <li>sandwich recipe == reaction
- * <li>ingredients == reactants
- * <li>sandwich == product
- * </ul>
+ * - sandwich recipe == reaction
+ * - ingredients == reactants
+ * - sandwich == product
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

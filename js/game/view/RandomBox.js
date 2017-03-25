@@ -1,16 +1,14 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Displays substances at random positions in a box.
  * This is used for the 'Before' and 'After' boxes in the Game screen.
- * <p>
+ *
  * To improve performance:
- * <ul>
- * <li>Nodes are created as needed.</li>
- * <li>Nodes are never removed; they remain as children for the lifetime of this node.</li>
- * <li>The visibility of nodes is adjusted to show the correct quantity of the substance.</li>
- * <li>When a node becomes visible, it is assigned a position in the grid.
- * </ul>
+ * - Nodes are created as needed.
+ * - Nodes are never removed; they remain as children for the lifetime of this node.
+ * - The visibility of nodes is adjusted to show the correct quantity of the substance.
+ * - When a node becomes visible, it is assigned a position in the grid.
  */
 define( function( require ) {
   'use strict';

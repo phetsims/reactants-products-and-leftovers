@@ -1,8 +1,7 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Base type for the ScreenView used in the 'Sandwiches' and 'Molecules' screens.
- * <p>
  * The user interface is relatively expensive to create, and we have a small number of reactions.
  * So user-interface components are created on demand, then cached to improve the performance of
  * switching between reactions.

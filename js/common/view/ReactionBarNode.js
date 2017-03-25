@@ -1,8 +1,7 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Horizontal bar that contains radio buttons for selecting a reaction, and displays the selected reaction's equation.
- * <p>
  * Equations are relatively expensive to create, and we have a small number of reactions.
  * So equations are created on demand, then cached to improve the performance of switching between reactions.
  *

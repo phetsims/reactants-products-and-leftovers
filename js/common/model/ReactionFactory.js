@@ -1,8 +1,8 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Factory functions for creating specific chemical reactions.
- * <p>
+ *
  * Note that the function names all have a specific format.
  * For example, the function for creating reaction '2C + O2 -> 2CO' is named Reaction_2C_O2__2CO.
  * Underscore is substituted for '+'.

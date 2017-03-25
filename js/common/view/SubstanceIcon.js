@@ -1,10 +1,10 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Displays a Substance's icon, which may change dynamically.
- * <p>
+ *
  * VERY IMPORTANT NOTES!
- * <p>
+ *
  * Scenery is a DAG and allows one instance of a Node to appear in the scenegraph in
  * multiple places, with 2 caveats: (1) a Node cannot be a sibling of itself, and (2)
  * transforming a node will do so everywhere that it appears. Because an icon can
@@ -12,7 +12,7 @@
  * wrap an icon, so that we don't accidentally make it a sibling of itself, or
  * attempt to position it.  It also ensures that the icon's origin (0,0) is at the
  * center of its bounds, which we take advantage of in layout code.
- * <p>
+ *
  * Substances typically have a lifetime that is longer than this node.
  * When this node is disposed of, the icon needs to be explicitly removed from its parent.
  * This is because scenery nodes keep a reference to their parent. If we don't explicitly

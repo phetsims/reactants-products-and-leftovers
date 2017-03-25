@@ -1,13 +1,11 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * A vertical stack of Substances, built from the bottom up.
  * To improve performance:
- * <ul>
- * <li>Nodes are created as needed.</li>
- * <li>Nodes are never removed; they remain as children for the lifetime of this node.</li>
- * <li>The visibility of nodes is adjusted to show the correct quantity of the substance.</li>
- * </ul>
+ * - Nodes are created as needed.
+ * - Nodes are never removed; they remain as children for the lifetime of this node.
+ * - The visibility of nodes is adjusted to show the correct quantity of the substance.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

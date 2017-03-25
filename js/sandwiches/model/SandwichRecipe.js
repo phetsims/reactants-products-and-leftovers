@@ -2,13 +2,12 @@
 
 /**
  * Recipe for a sandwich.
- *<p>
+ *
  * For the purposes of the 'sandwiches' analogy:
- * <ul>
- * <li>sandwich recipe == reaction
- * <li>ingredients == reactants
- * <li>sandwich == product
- * </ul>
+ * - sandwich recipe == reaction
+ * - ingredients == reactants
+ * - sandwich == product
+ *
  * A 'custom' sandwich has mutable reactant coefficients, and the sandwich image changes based on those coefficients.
  *
  * @author Chris Malley (PixelZoom, Inc.)

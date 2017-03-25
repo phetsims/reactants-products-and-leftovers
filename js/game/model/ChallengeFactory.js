@@ -1,22 +1,19 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Creates challenges where level-of-difficulty is based on the number variables that
  * we're solving for, and whether the variables are 'Before' or 'After' terms.
- * <p>
+ *
  * Behavior is:
- * <ul>
- * <li>Level 1: one or two products random, Before (2 variables)
- * <li>Level 2: one product random, After
- * <li>Level 3: two products random, After (4 variables)
- * </ul>
+ * - Level 1: one or two products random, Before (2 variables)
+ * - Level 2: one product random, After
+ * - Level 3: two products random, After (4 variables)
+ *
  * Additional requirements:
- * <ul>
- * <li>all coefficients will be > 0
- * <li>all reactant quantities will be > 0
- * <li>every game will contain exactly one zero-products challenge
- * <li>game will contain no duplicate reactions
- * </ul>
+ * - all coefficients will be > 0
+ * - all reactant quantities will be > 0
+ * - every game will contain exactly one zero-products challenge
+ * - game will contain no duplicate reactions
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -306,7 +303,7 @@ define( function( require ) {
    * Fixes any quantity-range violations in a reaction.
    * We do this by decrementing reactant quantities by 1, alternating reactants as we do so.
    * Each reactant must have a quantity of at least 1, in order to have a valid reaction.
-   * <p>
+   *
    * In the Java version of this simulation, this manifested itself as Unfuddle #2156.
    *
    * @param {Reaction} reaction
