@@ -16,7 +16,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
-  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var RPALRewardNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/RPALRewardNode' );
 
   /**
@@ -41,8 +40,8 @@ define( function( require ) {
       // show results when we enter this phase
       if ( gamePhase === GamePhase.RESULTS ) {
 
-        // game reward, shown for perfect score (or with 'reward' query parameter)
-        if ( model.isPerfectScore() || RPALQueryParameters.showReward ) {
+        // game reward, shown for perfect score
+        if ( model.isPerfectScore() ) {
 
           audioPlayer.gameOverPerfectScore();
 

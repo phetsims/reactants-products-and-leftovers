@@ -17,10 +17,7 @@ define( function( require ) {
     showAnswers: { type: 'flag' },
 
     // plays all reactions for each level of the game
-    playAll: { type: 'flag' },
-
-    // shows the game reward, regardless of score
-    showReward: { type: 'flag' }
+    playAll: { type: 'flag' }
   } );
 
   reactantsProductsAndLeftovers.register( 'RPALQueryParameters', RPALQueryParameters );
