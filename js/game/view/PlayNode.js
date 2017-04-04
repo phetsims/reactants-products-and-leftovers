@@ -64,7 +64,7 @@ define( function( require ) {
     this.addChild( scoreboardNode );
 
     // Developer controls at top-right, below scoreboard
-    if ( RPALQueryParameters.gameDebug ) {
+    if ( RPALQueryParameters.showAnswers ) {
       this.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
         top:   scoreboardNode.bottom + 5

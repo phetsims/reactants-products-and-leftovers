@@ -299,7 +299,7 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // The answer to the current challenge, bottom center
-    if ( RPALQueryParameters.gameDebug ) {
+    if ( RPALQueryParameters.showAnswers ) {
       this.addChild( new Text( DevStringUtils.quantitiesString( reaction ), {
         fill: 'red',
         font: new RPALFont( 12 ),

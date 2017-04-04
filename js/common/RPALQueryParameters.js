@@ -13,14 +13,11 @@ define( function( require ) {
 
   var RPALQueryParameters = QueryStringMachine.getAll( {
 
-    // adds 'Test', 'Skip', 'Replay' buttons to the Game, shows challenge answers at the bottom of the Game screen
-    gameDebug: { type: 'flag' },
+    // shows  answers at the bottom of the Game screen, and adds 'Test', 'Skip', 'Replay' buttons
+    showAnswers: { type: 'flag' },
 
     // plays all reactions for each level of the game
     playAll: { type: 'flag' },
-
-    // initializes game spinners to the correct answer
-    guessCorrect: { type: 'flag' },
 
     // shows the game reward, regardless of score
     showReward: { type: 'flag' }

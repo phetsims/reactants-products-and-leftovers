@@ -24,7 +24,6 @@ define( function( require ) {
   var BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
   var inherit = require( 'PHET_CORE/inherit' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
   /**
@@ -41,25 +40,19 @@ define( function( require ) {
     // @public Clone reactants, quantities are initialized to zero for 'Before' challenges.
     this.reactants = [];
     reaction.reactants.forEach( function( reactant ) {
-      self.reactants.push( ( interactiveBox === BoxType.BEFORE && !RPALQueryParameters.guessCorrect ) ?
-                               Substance.withQuantity( reactant, 0 ) :
-                               Substance.clone( reactant ) );
+      self.reactants.push( ( interactiveBox === BoxType.BEFORE ) ? Substance.withQuantity( reactant, 0 ) : Substance.clone( reactant ) );
     } );
 
     // @public Clone products, quantities are initialized to zero for 'After' challenges.
     this.products = [];
     reaction.products.forEach( function( product ) {
-      self.products.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.guessCorrect ) ?
-                              Substance.withQuantity( product, 0 ) :
-                              Substance.clone( product ) );
+      self.products.push( ( interactiveBox === BoxType.AFTER ) ? Substance.withQuantity( product, 0 ) : Substance.clone( product ) );
     } );
 
     // @public Clone leftovers, quantities are initialized to zero for 'After' challenges.
     this.leftovers = [];
     reaction.leftovers.forEach( function( leftover ) {
-      self.leftovers.push( ( interactiveBox === BoxType.AFTER && !RPALQueryParameters.guessCorrect ) ?
-                               Substance.withQuantity( leftover, 0 ) :
-                               Substance.clone( leftover ) );
+      self.leftovers.push( ( interactiveBox === BoxType.AFTER ) ? Substance.withQuantity( leftover, 0 ) : Substance.clone( leftover ) );
     } );
 
     assert && assert( this.reactants.length === reaction.reactants.length );
