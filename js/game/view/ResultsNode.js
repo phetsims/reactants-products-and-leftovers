@@ -60,7 +60,7 @@ define( function( require ) {
           model.getPerfectScore( level ),
           model.numberOfChallengesProperty.get(), // number of stars in the progress indicator
           model.timerEnabledProperty.get(),
-          model.timer.elapsedTime,
+          model.timer.elapsedTimeProperty.value,
           model.bestTimeProperties[ level ].get(),
           model.isNewBestTime,
           function() {
