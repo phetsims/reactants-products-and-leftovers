@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.1.8 Thu Apr 13 2017 14:26:49 GMT-0600 (MDT)",
+  "comment": "# reactants-products-and-leftovers 1.1.8 Thu Apr 13 2017 16:31:20 GMT-0600 (MDT)",
   "assert": {
     "sha": "3921bc3784dc67e9cbfa31cdec52b582fcfc68e7",
     "branch": "HEAD"
@@ -10,11 +10,11 @@
   },
   "brand": {
     "sha": "306908e8fcdace256a8404d09b6f2e5fcad13e45",
-    "branch": "reactants-products-and-leftovers-1.1"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "6735d2658be491a8cdd413633df35dfe56c14797",
-    "branch": "reactants-products-and-leftovers-1.1"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "5c39b7d803db50ef802291f79fb43396f1cf9bb8",
@@ -38,10 +38,10 @@
   },
   "phetcommon": {
     "sha": "3c8e5b25b6ecdafd4f3c31c0ca152b6f0f968a5d",
-    "branch": "reactants-products-and-leftovers-1.1"
+    "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "f34f966f35db07dda8f038a80ab9ba248ad9f63e",
+    "sha": "b082334d0f8a16e917ee6926bed7e564796e23f5",
     "branch": "1.1"
   },
   "scenery": {
@@ -69,7 +69,7 @@
     "branch": "HEAD"
   },
   "vibe": {
-    "sha": "40a281829dd0273ab17c882b97910e4c0490be69",
-    "branch": "HEAD"
+    "sha": "8a6284991f0fc29095f472bd79d724d683f1b61c",
+    "branch": "reactants-products-and-leftovers-1.1"
   }
 }
