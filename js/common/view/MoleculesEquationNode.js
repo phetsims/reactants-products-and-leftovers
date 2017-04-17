@@ -15,7 +15,7 @@ define( function( require ) {
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RightArrowNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RightArrowNode' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -81,7 +81,7 @@ define( function( require ) {
       parentNode.addChild( coefficientNode );
 
       // molecule
-      symbolNode = new SubSupText( terms[ i ].symbol, { font: options.font, fill: options.fill } );
+      symbolNode = new RichText( terms[ i ].symbol, { font: options.font, fill: options.fill } );
       symbolNode.left = coefficientNode.right + options.coefficientXSpacing;
       parentNode.addChild( symbolNode );
 

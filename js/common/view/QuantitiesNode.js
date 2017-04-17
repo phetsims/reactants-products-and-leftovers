@@ -24,7 +24,7 @@ define( function( require ) {
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -129,7 +129,7 @@ define( function( require ) {
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+        symbolNode = new RichText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
         this.reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -164,7 +164,7 @@ define( function( require ) {
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+        symbolNode = new RichText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
         this.productsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -199,7 +199,7 @@ define( function( require ) {
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new SubSupText( leftover.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+        symbolNode = new RichText( leftover.symbol, { font: SYMBOL_FONT, centerX: centerX } );
         this.leftoversParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
