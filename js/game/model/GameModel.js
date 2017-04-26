@@ -70,7 +70,7 @@ define( function( require ) {
 
   return inherit( Object, GameModel, {
 
-    // @pubic Resets the model to its initial state.
+    // @public Resets the model to its initial state.
     reset: function() {
 
       // reset Properties
