@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {SandwichesModel} model
    * @constructor
    */
-  function SandwichesView( model ) {
+  function SandwichesScreenView( model ) {
 
     // compute the size of the largest sandwich, used for view layout
     var maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
@@ -65,7 +65,7 @@ define( function( require ) {
     );
   }
 
-  reactantsProductsAndLeftovers.register( 'SandwichesView', SandwichesView );
+  reactantsProductsAndLeftovers.register( 'SandwichesScreenView', SandwichesScreenView );
 
-  return inherit( RPALScreenView, SandwichesView );
+  return inherit( RPALScreenView, SandwichesScreenView );
 } );

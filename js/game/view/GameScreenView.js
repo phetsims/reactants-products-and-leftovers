@@ -23,7 +23,7 @@ define( function( require ) {
    * @param {GameModel} model
    * @constructor
    */
-  function GameView( model ) {
+  function GameScreenView( model ) {
 
     var self = this;
     ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
@@ -65,9 +65,9 @@ define( function( require ) {
     } );
   }
 
-  reactantsProductsAndLeftovers.register( 'GameView', GameView );
+  reactantsProductsAndLeftovers.register( 'GameScreenView', GameScreenView );
 
-  return inherit( ScreenView, GameView, {
+  return inherit( ScreenView, GameScreenView, {
 
     /**
      * Animation step function.

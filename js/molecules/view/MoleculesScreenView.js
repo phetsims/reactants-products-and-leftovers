@@ -21,7 +21,7 @@ define( function( require ) {
    * @param {MoleculesModel} model
    * @constructor
    */
-  function MoleculesView( model ) {
+  function MoleculesScreenView( model ) {
 
     RPALScreenView.call( this, model,
 
@@ -50,7 +50,7 @@ define( function( require ) {
     );
   }
 
-  reactantsProductsAndLeftovers.register( 'MoleculesView', MoleculesView );
+  reactantsProductsAndLeftovers.register( 'MoleculesScreenView', MoleculesScreenView );
 
-  return inherit( RPALScreenView, MoleculesView );
+  return inherit( RPALScreenView, MoleculesScreenView );
 } );

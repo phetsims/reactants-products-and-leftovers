@@ -15,7 +15,7 @@ define( function( require ) {
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var SandwichesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichesModel' );
-  var SandwichesView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesView' );
+  var SandwichesScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesScreenView' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
@@ -39,7 +39,7 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new SandwichesModel(); },
-      function( model ) { return new SandwichesView( model ); },
+      function( model ) { return new SandwichesScreenView( model ); },
       options
     );
   }

@@ -12,7 +12,7 @@ define( function( require ) {
   var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MoleculesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/model/MoleculesModel' );
-  var MoleculesView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesView' );
+  var MoleculesScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesScreenView' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
@@ -37,7 +37,7 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new MoleculesModel(); },
-      function( model ) { return new MoleculesView( model ); },
+      function( model ) { return new MoleculesScreenView( model ); },
       options
     );
   }

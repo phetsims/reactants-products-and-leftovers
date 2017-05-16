@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var GameModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GameModel' );
-  var GameView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameView' );
+  var GameScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -39,7 +39,7 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new GameModel(); },
-      function( model ) { return new GameView( model ); },
+      function( model ) { return new GameScreenView( model ); },
       options
     );
   }
