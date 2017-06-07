@@ -20,6 +20,7 @@ define( function( require ) {
   var NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   var NumberSpinner = require( 'SUN/NumberSpinner' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+  var Property = require( 'AXON/Property' );
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
@@ -110,7 +111,7 @@ define( function( require ) {
 
       if ( this.interactiveBox === BoxType.BEFORE ) {
         // spinner
-        spinnerNode = new NumberSpinner( reactant.quantityProperty, options.quantityRange,
+        spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
           _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.reactantsParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
@@ -145,7 +146,7 @@ define( function( require ) {
 
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
-        spinnerNode = new NumberSpinner( product.quantityProperty, options.quantityRange,
+        spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
           _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.productsParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
@@ -180,7 +181,7 @@ define( function( require ) {
 
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
-        spinnerNode = new NumberSpinner( leftover.quantityProperty, options.quantityRange,
+        spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
           _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.leftoversParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
