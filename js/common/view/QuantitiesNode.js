@@ -25,7 +25,7 @@ define( function( require ) {
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
-  var RichText = require( 'SCENERY_PHET/RichText' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
