@@ -23,13 +23,7 @@ define( function( require ) {
   reactantsProductsAndLeftovers.register( 'RPALQueryParameters', RPALQueryParameters );
 
   // log the values of all sim-specific query parameters
-  if ( phet.log ) {
-    for ( var property in RPALQueryParameters ) {
-      if ( RPALQueryParameters.hasOwnProperty( property ) ) {
-        phet.log( property + '=' + RPALQueryParameters[ property ] );
-      }
-    }
-  }
+  phet.log && phet.log( 'query parameters: ' + JSON.stringify( RPALQueryParameters, null, 2 ) );
 
   return RPALQueryParameters;
 } );
