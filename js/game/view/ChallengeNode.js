@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * View of a Game challenge. This node is not 'active' (connected to the model) until the activate() function is called.
