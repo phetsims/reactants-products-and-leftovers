@@ -55,6 +55,8 @@ define( function( require ) {
     options.children = [ backgroundNode, radioButtons ];
     Node.call( this, options );
 
+    // a11y - set the initial accessible order
+    this.accessibleOrder = [ radioButtons ];
     /*
      * Updates the equation to match the reaction.
      * Equations are created on demand and cached for reuse.
@@ -69,6 +71,9 @@ define( function( require ) {
         // create equation for the reaction
         var equationNode = createEquationNode( reaction );
         self.addChild( equationNode );
+
+        // a11y - as the equations are created, we want them all to be before the radio buttons in focus order
+        self.accessibleOrder = [ equationNode ].concat( self.accessibleOrder );
 
         // scale the equation if it's too wide to fit the available space
         var availableWidth = radioButtons.left - ( 2 * options.xMargin );

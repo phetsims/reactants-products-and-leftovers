@@ -57,6 +57,9 @@ define( function( require ) {
     resetAllButton.right = this.layoutBounds.right - 10;
     resetAllButton.bottom = this.layoutBounds.bottom - 10;
 
+    // a11y - set the initial accessible order
+    self.accessibleOrder = [ reactionBarNode, resetAllButton ];
+
     /*
      * Updates the user interface to match the reaction.
      * BeforeAfterNodes are created on demand and cached for reuse.
@@ -73,6 +76,10 @@ define( function( require ) {
           top: reactionBarNode.bottom + 12 // below the reaction equation
         } );
         self.addChild( beforeAfterNode );
+
+        // a11y - as the beforeAfter nodes are created, we want them all to be before the top bar are reset button
+        // in focus order
+        self.accessibleOrder = [ beforeAfterNode ].concat( self.accessibleOrder );
 
         // cache it
         self.beforeAfterCache.push( { reaction: reaction, beforeAfterNode: beforeAfterNode } );
