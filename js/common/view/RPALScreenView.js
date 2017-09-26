@@ -77,12 +77,14 @@ define( function( require ) {
         } );
         self.addChild( beforeAfterNode );
 
-        // a11y - as the beforeAfter nodes are created, we want them all to be before the top bar are reset button
-        // in focus order
-        self.accessibleOrder = [ beforeAfterNode ].concat( self.accessibleOrder );
-
         // cache it
         self.beforeAfterCache.push( { reaction: reaction, beforeAfterNode: beforeAfterNode } );
+
+
+        // a11y - order should look like [ reactionBarNode, {{ALL_BEFORE_AFTER_NODES}}, resetAllButton ]
+        self.accessibleOrder = [ reactionBarNode ]
+          .concat( self.beforeAfterCache.map( function( item ) { return item.beforeAfterNode; } ) ) // map all beforeAfterNodes to an array
+          .concat( [ resetAllButton ] );
       }
 
       // Make the reaction's BeforeAfterNode visible.
