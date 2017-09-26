@@ -67,7 +67,7 @@ define( function( require ) {
     if ( RPALQueryParameters.showAnswers ) {
       this.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
-        top:   scoreboardNode.bottom + 5
+        top: scoreboardNode.bottom + 5
       } ) );
     }
 
@@ -105,6 +105,9 @@ define( function( require ) {
           // if a node hasn't been preloaded, create one
           currentChallengeNode = new ChallengeNode( model, challenge, self.challengeBounds, audioPlayer );
           self.addChild( currentChallengeNode );
+
+          // a11y keyboard nav order, challenges should go before the "start over" button
+          self.accessibleOrder = [ currentChallengeNode ].concat( self.accessibleOrder );
         }
         currentChallengeNode.activate( model.playStateProperty );
         currentChallengeNode.visible = true;

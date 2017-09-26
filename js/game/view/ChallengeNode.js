@@ -130,7 +130,7 @@ define( function( require ) {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
       right: arrowNode.left - 5,
-      top:   equationNode.bottom + 10
+      top: equationNode.bottom + 10
     } );
     this.addChild( this.beforeBox );
     arrowNode.centerY = this.beforeBox.centerY;
@@ -293,6 +293,9 @@ define( function( require ) {
       self.quantitiesNode.setInteractive( _.includes( [ PlayState.FIRST_CHECK, PlayState.SECOND_CHECK, PlayState.TRY_AGAIN ], playState ) );
     };
     this.playStateProperty = null; // @private will be set by activate()
+
+    // a11y keyboard nav order
+    this.accessibleOrder = [ this.quantitiesNode, this.buttons ];
 
     //------------------------------------------------------------------------------------
     // Developer

@@ -80,7 +80,6 @@ define( function( require ) {
         // cache it
         self.beforeAfterCache.push( { reaction: reaction, beforeAfterNode: beforeAfterNode } );
 
-
         // a11y - order should look like [ reactionBarNode, {{ALL_BEFORE_AFTER_NODES}}, resetAllButton ]
         self.accessibleOrder = [ reactionBarNode ]
           .concat( self.beforeAfterCache.map( function( item ) { return item.beforeAfterNode; } ) ) // map all beforeAfterNodes to an array
