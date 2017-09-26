@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.2.0-dev.0 Thu Sep 21 2017 15:49:22 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.2.0-dev.1 Mon Sep 25 2017 17:00:49 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "c315b5c527685c616006d5883722092be4b2d06b",
+    "sha": "d01ac6bdb3ec613ab758868046a1e865990aaf44",
     "branch": "master"
   },
   "dot": {
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "kite": {
-    "sha": "53e5387f8074b07771a7b17336076dcf1d591fd4",
+    "sha": "f6863601d7ea86d174ad3ff30cf9fffdc3a1b13d",
     "branch": "master"
   },
   "nitroglycerin": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "reactants-products-and-leftovers": {
-    "sha": "42bf6c9a63a458f2faa7f94e6247f0268b631eb5",
+    "sha": "f95309876ebc7febe343e35f45811374dfbfde44",
     "branch": "master"
   },
   "scenery": {
@@ -65,7 +65,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "3b161ec8fa2f0d48868958bed3e6839f84163818",
+    "sha": "de2aad711f893d45277776b813e340ff5555084f",
     "branch": "master"
   },
   "vegas": {
