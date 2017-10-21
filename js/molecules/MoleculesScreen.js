@@ -23,6 +23,9 @@ define( function( require ) {
   // strings
   var screenMoleculesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
 
+  // a11y strings
+  var screenMoleculesDescriptionString = 'Investigate molecules';
+
   /**
    * @constructor
    */
@@ -32,7 +35,8 @@ define( function( require ) {
       name: screenMoleculesString,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
-      navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } )
+      navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } ),
+      accessibleDescription: screenMoleculesDescriptionString
     };
 
     Screen.call( this,

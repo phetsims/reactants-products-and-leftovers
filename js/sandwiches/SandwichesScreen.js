@@ -21,6 +21,9 @@ define( function( require ) {
   // strings
   var screenSandwichesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.sandwiches' );
 
+  // a11y strings
+  var screenSandwichesDescription = 'Interact with sandwiches';
+
   // images
   var homeImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-home.png' );
   var navbarImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-navbar.png' );
@@ -34,7 +37,8 @@ define( function( require ) {
       name: screenSandwichesString,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: new Image( homeImage ),
-      navigationBarIcon: new Image( navbarImage )
+      navigationBarIcon: new Image( navbarImage ),
+      accessibleDescription: screenSandwichesDescription
     };
 
     Screen.call( this,

@@ -26,6 +26,9 @@ define( function( require ) {
   // strings
   var screenGameString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.game' );
 
+  // a11y strings
+  var screenGameDescription = 'Test your knowledge!';
+
   /**
    * @constructor
    */
@@ -34,7 +37,8 @@ define( function( require ) {
     var options = {
       name: screenGameString,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-      homeScreenIcon: createIcon()
+      homeScreenIcon: createIcon(),
+      accessibleDescription: screenGameDescription
     };
 
     Screen.call( this,
