@@ -1,11 +1,11 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.2.0-dev.1 Mon Sep 25 2017 17:00:49 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.2.0-dev.2 Tue Oct 24 2017 08:20:11 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
   },
   "axon": {
-    "sha": "1eecfa9f782acf0b16ebd19a1e3eaa1f1d3ac660",
+    "sha": "f75d74e4720326dba3c88f7b61262fba82d049f1",
     "branch": "master"
   },
   "brand": {
@@ -13,19 +13,19 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "d01ac6bdb3ec613ab758868046a1e865990aaf44",
+    "sha": "6b338220320729240b9b4c7508a11519febe8be4",
     "branch": "master"
   },
   "dot": {
-    "sha": "d2a1e0db4d9649a61545adb58cff7a0ab36a08b9",
+    "sha": "2caa380bcf97b2fe1f27a1e2ede5e0ab9e60d555",
     "branch": "master"
   },
   "joist": {
-    "sha": "a47af6f90ef44e347d0a5476ce3315c72dcd4235",
+    "sha": "373c54b6c0b58e791b1033b9b22d626f98f87a06",
     "branch": "master"
   },
   "kite": {
-    "sha": "f6863601d7ea86d174ad3ff30cf9fffdc3a1b13d",
+    "sha": "2c921cba0c91bd8ceef51dbb5abea335ff89a001",
     "branch": "master"
   },
   "nitroglycerin": {
@@ -33,11 +33,11 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "054b2d6db39f0ce2b76a9ba26a12ec51bce17f98",
+    "sha": "c30d15ed8d869d926ea86fd126e653edea617717",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "5b0c8dd60e559bfc0062bf159f42df86fe49874d",
+    "sha": "b13138d238de374a8d62056e137a3d7e7c6cea08",
     "branch": "master"
   },
   "query-string-machine": {
@@ -45,27 +45,27 @@
     "branch": "master"
   },
   "reactants-products-and-leftovers": {
-    "sha": "f95309876ebc7febe343e35f45811374dfbfde44",
+    "sha": "b27c5e6d127c3f42f261b73b5f490c7f758f09cc",
     "branch": "master"
   },
   "scenery": {
-    "sha": "aaa3ccacff30fff595568ef04b2ac41fc6f83523",
+    "sha": "a4ddbaf205767e6391eb18c9ad223b0133b75dda",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "37e83a905af0810219a7601174c7b5a268bd0cc0",
+    "sha": "d951fb972575efac792cfb222358cade6958ec6f",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "f0d5f7504e8bfc00109989c890bd84ec21ba2128",
+    "sha": "0d590744f991ef0461a2e854ceedfe9467a17815",
     "branch": "master"
   },
   "sun": {
-    "sha": "c47faf13546707cc6789c73de1e26b49a46f320f",
+    "sha": "a54410407341b1258ca1818eb5cd6983024bd9d7",
     "branch": "master"
   },
   "tandem": {
-    "sha": "de2aad711f893d45277776b813e340ff5555084f",
+    "sha": "c1e98f69b57aa3527428ac069284766757b713d8",
     "branch": "master"
   },
   "vegas": {
