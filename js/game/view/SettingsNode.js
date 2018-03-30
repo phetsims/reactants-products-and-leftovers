@@ -16,7 +16,7 @@ define( function( require ) {
   var HClNode = require( 'NITROGLYCERIN/nodes/HClNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
-  var LevelSelectionItemNode = require( 'VEGAS/LevelSelectionItemNode' );
+  var LevelSelectionItemNodeDeprecated = require( 'VEGAS/LevelSelectionItemNodeDeprecated' );
   var NH3Node = require( 'NITROGLYCERIN/nodes/NH3Node' );
   var Node = require( 'SCENERY/nodes/Node' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
@@ -74,7 +74,7 @@ define( function( require ) {
     // Level-selection buttons, arranged in a row
     var buttons = [];
     for ( var level = 0; level < model.numberOfLevels; level++ ) {
-      buttons.push( createLevelSelectionItemNode( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
+      buttons.push( createLevelSelectionItemNodeDeprecated( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
     }
     var buttonsParent = new LayoutBox( {
       children: buttons,
@@ -151,7 +151,7 @@ define( function( require ) {
    * @param {number} maxIconHeight
    * @returns {Node}
    */
-  var createLevelSelectionItemNode = function( level, model, icon, maxIconWidth, maxIconHeight ) {
+  var createLevelSelectionItemNodeDeprecated = function( level, model, icon, maxIconWidth, maxIconHeight ) {
 
     // make all icons the same size
     var rect = new Rectangle( 0, 0, maxIconWidth, maxIconHeight, { center: icon.center } );
@@ -159,7 +159,7 @@ define( function( require ) {
       children: [ rect, icon ]
     } );
 
-    return new LevelSelectionItemNode(
+    return new LevelSelectionItemNodeDeprecated(
       content,
       model.getNumberOfChallenges( level ),
       function() {
@@ -168,7 +168,7 @@ define( function( require ) {
       model.bestScoreProperties[ level ],
       model.getPerfectScore( level ),
       {
-        // LevelSelectionItemNode options
+        // LevelSelectionItemNodeDeprecated options
         baseColor: 'rgb( 240, 255, 204 )',
         buttonXMargin: 15,
         buttonYMargin: 15,
