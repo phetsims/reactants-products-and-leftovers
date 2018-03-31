@@ -38,7 +38,7 @@ define( function( require ) {
       name: screenGameString,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon(),
-      accessibleDescription: screenGameDescription
+      descriptionContent: screenGameDescription
     };
 
     Screen.call( this,

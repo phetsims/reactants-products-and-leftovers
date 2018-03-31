@@ -38,7 +38,7 @@ define( function( require ) {
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: new Image( homeImage ),
       navigationBarIcon: new Image( navbarImage ),
-      accessibleDescription: screenSandwichesDescription
+      descriptionContent: screenSandwichesDescription
     };
 
     Screen.call( this,

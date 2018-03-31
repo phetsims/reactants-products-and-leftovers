@@ -36,7 +36,7 @@ define( function( require ) {
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
       navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } ),
-      accessibleDescription: screenMoleculesDescriptionString
+      descriptionContent: screenMoleculesDescriptionString
     };
 
     Screen.call( this,
