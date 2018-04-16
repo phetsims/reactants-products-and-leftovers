@@ -119,7 +119,7 @@ define( function( require ) {
         align: 'center',
         spacing: 40,
         centerX: layoutBounds.centerX,
-        centerY: (visibilityRadioButtons.top - layoutBounds.top) / 2
+        centerY: ( visibilityRadioButtons.top - layoutBounds.top ) / 2
       } ),
       toggleButtons,
       visibilityRadioButtons,
@@ -160,13 +160,7 @@ define( function( require ) {
       children: [ rect, icon ]
     } );
 
-    // score display
-    var scoreDisplay = new ScoreDisplayStars( model.bestScoreProperties[ level ], {
-      numberOfStars: model.getNumberOfChallenges( level ),
-      perfectScore: model.getPerfectScore( level )
-    } );
-
-    return new LevelSelectionButton( content, scoreDisplay, {
+    return new LevelSelectionButton( content, model.bestScoreProperties[ level ], {
       baseColor: 'rgb( 240, 255, 204 )',
       buttonXMargin: 15,
       buttonYMargin: 15,
@@ -175,6 +169,11 @@ define( function( require ) {
       iconToProgressIndicatorYSpace: 15,
       bestTimeProperty: model.bestTimeProperties[ level ],
       bestTimeVisibleProperty: model.timerEnabledProperty,
+      scoreDisplayConstructor: ScoreDisplayStars,
+      scoreDisplayOptions: {
+        numberOfStars: model.getNumberOfChallenges( level ),
+        perfectScore: model.getPerfectScore( level )
+      },
       listener: function() {
         model.play( level );
       }
