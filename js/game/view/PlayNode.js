@@ -22,10 +22,6 @@ define( function( require ) {
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScoreDisplayLabeledNumber = require( 'VEGAS/ScoreDisplayLabeledNumber' );
 
-  // constants
-  var STATUS_BAR_FONT = new RPALFont( 16 );
-  var STATUS_BAR_TEXT_FILL = 'white';
-
   /**
    * @param {GameModel} model
    * @param {Bounds2} layoutBounds the {Screen}'s layoutBounds
@@ -43,20 +39,16 @@ define( function( require ) {
     this.layoutBounds = layoutBounds;
     this.audioPlayer = audioPlayer;
 
-    var scoreDisplay = new ScoreDisplayLabeledNumber( model.scoreProperty, {
-      font: STATUS_BAR_FONT,
-      fill: STATUS_BAR_TEXT_FILL
-    } );
-
     // status bar, across the top of the screen
-    var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, scoreDisplay, {
+    var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.scoreProperty, {
+      scoreDisplayConstructor: ScoreDisplayLabeledNumber,
       levelProperty: model.levelProperty,
       challengeIndexProperty: model.challengeIndexProperty,
       numberOfChallengesProperty: model.numberOfChallengesProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
       timerEnabledProperty: model.timerEnabledProperty,
-      font: STATUS_BAR_FONT,
-      textFill: STATUS_BAR_TEXT_FILL,
+      font: new RPALFont( 16 ),
+      textFill: 'white',
       barFill: 'rgb( 49, 117, 202 )',
       xMargin: 50,
       startOverButtonOptions: {
