@@ -16,7 +16,7 @@ define( function( require ) {
   var HClNode = require( 'NITROGLYCERIN/nodes/HClNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
-  var LevelSelectionItemNode = require( 'VEGAS/LevelSelectionItemNode' );
+  var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   var NH3Node = require( 'NITROGLYCERIN/nodes/NH3Node' );
   var Node = require( 'SCENERY/nodes/Node' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
@@ -25,6 +25,7 @@ define( function( require ) {
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
+  var ScoreDisplayStars = require( 'VEGAS/ScoreDisplayStars' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -74,7 +75,7 @@ define( function( require ) {
     // Level-selection buttons, arranged in a row
     var buttons = [];
     for ( var level = 0; level < model.numberOfLevels; level++ ) {
-      buttons.push( createLevelSelectionItemNode( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
+      buttons.push( createLevelSelectionButton( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
     }
     var buttonsParent = new LayoutBox( {
       children: buttons,
@@ -118,7 +119,7 @@ define( function( require ) {
         align: 'center',
         spacing: 40,
         centerX: layoutBounds.centerX,
-        centerY: ( visibilityRadioButtons.top - layoutBounds.top ) / 2
+        centerY: (visibilityRadioButtons.top - layoutBounds.top) / 2
       } ),
       toggleButtons,
       visibilityRadioButtons,
@@ -151,7 +152,7 @@ define( function( require ) {
    * @param {number} maxIconHeight
    * @returns {Node}
    */
-  var createLevelSelectionItemNode = function( level, model, icon, maxIconWidth, maxIconHeight ) {
+  var createLevelSelectionButton = function( level, model, icon, maxIconWidth, maxIconHeight ) {
 
     // make all icons the same size
     var rect = new Rectangle( 0, 0, maxIconWidth, maxIconHeight, { center: icon.center } );
@@ -159,25 +160,25 @@ define( function( require ) {
       children: [ rect, icon ]
     } );
 
-    return new LevelSelectionItemNode(
-      content,
-      model.getNumberOfChallenges( level ),
-      function() {
+    // score display
+    var scoreDisplay = new ScoreDisplayStars( model.bestScoreProperties[ level ], {
+      numberOfStars: model.getNumberOfChallenges( level ),
+      perfectScore: model.getPerfectScore( level )
+    } );
+
+    return new LevelSelectionButton( content, scoreDisplay, {
+      baseColor: 'rgb( 240, 255, 204 )',
+      buttonXMargin: 15,
+      buttonYMargin: 15,
+      buttonWidth: 150,
+      buttonHeight: 150,
+      iconToProgressIndicatorYSpace: 15,
+      bestTimeProperty: model.bestTimeProperties[ level ],
+      bestTimeVisibleProperty: model.timerEnabledProperty,
+      listener: function() {
         model.play( level );
-      },
-      model.bestScoreProperties[ level ],
-      model.getPerfectScore( level ),
-      {
-        // LevelSelectionItemNode options
-        baseColor: 'rgb( 240, 255, 204 )',
-        buttonXMargin: 15,
-        buttonYMargin: 15,
-        buttonWidth: 150,
-        buttonHeight: 150,
-        iconToProgressIndicatorYSpace: 15,
-        bestTimeProperty: model.bestTimeProperties[ level ],
-        bestTimeVisibleProperty: model.timerEnabledProperty
-      } );
+      }
+    } );
   };
 
   /*
