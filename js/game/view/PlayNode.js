@@ -2,7 +2,7 @@
 
 /**
  * Portion of the scenegraph that corresponds to GamePhase.PLAY.
- * Displays the scoreboard and current challenge.
+ * Displays the status bar and current challenge.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,24 +13,27 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var ChallengeNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ChallengeNode' );
   var DevGameControls = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevGameControls' );
+  var FiniteStatusBar = require( 'VEGAS/FiniteStatusBar' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
-  var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
+  var ScoreDisplayLabeledNumber = require( 'VEGAS/ScoreDisplayLabeledNumber' );
 
   // constants
-  var SCOREBOARD_X_MARGIN = 50;
+  var STATUS_BAR_FONT = new RPALFont( 16 );
+  var STATUS_BAR_TEXT_FILL = 'white';
 
   /**
    * @param {GameModel} model
    * @param {Bounds2} layoutBounds the {Screen}'s layoutBounds
+   * @param {Property.<Bounds2>} visibleBoundsProperty
    * @param {GameAudioPlayer} audioPlayer
    * @constructor
    */
-  function PlayNode( model, layoutBounds, audioPlayer ) {
+  function PlayNode( model, layoutBounds, visibleBoundsProperty, audioPlayer ) {
 
     var self = this;
     Node.call( this );
@@ -40,39 +43,42 @@ define( function( require ) {
     this.layoutBounds = layoutBounds;
     this.audioPlayer = audioPlayer;
 
-    // scoreboard, across the top of the screen
-    var scoreboardNode = new ScoreboardBar(
-      layoutBounds.width,
-      model.challengeIndexProperty,
-      model.numberOfChallengesProperty,
-      model.levelProperty,
-      model.scoreProperty,
-      model.timer.elapsedTimeProperty,
-      model.timerEnabledProperty,
-      // callback for the 'New Game' button
-      function() {
-        model.settings();
-      },
-      // ScoreboardBar options
-      {
-        font: new RPALFont( 16 ),
-        leftMargin: SCOREBOARD_X_MARGIN,
-        rightMargin: SCOREBOARD_X_MARGIN,
-        centerX: layoutBounds.centerX,
-        top: 0
-      } );
-    this.addChild( scoreboardNode );
+    var scoreDisplay = new ScoreDisplayLabeledNumber( model.scoreProperty, {
+      font: STATUS_BAR_FONT,
+      fill: STATUS_BAR_TEXT_FILL
+    } );
 
-    // Developer controls at top-right, below scoreboard
+    // status bar, across the top of the screen
+    var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, scoreDisplay, {
+      levelProperty: model.levelProperty,
+      challengeIndexProperty: model.challengeIndexProperty,
+      numberOfChallengesProperty: model.numberOfChallengesProperty,
+      elapsedTimeProperty: model.timer.elapsedTimeProperty,
+      timerEnabledProperty: model.timerEnabledProperty,
+      font: STATUS_BAR_FONT,
+      textFill: STATUS_BAR_TEXT_FILL,
+      barFill: 'rgb( 49, 117, 202 )',
+      xMargin: 50,
+      startOverButtonOptions: {
+        baseColor: 'rgb( 229, 243, 255 )',
+        textFill: 'black',
+        xMargin: 10,
+        yMargin: 5,
+        listener: function() { model.settings(); }
+      }
+    } );
+    this.addChild( statusBar );
+
+    // Developer controls at top-right, below status bar
     if ( RPALQueryParameters.showAnswers ) {
       this.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
-        top: scoreboardNode.bottom + 5
+        top: statusBar.bottom + 5
       } ) );
     }
 
-    // @private challenge will be displayed in the area below the scoreboard
-    this.challengeBounds = new Bounds2( layoutBounds.left, scoreboardNode.bottom, layoutBounds.right, layoutBounds.bottom );
+    // @private challenge will be displayed in the area below the status bar
+    this.challengeBounds = new Bounds2( layoutBounds.left, statusBar.bottom, layoutBounds.right, layoutBounds.bottom );
 
     var currentChallengeNode = null; // {ChallengeNode} the challenge that is displayed
     this.disposeNodes = [];  // @private {ChallengeNode[]} nodes in this array are scheduled for disposal

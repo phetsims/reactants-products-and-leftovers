@@ -49,7 +49,7 @@ define( function( require ) {
       }
 
       if ( self.playNode === null && gamePhase === GamePhase.PLAY ) {
-        self.playNode = new PlayNode( model, self.layoutBounds, audioPlayer );
+        self.playNode = new PlayNode( model, self.layoutBounds, self.visibleBoundsProperty, audioPlayer );
         self.addChild( self.playNode );
       }
 
