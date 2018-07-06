@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var ChallengeNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ChallengeNode' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var DevGameControls = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevGameControls' );
   var FiniteStatusBar = require( 'VEGAS/FiniteStatusBar' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
@@ -42,7 +43,9 @@ define( function( require ) {
     // status bar, across the top of the screen
     var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.scoreProperty, {
       scoreDisplayConstructor: ScoreDisplayLabeledNumber,
-      levelProperty: model.levelProperty,
+
+      // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #57.
+      levelProperty: new DerivedProperty( [ model.levelProperty ], function( level ) { return level + 1; } ),
       challengeIndexProperty: model.challengeIndexProperty,
       numberOfChallengesProperty: model.numberOfChallengesProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
