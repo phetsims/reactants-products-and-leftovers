@@ -101,7 +101,7 @@ define( function( require ) {
     } );
     this.addChild( this.quantitiesNode );
 
-    // a11y - set the order in the pDOM
+    // a11y - set the order in the PDOM
     this.accessibleOrder = [ this.quantitiesNode, hBox ];
 
     // pass options to supertype
