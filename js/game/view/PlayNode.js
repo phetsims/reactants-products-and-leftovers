@@ -20,7 +20,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScoreDisplayLabeledNumber = require( 'VEGAS/ScoreDisplayLabeledNumber' );
 
   /**
@@ -65,7 +64,7 @@ define( function( require ) {
     this.addChild( statusBar );
 
     // Developer controls at top-right, below status bar
-    if ( RPALQueryParameters.showAnswers ) {
+    if ( phet.chipper.queryParameters.showAnswers ) {
       this.addChild( new DevGameControls( model, {
         right: layoutBounds.right - 5,
         top: statusBar.bottom + 5

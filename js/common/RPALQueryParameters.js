@@ -13,9 +13,6 @@ define( function( require ) {
 
   var RPALQueryParameters = QueryStringMachine.getAll( {
 
-    // shows  answers at the bottom of the Game screen, and adds 'Test', 'Skip', 'Replay' buttons
-    showAnswers: { type: 'flag' },
-
     // plays all reactions for each level of the game
     playAll: { type: 'flag' }
   } );

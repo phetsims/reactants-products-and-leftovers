@@ -30,7 +30,6 @@ define( function( require ) {
   var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -302,7 +301,7 @@ define( function( require ) {
     //------------------------------------------------------------------------------------
 
     // The answer to the current challenge, bottom center
-    if ( RPALQueryParameters.showAnswers ) {
+    if ( phet.chipper.queryParameters.showAnswers ) {
       this.addChild( new Text( DevStringUtils.quantitiesString( reaction ), {
         fill: 'red',
         font: new RPALFont( 12 ),

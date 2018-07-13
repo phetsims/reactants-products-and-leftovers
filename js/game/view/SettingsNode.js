@@ -128,7 +128,7 @@ define( function( require ) {
     Node.call( this, options );
 
     // 'Test' button at top right, runs a sanity test on the challenge generator
-    if ( RPALQueryParameters.showAnswers && !RPALQueryParameters.playAll ) {
+    if ( phet.chipper.queryParameters.showAnswers && !RPALQueryParameters.playAll ) {
       var testButton = new TextPushButton( 'Test', {
         font: new RPALFont( 10 ),
         baseColor: 'red',
