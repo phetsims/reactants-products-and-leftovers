@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.1.11 Fri Apr 27 2018 15:29:34 GMT-0600 (MDT)",
+  "comment": "# reactants-products-and-leftovers 1.1.11 Tue Jul 24 2018 17:28:43 GMT-0600 (MDT)",
   "assert": {
     "sha": "3921bc3784dc67e9cbfa31cdec52b582fcfc68e7",
     "branch": "HEAD"
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "6eaf15d84d564d20da326372ae990e885b8337ef",
+    "sha": "616de84ded1573ae98b673b37f4be6b90297121a",
     "branch": "1.1"
   },
   "scenery": {
@@ -69,7 +69,7 @@
     "branch": "HEAD"
   },
   "vibe": {
-    "sha": "8a6284991f0fc29095f472bd79d724d683f1b61c",
-    "branch": "HEAD"
+    "sha": "6a54afc5b55043c9a951bcf91825070e08c1ef5f",
+    "branch": "reactants-products-and-leftovers-1.1"
   }
 }
