@@ -40,15 +40,10 @@ define( function( require ) {
       // show results when we enter this phase
       if ( gamePhase === GamePhase.RESULTS ) {
 
-        // game reward, shown for perfect score
+        // game reward
         if ( model.isPerfectScore() ) {
           self.rewardNode = new RPALRewardNode( model.levelProperty.get() );
           self.addChild( self.rewardNode );
-
-          audioPlayer.gameOverPerfectScore();
-        }
-        else {
-          audioPlayer.gameOverImperfectScore();
         }
 
         // game results
@@ -70,6 +65,14 @@ define( function( require ) {
             centerX: layoutBounds.centerX,
             centerY: layoutBounds.centerY
           } ) );
+
+        // Play the appropriate audio feedback.
+        if ( model.isPerfectScore() ) {
+          audioPlayer.gameOverPerfectScore();
+        }
+        else {
+          audioPlayer.gameOverImperfectScore();
+        }
       }
       else {
         self.removeAllChildren();
