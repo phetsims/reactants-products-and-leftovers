@@ -42,11 +42,10 @@ define( function( require ) {
 
         // game reward, shown for perfect score
         if ( model.isPerfectScore() ) {
-
-          audioPlayer.gameOverPerfectScore();
-
           self.rewardNode = new RPALRewardNode( model.levelProperty.get() );
           self.addChild( self.rewardNode );
+
+          audioPlayer.gameOverPerfectScore();
         }
         else {
           audioPlayer.gameOverImperfectScore();
