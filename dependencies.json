@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.1.12 Wed Aug 08 2018 14:23:58 GMT-0600 (MDT)",
+  "comment": "# reactants-products-and-leftovers 1.1.12 Fri Aug 10 2018 02:15:40 GMT-0600 (MDT)",
   "assert": {
     "sha": "3921bc3784dc67e9cbfa31cdec52b582fcfc68e7",
     "branch": "HEAD"
@@ -37,11 +37,11 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "6499b9ee61b75f9d2449b88e2447e6e69786df25",
-    "branch": "HEAD"
+    "sha": "a173727bf2b324462303269863c39074f5286aae",
+    "branch": "reactants-products-and-leftovers-1.1"
   },
   "reactants-products-and-leftovers": {
-    "sha": "c810bf6a192833524cf4d629fa19229b856469ae",
+    "sha": "0aa4f4592f3276dc0a1cdd19a79f8985c3834e85",
     "branch": "1.1"
   },
   "scenery": {
