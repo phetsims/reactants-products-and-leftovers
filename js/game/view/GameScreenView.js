@@ -28,7 +28,7 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
 
-    // audio
+    // sounds
     var audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
 
     // one node for each 'phase' of the game, created on demand to improve startup time
