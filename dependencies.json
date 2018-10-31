@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.2.0 Tue Oct 30 2018 14:50:32 GMT-0600 (MDT)",
+  "comment": "# reactants-products-and-leftovers 1.2.1-rc.1 Tue Oct 30 2018 19:31:56 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -22,7 +22,7 @@
   },
   "joist": {
     "sha": "df2f1254df806b5a2e629ce3f499e8006efa50da",
-    "branch": "reactants-products-and-leftovers-1.2"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "a43e7dd976f982ec74f2d0084ec65b80ff0507e4",
@@ -65,7 +65,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "19f9183cdc3045f25a4fd46590ef8c70063f1127",
+    "sha": "ceafaf6bbc44167b36948949b1e822f592c3f708",
     "branch": "1.2"
   },
   "scenery": {
