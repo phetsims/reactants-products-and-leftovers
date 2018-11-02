@@ -12,8 +12,8 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var ReactionBarNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionBarNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -34,8 +34,8 @@ define( function( require ) {
     ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     // Properties that are specific to the view
-    var beforeExpandedProperty = new Property( true ); // {boolean} is the Before box expanded?
-    var afterExpandedProperty = new Property( true ); // {boolean} is the After box expanded
+    var beforeExpandedProperty = new BooleanProperty( true ); // {boolean} is the Before box expanded?
+    var afterExpandedProperty = new BooleanProperty( true ); // {boolean} is the After box expanded
 
     // Equation and reaction radio buttons at top of screen
     var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,

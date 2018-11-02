@@ -11,13 +11,13 @@ define( function( require ) {
 
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
-  var Property = require( 'AXON/Property' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
@@ -58,7 +58,7 @@ define( function( require ) {
      * This could be fixed by modeling this dependency, but I prefer to keep the model clean.
      */
     // unlink is unnecessary because this property is owned by this node
-    var showAllProperty = new Property( moleculesVisibleProperty.get() && numbersVisibleProperty.get() );
+    var showAllProperty = new BooleanProperty( moleculesVisibleProperty.get() && numbersVisibleProperty.get() );
     showAllProperty.link( function( value ) {
       if ( value ) {
         moleculesVisibleProperty.set( true );

@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
@@ -30,13 +31,13 @@ define( function( require ) {
     this.symbol = symbol; // @public {string}
 
     // @public {number} substance's coefficient in the reaction equation, mutable to support 'Custom' sandwich
-    this.coefficientProperty = new Property( coefficient );
+    this.coefficientProperty = new NumberProperty( coefficient );
 
     // @public {Node} visual representation of the substance, mutable to support the 'Custom' sandwich
     this.iconProperty = new Property( icon );
 
     // @public {number} how much of the substance we have
-    this.quantityProperty = new Property( quantity );
+    this.quantityProperty = new NumberProperty( quantity );
   }
 
   reactantsProductsAndLeftovers.register( 'Substance', Substance );

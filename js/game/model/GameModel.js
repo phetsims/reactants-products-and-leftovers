@@ -9,14 +9,17 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var GameTimer = require( 'VEGAS/GameTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
   var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
+  var StringProperty = require( 'AXON/StringProperty' );
 
   // constants
   var POINTS_FIRST_CHECK = 2;
@@ -35,19 +38,19 @@ define( function( require ) {
     }, options );
 
     // @public
-    this.soundEnabledProperty = new Property( true ); // {boolean} is sound turned on?
-    this.timerEnabledProperty = new Property( false ); // {boolean} is the timer turned on?
-    this.moleculesVisibleProperty = new Property( true ); // {boolean} are molecules shown in the challenge?
-    this.numbersVisibleProperty = new Property( true ); // {boolean} are quantities shown in the challenge?
+    this.soundEnabledProperty = new BooleanProperty( true ); // {boolean} is sound turned on?
+    this.timerEnabledProperty = new BooleanProperty( false ); // {boolean} is the timer turned on?
+    this.moleculesVisibleProperty = new BooleanProperty( true ); // {boolean} are molecules shown in the challenge?
+    this.numbersVisibleProperty = new BooleanProperty( true ); // {boolean} are quantities shown in the challenge?
 
     // @public (read-only)
-    this.levelProperty = new Property( 0 ); // {number} the current level, starts at 0 in the model, presented as starting from 1 in the view
-    this.scoreProperty = new Property( 0 ); // {number} how many points the user has earned for the current game
-    this.numberOfChallengesProperty = new Property( 0 ); // {number} the number of challenges in the current game being played
+    this.levelProperty = new NumberProperty( 0 ); // {number} the current level, starts at 0 in the model, presented as starting from 1 in the view
+    this.scoreProperty = new NumberProperty( 0 ); // {number} how many points the user has earned for the current game
+    this.numberOfChallengesProperty = new NumberProperty( 0 ); // {number} the number of challenges in the current game being played
     this.challengeProperty = new Property( null ); // {Challenge} the current challenge being played
-    this.challengeIndexProperty = new Property( -1 ); // {number} the index of the current challenge, -1 indicates no challenge
-    this.gamePhaseProperty = new Property( GamePhase.SETTINGS ); // {GamePhase} the current 'phase' of the game
-    this.playStateProperty = new Property( PlayState.NONE ); // {PlayState} the current 'play state' of the game
+    this.challengeIndexProperty = new NumberProperty( -1 ); // {number} the index of the current challenge, -1 indicates no challenge
+    this.gamePhaseProperty = new StringProperty( GamePhase.SETTINGS ); // {GamePhase} the current 'phase' of the game
+    this.playStateProperty = new StringProperty( PlayState.NONE ); // {PlayState} the current 'play state' of the game
 
     // These fields are @public (read-only), they should not be changed once the model is instantiated.
     this.numberOfLevels = options.numberOfLevels;
@@ -59,7 +62,7 @@ define( function( require ) {
     this.bestTimeProperties = []; // {Property.<number>[]} best times for each level, in ms
     this.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
     for ( var level = 0; level < this.numberOfLevels; level++ ) {
-      this.bestScoreProperties.push( new Property( 0 ) );
+      this.bestScoreProperties.push( new NumberProperty( 0 ) );
       this.bestTimeProperties.push( new Property( null ) ); // null if a level has no best time yet
     }
 
