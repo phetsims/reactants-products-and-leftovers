@@ -208,10 +208,10 @@ define( function( require ) {
     // @private Updates the best time for the current level, at the end of a timed game with a perfect score.
     updateBestTime: function() {
       assert && assert( !this.timer.isRunningProperty.value );
+      this.isNewBestTime = false;
       if ( this.timerEnabledProperty.get() && this.isPerfectScore() ) {
         var level = this.levelProperty.get();
         var time = this.timer.elapsedTimeProperty.value;
-        this.isNewBestTime = false;
         if ( !this.bestTimeProperties[ level ].get() ) {
           // there was no previous time for this level
           this.bestTimeProperties[ level ].set( time );
