@@ -37,11 +37,13 @@ define( function( require ) {
       fill: RPALColors.BOX_FILL,
       stroke: RPALColors.BOX_STROKE,
       cornerRadius: 3,
-      buttonTouchAreaXDilation: 10,
-      buttonTouchAreaYDilation: 10,
+      expandCollapseButtonOptions: {
+        touchAreaXDilation: 10,
+        touchAreaYDilation: 10
+      },
       titleNode: null, // {Node} optional title for the box
       titleBarOptions: {
-        fill: RPALColors.PANEL_FILL,
+        fill: RPALColors.PANEL_FILL
       },
       titleAlignX: 'center',
       buttonAlign: 'right',
