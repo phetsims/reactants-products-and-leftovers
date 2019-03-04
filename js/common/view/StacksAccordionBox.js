@@ -40,7 +40,9 @@ define( function( require ) {
       buttonTouchAreaXDilation: 10,
       buttonTouchAreaYDilation: 10,
       titleNode: null, // {Node} optional title for the box
-      titleBarFill: RPALColors.PANEL_FILL,
+      titleBarOptions: {
+        fill: RPALColors.PANEL_FILL,
+      },
       titleAlignX: 'center',
       buttonAlign: 'right',
       contentXMargin: 0,
