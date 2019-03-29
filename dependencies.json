@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.2.2-rc.1 Thu Mar 28 2019 23:37:40 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.2.2-rc.2 Fri Mar 29 2019 14:51:33 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -10,7 +10,7 @@
   },
   "brand": {
     "sha": "1cc99487560f8d366698a33254b2d0422b155add",
-    "branch": "reactants-products-and-leftovers-1.2"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "b01f70ce2d93b309ca5c4c9ebe998115659fe039",
@@ -69,7 +69,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "28cee644f4421aff79460ed3ff52175c4a3909b3",
+    "sha": "7b12ea112c24f14ecb5cea6eec1d029ffbfe0f2c",
     "branch": "1.2"
   },
   "scenery": {
