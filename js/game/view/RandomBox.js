@@ -162,8 +162,6 @@ define( function( require ) {
     self.quantityProperty.link( self.quantityPropertyObserver ); // must be unlinked in dispose
   }
 
-  reactantsProductsAndLeftovers.register( 'RandomBox.SubstanceLayer', SubstanceLayer );
-
   inherit( Node, SubstanceLayer, {
 
     // @public Ensures that this node is eligible for GC.
@@ -192,8 +190,6 @@ define( function( require ) {
 
     this.setGridPosition( gridPosition ); // initialize position
   }
-
-  reactantsProductsAndLeftovers.register( 'RandomBox.CellNode', CellNode );
 
   inherit( SubstanceIcon, CellNode, {
 
