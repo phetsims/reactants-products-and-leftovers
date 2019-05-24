@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.2.3 Wed Apr 24 2019 16:56:20 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.2.3 Fri May 24 2019 15:08:39 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -13,8 +13,8 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "e68547a8f89b8f1f36d52710781b19f7833443f4",
-    "branch": "HEAD"
+    "sha": "16f4d6ad1b9d49cd1adbac0492e5074a72918414",
+    "branch": "reactants-products-and-leftovers-1.2"
   },
   "dot": {
     "sha": "49561319ef6e86bf82c4f33d5296288896750ebc",
@@ -40,18 +40,6 @@
     "sha": "a03fa3de3803630f09556e4733f3bd050b26e1f9",
     "branch": "HEAD"
   },
-  "phet-io-wrapper-classroom-activity": {
-    "sha": "f666b06e42bf66ac5309292299b8e3869c863f3f",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-hookes-law-energy": {
-    "sha": "b3ca28bf95da20730885751e2af16cd11b592341",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-lab-book": {
-    "sha": "4144509af06bcc55b0caaa4f15b620d9114eceac",
-    "branch": "HEAD"
-  },
   "phet-io-wrappers": {
     "sha": "a5a4edc5df8a0b8bfd552cc10e8afd99de80c196",
     "branch": "HEAD"
@@ -69,7 +57,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "b16b37dac490c32afb49a55c1c0d323aecad59c5",
+    "sha": "cb579740e95375b7df754a8e344dad36e3ffc3a1",
     "branch": "1.2"
   },
   "scenery": {
