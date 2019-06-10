@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var GameAudioPlayerOld = require( 'VEGAS/GameAudioPlayerOld' );
+  var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
   var GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlayNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/PlayNode' );
@@ -29,7 +29,7 @@ define( function( require ) {
     ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     // sounds
-    var audioPlayer = new GameAudioPlayerOld( model.soundEnabledProperty );
+    var audioPlayer = new GameAudioPlayer();
 
     // one node for each 'phase' of the game, created on demand to improve startup time
     var settingsNode = null; // @private

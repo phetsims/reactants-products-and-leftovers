@@ -2,7 +2,7 @@
 
 /**
  * Portion of the scenegraph that corresponds to GamePhase.SETTINGS.
- * Displays a panel with controls used to configure a game (level selection, timer, sound, ...)
+ * Displays a panel with controls used to configure a game (level selection, timer, ...)
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,7 +26,6 @@ define( function( require ) {
   var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   var RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
   var ScoreDisplayStars = require( 'VEGAS/ScoreDisplayStars' );
-  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
@@ -43,7 +42,6 @@ define( function( require ) {
   var SCREEN_X_MARGIN = 40;
   var SCREEN_Y_MARGIN = 40;
   var QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
-  var TOGGLE_BUTTON_OPTIONS = { stroke: 'gray', scale: 1 }; // options for the Sound and Timer toggle buttons
   var MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
   /**
@@ -84,14 +82,9 @@ define( function( require ) {
       center: layoutBounds.center
     } );
 
-    // Timer and Sound toggle buttons, at bottom left
-    var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, TOGGLE_BUTTON_OPTIONS );
-    var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, TOGGLE_BUTTON_OPTIONS );
-    var toggleButtons = new LayoutBox( {
-      children: [ timerToggleButton, soundToggleButton ],
-      orientation: 'vertical',
-      align: 'center',
-      spacing: 15,
+    // Timer toggle button, at bottom left
+    var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, {
+      stroke: 'gray',
       left: layoutBounds.left + SCREEN_X_MARGIN,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
@@ -121,7 +114,7 @@ define( function( require ) {
         centerX: layoutBounds.centerX,
         centerY: ( visibilityRadioButtons.top - layoutBounds.top ) / 2
       } ),
-      toggleButtons,
+      timerToggleButton,
       visibilityRadioButtons,
       resetAllButton
     ];

@@ -38,7 +38,6 @@ define( function( require ) {
     }, options );
 
     // @public
-    this.soundEnabledProperty = new BooleanProperty( true ); // {boolean} is sound turned on?
     this.timerEnabledProperty = new BooleanProperty( false ); // {boolean} is the timer turned on?
     this.moleculesVisibleProperty = new BooleanProperty( true ); // {boolean} are molecules shown in the challenge?
     this.numbersVisibleProperty = new BooleanProperty( true ); // {boolean} are quantities shown in the challenge?
@@ -77,7 +76,6 @@ define( function( require ) {
     reset: function() {
 
       // reset Properties
-      this.soundEnabledProperty.reset();
       this.timerEnabledProperty.reset();
       this.moleculesVisibleProperty.reset();
       this.numbersVisibleProperty.reset();

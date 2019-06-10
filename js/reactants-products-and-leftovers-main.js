@@ -25,7 +25,8 @@ define( function( require ) {
       team: 'Wendy Adams, Julia Chamberlain, Patricia Loeblein, Emily B. Moore, Robert Parson, Ariel Paul, ' +
             'Kathy Perkins',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan, Oliver Orejola, Benjamin Roberts, Bryan Yoelin'
-    }
+    },
+    supportsSound: true
   };
 
   SimLauncher.launch( function() {
