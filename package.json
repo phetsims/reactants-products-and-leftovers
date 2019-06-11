@@ -13,8 +13,7 @@
     "requirejsNamespace": "REACTANTS_PRODUCTS_AND_LEFTOVERS",
     "phetLibs": [
       "nitroglycerin",
-      "vegas",
-      "vibe"
+      "vegas"
     ],
     "runnable": true,
     "supportedBrands": [
