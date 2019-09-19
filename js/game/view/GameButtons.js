@@ -7,23 +7,23 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
-  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  var RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
-  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
+  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+  const RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
+  const RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
+  const TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // strings
-  var checkString = require( 'string!VEGAS/check' );
-  var nextString = require( 'string!VEGAS/next' );
-  var showAnswerString = require( 'string!VEGAS/showAnswer' );
-  var tryAgainString = require( 'string!VEGAS/tryAgain' );
+  const checkString = require( 'string!VEGAS/check' );
+  const nextString = require( 'string!VEGAS/next' );
+  const showAnswerString = require( 'string!VEGAS/showAnswer' );
+  const tryAgainString = require( 'string!VEGAS/tryAgain' );
 
   // constants
   var BUTTON_OPTIONS = {

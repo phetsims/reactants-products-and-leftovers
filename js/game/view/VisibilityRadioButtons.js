@@ -6,27 +6,27 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  var RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  var RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  const H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+  const RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
+  const RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var hideMoleculesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/hideMolecules' );
-  var hideNumbersString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/hideNumbers' );
-  var showAllString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/showAll' );
+  const hideMoleculesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/hideMolecules' );
+  const hideNumbersString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/hideNumbers' );
+  const showAllString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/showAll' );
 
   // constants
   var TEXT_OPTIONS = { font: new RPALFont( 14 ) };

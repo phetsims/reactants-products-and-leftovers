@@ -13,16 +13,16 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FaceNode = require( 'SCENERY_PHET/FaceNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  var ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
-  var RewardNode = require( 'VEGAS/RewardNode' );
-  var SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
+  const FaceNode = require( 'SCENERY_PHET/FaceNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+  const ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
+  const RewardNode = require( 'VEGAS/RewardNode' );
+  const SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
 
   // constants
   var NUMBER_OF_NODES = 100;

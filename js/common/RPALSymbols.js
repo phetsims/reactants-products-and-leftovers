@@ -5,12 +5,12 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ChemUtils = require( 'NITROGLYCERIN/ChemUtils' );
-  var reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+  const ChemUtils = require( 'NITROGLYCERIN/ChemUtils' );
+  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   // Plain-text versions of the symbols (i18n not required)
   var SYMBOLS = [
