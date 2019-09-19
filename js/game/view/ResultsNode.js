@@ -26,7 +26,7 @@ define( require => {
    */
   function ResultsNode( model, layoutBounds, audioPlayer ) {
 
-    var self = this;
+    const self = this;
     Node.call( this );
 
     this.rewardNode = null; // @private
@@ -47,7 +47,7 @@ define( require => {
         }
 
         // game results
-        var level = model.levelProperty.get();
+        const level = model.levelProperty.get();
         self.addChild( new LevelCompletedNode(
           level + 1,
           model.scoreProperty.get(),

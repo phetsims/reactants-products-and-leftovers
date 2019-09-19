@@ -49,8 +49,8 @@ define( require => {
 
     // @public Does the user's guess match the correct answer?
     isCorrect: function() {
-      var i;
-      var correct = true;
+      let i;
+      let correct = true;
       // all reactants must be equal
       for ( i = 0; correct && i < this.reaction.reactants.length; i++ ) {
         correct = this.guess.reactants[ i ].equals( this.reaction.reactants[ i ] );
@@ -68,7 +68,7 @@ define( require => {
 
     // @public Reveals the correct answer by copying the reaction quantities to the guess.
     showAnswer: function() {
-      var i;
+      let i;
       for ( i = 0; i < this.guess.reactants.length; i++ ) {
         this.guess.reactants[ i ].quantityProperty.set( this.reaction.reactants[ i ].quantityProperty.get() );
       }

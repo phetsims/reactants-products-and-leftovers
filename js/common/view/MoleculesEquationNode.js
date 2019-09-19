@@ -36,18 +36,18 @@ define( require => {
     Node.call( this );
 
     // left-hand side (reactants)
-    var reactantsNode = createTermsNode( reaction.reactants, options );
+    const reactantsNode = createTermsNode( reaction.reactants, options );
     this.addChild( reactantsNode );
 
     // right arrow
-    var arrowNode = new RightArrowNode( { fill: options.fill, stroke: null, scale: 0.65 } );
+    const arrowNode = new RightArrowNode( { fill: options.fill, stroke: null, scale: 0.65 } );
     arrowNode.left = reactantsNode.right + options.arrowXSpacing;
-    var coefficientHeight = new Text( '1', { font: options.font, fill: options.fill } ).height;
+    const coefficientHeight = new Text( '1', { font: options.font, fill: options.fill } ).height;
     arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
     this.addChild( arrowNode );
 
     // right-hand side (products)
-    var productsNode = createTermsNode( reaction.products, options );
+    const productsNode = createTermsNode( reaction.products, options );
     productsNode.left = arrowNode.right + options.arrowXSpacing;
     this.addChild( productsNode );
 
@@ -65,15 +65,15 @@ define( require => {
    */
   var createTermsNode = function( terms, options ) {
 
-    var parentNode = new Node();
-    var numberOfTerms = terms.length;
+    const parentNode = new Node();
+    const numberOfTerms = terms.length;
 
     // hoist loop vars explicitly
-    var coefficientNode;
-    var symbolNode;
-    var plusNode;
+    let coefficientNode;
+    let symbolNode;
+    let plusNode;
 
-    for ( var i = 0; i < numberOfTerms; i++ ) {
+    for ( let i = 0; i < numberOfTerms; i++ ) {
 
       // coefficient
       coefficientNode = new Text( terms[ i ].coefficientProperty.get(), { font: options.font, fill: options.fill } );

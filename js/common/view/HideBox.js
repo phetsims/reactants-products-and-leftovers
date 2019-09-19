@@ -30,14 +30,14 @@ define( require => {
     }, options );
 
     // dashed box
-    var rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
+    const rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
       fill: 'white',
       stroke: 'rgb(180,180,180)',
       lineDash: [ 14, 14 ]
     } );
 
     // closed-eye icon
-    var eyeNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
+    const eyeNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
     eyeNode.setScaleMagnitude( options.iconHeight / eyeNode.height );
     eyeNode.center = rectangleNode.center;
 

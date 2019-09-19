@@ -30,22 +30,22 @@ define( require => {
 
     this.model = model; // @private
 
-    var self = this;
+    const self = this;
     ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     // Properties that are specific to the view
-    var beforeExpandedProperty = new BooleanProperty( true ); // {boolean} is the Before box expanded?
-    var afterExpandedProperty = new BooleanProperty( true ); // {boolean} is the After box expanded
+    const beforeExpandedProperty = new BooleanProperty( true ); // {boolean} is the Before box expanded?
+    const afterExpandedProperty = new BooleanProperty( true ); // {boolean} is the After box expanded
 
     // Equation and reaction radio buttons at top of screen
-    var reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
+    const reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
       createEquationNode,
       { screenWidth: this.layoutBounds.width } );
     this.addChild( reactionBarNode );
     reactionBarNode.top = this.layoutBounds.top;
 
     // Reset All button
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       listener: function() {
         model.reset();
@@ -71,7 +71,7 @@ define( require => {
       // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
       if ( !_.find( self.beforeAfterCache, { 'reaction': reaction } ) ) {
 
-        var beforeAfterNode = createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
+        const beforeAfterNode = createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
           centerX: self.layoutBounds.centerX,
           top: reactionBarNode.bottom + 12 // below the reaction equation
         } );

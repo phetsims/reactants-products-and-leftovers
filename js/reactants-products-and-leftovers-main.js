@@ -18,7 +18,7 @@ define( require => {
   // strings
   const reactantsProductsAndLeftoversTitleString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants-products-and-leftovers.title' );
 
-  var options = {
+  const options = {
     credits: {
       leadDesign: 'Yuen-ying Carpenter, Kelly Lancaster',
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
@@ -30,12 +30,12 @@ define( require => {
   };
 
   SimLauncher.launch( function() {
-    var screens = [
+    const screens = [
       new SandwichesScreen(),
       new MoleculesScreen(),
       new GameScreen()
     ];
-    var sim = new Sim( reactantsProductsAndLeftoversTitleString, screens, options );
+    const sim = new Sim( reactantsProductsAndLeftoversTitleString, screens, options );
     sim.start();
   } );
 } );

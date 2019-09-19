@@ -11,7 +11,7 @@ define( require => {
   // modules
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  var GamePhase = {
+  const GamePhase = {
     SETTINGS: 'SETTINGS', // user is choosing game settings (level, timer, ...)
     PLAY: 'PLAY', // user is playing the game
     RESULTS: 'RESULTS' // user is viewing results at end of a game

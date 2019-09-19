@@ -31,7 +31,7 @@ define( require => {
       name: null // {string|null} optional name, suitable for display to the user
     }, options );
 
-    var self = this;
+    const self = this;
 
     // @public
     this.name = options.name;
@@ -72,8 +72,8 @@ define( require => {
      * @public
      */
     isReaction: function() {
-      var greaterThanZero = 0;
-      var greaterThanOne = 0;
+      let greaterThanZero = 0;
+      let greaterThanOne = 0;
       this.reactants.forEach( function( reactant ) {
         if ( reactant.coefficientProperty.get() > 0 ) { greaterThanZero++; }
         if ( reactant.coefficientProperty.get() > 1 ) { greaterThanOne++; }
@@ -86,13 +86,13 @@ define( require => {
      * @protected
      */
     updateQuantities: function() {
-      var numberOfReactions = this.getNumberOfReactions();
+      const numberOfReactions = this.getNumberOfReactions();
       this.products.forEach( function( product ) {
         product.quantityProperty.set( numberOfReactions * product.coefficientProperty.get() );
       } );
       // reactants and leftovers array have identical orders
-      for ( var i = 0; i < this.reactants.length; i++ ) {
-        var quantity = this.reactants[ i ].quantityProperty.get() - ( numberOfReactions * this.reactants[ i ].coefficientProperty.get() );
+      for ( let i = 0; i < this.reactants.length; i++ ) {
+        const quantity = this.reactants[ i ].quantityProperty.get() - ( numberOfReactions * this.reactants[ i ].coefficientProperty.get() );
         this.leftovers[ i ].quantityProperty.set( quantity );
       }
     },
@@ -105,9 +105,9 @@ define( require => {
      * @private
      */
     getNumberOfReactions: function() {
-      var numberOfReactions = 0;
+      let numberOfReactions = 0;
       if ( this.isReaction() ) {
-        var possibleValues = [];
+        const possibleValues = [];
         this.reactants.forEach( function( reactant ) {
           if ( reactant.coefficientProperty.get() !== 0 ) {
             possibleValues.push( Math.floor( reactant.quantityProperty.get() / reactant.coefficientProperty.get() ) );

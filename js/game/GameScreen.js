@@ -27,14 +27,14 @@ define( require => {
   const screenGameString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.game' );
 
   // a11y strings
-  var screenGameDescription = 'Test your knowledge!';
+  const screenGameDescription = 'Test your knowledge!';
 
   /**
    * @constructor
    */
   function GameScreen() {
 
-    var options = {
+    const options = {
       name: screenGameString,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon(),
@@ -57,37 +57,37 @@ define( require => {
   var createIcon = function() {
 
     // background rectangle
-    var background = new Rectangle( 0, 0, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height,
+    const background = new Rectangle( 0, 0, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height,
       { fill: 'white' } );
 
     // smiley face
-    var faceNode = new FaceNode( 200, { headStroke: 'black', headLineWidth: 4 } );
+    const faceNode = new FaceNode( 200, { headStroke: 'black', headLineWidth: 4 } );
 
     // up/down arrows
-    var ARROW_OPTIONS = { fill: 'black' };
-    var ARROW_SIZE = 0.4 * faceNode.height;
-    var upArrowNode = new Path( new Shape()
+    const ARROW_OPTIONS = { fill: 'black' };
+    const ARROW_SIZE = 0.4 * faceNode.height;
+    const upArrowNode = new Path( new Shape()
         // clockwise from tip
         .moveTo( 0, 0 )
         .lineTo( ARROW_SIZE / 2, ARROW_SIZE )
         .lineTo( -ARROW_SIZE / 2, ARROW_SIZE )
         .close(),
       ARROW_OPTIONS );
-    var downArrowNode = new Path( new Shape()
+    const downArrowNode = new Path( new Shape()
         // clockwise from tip
         .moveTo( 0, 0 )
         .lineTo( -ARROW_SIZE / 2, -ARROW_SIZE )
         .lineTo( ARROW_SIZE / 2, -ARROW_SIZE )
         .close(),
       ARROW_OPTIONS );
-    var arrowsBox = new LayoutBox( {
+    const arrowsBox = new LayoutBox( {
       children: [ upArrowNode, downArrowNode ],
       orientation: 'vertical',
       spacing: 20
     } );
 
     // centered in background, scaled to fit
-    var contentNode = new LayoutBox( {
+    const contentNode = new LayoutBox( {
       children: [ arrowsBox, faceNode ],
       orientation: 'horizontal',
       spacing: 25

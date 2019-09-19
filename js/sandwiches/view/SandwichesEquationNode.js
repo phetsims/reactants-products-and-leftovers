@@ -33,13 +33,13 @@ define( require => {
   const noReactionString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/noReaction' );
 
   // constants
-  var COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
-  var PLUS_X_SPACING = 15; // space on both sides of the plus signs
-  var ARROW_X_SPACING = 15; // space on both sides of arrow
-  var TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
-  var PLUS_OPTIONS = { fill: 'white' };
-  var ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
-  var SPINNER_OPTIONS = {
+  const COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
+  const PLUS_X_SPACING = 15; // space on both sides of the plus signs
+  const ARROW_X_SPACING = 15; // space on both sides of arrow
+  const TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
+  const PLUS_OPTIONS = { fill: 'white' };
+  const ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
+  const SPINNER_OPTIONS = {
     font: new RPALFont( 28 ),
     touchAreaXDilation: 20,
     touchAreaYDilation: 10,
@@ -62,15 +62,15 @@ define( require => {
     this.iconNodes = []; // @private
 
     // left-hand side is the sandwich ingredients
-    var leftNode = new Node();
+    const leftNode = new Node();
 
     // hoist loop vars explicitly
-    var reactant;
-    var coefficientNode;
-    var iconNode;
-    var plusNode;
-    var numberOfReactants = reaction.reactants.length;
-    for ( var i = 0; i < numberOfReactants; i++ ) {
+    let reactant;
+    let coefficientNode;
+    let iconNode;
+    let plusNode;
+    const numberOfReactants = reaction.reactants.length;
+    for ( let i = 0; i < numberOfReactants; i++ ) {
 
       reactant = reaction.reactants[ i ];
 
@@ -106,19 +106,19 @@ define( require => {
     }
 
     // right arrow
-    var arrowNode = new RightArrowNode( ARROW_OPTIONS );
+    const arrowNode = new RightArrowNode( ARROW_OPTIONS );
     arrowNode.left = leftNode.right + ARROW_X_SPACING;
     arrowNode.centerY = leftNode.centerY;
 
     // @private right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
-    var sandwichNode = new SubstanceIcon( reaction.sandwich.iconProperty, {
+    const sandwichNode = new SubstanceIcon( reaction.sandwich.iconProperty, {
       centerX: arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 ),
       centerY: arrowNode.centerY
     } );
     this.iconNodes.push( sandwichNode );
 
     // 'No Reaction', max width determined empirically.
-    var noReactionNode = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
+    const noReactionNode = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
     noReactionNode.setScaleMagnitude( Math.min( 1, 75 / noReactionNode.width ) );
     noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
     noReactionNode.centerY = arrowNode.centerY;

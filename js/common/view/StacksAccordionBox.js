@@ -19,7 +19,7 @@ define( require => {
   const StackNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/StackNode' );
 
   // constants
-  var MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
+  const MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
 
   /**
    * @param {Substance[]} substances substances in the box
@@ -65,24 +65,24 @@ define( require => {
     }
 
     // content for the accordion box
-    var content = new Node();
+    const content = new Node();
 
     // rectangle with no fill, this ensures constant size of the content
-    var rectangle = new Rectangle( 0, 0, options.contentSize.width, options.contentSize.height, options.cornerRadius, options.cornerRadius );
+    const rectangle = new Rectangle( 0, 0, options.contentSize.width, options.contentSize.height, options.cornerRadius, options.cornerRadius );
     content.addChild( rectangle );
 
     // compute max height of the nodes in the box
-    var maxIconHeight = Math.max(
+    const maxIconHeight = Math.max(
       options.minIconSize.height,
       _.maxBy( substances, function( substance ) { return substance.iconProperty.get().height; } ).iconProperty.get().height );
 
     // vertical stacks of nodes inside the box
     this.stackNodes = []; // @private
-    var deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxIconHeight ) / ( options.maxQuantity - 1 );
-    var startCenterY = rectangle.height - options.boxYMargin - ( maxIconHeight / 2 );
-    for ( var i = 0; i < substances.length; i++ ) {
-      var substance = substances[ i ];
-      var stackNode = new StackNode( options.contentSize.height, substance.iconProperty, substance.quantityProperty, startCenterY, deltaY, {
+    const deltaY = ( options.contentSize.height - ( 2 * options.boxYMargin ) - maxIconHeight ) / ( options.maxQuantity - 1 );
+    const startCenterY = rectangle.height - options.boxYMargin - ( maxIconHeight / 2 );
+    for ( let i = 0; i < substances.length; i++ ) {
+      const substance = substances[ i ];
+      const stackNode = new StackNode( options.contentSize.height, substance.iconProperty, substance.quantityProperty, startCenterY, deltaY, {
         centerX: xOffsets[ i ]
       } );
       content.addChild( stackNode );

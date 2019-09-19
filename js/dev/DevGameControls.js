@@ -16,7 +16,7 @@ define( require => {
   const TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // constants
-  var BUTTON_OPTIONS = {
+  const BUTTON_OPTIONS = {
     font: new RPALFont( 10 ),
     baseColor: 'red',
     textFill: 'white'
@@ -35,11 +35,11 @@ define( require => {
     }, options );
 
     // replays the current challenge
-    var replayButton = new TextPushButton( '<', BUTTON_OPTIONS );
+    const replayButton = new TextPushButton( '<', BUTTON_OPTIONS );
     replayButton.addListener( function() { model.replayCurrentChallenge(); } );
 
     // skips the current challenge
-    var skipButton = new TextPushButton( '>', BUTTON_OPTIONS );
+    const skipButton = new TextPushButton( '>', BUTTON_OPTIONS );
     skipButton.addListener( function() { model.skipCurrentChallenge(); } );
 
     options.children = [ replayButton, skipButton ];

@@ -51,26 +51,26 @@ define( require => {
       minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
     }, options );
 
-    var self = this;
+    const self = this;
     Node.call( this );
 
     // convenience variables, to improve readability
-    var reaction = challenge.reaction;
-    var guess = challenge.guess;
-    var interactiveBox = challenge.interactiveBox;
+    const reaction = challenge.reaction;
+    const guess = challenge.guess;
+    const interactiveBox = challenge.interactiveBox;
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
     // which substances are visible depends on whether we're guessing 'Before' or 'After' quantities
-    var reactants = ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants;
-    var products = ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products;
-    var leftovers = ( interactiveBox === BoxType.AFTER ) ? guess.leftovers : reaction.leftovers;
+    const reactants = ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants;
+    const products = ( interactiveBox === BoxType.AFTER ) ? guess.products : reaction.products;
+    const leftovers = ( interactiveBox === BoxType.AFTER ) ? guess.leftovers : reaction.leftovers;
 
     //------------------------------------------------------------------------------------
     // Equation
     //------------------------------------------------------------------------------------
 
     // equation
-    var equationNode = new MoleculesEquationNode( reaction, {
+    const equationNode = new MoleculesEquationNode( reaction, {
       fill: 'black',
       top: challengeBounds.top + 10,
       plusXSpacing: 25,
@@ -79,7 +79,7 @@ define( require => {
     equationNode.left = challengeBounds.centerX - equationNode.arrowCenterX; // arrow at center of bounds
 
     // equations background
-    var equationBackground = new Rectangle( 0, 0, equationNode.width + 30, equationNode.height + 6, 3, 3, {
+    const equationBackground = new Rectangle( 0, 0, equationNode.width + 30, equationNode.height + 6, 3, 3, {
       fill: 'white',
       stroke: 'black',
       center: equationNode.center
@@ -93,7 +93,7 @@ define( require => {
     //------------------------------------------------------------------------------------
 
     // Check button is disabled if all guessable quantities are zero
-    var quantityProperties = [];
+    const quantityProperties = [];
     if ( interactiveBox === BoxType.BEFORE ) {
       guess.reactants.forEach( function( reactant ) { quantityProperties.push( reactant.quantityProperty ); } );
     }
@@ -104,7 +104,7 @@ define( require => {
     // @private must be detached in dispose
     this.checkButtonEnabledProperty = new DerivedProperty( quantityProperties, function() {
       // true if any quantity that the user can guess is non-zero
-      for ( var i = 0, j = arguments.length; i < j; i++ ) {
+      for ( let i = 0, j = arguments.length; i < j; i++ ) {
         if ( arguments[ i ] !== 0 ) { return true; }
       }
       return false;
@@ -115,7 +115,7 @@ define( require => {
     //------------------------------------------------------------------------------------
 
     // Arrow between boxes
-    var arrowNode = new RightArrowNode( {
+    const arrowNode = new RightArrowNode( {
       fill: RPALColors.PANEL_FILL,
       stroke: null,
       scale: 0.75,
@@ -147,13 +147,13 @@ define( require => {
     // Face
     //------------------------------------------------------------------------------------
 
-    var faceNode = null; // created on demand
+    let faceNode = null; // created on demand
 
     //------------------------------------------------------------------------------------
     // Question mark
     //------------------------------------------------------------------------------------
 
-    var questionMark = new Text( questionMarkString, {
+    const questionMark = new Text( questionMarkString, {
       font: new RPALFont( { size: 150, weight: 'bold' } ),
       maxWidth: 0.75 * options.boxSize.width // constrain width for i18n
     } );
@@ -189,8 +189,8 @@ define( require => {
     //------------------------------------------------------------------------------------
 
     // x-offsets of substances relative to their boxes
-    var beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.boxSize.width );
-    var afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.boxSize.width );
+    const beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.boxSize.width );
+    const afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.boxSize.width );
 
     // @private
     this.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
@@ -209,7 +209,7 @@ define( require => {
     // Optional 'Hide molecules' box on top of Before or After box
     //------------------------------------------------------------------------------------
 
-    var hideMoleculesBox = null;
+    let hideMoleculesBox = null;
     if ( !challenge.moleculesVisible ) {
       hideMoleculesBox = new HideBox( {
         boxSize: options.boxSize,
@@ -237,8 +237,8 @@ define( require => {
     this.playStateObserver = function( playState ) {
 
       // face
-      var faceVisible = false;
-      var facePoints = 0;
+      let faceVisible = false;
+      let facePoints = 0;
       if ( playState === PlayState.TRY_AGAIN || playState === PlayState.SHOW_ANSWER ) {
         audioPlayer.wrongAnswer();
         facePoints = 0;
@@ -275,7 +275,7 @@ define( require => {
       }
 
       // 'hide' boxes
-      var hideBoxVisible = ( playState !== PlayState.NEXT );
+      const hideBoxVisible = ( playState !== PlayState.NEXT );
       if ( hideMoleculesBox ) {
         hideMoleculesBox.visible = hideBoxVisible;
         // also hide the Before/After box, so we don't see its stroke

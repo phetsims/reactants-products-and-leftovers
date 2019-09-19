@@ -26,7 +26,7 @@ define( require => {
   const tryAgainString = require( 'string!VEGAS/tryAgain' );
 
   // constants
-  var BUTTON_OPTIONS = {
+  const BUTTON_OPTIONS = {
     font: new RPALFont( { size: 20, weight: 'bold' } ),
     baseColor: RPALColors.GAME_BUTTON,
     opacity: 0.65,
@@ -45,11 +45,11 @@ define( require => {
 
     options = options || {};
 
-    var self = this;
+    const self = this;
     Node.call( this, options );
 
     // check button is needed immediately, so create it so this node has well-defined bounds (needed for layout)
-    var checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
+    const checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
     this.addChild( checkButton );
     checkButton.addListener( function() { model.check(); } );
 
@@ -59,9 +59,9 @@ define( require => {
     this.checkButtonEnabledProperty.link( this.checkButtonEnabledObserver ); // must be unlinked in dispose
 
     // other buttons, created on demand
-    var tryAgainButton;
-    var showAnswerButton;
-    var nextButton;
+    let tryAgainButton;
+    let showAnswerButton;
+    let nextButton;
 
     // @private
     this.playStateObserver = function( state ) {

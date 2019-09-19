@@ -29,9 +29,9 @@ define( require => {
   function SandwichesScreenView( model ) {
 
     // compute the size of the largest sandwich, used for view layout
-    var maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
-    var maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient );
-    var maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
+    const maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
+    const maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient );
+    const maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
 
     RPALScreenView.call( this, model,
 

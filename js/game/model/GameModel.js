@@ -22,8 +22,8 @@ define( require => {
   const StringProperty = require( 'AXON/StringProperty' );
 
   // constants
-  var POINTS_FIRST_CHECK = 2;
-  var POINTS_SECOND_CHECK = 1;
+  const POINTS_FIRST_CHECK = 2;
+  const POINTS_SECOND_CHECK = 1;
 
   /**
    * @param {Object} [options]
@@ -60,7 +60,7 @@ define( require => {
     this.bestScoreProperties = []; // {Property.<number>[]} best scores for each level
     this.bestTimeProperties = []; // {Property.<number>[]} best times for each level, in ms
     this.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
-    for ( var level = 0; level < this.numberOfLevels; level++ ) {
+    for ( let level = 0; level < this.numberOfLevels; level++ ) {
       this.bestScoreProperties.push( new NumberProperty( 0 ) );
       this.bestTimeProperties.push( new Property( null ) ); // null if a level has no best time yet
     }
@@ -122,14 +122,14 @@ define( require => {
 
     // @public Checks the current guess
     check: function() {
-      var playState = this.playStateProperty.get();
+      const playState = this.playStateProperty.get();
       assert && assert( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
       if ( this.challengeProperty.get().isCorrect() ) {
         // stop the timer as soon as we successfully complete the last challenge
         if ( this.challengeIndexProperty.get() === this.challenges.length - 1 ) {
           this.timer.stop();
         }
-        var points = ( playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
+        const points = ( playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
         this.challengeProperty.get().points = points;
         this.scoreProperty.set( this.scoreProperty.get() + points );
         this.playStateProperty.set( PlayState.NEXT );
@@ -197,7 +197,7 @@ define( require => {
 
     // @private Updates the best score for the current level.
     updateBestScore: function() {
-      var level = this.levelProperty.get();
+      const level = this.levelProperty.get();
       if ( this.scoreProperty.get() > this.bestScoreProperties[ level ].get() ) {
         this.bestScoreProperties[ level ].set( this.scoreProperty.get() );
       }
@@ -208,8 +208,8 @@ define( require => {
       assert && assert( !this.timer.isRunningProperty.value );
       this.isNewBestTime = false;
       if ( this.timerEnabledProperty.get() && this.isPerfectScore() ) {
-        var level = this.levelProperty.get();
-        var time = this.timer.elapsedTimeProperty.value;
+        const level = this.levelProperty.get();
+        const time = this.timer.elapsedTimeProperty.value;
         if ( !this.bestTimeProperties[ level ].get() ) {
           // there was no previous time for this level
           this.bestTimeProperties[ level ].set( time );

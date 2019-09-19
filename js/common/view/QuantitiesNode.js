@@ -34,18 +34,18 @@ define( require => {
   const reactantsString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/reactants' );
 
   // constants
-  var QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
-  var SYMBOL_FONT = new RPALFont( 16 ); // font for the symbols that appear below the boxes
-  var QUANTITY_IMAGE_Y_SPACING = 4; // vertical space between quantity and image
-  var IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
-  var BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
-  var BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
-  var BRACKET_LABEL_OPTIONS = {
+  const QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
+  const SYMBOL_FONT = new RPALFont( 16 ); // font for the symbols that appear below the boxes
+  const QUANTITY_IMAGE_Y_SPACING = 4; // vertical space between quantity and image
+  const IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
+  const BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
+  const BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
+  const BRACKET_LABEL_OPTIONS = {
     font: new RPALFont( 12 ),
     fill: 'black',
     maxWidth: 140 // maximum width of bracket labels, determined empirically
   };
-  var SPINNER_OPTIONS = {
+  const SPINNER_OPTIONS = {
     font: QUANTITY_FONT,
     touchAreaXDilation: 20,
     touchAreaYDilation: 10,
@@ -84,22 +84,22 @@ define( require => {
     this.interactiveBox = options.interactiveBox; // @private
 
     // explicitly hoist reused vars
-    var i;
-    var reactant;
-    var product;
-    var leftover;
-    var centerX;
-    var numberNode;
-    var spinnerNode;
-    var iconNode;
-    var symbolNode;
+    let i;
+    let reactant;
+    let product;
+    let leftover;
+    let centerX;
+    let numberNode;
+    let spinnerNode;
+    let iconNode;
+    let symbolNode;
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
     this.spinnerNodes = []; // @private {NumberSpinner[]}
     this.beforeNumberNodes = []; // @private {NumberNode[]}
     this.afterNumberNodes = []; // @private {NumberNode[]}
     this.iconNodes = []; // @private {SubstanceIcon[]}
-    var symbolNodes = [];
+    const symbolNodes = [];
 
     // reactants, below the 'Before' box
     this.reactantsParent = new Node(); // @private
@@ -210,11 +210,11 @@ define( require => {
      * Vertical layout of components below the boxes.
      * Ensures that all similar components (spinners, numbers, icons, symbols) are vertically centered.
      */
-    var spinnerHeight = this.spinnerNodes[ 0 ].height;
-    var maxIconHeight = Math.max(
+    const spinnerHeight = this.spinnerNodes[ 0 ].height;
+    const maxIconHeight = Math.max(
       options.minIconSize.height,
       _.maxBy( this.iconNodes, function( node ) { return node.height; } ).height );
-    var maxSymbolHeight = symbolNodes.length ? _.maxBy( symbolNodes, function( node ) { return node.height; } ).height: 0;
+    const maxSymbolHeight = symbolNodes.length ? _.maxBy( symbolNodes, function( node ) { return node.height; } ).height: 0;
 
     this.spinnerNodes.forEach( function( spinnerNode ) {
       spinnerNode.centerY = ( spinnerHeight / 2 );
@@ -235,14 +235,14 @@ define( require => {
     }
 
     // top of brackets is relative to the bottom of the stuff above
-    var bracketsTop = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight + BRACKET_Y_SPACING;
+    let bracketsTop = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight + BRACKET_Y_SPACING;
     if ( options.showSymbols ) {
       bracketsTop += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
     }
 
     // 'Reactants' bracket
-    var reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
-    var reactantsBracket = new BracketNode( {
+    const reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
+    const reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
       bracketLength: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
@@ -252,8 +252,8 @@ define( require => {
     this.addChild( reactantsBracket );
 
     // 'Products' bracket
-    var productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
-    var productsBracket = new BracketNode( {
+    const productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
+    const productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
       bracketLength: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
@@ -263,8 +263,8 @@ define( require => {
     this.addChild( productsBracket );
 
     // 'Leftovers' bracket
-    var leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
-    var leftoversBracket = new BracketNode( {
+    const leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
+    const leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,
       bracketLength: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
@@ -307,10 +307,10 @@ define( require => {
       // spinners
       this.spinnerNodes.forEach( function( spinnerNode ) { spinnerNode.visible = interactive; } );
 
-      var centerY = this.spinnerNodes[ 0 ].height / 2;
-      var i;
-      var numberNode;
-      var centerX; // explicitly hoist loop vars
+      const centerY = this.spinnerNodes[ 0 ].height / 2;
+      let i;
+      let numberNode;
+      let centerX; // explicitly hoist loop vars
 
       if ( this.interactiveBox === BoxType.BEFORE ) {
 
@@ -396,11 +396,11 @@ define( require => {
      * @public
      */
     createXOffsets: function( numberOfSubstances, boxWidth ) {
-      var xOffsets = [];
-      var xMargin = ( numberOfSubstances > 2 ) ? 0 : ( 0.15 * boxWidth ); // make 2-reactant case look nice
-      var deltaX = ( boxWidth - ( 2 * xMargin ) ) / numberOfSubstances;
-      var xOffset = xMargin + ( deltaX / 2 );
-      for ( var i = 0; i < numberOfSubstances; i++ ) {
+      const xOffsets = [];
+      const xMargin = ( numberOfSubstances > 2 ) ? 0 : ( 0.15 * boxWidth ); // make 2-reactant case look nice
+      const deltaX = ( boxWidth - ( 2 * xMargin ) ) / numberOfSubstances;
+      let xOffset = xMargin + ( deltaX / 2 );
+      for ( let i = 0; i < numberOfSubstances; i++ ) {
         xOffsets.push( xOffset );
         xOffset += deltaX;
       }

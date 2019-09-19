@@ -49,9 +49,9 @@ define( require => {
   const SO3Node = require( 'NITROGLYCERIN/nodes/SO3Node' );
 
   // constants
-  var MOLECULE_OPTIONS = { atomOptions: { stroke: 'black', lineWidth: 0.5, scale: 1 } };
+  const MOLECULE_OPTIONS = { atomOptions: { stroke: 'black', lineWidth: 0.5, scale: 1 } };
 
-  var MoleculeNodes = {
+  const MoleculeNodes = {
     C2H2: new C2H2Node( MOLECULE_OPTIONS ),
     C2H4: new C2H4Node( MOLECULE_OPTIONS ),
     C2H5Cl: new C2H5ClNode( MOLECULE_OPTIONS ),

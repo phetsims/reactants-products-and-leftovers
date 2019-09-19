@@ -22,7 +22,7 @@ define( require => {
   const screenSandwichesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.sandwiches' );
 
   // a11y strings
-  var screenSandwichesDescription = 'Interact with sandwiches';
+  const screenSandwichesDescription = 'Interact with sandwiches';
 
   // images
   const homeImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-home.png' );
@@ -33,7 +33,7 @@ define( require => {
    */
   function SandwichesScreen() {
 
-    var options = {
+    const options = {
       name: screenSandwichesString,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: new Image( homeImage ),

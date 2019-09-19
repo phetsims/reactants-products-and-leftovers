@@ -45,24 +45,24 @@ define( require => {
       randomOffset: 8
     }, options );
 
-    var self = this;
+    const self = this;
     Node.call( this );
 
     /*
      * Compute the size of the grid needed to accommodate the maximum number of nodes.
      * Assume that the box is square-ish, so can have the same number of rows and columns.
      */
-    var rows = Util.roundSymmetric( Math.sqrt( substances.length * options.maxQuantity ) );
-    var columns = rows;
+    const rows = Util.roundSymmetric( Math.sqrt( substances.length * options.maxQuantity ) );
+    const columns = rows;
 
     // Compute positions in the grid, this is our 'pool' of positions.
-    var positions = [];
-    var dx = Math.floor( ( options.boxSize.width - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / columns );
-    var dy = Math.floor( ( options.boxSize.height - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / rows );
-    for ( var column = 0; column < columns; column++ ) {
-      for ( var row = 0; row < rows; row++ ) {
-        var x = options.margin + options.randomOffset + ( dx / 2 ) + ( column * dx );
-        var y = options.margin + options.randomOffset + ( dy / 2 ) + ( row * dy );
+    const positions = [];
+    const dx = Math.floor( ( options.boxSize.width - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / columns );
+    const dy = Math.floor( ( options.boxSize.height - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / rows );
+    for ( let column = 0; column < columns; column++ ) {
+      for ( let row = 0; row < rows; row++ ) {
+        const x = options.margin + options.randomOffset + ( dx / 2 ) + ( column * dx );
+        const y = options.margin + options.randomOffset + ( dy / 2 ) + ( row * dy );
         positions.push( new Vector2( x, y ) );
       }
     }
@@ -72,10 +72,10 @@ define( require => {
      * Chooses a random position and remove it from the pool of positions.
      * @returns {Vector2}
      */
-    var choosePosition = function() {
+    const choosePosition = function() {
       assert && assert( positions.length > 0 );
-      var index = phet.joist.random.nextIntBetween( 0, positions.length - 1 );
-      var position = positions[ index ];
+      const index = phet.joist.random.nextIntBetween( 0, positions.length - 1 );
+      const position = positions[ index ];
       positions.splice( index, 1 );
       return position;
     };
@@ -84,12 +84,12 @@ define( require => {
      * Puts a position back in the pool of positions.
      * @param {Vector2} position
      */
-    var releasePosition = function( position ) {
+    const releasePosition = function( position ) {
       positions.push( position );
     };
 
     // the box
-    var boxNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
+    const boxNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
       fill: options.fill,
       stroke: options.stroke
     } );
@@ -97,9 +97,9 @@ define( require => {
 
     // substances inside the box
     this.substanceLayers = []; // @private [{SubstanceLayer}]
-    var parent = new Node();
+    const parent = new Node();
     substances.forEach( function( substance ) {
-      var substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty, options.randomOffset, choosePosition, releasePosition );
+      const substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty, options.randomOffset, choosePosition, releasePosition );
       parent.addChild( substanceLayer );
       self.substanceLayers.push( substanceLayer );
     } );
@@ -123,22 +123,22 @@ define( require => {
    */
   function SubstanceLayer( iconProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
 
-    var self = this;
+    const self = this;
     Node.call( self );
 
     self.cellNodes = []; // @private {CellNode[]}
 
     self.quantityPropertyObserver = function( quantity ) {
 
-      var count = Math.max( quantity, self.getChildrenCount() );
+      const count = Math.max( quantity, self.getChildrenCount() );
 
-      for ( var i = 0; i < count; i++ ) {
+      for ( let i = 0; i < count; i++ ) {
 
         if ( i < self.getChildrenCount() ) {
 
           // node already exists
-          var node = self.getChildAt( i );
-          var nodeWasVisible = node.visible;
+          const node = self.getChildAt( i );
+          const nodeWasVisible = node.visible;
           node.visible = ( i < quantity );
 
           if ( node.visible && !nodeWasVisible ) {
@@ -152,7 +152,7 @@ define( require => {
         }
         else {
           // add a node
-          var cellNode = new CellNode( iconProperty, choosePosition(), randomOffset );
+          const cellNode = new CellNode( iconProperty, choosePosition(), randomOffset );
           self.addChild( cellNode );
           self.cellNodes.push( cellNode );
         }

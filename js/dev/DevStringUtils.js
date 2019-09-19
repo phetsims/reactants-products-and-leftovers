@@ -22,7 +22,7 @@ define( require => {
      * @static
      */
     equationString: function( reaction ) {
-      var s = '';
+      let s = '';
       // reactants
       for ( var i = 0; i < reaction.reactants.length; i++ ) {
         if ( i !== 0 ) { s += '+ '; }
@@ -49,8 +49,8 @@ define( require => {
      * @static
      */
     quantitiesString: function( reaction ) {
-      var s = '';
-      var i = 0;
+      let s = '';
+      let i = 0;
       // reactants
       for ( i = 0; i < reaction.reactants.length; i++ ) {
         if ( i !== 0 ) { s += ','; }

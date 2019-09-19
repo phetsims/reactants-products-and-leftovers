@@ -24,14 +24,14 @@ define( require => {
   const screenMoleculesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
 
   // a11y strings
-  var screenMoleculesDescriptionString = 'Investigate molecules';
+  const screenMoleculesDescriptionString = 'Investigate molecules';
 
   /**
    * @constructor
    */
   function MoleculesScreen() {
 
-    var options = {
+    const options = {
       name: screenMoleculesString,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
@@ -60,12 +60,12 @@ define( require => {
     }, options );
 
     // background rectangle
-    var width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-    var height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
-    var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
+    const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
+    const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
+    const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
     // H2O molecule, scaled to fit and centered on background
-    var moleculeNode = new H2ONode( { atomOptions: { stroke: 'black', lineWidth: options.moleculeLineWidth } } );
+    const moleculeNode = new H2ONode( { atomOptions: { stroke: 'black', lineWidth: options.moleculeLineWidth } } );
     moleculeNode.setScaleMagnitude(
       Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
     moleculeNode.center = background.center;

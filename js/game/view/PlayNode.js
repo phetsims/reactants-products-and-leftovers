@@ -31,7 +31,7 @@ define( require => {
    */
   function PlayNode( model, layoutBounds, visibleBoundsProperty, audioPlayer ) {
 
-    var self = this;
+    const self = this;
     Node.call( this );
 
     // @private
@@ -40,7 +40,7 @@ define( require => {
     this.audioPlayer = audioPlayer;
 
     // status bar, across the top of the screen
-    var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.scoreProperty, {
+    const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.scoreProperty, {
       scoreDisplayConstructor: ScoreDisplayLabeledNumber,
 
       // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #57.
@@ -74,7 +74,7 @@ define( require => {
     // @private challenge will be displayed in the area below the status bar
     this.challengeBounds = new Bounds2( layoutBounds.left, statusBar.bottom, layoutBounds.right, layoutBounds.bottom );
 
-    var currentChallengeNode = null; // {ChallengeNode} the challenge that is displayed
+    let currentChallengeNode = null; // {ChallengeNode} the challenge that is displayed
     this.disposeNodes = [];  // @private {ChallengeNode[]} nodes in this array are scheduled for disposal
     this.nextChallengeNode = null; // @private {ChallengeNode} the next challenge, preloaded to improve responsiveness
     this.stepsSinceDisposal = 0;  // @private number of times that step() has been called since a node was schedule for disposal
@@ -150,7 +150,7 @@ define( require => {
        */
       this.stepsSinceDisposal++;
       if ( this.stepsSinceDisposal >= 2 && this.disposeNodes.length > 0 ) {
-        for ( var i = 0; i < this.disposeNodes.length; i++ ) {
+        for ( let i = 0; i < this.disposeNodes.length; i++ ) {
           this.removeChild( this.disposeNodes[ i ] );
           this.disposeNodes[ i ].dispose();
         }
@@ -163,7 +163,7 @@ define( require => {
        * The user will presumably be distracted processing what they see on the screen, so won't notice the brief interruption.
        */
       this.stepsSinceUpdate++;
-      var challengeIndex = this.model.challengeIndexProperty.get();
+      const challengeIndex = this.model.challengeIndexProperty.get();
       if ( this.stepsSinceUpdate >= 2 && this.visible && !this.nextChallengeNode && challengeIndex < this.model.challenges.length - 1 ) {
         this.nextChallengeNode = new ChallengeNode( this.model, this.model.challenges[ challengeIndex + 1 ], this.challengeBounds, this.audioPlayer );
         this.nextChallengeNode.visible = false;

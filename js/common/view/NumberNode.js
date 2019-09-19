@@ -25,7 +25,7 @@ define( require => {
       decimalPlaces: 0  // number of decimal places to be displayed
     }, options );
 
-    var self = this;
+    const self = this;
 
     Text.call( this, '' );
 

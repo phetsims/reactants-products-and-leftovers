@@ -25,14 +25,14 @@ define( require => {
    */
   function GameScreenView( model ) {
 
-    var self = this;
+    const self = this;
     ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
 
     // sounds
-    var audioPlayer = new GameAudioPlayer();
+    const audioPlayer = new GameAudioPlayer();
 
     // one node for each 'phase' of the game, created on demand to improve startup time
-    var settingsNode = null; // @private
+    let settingsNode = null; // @private
     this.playNode = null; // @private
     this.resultsNode = null; // @private
 

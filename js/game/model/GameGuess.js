@@ -35,7 +35,7 @@ define( require => {
 
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
-    var self = this;
+    const self = this;
 
     // @public Clone reactants, quantities are initialized to zero for 'Before' challenges.
     this.reactants = [];

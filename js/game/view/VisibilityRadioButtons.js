@@ -29,11 +29,11 @@ define( require => {
   const showAllString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/showAll' );
 
   // constants
-  var TEXT_OPTIONS = { font: new RPALFont( 14 ) };
-  var RADIO_BUTTON_OPTIONS = { radius: 8, xSpacing: 10 };
-  var FONT_AWESOME_OPTIONS = { scale: 0.5 };
-  var X_DILATION = 10; // dilate touchArea for radio buttons
-  var Y_DILATION = 6; // dilate touchArea for radio buttons
+  const TEXT_OPTIONS = { font: new RPALFont( 14 ) };
+  const RADIO_BUTTON_OPTIONS = { radius: 8, xSpacing: 10 };
+  const FONT_AWESOME_OPTIONS = { scale: 0.5 };
+  const X_DILATION = 10; // dilate touchArea for radio buttons
+  const Y_DILATION = 6; // dilate touchArea for radio buttons
 
   /**
    * @param {Property.<boolean>} moleculesVisibleProperty are molecules visible in challenges?
@@ -58,7 +58,7 @@ define( require => {
      * This could be fixed by modeling this dependency, but I prefer to keep the model clean.
      */
     // unlink is unnecessary because this property is owned by this node
-    var showAllProperty = new BooleanProperty( moleculesVisibleProperty.get() && numbersVisibleProperty.get() );
+    const showAllProperty = new BooleanProperty( moleculesVisibleProperty.get() && numbersVisibleProperty.get() );
     showAllProperty.link( function( value ) {
       if ( value ) {
         moleculesVisibleProperty.set( true );
@@ -89,9 +89,9 @@ define( require => {
     } );
 
     // radio buttons
-    var showAllRadioButton = new AquaRadioButton( showAllProperty, true, createShowAllNode(), RADIO_BUTTON_OPTIONS );
-    var hideMoleculesButton = new AquaRadioButton( moleculesVisibleProperty, false, createHideMoleculesNode(), RADIO_BUTTON_OPTIONS );
-    var hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, createHideNumbersNode(), RADIO_BUTTON_OPTIONS );
+    const showAllRadioButton = new AquaRadioButton( showAllProperty, true, createShowAllNode(), RADIO_BUTTON_OPTIONS );
+    const hideMoleculesButton = new AquaRadioButton( moleculesVisibleProperty, false, createHideMoleculesNode(), RADIO_BUTTON_OPTIONS );
+    const hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, createHideNumbersNode(), RADIO_BUTTON_OPTIONS );
 
     // expand touchArea
     showAllRadioButton.touchArea = showAllRadioButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
@@ -99,7 +99,7 @@ define( require => {
     hideNumbersButton.touchArea = hideNumbersButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
 
     // vertical layout
-    var content = new LayoutBox( {
+    const content = new LayoutBox( {
       children: [ showAllRadioButton, hideMoleculesButton, hideNumbersButton ],
       orientation: 'vertical',
       align: 'left',
@@ -116,8 +116,8 @@ define( require => {
    * @returns {Node}
    */
   var createShowAllNode = function() {
-    var eyeNode = new FontAwesomeNode( 'eye_open', FONT_AWESOME_OPTIONS );
-    var textNode = new Text( showAllString, TEXT_OPTIONS );
+    const eyeNode = new FontAwesomeNode( 'eye_open', FONT_AWESOME_OPTIONS );
+    const textNode = new Text( showAllString, TEXT_OPTIONS );
     return new LayoutBox( {
       children: [ eyeNode, textNode ],
       orientation: 'horizontal',
@@ -131,15 +131,15 @@ define( require => {
    * @returns {Node}
    */
   var createHideMoleculesNode = function() {
-    var eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
-    var moleculeNode = new Node( {
+    const eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
+    const moleculeNode = new Node( {
       // wrap in a Node because H2ONode doesn't work with standard options
       children: [ new H2ONode( RPALConstants.MOLECULE_OPTIONS ) ],
       scale: 0.4,
       centerX: eyeNode.right,
       centerY: eyeNode.bottom
     } );
-    var textNode = new Text( hideMoleculesString, TEXT_OPTIONS );
+    const textNode = new Text( hideMoleculesString, TEXT_OPTIONS );
     return new LayoutBox( {
       children: [ new Node( { children: [ eyeNode, moleculeNode ] } ), textNode ],
       orientation: 'horizontal',
@@ -153,13 +153,13 @@ define( require => {
    * @returns {Node}
    */
   var createHideNumbersNode = function() {
-    var eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
-    var numbersNode = new Text( '123', {
+    const eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
+    const numbersNode = new Text( '123', {
       font: new RPALFont( 8 ),
       centerX: eyeNode.right + 2,
       centerY: eyeNode.bottom
     } );
-    var textNode = new Text( hideNumbersString, TEXT_OPTIONS );
+    const textNode = new Text( hideNumbersString, TEXT_OPTIONS );
     return new LayoutBox( {
       children: [ new Node( { children: [ eyeNode, numbersNode ] } ), textNode ],
       orientation: 'horizontal',

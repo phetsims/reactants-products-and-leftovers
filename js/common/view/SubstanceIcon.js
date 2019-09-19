@@ -37,7 +37,7 @@ define( require => {
    */
   function SubstanceIcon( iconProperty, options ) {
 
-    var self = this;
+    const self = this;
     Node.call( this );
 
     // @private Add an additional wrapper, so that we can maintain the node's center.

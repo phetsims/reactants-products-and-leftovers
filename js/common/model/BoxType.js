@@ -11,7 +11,7 @@ define( require => {
   // modules
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  var BoxType = {
+  const BoxType = {
     BEFORE: 'BEFORE', // before the reaction started
     AFTER: 'AFTER' // after the reaction completes
   };

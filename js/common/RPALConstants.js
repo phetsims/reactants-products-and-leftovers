@@ -14,7 +14,7 @@ define( require => {
   const Range = require( 'DOT/Range' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  var RPALConstants = {
+  const RPALConstants = {
 
     SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 835, 504 ) },
     MOLECULE_OPTIONS: { atomOptions: { stroke: 'black', lineWidth: 0.5, scale: 1 } },

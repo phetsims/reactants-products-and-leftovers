@@ -32,7 +32,7 @@ define( require => {
   const beforeReactionString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/beforeReaction' );
 
   // constants
-  var TITLE_OPTIONS = { font: new RPALFont( 14 ), fill: 'white' }; // box titles
+  const TITLE_OPTIONS = { font: new RPALFont( 14 ), fill: 'white' }; // box titles
 
   /**
    * @param {Reaction} reaction the reaction to be displayed
@@ -56,13 +56,13 @@ define( require => {
     Node.call( this );
 
     // vars to improve readability
-    var reactants = reaction.reactants;
-    var products = reaction.products;
-    var leftovers = reaction.leftovers;
+    const reactants = reaction.reactants;
+    const products = reaction.products;
+    const leftovers = reaction.leftovers;
 
     // x-offsets of the substances relative to their boxes
-    var beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.contentSize.width );
-    var afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
+    const beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.contentSize.width );
+    const afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
 
     // @private 'Before Reaction' box, with stacks of reactants
     this.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, _.extend( {
@@ -79,10 +79,10 @@ define( require => {
     }, options ) );
 
     // Arrow between boxes
-    var arrowNode = new RightArrowNode( { fill: RPALColors.PANEL_FILL, stroke: null, scale: 0.75 } );
+    const arrowNode = new RightArrowNode( { fill: RPALColors.PANEL_FILL, stroke: null, scale: 0.75 } );
 
     // layout of boxes and arrow
-    var hBox = new LayoutBox( {
+    const hBox = new LayoutBox( {
       children: [ this.beforeBox, arrowNode, this.afterBox ],
       orientation: 'horizontal',
       spacing: 10

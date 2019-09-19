@@ -30,7 +30,7 @@ define( require => {
    */
   function StackNode( height, iconProperty, quantityProperty, startCenterY, deltaY, options ) {
 
-    var self = this;
+    const self = this;
     Node.call( this );
 
     /*
@@ -41,23 +41,23 @@ define( require => {
     this.addChild( new Line( 0, 0, 0, height ) );
 
     // parent for all items in the stack
-    var itemsParent = new Node();
+    const itemsParent = new Node();
     this.addChild( itemsParent );
 
     // update the number of nodes in the stack
     this.iconNodes = []; // @private {SubstanceIcon[]}
     this.quantityPropertyObserver = function( quantity ) { // @private
 
-      var count = Math.max( quantity, itemsParent.getChildrenCount() );
+      const count = Math.max( quantity, itemsParent.getChildrenCount() );
 
-      for ( var i = 0; i < count; i++ ) {
+      for ( let i = 0; i < count; i++ ) {
         if ( i < itemsParent.getChildrenCount() ) {
           // set visibility of a node that already exists
           itemsParent.getChildAt( i ).visible = ( i < quantity );
         }
         else {
           // add a node
-          var iconNode = new SubstanceIcon( iconProperty, {
+          const iconNode = new SubstanceIcon( iconProperty, {
             centerX: 0,
             centerY: startCenterY - ( i * deltaY )
           } );

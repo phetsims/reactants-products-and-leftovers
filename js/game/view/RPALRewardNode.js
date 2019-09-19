@@ -25,8 +25,8 @@ define( require => {
   const SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
 
   // constants
-  var NUMBER_OF_NODES = 100;
-  var FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
+  const NUMBER_OF_NODES = 100;
+  const FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
 
   /**
    * @param {number} level game level, starting at zero
@@ -40,8 +40,8 @@ define( require => {
   reactantsProductsAndLeftovers.register( 'RPALRewardNode', RPALRewardNode );
 
   // Level 1: molecules, @returns {Node[]}
-  var createNodesLevel1 = function() {
-    var nodes = [];
+  const createNodesLevel1 = function() {
+    const nodes = [];
     ReactionFactory.moleculeNodeConstructors.forEach( function( MoleculeNodeConstructor ) {
       nodes.push( new MoleculeNodeConstructor() );
     } );
@@ -49,8 +49,8 @@ define( require => {
   };
 
   // Level 2: smiley faces (various colors), @returns {Node[]}
-  var createNodesLevel2 = function() {
-    var nodes = [];
+  const createNodesLevel2 = function() {
+    const nodes = [];
     FACE_COLORS.forEach( function( color ) {
       nodes.push( new FaceNode( 40, { headFill: color } ) );
     } );
@@ -58,8 +58,8 @@ define( require => {
   };
 
   // Level 3: sandwiches, @returns {Node[]}
-  var createNodesLevel3 = function() {
-    var nodes = [
+  const createNodesLevel3 = function() {
+    const nodes = [
       // args: bread, meat, cheese
       new SandwichNode( 3, 3, 3 ),
       new SandwichNode( 2, 1, 2 ),

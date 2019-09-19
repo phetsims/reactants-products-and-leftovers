@@ -35,15 +35,15 @@ define( require => {
       showSymbols: true // true = show symbols, false = show nodes
     }, options );
 
-    var self = this;
+    const self = this;
 
     // radio buttons for choosing a reaction, scaled to fit for i18n
-    var radioButtons = new ReactionRadioButtons( reactionProperty, reactions, {
+    const radioButtons = new ReactionRadioButtons( reactionProperty, reactions, {
       maxWidth: 0.25 * options.screenWidth // constrain width for i18n
     } );
 
     // background, extra wide so that it will appear to fill the window for all but extreme window sizes
-    var backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, radioButtons.height + ( 2 * options.yMargin ), {
+    const backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, radioButtons.height + ( 2 * options.yMargin ), {
       fill: options.fill,
       centerX: options.screenWidth / 2
     } );
@@ -69,15 +69,15 @@ define( require => {
       if ( !_.find( self.equationCache, { 'reaction': reaction } ) ) {
 
         // create equation for the reaction
-        var equationNode = createEquationNode( reaction );
+        const equationNode = createEquationNode( reaction );
         self.addChild( equationNode );
 
         // a11y - as the equations are created, we want them all to be before the radio buttons in focus order
         self.accessibleOrder = [ equationNode ].concat( self.accessibleOrder );
 
         // scale the equation if it's too wide to fit the available space
-        var availableWidth = radioButtons.left - ( 2 * options.xMargin );
-        var scale = Math.min( 1, availableWidth / equationNode.width );
+        const availableWidth = radioButtons.left - ( 2 * options.xMargin );
+        const scale = Math.min( 1, availableWidth / equationNode.width );
         equationNode.setScaleMagnitude( scale );
 
         // center the equation in the space to the left of the controls

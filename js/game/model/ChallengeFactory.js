@@ -30,10 +30,10 @@ define( require => {
   const RPALQueryParameters = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALQueryParameters' );
 
   // constants
-  var CHALLENGES_PER_LEVEL = 5;
+  const CHALLENGES_PER_LEVEL = 5;
 
   // level 2 is all the one-product reactions
-  var LEVEL2_POOL = [
+  const LEVEL2_POOL = [
     ReactionFactory.Reaction_PCl3_Cl2__PCl5, // PCl5 is the largest molecule in this pool, so put this first for layout debugging
     ReactionFactory.makeWater,
     ReactionFactory.Reaction_H2_F2__2HF,
@@ -58,7 +58,7 @@ define( require => {
   ];
 
   // level 3 is all the two-product reactions
-  var LEVEL3_POOL = [
+  const LEVEL3_POOL = [
     ReactionFactory.Reaction_C2H5OH_3O2__2CO2_3H2O, // C2H5OH has the most atoms in this pool, so put this first for performance debugging
     ReactionFactory.Reaction_2C_2H2O__CH4_CO2,
     ReactionFactory.Reaction_CH4_H2O__3H2_CO,
@@ -80,15 +80,15 @@ define( require => {
   ];
 
   // level 1 is all the reactions
-  var LEVEL1_POOL = LEVEL2_POOL.concat( LEVEL3_POOL );
+  const LEVEL1_POOL = LEVEL2_POOL.concat( LEVEL3_POOL );
 
   // 'pools' of factory functions, indexed by level
-  var POOLS = [ LEVEL1_POOL, LEVEL2_POOL, LEVEL3_POOL ];
+  const POOLS = [ LEVEL1_POOL, LEVEL2_POOL, LEVEL3_POOL ];
 
   // which box is interactive, indexed by level
-  var INTERACTIVE_BOXES = [ BoxType.BEFORE, BoxType.AFTER, BoxType.AFTER ];
+  const INTERACTIVE_BOXES = [ BoxType.BEFORE, BoxType.AFTER, BoxType.AFTER ];
 
-  var ChallengeFactory = {
+  const ChallengeFactory = {
 
     /**
      * Creates a set of challenges.
@@ -134,17 +134,17 @@ define( require => {
     assert && assert( level >= 0 && level < POOLS.length );
     assert && assert( maxQuantity > 0 );
 
-    var numberOfChallenges = CHALLENGES_PER_LEVEL;
-    var factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
+    const numberOfChallenges = CHALLENGES_PER_LEVEL;
+    const factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
 
     // Determine which challenge will have zero products.
-    var zeroProductsIndex = phet.joist.random.nextInt( numberOfChallenges );
+    const zeroProductsIndex = phet.joist.random.nextInt( numberOfChallenges );
 
-    var challenges = []; // [{Challenge}]
-    for ( var i = 0; i < numberOfChallenges; i++ ) {
+    const challenges = []; // [{Challenge}]
+    for ( let i = 0; i < numberOfChallenges; i++ ) {
 
       // reaction with quantities
-      var reaction = null; // {Reaction}
+      let reaction = null; // {Reaction}
       if ( i === zeroProductsIndex ) {
         reaction = createChallengeWithoutProducts( factoryFunctions );
       }
@@ -173,13 +173,13 @@ define( require => {
    */
   var createChallengesPlayAll = function( level, maxQuantity, challengeOptions ) {
 
-    var challenges = []; // [{Challenge}]
-    var factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
+    const challenges = []; // [{Challenge}]
+    const factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
 
-    for ( var i = 0; i < factoryFunctions.length; i++ ) {
+    for ( let i = 0; i < factoryFunctions.length; i++ ) {
 
       // Create a reaction with non-zero quantities of at least one product.
-      var reaction = factoryFunctions[ i ]();
+      const reaction = factoryFunctions[ i ]();
       reaction.reactants.forEach( function( reactant ) {
         reactant.quantityProperty.set( phet.joist.random.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
       } );
@@ -205,12 +205,12 @@ define( require => {
     assert && assert( maxQuantity > 0 );
 
     // Choose a function and remove it from the further consideration.
-    var randomIndex = phet.joist.random.nextIntBetween( 0, factoryFunctions.length - 1 );
-    var factoryFunction = factoryFunctions[ randomIndex ];
+    const randomIndex = phet.joist.random.nextIntBetween( 0, factoryFunctions.length - 1 );
+    const factoryFunction = factoryFunctions[ randomIndex ];
     factoryFunctions.splice( randomIndex, 1 );
 
     // Create a reaction with non-zero quantities of at least one product.
-    var reaction = factoryFunction();
+    const reaction = factoryFunction();
     reaction.reactants.forEach( function( reactant ) {
       reactant.quantityProperty.set( phet.joist.random.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
     } );
@@ -228,16 +228,16 @@ define( require => {
     assert && assert( factoryFunctions.length > 0 );
 
     // Choose a reaction that is capable of having no products when all reactant quantities are non-zero.
-    var reaction = null;
-    var retry = true;
-    var disqualifiedFunctions = []; // functions that were disqualified
+    let reaction = null;
+    let retry = true;
+    const disqualifiedFunctions = []; // functions that were disqualified
     while ( retry ) {
 
       assert && assert( factoryFunctions.length > 0 );
 
       // Choose a function and remove it from the further consideration.
-      var randomIndex = phet.joist.random.nextIntBetween( 0, factoryFunctions.length - 1 );
-      var factoryFunction = factoryFunctions[ randomIndex ];
+      const randomIndex = phet.joist.random.nextIntBetween( 0, factoryFunctions.length - 1 );
+      const factoryFunction = factoryFunctions[ randomIndex ];
       factoryFunctions.splice( randomIndex, 1 );
 
       // Create the reaction and test its coefficients.
@@ -269,7 +269,7 @@ define( require => {
    * @returns {boolean}
    */
   var reactantCoefficientsAllOne = function( reaction ) {
-    var allOne = true;
+    let allOne = true;
     reaction.reactants.forEach( function( reactant ) {
       if ( reactant.coefficientProperty.get() !== 1 ) {
         allOne = false;
@@ -284,9 +284,9 @@ define( require => {
    * @param {number} maxQuantity
    * @returns {boolean}
    */
-  var hasQuantityRangeViolation = function( reaction, maxQuantity ) {
-    var violation = false;
-    var i;
+  const hasQuantityRangeViolation = function( reaction, maxQuantity ) {
+    let violation = false;
+    let i;
     for ( i = 0; !violation && i < reaction.reactants.length; i++ ) {
       violation = ( reaction.reactants[ i ].quantityProperty.get() > maxQuantity );
     }
@@ -316,7 +316,7 @@ define( require => {
 
     if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
 
-      var beforeFixString = DevStringUtils.reactionString( reaction );
+      const beforeFixString = DevStringUtils.reactionString( reaction );
 
       // First, make sure all reactant quantities are in range.
       reaction.reactants.forEach( function( reactant ) {
@@ -326,11 +326,11 @@ define( require => {
       } );
 
       // Then incrementally reduce reactant quantities, alternating reactants.
-      var reactantIndex = 0;
-      var changed = false;
+      let reactantIndex = 0;
+      let changed = false;
       while ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
-        var reactant = reaction.reactants[ reactantIndex ];
-        var quantity = reactant.quantityProperty.get();
+        const reactant = reaction.reactants[ reactantIndex ];
+        const quantity = reactant.quantityProperty.get();
         if ( quantity > 1 ) {
           reactant.quantityProperty.set( reactant.quantityProperty.get() - 1 );
           changed = true;
@@ -369,21 +369,21 @@ define( require => {
     assert && assert( !RPALQueryParameters.playAll ); // test doesn't work with some query parameters
 
     // Cumulative counts for this test
-    var numberOfChallengesGenerated = 0;
-    var numberOfCoefficientRangeErrors = 0;
-    var numberOfReactantErrors = 0;
-    var numberOfProductErrors = 0;
-    var numberOfQuantityRangeErrors = 0;
+    let numberOfChallengesGenerated = 0;
+    let numberOfCoefficientRangeErrors = 0;
+    let numberOfReactantErrors = 0;
+    let numberOfProductErrors = 0;
+    let numberOfQuantityRangeErrors = 0;
 
     // hoist vars that will be reused
-    var factoryFunction;
-    var reaction;
-    var level;
-    var i;
-    var j;
+    let factoryFunction;
+    let reaction;
+    let level;
+    let i;
+    let j;
 
     // Print reactions by level. Put all reactions in a container, removing duplicates.
-    var factoryFunctions = [];
+    const factoryFunctions = [];
     for ( level = 0; level < POOLS.length; level++ ) {
       console.log( '----------------------------------------------------------' );
       console.log( 'Level ' + ( level + 1 ) );
@@ -399,7 +399,7 @@ define( require => {
     }
 
     // Look for reactions with coefficients > maxQuantity, we must have none of these.
-    var maxQuantity = RPALConstants.QUANTITY_RANGE.max;
+    const maxQuantity = RPALConstants.QUANTITY_RANGE.max;
     console.log( '----------------------------------------------------------' );
     console.log( 'Looking for coefficient-range violations ...' );
     console.log( '----------------------------------------------------------' );
@@ -447,7 +447,7 @@ define( require => {
       for ( i = 0; i < 100; i++ ) {
 
         // create challenges
-        var challenges = ChallengeFactory.createChallenges( level, maxQuantity );
+        const challenges = ChallengeFactory.createChallenges( level, maxQuantity );
         numberOfChallengesGenerated += challenges.length;
 
         // validate
@@ -455,7 +455,7 @@ define( require => {
         challenges.forEach( function( challenge ) {
 
           // verify that all reactant quantities are > 0
-          var zeroReactants = false;
+          let zeroReactants = false;
           challenge.reaction.reactants.forEach( function( reactant ) {
             if ( reactant.quantityProperty.get() < 1 ) {
               zeroReactants = true;
@@ -468,7 +468,7 @@ define( require => {
           }
 
           // count how many challenges have zero products
-          var nonZeroProducts = 0;
+          let nonZeroProducts = 0;
           challenge.reaction.products.forEach( function( product ) {
             if ( product.quantityProperty.get() > 0 ) {
               nonZeroProducts++;

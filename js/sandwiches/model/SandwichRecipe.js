@@ -25,7 +25,7 @@ define( require => {
 
   // constants
   // used when the product is undefined, this can be any non-visible node with well-defined bounds
-  var NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
+  const NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
 
   /**
    * @param {string} name
@@ -43,14 +43,14 @@ define( require => {
       coefficientsMutable: false // {boolean} can coefficients of the ingredients can be changed?
     }, options );
 
-    var self = this;
+    const self = this;
     this.coefficientsMutable = options.coefficientsMutable; // @public
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
-    var ingredients = [];
-    var bread = new Substance( breadCount, 'bread', SandwichNode.createBreadNode() );
-    var meat = new Substance( meatCount, 'meat', SandwichNode.createMeatNode() );
-    var cheese = new Substance( cheeseCount, 'cheese', SandwichNode.createCheeseNode() );
+    const ingredients = [];
+    const bread = new Substance( breadCount, 'bread', SandwichNode.createBreadNode() );
+    const meat = new Substance( meatCount, 'meat', SandwichNode.createMeatNode() );
+    const cheese = new Substance( cheeseCount, 'cheese', SandwichNode.createCheeseNode() );
     if ( breadCount > 0 || options.coefficientsMutable ) { ingredients.push( bread ); }
     if ( meatCount > 0 || options.coefficientsMutable ) { ingredients.push( meat ); }
     if ( cheeseCount > 0 || options.coefficientsMutable ) { ingredients.push( cheese ); }
@@ -64,7 +64,7 @@ define( require => {
     if ( options.coefficientsMutable ) {
 
       // Update the sandwich image to match the coefficients.
-      var updateSandwichNode = function() {
+      const updateSandwichNode = function() {
         if ( self.isReaction() ) {
           self.sandwich.iconProperty.set(
             new SandwichNode( bread.coefficientProperty.get(), meat.coefficientProperty.get(), cheese.coefficientProperty.get() ) );

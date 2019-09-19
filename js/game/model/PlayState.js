@@ -12,7 +12,7 @@ define( require => {
   // modules
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  var PlayState = {
+  const PlayState = {
     FIRST_CHECK: 'FIRST_CHECK', // 'Check' button is visible for the first time
     TRY_AGAIN: 'TRY_AGAIN', // 'Try Again' button is visible
     SECOND_CHECK: 'SECOND_CHECK', // 'Check' button is visible for the second time

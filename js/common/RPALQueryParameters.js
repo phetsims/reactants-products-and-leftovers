@@ -11,7 +11,7 @@ define( require => {
   // modules
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  var RPALQueryParameters = QueryStringMachine.getAll( {
+  const RPALQueryParameters = QueryStringMachine.getAll( {
 
     // plays all reactions for each level of the game
     playAll: { type: 'flag' }

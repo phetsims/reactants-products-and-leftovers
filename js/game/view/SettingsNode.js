@@ -39,10 +39,10 @@ define( require => {
   const questionMarkString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/questionMark' );
 
   // constants
-  var SCREEN_X_MARGIN = 40;
-  var SCREEN_Y_MARGIN = 40;
-  var QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
-  var MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
+  const SCREEN_X_MARGIN = 40;
+  const SCREEN_Y_MARGIN = 40;
+  const QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
+  const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
   /**
    * @param {GameModel} model
@@ -55,27 +55,27 @@ define( require => {
     options = options || {};
 
     // Title
-    var title = new Text( chooseYourLevelString, {
+    const title = new Text( chooseYourLevelString, {
       font: new RPALFont( 40 ),
       maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
     } );
 
     // Icons for the level-selection buttons, indexed by level
-    var levelIcons = [
+    const levelIcons = [
       createLevelOneIcon(),
       createLevelTwoIcon(),
       createLevelThreeIcon()
     ];
     assert && assert( levelIcons.length === model.numberOfLevels );
-    var maxIconWidth = _.maxBy( levelIcons, function( icon ) { return icon.width; } ).width;
-    var maxIconHeight = _.maxBy( levelIcons, function( icon ) { return icon.height; } ).height;
+    const maxIconWidth = _.maxBy( levelIcons, function( icon ) { return icon.width; } ).width;
+    const maxIconHeight = _.maxBy( levelIcons, function( icon ) { return icon.height; } ).height;
 
     // Level-selection buttons, arranged in a row
-    var buttons = [];
-    for ( var level = 0; level < model.numberOfLevels; level++ ) {
+    const buttons = [];
+    for ( let level = 0; level < model.numberOfLevels; level++ ) {
       buttons.push( createLevelSelectionButton( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
     }
-    var buttonsParent = new LayoutBox( {
+    const buttonsParent = new LayoutBox( {
       children: buttons,
       spacing: 40,
       orientation: 'horizontal',
@@ -83,21 +83,21 @@ define( require => {
     } );
 
     // Timer toggle button, at bottom left
-    var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, {
+    const timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, {
       stroke: 'gray',
       left: layoutBounds.left + SCREEN_X_MARGIN,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
 
     // Visibility radio buttons, at bottom center
-    var visibilityRadioButtons = new VisibilityRadioButtons( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
+    const visibilityRadioButtons = new VisibilityRadioButtons( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN,
       maxWidth: 0.65 * layoutBounds.width // constrain width for i18n
     } );
 
     // Reset All button, at bottom right
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: function() { model.reset(); },
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       right: layoutBounds.right - SCREEN_X_MARGIN,
@@ -122,7 +122,7 @@ define( require => {
 
     // 'Test' button at top right, runs a sanity test on the challenge generator
     if ( phet.chipper.queryParameters.showAnswers && !RPALQueryParameters.playAll ) {
-      var testButton = new TextPushButton( 'Test', {
+      const testButton = new TextPushButton( 'Test', {
         font: new RPALFont( 10 ),
         baseColor: 'red',
         textFill: 'white',
@@ -148,8 +148,8 @@ define( require => {
   var createLevelSelectionButton = function( level, model, icon, maxIconWidth, maxIconHeight ) {
 
     // make all icons the same size
-    var rect = new Rectangle( 0, 0, maxIconWidth, maxIconHeight, { center: icon.center } );
-    var content = new Node( {
+    const rect = new Rectangle( 0, 0, maxIconWidth, maxIconHeight, { center: icon.center } );
+    const content = new Node( {
       children: [ rect, icon ]
     } );
 
@@ -177,14 +177,14 @@ define( require => {
    *  Level N
    *  leftNode -> rightNode
    */
-  var createIcon = function( level, leftNode, rightNode ) {
-    var arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
-    var iconNode = new LayoutBox( {
+  const createIcon = function( level, leftNode, rightNode ) {
+    const arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
+    const iconNode = new LayoutBox( {
       children: [ leftNode, arrowNode, rightNode ],
       orientation: 'horizontal',
       spacing: 20
     } );
-    var labelNode = new Text( StringUtils.format( patternLevel0String, level ), {
+    const labelNode = new Text( StringUtils.format( patternLevel0String, level ), {
       font: new RPALFont( 45 ),
       maxWidth: iconNode.width
     } );
@@ -200,8 +200,8 @@ define( require => {
    *  ? -> HCl
    */
   var createLevelOneIcon = function() {
-    var leftNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
-    var rightNode = new HClNode( RPALConstants.MOLECULE_OPTIONS );
+    const leftNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
+    const rightNode = new HClNode( RPALConstants.MOLECULE_OPTIONS );
     rightNode.setScaleMagnitude( MOLECULE_SCALE );
     return createIcon( 1, leftNode, rightNode );
   };
@@ -211,9 +211,9 @@ define( require => {
    *  H2O -> ?
    */
   var createLevelTwoIcon = function() {
-    var leftNode = new H2ONode( RPALConstants.MOLECULE_OPTIONS );
+    const leftNode = new H2ONode( RPALConstants.MOLECULE_OPTIONS );
     leftNode.setScaleMagnitude( MOLECULE_SCALE );
-    var rightNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
+    const rightNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
     return createIcon( 2, leftNode, rightNode );
   };
 
@@ -222,9 +222,9 @@ define( require => {
    *  NH3 -> ??
    */
   var createLevelThreeIcon = function() {
-    var leftNode = new NH3Node( RPALConstants.MOLECULE_OPTIONS );
+    const leftNode = new NH3Node( RPALConstants.MOLECULE_OPTIONS );
     leftNode.setScaleMagnitude( MOLECULE_SCALE );
-    var rightNode = new Text( doubleQuestionMarkString, QUESTION_MARK_OPTIONS );
+    const rightNode = new Text( doubleQuestionMarkString, QUESTION_MARK_OPTIONS );
     return createIcon( 3, leftNode, rightNode );
   };
 

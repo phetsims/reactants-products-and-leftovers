@@ -21,9 +21,9 @@ define( require => {
   const meatImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/meat.png' );
 
   // constants
-  var MAX_WIDTH = _.maxBy( [ breadImage, cheeseImage, meatImage ], function( image ) { return image.width; } ).width;
-  var Y_SPACING = 4; // vertical space between centers of ingredients
-  var SANDWICH_SCALE = 0.65; // default scale of Nodes for sandwiches and their ingredients
+  const MAX_WIDTH = _.maxBy( [ breadImage, cheeseImage, meatImage ], function( image ) { return image.width; } ).width;
+  const Y_SPACING = 4; // vertical space between centers of ingredients
+  const SANDWICH_SCALE = 0.65; // default scale of Nodes for sandwiches and their ingredients
 
   /**
    * @param {number} breadCount
@@ -40,10 +40,10 @@ define( require => {
       scale: SANDWICH_SCALE
     }, options );
 
-    var self = this;
+    const self = this;
     Node.call( this );
 
-    var centerY = 0;
+    let centerY = 0;
 
     // ensure that all sandwiches are the same width
     this.addChild( new HStrut( MAX_WIDTH, { centerX: 0 } ) );
@@ -59,7 +59,7 @@ define( require => {
      * To maximize interleaving, order the ingredients that go between the bread
      * so that the more prevalent ingredient is added first.
      */
-    var ingredients;
+    let ingredients;
     if ( meatCount >= cheeseCount ) {
       ingredients = [
         { count: meatCount, image: meatImage },
@@ -74,7 +74,7 @@ define( require => {
     }
 
     // Interleave ingredients
-    var imageAdded = true;
+    let imageAdded = true;
     while ( imageAdded ) {
 
       imageAdded = false;
