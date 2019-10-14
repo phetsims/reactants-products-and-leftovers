@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.2.9 Thu Oct 03 2019 12:49:19 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.2.9 Mon Oct 14 2019 15:26:16 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -33,8 +33,8 @@
     "branch": "HEAD"
   },
   "phet-core": {
-    "sha": "9c242cdc6a08a1e47d70586fc256dd674db59add",
-    "branch": "HEAD"
+    "sha": "9479460e03a6c74f599e54be7831903a75635f8f",
+    "branch": "reactants-products-and-leftovers-1.2"
   },
   "phet-io": {
     "sha": "a03fa3de3803630f09556e4733f3bd050b26e1f9",
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "46b84cdfefa314032659f48ce96053aea682cf7a",
+    "sha": "bc03b778c589797857a6c8d8f6aecff300f8d640",
     "branch": "1.2"
   },
   "scenery": {
@@ -89,7 +89,7 @@
     "branch": "HEAD"
   },
   "vibe": {
-    "sha": "960a83efd577749b8f3539a86f98563d03017e51",
-    "branch": "HEAD"
+    "sha": "4d2bc069b02e6ea89641ca1471589e852ea29b78",
+    "branch": "reactants-products-and-leftovers-1.2"
   }
 }
