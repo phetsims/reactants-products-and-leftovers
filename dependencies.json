@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.2.9 Tue Oct 15 2019 16:03:40 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.2.10-rc.1 Tue Oct 15 2019 19:28:37 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -34,7 +34,7 @@
   },
   "phet-core": {
     "sha": "4c0e17a1cad1c8bebbd19e2bcc99d4824853add3",
-    "branch": "reactants-products-and-leftovers-1.2"
+    "branch": "HEAD"
   },
   "phet-io": {
     "sha": "a03fa3de3803630f09556e4733f3bd050b26e1f9",
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "f5418b82a84eddba12caff85208b17d8cf90a5eb",
+    "sha": "024012a2dc558bba2fb0dc7a25b975b7036cb9f7",
     "branch": "1.2"
   },
   "scenery": {
