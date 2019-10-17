@@ -13,6 +13,7 @@ define( require => {
   const Dimension2 = require( 'DOT/Dimension2' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -23,7 +24,7 @@ define( require => {
    */
   function HideBox( options ) {
 
-    options = _.extend( {
+    options = merge( {
       boxSize: new Dimension2( 100, 100 ),
       iconHeight: 35,
       cornerRadius: 0

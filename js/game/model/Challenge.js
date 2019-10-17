@@ -13,6 +13,7 @@ define( require => {
   // modules
   const GameGuess = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GameGuess' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   /**
@@ -23,7 +24,7 @@ define( require => {
    */
   function Challenge( reaction, interactiveBox, options ) {
 
-    options = _.extend( {
+    options = merge( {
       moleculesVisible: true, // {boolean} are molecules visible when playing the challenge?
       numbersVisible: true // {boolean} are numbers visible when playing the challenge?
     }, options );

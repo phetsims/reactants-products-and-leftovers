@@ -12,6 +12,7 @@ define( require => {
   const BeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BeforeAfterNode' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculesEquationNode' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
@@ -42,7 +43,7 @@ define( require => {
        */
       function( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
         return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
-          _.extend( {}, options, {
+          merge( {}, options, {
             contentSize: RPALConstants.MOLECULES_BEFORE_AFTER_BOX_SIZE,
             minIconSize: new Dimension2( 30, 25 ) // eyeballed
           } ) );

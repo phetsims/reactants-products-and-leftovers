@@ -11,6 +11,7 @@ define( require => {
 
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
@@ -26,7 +27,7 @@ define( require => {
     }
 
     // font attributes, as specified in the design document
-    options = _.extend( {
+    options = merge( {
       family: 'Arial'
     }, options );
 

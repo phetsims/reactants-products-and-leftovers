@@ -18,6 +18,7 @@ define( require => {
   const GameButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameButtons' );
   const HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HideBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MoleculesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/MoleculesEquationNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
@@ -45,7 +46,7 @@ define( require => {
    */
   function ChallengeNode( model, challenge, challengeBounds, audioPlayer, options ) {
 
-    options = _.extend( {
+    options = merge( {
       boxSize: RPALConstants.GAME_BEFORE_AFTER_BOX_SIZE, // {Dimension2} size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
       minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons

@@ -17,6 +17,7 @@ define( require => {
 
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Reaction = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Reaction' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -39,7 +40,7 @@ define( require => {
 
     assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
 
-    options = _.extend( {
+    options = merge( {
       coefficientsMutable: false // {boolean} can coefficients of the ingredients can be changed?
     }, options );
 

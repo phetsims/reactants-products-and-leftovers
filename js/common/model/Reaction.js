@@ -13,6 +13,7 @@ define( require => {
   // modules
   const DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevStringUtils' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
@@ -27,7 +28,7 @@ define( require => {
     assert && assert( reactants.length > 1, 'a reaction requires at least 2 reactants' );
     assert && assert( products.length > 0, 'a reaction requires at least 1 product' );
 
-    options = _.extend( {
+    options = merge( {
       name: null // {string|null} optional name, suitable for display to the user
     }, options );
 

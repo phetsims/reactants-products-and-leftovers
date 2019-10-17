@@ -16,6 +16,7 @@ define( require => {
   const Dimension2 = require( 'DOT/Dimension2' );
   const HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HideBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
   const NumberSpinner = require( 'SUN/NumberSpinner' );
@@ -66,7 +67,7 @@ define( require => {
     assert && assert( reactants.length === beforeXOffsets.length );
     assert && assert( products.length + leftovers.length === afterXOffsets.length );
 
-    options = _.extend( {
+    options = merge( {
       interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
       boxWidth: 100, // {number} width of the Before and After boxes
       afterBoxXOffset: 200, // {number} x-offset of left of After box, relative to left of Before box
@@ -112,7 +113,7 @@ define( require => {
       if ( this.interactiveBox === BoxType.BEFORE ) {
         // spinner
         spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
-          _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
+          merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.reactantsParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
       }
@@ -147,7 +148,7 @@ define( require => {
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
-          _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
+          merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.productsParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
       }
@@ -182,7 +183,7 @@ define( require => {
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
-          _.extend( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
+          merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
         this.leftoversParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
       }

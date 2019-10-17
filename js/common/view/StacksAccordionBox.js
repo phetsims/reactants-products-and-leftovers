@@ -12,6 +12,7 @@ define( require => {
   const AccordionBox = require( 'SUN/AccordionBox' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -31,7 +32,7 @@ define( require => {
 
     assert && assert( substances.length === xOffsets.length );
 
-    options = _.extend( {
+    options = merge( {
 
       // AccordionBox options
       fill: RPALColors.BOX_FILL,

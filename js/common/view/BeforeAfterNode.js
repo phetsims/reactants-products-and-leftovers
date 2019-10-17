@@ -17,6 +17,7 @@ define( require => {
   const Dimension2 = require( 'DOT/Dimension2' );
   const inherit = require( 'PHET_CORE/inherit' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const QuantitiesNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/QuantitiesNode' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
@@ -43,7 +44,7 @@ define( require => {
    */
   function BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
       contentSize: new Dimension2( 100, 100 ), // {Dimension2} size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
       showSymbols: true, // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
@@ -65,14 +66,14 @@ define( require => {
     const afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
 
     // @private 'Before Reaction' box, with stacks of reactants
-    this.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, _.extend( {
+    this.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, merge( {
       expandedProperty: beforeExpandedProperty,
       titleNode: new Text( options.beforeTitle, TITLE_OPTIONS ),
       maxQuantity: options.quantityRange.max
     }, options ) );
 
     // @private 'After Reaction' box, with stacks of products and leftovers
-    this.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, _.extend( {
+    this.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, merge( {
       expandedProperty: afterExpandedProperty,
       titleNode: new Text( options.afterTitle, TITLE_OPTIONS ),
       maxQuantity: options.quantityRange.max

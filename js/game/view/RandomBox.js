@@ -16,6 +16,7 @@ define( require => {
   // modules
   const Dimension2 = require( 'DOT/Dimension2' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -31,7 +32,7 @@ define( require => {
    */
   function RandomBox( substances, options ) {
 
-    options = _.extend( {
+    options = merge( {
       boxSize: new Dimension2( 100, 100 ),
       maxQuantity: 4, // the maximum quantity of each substance in the box
       cornerRadius: 3,

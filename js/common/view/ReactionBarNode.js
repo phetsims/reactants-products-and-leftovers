@@ -12,6 +12,7 @@ define( require => {
 
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const ReactionRadioButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionRadioButtons' );
@@ -27,7 +28,7 @@ define( require => {
    */
   function ReactionBarNode( reactionProperty, reactions, createEquationNode, options ) {
 
-    options = _.extend( {
+    options = merge( {
       screenWidth: 1000, // width of the screen's safe area
       xMargin: 20,
       yMargin: 10,

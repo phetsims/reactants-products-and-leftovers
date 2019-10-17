@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PlusNode = require( 'SCENERY_PHET/PlusNode' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
@@ -25,7 +26,7 @@ define( require => {
    */
   function MoleculesEquationNode( reaction, options ) {
 
-    options = _.extend( {
+    options = merge( {
       fill: 'white',
       font: new RPALFont( 28 ),
       coefficientXSpacing: 8, // space between coefficient and node to its right

@@ -11,6 +11,7 @@ define( require => {
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   const TextPushButton = require( 'SUN/buttons/TextPushButton' );
@@ -29,7 +30,7 @@ define( require => {
    */
   function DevGameControls( model, options ) {
 
-    options = _.extend( {
+    options = merge( {
       orientation: 'horizontal',
       spacing: 5
     }, options );

@@ -11,6 +11,7 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
   /**
@@ -19,7 +20,7 @@ define( require => {
    */
   function RightArrowNode( options ) {
 
-    options = _.extend( {
+    options = merge( {
       length: 70,
       tailWidth: 15,
       headWidth: 35,

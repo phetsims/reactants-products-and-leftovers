@@ -12,6 +12,7 @@ define( require => {
   const AquaRadioButton = require( 'SUN/AquaRadioButton' );
   const inherit = require( 'PHET_CORE/inherit' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -28,7 +29,7 @@ define( require => {
    */
   function ReactionRadioButtons( reactionProperty, choices, options ) {
 
-    options = _.extend( {
+    options = merge( {
       spacing: 10,
       orientation: 'vertical',
       align: 'left'

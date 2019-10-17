@@ -16,6 +16,7 @@ define( require => {
   const H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   const inherit = require( 'PHET_CORE/inherit' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
@@ -43,7 +44,7 @@ define( require => {
    */
   function VisibilityRadioButtons( moleculesVisibleProperty, numbersVisibleProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
       xMargin: 15,
       yMargin: 10,
       fill: 'rgb( 235, 245, 255 )',

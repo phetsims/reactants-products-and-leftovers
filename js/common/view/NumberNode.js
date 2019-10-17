@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
@@ -21,7 +22,7 @@ define( require => {
    */
   function NumberNode( numberProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
       decimalPlaces: 0  // number of decimal places to be displayed
     }, options );
 

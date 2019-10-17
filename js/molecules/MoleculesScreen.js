@@ -11,6 +11,7 @@ define( require => {
   // modules
   const H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MoleculesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/model/MoleculesModel' );
   const MoleculesScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesScreenView' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -55,7 +56,7 @@ define( require => {
    */
   var createIcon = function( options ) {
 
-    options = _.extend( {
+    options = merge( {
       moleculeLineWidth: 1 // lineWidth used to stroke the molecule icon
     }, options );
 

@@ -14,8 +14,9 @@ define( require => {
   const GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
   const GameTimer = require( 'VEGAS/GameTimer' );
   const inherit = require( 'PHET_CORE/inherit' );
-  const PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
+  const PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
   const Property = require( 'AXON/Property' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
@@ -31,7 +32,7 @@ define( require => {
    */
   function GameModel( options ) {
 
-    options = _.extend( {
+    options = merge( {
       level: 0, // the current level in the game, numbered starting with zero
       numberOfLevels: 3, // number of levels in the game
       maxQuantity: RPALConstants.QUANTITY_RANGE.max // maximum quantity of any substance in a reaction

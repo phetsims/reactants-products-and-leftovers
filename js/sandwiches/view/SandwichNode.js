@@ -12,6 +12,7 @@ define( require => {
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const Image = require( 'SCENERY/nodes/Image' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
@@ -36,7 +37,7 @@ define( require => {
 
     assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
 
-    options = _.extend( {
+    options = merge( {
       scale: SANDWICH_SCALE
     }, options );
 
