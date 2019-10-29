@@ -58,7 +58,7 @@ define( require => {
     resetAllButton.bottom = this.layoutBounds.bottom - 10;
 
     // a11y - set the initial accessible order
-    self.playAreaNode.accessibleOrder = [ reactionBarNode, resetAllButton ];
+    self.pdomPlayAreaNode.accessibleOrder = [ reactionBarNode, resetAllButton ];
 
     /*
      * Updates the user interface to match the reaction.
@@ -81,7 +81,7 @@ define( require => {
         self.beforeAfterCache.push( { reaction: reaction, beforeAfterNode: beforeAfterNode } );
 
         // a11y - order should look like [ reactionBarNode, {{ALL_BEFORE_AFTER_NODES}}, resetAllButton ]
-        self.playAreaNode.accessibleOrder = [ reactionBarNode ]
+        self.pdomPlayAreaNode.accessibleOrder = [ reactionBarNode ]
           .concat( self.beforeAfterCache.map( function( item ) { return item.beforeAfterNode; } ) ) // map all beforeAfterNodes to an array
           .concat( [ resetAllButton ] );
       }
