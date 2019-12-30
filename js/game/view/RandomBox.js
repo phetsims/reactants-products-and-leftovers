@@ -22,7 +22,7 @@ define( require => {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
   const SubstanceIcon = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/SubstanceIcon' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -53,7 +53,7 @@ define( require => {
      * Compute the size of the grid needed to accommodate the maximum number of nodes.
      * Assume that the box is square-ish, so can have the same number of rows and columns.
      */
-    const rows = Util.roundSymmetric( Math.sqrt( substances.length * options.maxQuantity ) );
+    const rows = Utils.roundSymmetric( Math.sqrt( substances.length * options.maxQuantity ) );
     const columns = rows;
 
     // Compute positions in the grid, this is our 'pool' of positions.

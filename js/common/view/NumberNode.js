@@ -13,7 +13,7 @@ define( require => {
   const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * @param {Property.<number>} numberProperty
@@ -32,7 +32,7 @@ define( require => {
 
     // @private update the displayed number
     this.numberPropertyObserver = function( value ) {
-      self.text = Util.toFixed( value, options.decimalPlaces );
+      self.text = Utils.toFixed( value, options.decimalPlaces );
     };
     this.numberProperty = numberProperty; // @private
     this.numberProperty.link( this.numberPropertyObserver ); // must be unlinked in dispose
