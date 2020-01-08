@@ -125,7 +125,7 @@ define( require => {
     } );
     this.addChild( arrowNode );
 
-    // @private 'Before Reaction' box, with molecules at random locations
+    // @private 'Before Reaction' box, with molecules at random positions
     this.beforeBox = new RandomBox( reactants, {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
@@ -135,7 +135,7 @@ define( require => {
     this.addChild( this.beforeBox );
     arrowNode.centerY = this.beforeBox.centerY;
 
-    // @private 'After Reaction' box, with molecules at random locations
+    // @private 'After Reaction' box, with molecules at random positions
     this.afterBox = new RandomBox( products.concat( leftovers ), {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
