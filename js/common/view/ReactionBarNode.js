@@ -15,7 +15,7 @@ define( require => {
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const ReactionRadioButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionRadioButtons' );
+  const ReactionRadioButtonGroup = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/ReactionRadioButtonGroup' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
 
@@ -39,25 +39,25 @@ define( require => {
     const self = this;
 
     // radio buttons for choosing a reaction, scaled to fit for i18n
-    const radioButtons = new ReactionRadioButtons( reactionProperty, reactions, {
+    const radioButtonGroup = new ReactionRadioButtonGroup( reactionProperty, reactions, {
       maxWidth: 0.25 * options.screenWidth // constrain width for i18n
     } );
 
     // background, extra wide so that it will appear to fill the window for all but extreme window sizes
-    const backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, radioButtons.height + ( 2 * options.yMargin ), {
+    const backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, radioButtonGroup.height + ( 2 * options.yMargin ), {
       fill: options.fill,
       centerX: options.screenWidth / 2
     } );
 
     // radio buttons at right, vertically centered
-    radioButtons.right = options.screenWidth - options.xMargin;
-    radioButtons.centerY = backgroundNode.centerY;
+    radioButtonGroup.right = options.screenWidth - options.xMargin;
+    radioButtonGroup.centerY = backgroundNode.centerY;
 
-    options.children = [ backgroundNode, radioButtons ];
+    options.children = [ backgroundNode, radioButtonGroup ];
     Node.call( this, options );
 
     // a11y - set the initial accessible order
-    this.accessibleOrder = [ radioButtons ];
+    this.accessibleOrder = [ radioButtonGroup ];
     /*
      * Updates the equation to match the reaction.
      * Equations are created on demand and cached for reuse.
@@ -77,7 +77,7 @@ define( require => {
         self.accessibleOrder = [ equationNode ].concat( self.accessibleOrder );
 
         // scale the equation if it's too wide to fit the available space
-        const availableWidth = radioButtons.left - ( 2 * options.xMargin );
+        const availableWidth = radioButtonGroup.left - ( 2 * options.xMargin );
         const scale = Math.min( 1, availableWidth / equationNode.width );
         equationNode.setScaleMagnitude( scale );
 
