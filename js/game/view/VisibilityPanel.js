@@ -1,7 +1,7 @@
 // Copyright 2014-2019, University of Colorado Boulder
 
 /**
- * Radio buttons for selecting what's visible/hidden in Game challenges.
+ * Panel that contains radio buttons for selecting what's visible/hidden in Game challenges.
  * Provides the ability to hide either molecules or numbers (but not both).
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -42,7 +42,7 @@ define( require => {
    * @param {Object} [options]
    * @constructor
    */
-  function VisibilityRadioButtons( moleculesVisibleProperty, numbersVisibleProperty, options ) {
+  function VisibilityPanel( moleculesVisibleProperty, numbersVisibleProperty, options ) {
 
     options = merge( {
       xMargin: 15,
@@ -110,7 +110,7 @@ define( require => {
     Panel.call( this, content, options );
   }
 
-  reactantsProductsAndLeftovers.register( 'VisibilityRadioButtons', VisibilityRadioButtons );
+  reactantsProductsAndLeftovers.register( 'VisibilityPanel', VisibilityPanel );
 
   /**
    * Creates the content for the 'Show All' radio button, an open eye with text to the right of it.
@@ -168,5 +168,5 @@ define( require => {
     } );
   };
 
-  return inherit( Panel, VisibilityRadioButtons );
+  return inherit( Panel, VisibilityPanel );
 } );

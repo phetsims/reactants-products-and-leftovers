@@ -30,7 +30,7 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
   const TextPushButton = require( 'SUN/buttons/TextPushButton' );
   const TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
-  const VisibilityRadioButtons = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/VisibilityRadioButtons' );
+  const VisibilityPanel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/VisibilityPanel' );
 
   // strings
   const chooseYourLevelString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/chooseYourLevel' );
@@ -89,8 +89,8 @@ define( require => {
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
 
-    // Visibility radio buttons, at bottom center
-    const visibilityRadioButtons = new VisibilityRadioButtons( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
+    // Panel with visibility radio buttons, at bottom center
+    const visibilityPanel = new VisibilityPanel( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN,
       maxWidth: 0.65 * layoutBounds.width // constrain width for i18n
@@ -112,10 +112,10 @@ define( require => {
         align: 'center',
         spacing: 40,
         centerX: layoutBounds.centerX,
-        centerY: ( visibilityRadioButtons.top - layoutBounds.top ) / 2
+        centerY: ( visibilityPanel.top - layoutBounds.top ) / 2
       } ),
       timerToggleButton,
-      visibilityRadioButtons,
+      visibilityPanel,
       resetAllButton
     ];
     Node.call( this, options );
