@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.2.10 Fri Oct 25 2019 17:48:41 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.2.10 Mon Feb 24 2020 13:04:18 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "fadf6a75eca0efe5f0b6df78992f4917df56a2bf",
+    "sha": "b74ab50c49ba0f63d531e6432ff61c48379674cb",
     "branch": "1.2"
   },
   "scenery": {
@@ -85,8 +85,8 @@
     "branch": "HEAD"
   },
   "vegas": {
-    "sha": "85c670bb93aac5f0e0928e53a3fa505acd178b2f",
-    "branch": "HEAD"
+    "sha": "44b0d404f6023f6004a2e0a5634056209870b17b",
+    "branch": "reactants-products-and-leftovers-1.2"
   },
   "vibe": {
     "sha": "4d2bc069b02e6ea89641ca1471589e852ea29b78",
