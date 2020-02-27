@@ -28,7 +28,5 @@ define( require => {
     GAME_BEFORE_AFTER_BOX_SIZE: new Dimension2( 330, 240 )
   };
 
-  reactantsProductsAndLeftovers.register( 'RPALConstants', RPALConstants );
-
-  return RPALConstants;
+  return reactantsProductsAndLeftovers.register( 'RPALConstants', RPALConstants );
 } );

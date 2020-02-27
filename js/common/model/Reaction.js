@@ -12,83 +12,77 @@ define( require => {
 
   // modules
   const DevStringUtils = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/dev/DevStringUtils' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
 
-  /**
-   * @param {Substance[]} reactants
-   * @param {Substance[]} products
-   * @param {Object} [options]
-   * @constructor
-   */
-  function Reaction( reactants, products, options ) {
+  class Reaction {
 
-    assert && assert( reactants.length > 1, 'a reaction requires at least 2 reactants' );
-    assert && assert( products.length > 0, 'a reaction requires at least 1 product' );
+    /**
+     * @param {Substance[]} reactants
+     * @param {Substance[]} products
+     * @param {Object} [options]
+     */
+    constructor( reactants, products, options ) {
 
-    options = merge( {
-      name: null // {string|null} optional name, suitable for display to the user
-    }, options );
+      assert && assert( reactants.length > 1, 'a reaction requires at least 2 reactants' );
+      assert && assert( products.length > 0, 'a reaction requires at least 1 product' );
 
-    const self = this;
+      options = merge( {
+        name: null // {string|null} optional name, suitable for display to the user
+      }, options );
 
-    // @public
-    this.name = options.name;
-    this.reactants = reactants;
-    this.products = products;
+      // @public
+      this.name = options.name;
+      this.reactants = reactants;
+      this.products = products;
 
-    // @public Create a leftover for each reactant, in the same order.
-    this.leftovers = [];
-    this.reactants.forEach( function( reactant ) {
-      self.leftovers.push( new Substance( 1, reactant.symbol, reactant.iconProperty.get(), 0 ) );
-    } );
+      // @public Create a leftover for each reactant, in the same order.
+      this.leftovers = [];
+      this.reactants.forEach( reactant => {
+        this.leftovers.push( new Substance( 1, reactant.symbol, reactant.iconProperty.get(), 0 ) );
+      } );
 
-    this.reactants.forEach( function( reactant ) {
-      // internal, no corresponding unlink needed
-      reactant.quantityProperty.link( self.updateQuantities.bind( self ) );
-    } );
-  }
-
-  reactantsProductsAndLeftovers.register( 'Reaction', Reaction );
-
-  return inherit( Object, Reaction, {
+      this.reactants.forEach( reactant => {
+        // internal, no corresponding unlink needed
+        reactant.quantityProperty.link( this.updateQuantities.bind( this ) );
+      } );
+    }
 
     // @public
-    reset: function() {
+    reset() {
       this.reactants.forEach( function( reactant ) { reactant.reset(); } );
       this.products.forEach( function( product ) { product.reset(); } );
       this.leftovers.forEach( function( leftover ) { leftover.reset(); } );
-    },
+    }
 
     // @public
-    toString: function() {
+    toString() {
       return DevStringUtils.equationString( this );
-    },
+    }
 
     /**
      * Formula is a reaction if more than one coefficient is non-zero, or if any coefficient is > 1.
      * @returns {boolean}
      * @public
      */
-    isReaction: function() {
+    isReaction() {
       let greaterThanZero = 0;
       let greaterThanOne = 0;
-      this.reactants.forEach( function( reactant ) {
+      this.reactants.forEach( reactant => {
         if ( reactant.coefficientProperty.get() > 0 ) { greaterThanZero++; }
         if ( reactant.coefficientProperty.get() > 1 ) { greaterThanOne++; }
       } );
       return ( greaterThanZero > 1 || greaterThanOne > 0 );
-    },
+    }
 
     /*
      * Updates the quantities of products and leftovers.
      * @protected
      */
-    updateQuantities: function() {
+    updateQuantities() {
       const numberOfReactions = this.getNumberOfReactions();
-      this.products.forEach( function( product ) {
+      this.products.forEach( product => {
         product.quantityProperty.set( numberOfReactions * product.coefficientProperty.get() );
       } );
       // reactants and leftovers array have identical orders
@@ -96,7 +90,7 @@ define( require => {
         const quantity = this.reactants[ i ].quantityProperty.get() - ( numberOfReactions * this.reactants[ i ].coefficientProperty.get() );
         this.leftovers[ i ].quantityProperty.set( quantity );
       }
-    },
+    }
 
     /**
      * Gets the number of reactions we have, based on the coefficients and reactant quantities.
@@ -105,11 +99,11 @@ define( require => {
      * @returns {number}
      * @private
      */
-    getNumberOfReactions: function() {
+    getNumberOfReactions() {
       let numberOfReactions = 0;
       if ( this.isReaction() ) {
         const possibleValues = [];
-        this.reactants.forEach( function( reactant ) {
+        this.reactants.forEach( reactant => {
           if ( reactant.coefficientProperty.get() !== 0 ) {
             possibleValues.push( Math.floor( reactant.quantityProperty.get() / reactant.coefficientProperty.get() ) );
           }
@@ -120,5 +114,7 @@ define( require => {
       }
       return numberOfReactions;
     }
-  } );
+  }
+
+  return reactantsProductsAndLeftovers.register( 'Reaction', Reaction );
 } );

@@ -420,7 +420,5 @@ define( require => {
     }
   };
 
-  reactantsProductsAndLeftovers.register( 'ReactionFactory', ReactionFactory );
-
-  return ReactionFactory;
+  return reactantsProductsAndLeftovers.register( 'ReactionFactory', ReactionFactory );
 } );

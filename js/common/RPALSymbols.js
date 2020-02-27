@@ -25,7 +25,5 @@ define( require => {
     RPALSymbols[ symbol ] = ChemUtils.toSubscript( symbol );
   } );
 
-  reactantsProductsAndLeftovers.register( 'RPALSymbols', RPALSymbols );
-
-  return RPALSymbols;
+  return reactantsProductsAndLeftovers.register( 'RPALSymbols', RPALSymbols );
 } );

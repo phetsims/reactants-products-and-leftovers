@@ -23,7 +23,5 @@ define( require => {
     GAME_BUTTON: 'yellow'
   };
 
-  reactantsProductsAndLeftovers.register( 'RPALColors', RPALColors );
-
-  return RPALColors;
+  return reactantsProductsAndLeftovers.register( 'RPALColors', RPALColors );
 } );

@@ -9,28 +9,26 @@ define( require => {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  /**
-   * @param {Reaction[]} reactions
-   * @constructor
-   */
-  function RPALBaseModel( reactions ) {
+  class RPALBaseModel {
 
-    this.reactions = reactions; // @public {Reaction[]} reaction choices
-    this.reactionProperty = new Property( this.reactions[ 0 ] ); // @public {Reaction} the selected reaction
-  }
+    /**
+     * @param {Reaction[]} reactions
+     */
+    constructor( reactions ) {
 
-  reactantsProductsAndLeftovers.register( 'RPALBaseModel', RPALBaseModel );
-
-  return inherit( Object, RPALBaseModel, {
+      this.reactions = reactions; // @public {Reaction[]} reaction choices
+      this.reactionProperty = new Property( this.reactions[ 0 ] ); // @public {Reaction} the selected reaction
+    }
 
     // @override @public
-    reset: function() {
+    reset() {
       this.reactionProperty.reset();
       this.reactions.forEach( function( reaction ) { reaction.reset(); } );
     }
-  } );
+  }
+
+  return reactantsProductsAndLeftovers.register( 'RPALBaseModel', RPALBaseModel );
 } );
