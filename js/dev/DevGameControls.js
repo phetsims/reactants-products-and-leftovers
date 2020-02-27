@@ -37,11 +37,11 @@ define( require => {
 
       // replays the current challenge
       const replayButton = new TextPushButton( '<', BUTTON_OPTIONS );
-      replayButton.addListener( function() { model.replayCurrentChallenge(); } );
+      replayButton.addListener( () => model.replayCurrentChallenge() );
 
       // skips the current challenge
       const skipButton = new TextPushButton( '>', BUTTON_OPTIONS );
-      skipButton.addListener( function() { model.skipCurrentChallenge(); } );
+      skipButton.addListener( () => model.skipCurrentChallenge() );
 
       options.children = [ replayButton, skipButton ];
       super( options );

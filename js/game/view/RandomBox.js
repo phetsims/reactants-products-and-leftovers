@@ -114,7 +114,7 @@ define( require => {
      * @override
      */
     dispose() {
-      this.substanceLayers.forEach( function( node ) { node.dispose(); } );
+      this.substanceLayers.forEach( node => node.dispose() );
       this.substanceLayers = null;
       super.dispose();
     }
@@ -177,7 +177,7 @@ define( require => {
      * @override
      */
     dispose() {
-      this.cellNodes.forEach( function( node ) { node.dispose(); } );
+      this.cellNodes.forEach( node => node.dispose() );
       this.cellNodes = null;
       this.quantityProperty.unlink( this.quantityPropertyObserver );
       super.dispose();

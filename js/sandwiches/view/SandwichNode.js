@@ -21,7 +21,7 @@ define( require => {
   const meatImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/meat.png' );
 
   // constants
-  const MAX_WIDTH = _.maxBy( [ breadImage, cheeseImage, meatImage ], function( image ) { return image.width; } ).width;
+  const MAX_WIDTH = _.maxBy( [ breadImage, cheeseImage, meatImage ], image => image.width ).width;
   const Y_SPACING = 4; // vertical space between centers of ingredients
   const SANDWICH_SCALE = 0.65; // default scale of Nodes for sandwiches and their ingredients
 

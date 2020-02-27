@@ -50,7 +50,7 @@ define( require => {
   // Level 2: smiley faces (various colors), @returns {Node[]}
   function createNodesLevel2() {
     const nodes = [];
-    FACE_COLORS.forEach( function( color ) {
+    FACE_COLORS.forEach( color => {
       nodes.push( new FaceNode( 40, { headFill: color } ) );
     } );
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );

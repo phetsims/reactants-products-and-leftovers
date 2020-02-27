@@ -85,8 +85,8 @@ define( require => {
       this.playStateProperty.reset();
 
       // reset scores and times for each level
-      this.bestScoreProperties.forEach( function( property ) { property.set( 0 ); } );
-      this.bestTimeProperties.forEach( function( property ) { property.set( null ); } );
+      this.bestScoreProperties.forEach( property => property.set( 0 ) );
+      this.bestTimeProperties.forEach( property => property.set( null ) );
     }
 
     // @private Advances to GamePhase.SETTINGS, shows the user-interface for selecting game settings

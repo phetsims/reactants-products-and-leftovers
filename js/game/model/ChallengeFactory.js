@@ -129,7 +129,7 @@ define( require => {
    * @param {Object} challengeOptions options to the Challenge constructor
    * @returns {Challenge[]}
    */
-  var createChallenges = function( level, maxQuantity, challengeOptions ) {
+  function createChallenges( level, maxQuantity, challengeOptions ) {
 
     assert && assert( level >= 0 && level < POOLS.length );
     assert && assert( maxQuantity > 0 );
@@ -160,7 +160,7 @@ define( require => {
 
     assert && assert( challenges.length === numberOfChallenges );
     return challenges;
-  };
+  }
 
   /**
    * DEBUG: This is called when 'playAll' query parameter is present.
@@ -171,7 +171,7 @@ define( require => {
    * @param maxQuantity
    * @param challengeOptions
    */
-  var createChallengesPlayAll = function( level, maxQuantity, challengeOptions ) {
+  function createChallengesPlayAll( level, maxQuantity, challengeOptions ) {
 
     const challenges = []; // [{Challenge}]
     const factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
@@ -180,7 +180,7 @@ define( require => {
 
       // Create a reaction with non-zero quantities of at least one product.
       const reaction = factoryFunctions[ i ]();
-      reaction.reactants.forEach( function( reactant ) {
+      reaction.reactants.forEach( reactant => {
         reactant.quantityProperty.set( phet.joist.random.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
       } );
 
@@ -191,7 +191,7 @@ define( require => {
     }
 
     return challenges;
-  };
+  }
 
   /**
    * Creates a reaction with non-zero quantities of at least one product.
@@ -199,7 +199,7 @@ define( require => {
    * @param {number} maxQuantity
    * @returns {Reaction}
    */
-  var createChallengeWithProducts = function( factoryFunctions, maxQuantity ) {
+  function createChallengeWithProducts( factoryFunctions, maxQuantity ) {
 
     assert && assert( factoryFunctions.length > 0 );
     assert && assert( maxQuantity > 0 );
@@ -211,19 +211,19 @@ define( require => {
 
     // Create a reaction with non-zero quantities of at least one product.
     const reaction = factoryFunction();
-    reaction.reactants.forEach( function( reactant ) {
+    reaction.reactants.forEach( reactant => {
       reactant.quantityProperty.set( phet.joist.random.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
     } );
 
     return reaction;
-  };
+  }
 
   /**
    * Creates a reaction with zero quantities of all products.
    * @param {function[]} factoryFunctions
    * @returns {Reaction}
    */
-  var createChallengeWithoutProducts = function( factoryFunctions ) {
+  function createChallengeWithoutProducts( factoryFunctions ) {
 
     assert && assert( factoryFunctions.length > 0 );
 
@@ -250,17 +250,17 @@ define( require => {
     }
 
     // Put the functions that we didn't use back in the pool.
-    disqualifiedFunctions.forEach( function( disqualifiedFunction ) {
+    disqualifiedFunctions.forEach( disqualifiedFunction => {
       factoryFunctions.push( disqualifiedFunction );
     } );
 
     // set quantities
-    reaction.reactants.forEach( function( reactant ) {
+    reaction.reactants.forEach( reactant => {
       reactant.quantityProperty.set( phet.joist.random.nextIntBetween( 1, Math.max( 1, reactant.coefficientProperty.get() - 1 ) ) );
     } );
 
     return reaction;
-  };
+  }
 
   /**
    * Does this reaction have coefficient of 1 for all reactants? This type of reaction cannot produce
@@ -268,15 +268,15 @@ define( require => {
    * @param {Reaction} reaction
    * @returns {boolean}
    */
-  var reactantCoefficientsAllOne = function( reaction ) {
+  function reactantCoefficientsAllOne( reaction ) {
     let allOne = true;
-    reaction.reactants.forEach( function( reactant ) {
+    reaction.reactants.forEach( reactant => {
       if ( reactant.coefficientProperty.get() !== 1 ) {
         allOne = false;
       }
     } );
     return allOne;
-  };
+  }
 
   /**
    * Checks a reaction for quantity range violations.
@@ -284,7 +284,7 @@ define( require => {
    * @param {number} maxQuantity
    * @returns {boolean}
    */
-  const hasQuantityRangeViolation = function( reaction, maxQuantity ) {
+  function hasQuantityRangeViolation( reaction, maxQuantity ) {
     let violation = false;
     let i;
     for ( i = 0; !violation && i < reaction.reactants.length; i++ ) {
@@ -297,7 +297,7 @@ define( require => {
       violation = ( reaction.leftovers[ i ].quantityProperty.get() > maxQuantity );
     }
     return violation;
-  };
+  }
 
   /**
    * Fixes any quantity-range violations in a reaction.
@@ -310,7 +310,7 @@ define( require => {
    * @param {number} maxQuantity
    * @param {boolean} enableDebugOutput prints to the console when a violation is fixed
    */
-  var fixQuantityRangeViolation = function( reaction, maxQuantity, enableDebugOutput ) {
+  function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
 
     enableDebugOutput = !!enableDebugOutput || false;
 
@@ -319,7 +319,7 @@ define( require => {
       const beforeFixString = DevStringUtils.reactionString( reaction );
 
       // First, make sure all reactant quantities are in range.
-      reaction.reactants.forEach( function( reactant ) {
+      reaction.reactants.forEach( reactant => {
         if ( reactant.quantityProperty.get() > maxQuantity ) {
           reactant.quantityProperty.set(  maxQuantity );
         }
@@ -355,7 +355,7 @@ define( require => {
                      ' fixed: ' + DevStringUtils.quantitiesString( reaction ) );
       }
     }
-  };
+  }
 
   /**
    * DEBUG
@@ -364,7 +364,7 @@ define( require => {
    * with 'dev' query parameter and press the 'Test' button that appears on the Game's level-selection screen.
    * Output is printed to the console.
    */
-  var doTest = function() {
+  function doTest() {
 
     assert && assert( !RPALQueryParameters.playAll ); // test doesn't work with some query parameters
 
@@ -403,7 +403,7 @@ define( require => {
     console.log( '----------------------------------------------------------' );
     console.log( 'Looking for coefficient-range violations ...' );
     console.log( '----------------------------------------------------------' );
-    factoryFunctions.forEach( function( factoryFunction ) {
+    factoryFunctions.forEach( factoryFunction => {
       reaction = factoryFunction();
       for ( i = 0; i < reaction.reactants.length; i++ ) {
         if ( reaction.reactants[ i ].coefficientProperty.get() > maxQuantity ) {
@@ -428,7 +428,7 @@ define( require => {
     console.log( '-----------------------------------------------------------------' );
     console.log( 'Looking for quantity-range violations that cannot be fixed ...' );
     console.log( '----------------------------------------------------------------' );
-    factoryFunctions.forEach( function( factoryFunction ) {
+    factoryFunctions.forEach( factoryFunction => {
       reaction = factoryFunction();
       // set all reactant quantities to their max values.
       for ( i = 0; i < reaction.reactants.length; i++ ) {
@@ -452,11 +452,11 @@ define( require => {
 
         // validate
         var numberWithZeroProducts = 0;
-        challenges.forEach( function( challenge ) {
+        challenges.forEach( challenge => {
 
           // verify that all reactant quantities are > 0
           let zeroReactants = false;
-          challenge.reaction.reactants.forEach( function( reactant ) {
+          challenge.reaction.reactants.forEach( reactant => {
             if ( reactant.quantityProperty.get() < 1 ) {
               zeroReactants = true;
             }
@@ -469,7 +469,7 @@ define( require => {
 
           // count how many challenges have zero products
           let nonZeroProducts = 0;
-          challenge.reaction.products.forEach( function( product ) {
+          challenge.reaction.products.forEach( product => {
             if ( product.quantityProperty.get() > 0 ) {
               nonZeroProducts++;
             }
@@ -507,9 +507,7 @@ define( require => {
     console.log( 'zero-product errors = ' + numberOfProductErrors );
     console.log( 'quantity-range errors = ' + numberOfQuantityRangeErrors );
     console.log( '<done>' );
-  };
+  }
 
-  reactantsProductsAndLeftovers.register( 'ChallengeFactory', ChallengeFactory );
-
-  return ChallengeFactory;
+  return reactantsProductsAndLeftovers.register( 'ChallengeFactory', ChallengeFactory );
 } );

@@ -12,44 +12,40 @@ define( require => {
 
   // modules
   const GameGuess = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GameGuess' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  /**
-   * @param {Reaction} reaction
-   * @param {BoxType} interactiveBox which box (Before or After) needs to be guessed
-   * @param {Object} [options]
-   * @constructor
-   */
-  function Challenge( reaction, interactiveBox, options ) {
+  class Challenge {
 
-    options = merge( {
-      moleculesVisible: true, // {boolean} are molecules visible when playing the challenge?
-      numbersVisible: true // {boolean} are numbers visible when playing the challenge?
-    }, options );
+    /**
+     * @param {Reaction} reaction
+     * @param {BoxType} interactiveBox which box (Before or After) needs to be guessed
+     * @param {Object} [options]
+     */
+    constructor( reaction, interactiveBox, options ) {
 
-    // @public
-    this.reaction = reaction;
-    this.interactiveBox = interactiveBox;
-    this.moleculesVisible = options.moleculesVisible;
-    this.numbersVisible = options.numbersVisible;
-    this.guess = new GameGuess( reaction, interactiveBox );
-    this.points = 0;  // points awarded for this challenge
-  }
+      options = merge( {
+        moleculesVisible: true, // {boolean} are molecules visible when playing the challenge?
+        numbersVisible: true // {boolean} are numbers visible when playing the challenge?
+      }, options );
 
-  reactantsProductsAndLeftovers.register( 'Challenge', Challenge );
-
-  return inherit( Object, Challenge, {
+      // @public
+      this.reaction = reaction;
+      this.interactiveBox = interactiveBox;
+      this.moleculesVisible = options.moleculesVisible;
+      this.numbersVisible = options.numbersVisible;
+      this.guess = new GameGuess( reaction, interactiveBox );
+      this.points = 0;  // points awarded for this challenge
+    }
 
     // @public Resets this challenge to its initial state.
-    reset: function() {
+    reset() {
       this.guess.reset();
       this.points = 0;
-    },
+    }
 
     // @public Does the user's guess match the correct answer?
-    isCorrect: function() {
+    isCorrect() {
       let i;
       let correct = true;
       // all reactants must be equal
@@ -65,10 +61,10 @@ define( require => {
         correct = this.guess.leftovers[ i ].equals( this.reaction.leftovers[ i ] );
       }
       return correct;
-    },
+    }
 
     // @public Reveals the correct answer by copying the reaction quantities to the guess.
-    showAnswer: function() {
+    showAnswer() {
       let i;
       for ( i = 0; i < this.guess.reactants.length; i++ ) {
         this.guess.reactants[ i ].quantityProperty.set( this.reaction.reactants[ i ].quantityProperty.get() );
@@ -80,5 +76,7 @@ define( require => {
         this.guess.leftovers[ i ].quantityProperty.set( this.reaction.leftovers[ i ].quantityProperty.get() );
       }
     }
-  } );
+  }
+
+  return reactantsProductsAndLeftovers.register( 'Challenge', Challenge );
 } );

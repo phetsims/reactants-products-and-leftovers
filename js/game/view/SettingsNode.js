@@ -98,7 +98,7 @@ define( require => {
 
       // Reset All button, at bottom right
       const resetAllButton = new ResetAllButton( {
-        listener: function() { model.reset(); },
+        listener: () => model.reset(),
         scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
         right: layoutBounds.right - SCREEN_X_MARGIN,
         bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
@@ -129,7 +129,7 @@ define( require => {
           right: layoutBounds.right - 10,
           top: layoutBounds.top + 10
         } );
-        testButton.addListener( function() { ChallengeFactory.test(); } );
+        testButton.addListener( () => ChallengeFactory.test() );
         this.addChild( testButton );
       }
     }
@@ -166,9 +166,7 @@ define( require => {
         numberOfStars: model.getNumberOfChallenges( level ),
         perfectScore: model.getPerfectScore( level )
       },
-      listener: function() {
-        model.play( level );
-      }
+      listener: () => model.play( level )
     } );
   }
 

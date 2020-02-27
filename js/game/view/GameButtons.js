@@ -50,10 +50,10 @@ define( require => {
       // check button is needed immediately, so create it so this node has well-defined bounds (needed for layout)
       const checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
       this.addChild( checkButton );
-      checkButton.addListener( function() { model.check(); } );
+      checkButton.addListener( () => model.check() );
 
       // enable/disable the check button
-      this.checkButtonEnabledObserver = function( enabled ) { checkButton.enabled = enabled; }; // @private
+      this.checkButtonEnabledObserver = enabled => { checkButton.enabled = enabled; }; // @private
       this.checkButtonEnabledProperty = checkButtonEnabledProperty; // @private
       this.checkButtonEnabledProperty.link( this.checkButtonEnabledObserver ); // must be unlinked in dispose
 
@@ -69,7 +69,7 @@ define( require => {
         if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
           tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
           this.addChild( tryAgainButton );
-          tryAgainButton.addListener( function() { model.tryAgain(); } );
+          tryAgainButton.addListener( () => model.tryAgain() );
 
           // a11y
           tryAgainButton.focus();
@@ -78,7 +78,7 @@ define( require => {
         if ( !showAnswerButton && state === PlayState.SHOW_ANSWER ) {
           showAnswerButton = new TextPushButton( showAnswerString, BUTTON_OPTIONS );
           this.addChild( showAnswerButton );
-          showAnswerButton.addListener( function() { model.showAnswer(); } );
+          showAnswerButton.addListener( () => model.showAnswer() );
 
           // a11y
           showAnswerButton.focus();
@@ -87,7 +87,7 @@ define( require => {
         if ( !nextButton && state === PlayState.NEXT ) {
           nextButton = new TextPushButton( nextString, BUTTON_OPTIONS );
           this.addChild( nextButton );
-          nextButton.addListener( function() { model.next(); } );
+          nextButton.addListener( () => model.next() );
 
           // a11y
           nextButton.focus();

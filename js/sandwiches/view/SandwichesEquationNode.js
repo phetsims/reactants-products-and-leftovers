@@ -142,9 +142,9 @@ define( require => {
      * @override
      */
     dispose() {
-      this.coefficientNodes.forEach( function( node ) { node.dispose(); } );
+      this.coefficientNodes.forEach( node => node.dispose() );
       this.coefficientNodes = null;
-      this.iconNodes.forEach( function( node ) { node.dispose(); } );
+      this.iconNodes.forEach( node => node.dispose() );
       this.iconNodes = null;
       this.sandwichIconProperty.unlink( this.sandwichIconPropertyObserver );
       super.dispose();

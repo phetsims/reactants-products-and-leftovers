@@ -55,9 +55,8 @@ define( require => {
             model.timer.elapsedTimeProperty.value,
             model.bestTimeProperties[ level ].get(),
             model.isNewBestTime,
-            function() {
-              model.settings();
-            }, {
+            () => model.settings(),
+            {
               starDiameter: 45,
               buttonFill: RPALColors.GAME_BUTTON,
               centerX: layoutBounds.centerX,
