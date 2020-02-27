@@ -15,7 +15,6 @@ define( require => {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
   const MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberSpinner = require( 'SUN/NumberSpinner' );
@@ -46,107 +45,111 @@ define( require => {
     backgroundLineWidth: 0.5
   };
 
-  /**
-   * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
-   * @param {Dimension2} maxSandwichSize dimensions of largest sandwich
-   * @param {Object} [options]
-   * @constructor
-   */
-  function SandwichesEquationNode( reaction, maxSandwichSize, options ) {
+  class SandwichesEquationNode extends Node {
 
-    assert && assert( reaction instanceof SandwichRecipe );
+    /**
+     * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
+     * @param {Dimension2} maxSandwichSize dimensions of largest sandwich
+     * @param {Object} [options]
+     */
+    constructor( reaction, maxSandwichSize, options ) {
 
-    options = options || {};
+      assert && assert( reaction instanceof SandwichRecipe );
 
-    this.coefficientNodes = []; // @private
-    this.iconNodes = []; // @private
+      options = options || {};
 
-    // left-hand side is the sandwich ingredients
-    const leftNode = new Node();
+      super();
 
-    // hoist loop vars explicitly
-    let reactant;
-    let coefficientNode;
-    let iconNode;
-    let plusNode;
-    const numberOfReactants = reaction.reactants.length;
-    for ( let i = 0; i < numberOfReactants; i++ ) {
+      this.coefficientNodes = []; // @private
+      this.iconNodes = []; // @private
 
-      reactant = reaction.reactants[ i ];
+      // left-hand side is the sandwich ingredients
+      const leftNode = new Node();
 
-      // coefficient
-      if ( reaction.coefficientsMutable ) {
-        coefficientNode = new NumberSpinner( reactant.coefficientProperty, new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE ), SPINNER_OPTIONS );
-        this.coefficientNodes.push( coefficientNode );
+      // hoist loop vars explicitly
+      let reactant;
+      let coefficientNode;
+      let iconNode;
+      let plusNode;
+      const numberOfReactants = reaction.reactants.length;
+      for ( let i = 0; i < numberOfReactants; i++ ) {
+
+        reactant = reaction.reactants[ i ];
+
+        // coefficient
+        if ( reaction.coefficientsMutable ) {
+          coefficientNode = new NumberSpinner( reactant.coefficientProperty, new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE ), SPINNER_OPTIONS );
+          this.coefficientNodes.push( coefficientNode );
+        }
+        else {
+          coefficientNode = new Text( reactant.coefficientProperty.get(), TEXT_OPTIONS );
+        }
+        coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
+        leftNode.addChild( coefficientNode );
+
+        // icon
+        iconNode = new SubstanceIcon( reactant.iconProperty, {
+          left: coefficientNode.right + COEFFICIENT_X_SPACING,
+          centerY: coefficientNode.centerY
+        } );
+        leftNode.addChild( iconNode );
+        this.iconNodes.push( iconNode );
+
+        // plus sign between reactants
+        if ( i < numberOfReactants - 1 ) {
+          plusNode = new PlusNode( PLUS_OPTIONS );
+          plusNode.left = iconNode.right + PLUS_X_SPACING;
+          plusNode.centerY = coefficientNode.centerY;
+          leftNode.addChild( plusNode );
+        }
+        else {
+          plusNode = null;
+        }
       }
-      else {
-        coefficientNode = new Text( reactant.coefficientProperty.get(), TEXT_OPTIONS );
-      }
-      coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
-      leftNode.addChild( coefficientNode );
 
-      // icon
-      iconNode = new SubstanceIcon( reactant.iconProperty, {
-        left: coefficientNode.right + COEFFICIENT_X_SPACING,
-        centerY: coefficientNode.centerY
+      // right arrow
+      const arrowNode = new RightArrowNode( ARROW_OPTIONS );
+      arrowNode.left = leftNode.right + ARROW_X_SPACING;
+      arrowNode.centerY = leftNode.centerY;
+
+      // @private right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
+      const sandwichNode = new SubstanceIcon( reaction.sandwich.iconProperty, {
+        centerX: arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 ),
+        centerY: arrowNode.centerY
       } );
-      leftNode.addChild( iconNode );
-      this.iconNodes.push( iconNode );
+      this.iconNodes.push( sandwichNode );
 
-      // plus sign between reactants
-      if ( i < numberOfReactants - 1 ) {
-        plusNode = new PlusNode( PLUS_OPTIONS );
-        plusNode.left = iconNode.right + PLUS_X_SPACING;
-        plusNode.centerY = coefficientNode.centerY;
-        leftNode.addChild( plusNode );
-      }
-      else {
-        plusNode = null;
-      }
+      // 'No Reaction', max width determined empirically.
+      const noReactionNode = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
+      noReactionNode.setScaleMagnitude( Math.min( 1, 75 / noReactionNode.width ) );
+      noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
+      noReactionNode.centerY = arrowNode.centerY;
+
+      // Display 'No Reaction' if we don't have a valid sandwich.
+      this.sandwichIconPropertyObserver = node => {
+        sandwichNode.visible = reaction.isReaction();
+        noReactionNode.visible = !sandwichNode.visible;
+      };
+      this.sandwichIconProperty = reaction.sandwich.iconProperty; // @private
+      this.sandwichIconProperty.link( this.sandwichIconPropertyObserver ); // must be unlinked in dispose
+
+      options.children = [ leftNode, arrowNode, sandwichNode, noReactionNode ];
+      this.mutate( options );
     }
 
-    // right arrow
-    const arrowNode = new RightArrowNode( ARROW_OPTIONS );
-    arrowNode.left = leftNode.right + ARROW_X_SPACING;
-    arrowNode.centerY = leftNode.centerY;
-
-    // @private right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
-    const sandwichNode = new SubstanceIcon( reaction.sandwich.iconProperty, {
-      centerX: arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 ),
-      centerY: arrowNode.centerY
-    } );
-    this.iconNodes.push( sandwichNode );
-
-    // 'No Reaction', max width determined empirically.
-    const noReactionNode = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
-    noReactionNode.setScaleMagnitude( Math.min( 1, 75 / noReactionNode.width ) );
-    noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
-    noReactionNode.centerY = arrowNode.centerY;
-
-    // Display 'No Reaction' if we don't have a valid sandwich.
-    this.sandwichIconPropertyObserver = function( node ) {
-      sandwichNode.visible = reaction.isReaction();
-      noReactionNode.visible = !sandwichNode.visible;
-    };
-    this.sandwichIconProperty = reaction.sandwich.iconProperty; // @private
-    this.sandwichIconProperty.link( this.sandwichIconPropertyObserver ); // must be unlinked in dispose
-
-    options.children = [ leftNode, arrowNode, sandwichNode, noReactionNode ];
-    Node.call( this, options );
-  }
-
-  reactantsProductsAndLeftovers.register( 'SandwichesEquationNode', SandwichesEquationNode );
-
-  return inherit( Node, SandwichesEquationNode, {
-
-    // @public Ensures that this node is eligible for GC.
-    dispose: function() {
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
       this.coefficientNodes.forEach( function( node ) { node.dispose(); } );
       this.coefficientNodes = null;
       this.iconNodes.forEach( function( node ) { node.dispose(); } );
       this.iconNodes = null;
       this.sandwichIconProperty.unlink( this.sandwichIconPropertyObserver );
-      Node.prototype.dispose.call( this );
+      super.dispose();
     }
-  } );
+  }
+
+  return reactantsProductsAndLeftovers.register( 'SandwichesEquationNode', SandwichesEquationNode );
 } );
