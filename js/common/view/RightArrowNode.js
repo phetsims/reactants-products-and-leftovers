@@ -10,27 +10,26 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function RightArrowNode( options ) {
+  class RightArrowNode extends ArrowNode {
 
-    options = merge( {
-      length: 70,
-      tailWidth: 15,
-      headWidth: 35,
-      headHeight: 30
-    }, options );
+    /**
+     * @param {Object} [options]
+     */
+    constructor( options ) {
 
-    ArrowNode.call( this, 0, 0, options.length, 0, options );
+      options = merge( {
+        length: 70,
+        tailWidth: 15,
+        headWidth: 35,
+        headHeight: 30
+      }, options );
+
+      super( 0, 0, options.length, 0, options );
+    }
   }
 
-  reactantsProductsAndLeftovers.register( 'RightArrowNode', RightArrowNode );
-
-  return inherit( ArrowNode, RightArrowNode );
+  return reactantsProductsAndLeftovers.register( 'RightArrowNode', RightArrowNode );
 } );

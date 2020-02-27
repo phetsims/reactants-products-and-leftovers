@@ -37,7 +37,7 @@ define( require => {
 
       // describe radio buttons, one for each reaction
       const items = [];
-      choices.forEach( function( choice ) {
+      choices.forEach( choice => {
         items.push( {
           node: new Text( choice.name, TEXT_OPTIONS ),
           value: choice

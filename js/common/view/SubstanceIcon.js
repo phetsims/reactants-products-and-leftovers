@@ -25,46 +25,46 @@ define( require => {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  /**
-   * @param {Property.<Node>} iconProperty
-   * @param {Object} [options]
-   * @constructor
-   */
-  function SubstanceIcon( iconProperty, options ) {
+  class SubstanceIcon extends Node {
 
-    const self = this;
-    Node.call( this );
+    /**
+     * @param {Property.<Node>} iconProperty
+     * @param {Object} [options]
+     */
+    constructor( iconProperty, options ) {
 
-    // @private Add an additional wrapper, so that we can maintain the node's center.
-    this.wrapperNode = new Node();
-    this.addChild( this.wrapperNode );
+      super();
 
-    this.iconProperty = iconProperty; // @private
-    this.iconPropertyObserver = function( icon ) { // @private
-      self.wrapperNode.removeAllChildren();
-      // icon must be removed in dispose, since scenery children keep a reference to their parents
-      self.wrapperNode.addChild( icon );
-      self.wrapperNode.center = Vector2.ZERO;
-    };
-    this.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
+      // @private Add an additional wrapper, so that we can maintain the node's center.
+      this.wrapperNode = new Node();
+      this.addChild( this.wrapperNode );
 
-    this.mutate( options );
-  }
+      this.iconProperty = iconProperty; // @private
+      this.iconPropertyObserver = icon => { // @private
+        this.wrapperNode.removeAllChildren();
+        // icon must be removed in dispose, since scenery children keep a reference to their parents
+        this.wrapperNode.addChild( icon );
+        this.wrapperNode.center = Vector2.ZERO;
+      };
+      this.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
 
-  reactantsProductsAndLeftovers.register( 'SubstanceIcon', SubstanceIcon );
+      this.mutate( options );
+    }
 
-  return inherit( Node, SubstanceIcon, {
-
-    // Ensures that this node is eligible for GC.
-    dispose: function() {
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
       this.iconProperty.unlink( this.iconPropertyObserver );
       this.wrapperNode.removeAllChildren(); // to disconnect from icon
-      Node.prototype.dispose.call( this );
+      super.dispose();
     }
-  } );
+  }
+
+  return reactantsProductsAndLeftovers.register( 'SubstanceIcon', SubstanceIcon );
 } );
