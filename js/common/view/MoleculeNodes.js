@@ -88,7 +88,5 @@ define( require => {
     SO3: new SO3Node( MOLECULE_OPTIONS )
   };
 
-  reactantsProductsAndLeftovers.register( 'MoleculeNodes', MoleculeNodes );
-
-  return MoleculeNodes;
+  return reactantsProductsAndLeftovers.register( 'MoleculeNodes', MoleculeNodes );
 } );

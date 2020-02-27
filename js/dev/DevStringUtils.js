@@ -13,7 +13,7 @@ define( require => {
   // modules
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
 
-  var DevStringUtils = {
+  const DevStringUtils = {
 
     /**
      * String representation of a reaction equation, with HTML stripped out.
@@ -83,7 +83,5 @@ define( require => {
     }
   };
 
-  reactantsProductsAndLeftovers.register( 'DevStringUtils', DevStringUtils );
-
-  return DevStringUtils;
+  return reactantsProductsAndLeftovers.register( 'DevStringUtils', DevStringUtils );
 } );

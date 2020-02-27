@@ -9,7 +9,6 @@ define( require => {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PlusNode = require( 'SCENERY_PHET/PlusNode' );
@@ -19,52 +18,51 @@ define( require => {
   const RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
   const Text = require( 'SCENERY/nodes/Text' );
 
-  /**
-   * @param {Reaction} reaction
-   * @param {Object} [options]
-   * @constructor
-   */
-  function MoleculesEquationNode( reaction, options ) {
+  class MoleculesEquationNode extends Node {
+    /**
+     * @param {Reaction} reaction
+     * @param {Object} [options]
+     */
+    constructor( reaction, options ) {
 
-    options = merge( {
-      fill: 'white',
-      font: new RPALFont( 28 ),
-      coefficientXSpacing: 8, // space between coefficient and node to its right
-      plusXSpacing: 15, // space on both sides of the plus signs
-      arrowXSpacing: 15 // space on both sides of arrow
-    }, options );
+      options = merge( {
+        fill: 'white',
+        font: new RPALFont( 28 ),
+        coefficientXSpacing: 8, // space between coefficient and node to its right
+        plusXSpacing: 15, // space on both sides of the plus signs
+        arrowXSpacing: 15 // space on both sides of arrow
+      }, options );
 
-    Node.call( this );
+      super();
 
-    // left-hand side (reactants)
-    const reactantsNode = createTermsNode( reaction.reactants, options );
-    this.addChild( reactantsNode );
+      // left-hand side (reactants)
+      const reactantsNode = createTermsNode( reaction.reactants, options );
+      this.addChild( reactantsNode );
 
-    // right arrow
-    const arrowNode = new RightArrowNode( { fill: options.fill, stroke: null, scale: 0.65 } );
-    arrowNode.left = reactantsNode.right + options.arrowXSpacing;
-    const coefficientHeight = new Text( '1', { font: options.font, fill: options.fill } ).height;
-    arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
-    this.addChild( arrowNode );
+      // right arrow
+      const arrowNode = new RightArrowNode( { fill: options.fill, stroke: null, scale: 0.65 } );
+      arrowNode.left = reactantsNode.right + options.arrowXSpacing;
+      const coefficientHeight = new Text( '1', { font: options.font, fill: options.fill } ).height;
+      arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
+      this.addChild( arrowNode );
 
-    // right-hand side (products)
-    const productsNode = createTermsNode( reaction.products, options );
-    productsNode.left = arrowNode.right + options.arrowXSpacing;
-    this.addChild( productsNode );
+      // right-hand side (products)
+      const productsNode = createTermsNode( reaction.products, options );
+      productsNode.left = arrowNode.right + options.arrowXSpacing;
+      this.addChild( productsNode );
 
-    this.arrowCenterX = arrowNode.centerX; // @public, needed for aligning arrows in Game layout
+      this.arrowCenterX = arrowNode.centerX; // @public, needed for aligning arrows in Game layout
 
-    this.mutate( options );
+      this.mutate( options );
+    }
   }
-
-  reactantsProductsAndLeftovers.register( 'MoleculesEquationNode', MoleculesEquationNode );
 
   /**
    * Creates terms for equation.
    * @param {Substance[]} terms the terms to be added
    * @returns {Node}
    */
-  var createTermsNode = function( terms, options ) {
+  function createTermsNode( terms, options ) {
 
     const parentNode = new Node();
     const numberOfTerms = terms.length;
@@ -99,7 +97,7 @@ define( require => {
     }
 
     return parentNode;
-  };
+  }
 
-  return inherit( Node, MoleculesEquationNode );
+  return reactantsProductsAndLeftovers.register( 'MoleculesEquationNode', MoleculesEquationNode );
 } );

@@ -9,45 +9,41 @@ define( require => {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Utils = require( 'DOT/Utils' );
 
-  /**
-   * @param {Property.<number>} numberProperty
-   * @param {Object} [options]
-   * @constructor
-   */
-  function NumberNode( numberProperty, options ) {
+  class NumberNode extends Text {
 
-    options = merge( {
-      decimalPlaces: 0  // number of decimal places to be displayed
-    }, options );
+    /**
+     * @param {Property.<number>} numberProperty
+     * @param {Object} [options]
+     */
+    constructor( numberProperty, options ) {
 
-    const self = this;
+      options = merge( {
+        decimalPlaces: 0  // number of decimal places to be displayed
+      }, options );
 
-    Text.call( this, '' );
+      super( '' );
 
-    // @private update the displayed number
-    this.numberPropertyObserver = function( value ) {
-      self.text = Utils.toFixed( value, options.decimalPlaces );
-    };
-    this.numberProperty = numberProperty; // @private
-    this.numberProperty.link( this.numberPropertyObserver ); // must be unlinked in dispose
+      // @private update the displayed number
+      this.numberPropertyObserver = value => {
+        this.text = Utils.toFixed( value, options.decimalPlaces );
+      };
+      this.numberProperty = numberProperty; // @private
+      this.numberProperty.link( this.numberPropertyObserver ); // must be unlinked in dispose
 
-    this.mutate( options );
-  }
-
-  reactantsProductsAndLeftovers.register( 'NumberNode', NumberNode );
-
-  return inherit( Text, NumberNode, {
+      this.mutate( options );
+    }
 
     // @public Ensures that this node is eligible for GC.
-    dispose: function() {
+    dispose() {
       this.numberProperty.unlink( this.numberPropertyObserver );
       Text.prototype.dispose.call( this );
     }
-  } );
+  }
+
+  return reactantsProductsAndLeftovers.register( 'NumberNode', NumberNode );
 } );

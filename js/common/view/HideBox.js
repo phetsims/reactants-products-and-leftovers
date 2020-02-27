@@ -12,41 +12,40 @@ define( require => {
   // modules
   const Dimension2 = require( 'DOT/Dimension2' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function HideBox( options ) {
+  class HideBox extends Node {
 
-    options = merge( {
-      boxSize: new Dimension2( 100, 100 ),
-      iconHeight: 35,
-      cornerRadius: 0
-    }, options );
+    /**
+     * @param {Object} [options]
+     */
+    constructor( options ) {
 
-    // dashed box
-    const rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
-      fill: 'white',
-      stroke: 'rgb(180,180,180)',
-      lineDash: [ 14, 14 ]
-    } );
+      options = merge( {
+        boxSize: new Dimension2( 100, 100 ),
+        iconHeight: 35,
+        cornerRadius: 0
+      }, options );
 
-    // closed-eye icon
-    const eyeNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
-    eyeNode.setScaleMagnitude( options.iconHeight / eyeNode.height );
-    eyeNode.center = rectangleNode.center;
+      // dashed box
+      const rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
+        fill: 'white',
+        stroke: 'rgb(180,180,180)',
+        lineDash: [ 14, 14 ]
+      } );
 
-    options.children = [ rectangleNode, eyeNode ];
-    Node.call( this, options );
+      // closed-eye icon
+      const eyeNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
+      eyeNode.setScaleMagnitude( options.iconHeight / eyeNode.height );
+      eyeNode.center = rectangleNode.center;
+
+      options.children = [ rectangleNode, eyeNode ];
+      super( options );
+    }
   }
 
-  reactantsProductsAndLeftovers.register( 'HideBox', HideBox );
-
-  return inherit( Node, HideBox );
+  return reactantsProductsAndLeftovers.register( 'HideBox', HideBox );
 } );

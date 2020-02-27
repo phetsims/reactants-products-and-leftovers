@@ -15,7 +15,6 @@ define( require => {
   const BracketNode = require( 'SCENERY_PHET/BracketNode' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const HideBox = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/HideBox' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/NumberNode' );
@@ -53,246 +52,243 @@ define( require => {
     backgroundLineWidth: 0.5
   };
 
-  /**
-   * @param {Substance[]} reactants
-   * @param {Substance[]} products
-   * @param {Substance[]} leftovers
-   * @param {number[]} beforeXOffsets offsets of reactants relative to the left edge of the 'Before' box
-   * @param {number[]} afterXOffsets offsets of products and leftovers relative to the left edge of the 'Before' box
-   * @param {Object} [options]
-   * @constructor
-   */
-  function QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, options ) {
+  class QuantitiesNode extends Node {
 
-    assert && assert( reactants.length === beforeXOffsets.length );
-    assert && assert( products.length + leftovers.length === afterXOffsets.length );
-
-    options = merge( {
-      interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
-      boxWidth: 100, // {number} width of the Before and After boxes
-      afterBoxXOffset: 200, // {number} x-offset of left of After box, relative to left of Before box
-      quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of spinners
-      hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
-      minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons
-      showSymbols: true // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
-    }, options );
-
-    Node.call( this );
-
-    this.reactants = reactants; // @private
-    this.products = products; // @private
-    this.leftovers = leftovers; // @private
-    this.interactiveBox = options.interactiveBox; // @private
-
-    // explicitly hoist reused vars
-    let i;
-    let reactant;
-    let product;
-    let leftover;
-    let centerX;
-    let numberNode;
-    let spinnerNode;
-    let iconNode;
-    let symbolNode;
-
-    // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    this.spinnerNodes = []; // @private {NumberSpinner[]}
-    this.beforeNumberNodes = []; // @private {NumberNode[]}
-    this.afterNumberNodes = []; // @private {NumberNode[]}
-    this.iconNodes = []; // @private {SubstanceIcon[]}
-    const symbolNodes = [];
-
-    // reactants, below the 'Before' box
-    this.reactantsParent = new Node(); // @private
-    this.addChild( this.reactantsParent );
-    for ( i = 0; i < reactants.length; i++ ) {
-
-      reactant = reactants[ i ];
-      centerX = beforeXOffsets[ i ];
-
-      if ( this.interactiveBox === BoxType.BEFORE ) {
-        // spinner
-        spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
-          merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
-        this.reactantsParent.addChild( spinnerNode );
-        this.spinnerNodes.push( spinnerNode );
-      }
-      else {
-        // static number
-        numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-        this.reactantsParent.addChild( numberNode );
-        this.beforeNumberNodes.push( numberNode );
-      }
-
-      // substance icon
-      iconNode = new SubstanceIcon( reactant.iconProperty, { centerX: centerX } );
-      this.reactantsParent.addChild( iconNode );
-      this.iconNodes.push( iconNode );
-
-      // symbol
-      if ( options.showSymbols ) {
-        symbolNode = new RichText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        this.reactantsParent.addChild( symbolNode );
-        symbolNodes.push( symbolNode );
-      }
-    }
-
-    // products, below the 'After' box
-    this.productsParent = new Node(); // @private
-    this.addChild( this.productsParent );
-    for ( i = 0; i < products.length; i++ ) {
-
-      product = products[ i ];
-      centerX = options.afterBoxXOffset + afterXOffsets[ i ];
-
-      if ( this.interactiveBox === BoxType.AFTER ) {
-        // spinner
-        spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
-          merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
-        this.productsParent.addChild( spinnerNode );
-        this.spinnerNodes.push( spinnerNode );
-      }
-      else {
-        // static number
-        numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-        this.productsParent.addChild( numberNode );
-        this.afterNumberNodes.push( numberNode );
-      }
-
-      // substance icon
-      iconNode = new SubstanceIcon( product.iconProperty, { centerX: centerX } );
-      this.productsParent.addChild( iconNode );
-      this.iconNodes.push( iconNode );
-
-      // symbol
-      if ( options.showSymbols ) {
-        symbolNode = new RichText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        this.productsParent.addChild( symbolNode );
-        symbolNodes.push( symbolNode );
-      }
-    }
-
-    // leftovers, below the 'After' box, to the right of the products
-    this.leftoversParent = new Node(); // @private
-    this.addChild( this.leftoversParent );
-    for ( i = 0; i < leftovers.length; i++ ) {
-
-      leftover = leftovers[ i ];
-      centerX = options.afterBoxXOffset + afterXOffsets[ i + products.length ]; // leftovers follow products in afterXOffsets
-
-      if ( this.interactiveBox === BoxType.AFTER ) {
-        // spinner
-        spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
-          merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
-        this.leftoversParent.addChild( spinnerNode );
-        this.spinnerNodes.push( spinnerNode );
-      }
-      else {
-        // static number
-        numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-        this.leftoversParent.addChild( numberNode );
-        this.afterNumberNodes.push( numberNode );
-      }
-
-      // substance icon
-      iconNode = new SubstanceIcon( leftover.iconProperty, { centerX: centerX } );
-      this.leftoversParent.addChild( iconNode );
-      this.iconNodes.push( iconNode );
-
-      // symbol
-      if ( options.showSymbols ) {
-        symbolNode = new RichText( leftover.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        this.leftoversParent.addChild( symbolNode );
-        symbolNodes.push( symbolNode );
-      }
-    }
-
-    /*
-     * Vertical layout of components below the boxes.
-     * Ensures that all similar components (spinners, numbers, icons, symbols) are vertically centered.
+    /**
+     * @param {Substance[]} reactants
+     * @param {Substance[]} products
+     * @param {Substance[]} leftovers
+     * @param {number[]} beforeXOffsets offsets of reactants relative to the left edge of the 'Before' box
+     * @param {number[]} afterXOffsets offsets of products and leftovers relative to the left edge of the 'Before' box
+     * @param {Object} [options]
      */
-    const spinnerHeight = this.spinnerNodes[ 0 ].height;
-    const maxIconHeight = Math.max(
-      options.minIconSize.height,
-      _.maxBy( this.iconNodes, function( node ) { return node.height; } ).height );
-    const maxSymbolHeight = symbolNodes.length ? _.maxBy( symbolNodes, function( node ) { return node.height; } ).height: 0;
+    constructor( reactants, products, leftovers, beforeXOffsets, afterXOffsets, options ) {
 
-    this.spinnerNodes.forEach( function( spinnerNode ) {
-      spinnerNode.centerY = ( spinnerHeight / 2 );
-    } );
-    this.beforeNumberNodes.forEach( function( numberNode ) {
-      numberNode.centerY = ( spinnerHeight / 2 );
-    } );
-    this.afterNumberNodes.forEach( function( numberNode ) {
-      numberNode.centerY = ( spinnerHeight / 2 );
-    } );
-    this.iconNodes.forEach( function( iconNode ) {
-      iconNode.centerY = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxIconHeight / 2 );
-    } );
-    if ( options.showSymbols ) {
-      symbolNodes.forEach( function( symbolNode ) {
-        symbolNode.top = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight + IMAGE_SYMBOL_Y_SPACING;
+      assert && assert( reactants.length === beforeXOffsets.length );
+      assert && assert( products.length + leftovers.length === afterXOffsets.length );
+
+      options = merge( {
+        interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
+        boxWidth: 100, // {number} width of the Before and After boxes
+        afterBoxXOffset: 200, // {number} x-offset of left of After box, relative to left of Before box
+        quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of spinners
+        hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
+        minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons
+        showSymbols: true // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
+      }, options );
+
+      super();
+
+      this.reactants = reactants; // @private
+      this.products = products; // @private
+      this.leftovers = leftovers; // @private
+      this.interactiveBox = options.interactiveBox; // @private
+
+      // explicitly hoist reused vars
+      let i;
+      let reactant;
+      let product;
+      let leftover;
+      let centerX;
+      let numberNode;
+      let spinnerNode;
+      let iconNode;
+      let symbolNode;
+
+      // keep track of components that appear below the boxes, so we can handle their vertical alignment
+      this.spinnerNodes = []; // @private {NumberSpinner[]}
+      this.beforeNumberNodes = []; // @private {NumberNode[]}
+      this.afterNumberNodes = []; // @private {NumberNode[]}
+      this.iconNodes = []; // @private {SubstanceIcon[]}
+      const symbolNodes = [];
+
+      // reactants, below the 'Before' box
+      this.reactantsParent = new Node(); // @private
+      this.addChild( this.reactantsParent );
+      for ( i = 0; i < reactants.length; i++ ) {
+
+        reactant = reactants[ i ];
+        centerX = beforeXOffsets[ i ];
+
+        if ( this.interactiveBox === BoxType.BEFORE ) {
+          // spinner
+          spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
+            merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
+          this.reactantsParent.addChild( spinnerNode );
+          this.spinnerNodes.push( spinnerNode );
+        }
+        else {
+          // static number
+          numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+          this.reactantsParent.addChild( numberNode );
+          this.beforeNumberNodes.push( numberNode );
+        }
+
+        // substance icon
+        iconNode = new SubstanceIcon( reactant.iconProperty, { centerX: centerX } );
+        this.reactantsParent.addChild( iconNode );
+        this.iconNodes.push( iconNode );
+
+        // symbol
+        if ( options.showSymbols ) {
+          symbolNode = new RichText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+          this.reactantsParent.addChild( symbolNode );
+          symbolNodes.push( symbolNode );
+        }
+      }
+
+      // products, below the 'After' box
+      this.productsParent = new Node(); // @private
+      this.addChild( this.productsParent );
+      for ( i = 0; i < products.length; i++ ) {
+
+        product = products[ i ];
+        centerX = options.afterBoxXOffset + afterXOffsets[ i ];
+
+        if ( this.interactiveBox === BoxType.AFTER ) {
+          // spinner
+          spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
+            merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
+          this.productsParent.addChild( spinnerNode );
+          this.spinnerNodes.push( spinnerNode );
+        }
+        else {
+          // static number
+          numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+          this.productsParent.addChild( numberNode );
+          this.afterNumberNodes.push( numberNode );
+        }
+
+        // substance icon
+        iconNode = new SubstanceIcon( product.iconProperty, { centerX: centerX } );
+        this.productsParent.addChild( iconNode );
+        this.iconNodes.push( iconNode );
+
+        // symbol
+        if ( options.showSymbols ) {
+          symbolNode = new RichText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+          this.productsParent.addChild( symbolNode );
+          symbolNodes.push( symbolNode );
+        }
+      }
+
+      // leftovers, below the 'After' box, to the right of the products
+      this.leftoversParent = new Node(); // @private
+      this.addChild( this.leftoversParent );
+      for ( i = 0; i < leftovers.length; i++ ) {
+
+        leftover = leftovers[ i ];
+        centerX = options.afterBoxXOffset + afterXOffsets[ i + products.length ]; // leftovers follow products in afterXOffsets
+
+        if ( this.interactiveBox === BoxType.AFTER ) {
+          // spinner
+          spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
+            merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
+          this.leftoversParent.addChild( spinnerNode );
+          this.spinnerNodes.push( spinnerNode );
+        }
+        else {
+          // static number
+          numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+          this.leftoversParent.addChild( numberNode );
+          this.afterNumberNodes.push( numberNode );
+        }
+
+        // substance icon
+        iconNode = new SubstanceIcon( leftover.iconProperty, { centerX: centerX } );
+        this.leftoversParent.addChild( iconNode );
+        this.iconNodes.push( iconNode );
+
+        // symbol
+        if ( options.showSymbols ) {
+          symbolNode = new RichText( leftover.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+          this.leftoversParent.addChild( symbolNode );
+          symbolNodes.push( symbolNode );
+        }
+      }
+
+      /*
+       * Vertical layout of components below the boxes.
+       * Ensures that all similar components (spinners, numbers, icons, symbols) are vertically centered.
+       */
+      const spinnerHeight = this.spinnerNodes[ 0 ].height;
+      const maxIconHeight = Math.max(
+        options.minIconSize.height,
+        _.maxBy( this.iconNodes, node => node.height ).height );
+      const maxSymbolHeight = symbolNodes.length ? _.maxBy( symbolNodes, node => node.height ).height : 0;
+
+      this.spinnerNodes.forEach( spinnerNode => {
+        spinnerNode.centerY = ( spinnerHeight / 2 );
       } );
-    }
-
-    // top of brackets is relative to the bottom of the stuff above
-    let bracketsTop = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight + BRACKET_Y_SPACING;
-    if ( options.showSymbols ) {
-      bracketsTop += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
-    }
-
-    // 'Reactants' bracket
-    const reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
-    const reactantsBracket = new BracketNode( {
-      bracketStroke: RPALColors.PANEL_FILL,
-      labelNode: reactantsLabel,
-      bracketLength: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
-      centerX: this.reactantsParent.centerX,
-      top: bracketsTop
-    } );
-    this.addChild( reactantsBracket );
-
-    // 'Products' bracket
-    const productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
-    const productsBracket = new BracketNode( {
-      bracketStroke: RPALColors.PANEL_FILL,
-      labelNode: productsLabel,
-      bracketLength: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
-      centerX: this.productsParent.centerX,
-      top: bracketsTop
-    } );
-    this.addChild( productsBracket );
-
-    // 'Leftovers' bracket
-    const leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
-    const leftoversBracket = new BracketNode( {
-      bracketStroke: RPALColors.PANEL_FILL,
-      labelNode: leftoversLabel,
-      bracketLength: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
-      centerX: this.leftoversParent.centerX,
-      top: bracketsTop
-    } );
-    this.addChild( leftoversBracket );
-
-    // Optional 'Hide numbers' box on top of the static quantities
-    this.hideNumbersBox = null;  // @private
-    if ( options.hideNumbersBox ) {
-      this.hideNumbersBox = new HideBox( {
-        boxSize: new Dimension2( options.boxWidth, spinnerHeight ),
-        iconHeight: 0.65 * spinnerHeight,
-        cornerRadius: 3,
-        left: ( this.interactiveBox === BoxType.BEFORE ) ? options.afterBoxXOffset : 0,
-        centerY: this.spinnerNodes[ 0 ].centerY
+      this.beforeNumberNodes.forEach( numberNode => {
+        numberNode.centerY = ( spinnerHeight / 2 );
       } );
-      this.addChild( this.hideNumbersBox );
+      this.afterNumberNodes.forEach( numberNode => {
+        numberNode.centerY = ( spinnerHeight / 2 );
+      } );
+      this.iconNodes.forEach( iconNode => {
+        iconNode.centerY = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxIconHeight / 2 );
+      } );
+      if ( options.showSymbols ) {
+        symbolNodes.forEach( symbolNode => {
+          symbolNode.top = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight + IMAGE_SYMBOL_Y_SPACING;
+        } );
+      }
+
+      // top of brackets is relative to the bottom of the stuff above
+      let bracketsTop = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + maxIconHeight + BRACKET_Y_SPACING;
+      if ( options.showSymbols ) {
+        bracketsTop += ( maxSymbolHeight + IMAGE_SYMBOL_Y_SPACING );
+      }
+
+      // 'Reactants' bracket
+      const reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
+      const reactantsBracket = new BracketNode( {
+        bracketStroke: RPALColors.PANEL_FILL,
+        labelNode: reactantsLabel,
+        bracketLength: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+        centerX: this.reactantsParent.centerX,
+        top: bracketsTop
+      } );
+      this.addChild( reactantsBracket );
+
+      // 'Products' bracket
+      const productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
+      const productsBracket = new BracketNode( {
+        bracketStroke: RPALColors.PANEL_FILL,
+        labelNode: productsLabel,
+        bracketLength: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+        centerX: this.productsParent.centerX,
+        top: bracketsTop
+      } );
+      this.addChild( productsBracket );
+
+      // 'Leftovers' bracket
+      const leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
+      const leftoversBracket = new BracketNode( {
+        bracketStroke: RPALColors.PANEL_FILL,
+        labelNode: leftoversLabel,
+        bracketLength: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+        centerX: this.leftoversParent.centerX,
+        top: bracketsTop
+      } );
+      this.addChild( leftoversBracket );
+
+      // Optional 'Hide numbers' box on top of the static quantities
+      this.hideNumbersBox = null;  // @private
+      if ( options.hideNumbersBox ) {
+        this.hideNumbersBox = new HideBox( {
+          boxSize: new Dimension2( options.boxWidth, spinnerHeight ),
+          iconHeight: 0.65 * spinnerHeight,
+          cornerRadius: 3,
+          left: ( this.interactiveBox === BoxType.BEFORE ) ? options.afterBoxXOffset : 0,
+          centerY: this.spinnerNodes[ 0 ].centerY
+        } );
+        this.addChild( this.hideNumbersBox );
+      }
+
+      this.mutate( options );
     }
-
-    this.mutate( options );
-  }
-
-  reactantsProductsAndLeftovers.register( 'QuantitiesNode', QuantitiesNode );
-
-  return inherit( Node, QuantitiesNode, {
 
     /**
      * Determines whether this UI component is interactive (true on creation).
@@ -303,10 +299,10 @@ define( require => {
      * @param {boolean} interactive
      * @public
      */
-    setInteractive: function( interactive ) {
+    setInteractive( interactive ) {
 
       // spinners
-      this.spinnerNodes.forEach( function( spinnerNode ) { spinnerNode.visible = interactive; } );
+      this.spinnerNodes.forEach( spinnerNode => { spinnerNode.visible = interactive; } );
 
       const centerY = this.spinnerNodes[ 0 ].height / 2;
       let i;
@@ -360,21 +356,21 @@ define( require => {
           this.afterNumberNodes.forEach( function( node ) { node.visible = !interactive; } );
         }
       }
-    },
+    }
 
     /**
      * Changes visibility of the 'Hide numbers' box.
      * @param {boolean} visible
      * @public
      */
-    setHideNumbersBoxVisible: function( visible ) {
+    setHideNumbersBoxVisible( visible ) {
       if ( this.hideNumbersBox ) {
         this.hideNumbersBox.visible = visible;
       }
-    },
+    }
 
-    // @public Ensures that this node is eligible for GC.
-    dispose: function() {
+    // @public @overide
+    dispose() {
       this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
       this.spinnerNodes = null;
       this.beforeNumberNodes.forEach( function( node ) { node.dispose(); } );
@@ -384,9 +380,8 @@ define( require => {
       this.iconNodes.forEach( function( node ) { node.dispose(); } );
       this.iconNodes = null;
 
-      Node.prototype.dispose.call( this );
+      super.dispose();
     }
-  }, {
 
     /**
      * Creates x-offsets for substances, relative to the left edge of their 'Before' or 'After' box.
@@ -396,7 +391,7 @@ define( require => {
      * @static
      * @public
      */
-    createXOffsets: function( numberOfSubstances, boxWidth ) {
+    static createXOffsets( numberOfSubstances, boxWidth ) {
       const xOffsets = [];
       const xMargin = ( numberOfSubstances > 2 ) ? 0 : ( 0.15 * boxWidth ); // make 2-reactant case look nice
       const deltaX = ( boxWidth - ( 2 * xMargin ) ) / numberOfSubstances;
@@ -407,5 +402,7 @@ define( require => {
       }
       return xOffsets;
     }
-  } );
+  }
+
+  return reactantsProductsAndLeftovers.register( 'QuantitiesNode', QuantitiesNode );
 } );

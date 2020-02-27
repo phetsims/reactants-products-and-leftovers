@@ -9,7 +9,6 @@ define( require => {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const merge = require( 'PHET_CORE/merge' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
@@ -23,31 +22,31 @@ define( require => {
     textFill: 'white'
   };
 
-  /**
-   * @param {GameModel} model
-   * @param {Object} [options]
-   * @constructor
-   */
-  function DevGameControls( model, options ) {
+  class DevGameControls extends LayoutBox {
 
-    options = merge( {
-      orientation: 'horizontal',
-      spacing: 5
-    }, options );
+    /**
+     * @param {GameModel} model
+     * @param {Object} [options]
+     */
+    constructor( model, options ) {
 
-    // replays the current challenge
-    const replayButton = new TextPushButton( '<', BUTTON_OPTIONS );
-    replayButton.addListener( function() { model.replayCurrentChallenge(); } );
+      options = merge( {
+        orientation: 'horizontal',
+        spacing: 5
+      }, options );
 
-    // skips the current challenge
-    const skipButton = new TextPushButton( '>', BUTTON_OPTIONS );
-    skipButton.addListener( function() { model.skipCurrentChallenge(); } );
+      // replays the current challenge
+      const replayButton = new TextPushButton( '<', BUTTON_OPTIONS );
+      replayButton.addListener( function() { model.replayCurrentChallenge(); } );
 
-    options.children = [ replayButton, skipButton ];
-    LayoutBox.call( this, options );
+      // skips the current challenge
+      const skipButton = new TextPushButton( '>', BUTTON_OPTIONS );
+      skipButton.addListener( function() { model.skipCurrentChallenge(); } );
+
+      options.children = [ replayButton, skipButton ];
+      super( options );
+    }
   }
 
-  reactantsProductsAndLeftovers.register( 'DevGameControls', DevGameControls );
-
-  return inherit( LayoutBox, DevGameControls );
+  return reactantsProductsAndLeftovers.register( 'DevGameControls', DevGameControls );
 } );
