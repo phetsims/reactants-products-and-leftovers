@@ -324,7 +324,7 @@ define( require => {
 
         // visibility
         if ( this.beforeNumberNodes.length > 0 ) {
-          this.beforeNumberNodes.forEach( function( node ) { node.visible = !interactive; } );
+          this.beforeNumberNodes.forEach( node => { node.visible = !interactive; } );
         }
       }
       else {
@@ -353,7 +353,7 @@ define( require => {
 
         // visibility
         if ( this.afterNumberNodes.length > 0 ) {
-          this.afterNumberNodes.forEach( function( node ) { node.visible = !interactive; } );
+          this.afterNumberNodes.forEach( node => { node.visible = !interactive; } );
         }
       }
     }
@@ -371,13 +371,13 @@ define( require => {
 
     // @public @overide
     dispose() {
-      this.spinnerNodes.forEach( function( node ) { node.dispose(); } );
+      this.spinnerNodes.forEach( node => node.dispose() );
       this.spinnerNodes = null;
-      this.beforeNumberNodes.forEach( function( node ) { node.dispose(); } );
+      this.beforeNumberNodes.forEach( node => node.dispose() );
       this.beforeNumberNodes = null;
-      this.afterNumberNodes.forEach( function( node ) { node.dispose(); } );
+      this.afterNumberNodes.forEach( node => node.dispose() );
       this.afterNumberNodes = null;
-      this.iconNodes.forEach( function( node ) { node.dispose(); } );
+      this.iconNodes.forEach( node => node.dispose() );
       this.iconNodes = null;
 
       super.dispose();

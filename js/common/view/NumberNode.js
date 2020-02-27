@@ -38,10 +38,13 @@ define( require => {
       this.mutate( options );
     }
 
-    // @public Ensures that this node is eligible for GC.
+    /**
+     * @public
+     * @override
+     */
     dispose() {
       this.numberProperty.unlink( this.numberPropertyObserver );
-      Text.prototype.dispose.call( this );
+      super.dispose();
     }
   }
 

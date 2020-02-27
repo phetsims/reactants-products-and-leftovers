@@ -26,7 +26,7 @@ define( require => {
     // @override @public
     reset() {
       this.reactionProperty.reset();
-      this.reactions.forEach( function( reaction ) { reaction.reset(); } );
+      this.reactions.forEach( reaction => reaction.reset() );
     }
   }
 

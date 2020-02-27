@@ -21,7 +21,7 @@ define( require => {
 
   // Create an object that has property names that match the plain-text symbols, values are HTML fragments.
   const RPALSymbols = {};
-  SYMBOLS.forEach( function( symbol ) {
+  SYMBOLS.forEach( symbol => {
     RPALSymbols[ symbol ] = ChemUtils.toSubscript( symbol );
   } );
 

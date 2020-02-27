@@ -51,9 +51,9 @@ define( require => {
 
     // @public
     reset() {
-      this.reactants.forEach( function( reactant ) { reactant.reset(); } );
-      this.products.forEach( function( product ) { product.reset(); } );
-      this.leftovers.forEach( function( leftover ) { leftover.reset(); } );
+      this.reactants.forEach( reactant => reactant.reset() );
+      this.products.forEach( product => product.reset() );
+      this.leftovers.forEach( leftover => leftover.reset() );
     }
 
     // @public
