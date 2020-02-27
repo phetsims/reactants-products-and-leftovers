@@ -15,7 +15,6 @@ define( require => {
 
   // modules
   const Dimension2 = require( 'DOT/Dimension2' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
@@ -25,154 +24,165 @@ define( require => {
   const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  /**
-   * @param {Substance[]} substances the substances in the box
-   * @param {Object} [options]
-   * @constructor
-   */
-  function RandomBox( substances, options ) {
+  class RandomBox extends Node {
 
-    options = merge( {
-      boxSize: new Dimension2( 100, 100 ),
-      maxQuantity: 4, // the maximum quantity of each substance in the box
-      cornerRadius: 3,
-      fill: RPALColors.BOX_FILL,
-      stroke: RPALColors.BOX_STROKE,
-      margin: 5, // margin around the inside edge of the box
-      /**
-       * Molecules in the box are arranged in a grid. This option controls how much the molecules are randomly offset from the center
-       * of the grid's cells. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
+    /**
+     * @param {Substance[]} substances the substances in the box
+     * @param {Object} [options]
+     */
+    constructor( substances, options ) {
+
+      options = merge( {
+        boxSize: new Dimension2( 100, 100 ),
+        maxQuantity: 4, // the maximum quantity of each substance in the box
+        cornerRadius: 3,
+        fill: RPALColors.BOX_FILL,
+        stroke: RPALColors.BOX_STROKE,
+        margin: 5, // margin around the inside edge of the box
+
+        /**
+         * Molecules in the box are arranged in a grid. This option controls how much the molecules are randomly offset from the center
+         * of the grid's cells. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
+         */
+        randomOffset: 8
+      }, options );
+
+      super();
+
+      /*
+       * Compute the size of the grid needed to accommodate the maximum number of nodes.
+       * Assume that the box is square-ish, so can have the same number of rows and columns.
        */
-      randomOffset: 8
-    }, options );
+      const rows = Utils.roundSymmetric( Math.sqrt( substances.length * options.maxQuantity ) );
+      const columns = rows;
 
-    const self = this;
-    Node.call( this );
-
-    /*
-     * Compute the size of the grid needed to accommodate the maximum number of nodes.
-     * Assume that the box is square-ish, so can have the same number of rows and columns.
-     */
-    const rows = Utils.roundSymmetric( Math.sqrt( substances.length * options.maxQuantity ) );
-    const columns = rows;
-
-    // Compute positions in the grid, this is our 'pool' of positions.
-    const positions = [];
-    const dx = Math.floor( ( options.boxSize.width - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / columns );
-    const dy = Math.floor( ( options.boxSize.height - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / rows );
-    for ( let column = 0; column < columns; column++ ) {
-      for ( let row = 0; row < rows; row++ ) {
-        const x = options.margin + options.randomOffset + ( dx / 2 ) + ( column * dx );
-        const y = options.margin + options.randomOffset + ( dy / 2 ) + ( row * dy );
-        positions.push( new Vector2( x, y ) );
+      // Compute positions in the grid, this is our 'pool' of positions.
+      const positions = [];
+      const dx = Math.floor( ( options.boxSize.width - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / columns );
+      const dy = Math.floor( ( options.boxSize.height - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / rows );
+      for ( let column = 0; column < columns; column++ ) {
+        for ( let row = 0; row < rows; row++ ) {
+          const x = options.margin + options.randomOffset + ( dx / 2 ) + ( column * dx );
+          const y = options.margin + options.randomOffset + ( dy / 2 ) + ( row * dy );
+          positions.push( new Vector2( x, y ) );
+        }
       }
+      assert && assert( positions.length === rows * columns );
+
+      /**
+       * Chooses a random position and remove it from the pool of positions.
+       * @returns {Vector2}
+       */
+      const choosePosition = () => {
+        assert && assert( positions.length > 0 );
+        const index = phet.joist.random.nextIntBetween( 0, positions.length - 1 );
+        const position = positions[ index ];
+        positions.splice( index, 1 );
+        return position;
+      };
+
+      /**
+       * Puts a position back in the pool of positions.
+       * @param {Vector2} position
+       */
+      const releasePosition = position => {
+        positions.push( position );
+      };
+
+      // the box
+      const boxNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
+        fill: options.fill,
+        stroke: options.stroke
+      } );
+      this.addChild( boxNode );
+
+      // substances inside the box
+      this.substanceLayers = []; // @private [{SubstanceLayer}]
+      const parent = new Node();
+      substances.forEach( substance => {
+        const substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty, options.randomOffset, choosePosition, releasePosition );
+        parent.addChild( substanceLayer );
+        this.substanceLayers.push( substanceLayer );
+      } );
+      this.addChild( parent );
+
+      this.mutate( options );
     }
-    assert && assert( positions.length === rows * columns );
 
     /**
-     * Chooses a random position and remove it from the pool of positions.
-     * @returns {Vector2}
+     * @public
+     * @override
      */
-    const choosePosition = function() {
-      assert && assert( positions.length > 0 );
-      const index = phet.joist.random.nextIntBetween( 0, positions.length - 1 );
-      const position = positions[ index ];
-      positions.splice( index, 1 );
-      return position;
-    };
-
-    /**
-     * Puts a position back in the pool of positions.
-     * @param {Vector2} position
-     */
-    const releasePosition = function( position ) {
-      positions.push( position );
-    };
-
-    // the box
-    const boxNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
-      fill: options.fill,
-      stroke: options.stroke
-    } );
-    this.addChild( boxNode );
-
-    // substances inside the box
-    this.substanceLayers = []; // @private [{SubstanceLayer}]
-    const parent = new Node();
-    substances.forEach( function( substance ) {
-      const substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty, options.randomOffset, choosePosition, releasePosition );
-      parent.addChild( substanceLayer );
-      self.substanceLayers.push( substanceLayer );
-    } );
-    this.addChild( parent );
-
-    this.mutate( options );
+    dispose() {
+      this.substanceLayers.forEach( function( node ) { node.dispose(); } );
+      this.substanceLayers = null;
+      super.dispose();
+    }
   }
-
-  reactantsProductsAndLeftovers.register( 'RandomBox', RandomBox );
 
   /**
    * Responsible for managing all nodes for one substance type.
-   *
-   * @param {Property.<Node>} iconProperty
-   * @param {Property.<number>} quantityProperty
-   * @param {number} randomOffset
-   * @param {function} choosePosition returns {Vector2}
-   * @param {function} releasePosition @param {Vector2}
-   * @constructor
-   * @private
    */
-  function SubstanceLayer( iconProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
+  class SubstanceLayer extends Node {
+    
+    /**
+     * @param {Property.<Node>} iconProperty
+     * @param {Property.<number>} quantityProperty
+     * @param {number} randomOffset
+     * @param {function} choosePosition returns {Vector2}
+     * @param {function} releasePosition @param {Vector2}
+     */
+    constructor( iconProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
 
-    const self = this;
-    Node.call( self );
+      super();
 
-    self.cellNodes = []; // @private {CellNode[]}
+      this.cellNodes = []; // @private {CellNode[]}
 
-    self.quantityPropertyObserver = function( quantity ) {
+      this.quantityPropertyObserver = quantity => {
 
-      const count = Math.max( quantity, self.getChildrenCount() );
+        const count = Math.max( quantity, this.getChildrenCount() );
 
-      for ( let i = 0; i < count; i++ ) {
+        for ( let i = 0; i < count; i++ ) {
 
-        if ( i < self.getChildrenCount() ) {
+          if ( i < this.getChildrenCount() ) {
 
-          // node already exists
-          const node = self.getChildAt( i );
-          const nodeWasVisible = node.visible;
-          node.visible = ( i < quantity );
+            // node already exists
+            const node = this.getChildAt( i );
+            const nodeWasVisible = node.visible;
+            node.visible = ( i < quantity );
 
-          if ( node.visible && !nodeWasVisible ) {
-            // when an existing node becomes visible, choose a new position for it
-            node.setGridPosition( choosePosition() );
+            if ( node.visible && !nodeWasVisible ) {
+              // when an existing node becomes visible, choose a new position for it
+              node.setGridPosition( choosePosition() );
+            }
+            else if ( !node.visible && nodeWasVisible ) {
+              // when a visible node becomes invisible, make its position available
+              releasePosition( node.getGridPosition() );
+            }
           }
-          else if ( !node.visible && nodeWasVisible ) {
-            // when a visible node becomes invisible, make its position available
-            releasePosition( node.getGridPosition() );
+          else {
+            // add a node
+            const cellNode = new CellNode( iconProperty, choosePosition(), randomOffset );
+            this.addChild( cellNode );
+            this.cellNodes.push( cellNode );
           }
         }
-        else {
-          // add a node
-          const cellNode = new CellNode( iconProperty, choosePosition(), randomOffset );
-          self.addChild( cellNode );
-          self.cellNodes.push( cellNode );
-        }
-      }
-    };
-    self.quantityProperty = quantityProperty; // @private
-    self.quantityProperty.link( self.quantityPropertyObserver ); // must be unlinked in dispose
-  }
+      };
+      this.quantityProperty = quantityProperty; // @private
+      this.quantityProperty.link( this.quantityPropertyObserver ); // must be unlinked in dispose
+    }
 
-  inherit( Node, SubstanceLayer, {
-
-    // @public Ensures that this node is eligible for GC.
-    dispose: function() {
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
       this.cellNodes.forEach( function( node ) { node.dispose(); } );
       this.cellNodes = null;
       this.quantityProperty.unlink( this.quantityPropertyObserver );
-      Node.prototype.dispose.call( this );
+      super.dispose();
     }
-  } );
+  }
 
   /**
    * Icon that occupies a cell in the grid, randomizes its position to make the grid look less regular.
@@ -206,13 +216,5 @@ define( require => {
     }
   }
 
-  return inherit( Node, RandomBox, {
-
-    // @public Ensures that this node is eligible for GC.
-    dispose: function() {
-      this.substanceLayers.forEach( function( node ) { node.dispose(); } );
-      this.substanceLayers = null;
-      Node.prototype.dispose.call( this );
-    }
-  } );
+  return reactantsProductsAndLeftovers.register( 'RandomBox', RandomBox );
 } );

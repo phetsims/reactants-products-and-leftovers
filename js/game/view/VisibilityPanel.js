@@ -14,7 +14,6 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -36,87 +35,86 @@ define( require => {
   const X_DILATION = 10; // dilate touchArea for radio buttons
   const Y_DILATION = 6; // dilate touchArea for radio buttons
 
-  /**
-   * @param {Property.<boolean>} moleculesVisibleProperty are molecules visible in challenges?
-   * @param {Property.<boolean>} numbersVisibleProperty are quantities visible in challenges?
-   * @param {Object} [options]
-   * @constructor
-   */
-  function VisibilityPanel( moleculesVisibleProperty, numbersVisibleProperty, options ) {
-
-    options = merge( {
-      xMargin: 15,
-      yMargin: 10,
-      fill: 'rgb( 235, 245, 255 )',
-      stroke: 'rgb( 180, 180, 180 )',
-      lineWidth: 0.5
-    }, options );
-
+  class VisibilityPanel extends Panel {
     /**
-     * This bit of code is a little complicated because of a mismatch between model and view.
-     * The model has independent properties for the visibility of molecules and numbers.
-     * But the view makes them dependent on each other, and this control mixes 'show' and 'hide'.
-     * This could be fixed by modeling this dependency, but I prefer to keep the model clean.
+     * @param {Property.<boolean>} moleculesVisibleProperty are molecules visible in challenges?
+     * @param {Property.<boolean>} numbersVisibleProperty are quantities visible in challenges?
+     * @param {Object} [options]
      */
-    // unlink is unnecessary because this property is owned by this node
-    const showAllProperty = new BooleanProperty( moleculesVisibleProperty.get() && numbersVisibleProperty.get() );
-    showAllProperty.link( function( value ) {
-      if ( value ) {
-        moleculesVisibleProperty.set( true );
-        numbersVisibleProperty.set( true );
-      }
-    } );
+    constructor( moleculesVisibleProperty, numbersVisibleProperty, options ) {
 
-    // unlink is unnecessary because this node exists for the lifetime of the simulation
-    moleculesVisibleProperty.link( function( visible ) {
-      if ( !visible ) {
-        numbersVisibleProperty.set( true ); // if molecules are hidden, then numbers must be shown
-        showAllProperty.set( false );
-      }
-      else {
-        showAllProperty.set( visible && numbersVisibleProperty.get() );
-      }
-    } );
+      options = merge( {
+        xMargin: 15,
+        yMargin: 10,
+        fill: 'rgb( 235, 245, 255 )',
+        stroke: 'rgb( 180, 180, 180 )',
+        lineWidth: 0.5
+      }, options );
 
-    // unlink is unnecessary because this node exists for the lifetime of the simulation
-    numbersVisibleProperty.link( function( visible ) {
-      if ( !visible ) {
-        moleculesVisibleProperty.set( true ); // if numbers are hidden, then molecules must be shown
-        showAllProperty.set( false );
-      }
-      else {
-        showAllProperty.set( visible && moleculesVisibleProperty.get() );
-      }
-    } );
+      /**
+       * This bit of code is a little complicated because of a mismatch between model and view.
+       * The model has independent properties for the visibility of molecules and numbers.
+       * But the view makes them dependent on each other, and this control mixes 'show' and 'hide'.
+       * This could be fixed by modeling this dependency, but I prefer to keep the model clean.
+       */
+        // unlink is unnecessary because this property is owned by this node
+      const showAllProperty = new BooleanProperty( moleculesVisibleProperty.get() && numbersVisibleProperty.get() );
+      showAllProperty.link( value => {
+        if ( value ) {
+          moleculesVisibleProperty.set( true );
+          numbersVisibleProperty.set( true );
+        }
+      } );
 
-    // radio buttons
-    const showAllRadioButton = new AquaRadioButton( showAllProperty, true, createShowAllNode(), RADIO_BUTTON_OPTIONS );
-    const hideMoleculesButton = new AquaRadioButton( moleculesVisibleProperty, false, createHideMoleculesNode(), RADIO_BUTTON_OPTIONS );
-    const hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, createHideNumbersNode(), RADIO_BUTTON_OPTIONS );
+      // unlink is unnecessary because this node exists for the lifetime of the simulation
+      moleculesVisibleProperty.link( visible => {
+        if ( !visible ) {
+          numbersVisibleProperty.set( true ); // if molecules are hidden, then numbers must be shown
+          showAllProperty.set( false );
+        }
+        else {
+          showAllProperty.set( visible && numbersVisibleProperty.get() );
+        }
+      } );
 
-    // expand touchArea
-    showAllRadioButton.touchArea = showAllRadioButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
-    hideMoleculesButton.touchArea = hideMoleculesButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
-    hideNumbersButton.touchArea = hideNumbersButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
+      // unlink is unnecessary because this node exists for the lifetime of the simulation
+      numbersVisibleProperty.link( visible => {
+        if ( !visible ) {
+          moleculesVisibleProperty.set( true ); // if numbers are hidden, then molecules must be shown
+          showAllProperty.set( false );
+        }
+        else {
+          showAllProperty.set( visible && moleculesVisibleProperty.get() );
+        }
+      } );
 
-    // vertical layout
-    const content = new LayoutBox( {
-      children: [ showAllRadioButton, hideMoleculesButton, hideNumbersButton ],
-      orientation: 'vertical',
-      align: 'left',
-      spacing: 15
-    } );
+      // radio buttons
+      const showAllRadioButton = new AquaRadioButton( showAllProperty, true, createShowAllNode(), RADIO_BUTTON_OPTIONS );
+      const hideMoleculesButton = new AquaRadioButton( moleculesVisibleProperty, false, createHideMoleculesNode(), RADIO_BUTTON_OPTIONS );
+      const hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, createHideNumbersNode(), RADIO_BUTTON_OPTIONS );
 
-    Panel.call( this, content, options );
+      // expand touchArea
+      showAllRadioButton.touchArea = showAllRadioButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
+      hideMoleculesButton.touchArea = hideMoleculesButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
+      hideNumbersButton.touchArea = hideNumbersButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
+
+      // vertical layout
+      const content = new LayoutBox( {
+        children: [ showAllRadioButton, hideMoleculesButton, hideNumbersButton ],
+        orientation: 'vertical',
+        align: 'left',
+        spacing: 15
+      } );
+
+      super( content, options );
+    }
   }
-
-  reactantsProductsAndLeftovers.register( 'VisibilityPanel', VisibilityPanel );
 
   /**
    * Creates the content for the 'Show All' radio button, an open eye with text to the right of it.
    * @returns {Node}
    */
-  var createShowAllNode = function() {
+  function createShowAllNode() {
     const eyeNode = new FontAwesomeNode( 'eye_open', FONT_AWESOME_OPTIONS );
     const textNode = new Text( showAllString, TEXT_OPTIONS );
     return new LayoutBox( {
@@ -124,14 +122,14 @@ define( require => {
       orientation: 'horizontal',
       spacing: 12
     } );
-  };
+  }
 
   /**
    * Creates the content for the 'Hide Molecules' radio button,
    * a closed eye with '123' at lower right, and text to the right.
    * @returns {Node}
    */
-  var createHideMoleculesNode = function() {
+  function createHideMoleculesNode() {
     const eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
     const moleculeNode = new Node( {
       // wrap in a Node because H2ONode doesn't work with standard options
@@ -146,14 +144,14 @@ define( require => {
       orientation: 'horizontal',
       spacing: 7
     } );
-  };
+  }
 
   /**
    * Creates the content for the 'Hide Numbers' radio button,
    * a closed eye with H2O molecule at lower right, and text to the right.
    * @returns {Node}
    */
-  var createHideNumbersNode = function() {
+  function createHideNumbersNode() {
     const eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
     const numbersNode = new Text( '123', {
       font: new RPALFont( 8 ),
@@ -166,7 +164,7 @@ define( require => {
       orientation: 'horizontal',
       spacing: 5
     } );
-  };
+  }
 
-  return inherit( Panel, VisibilityPanel );
+  return reactantsProductsAndLeftovers.register( 'VisibilityPanel', VisibilityPanel );
 } );

@@ -18,7 +18,6 @@ define( require => {
 
   // modules
   const FaceNode = require( 'SCENERY_PHET/FaceNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
   const RewardNode = require( 'VEGAS/RewardNode' );
@@ -28,37 +27,37 @@ define( require => {
   const NUMBER_OF_NODES = 100;
   const FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
 
-  /**
-   * @param {number} level game level, starting at zero
-   * @constructor
-   */
-  function RPALRewardNode( level ) {
-    assert && assert( level >= 0 && level < nodeFactoryFunctions.length );
-    RewardNode.call( this, { nodes: nodeFactoryFunctions[ level ]() } );
+  class RPALRewardNode extends RewardNode {
+
+    /**
+     * @param {number} level game level, starting at zero
+     */
+    constructor( level ) {
+      assert && assert( level >= 0 && level < nodeFactoryFunctions.length );
+      super( { nodes: nodeFactoryFunctions[ level ]() } );
+    }
   }
 
-  reactantsProductsAndLeftovers.register( 'RPALRewardNode', RPALRewardNode );
-
   // Level 1: molecules, @returns {Node[]}
-  const createNodesLevel1 = function() {
+  function createNodesLevel1() {
     const nodes = [];
     ReactionFactory.moleculeNodeConstructors.forEach( function( MoleculeNodeConstructor ) {
       nodes.push( new MoleculeNodeConstructor() );
     } );
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
-  };
+  }
 
   // Level 2: smiley faces (various colors), @returns {Node[]}
-  const createNodesLevel2 = function() {
+  function createNodesLevel2() {
     const nodes = [];
     FACE_COLORS.forEach( function( color ) {
       nodes.push( new FaceNode( 40, { headFill: color } ) );
     } );
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
-  };
+  }
 
   // Level 3: sandwiches, @returns {Node[]}
-  const createNodesLevel3 = function() {
+  function createNodesLevel3() {
     const nodes = [
       // args: bread, meat, cheese
       new SandwichNode( 3, 3, 3 ),
@@ -69,18 +68,18 @@ define( require => {
       new SandwichNode( 0, 0, 2 )
     ];
     return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
-  };
+  }
 
   /*
    * Functions for creating nodes, indexed by level.
    * In the model, level starts at zero. In the view, it's presented as starting from 1.
    * The function names correspond to the view presentation.
    */
-  var nodeFactoryFunctions = [
+  const nodeFactoryFunctions = [
     createNodesLevel1,
     createNodesLevel2,
     createNodesLevel3
   ];
 
-  return inherit( RewardNode, RPALRewardNode );
+  return reactantsProductsAndLeftovers.register( 'RPALRewardNode', RPALRewardNode );
 } );

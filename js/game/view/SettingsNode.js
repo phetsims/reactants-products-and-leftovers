@@ -14,7 +14,6 @@ define( require => {
   const ChallengeFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/ChallengeFactory' );
   const H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
   const HClNode = require( 'NITROGLYCERIN/nodes/HClNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   const NH3Node = require( 'NITROGLYCERIN/nodes/NH3Node' );
@@ -44,97 +43,97 @@ define( require => {
   const QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
   const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
-  /**
-   * @param {GameModel} model
-   * @param {Bounds2} layoutBounds the {Screen}'s layoutBounds
-   * @param {Object} [options]
-   * @constructor
-   */
-  function SettingsNode( model, layoutBounds, options ) {
+  class SettingsNode extends Node {
 
-    options = options || {};
+    /**
+     * @param {GameModel} model
+     * @param {Bounds2} layoutBounds the {Screen}'s layoutBounds
+     * @param {Object} [options]
+     */
+    constructor( model, layoutBounds, options ) {
 
-    // Title
-    const title = new Text( chooseYourLevelString, {
-      font: new RPALFont( 40 ),
-      maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
-    } );
+      options = options || {};
 
-    // Icons for the level-selection buttons, indexed by level
-    const levelIcons = [
-      createLevelOneIcon(),
-      createLevelTwoIcon(),
-      createLevelThreeIcon()
-    ];
-    assert && assert( levelIcons.length === model.numberOfLevels );
-    const maxIconWidth = _.maxBy( levelIcons, function( icon ) { return icon.width; } ).width;
-    const maxIconHeight = _.maxBy( levelIcons, function( icon ) { return icon.height; } ).height;
-
-    // Level-selection buttons, arranged in a row
-    const buttons = [];
-    for ( let level = 0; level < model.numberOfLevels; level++ ) {
-      buttons.push( createLevelSelectionButton( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
-    }
-    const buttonsParent = new LayoutBox( {
-      children: buttons,
-      spacing: 40,
-      orientation: 'horizontal',
-      center: layoutBounds.center
-    } );
-
-    // Timer toggle button, at bottom left
-    const timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, {
-      stroke: 'gray',
-      left: layoutBounds.left + SCREEN_X_MARGIN,
-      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
-    } );
-
-    // Panel with visibility radio buttons, at bottom center
-    const visibilityPanel = new VisibilityPanel( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
-      centerX: layoutBounds.centerX,
-      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN,
-      maxWidth: 0.65 * layoutBounds.width // constrain width for i18n
-    } );
-
-    // Reset All button, at bottom right
-    const resetAllButton = new ResetAllButton( {
-      listener: function() { model.reset(); },
-      scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
-      right: layoutBounds.right - SCREEN_X_MARGIN,
-      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
-    } );
-
-    options.children = [
-      // title and level-selection buttons, centered in space above visibility radio buttons
-      new LayoutBox( {
-        children: [ title, buttonsParent ],
-        orientation: 'vertical',
-        align: 'center',
-        spacing: 40,
-        centerX: layoutBounds.centerX,
-        centerY: ( visibilityPanel.top - layoutBounds.top ) / 2
-      } ),
-      timerToggleButton,
-      visibilityPanel,
-      resetAllButton
-    ];
-    Node.call( this, options );
-
-    // 'Test' button at top right, runs a sanity test on the challenge generator
-    if ( phet.chipper.queryParameters.showAnswers && !RPALQueryParameters.playAll ) {
-      const testButton = new TextPushButton( 'Test', {
-        font: new RPALFont( 10 ),
-        baseColor: 'red',
-        textFill: 'white',
-        right: layoutBounds.right - 10,
-        top: layoutBounds.top + 10
+      // Title
+      const title = new Text( chooseYourLevelString, {
+        font: new RPALFont( 40 ),
+        maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
       } );
-      testButton.addListener( function() { ChallengeFactory.test(); } );
-      this.addChild( testButton );
+
+      // Icons for the level-selection buttons, indexed by level
+      const levelIcons = [
+        createLevelOneIcon(),
+        createLevelTwoIcon(),
+        createLevelThreeIcon()
+      ];
+      assert && assert( levelIcons.length === model.numberOfLevels );
+      const maxIconWidth = _.maxBy( levelIcons, icon => icon.width ).width;
+      const maxIconHeight = _.maxBy( levelIcons, icon => icon.height ).height;
+
+      // Level-selection buttons, arranged in a row
+      const buttons = [];
+      for ( let level = 0; level < model.numberOfLevels; level++ ) {
+        buttons.push( createLevelSelectionButton( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
+      }
+      const buttonsParent = new LayoutBox( {
+        children: buttons,
+        spacing: 40,
+        orientation: 'horizontal',
+        center: layoutBounds.center
+      } );
+
+      // Timer toggle button, at bottom left
+      const timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, {
+        stroke: 'gray',
+        left: layoutBounds.left + SCREEN_X_MARGIN,
+        bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
+      } );
+
+      // Panel with visibility radio buttons, at bottom center
+      const visibilityPanel = new VisibilityPanel( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
+        centerX: layoutBounds.centerX,
+        bottom: layoutBounds.bottom - SCREEN_Y_MARGIN,
+        maxWidth: 0.65 * layoutBounds.width // constrain width for i18n
+      } );
+
+      // Reset All button, at bottom right
+      const resetAllButton = new ResetAllButton( {
+        listener: function() { model.reset(); },
+        scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
+        right: layoutBounds.right - SCREEN_X_MARGIN,
+        bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
+      } );
+
+      options.children = [
+        // title and level-selection buttons, centered in space above visibility radio buttons
+        new LayoutBox( {
+          children: [ title, buttonsParent ],
+          orientation: 'vertical',
+          align: 'center',
+          spacing: 40,
+          centerX: layoutBounds.centerX,
+          centerY: ( visibilityPanel.top - layoutBounds.top ) / 2
+        } ),
+        timerToggleButton,
+        visibilityPanel,
+        resetAllButton
+      ];
+      super( options );
+
+      // 'Test' button at top right, runs a sanity test on the challenge generator
+      if ( phet.chipper.queryParameters.showAnswers && !RPALQueryParameters.playAll ) {
+        const testButton = new TextPushButton( 'Test', {
+          font: new RPALFont( 10 ),
+          baseColor: 'red',
+          textFill: 'white',
+          right: layoutBounds.right - 10,
+          top: layoutBounds.top + 10
+        } );
+        testButton.addListener( function() { ChallengeFactory.test(); } );
+        this.addChild( testButton );
+      }
     }
   }
-
-  reactantsProductsAndLeftovers.register( 'SettingsNode', SettingsNode );
 
   /**
    * Creates a level-selection button
@@ -145,7 +144,7 @@ define( require => {
    * @param {number} maxIconHeight
    * @returns {Node}
    */
-  var createLevelSelectionButton = function( level, model, icon, maxIconWidth, maxIconHeight ) {
+  function createLevelSelectionButton( level, model, icon, maxIconWidth, maxIconHeight ) {
 
     // make all icons the same size
     const rect = new Rectangle( 0, 0, maxIconWidth, maxIconHeight, { center: icon.center } );
@@ -171,13 +170,13 @@ define( require => {
         model.play( level );
       }
     } );
-  };
+  }
 
   /*
    *  Level N
    *  leftNode -> rightNode
    */
-  const createIcon = function( level, leftNode, rightNode ) {
+  function createIcon( level, leftNode, rightNode ) {
     const arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
     const iconNode = new LayoutBox( {
       children: [ leftNode, arrowNode, rightNode ],
@@ -193,41 +192,41 @@ define( require => {
       orientation: 'vertical',
       spacing: 30
     } );
-  };
+  }
 
   /**
    *  Level 1
    *  ? -> HCl
    */
-  var createLevelOneIcon = function() {
+  function createLevelOneIcon() {
     const leftNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
     const rightNode = new HClNode( RPALConstants.MOLECULE_OPTIONS );
     rightNode.setScaleMagnitude( MOLECULE_SCALE );
     return createIcon( 1, leftNode, rightNode );
-  };
+  }
 
   /**
    *  Level 2
    *  H2O -> ?
    */
-  var createLevelTwoIcon = function() {
+  function createLevelTwoIcon() {
     const leftNode = new H2ONode( RPALConstants.MOLECULE_OPTIONS );
     leftNode.setScaleMagnitude( MOLECULE_SCALE );
     const rightNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
     return createIcon( 2, leftNode, rightNode );
-  };
+  }
 
   /**
    *  Level 3
    *  NH3 -> ??
    */
-  var createLevelThreeIcon = function() {
+  function createLevelThreeIcon() {
     const leftNode = new NH3Node( RPALConstants.MOLECULE_OPTIONS );
     leftNode.setScaleMagnitude( MOLECULE_SCALE );
     const rightNode = new Text( doubleQuestionMarkString, QUESTION_MARK_OPTIONS );
     return createIcon( 3, leftNode, rightNode );
-  };
+  }
 
-  return inherit( Node, SettingsNode );
+  return reactantsProductsAndLeftovers.register( 'SettingsNode', SettingsNode );
 } );
 

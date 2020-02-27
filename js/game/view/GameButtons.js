@@ -11,7 +11,6 @@ define( require => {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PlayState = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/PlayState' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
@@ -35,95 +34,97 @@ define( require => {
     centerX: 0 // so that all buttons are center aligned
   };
 
-  /**
-   * @param {GameModel} model
-   * @param {Property.<boolean>} checkButtonEnabledProperty is the 'Check' button enabled?
-   * @param {Object} [options]
-   * @constructor
-   */
-  function GameButtons( model, checkButtonEnabledProperty, options ) {
+  class GameButtons extends Node {
 
-    options = options || {};
+    /**
+     * @param {GameModel} model
+     * @param {Property.<boolean>} checkButtonEnabledProperty is the 'Check' button enabled?
+     * @param {Object} [options]
+     */
+    constructor( model, checkButtonEnabledProperty, options ) {
 
-    const self = this;
-    Node.call( this, options );
+      options = options || {};
 
-    // check button is needed immediately, so create it so this node has well-defined bounds (needed for layout)
-    const checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
-    this.addChild( checkButton );
-    checkButton.addListener( function() { model.check(); } );
+      super( options );
 
-    // enable/disable the check button
-    this.checkButtonEnabledObserver = function( enabled ) { checkButton.enabled = enabled; }; // @private
-    this.checkButtonEnabledProperty = checkButtonEnabledProperty; // @private
-    this.checkButtonEnabledProperty.link( this.checkButtonEnabledObserver ); // must be unlinked in dispose
+      // check button is needed immediately, so create it so this node has well-defined bounds (needed for layout)
+      const checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
+      this.addChild( checkButton );
+      checkButton.addListener( function() { model.check(); } );
 
-    // other buttons, created on demand
-    let tryAgainButton;
-    let showAnswerButton;
-    let nextButton;
+      // enable/disable the check button
+      this.checkButtonEnabledObserver = function( enabled ) { checkButton.enabled = enabled; }; // @private
+      this.checkButtonEnabledProperty = checkButtonEnabledProperty; // @private
+      this.checkButtonEnabledProperty.link( this.checkButtonEnabledObserver ); // must be unlinked in dispose
 
-    // @private
-    this.playStateObserver = function( state ) {
+      // other buttons, created on demand
+      let tryAgainButton;
+      let showAnswerButton;
+      let nextButton;
 
-      // create buttons on demand
-      if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
-        tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
-        self.addChild( tryAgainButton );
-        tryAgainButton.addListener( function() { model.tryAgain(); } );
+      // @private
+      this.playStateObserver = state => {
 
-        // a11y
-        tryAgainButton.focus();
-      }
+        // create buttons on demand
+        if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
+          tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
+          this.addChild( tryAgainButton );
+          tryAgainButton.addListener( function() { model.tryAgain(); } );
 
-      if ( !showAnswerButton && state === PlayState.SHOW_ANSWER ) {
-        showAnswerButton = new TextPushButton( showAnswerString, BUTTON_OPTIONS );
-        self.addChild( showAnswerButton );
-        showAnswerButton.addListener( function() { model.showAnswer(); } );
+          // a11y
+          tryAgainButton.focus();
+        }
 
-        // a11y
-        showAnswerButton.focus();
-      }
+        if ( !showAnswerButton && state === PlayState.SHOW_ANSWER ) {
+          showAnswerButton = new TextPushButton( showAnswerString, BUTTON_OPTIONS );
+          this.addChild( showAnswerButton );
+          showAnswerButton.addListener( function() { model.showAnswer(); } );
 
-      if ( !nextButton && state === PlayState.NEXT ) {
-        nextButton = new TextPushButton( nextString, BUTTON_OPTIONS );
-        self.addChild( nextButton );
-        nextButton.addListener( function() { model.next(); } );
+          // a11y
+          showAnswerButton.focus();
+        }
 
-        // a11y
-        nextButton.focus();
-      }
+        if ( !nextButton && state === PlayState.NEXT ) {
+          nextButton = new TextPushButton( nextString, BUTTON_OPTIONS );
+          this.addChild( nextButton );
+          nextButton.addListener( function() { model.next(); } );
 
-      // make the proper button visible for the {PlayState} state
-      checkButton && ( checkButton.visible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK ) );
-      tryAgainButton && ( tryAgainButton.visible = ( state === PlayState.TRY_AGAIN ) );
-      showAnswerButton && ( showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER ) );
-      nextButton && ( nextButton.visible = ( state === PlayState.NEXT ) );
-    };
-    self.playStateProperty = null; // @private will be set by activate()
-  }
+          // a11y
+          nextButton.focus();
+        }
 
-  reactantsProductsAndLeftovers.register( 'GameButtons', GameButtons );
-
-  return inherit( Node, GameButtons, {
+        // make the proper button visible for the {PlayState} state
+        checkButton && ( checkButton.visible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK ) );
+        tryAgainButton && ( tryAgainButton.visible = ( state === PlayState.TRY_AGAIN ) );
+        showAnswerButton && ( showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER ) );
+        nextButton && ( nextButton.visible = ( state === PlayState.NEXT ) );
+      };
+      this.playStateProperty = null; // @private will be set by activate()
+    }
 
     /**
      * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
      * @param {Property.<PlayState>} playStateProperty
      * @public
      */
-    activate: function( playStateProperty ) {
+    activate( playStateProperty ) {
       this.playStateProperty = playStateProperty;
       this.playStateProperty.link( this.playStateObserver ); // must be unlinked in dispose
-    },
+    }
 
-    // @public Ensures that this node is eligible for GC.
-    dispose: function() {
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
       this.checkButtonEnabledProperty.unlink( this.checkButtonEnabledObserver );
       if ( this.playStateProperty ) {
         this.playStateProperty.unlink( this.playStateObserver );
       }
-      Node.prototype.dispose.call( this );
+      super.dispose();
     }
-  } );
+
+  }
+
+  return reactantsProductsAndLeftovers.register( 'GameButtons', GameButtons );
 } );
