@@ -28,7 +28,7 @@ define( require => {
     }
   };
 
-  SimLauncher.launch( function() {
+  SimLauncher.launch( () => {
     const screens = [
       new SandwichesScreen(),
       new MoleculesScreen(),

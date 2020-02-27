@@ -10,7 +10,6 @@ define( require => {
 
   // modules
   const H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const MoleculesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/model/MoleculesModel' );
   const MoleculesScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesScreenView' );
@@ -27,34 +26,32 @@ define( require => {
   // a11y strings
   const screenMoleculesDescriptionString = 'Investigate molecules';
 
-  /**
-   * @constructor
-   */
-  function MoleculesScreen() {
+  class MoleculesScreen extends Screen {
 
-    const options = {
-      name: screenMoleculesString,
-      backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-      homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
-      navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } ),
-      descriptionContent: screenMoleculesDescriptionString
-    };
+    constructor() {
 
-    Screen.call( this,
-      function() { return new MoleculesModel(); },
-      function( model ) { return new MoleculesScreenView( model ); },
-      options
-    );
+      const options = {
+        name: screenMoleculesString,
+        backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
+        homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
+        navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } ),
+        descriptionContent: screenMoleculesDescriptionString
+      };
+
+      super(
+        () => new MoleculesModel(),
+        model => new MoleculesScreenView( model ),
+        options
+      );
+    }
   }
-
-  reactantsProductsAndLeftovers.register( 'MoleculesScreen', MoleculesScreen );
 
   /**
    * Creates the icon for this screen, an H2O molecule.
    * @param {Object} [options]
    * @returns {Node}
    */
-  var createIcon = function( options ) {
+  function createIcon( options ) {
 
     options = merge( {
       moleculeLineWidth: 1 // lineWidth used to stroke the molecule icon
@@ -72,7 +69,7 @@ define( require => {
     moleculeNode.center = background.center;
 
     return new Node( { children: [ background, moleculeNode ] } );
-  };
+  }
 
-  return inherit( Screen, MoleculesScreen );
+  return reactantsProductsAndLeftovers.register( 'MoleculesScreen', MoleculesScreen );
 } );

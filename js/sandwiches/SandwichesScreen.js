@@ -10,7 +10,6 @@ define( require => {
 
   // modules
   const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
@@ -28,27 +27,25 @@ define( require => {
   const homeImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-home.png' );
   const navbarImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-navbar.png' );
 
-  /**
-   * @constructor
-   */
-  function SandwichesScreen() {
+  class SandwichesScreen extends Screen {
 
-    const options = {
-      name: screenSandwichesString,
-      backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-      homeScreenIcon: new Image( homeImage ),
-      navigationBarIcon: new Image( navbarImage ),
-      descriptionContent: screenSandwichesDescription
-    };
+    constructor() {
 
-    Screen.call( this,
-      function() { return new SandwichesModel(); },
-      function( model ) { return new SandwichesScreenView( model ); },
-      options
-    );
+      const options = {
+        name: screenSandwichesString,
+        backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
+        homeScreenIcon: new Image( homeImage ),
+        navigationBarIcon: new Image( navbarImage ),
+        descriptionContent: screenSandwichesDescription
+      };
+
+      super(
+        () => new SandwichesModel(),
+        model => new SandwichesScreenView( model ),
+        options
+      );
+    }
   }
 
-  reactantsProductsAndLeftovers.register( 'SandwichesScreen', SandwichesScreen );
-
-  return inherit( Screen, SandwichesScreen );
+  return reactantsProductsAndLeftovers.register( 'SandwichesScreen', SandwichesScreen );
 } );

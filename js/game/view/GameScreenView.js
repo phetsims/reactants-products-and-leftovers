@@ -11,7 +11,6 @@ define( require => {
   // modules
   const GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
   const GamePhase = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GamePhase' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const PlayNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/PlayNode' );
   const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
   const ResultsNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/ResultsNode' );
@@ -19,62 +18,58 @@ define( require => {
   const ScreenView = require( 'JOIST/ScreenView' );
   const SettingsNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/SettingsNode' );
 
-  /**
-   * @param {GameModel} model
-   * @constructor
-   */
-  function GameScreenView( model ) {
+  class GameScreenView extends ScreenView {
 
-    const self = this;
-    ScreenView.call( this, RPALConstants.SCREEN_VIEW_OPTIONS );
-
-    // sounds
-    const audioPlayer = new GameAudioPlayer();
-
-    // one node for each 'phase' of the game, created on demand to improve startup time
-    let settingsNode = null; // @private
-    this.playNode = null; // @private
-    this.resultsNode = null; // @private
-
-    /*
-     * Handle game 'phase' changes, nodes created on demand to reduce startup time.
-     * Unlink is unnecessary because this node exists for the lifetime of the simulation.
+    /**
+     * @param {GameModel} model
      */
-    model.gamePhaseProperty.link( function( gamePhase ) {
+    constructor( model ) {
 
-      // create nodes on demand
-      if ( settingsNode === null && gamePhase === GamePhase.SETTINGS ) {
-        settingsNode = new SettingsNode( model, self.layoutBounds );
-        self.addChild( settingsNode );
-      }
+      super( RPALConstants.SCREEN_VIEW_OPTIONS );
 
-      if ( self.playNode === null && gamePhase === GamePhase.PLAY ) {
-        self.playNode = new PlayNode( model, self.layoutBounds, self.visibleBoundsProperty, audioPlayer );
-        self.addChild( self.playNode );
-      }
+      // sounds
+      const audioPlayer = new GameAudioPlayer();
 
-      if ( self.resultsNode === null && gamePhase === GamePhase.RESULTS ) {
-        self.resultsNode = new ResultsNode( model, self.layoutBounds, audioPlayer );
-        self.addChild( self.resultsNode );
-      }
+      // one node for each 'phase' of the game, created on demand to improve startup time
+      let settingsNode = null; // @private
+      this.playNode = null; // @private
+      this.resultsNode = null; // @private
 
-      // make the node visible that corresponds to the game phase
-      settingsNode && ( settingsNode.visible = ( gamePhase === GamePhase.SETTINGS ) );
-      self.playNode && ( self.playNode.visible = ( gamePhase === GamePhase.PLAY ) );
-      self.resultsNode && ( self.resultsNode.visible = ( gamePhase === GamePhase.RESULTS ) );
-    } );
-  }
+      /*
+       * Handle game 'phase' changes, nodes created on demand to reduce startup time.
+       * Unlink is unnecessary because this node exists for the lifetime of the simulation.
+       */
+      model.gamePhaseProperty.link( gamePhase => {
 
-  reactantsProductsAndLeftovers.register( 'GameScreenView', GameScreenView );
+        // create nodes on demand
+        if ( settingsNode === null && gamePhase === GamePhase.SETTINGS ) {
+          settingsNode = new SettingsNode( model, this.layoutBounds );
+          this.addChild( settingsNode );
+        }
 
-  return inherit( ScreenView, GameScreenView, {
+        if ( this.playNode === null && gamePhase === GamePhase.PLAY ) {
+          this.playNode = new PlayNode( model, this.layoutBounds, this.visibleBoundsProperty, audioPlayer );
+          this.addChild( this.playNode );
+        }
+
+        if ( this.resultsNode === null && gamePhase === GamePhase.RESULTS ) {
+          this.resultsNode = new ResultsNode( model, this.layoutBounds, audioPlayer );
+          this.addChild( this.resultsNode );
+        }
+
+        // make the node visible that corresponds to the game phase
+        settingsNode && ( settingsNode.visible = ( gamePhase === GamePhase.SETTINGS ) );
+        this.playNode && ( this.playNode.visible = ( gamePhase === GamePhase.PLAY ) );
+        this.resultsNode && ( this.resultsNode.visible = ( gamePhase === GamePhase.RESULTS ) );
+      } );
+    }
 
     /**
      * Animation step function.
      * @param {number} elapsedTime time between step calls, in seconds
      * @public
      */
-    step: function( elapsedTime ) {
+    step( elapsedTime ) {
 
       // animate the reward
       if ( this.resultsNode && this.resultsNode.visible ) {
@@ -86,5 +81,7 @@ define( require => {
         this.playNode.step( elapsedTime );
       }
     }
-  } );
+  }
+
+  return reactantsProductsAndLeftovers.register( 'GameScreenView', GameScreenView );
 } );

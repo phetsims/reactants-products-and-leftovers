@@ -12,7 +12,6 @@ define( require => {
   const FaceNode = require( 'SCENERY_PHET/FaceNode' );
   const GameModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/model/GameModel' );
   const GameScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/game/view/GameScreenView' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -29,32 +28,30 @@ define( require => {
   // a11y strings
   const screenGameDescription = 'Test your knowledge!';
 
-  /**
-   * @constructor
-   */
-  function GameScreen() {
+  class GameScreen extends Screen {
 
-    const options = {
-      name: screenGameString,
-      backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-      homeScreenIcon: createIcon(),
-      descriptionContent: screenGameDescription
-    };
+    constructor() {
 
-    Screen.call( this,
-      function() { return new GameModel(); },
-      function( model ) { return new GameScreenView( model ); },
-      options
-    );
+      const options = {
+        name: screenGameString,
+        backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
+        homeScreenIcon: createIcon(),
+        descriptionContent: screenGameDescription
+      };
+
+      super(
+        () => new GameModel(),
+        model => new GameScreenView( model ),
+        options
+      );
+    }
   }
-
-  reactantsProductsAndLeftovers.register( 'GameScreen', GameScreen );
 
   /**
    * Creates the icon for this screen, a smiley face with up/down arrows.
    * @returns {Node}
    */
-  var createIcon = function() {
+  function createIcon() {
 
     // background rectangle
     const background = new Rectangle( 0, 0, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height,
@@ -97,7 +94,7 @@ define( require => {
     contentNode.center = background.center;
 
     return new Node( { children: [ background, contentNode ] } );
-  };
+  }
 
-  return inherit( Screen, GameScreen );
+  return reactantsProductsAndLeftovers.register( 'GameScreen', GameScreen );
 } );
