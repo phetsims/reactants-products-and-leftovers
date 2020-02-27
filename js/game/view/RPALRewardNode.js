@@ -13,73 +13,70 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FaceNode = require( 'SCENERY_PHET/FaceNode' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
-  const RewardNode = require( 'VEGAS/RewardNode' );
-  const SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
+import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
+import RewardNode from '../../../../vegas/js/RewardNode.js';
+import ReactionFactory from '../../common/model/ReactionFactory.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import SandwichNode from '../../sandwiches/view/SandwichNode.js';
 
-  // constants
-  const NUMBER_OF_NODES = 100;
-  const FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
+// constants
+const NUMBER_OF_NODES = 100;
+const FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
 
-  class RPALRewardNode extends RewardNode {
+class RPALRewardNode extends RewardNode {
 
-    /**
-     * @param {number} level game level, starting at zero
-     */
-    constructor( level ) {
-      assert && assert( level >= 0 && level < nodeFactoryFunctions.length );
-      super( { nodes: nodeFactoryFunctions[ level ]() } );
-    }
-  }
-
-  // Level 1: molecules, @returns {Node[]}
-  function createNodesLevel1() {
-    const nodes = [];
-    ReactionFactory.moleculeNodeConstructors.forEach( function( MoleculeNodeConstructor ) {
-      nodes.push( new MoleculeNodeConstructor() );
-    } );
-    return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
-  }
-
-  // Level 2: smiley faces (various colors), @returns {Node[]}
-  function createNodesLevel2() {
-    const nodes = [];
-    FACE_COLORS.forEach( color => {
-      nodes.push( new FaceNode( 40, { headFill: color } ) );
-    } );
-    return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
-  }
-
-  // Level 3: sandwiches, @returns {Node[]}
-  function createNodesLevel3() {
-    const nodes = [
-      // args: bread, meat, cheese
-      new SandwichNode( 3, 3, 3 ),
-      new SandwichNode( 2, 1, 2 ),
-      new SandwichNode( 1, 1, 1 ),
-      new SandwichNode( 2, 3, 3 ),
-      new SandwichNode( 0, 2, 0 ),
-      new SandwichNode( 0, 0, 2 )
-    ];
-    return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
-  }
-
-  /*
-   * Functions for creating nodes, indexed by level.
-   * In the model, level starts at zero. In the view, it's presented as starting from 1.
-   * The function names correspond to the view presentation.
+  /**
+   * @param {number} level game level, starting at zero
    */
-  const nodeFactoryFunctions = [
-    createNodesLevel1,
-    createNodesLevel2,
-    createNodesLevel3
-  ];
+  constructor( level ) {
+    assert && assert( level >= 0 && level < nodeFactoryFunctions.length );
+    super( { nodes: nodeFactoryFunctions[ level ]() } );
+  }
+}
 
-  return reactantsProductsAndLeftovers.register( 'RPALRewardNode', RPALRewardNode );
-} );
+// Level 1: molecules, @returns {Node[]}
+function createNodesLevel1() {
+  const nodes = [];
+  ReactionFactory.moleculeNodeConstructors.forEach( function( MoleculeNodeConstructor ) {
+    nodes.push( new MoleculeNodeConstructor() );
+  } );
+  return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
+}
+
+// Level 2: smiley faces (various colors), @returns {Node[]}
+function createNodesLevel2() {
+  const nodes = [];
+  FACE_COLORS.forEach( color => {
+    nodes.push( new FaceNode( 40, { headFill: color } ) );
+  } );
+  return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
+}
+
+// Level 3: sandwiches, @returns {Node[]}
+function createNodesLevel3() {
+  const nodes = [
+    // args: bread, meat, cheese
+    new SandwichNode( 3, 3, 3 ),
+    new SandwichNode( 2, 1, 2 ),
+    new SandwichNode( 1, 1, 1 ),
+    new SandwichNode( 2, 3, 3 ),
+    new SandwichNode( 0, 2, 0 ),
+    new SandwichNode( 0, 0, 2 )
+  ];
+  return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
+}
+
+/*
+ * Functions for creating nodes, indexed by level.
+ * In the model, level starts at zero. In the view, it's presented as starting from 1.
+ * The function names correspond to the view presentation.
+ */
+const nodeFactoryFunctions = [
+  createNodesLevel1,
+  createNodesLevel2,
+  createNodesLevel3
+];
+
+reactantsProductsAndLeftovers.register( 'RPALRewardNode', RPALRewardNode );
+export default RPALRewardNode;

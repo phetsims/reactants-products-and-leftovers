@@ -6,34 +6,31 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const merge = require( 'PHET_CORE/merge' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  class RPALFont extends PhetFont {
+class RPALFont extends PhetFont {
 
-    /**
-     * @param {Object|number} options {Object} font options or {number} font size
-     */
-    constructor( options ) {
+  /**
+   * @param {Object|number} options {Object} font options or {number} font size
+   */
+  constructor( options ) {
 
-      // convenience for specifying font size only, e.g. new RPALFont(24)
-      if ( typeof options === 'number' ) {
-        options = { size: options };
-      }
-
-      // font attributes, as specified in the design document
-      options = merge( {
-        family: 'Arial'
-      }, options );
-
-      super( options );
+    // convenience for specifying font size only, e.g. new RPALFont(24)
+    if ( typeof options === 'number' ) {
+      options = { size: options };
     }
-  }
 
-  return reactantsProductsAndLeftovers.register( 'RPALFont', RPALFont );
-} );
+    // font attributes, as specified in the design document
+    options = merge( {
+      family: 'Arial'
+    }, options );
+
+    super( options );
+  }
+}
+
+reactantsProductsAndLeftovers.register( 'RPALFont', RPALFont );
+export default RPALFont;

@@ -5,47 +5,43 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Image = require( 'SCENERY/nodes/Image' );
-  const Property = require( 'AXON/Property' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
-  const SandwichesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/model/SandwichesModel' );
-  const SandwichesScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesScreenView' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import homeImage from '../../images/Sandwiches-home_png.js';
+import navbarImage from '../../images/Sandwiches-navbar_png.js';
+import RPALColors from '../common/RPALColors.js';
+import reactantsProductsAndLeftoversStrings from '../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
+import SandwichesModel from './model/SandwichesModel.js';
+import SandwichesScreenView from './view/SandwichesScreenView.js';
 
-  // strings
-  const screenSandwichesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.sandwiches' );
+const screenSandwichesString = reactantsProductsAndLeftoversStrings.screen.sandwiches;
 
-  // a11y strings
-  const screenSandwichesDescription = 'Interact with sandwiches';
+// a11y strings
+const screenSandwichesDescription = 'Interact with sandwiches';
 
-  // images
-  const homeImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-home.png' );
-  const navbarImage = require( 'image!REACTANTS_PRODUCTS_AND_LEFTOVERS/Sandwiches-navbar.png' );
 
-  class SandwichesScreen extends Screen {
+class SandwichesScreen extends Screen {
 
-    constructor() {
+  constructor() {
 
-      const options = {
-        name: screenSandwichesString,
-        backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-        homeScreenIcon: new Image( homeImage ),
-        navigationBarIcon: new Image( navbarImage ),
-        descriptionContent: screenSandwichesDescription
-      };
+    const options = {
+      name: screenSandwichesString,
+      backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
+      homeScreenIcon: new Image( homeImage ),
+      navigationBarIcon: new Image( navbarImage ),
+      descriptionContent: screenSandwichesDescription
+    };
 
-      super(
-        () => new SandwichesModel(),
-        model => new SandwichesScreenView( model ),
-        options
-      );
-    }
+    super(
+      () => new SandwichesModel(),
+      model => new SandwichesScreenView( model ),
+      options
+    );
   }
+}
 
-  return reactantsProductsAndLeftovers.register( 'SandwichesScreen', SandwichesScreen );
-} );
+reactantsProductsAndLeftovers.register( 'SandwichesScreen', SandwichesScreen );
+export default SandwichesScreen;

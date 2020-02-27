@@ -5,30 +5,27 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Property = require( 'AXON/Property' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+import Property from '../../../../axon/js/Property.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  class RPALBaseModel {
+class RPALBaseModel {
 
-    /**
-     * @param {Reaction[]} reactions
-     */
-    constructor( reactions ) {
+  /**
+   * @param {Reaction[]} reactions
+   */
+  constructor( reactions ) {
 
-      this.reactions = reactions; // @public {Reaction[]} reaction choices
-      this.reactionProperty = new Property( this.reactions[ 0 ] ); // @public {Reaction} the selected reaction
-    }
-
-    // @override @public
-    reset() {
-      this.reactionProperty.reset();
-      this.reactions.forEach( reaction => reaction.reset() );
-    }
+    this.reactions = reactions; // @public {Reaction[]} reaction choices
+    this.reactionProperty = new Property( this.reactions[ 0 ] ); // @public {Reaction} the selected reaction
   }
 
-  return reactantsProductsAndLeftovers.register( 'RPALBaseModel', RPALBaseModel );
-} );
+  // @override @public
+  reset() {
+    this.reactionProperty.reset();
+    this.reactions.forEach( reaction => reaction.reset() );
+  }
+}
+
+reactantsProductsAndLeftovers.register( 'RPALBaseModel', RPALBaseModel );
+export default RPALBaseModel;

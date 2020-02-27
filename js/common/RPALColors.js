@@ -5,23 +5,20 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Color = require( 'SCENERY/util/Color' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+import Color from '../../../scenery/js/util/Color.js';
+import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
-  // constants
-  const DARK_BLUE = new Color( 51, 118, 196 );
+// constants
+const DARK_BLUE = new Color( 51, 118, 196 );
 
-  const RPALColors = {
-    SCREEN_BACKGROUND: 'rgb(218,236,255)',
-    PANEL_FILL: DARK_BLUE,
-    BOX_STROKE: DARK_BLUE.withAlpha( 0.3 ),
-    BOX_FILL: 'white',
-    GAME_BUTTON: 'yellow'
-  };
+const RPALColors = {
+  SCREEN_BACKGROUND: 'rgb(218,236,255)',
+  PANEL_FILL: DARK_BLUE,
+  BOX_STROKE: DARK_BLUE.withAlpha( 0.3 ),
+  BOX_FILL: 'white',
+  GAME_BUTTON: 'yellow'
+};
 
-  return reactantsProductsAndLeftovers.register( 'RPALColors', RPALColors );
-} );
+reactantsProductsAndLeftovers.register( 'RPALColors', RPALColors );
+export default RPALColors;

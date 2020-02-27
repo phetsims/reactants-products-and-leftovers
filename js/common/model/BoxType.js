@@ -5,21 +5,17 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  const BoxType = {
-    BEFORE: 'BEFORE', // before the reaction started
-    AFTER: 'AFTER' // after the reaction completes
-  };
+const BoxType = {
+  BEFORE: 'BEFORE', // before the reaction started
+  AFTER: 'AFTER' // after the reaction completes
+};
 
-  // verify that enum is immutable, without the runtime penalty in production code
-  if ( assert ) { Object.freeze( BoxType ); }
+// verify that enum is immutable, without the runtime penalty in production code
+if ( assert ) { Object.freeze( BoxType ); }
 
-  reactantsProductsAndLeftovers.register( 'BoxType', BoxType );
+reactantsProductsAndLeftovers.register( 'BoxType', BoxType );
 
-  return BoxType;
-} );
+export default BoxType;

@@ -6,46 +6,43 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Dimension2 = require( 'DOT/Dimension2' );
-  const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  class HideBox extends Node {
+class HideBox extends Node {
 
-    /**
-     * @param {Object} [options]
-     */
-    constructor( options ) {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-      options = merge( {
-        boxSize: new Dimension2( 100, 100 ),
-        iconHeight: 35,
-        cornerRadius: 0
-      }, options );
+    options = merge( {
+      boxSize: new Dimension2( 100, 100 ),
+      iconHeight: 35,
+      cornerRadius: 0
+    }, options );
 
-      // dashed box
-      const rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
-        fill: 'white',
-        stroke: 'rgb(180,180,180)',
-        lineDash: [ 14, 14 ]
-      } );
+    // dashed box
+    const rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
+      fill: 'white',
+      stroke: 'rgb(180,180,180)',
+      lineDash: [ 14, 14 ]
+    } );
 
-      // closed-eye icon
-      const eyeNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
-      eyeNode.setScaleMagnitude( options.iconHeight / eyeNode.height );
-      eyeNode.center = rectangleNode.center;
+    // closed-eye icon
+    const eyeNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
+    eyeNode.setScaleMagnitude( options.iconHeight / eyeNode.height );
+    eyeNode.center = rectangleNode.center;
 
-      options.children = [ rectangleNode, eyeNode ];
-      super( options );
-    }
+    options.children = [ rectangleNode, eyeNode ];
+    super( options );
   }
+}
 
-  return reactantsProductsAndLeftovers.register( 'HideBox', HideBox );
-} );
+reactantsProductsAndLeftovers.register( 'HideBox', HideBox );
+export default HideBox;

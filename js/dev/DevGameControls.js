@@ -5,48 +5,45 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
-  const merge = require( 'PHET_CORE/merge' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const RPALFont = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALFont' );
-  const TextPushButton = require( 'SUN/buttons/TextPushButton' );
+import merge from '../../../phet-core/js/merge.js';
+import LayoutBox from '../../../scenery/js/nodes/LayoutBox.js';
+import TextPushButton from '../../../sun/js/buttons/TextPushButton.js';
+import RPALFont from '../common/view/RPALFont.js';
+import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
-  // constants
-  const BUTTON_OPTIONS = {
-    font: new RPALFont( 10 ),
-    baseColor: 'red',
-    textFill: 'white'
-  };
+// constants
+const BUTTON_OPTIONS = {
+  font: new RPALFont( 10 ),
+  baseColor: 'red',
+  textFill: 'white'
+};
 
-  class DevGameControls extends LayoutBox {
+class DevGameControls extends LayoutBox {
 
-    /**
-     * @param {GameModel} model
-     * @param {Object} [options]
-     */
-    constructor( model, options ) {
+  /**
+   * @param {GameModel} model
+   * @param {Object} [options]
+   */
+  constructor( model, options ) {
 
-      options = merge( {
-        orientation: 'horizontal',
-        spacing: 5
-      }, options );
+    options = merge( {
+      orientation: 'horizontal',
+      spacing: 5
+    }, options );
 
-      // replays the current challenge
-      const replayButton = new TextPushButton( '<', BUTTON_OPTIONS );
-      replayButton.addListener( () => model.replayCurrentChallenge() );
+    // replays the current challenge
+    const replayButton = new TextPushButton( '<', BUTTON_OPTIONS );
+    replayButton.addListener( () => model.replayCurrentChallenge() );
 
-      // skips the current challenge
-      const skipButton = new TextPushButton( '>', BUTTON_OPTIONS );
-      skipButton.addListener( () => model.skipCurrentChallenge() );
+    // skips the current challenge
+    const skipButton = new TextPushButton( '>', BUTTON_OPTIONS );
+    skipButton.addListener( () => model.skipCurrentChallenge() );
 
-      options.children = [ replayButton, skipButton ];
-      super( options );
-    }
+    options.children = [ replayButton, skipButton ];
+    super( options );
   }
+}
 
-  return reactantsProductsAndLeftovers.register( 'DevGameControls', DevGameControls );
-} );
+reactantsProductsAndLeftovers.register( 'DevGameControls', DevGameControls );
+export default DevGameControls;

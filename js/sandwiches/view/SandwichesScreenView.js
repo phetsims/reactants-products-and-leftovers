@@ -5,67 +5,64 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BeforeAfterNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/BeforeAfterNode' );
-  const Dimension2 = require( 'DOT/Dimension2' );
-  const merge = require( 'PHET_CORE/merge' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const RPALConstants = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALConstants' );
-  const RPALScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/view/RPALScreenView' );
-  const SandwichesEquationNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichesEquationNode' );
-  const SandwichNode = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/sandwiches/view/SandwichNode' );
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import RPALConstants from '../../common/RPALConstants.js';
+import BeforeAfterNode from '../../common/view/BeforeAfterNode.js';
+import RPALScreenView from '../../common/view/RPALScreenView.js';
+import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import SandwichesEquationNode from './SandwichesEquationNode.js';
+import SandwichNode from './SandwichNode.js';
 
-  // strings
-  const afterSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/afterSandwich' );
-  const beforeSandwichString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/beforeSandwich' );
+const afterSandwichString = reactantsProductsAndLeftoversStrings.afterSandwich;
+const beforeSandwichString = reactantsProductsAndLeftoversStrings.beforeSandwich;
 
-  class SandwichesScreenView extends RPALScreenView {
+class SandwichesScreenView extends RPALScreenView {
 
-    /**
-     * @param {SandwichesModel} model
-     */
-    constructor( model ) {
+  /**
+   * @param {SandwichesModel} model
+   */
+  constructor( model ) {
 
-      // compute the size of the largest sandwich, used for view layout
-      const maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
-      const maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient );
-      const maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
+    // compute the size of the largest sandwich, used for view layout
+    const maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
+    const maxSandwich = new SandwichNode( maxCoefficient, maxCoefficient, maxCoefficient );
+    const maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
 
-      super( model,
+    super( model,
 
-        /*
-         * Creates an equation for a specified reaction.
-         * @param {Reaction} reaction the reaction whose equation is displayed
-         * @param {Dimension2} maxSandwichSize dimensions of largest sandwich
-         * @returns {Node}
-         */
-        reaction => new SandwichesEquationNode( reaction, maxSandwichSize ),
+      /*
+       * Creates an equation for a specified reaction.
+       * @param {Reaction} reaction the reaction whose equation is displayed
+       * @param {Dimension2} maxSandwichSize dimensions of largest sandwich
+       * @returns {Node}
+       */
+      reaction => new SandwichesEquationNode( reaction, maxSandwichSize ),
 
-        /*
-         * Creates the Before/After interface for a specified reaction.
-         * @param {Reaction} reaction the reaction displayed in the boxes
-         * @param {Property.<boolean>} beforeExpandedProperty is the 'Before' box expanded?
-         * @param {Property.<boolean>} afterExpandedProperty is the 'After' box expanded?
-         * @param {Object} [options]
-         * @returns {Node}
-         */
-        ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) => {
-          return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
-            merge( {}, options, {
-              contentSize: RPALConstants.SANDWICHES_BEFORE_AFTER_BOX_SIZE,
-              showSymbols: false,
-              beforeTitle: beforeSandwichString,
-              afterTitle: afterSandwichString,
-              minIconSize: maxSandwichSize,
-              boxYMargin: 8 // large enough to accommodate biggest sandwich
-            } ) );
-        }
-      );
-    }
+      /*
+       * Creates the Before/After interface for a specified reaction.
+       * @param {Reaction} reaction the reaction displayed in the boxes
+       * @param {Property.<boolean>} beforeExpandedProperty is the 'Before' box expanded?
+       * @param {Property.<boolean>} afterExpandedProperty is the 'After' box expanded?
+       * @param {Object} [options]
+       * @returns {Node}
+       */
+      ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) => {
+        return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
+          merge( {}, options, {
+            contentSize: RPALConstants.SANDWICHES_BEFORE_AFTER_BOX_SIZE,
+            showSymbols: false,
+            beforeTitle: beforeSandwichString,
+            afterTitle: afterSandwichString,
+            minIconSize: maxSandwichSize,
+            boxYMargin: 8 // large enough to accommodate biggest sandwich
+          } ) );
+      }
+    );
   }
+}
 
-  return reactantsProductsAndLeftovers.register( 'SandwichesScreenView', SandwichesScreenView );
-} );
+reactantsProductsAndLeftovers.register( 'SandwichesScreenView', SandwichesScreenView );
+export default SandwichesScreenView;

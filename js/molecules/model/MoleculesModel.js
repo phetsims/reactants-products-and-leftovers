@@ -5,25 +5,22 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const ReactionFactory = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/ReactionFactory' );
-  const RPALBaseModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/RPALBaseModel' );
+import ReactionFactory from '../../common/model/ReactionFactory.js';
+import RPALBaseModel from '../../common/model/RPALBaseModel.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  class MoleculesModel extends RPALBaseModel {
+class MoleculesModel extends RPALBaseModel {
 
-    constructor() {
-      super( [
-        // reaction choices
-        ReactionFactory.makeWater(),
-        ReactionFactory.makeAmmonia(),
-        ReactionFactory.combustMethane()
-      ] );
-    }
+  constructor() {
+    super( [
+      // reaction choices
+      ReactionFactory.makeWater(),
+      ReactionFactory.makeAmmonia(),
+      ReactionFactory.combustMethane()
+    ] );
   }
+}
 
-  return reactantsProductsAndLeftovers.register( 'MoleculesModel', MoleculesModel );
-} );
+reactantsProductsAndLeftovers.register( 'MoleculesModel', MoleculesModel );
+export default MoleculesModel;

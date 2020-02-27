@@ -5,71 +5,68 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );
-  const merge = require( 'PHET_CORE/merge' );
-  const MoleculesModel = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/model/MoleculesModel' );
-  const MoleculesScreenView = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/molecules/view/MoleculesScreenView' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const Property = require( 'AXON/Property' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const RPALColors = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/RPALColors' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import H2ONode from '../../../nitroglycerin/js/nodes/H2ONode.js';
+import merge from '../../../phet-core/js/merge.js';
+import Node from '../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
+import RPALColors from '../common/RPALColors.js';
+import reactantsProductsAndLeftoversStrings from '../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
+import MoleculesModel from './model/MoleculesModel.js';
+import MoleculesScreenView from './view/MoleculesScreenView.js';
 
-  // strings
-  const screenMoleculesString = require( 'string!REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules' );
+const screenMoleculesString = reactantsProductsAndLeftoversStrings.screen.molecules;
 
-  // a11y strings
-  const screenMoleculesDescriptionString = 'Investigate molecules';
+// a11y strings
+const screenMoleculesDescriptionString = 'Investigate molecules';
 
-  class MoleculesScreen extends Screen {
+class MoleculesScreen extends Screen {
 
-    constructor() {
+  constructor() {
 
-      const options = {
-        name: screenMoleculesString,
-        backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-        homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
-        navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } ),
-        descriptionContent: screenMoleculesDescriptionString
-      };
+    const options = {
+      name: screenMoleculesString,
+      backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
+      homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
+      navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } ),
+      descriptionContent: screenMoleculesDescriptionString
+    };
 
-      super(
-        () => new MoleculesModel(),
-        model => new MoleculesScreenView( model ),
-        options
-      );
-    }
+    super(
+      () => new MoleculesModel(),
+      model => new MoleculesScreenView( model ),
+      options
+    );
   }
+}
 
-  /**
-   * Creates the icon for this screen, an H2O molecule.
-   * @param {Object} [options]
-   * @returns {Node}
-   */
-  function createIcon( options ) {
+/**
+ * Creates the icon for this screen, an H2O molecule.
+ * @param {Object} [options]
+ * @returns {Node}
+ */
+function createIcon( options ) {
 
-    options = merge( {
-      moleculeLineWidth: 1 // lineWidth used to stroke the molecule icon
-    }, options );
+  options = merge( {
+    moleculeLineWidth: 1 // lineWidth used to stroke the molecule icon
+  }, options );
 
-    // background rectangle
-    const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-    const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
-    const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
+  // background rectangle
+  const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
+  const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
+  const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
-    // H2O molecule, scaled to fit and centered on background
-    const moleculeNode = new H2ONode( { atomOptions: { stroke: 'black', lineWidth: options.moleculeLineWidth } } );
-    moleculeNode.setScaleMagnitude(
-      Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
-    moleculeNode.center = background.center;
+  // H2O molecule, scaled to fit and centered on background
+  const moleculeNode = new H2ONode( { atomOptions: { stroke: 'black', lineWidth: options.moleculeLineWidth } } );
+  moleculeNode.setScaleMagnitude(
+    Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
+  moleculeNode.center = background.center;
 
-    return new Node( { children: [ background, moleculeNode ] } );
-  }
+  return new Node( { children: [ background, moleculeNode ] } );
+}
 
-  return reactantsProductsAndLeftovers.register( 'MoleculesScreen', MoleculesScreen );
-} );
+reactantsProductsAndLeftovers.register( 'MoleculesScreen', MoleculesScreen );
+export default MoleculesScreen;

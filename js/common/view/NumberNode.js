@@ -5,48 +5,45 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const merge = require( 'PHET_CORE/merge' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const Utils = require( 'DOT/Utils' );
+import Utils from '../../../../dot/js/Utils.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  class NumberNode extends Text {
+class NumberNode extends Text {
 
-    /**
-     * @param {Property.<number>} numberProperty
-     * @param {Object} [options]
-     */
-    constructor( numberProperty, options ) {
+  /**
+   * @param {Property.<number>} numberProperty
+   * @param {Object} [options]
+   */
+  constructor( numberProperty, options ) {
 
-      options = merge( {
-        decimalPlaces: 0  // number of decimal places to be displayed
-      }, options );
+    options = merge( {
+      decimalPlaces: 0  // number of decimal places to be displayed
+    }, options );
 
-      super( '' );
+    super( '' );
 
-      // @private update the displayed number
-      this.numberPropertyObserver = value => {
-        this.text = Utils.toFixed( value, options.decimalPlaces );
-      };
-      this.numberProperty = numberProperty; // @private
-      this.numberProperty.link( this.numberPropertyObserver ); // must be unlinked in dispose
+    // @private update the displayed number
+    this.numberPropertyObserver = value => {
+      this.text = Utils.toFixed( value, options.decimalPlaces );
+    };
+    this.numberProperty = numberProperty; // @private
+    this.numberProperty.link( this.numberPropertyObserver ); // must be unlinked in dispose
 
-      this.mutate( options );
-    }
-
-    /**
-     * @public
-     * @override
-     */
-    dispose() {
-      this.numberProperty.unlink( this.numberPropertyObserver );
-      super.dispose();
-    }
+    this.mutate( options );
   }
 
-  return reactantsProductsAndLeftovers.register( 'NumberNode', NumberNode );
-} );
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    this.numberProperty.unlink( this.numberPropertyObserver );
+    super.dispose();
+  }
+}
+
+reactantsProductsAndLeftovers.register( 'NumberNode', NumberNode );
+export default NumberNode;

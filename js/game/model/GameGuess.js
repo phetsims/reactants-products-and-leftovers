@@ -17,54 +17,51 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BoxType = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/BoxType' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const Substance = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/common/model/Substance' );
+import BoxType from '../../common/model/BoxType.js';
+import Substance from '../../common/model/Substance.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  class GameGuess {
+class GameGuess {
 
-    /**
-     * @param {Reaction} reaction
-     * @param {BoxType} interactiveBox which box is interactive
-     */
-    constructor( reaction, interactiveBox ) {
+  /**
+   * @param {Reaction} reaction
+   * @param {BoxType} interactiveBox which box is interactive
+   */
+  constructor( reaction, interactiveBox ) {
 
-      assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
+    assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
-      // @public Clone reactants, quantities are initialized to zero for 'Before' challenges.
-      this.reactants = [];
-      reaction.reactants.forEach( reactant => {
-        this.reactants.push( ( interactiveBox === BoxType.BEFORE ) ? Substance.withQuantity( reactant, 0 ) : Substance.clone( reactant ) );
-      } );
+    // @public Clone reactants, quantities are initialized to zero for 'Before' challenges.
+    this.reactants = [];
+    reaction.reactants.forEach( reactant => {
+      this.reactants.push( ( interactiveBox === BoxType.BEFORE ) ? Substance.withQuantity( reactant, 0 ) : Substance.clone( reactant ) );
+    } );
 
-      // @public Clone products, quantities are initialized to zero for 'After' challenges.
-      this.products = [];
-      reaction.products.forEach( product => {
-        this.products.push( ( interactiveBox === BoxType.AFTER ) ? Substance.withQuantity( product, 0 ) : Substance.clone( product ) );
-      } );
+    // @public Clone products, quantities are initialized to zero for 'After' challenges.
+    this.products = [];
+    reaction.products.forEach( product => {
+      this.products.push( ( interactiveBox === BoxType.AFTER ) ? Substance.withQuantity( product, 0 ) : Substance.clone( product ) );
+    } );
 
-      // @public Clone leftovers, quantities are initialized to zero for 'After' challenges.
-      this.leftovers = [];
-      reaction.leftovers.forEach( leftover => {
-        this.leftovers.push( ( interactiveBox === BoxType.AFTER ) ? Substance.withQuantity( leftover, 0 ) : Substance.clone( leftover ) );
-      } );
+    // @public Clone leftovers, quantities are initialized to zero for 'After' challenges.
+    this.leftovers = [];
+    reaction.leftovers.forEach( leftover => {
+      this.leftovers.push( ( interactiveBox === BoxType.AFTER ) ? Substance.withQuantity( leftover, 0 ) : Substance.clone( leftover ) );
+    } );
 
-      assert && assert( this.reactants.length === reaction.reactants.length );
-      assert && assert( this.products.length === reaction.products.length );
-      assert && assert( this.leftovers.length === reaction.leftovers.length );
-    }
-
-    // @public
-    reset() {
-      this.reactants.forEach( reactant => reactant.reset() );
-      this.products.forEach( product => product.reset() );
-      this.leftovers.forEach( leftover => leftover.reset() );
-    }
+    assert && assert( this.reactants.length === reaction.reactants.length );
+    assert && assert( this.products.length === reaction.products.length );
+    assert && assert( this.leftovers.length === reaction.leftovers.length );
   }
 
-  return reactantsProductsAndLeftovers.register( 'GameGuess', GameGuess );
-} );
+  // @public
+  reset() {
+    this.reactants.forEach( reactant => reactant.reset() );
+    this.products.forEach( product => product.reset() );
+    this.leftovers.forEach( leftover => leftover.reset() );
+  }
+}
+
+reactantsProductsAndLeftovers.register( 'GameGuess', GameGuess );
+export default GameGuess;

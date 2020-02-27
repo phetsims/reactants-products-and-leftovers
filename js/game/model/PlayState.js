@@ -6,26 +6,21 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  const PlayState = {
-    FIRST_CHECK: 'FIRST_CHECK', // 'Check' button is visible for the first time
-    TRY_AGAIN: 'TRY_AGAIN', // 'Try Again' button is visible
-    SECOND_CHECK: 'SECOND_CHECK', // 'Check' button is visible for the second time
-    SHOW_ANSWER: 'SHOW_ANSWER', // 'Show Answer' button is visible
-    NEXT: 'NEXT', // 'Next' button is visible
-    NONE: 'NONE' // use this value when game is not in the 'play' phase
-  };
+const PlayState = {
+  FIRST_CHECK: 'FIRST_CHECK', // 'Check' button is visible for the first time
+  TRY_AGAIN: 'TRY_AGAIN', // 'Try Again' button is visible
+  SECOND_CHECK: 'SECOND_CHECK', // 'Check' button is visible for the second time
+  SHOW_ANSWER: 'SHOW_ANSWER', // 'Show Answer' button is visible
+  NEXT: 'NEXT', // 'Next' button is visible
+  NONE: 'NONE' // use this value when game is not in the 'play' phase
+};
 
-  // verify that enum is immutable, without the runtime penalty in production code
-  if ( assert ) { Object.freeze( PlayState ); }
+// verify that enum is immutable, without the runtime penalty in production code
+if ( assert ) { Object.freeze( PlayState ); }
 
-  reactantsProductsAndLeftovers.register( 'PlayState', PlayState );
+reactantsProductsAndLeftovers.register( 'PlayState', PlayState );
 
-  return PlayState;
-} );
-
+export default PlayState;

@@ -5,23 +5,18 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  const GamePhase = {
-    SETTINGS: 'SETTINGS', // user is choosing game settings (level, timer, ...)
-    PLAY: 'PLAY', // user is playing the game
-    RESULTS: 'RESULTS' // user is viewing results at end of a game
-  };
+const GamePhase = {
+  SETTINGS: 'SETTINGS', // user is choosing game settings (level, timer, ...)
+  PLAY: 'PLAY', // user is playing the game
+  RESULTS: 'RESULTS' // user is viewing results at end of a game
+};
 
-  // verify that enum is immutable, without the runtime penalty in production code
-  if ( assert ) { Object.freeze( GamePhase ); }
+// verify that enum is immutable, without the runtime penalty in production code
+if ( assert ) { Object.freeze( GamePhase ); }
 
-  reactantsProductsAndLeftovers.register( 'GamePhase', GamePhase );
+reactantsProductsAndLeftovers.register( 'GamePhase', GamePhase );
 
-  return GamePhase;
-} );
-
+export default GamePhase;

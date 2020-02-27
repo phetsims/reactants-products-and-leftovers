@@ -21,50 +21,47 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Node = require( 'SCENERY/nodes/Node' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
-  const Vector2 = require( 'DOT/Vector2' );
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  class SubstanceIcon extends Node {
+class SubstanceIcon extends Node {
 
-    /**
-     * @param {Property.<Node>} iconProperty
-     * @param {Object} [options]
-     */
-    constructor( iconProperty, options ) {
+  /**
+   * @param {Property.<Node>} iconProperty
+   * @param {Object} [options]
+   */
+  constructor( iconProperty, options ) {
 
-      super();
+    super();
 
-      // @private Add an additional wrapper, so that we can maintain the node's center.
-      this.wrapperNode = new Node();
-      this.addChild( this.wrapperNode );
+    // @private Add an additional wrapper, so that we can maintain the node's center.
+    this.wrapperNode = new Node();
+    this.addChild( this.wrapperNode );
 
-      this.iconProperty = iconProperty; // @private
-      this.iconPropertyObserver = icon => { // @private
-        this.wrapperNode.removeAllChildren();
-        // icon must be removed in dispose, since scenery children keep a reference to their parents
-        this.wrapperNode.addChild( icon );
-        this.wrapperNode.center = Vector2.ZERO;
-      };
-      this.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
+    this.iconProperty = iconProperty; // @private
+    this.iconPropertyObserver = icon => { // @private
+      this.wrapperNode.removeAllChildren();
+      // icon must be removed in dispose, since scenery children keep a reference to their parents
+      this.wrapperNode.addChild( icon );
+      this.wrapperNode.center = Vector2.ZERO;
+    };
+    this.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
 
-      this.mutate( options );
-    }
-
-    /**
-     * @public
-     * @override
-     */
-    dispose() {
-      this.iconProperty.unlink( this.iconPropertyObserver );
-      this.wrapperNode.removeAllChildren(); // to disconnect from icon
-      super.dispose();
-    }
+    this.mutate( options );
   }
 
-  return reactantsProductsAndLeftovers.register( 'SubstanceIcon', SubstanceIcon );
-} );
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    this.iconProperty.unlink( this.iconPropertyObserver );
+    this.wrapperNode.removeAllChildren(); // to disconnect from icon
+    super.dispose();
+  }
+}
+
+reactantsProductsAndLeftovers.register( 'SubstanceIcon', SubstanceIcon );
+export default SubstanceIcon;

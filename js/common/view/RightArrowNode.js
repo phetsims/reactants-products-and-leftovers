@@ -5,31 +5,28 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const merge = require( 'PHET_CORE/merge' );
-  const reactantsProductsAndLeftovers = require( 'REACTANTS_PRODUCTS_AND_LEFTOVERS/reactantsProductsAndLeftovers' );
+import merge from '../../../../phet-core/js/merge.js';
+import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-  class RightArrowNode extends ArrowNode {
+class RightArrowNode extends ArrowNode {
 
-    /**
-     * @param {Object} [options]
-     */
-    constructor( options ) {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-      options = merge( {
-        length: 70,
-        tailWidth: 15,
-        headWidth: 35,
-        headHeight: 30
-      }, options );
+    options = merge( {
+      length: 70,
+      tailWidth: 15,
+      headWidth: 35,
+      headHeight: 30
+    }, options );
 
-      super( 0, 0, options.length, 0, options );
-    }
+    super( 0, 0, options.length, 0, options );
   }
+}
 
-  return reactantsProductsAndLeftovers.register( 'RightArrowNode', RightArrowNode );
-} );
+reactantsProductsAndLeftovers.register( 'RightArrowNode', RightArrowNode );
+export default RightArrowNode;
