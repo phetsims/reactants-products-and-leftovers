@@ -176,33 +176,35 @@ define( require => {
 
   /**
    * Icon that occupies a cell in the grid, randomizes its position to make the grid look less regular.
-   * @param {Property.<Node>} iconProperty
-   * @param {Vector2} gridPosition
-   * @param {number} randomOffset
-   * @constructor
-   * @private
    */
-  function CellNode( iconProperty, gridPosition, randomOffset ) {
+  class CellNode extends SubstanceIcon {
 
-    SubstanceIcon.call( this, iconProperty );
+    /**
+     * @param {Property.<Node>} iconProperty
+     * @param {Vector2} gridPosition
+     * @param {number} randomOffset
+     */
+    constructor( iconProperty, gridPosition, randomOffset ) {
 
-    this.gridPosition = gridPosition; // @private
-    this.randomOffset = randomOffset; // @private
+      super( iconProperty );
 
-    this.setGridPosition( gridPosition ); // initialize position
-  }
+      this.gridPosition = gridPosition; // @private
+      this.randomOffset = randomOffset; // @private
 
-  inherit( SubstanceIcon, CellNode, {
+      this.setGridPosition( gridPosition ); // initialize position
+    }
 
-    getGridPosition: function() { return this.gridPosition; },
+    getGridPosition() {
+      return this.gridPosition;
+    }
 
-    setGridPosition: function( gridPosition ) {
+    setGridPosition( gridPosition ) {
       this.gridPosition = gridPosition;
       // Move this node to the specified grid position, with some randomized offset.
       this.centerX = gridPosition.x + phet.joist.random.nextIntBetween( -this.randomOffset, this.randomOffset );
       this.centerY = gridPosition.y + phet.joist.random.nextIntBetween( -this.randomOffset, this.randomOffset );
     }
-  } );
+  }
 
   return inherit( Node, RandomBox, {
 
