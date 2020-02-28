@@ -1,4 +1,4 @@
-// Copyright 2014-2019, University of Colorado Boulder
+// Copyright 2014-2020, University of Colorado Boulder
 
 /**
  * States during the 'play' phase of a game (GamePhase.PlayState), mutually exclusive.
