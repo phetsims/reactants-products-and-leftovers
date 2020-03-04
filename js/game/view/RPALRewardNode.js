@@ -38,9 +38,7 @@ class RPALRewardNode extends RewardNode {
 // Level 1: molecules, @returns {Node[]}
 function createNodesLevel1() {
   const nodes = [];
-  ReactionFactory.moleculeNodeConstructors.forEach( function( MoleculeNodeConstructor ) {
-    nodes.push( new MoleculeNodeConstructor() );
-  } );
+  ReactionFactory.moleculeNodeConstructors.forEach( MoleculeNodeConstructor => nodes.push( new MoleculeNodeConstructor() ) );
   return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
 }
 
