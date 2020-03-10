@@ -6,16 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-const GamePhase = {
-  SETTINGS: 'SETTINGS', // user is choosing game settings (level, timer, ...)
-  PLAY: 'PLAY', // user is playing the game
-  RESULTS: 'RESULTS' // user is viewing results at end of a game
-};
-
-// verify that enum is immutable, without the runtime penalty in production code
-if ( assert ) { Object.freeze( GamePhase ); }
+const GamePhase = Enumeration.byKeys( [
+  'SETTINGS', // user is choosing game settings (level, timer, ...)
+  'PLAY',     // user is playing the game
+  'RESULTS'   // user is viewing results at end of a game
+] );
 
 reactantsProductsAndLeftovers.register( 'GamePhase', GamePhase );
 
