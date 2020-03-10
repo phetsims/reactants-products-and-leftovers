@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
 import RPALConstants from '../../common/RPALConstants.js';
@@ -48,7 +47,7 @@ class GameModel {
     this.challengeProperty = new Property( null ); // {Challenge} the current challenge being played
     this.challengeIndexProperty = new NumberProperty( -1 ); // {number} the index of the current challenge, -1 indicates no challenge
     this.gamePhaseProperty = new EnumerationProperty( GamePhase, GamePhase.SETTINGS ); // the current 'phase' of the game
-    this.playStateProperty = new StringProperty( PlayState.NONE ); // {PlayState} the current 'play state' of the game
+    this.playStateProperty = new EnumerationProperty( PlayState, PlayState.NONE ); // the current 'play state' of the game
 
     // These fields are @public (read-only), they should not be changed once the model is instantiated.
     this.numberOfLevels = options.numberOfLevels;

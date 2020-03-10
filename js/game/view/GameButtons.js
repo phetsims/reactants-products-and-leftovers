@@ -101,7 +101,7 @@ class GameButtons extends Node {
 
   /**
    * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
-   * @param {Property.<PlayState>} playStateProperty
+   * @param {EnumerationProperty.<PlayState>} playStateProperty
    * @public
    */
   activate( playStateProperty ) {

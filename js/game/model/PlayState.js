@@ -7,19 +7,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-const PlayState = {
-  FIRST_CHECK: 'FIRST_CHECK', // 'Check' button is visible for the first time
-  TRY_AGAIN: 'TRY_AGAIN', // 'Try Again' button is visible
-  SECOND_CHECK: 'SECOND_CHECK', // 'Check' button is visible for the second time
-  SHOW_ANSWER: 'SHOW_ANSWER', // 'Show Answer' button is visible
-  NEXT: 'NEXT', // 'Next' button is visible
-  NONE: 'NONE' // use this value when game is not in the 'play' phase
-};
-
-// verify that enum is immutable, without the runtime penalty in production code
-if ( assert ) { Object.freeze( PlayState ); }
+const PlayState = Enumeration.byKeys( [
+  'FIRST_CHECK',  // 'Check' button is visible for the first time
+  'TRY_AGAIN',    // 'Try Again' button is visible
+  'SECOND_CHECK', // 'Check' button is visible for the second time
+  'SHOW_ANSWER',  // 'Show Answer' button is visible
+  'NEXT',         // 'Next' button is visible
+  'NONE'          // use this value when game is not in the 'play' phase
+] );
 
 reactantsProductsAndLeftovers.register( 'PlayState', PlayState );
 
