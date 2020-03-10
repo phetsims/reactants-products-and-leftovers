@@ -6,15 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-const BoxType = {
-  BEFORE: 'BEFORE', // before the reaction started
-  AFTER: 'AFTER' // after the reaction completes
-};
-
-// verify that enum is immutable, without the runtime penalty in production code
-if ( assert ) { Object.freeze( BoxType ); }
+const BoxType = Enumeration.byKeys( [
+  'BEFORE', // before the reaction started
+  'AFTER'   // after the reaction completes
+] );
 
 reactantsProductsAndLeftovers.register( 'BoxType', BoxType );
 
