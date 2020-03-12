@@ -87,7 +87,7 @@ class SettingsNode extends Node {
     } );
 
     // Panel with visibility radio buttons, at bottom center
-    const visibilityPanel = new VisibilityPanel( model.moleculesVisibleProperty, model.numbersVisibleProperty, {
+    const visibilityPanel = new VisibilityPanel( model.gameVisibiltyProperty, {
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN,
       maxWidth: 0.65 * layoutBounds.width // constrain width for i18n

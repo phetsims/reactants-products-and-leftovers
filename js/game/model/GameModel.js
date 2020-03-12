@@ -16,6 +16,7 @@ import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ChallengeFactory from './ChallengeFactory.js';
 import GamePhase from './GamePhase.js';
+import GameVisibility from './GameVisibility.js';
 import PlayState from './PlayState.js';
 
 // constants
@@ -37,8 +38,7 @@ class GameModel {
 
     // @public
     this.timerEnabledProperty = new BooleanProperty( false ); // {boolean} is the timer turned on?
-    this.moleculesVisibleProperty = new BooleanProperty( true ); // {boolean} are molecules shown in the challenge?
-    this.numbersVisibleProperty = new BooleanProperty( true ); // {boolean} are quantities shown in the challenge?
+    this.gameVisibiltyProperty = new EnumerationProperty( GameVisibility, GameVisibility.SHOW_ALL );
 
     // @public (read-only)
     this.levelProperty = new NumberProperty( 0 ); // {number} the current level, starts at 0 in the model, presented as starting from 1 in the view
@@ -71,8 +71,7 @@ class GameModel {
 
     // reset Properties
     this.timerEnabledProperty.reset();
-    this.moleculesVisibleProperty.reset();
-    this.numbersVisibleProperty.reset();
+    this.gameVisibiltyProperty.reset();
     this.levelProperty.reset();
     this.scoreProperty.reset();
     this.numberOfChallengesProperty.reset();
@@ -219,8 +218,8 @@ class GameModel {
   // @private initializes a new set of challenges for the current level
   initChallenges() {
     this.challenges = ChallengeFactory.createChallenges( this.levelProperty.get(), this.maxQuantity, {
-      moleculesVisible: this.moleculesVisibleProperty.get(),
-      numbersVisible: this.numbersVisibleProperty.get()
+      moleculesVisible: ( this.gameVisibiltyProperty.get() !== GameVisibility.HIDE_MOLECULES ),
+      numbersVisible: ( this.gameVisibiltyProperty.get() !== GameVisibility.HIDE_NUMBERS )
     } );
     this.numberOfChallengesProperty.set( this.challenges.length );
     this.challengeIndexProperty.set( 0 );

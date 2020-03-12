@@ -7,38 +7,36 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import merge from '../../../../phet-core/js/merge.js';
 import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
+import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import Panel from '../../../../sun/js/Panel.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALFont from '../../common/view/RPALFont.js';
 import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import GameVisibility from '../model/GameVisibility.js';
 
+// strings
 const hideMoleculesString = reactantsProductsAndLeftoversStrings.hideMolecules;
 const hideNumbersString = reactantsProductsAndLeftoversStrings.hideNumbers;
 const showAllString = reactantsProductsAndLeftoversStrings.showAll;
 
 // constants
 const TEXT_OPTIONS = { font: new RPALFont( 14 ) };
-const RADIO_BUTTON_OPTIONS = { radius: 8, xSpacing: 10 };
 const FONT_AWESOME_OPTIONS = { scale: 0.5 };
-const X_DILATION = 10; // dilate touchArea for radio buttons
-const Y_DILATION = 6; // dilate touchArea for radio buttons
 
 class VisibilityPanel extends Panel {
+
   /**
-   * @param {Property.<boolean>} moleculesVisibleProperty are molecules visible in challenges?
-   * @param {Property.<boolean>} numbersVisibleProperty are quantities visible in challenges?
+   * @param {EnumerationProperty.<GameVisibility>} gameVisibilityProperty
    * @param {Object} [options]
    */
-  constructor( moleculesVisibleProperty, numbersVisibleProperty, options ) {
+  constructor( gameVisibilityProperty, options ) {
 
     options = merge( {
       xMargin: 15,
@@ -48,62 +46,23 @@ class VisibilityPanel extends Panel {
       lineWidth: 0.5
     }, options );
 
-    /**
-     * This bit of code is a little complicated because of a mismatch between model and view.
-     * The model has independent properties for the visibility of molecules and numbers.
-     * But the view makes them dependent on each other, and this control mixes 'show' and 'hide'.
-     * This could be fixed by modeling this dependency, but I prefer to keep the model clean.
-     */
-      // unlink is unnecessary because this property is owned by this node
-    const showAllProperty = new BooleanProperty( moleculesVisibleProperty.get() && numbersVisibleProperty.get() );
-    showAllProperty.link( value => {
-      if ( value ) {
-        moleculesVisibleProperty.set( true );
-        numbersVisibleProperty.set( true );
+    const radioButtonItems = [
+      { value: GameVisibility.SHOW_ALL, node: createShowAllNode() },
+      { value: GameVisibility.HIDE_MOLECULES, node: createHideMoleculesNode() },
+      { value: GameVisibility.HIDE_NUMBERS, node: createHideNumbersNode() }
+    ];
+
+    const radioButtonGroup = new AquaRadioButtonGroup( gameVisibilityProperty, radioButtonItems, {
+      spacing: 15,
+      touchAreaXDilation: 10,
+      touchAreaYDilation: 6,
+      radioButtonOptions: {
+        radius: 8,
+        xSpacing: 10
       }
     } );
 
-    // unlink is unnecessary because this node exists for the lifetime of the simulation
-    moleculesVisibleProperty.link( visible => {
-      if ( !visible ) {
-        numbersVisibleProperty.set( true ); // if molecules are hidden, then numbers must be shown
-        showAllProperty.set( false );
-      }
-      else {
-        showAllProperty.set( visible && numbersVisibleProperty.get() );
-      }
-    } );
-
-    // unlink is unnecessary because this node exists for the lifetime of the simulation
-    numbersVisibleProperty.link( visible => {
-      if ( !visible ) {
-        moleculesVisibleProperty.set( true ); // if numbers are hidden, then molecules must be shown
-        showAllProperty.set( false );
-      }
-      else {
-        showAllProperty.set( visible && moleculesVisibleProperty.get() );
-      }
-    } );
-
-    // radio buttons
-    const showAllRadioButton = new AquaRadioButton( showAllProperty, true, createShowAllNode(), RADIO_BUTTON_OPTIONS );
-    const hideMoleculesButton = new AquaRadioButton( moleculesVisibleProperty, false, createHideMoleculesNode(), RADIO_BUTTON_OPTIONS );
-    const hideNumbersButton = new AquaRadioButton( numbersVisibleProperty, false, createHideNumbersNode(), RADIO_BUTTON_OPTIONS );
-
-    // expand touchArea
-    showAllRadioButton.touchArea = showAllRadioButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
-    hideMoleculesButton.touchArea = hideMoleculesButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
-    hideNumbersButton.touchArea = hideNumbersButton.localBounds.dilatedXY( X_DILATION, Y_DILATION );
-
-    // vertical layout
-    const content = new LayoutBox( {
-      children: [ showAllRadioButton, hideMoleculesButton, hideNumbersButton ],
-      orientation: 'vertical',
-      align: 'left',
-      spacing: 15
-    } );
-
-    super( content, options );
+    super( radioButtonGroup, options );
   }
 }
 
