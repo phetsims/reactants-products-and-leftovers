@@ -2,6 +2,8 @@
 
 /**
  * Enumeration that describes the visibility choices for the Game.
+ * The inverted logic of "Hide" vs "Show" isn't great, but it matches the UI and prevents us from having to use
+ * adapter Properties. See https://github.com/phetsims/reactants-products-and-leftovers/issues/68.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
