@@ -2,18 +2,18 @@
 
 Start by reading [model.md](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/doc/model.md).
 
-Reactants, products and leftovers are implemented by class `Substance`.
+Reactants, products and leftovers are implemented by class [Substance](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/js/common/model/Substance.js).
 
-Chemical reactions are implemented by class `Reaction`. The algorithm for computing quantities (described in model.md)
+Chemical reactions are implemented by class [Reaction](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/js/common/model/Reaction.js). The algorithm for computing quantities (described in model.md)
 is implemented in methods `getNumberOfReactions` and `updateQuantities`.
 
 The "Sandwiches" analogy is implemented as a single-product reaction. The sandwich recipe defines the reaction equation.
-Sandwich ingredients are reactants (and leftovers), and the completed sandwich is the product.
+Sandwich ingredients are reactants (and leftovers), and the completed sandwich is the product. See [SandwichRecipe](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/js/sandwiches/model/SandwichRecipe.js).
 
 The Game screen is controlled by a state machine. There are 3 top-level "phases" of a game, as described in
-`GamePhase`. While playing a challenge, the Game will be in one of the "states" described in `PlayState`.
+[GamePhase](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/js/game/model/GamePhase.js). While playing a challenge, the Game will be in one of the "states" described in [PlayState](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/js/game/model/PlayState.js).
 
-Generation of challenges for the Game screen is described in the documentation for `ChallengeFactory`.
+Generation of challenges for the Game screen is described in the documentation for [ChallengeFactory](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/js/game/model/ChallengeFactory.js).
 
 Game 'level' is numbered starting from zero throughout the model, and displayed starting from 1 in the view.
 Ie, model.level === 0 is displayed as 'Level 1'.
