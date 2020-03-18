@@ -31,7 +31,7 @@ places in the view (equation, Before/After box,...), the icon must be wrapped in
 accidentally make it a sibling of itself, or attempt to position it. VERY IMPORTANT is that when the wrapper node
 is removed from the scenegraph, the Substance's icon needs to be explicitly removed from the wrapper.  This is
 because scenery nodes keep a reference to their parent. If we don't explicitly remove the icon from the scene graph,
-then all of its ancestors will be retained, creating a memory leak. More details can be found in SubstanceIcon, which
+then all of its ancestors will be retained, creating a memory leak. More details can be found in [SubstanceIcon](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/js/common/view/SubstanceIcon.js), which
 is the wrapper for Substance icons.
 
 An aspect of performance (GitHub issue #17) deserves some explanation. In the Game, switching between challenges involves
