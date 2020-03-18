@@ -26,5 +26,3 @@ The leftovers L of reactant R with coefficient C2: L = ( initial quantity of R )
 The "Sandwiches" analogy treats a sandwich recipe as a single-product reaction, and
 in fact uses the same model as the "Molecules" screen. Sandwich ingredients are reactants,
 and the completed sandwich is the product.
-
---
