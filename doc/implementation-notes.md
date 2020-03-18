@@ -23,7 +23,7 @@ Those view components implement a dispose function, which unlinks observers from
 To prevent memory leaks, it's essential to call dispose when you're done with view components. Failure to unlink
 from AXON properties tends to be the main cause of memory leaks.
 
-Another source of memory leaks (see GitHub issue #18) is `Substance.iconProperty`. This Property's value is a scenery Node
+Another source of memory leaks (see https://github.com/phetsims/reactants-products-and-leftovers/issues/18) is `Substance.iconProperty`. This Property's value is a scenery Node
 that is used to represent an instance of a `Substance`. Scenery is a DAG and allows one instance of a Node to
 appear in the scenegraph in multiple places, with 2 caveats: (1) a Node cannot be a sibling of itself, and
 (2) transforming a node will do so everywhere that it appears. Because a Substance's icon can appear in multiple
