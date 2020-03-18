@@ -39,5 +39,5 @@ some costly operations: `removeChild` of the previous `ChallengeNode`, creation 
 and `addChild` of that new `ChallengeNode`. This made the Game feel a bit sluggish and unresponsive. The solution was
 to hide these costs in the animation loop, handling them immediately after displaying a new challenge, when the
 user is liable to be distracted with looking at what has just been displayed. In this interval, the previous
-`ChallengeNode` is removed, and the next `ChallengeNode` is created and added (but made invisible). See `PlayNode.step`
+`ChallengeNode` is removed, and the next `ChallengeNode` is created and added (but made invisible). See [PlayNode.step](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/js/game/view/PlayNode.js)
 for more details.
