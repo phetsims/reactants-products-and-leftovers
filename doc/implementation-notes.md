@@ -34,7 +34,7 @@ because scenery nodes keep a reference to their parent. If we don't explicitly r
 then all of its ancestors will be retained, creating a memory leak. More details can be found in [SubstanceIcon](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/js/common/view/SubstanceIcon.js), which
 is the wrapper for Substance icons.
 
-An aspect of performance (GitHub issue #17) deserves some explanation. In the Game, switching between challenges involves
+An aspect of performance ([GitHub issue #17](https://github.com/phetsims/reactants-products-and-leftovers/issues/17)) deserves some explanation. In the Game, switching between challenges involves
 some costly operations: `removeChild` of the previous `ChallengeNode`, creation of a new `ChallengeNode` (a relatively large subtree),
 and `addChild` of that new `ChallengeNode`. This made the Game feel a bit sluggish and unresponsive. The solution was
 to hide these costs in the animation loop, handling them immediately after displaying a new challenge, when the
