@@ -1,8 +1,4 @@
---
-
-Description of the model used in "Reactants, Products and Leftovers"
-
-OVERVIEW
+# Reactants, Products and Leftovers - model description
 
 A chemical reaction is a process that leads to the transformation of one set of
 chemical substances (reactants) to another (products).  We refer to the reactants

@@ -1,19 +1,19 @@
-Implementation notes for "Reactants, Products and Leftovers" simulation
+# Reactants, Products and Leftovers - implementation notes
 
-Start by reading model.txt.
+Start by reading [model.md](https://github.com/phetsims/reactants-products-and-leftovers/blob/master/doc/model.md).
 
-Reactants, products and leftovers are implemented by type Substance.
+Reactants, products and leftovers are implemented by class `Substance`.
 
-Chemical reactions are implemented by type Reaction. The algorithm for computing quantities (described in model.txt)
-is implemented in methods getNumberOfReactions and updateQuantities.
+Chemical reactions are implemented by class `Reaction`. The algorithm for computing quantities (described in model.md)
+is implemented in methods `getNumberOfReactions` and `updateQuantities`.
 
 The "Sandwiches" analogy is implemented as a single-product reaction. The sandwich recipe defines the reaction equation.
 Sandwich ingredients are reactants (and leftovers), and the completed sandwich is the product.
 
 The Game screen is controlled by a state machine. There are 3 top-level "phases" of a game, as described in
-GamePhase. While playing a challenge, the Game will be in one of the "states" described in PlayState.
+`GamePhase`. While playing a challenge, the Game will be in one of the "states" described in `PlayState`.
 
-Generation of challenges for the Game screen is described in the documentation for ChallengeFactory.
+Generation of challenges for the Game screen is described in the documentation for `ChallengeFactory`.
 
 Game 'level' is numbered starting from zero throughout the model, and displayed starting from 1 in the view.
 Ie, model.level === 0 is displayed as 'Level 1'.
@@ -24,7 +24,7 @@ To prevent memory leaks, it's essential to call dispose when you're done with vi
 from AXON properties tends to be the main cause of memory leaks.
 
 Another source of memory leaks (see GitHub issue #18) is the Substance.icon property. This property is a scenery Node
-that is used to represent an instance of a Substance. Scenery is a DAG and allows one instance of a Node to
+that is used to represent an instance of a `Substance`. Scenery is a DAG and allows one instance of a Node to
 appear in the scenegraph in multiple places, with 2 caveats: (1) a Node cannot be a sibling of itself, and
 (2) transforming a node will do so everywhere that it appears. Because a Substance's icon can appear in multiple
 places in the view (equation, Before/After box,...), the icon must be wrapped in another node, so that we don't
@@ -35,9 +35,9 @@ then all of its ancestors will be retained, creating a memory leak. More details
 is the wrapper for Substance icons.
 
 An aspect of performance (GitHub issue #17) deserves some explanation. In the Game, switching between challenges involves
-some costly operations: removeChild of the previous ChallengeNode, creation of a new ChallengeNode (a relatively large subtree),
-and addChild of that new ChallengeNode. This made the Game feel a bit sluggish and unresponsive. The solution was
+some costly operations: `removeChild` of the previous `ChallengeNode`, creation of a new `ChallengeNode` (a relatively large subtree),
+and `addChild` of that new `ChallengeNode`. This made the Game feel a bit sluggish and unresponsive. The solution was
 to hide these costs in the animation loop, handling them immediately after displaying a new challenge, when the
 user is liable to be distracted with looking at what has just been displayed. In this interval, the previous
-ChallengeNode is removed, and the next ChallengeNode is created and added (but made invisible). See PlayNode.step
+`ChallengeNode` is removed, and the next `ChallengeNode` is created and added (but made invisible). See `PlayNode.step`
 for more details.
