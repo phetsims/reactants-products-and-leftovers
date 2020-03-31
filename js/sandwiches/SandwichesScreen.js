@@ -12,7 +12,7 @@ import Image from '../../../scenery/js/nodes/Image.js';
 import homeImage from '../../images/Sandwiches-home_png.js';
 import navbarImage from '../../images/Sandwiches-navbar_png.js';
 import RPALColors from '../common/RPALColors.js';
-import reactantsProductsAndLeftoversStrings from '../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 import SandwichesModel from './model/SandwichesModel.js';
 import SandwichesScreenView from './view/SandwichesScreenView.js';

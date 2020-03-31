@@ -45,7 +45,7 @@ import PH3Node from '../../../../nitroglycerin/js/nodes/PH3Node.js';
 import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
-import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import RPALConstants from '../RPALConstants.js';
 import RPALSymbols from '../RPALSymbols.js';

@@ -16,7 +16,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import RPALColors from '../RPALColors.js';
 import RPALConstants from '../RPALConstants.js';

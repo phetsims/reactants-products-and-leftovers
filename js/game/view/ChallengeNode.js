@@ -24,7 +24,7 @@ import QuantitiesNode from '../../common/view/QuantitiesNode.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
 import RPALFont from '../../common/view/RPALFont.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
-import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import PlayState from '../model/PlayState.js';
 import GameButtons from './GameButtons.js';

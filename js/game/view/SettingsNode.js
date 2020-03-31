@@ -24,7 +24,7 @@ import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import RPALFont from '../../common/view/RPALFont.js';
-import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ChallengeFactory from '../model/ChallengeFactory.js';
 import VisibilityPanel from './VisibilityPanel.js';

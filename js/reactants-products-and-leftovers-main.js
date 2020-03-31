@@ -10,7 +10,7 @@ import Sim from '../../joist/js/Sim.js';
 import SimLauncher from '../../joist/js/SimLauncher.js';
 import GameScreen from './game/GameScreen.js';
 import MoleculesScreen from './molecules/MoleculesScreen.js';
-import reactantsProductsAndLeftoversStrings from './reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from './reactantsProductsAndLeftoversStrings.js';
 import SandwichesScreen from './sandwiches/SandwichesScreen.js';
 
 const reactantsProductsAndLeftoversTitleString = reactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].title;

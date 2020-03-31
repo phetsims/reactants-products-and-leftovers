@@ -12,7 +12,7 @@
  */
 
 import RPALBaseModel from '../../common/model/RPALBaseModel.js';
-import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichRecipe from './SandwichRecipe.js';
 

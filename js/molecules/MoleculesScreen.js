@@ -13,7 +13,7 @@ import merge from '../../../phet-core/js/merge.js';
 import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import RPALColors from '../common/RPALColors.js';
-import reactantsProductsAndLeftoversStrings from '../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 import MoleculesModel from './model/MoleculesModel.js';
 import MoleculesScreenView from './view/MoleculesScreenView.js';

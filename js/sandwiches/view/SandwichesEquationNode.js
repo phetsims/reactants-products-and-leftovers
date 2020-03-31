@@ -22,7 +22,7 @@ import RPALConstants from '../../common/RPALConstants.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
 import RPALFont from '../../common/view/RPALFont.js';
 import SubstanceIcon from '../../common/view/SubstanceIcon.js';
-import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
 

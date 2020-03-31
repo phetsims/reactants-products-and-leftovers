@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import BeforeAfterNode from '../../common/view/BeforeAfterNode.js';
 import RPALScreenView from '../../common/view/RPALScreenView.js';
-import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichesEquationNode from './SandwichesEquationNode.js';
 import SandwichNode from './SandwichNode.js';

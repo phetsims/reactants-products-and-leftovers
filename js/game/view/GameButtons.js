@@ -10,7 +10,7 @@
 
 import Node from '../../../../scenery/js/nodes/Node.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
-import vegasStrings from '../../../../vegas/js/vegas-strings.js';
+import vegasStrings from '../../../../vegas/js/vegasStrings.js';
 import RPALColors from '../../common/RPALColors.js';
 import RPALFont from '../../common/view/RPALFont.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';

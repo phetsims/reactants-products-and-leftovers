@@ -17,7 +17,7 @@ import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import Panel from '../../../../sun/js/Panel.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALFont from '../../common/view/RPALFont.js';
-import reactantsProductsAndLeftoversStrings from '../../reactants-products-and-leftovers-strings.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameVisibility from '../model/GameVisibility.js';
 
