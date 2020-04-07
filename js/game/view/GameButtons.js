@@ -68,7 +68,7 @@ class GameButtons extends Node {
         this.addChild( tryAgainButton );
         tryAgainButton.addListener( () => model.tryAgain() );
 
-        // a11y
+        // pdom
         tryAgainButton.focus();
       }
 
@@ -77,7 +77,7 @@ class GameButtons extends Node {
         this.addChild( showAnswerButton );
         showAnswerButton.addListener( () => model.showAnswer() );
 
-        // a11y
+        // pdom
         showAnswerButton.focus();
       }
 
@@ -86,7 +86,7 @@ class GameButtons extends Node {
         this.addChild( nextButton );
         nextButton.addListener( () => model.next() );
 
-        // a11y
+        // pdom
         nextButton.focus();
       }
 

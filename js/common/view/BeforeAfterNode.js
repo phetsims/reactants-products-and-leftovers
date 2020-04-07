@@ -98,7 +98,7 @@ class BeforeAfterNode extends Node {
     } );
     this.addChild( this.quantitiesNode );
 
-    // a11y - set the order in the PDOM
+    // pdom - set the order in the PDOM
     this.accessibleOrder = [ this.quantitiesNode, hBox ];
 
     // pass options to supertype

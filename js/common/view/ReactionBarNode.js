@@ -51,7 +51,7 @@ class ReactionBarNode extends Node {
     options.children = [ backgroundNode, radioButtonGroup ];
     super( options );
 
-    // a11y - set the initial accessible order
+    // pdom - set the initial accessible order
     this.accessibleOrder = [ radioButtonGroup ];
     /*
      * Updates the equation to match the reaction.
@@ -68,7 +68,7 @@ class ReactionBarNode extends Node {
         const equationNode = createEquationNode( reaction );
         this.addChild( equationNode );
 
-        // a11y - as the equations are created, we want them all to be before the radio buttons in focus order
+        // pdom - as the equations are created, we want them all to be before the radio buttons in focus order
         this.accessibleOrder = [ equationNode ].concat( this.accessibleOrder );
 
         // scale the equation if it's too wide to fit the available space

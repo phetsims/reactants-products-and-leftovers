@@ -102,7 +102,7 @@ class PlayNode extends Node {
           currentChallengeNode = new ChallengeNode( model, challenge, this.challengeBounds, audioPlayer );
           this.addChild( currentChallengeNode );
 
-          // a11y keyboard nav order, challenges should go before the "start over" button
+          // pdom keyboard nav order, challenges should go before the "start over" button
           this.accessibleOrder = [ currentChallengeNode ].concat( this.accessibleOrder );
         }
         currentChallengeNode.activate( model.playStateProperty );

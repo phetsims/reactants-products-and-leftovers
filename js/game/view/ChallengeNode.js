@@ -293,7 +293,7 @@ class ChallengeNode extends Node {
     };
     this.playStateProperty = null; // @private will be set by activate()
 
-    // a11y keyboard nav order
+    // pdom keyboard nav order
     this.accessibleOrder = [ this.quantitiesNode, this.buttons ];
 
     //------------------------------------------------------------------------------------
