@@ -20,7 +20,6 @@ import MoleculesScreenView from './view/MoleculesScreenView.js';
 
 const screenMoleculesString = reactantsProductsAndLeftoversStrings.screen.molecules;
 
-// a11y strings
 const screenMoleculesDescriptionString = 'Investigate molecules';
 
 class MoleculesScreen extends Screen {

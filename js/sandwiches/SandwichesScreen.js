@@ -19,7 +19,6 @@ import SandwichesScreenView from './view/SandwichesScreenView.js';
 
 const screenSandwichesString = reactantsProductsAndLeftoversStrings.screen.sandwiches;
 
-// a11y strings
 const screenSandwichesDescription = 'Interact with sandwiches';
 
 

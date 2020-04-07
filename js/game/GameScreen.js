@@ -22,7 +22,6 @@ import GameScreenView from './view/GameScreenView.js';
 
 const screenGameString = reactantsProductsAndLeftoversStrings.screen.game;
 
-// a11y strings
 const screenGameDescription = 'Test your knowledge!';
 
 class GameScreen extends Screen {
