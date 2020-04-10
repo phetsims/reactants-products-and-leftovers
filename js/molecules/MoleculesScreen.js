@@ -8,13 +8,14 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import H2ONode from '../../../nitroglycerin/js/nodes/H2ONode.js';
 import merge from '../../../phet-core/js/merge.js';
 import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import RPALColors from '../common/RPALColors.js';
-import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
 import MoleculesModel from './model/MoleculesModel.js';
 import MoleculesScreenView from './view/MoleculesScreenView.js';
 
@@ -45,7 +46,7 @@ class MoleculesScreen extends Screen {
 /**
  * Creates the icon for this screen, an H2O molecule.
  * @param {Object} [options]
- * @returns {Node}
+ * @returns {ScreenIcon}
  */
 function createIcon( options ) {
 
@@ -64,7 +65,12 @@ function createIcon( options ) {
     Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
   moleculeNode.center = background.center;
 
-  return new Node( { children: [ background, moleculeNode ] } );
+  const iconNode = new Node( { children: [ background, moleculeNode ] } );
+
+  return new ScreenIcon( iconNode, {
+    maxIconWidthProportion: 1,
+    maxIconHeightProportion: 1
+  } );
 }
 
 reactantsProductsAndLeftovers.register( 'MoleculesScreen', MoleculesScreen );

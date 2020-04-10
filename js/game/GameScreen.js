@@ -8,6 +8,7 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Shape from '../../../kite/js/Shape.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
 import LayoutBox from '../../../scenery/js/nodes/LayoutBox.js';
@@ -15,8 +16,8 @@ import Node from '../../../scenery/js/nodes/Node.js';
 import Path from '../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import RPALColors from '../common/RPALColors.js';
-import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
 
@@ -45,7 +46,7 @@ class GameScreen extends Screen {
 
 /**
  * Creates the icon for this screen, a smiley face with up/down arrows.
- * @returns {Node}
+ * @returns {ScreenIcon}
  */
 function createIcon() {
 
@@ -89,7 +90,12 @@ function createIcon() {
     Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
   contentNode.center = background.center;
 
-  return new Node( { children: [ background, contentNode ] } );
+  const iconNode = new Node( { children: [ background, contentNode ] } );
+
+  return new ScreenIcon( iconNode, {
+    maxIconWidthProportion: 1,
+    maxIconHeightProportion: 1
+  } );
 }
 
 reactantsProductsAndLeftovers.register( 'GameScreen', GameScreen );
