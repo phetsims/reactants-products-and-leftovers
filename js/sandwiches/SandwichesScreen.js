@@ -18,9 +18,6 @@ import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftove
 import SandwichesModel from './model/SandwichesModel.js';
 import SandwichesScreenView from './view/SandwichesScreenView.js';
 
-//TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/71, relocate this a11y string
-const screenSandwichesDescription = 'Interact with sandwiches';
-
 class SandwichesScreen extends Screen {
 
   constructor() {
@@ -35,8 +32,7 @@ class SandwichesScreen extends Screen {
       navigationBarIcon: new ScreenIcon( new Image( navbarImage ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
-      } ),
-      descriptionContent: screenSandwichesDescription
+      } )
     };
 
     super(

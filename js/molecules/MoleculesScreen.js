@@ -19,9 +19,6 @@ import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftove
 import MoleculesModel from './model/MoleculesModel.js';
 import MoleculesScreenView from './view/MoleculesScreenView.js';
 
-//TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/71, relocate this a11y string
-const screenMoleculesDescriptionString = 'Investigate molecules';
-
 class MoleculesScreen extends Screen {
 
   constructor() {
@@ -30,8 +27,7 @@ class MoleculesScreen extends Screen {
       name: reactantsProductsAndLeftoversStrings.screen.molecules,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
-      navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } ),
-      descriptionContent: screenMoleculesDescriptionString
+      navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } )
     };
 
     super(
