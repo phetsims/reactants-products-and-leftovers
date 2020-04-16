@@ -13,8 +13,6 @@ import MoleculesScreen from './molecules/MoleculesScreen.js';
 import reactantsProductsAndLeftoversStrings from './reactantsProductsAndLeftoversStrings.js';
 import SandwichesScreen from './sandwiches/SandwichesScreen.js';
 
-const reactantsProductsAndLeftoversTitleString = reactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].title;
-
 const options = {
   credits: {
     leadDesign: 'Yuen-ying Carpenter, Kelly Lancaster',
@@ -31,6 +29,6 @@ SimLauncher.launch( () => {
     new MoleculesScreen(),
     new GameScreen()
   ];
-  const sim = new Sim( reactantsProductsAndLeftoversTitleString, screens, options );
+  const sim = new Sim( reactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].title, screens, options );
   sim.start();
 } );

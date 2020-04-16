@@ -45,18 +45,12 @@ import PH3Node from '../../../../nitroglycerin/js/nodes/PH3Node.js';
 import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import RPALConstants from '../RPALConstants.js';
 import RPALSymbols from '../RPALSymbols.js';
 import Reaction from './Reaction.js';
 import Substance from './Substance.js';
-
-// modules (atoms & molecules)
-
-const combustMethaneString = reactantsProductsAndLeftoversStrings.combustMethane;
-const makeAmmoniaString = reactantsProductsAndLeftoversStrings.makeAmmonia;
-const makeWaterString = reactantsProductsAndLeftoversStrings.makeWater;
 
 // constants
 const MOLECULE_OPTIONS = RPALConstants.MOLECULE_OPTIONS; // to improve readability
@@ -85,7 +79,7 @@ const ReactionFactory = {
       [ new Substance( 2, RPALSymbols.H2, new H2Node( MOLECULE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_OPTIONS ) ) ],
       [ new Substance( 2, RPALSymbols.H2O, new H2ONode( MOLECULE_OPTIONS ) ) ],
-      { name: makeWaterString } );
+      { name: reactantsProductsAndLeftoversStrings.makeWater } );
   },
 
   // N2 + 3H2 -> 2NH3 (Make Ammonia)
@@ -94,7 +88,7 @@ const ReactionFactory = {
       [ new Substance( 1, RPALSymbols.N2, new N2Node( MOLECULE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.H2, new H2Node( MOLECULE_OPTIONS ) ) ],
       [ new Substance( 2, RPALSymbols.NH3, new NH3Node( MOLECULE_OPTIONS ) ) ],
-      { name: makeAmmoniaString } );
+      { name: reactantsProductsAndLeftoversStrings.makeAmmonia } );
   },
 
   // H2 + F2 -> 2HF
@@ -260,7 +254,7 @@ const ReactionFactory = {
         new Substance( 2, RPALSymbols.O2, new O2Node( MOLECULE_OPTIONS ) ) ],
       [ new Substance( 1, RPALSymbols.CO2, new CO2Node( MOLECULE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.H2O, new H2ONode( MOLECULE_OPTIONS ) ) ],
-      { name: combustMethaneString } );
+      { name: reactantsProductsAndLeftoversStrings.combustMethane } );
   },
 
   // 2C + 2H2O -> CH4 + CO2

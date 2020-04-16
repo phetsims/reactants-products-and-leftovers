@@ -21,8 +21,7 @@ import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftove
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
 
-const screenGameString = reactantsProductsAndLeftoversStrings.screen.game;
-
+//TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/71, relocate this a11y string
 const screenGameDescription = 'Test your knowledge!';
 
 class GameScreen extends Screen {
@@ -30,7 +29,7 @@ class GameScreen extends Screen {
   constructor() {
 
     const options = {
-      name: screenGameString,
+      name: reactantsProductsAndLeftoversStrings.screen.game,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon(),
       descriptionContent: screenGameDescription

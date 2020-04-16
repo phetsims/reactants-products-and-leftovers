@@ -16,17 +16,14 @@ import merge from '../../../../phet-core/js/merge.js';
 import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import RPALColors from '../RPALColors.js';
 import RPALConstants from '../RPALConstants.js';
 import QuantitiesNode from './QuantitiesNode.js';
 import RightArrowNode from './RightArrowNode.js';
 import RPALFont from './RPALFont.js';
 import StacksAccordionBox from './StacksAccordionBox.js';
-
-const afterReactionString = reactantsProductsAndLeftoversStrings.afterReaction;
-const beforeReactionString = reactantsProductsAndLeftoversStrings.beforeReaction;
 
 // constants
 const TITLE_OPTIONS = { font: new RPALFont( 14 ), fill: 'white' }; // box titles
@@ -44,8 +41,8 @@ class BeforeAfterNode extends Node {
       contentSize: new Dimension2( 100, 100 ), // {Dimension2} size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
       showSymbols: true, // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
-      beforeTitle: beforeReactionString,  // {string} title on the 'Before' box
-      afterTitle: afterReactionString, // {string} title on the 'After' box
+      beforeTitle: reactantsProductsAndLeftoversStrings.beforeReaction,  // {string} title on the 'Before' box
+      afterTitle: reactantsProductsAndLeftoversStrings.afterReaction, // {string} title on the 'After' box
       boxYMargin: 6, // {number} vertical margin between the inner edge of box and the tallest node
       minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
     }, options );

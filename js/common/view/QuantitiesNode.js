@@ -16,8 +16,8 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import BoxType from '../model/BoxType.js';
 import RPALColors from '../RPALColors.js';
 import RPALConstants from '../RPALConstants.js';
@@ -25,10 +25,6 @@ import HideBox from './HideBox.js';
 import NumberNode from './NumberNode.js';
 import RPALFont from './RPALFont.js';
 import SubstanceIcon from './SubstanceIcon.js';
-
-const leftoversString = reactantsProductsAndLeftoversStrings.leftovers;
-const productsString = reactantsProductsAndLeftoversStrings.products;
-const reactantsString = reactantsProductsAndLeftoversStrings.reactants;
 
 // constants
 const QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
@@ -239,7 +235,7 @@ class QuantitiesNode extends Node {
     }
 
     // 'Reactants' bracket
-    const reactantsLabel = new Text( reactantsString, BRACKET_LABEL_OPTIONS );
+    const reactantsLabel = new Text( reactantsProductsAndLeftoversStrings.reactants, BRACKET_LABEL_OPTIONS );
     const reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
@@ -250,7 +246,7 @@ class QuantitiesNode extends Node {
     this.addChild( reactantsBracket );
 
     // 'Products' bracket
-    const productsLabel = new Text( productsString, BRACKET_LABEL_OPTIONS );
+    const productsLabel = new Text( reactantsProductsAndLeftoversStrings.products, BRACKET_LABEL_OPTIONS );
     const productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
@@ -261,7 +257,7 @@ class QuantitiesNode extends Node {
     this.addChild( productsBracket );
 
     // 'Leftovers' bracket
-    const leftoversLabel = new Text( leftoversString, BRACKET_LABEL_OPTIONS );
+    const leftoversLabel = new Text( reactantsProductsAndLeftoversStrings.leftovers, BRACKET_LABEL_OPTIONS );
     const leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,

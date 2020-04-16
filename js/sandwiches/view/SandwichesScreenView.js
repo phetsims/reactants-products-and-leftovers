@@ -11,13 +11,10 @@ import merge from '../../../../phet-core/js/merge.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import BeforeAfterNode from '../../common/view/BeforeAfterNode.js';
 import RPALScreenView from '../../common/view/RPALScreenView.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import SandwichesEquationNode from './SandwichesEquationNode.js';
 import SandwichNode from './SandwichNode.js';
-
-const afterSandwichString = reactantsProductsAndLeftoversStrings.afterSandwich;
-const beforeSandwichString = reactantsProductsAndLeftoversStrings.beforeSandwich;
 
 class SandwichesScreenView extends RPALScreenView {
 
@@ -54,8 +51,8 @@ class SandwichesScreenView extends RPALScreenView {
           merge( {}, options, {
             contentSize: RPALConstants.SANDWICHES_BEFORE_AFTER_BOX_SIZE,
             showSymbols: false,
-            beforeTitle: beforeSandwichString,
-            afterTitle: afterSandwichString,
+            beforeTitle: reactantsProductsAndLeftoversStrings.beforeSandwich,
+            afterTitle: reactantsProductsAndLeftoversStrings.afterSandwich,
             minIconSize: maxSandwichSize,
             boxYMargin: 8 // large enough to accommodate biggest sandwich
           } ) );

@@ -24,15 +24,10 @@ import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import RPALFont from '../../common/view/RPALFont.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import ChallengeFactory from '../model/ChallengeFactory.js';
 import VisibilityPanel from './VisibilityPanel.js';
-
-const chooseYourLevelString = reactantsProductsAndLeftoversStrings.chooseYourLevel;
-const doubleQuestionMarkString = reactantsProductsAndLeftoversStrings.doubleQuestionMark;
-const patternLevel0String = reactantsProductsAndLeftoversStrings.pattern_Level_0;
-const questionMarkString = reactantsProductsAndLeftoversStrings.questionMark;
 
 // constants
 const SCREEN_X_MARGIN = 40;
@@ -52,7 +47,7 @@ class SettingsNode extends Node {
     options = options || {};
 
     // Title
-    const title = new Text( chooseYourLevelString, {
+    const title = new Text( reactantsProductsAndLeftoversStrings.chooseYourLevel, {
       font: new RPALFont( 40 ),
       maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
     } );
@@ -178,7 +173,7 @@ function createIcon( level, leftNode, rightNode ) {
     orientation: 'horizontal',
     spacing: 20
   } );
-  const labelNode = new Text( StringUtils.format( patternLevel0String, level ), {
+  const labelNode = new Text( StringUtils.format( reactantsProductsAndLeftoversStrings.pattern_Level_0, level ), {
     font: new RPALFont( 45 ),
     maxWidth: iconNode.width
   } );
@@ -194,7 +189,7 @@ function createIcon( level, leftNode, rightNode ) {
  *  ? -> HCl
  */
 function createLevelOneIcon() {
-  const leftNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
+  const leftNode = new Text( reactantsProductsAndLeftoversStrings.questionMark, QUESTION_MARK_OPTIONS );
   const rightNode = new HClNode( RPALConstants.MOLECULE_OPTIONS );
   rightNode.setScaleMagnitude( MOLECULE_SCALE );
   return createIcon( 1, leftNode, rightNode );
@@ -207,7 +202,7 @@ function createLevelOneIcon() {
 function createLevelTwoIcon() {
   const leftNode = new H2ONode( RPALConstants.MOLECULE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
-  const rightNode = new Text( questionMarkString, QUESTION_MARK_OPTIONS );
+  const rightNode = new Text( reactantsProductsAndLeftoversStrings.questionMark, QUESTION_MARK_OPTIONS );
   return createIcon( 2, leftNode, rightNode );
 }
 
@@ -218,7 +213,7 @@ function createLevelTwoIcon() {
 function createLevelThreeIcon() {
   const leftNode = new NH3Node( RPALConstants.MOLECULE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
-  const rightNode = new Text( doubleQuestionMarkString, QUESTION_MARK_OPTIONS );
+  const rightNode = new Text( reactantsProductsAndLeftoversStrings.doubleQuestionMark, QUESTION_MARK_OPTIONS );
   return createIcon( 3, leftNode, rightNode );
 }
 

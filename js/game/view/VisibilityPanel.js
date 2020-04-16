@@ -17,14 +17,9 @@ import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import Panel from '../../../../sun/js/Panel.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALFont from '../../common/view/RPALFont.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import GameVisibility from '../model/GameVisibility.js';
-
-// strings
-const hideMoleculesString = reactantsProductsAndLeftoversStrings.hideMolecules;
-const hideNumbersString = reactantsProductsAndLeftoversStrings.hideNumbers;
-const showAllString = reactantsProductsAndLeftoversStrings.showAll;
 
 // constants
 const TEXT_OPTIONS = { font: new RPALFont( 14 ) };
@@ -72,7 +67,7 @@ class VisibilityPanel extends Panel {
  */
 function createShowAllNode() {
   const eyeNode = new FontAwesomeNode( 'eye_open', FONT_AWESOME_OPTIONS );
-  const textNode = new Text( showAllString, TEXT_OPTIONS );
+  const textNode = new Text( reactantsProductsAndLeftoversStrings.showAll, TEXT_OPTIONS );
   return new LayoutBox( {
     children: [ eyeNode, textNode ],
     orientation: 'horizontal',
@@ -94,7 +89,7 @@ function createHideMoleculesNode() {
     centerX: eyeNode.right,
     centerY: eyeNode.bottom
   } );
-  const textNode = new Text( hideMoleculesString, TEXT_OPTIONS );
+  const textNode = new Text( reactantsProductsAndLeftoversStrings.hideMolecules, TEXT_OPTIONS );
   return new LayoutBox( {
     children: [ new Node( { children: [ eyeNode, moleculeNode ] } ), textNode ],
     orientation: 'horizontal',
@@ -114,7 +109,7 @@ function createHideNumbersNode() {
     centerX: eyeNode.right + 2,
     centerY: eyeNode.bottom
   } );
-  const textNode = new Text( hideNumbersString, TEXT_OPTIONS );
+  const textNode = new Text( reactantsProductsAndLeftoversStrings.hideNumbers, TEXT_OPTIONS );
   return new LayoutBox( {
     children: [ new Node( { children: [ eyeNode, numbersNode ] } ), textNode ],
     orientation: 'horizontal',

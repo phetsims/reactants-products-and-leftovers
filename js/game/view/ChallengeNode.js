@@ -24,13 +24,11 @@ import QuantitiesNode from '../../common/view/QuantitiesNode.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
 import RPALFont from '../../common/view/RPALFont.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import PlayState from '../model/PlayState.js';
 import GameButtons from './GameButtons.js';
 import RandomBox from './RandomBox.js';
-
-const questionMarkString = reactantsProductsAndLeftoversStrings.questionMark;
 
 class ChallengeNode extends Node {
 
@@ -151,7 +149,7 @@ class ChallengeNode extends Node {
     // Question mark
     //------------------------------------------------------------------------------------
 
-    const questionMark = new Text( questionMarkString, {
+    const questionMark = new Text( reactantsProductsAndLeftoversStrings.questionMark, {
       font: new RPALFont( { size: 150, weight: 'bold' } ),
       maxWidth: 0.75 * options.boxSize.width // constrain width for i18n
     } );

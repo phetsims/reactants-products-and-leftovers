@@ -22,11 +22,9 @@ import RPALConstants from '../../common/RPALConstants.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
 import RPALFont from '../../common/view/RPALFont.js';
 import SubstanceIcon from '../../common/view/SubstanceIcon.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
-
-const noReactionString = reactantsProductsAndLeftoversStrings.noReaction;
 
 // constants
 const COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
@@ -117,7 +115,7 @@ class SandwichesEquationNode extends Node {
     this.iconNodes.push( sandwichNode );
 
     // 'No Reaction', max width determined empirically.
-    const noReactionNode = new MultiLineText( noReactionString, { font: new RPALFont( 16 ), fill: 'white' } );
+    const noReactionNode = new MultiLineText( reactantsProductsAndLeftoversStrings.noReaction, { font: new RPALFont( 16 ), fill: 'white' } );
     noReactionNode.setScaleMagnitude( Math.min( 1, 75 / noReactionNode.width ) );
     noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
     noReactionNode.centerY = arrowNode.centerY;

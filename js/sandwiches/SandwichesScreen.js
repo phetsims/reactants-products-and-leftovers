@@ -18,17 +18,15 @@ import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftove
 import SandwichesModel from './model/SandwichesModel.js';
 import SandwichesScreenView from './view/SandwichesScreenView.js';
 
-const screenSandwichesString = reactantsProductsAndLeftoversStrings.screen.sandwiches;
-
+//TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/71, relocate this a11y string
 const screenSandwichesDescription = 'Interact with sandwiches';
-
 
 class SandwichesScreen extends Screen {
 
   constructor() {
 
     const options = {
-      name: screenSandwichesString,
+      name: reactantsProductsAndLeftoversStrings.screen.sandwiches,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: new ScreenIcon( new Image( homeImage ), {
         maxIconWidthProportion: 1,
