@@ -7,7 +7,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import GameScreen from './game/GameScreen.js';
 import MoleculesScreen from './molecules/MoleculesScreen.js';
 import reactantsProductsAndLeftoversStrings from './reactantsProductsAndLeftoversStrings.js';
@@ -23,7 +23,7 @@ const options = {
   }
 };
 
-SimLauncher.launch( () => {
+simLauncher.launch( () => {
   const screens = [
     new SandwichesScreen(),
     new MoleculesScreen(),
