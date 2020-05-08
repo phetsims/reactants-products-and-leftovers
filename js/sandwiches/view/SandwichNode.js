@@ -100,11 +100,13 @@ class SandwichNode extends Node {
     this.mutate( options );
   }
 
-  // @static @public create Nodes for individual ingredients
+  // @public
   static createBreadNode() { return new Image( breadImage, { scale: SANDWICH_SCALE } ); }
 
+  // @public
   static createMeatNode() { return new Image( meatImage, { scale: SANDWICH_SCALE } ); }
 
+  // @public
   static createCheeseNode() { return new Image( cheeseImage, { scale: SANDWICH_SCALE } ); }
 }
 

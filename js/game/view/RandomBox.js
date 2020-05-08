@@ -201,10 +201,20 @@ class CellNode extends SubstanceIcon {
     this.setGridPosition( gridPosition ); // initialize position
   }
 
+  /**
+   * Gets the grid position.
+   * @returns {Vector2}
+   * @public
+   */
   getGridPosition() {
     return this.gridPosition;
   }
 
+  /**
+   * Sets the grid position.
+   * @param {Vector2} gridPosition
+   * @public
+   */
   setGridPosition( gridPosition ) {
     this.gridPosition = gridPosition;
     // Move this node to the specified grid position, with some randomized offset.
