@@ -10,7 +10,8 @@ import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 const RPALQueryParameters = QueryStringMachine.getAll( {
 
-  // plays all reactions for each level of the game
+  // Plays all reactions for each level of the game.
+  // For internal use only.
   playAll: { type: 'flag' }
 } );
 
