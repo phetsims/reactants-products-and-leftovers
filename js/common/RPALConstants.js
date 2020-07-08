@@ -27,6 +27,9 @@ const RPALConstants = {
 
   SPINNER_OPTIONS: {
     numberDisplayOptions: {
+      align: 'center',
+      xMargin: 5,
+      yMargin: 3,
       backgroundLineWidth: 0.5,
       textOptions: {
         font: new RPALFont( 28 )
