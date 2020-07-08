@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.3.0-dev.1 Wed Jul 08 2020 14:24:23 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.3.0-dev.2 Wed Jul 08 2020 15:57:54 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "1a41cef653bbed1025af5768bea958d7e3e0f8ae",
     "branch": "master"
@@ -61,7 +61,7 @@
     "branch": "master"
   },
   "reactants-products-and-leftovers": {
-    "sha": "1208ab6faf8d6a2a7c31b5b5be9463d91c3c1926",
+    "sha": "0f82443bb894fc451aba78a8bb53043af69c7737",
     "branch": "master"
   },
   "scenery": {
@@ -81,11 +81,11 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "6a4382bdf91b8f5541b1c4b5de38db6089b1f214",
+    "sha": "3087ba4444ebfba0b0021580b632021ae361fe5f",
     "branch": "master"
   },
   "tambo": {
-    "sha": "c8e586892244d13608b03ccee0883202a19b7ce0",
+    "sha": "3aeccee5a0e4c28598de7201f7310de36d69d0e5",
     "branch": "master"
   },
   "tandem": {
