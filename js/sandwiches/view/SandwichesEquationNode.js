@@ -33,12 +33,7 @@ const ARROW_X_SPACING = 15; // space on both sides of arrow
 const TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
 const PLUS_OPTIONS = { fill: 'white' };
 const ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
-const SPINNER_OPTIONS = {
-  font: new RPALFont( 28 ),
-  touchAreaXDilation: 20,
-  touchAreaYDilation: 10,
-  backgroundLineWidth: 0.5
-};
+const SPINNER_OPTIONS = RPALConstants.SPINNER_OPTIONS;
 
 class SandwichesEquationNode extends Node {
 
