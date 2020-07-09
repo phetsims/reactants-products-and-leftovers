@@ -38,12 +38,7 @@ const BRACKET_LABEL_OPTIONS = {
   fill: 'black',
   maxWidth: 140 // maximum width of bracket labels, determined empirically
 };
-const SPINNER_OPTIONS = {
-  font: QUANTITY_FONT,
-  touchAreaXDilation: 20,
-  touchAreaYDilation: 10,
-  backgroundLineWidth: 0.5
-};
+const SPINNER_OPTIONS = RPALConstants.SPINNER_OPTIONS;
 
 class QuantitiesNode extends Node {
 

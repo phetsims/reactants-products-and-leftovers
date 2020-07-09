@@ -10,6 +10,7 @@ import Bounds2 from '../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
+import RPALFont from './view/RPALFont.js';
 
 const RPALConstants = {
 
@@ -22,7 +23,21 @@ const RPALConstants = {
   // box size requested to be configurable per screen
   SANDWICHES_BEFORE_AFTER_BOX_SIZE: new Dimension2( 310, 240 ),
   MOLECULES_BEFORE_AFTER_BOX_SIZE: new Dimension2( 310, 240 ),
-  GAME_BEFORE_AFTER_BOX_SIZE: new Dimension2( 330, 240 )
+  GAME_BEFORE_AFTER_BOX_SIZE: new Dimension2( 330, 240 ),
+
+  SPINNER_OPTIONS: {
+    numberDisplayOptions: {
+      align: 'center',
+      xMargin: 5,
+      yMargin: 3,
+      backgroundLineWidth: 0.5,
+      textOptions: {
+        font: new RPALFont( 28 )
+      }
+    },
+    touchAreaXDilation: 20,
+    touchAreaYDilation: 10
+  }
 };
 
 reactantsProductsAndLeftovers.register( 'RPALConstants', RPALConstants );
