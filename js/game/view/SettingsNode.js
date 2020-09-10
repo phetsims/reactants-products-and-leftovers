@@ -14,6 +14,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
@@ -23,7 +24,6 @@ import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
-import RPALFont from '../../common/view/RPALFont.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import ChallengeFactory from '../model/ChallengeFactory.js';
@@ -32,7 +32,7 @@ import VisibilityPanel from './VisibilityPanel.js';
 // constants
 const SCREEN_X_MARGIN = 40;
 const SCREEN_Y_MARGIN = 40;
-const QUESTION_MARK_OPTIONS = { font: new RPALFont( { size: 70, weight: 'bold' } ) };
+const QUESTION_MARK_OPTIONS = { font: new PhetFont( { size: 70, weight: 'bold' } ) };
 const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
 class SettingsNode extends Node {
@@ -48,7 +48,7 @@ class SettingsNode extends Node {
 
     // Title
     const title = new Text( reactantsProductsAndLeftoversStrings.chooseYourLevel, {
-      font: new RPALFont( 40 ),
+      font: new PhetFont( 40 ),
       maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
     } );
 
@@ -115,7 +115,7 @@ class SettingsNode extends Node {
     // 'Test' button at top right, runs a sanity test on the challenge generator
     if ( phet.chipper.queryParameters.showAnswers && !RPALQueryParameters.playAll ) {
       const testButton = new TextPushButton( 'Test', {
-        font: new RPALFont( 10 ),
+        font: new PhetFont( 10 ),
         baseColor: 'red',
         textFill: 'white',
         right: layoutBounds.right - 10,
@@ -174,7 +174,7 @@ function createIcon( level, leftNode, rightNode ) {
     spacing: 20
   } );
   const labelNode = new Text( StringUtils.format( reactantsProductsAndLeftoversStrings.pattern_Level_0, level ), {
-    font: new RPALFont( 45 ),
+    font: new PhetFont( 45 ),
     maxWidth: iconNode.width
   } );
   return new LayoutBox( {

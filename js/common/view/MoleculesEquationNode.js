@@ -7,13 +7,13 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import RightArrowNode from './RightArrowNode.js';
-import RPALFont from './RPALFont.js';
 
 class MoleculesEquationNode extends Node {
   /**
@@ -24,7 +24,7 @@ class MoleculesEquationNode extends Node {
 
     options = merge( {
       fill: 'white',
-      font: new RPALFont( 28 ),
+      font: new PhetFont( 28 ),
       coefficientXSpacing: 8, // space between coefficient and node to its right
       plusXSpacing: 15, // space on both sides of the plus signs
       arrowXSpacing: 15 // space on both sides of arrow

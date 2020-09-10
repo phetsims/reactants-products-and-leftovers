@@ -9,10 +9,10 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
-import RPALFont from '../../common/view/RPALFont.js';
 import DevGameControls from '../../dev/DevGameControls.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GamePhase from '../model/GamePhase.js';
@@ -45,7 +45,7 @@ class PlayNode extends Node {
       numberOfChallengesProperty: model.numberOfChallengesProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
       timerEnabledProperty: model.timerEnabledProperty,
-      font: new RPALFont( 16 ),
+      font: new PhetFont( 16 ),
       textFill: 'white',
       barFill: 'rgb( 49, 117, 202 )',
       xMargin: 50,

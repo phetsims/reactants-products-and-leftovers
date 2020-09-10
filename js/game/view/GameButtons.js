@@ -8,11 +8,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import vegasStrings from '../../../../vegas/js/vegasStrings.js';
 import RPALColors from '../../common/RPALColors.js';
-import RPALFont from '../../common/view/RPALFont.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import PlayState from '../model/PlayState.js';
 
@@ -23,7 +23,7 @@ const tryAgainString = vegasStrings.tryAgain;
 
 // constants
 const BUTTON_OPTIONS = {
-  font: new RPALFont( { size: 20, weight: 'bold' } ),
+  font: new PhetFont( { size: 20, weight: 'bold' } ),
   baseColor: RPALColors.GAME_BUTTON,
   opacity: 0.65,
   xMargin: 20,

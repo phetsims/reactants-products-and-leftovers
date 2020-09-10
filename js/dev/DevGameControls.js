@@ -7,14 +7,14 @@
  */
 
 import merge from '../../../phet-core/js/merge.js';
+import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import LayoutBox from '../../../scenery/js/nodes/LayoutBox.js';
 import TextPushButton from '../../../sun/js/buttons/TextPushButton.js';
-import RPALFont from '../common/view/RPALFont.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 // constants
 const BUTTON_OPTIONS = {
-  font: new RPALFont( 10 ),
+  font: new PhetFont( 10 ),
   baseColor: 'red',
   textFill: 'white'
 };

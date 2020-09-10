@@ -13,6 +13,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -22,11 +23,10 @@ import RPALColors from '../RPALColors.js';
 import RPALConstants from '../RPALConstants.js';
 import QuantitiesNode from './QuantitiesNode.js';
 import RightArrowNode from './RightArrowNode.js';
-import RPALFont from './RPALFont.js';
 import StacksAccordionBox from './StacksAccordionBox.js';
 
 // constants
-const TITLE_OPTIONS = { font: new RPALFont( 14 ), fill: 'white' }; // box titles
+const TITLE_OPTIONS = { font: new PhetFont( 14 ), fill: 'white' }; // box titles
 
 class BeforeAfterNode extends Node {
   /**

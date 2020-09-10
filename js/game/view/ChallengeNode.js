@@ -12,6 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FaceWithPointsNode from '../../../../scenery-phet/js/FaceWithPointsNode.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -22,7 +23,6 @@ import HideBox from '../../common/view/HideBox.js';
 import MoleculesEquationNode from '../../common/view/MoleculesEquationNode.js';
 import QuantitiesNode from '../../common/view/QuantitiesNode.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
-import RPALFont from '../../common/view/RPALFont.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
@@ -150,7 +150,7 @@ class ChallengeNode extends Node {
     //------------------------------------------------------------------------------------
 
     const questionMark = new Text( reactantsProductsAndLeftoversStrings.questionMark, {
-      font: new RPALFont( { size: 150, weight: 'bold' } ),
+      font: new PhetFont( { size: 150, weight: 'bold' } ),
       maxWidth: 0.75 * options.boxSize.width // constrain width for i18n
     } );
     this.addChild( questionMark );
@@ -302,7 +302,7 @@ class ChallengeNode extends Node {
     if ( phet.chipper.queryParameters.showAnswers ) {
       this.addChild( new Text( DevStringUtils.quantitiesString( reaction ), {
         fill: 'red',
-        font: new RPALFont( 12 ),
+        font: new PhetFont( 12 ),
         centerX: challengeBounds.centerX,
         bottom: challengeBounds.bottom - 5
       } ) );

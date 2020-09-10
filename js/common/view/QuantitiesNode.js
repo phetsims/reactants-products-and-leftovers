@@ -12,6 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import BracketNode from '../../../../scenery-phet/js/BracketNode.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -23,18 +24,17 @@ import RPALColors from '../RPALColors.js';
 import RPALConstants from '../RPALConstants.js';
 import HideBox from './HideBox.js';
 import NumberNode from './NumberNode.js';
-import RPALFont from './RPALFont.js';
 import SubstanceIcon from './SubstanceIcon.js';
 
 // constants
-const QUANTITY_FONT = new RPALFont( 28 ); // font for the quantities that appear below the boxes
-const SYMBOL_FONT = new RPALFont( 16 ); // font for the symbols that appear below the boxes
+const QUANTITY_FONT = new PhetFont( 28 ); // font for the quantities that appear below the boxes
+const SYMBOL_FONT = new PhetFont( 16 ); // font for the symbols that appear below the boxes
 const QUANTITY_IMAGE_Y_SPACING = 4; // vertical space between quantity and image
 const IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
 const BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
 const BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
 const BRACKET_LABEL_OPTIONS = {
-  font: new RPALFont( 12 ),
+  font: new PhetFont( 12 ),
   fill: 'black',
   maxWidth: 140 // maximum width of bracket labels, determined empirically
 };

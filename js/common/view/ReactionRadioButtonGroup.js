@@ -7,13 +7,13 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import RPALFont from './RPALFont.js';
 
 // constants
-const TEXT_OPTIONS = { font: new RPALFont( 16 ), fill: 'white' };
+const TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
 
 class ReactionRadioButtonGroup extends AquaRadioButtonGroup {
 

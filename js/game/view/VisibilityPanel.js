@@ -9,6 +9,7 @@
 
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -16,13 +17,12 @@ import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import Panel from '../../../../sun/js/Panel.js';
 import RPALConstants from '../../common/RPALConstants.js';
-import RPALFont from '../../common/view/RPALFont.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import GameVisibility from '../model/GameVisibility.js';
 
 // constants
-const TEXT_OPTIONS = { font: new RPALFont( 14 ) };
+const TEXT_OPTIONS = { font: new PhetFont( 14 ) };
 const FONT_AWESOME_OPTIONS = { scale: 0.5 };
 
 class VisibilityPanel extends Panel {
@@ -105,7 +105,7 @@ function createHideMoleculesNode() {
 function createHideNumbersNode() {
   const eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
   const numbersNode = new Text( '123', {
-    font: new RPALFont( 8 ),
+    font: new PhetFont( 8 ),
     centerX: eyeNode.right + 2,
     centerY: eyeNode.bottom
   } );

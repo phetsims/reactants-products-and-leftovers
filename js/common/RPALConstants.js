@@ -9,8 +9,8 @@
 import Bounds2 from '../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
+import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
-import RPALFont from './view/RPALFont.js';
 
 const RPALConstants = {
 
@@ -32,7 +32,7 @@ const RPALConstants = {
       yMargin: 3,
       backgroundLineWidth: 0.5,
       textOptions: {
-        font: new RPALFont( 28 )
+        font: new PhetFont( 28 )
       }
     },
     touchAreaXDilation: 20,

@@ -14,13 +14,13 @@
 
 import Property from '../../../../axon/js/Property.js';
 import MultiLineText from '../../../../scenery-phet/js/MultiLineText.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
-import RPALFont from '../../common/view/RPALFont.js';
 import SubstanceIcon from '../../common/view/SubstanceIcon.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
@@ -30,7 +30,7 @@ import SandwichRecipe from '../model/SandwichRecipe.js';
 const COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
 const PLUS_X_SPACING = 15; // space on both sides of the plus signs
 const ARROW_X_SPACING = 15; // space on both sides of arrow
-const TEXT_OPTIONS = { font: new RPALFont( 28 ), fill: 'white' };
+const TEXT_OPTIONS = { font: new PhetFont( 28 ), fill: 'white' };
 const PLUS_OPTIONS = { fill: 'white' };
 const ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
 const SPINNER_OPTIONS = RPALConstants.SPINNER_OPTIONS;
@@ -110,7 +110,7 @@ class SandwichesEquationNode extends Node {
     this.iconNodes.push( sandwichNode );
 
     // 'No Reaction', max width determined empirically.
-    const noReactionNode = new MultiLineText( reactantsProductsAndLeftoversStrings.noReaction, { font: new RPALFont( 16 ), fill: 'white' } );
+    const noReactionNode = new MultiLineText( reactantsProductsAndLeftoversStrings.noReaction, { font: new PhetFont( 16 ), fill: 'white' } );
     noReactionNode.setScaleMagnitude( Math.min( 1, 75 / noReactionNode.width ) );
     noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
     noReactionNode.centerY = arrowNode.centerY;
