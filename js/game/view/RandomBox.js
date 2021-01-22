@@ -12,6 +12,7 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -72,7 +73,7 @@ class RandomBox extends Node {
      */
     const choosePosition = () => {
       assert && assert( positions.length > 0 );
-      const index = phet.joist.random.nextIntBetween( 0, positions.length - 1 );
+      const index = dotRandom.nextIntBetween( 0, positions.length - 1 );
       const position = positions[ index ];
       positions.splice( index, 1 );
       return position;
@@ -218,8 +219,8 @@ class CellNode extends SubstanceIcon {
   setGridPosition( gridPosition ) {
     this.gridPosition = gridPosition;
     // Move this node to the specified grid position, with some randomized offset.
-    this.centerX = gridPosition.x + phet.joist.random.nextIntBetween( -this.randomOffset, this.randomOffset );
-    this.centerY = gridPosition.y + phet.joist.random.nextIntBetween( -this.randomOffset, this.randomOffset );
+    this.centerX = gridPosition.x + dotRandom.nextIntBetween( -this.randomOffset, this.randomOffset );
+    this.centerY = gridPosition.y + dotRandom.nextIntBetween( -this.randomOffset, this.randomOffset );
   }
 }
 

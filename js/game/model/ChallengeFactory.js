@@ -18,6 +18,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import BoxType from '../../common/model/BoxType.js';
 import ReactionFactory from '../../common/model/ReactionFactory.js';
 import RPALConstants from '../../common/RPALConstants.js';
@@ -135,7 +136,7 @@ function createChallenges( level, maxQuantity, challengeOptions ) {
   const factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
 
   // Determine which challenge will have zero products.
-  const zeroProductsIndex = phet.joist.random.nextInt( numberOfChallenges );
+  const zeroProductsIndex = dotRandom.nextInt( numberOfChallenges );
 
   const challenges = []; // [{Challenge}]
   for ( let i = 0; i < numberOfChallenges; i++ ) {
@@ -178,7 +179,7 @@ function createChallengesPlayAll( level, maxQuantity, challengeOptions ) {
     // Create a reaction with non-zero quantities of at least one product.
     const reaction = factoryFunctions[ i ]();
     reaction.reactants.forEach( reactant => {
-      reactant.quantityProperty.set( phet.joist.random.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
+      reactant.quantityProperty.set( dotRandom.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
     } );
 
     // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
@@ -202,14 +203,14 @@ function createChallengeWithProducts( factoryFunctions, maxQuantity ) {
   assert && assert( maxQuantity > 0 );
 
   // Choose a function and remove it from the further consideration.
-  const randomIndex = phet.joist.random.nextIntBetween( 0, factoryFunctions.length - 1 );
+  const randomIndex = dotRandom.nextIntBetween( 0, factoryFunctions.length - 1 );
   const factoryFunction = factoryFunctions[ randomIndex ];
   factoryFunctions.splice( randomIndex, 1 );
 
   // Create a reaction with non-zero quantities of at least one product.
   const reaction = factoryFunction();
   reaction.reactants.forEach( reactant => {
-    reactant.quantityProperty.set( phet.joist.random.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
+    reactant.quantityProperty.set( dotRandom.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
   } );
 
   return reaction;
@@ -233,7 +234,7 @@ function createChallengeWithoutProducts( factoryFunctions ) {
     assert && assert( factoryFunctions.length > 0 );
 
     // Choose a function and remove it from the further consideration.
-    const randomIndex = phet.joist.random.nextIntBetween( 0, factoryFunctions.length - 1 );
+    const randomIndex = dotRandom.nextIntBetween( 0, factoryFunctions.length - 1 );
     const factoryFunction = factoryFunctions[ randomIndex ];
     factoryFunctions.splice( randomIndex, 1 );
 
@@ -253,7 +254,7 @@ function createChallengeWithoutProducts( factoryFunctions ) {
 
   // set quantities
   reaction.reactants.forEach( reactant => {
-    reactant.quantityProperty.set( phet.joist.random.nextIntBetween( 1, Math.max( 1, reactant.coefficientProperty.get() - 1 ) ) );
+    reactant.quantityProperty.set( dotRandom.nextIntBetween( 1, Math.max( 1, reactant.coefficientProperty.get() - 1 ) ) );
   } );
 
   return reaction;
