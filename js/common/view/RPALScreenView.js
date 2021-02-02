@@ -54,7 +54,7 @@ class RPALScreenView extends ScreenView {
     resetAllButton.bottom = this.layoutBounds.bottom - 10;
 
     // pdom - set the initial accessible order
-    this.pdomPlayAreaNode.accessibleOrder = [ reactionBarNode, resetAllButton ];
+    this.pdomPlayAreaNode.pdomOrder = [ reactionBarNode, resetAllButton ];
 
     /*
      * Updates the user interface to match the reaction.
@@ -77,7 +77,7 @@ class RPALScreenView extends ScreenView {
         this.beforeAfterCache.push( { reaction: reaction, beforeAfterNode: beforeAfterNode } );
 
         // pdom - order should look like [ reactionBarNode, {{ALL_BEFORE_AFTER_NODES}}, resetAllButton ]
-        this.pdomPlayAreaNode.accessibleOrder = [ reactionBarNode ]
+        this.pdomPlayAreaNode.pdomOrder = [ reactionBarNode ]
           .concat( this.beforeAfterCache.map( item => item.beforeAfterNode ) ) // map all beforeAfterNodes to an array
           .concat( [ resetAllButton ] );
       }

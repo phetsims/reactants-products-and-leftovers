@@ -103,7 +103,7 @@ class PlayNode extends Node {
           this.addChild( currentChallengeNode );
 
           // pdom keyboard nav order, challenges should go before the "start over" button
-          this.accessibleOrder = [ currentChallengeNode ].concat( this.accessibleOrder );
+          this.pdomOrder = [ currentChallengeNode ].concat( this.pdomOrder );
         }
         currentChallengeNode.activate( model.playStateProperty );
         currentChallengeNode.visible = true;

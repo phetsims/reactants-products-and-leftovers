@@ -292,7 +292,7 @@ class ChallengeNode extends Node {
     this.playStateProperty = null; // @private will be set by activate()
 
     // pdom keyboard nav order
-    this.accessibleOrder = [ this.quantitiesNode, this.buttons ];
+    this.pdomOrder = [ this.quantitiesNode, this.buttons ];
 
     //------------------------------------------------------------------------------------
     // Developer
