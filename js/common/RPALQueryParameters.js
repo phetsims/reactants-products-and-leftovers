@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import logGlobal from '../../../phet-core/js/logGlobal.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 const RPALQueryParameters = QueryStringMachine.getAll( {
@@ -17,7 +18,9 @@ const RPALQueryParameters = QueryStringMachine.getAll( {
 
 reactantsProductsAndLeftovers.register( 'RPALQueryParameters', RPALQueryParameters );
 
-// log the values of all sim-specific query parameters
-phet.log && phet.log( 'query parameters: ' + JSON.stringify( RPALQueryParameters, null, 2 ) );
+// Log query parameters
+logGlobal( 'phet.chipper.queryParameters' );
+logGlobal( 'phet.preloads.phetio.queryParameters' );
+logGlobal( 'phet.reactantsProductsAndLeftovers.RPALQueryParameters' );
 
 export default RPALQueryParameters;
