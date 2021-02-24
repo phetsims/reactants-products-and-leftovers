@@ -146,8 +146,8 @@ function createLevelSelectionButton( level, model, icon, maxIconWidth, maxIconHe
 
   return new LevelSelectionButton( content, model.bestScoreProperties[ level ], {
     baseColor: 'rgb( 240, 255, 204 )',
-    buttonXMargin: 15,
-    buttonYMargin: 15,
+    xMargin: 15,
+    yMargin: 15,
     buttonWidth: 150,
     buttonHeight: 150,
     iconToProgressIndicatorYSpace: 15,
