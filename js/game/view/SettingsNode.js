@@ -150,7 +150,6 @@ function createLevelSelectionButton( level, model, icon, maxIconWidth, maxIconHe
     yMargin: 15,
     buttonWidth: 150,
     buttonHeight: 150,
-    iconToProgressIndicatorYSpace: 15,
     bestTimeProperty: model.bestTimeProperties[ level ],
     bestTimeVisibleProperty: model.timerEnabledProperty,
     scoreDisplayConstructor: ScoreDisplayStars,
