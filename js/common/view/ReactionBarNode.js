@@ -62,7 +62,7 @@ class ReactionBarNode extends Node {
     reactionProperty.link( reaction => {
 
       // Create an equation for this reaction, if one isn't already in the cache.
-      if ( !_.find( this.equationCache, { 'reaction': reaction } ) ) {
+      if ( !_.find( this.equationCache, { reaction: reaction } ) ) {
 
         // create equation for the reaction
         const equationNode = createEquationNode( reaction );

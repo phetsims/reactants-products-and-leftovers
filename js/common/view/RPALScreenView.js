@@ -65,7 +65,7 @@ class RPALScreenView extends ScreenView {
     model.reactionProperty.link( reaction => {
 
       // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
-      if ( !_.find( this.beforeAfterCache, { 'reaction': reaction } ) ) {
+      if ( !_.find( this.beforeAfterCache, { reaction: reaction } ) ) {
 
         const beforeAfterNode = createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
           centerX: this.layoutBounds.centerX,
