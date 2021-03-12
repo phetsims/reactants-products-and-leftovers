@@ -23,14 +23,14 @@ const DevStringUtils = {
     // reactants
     for ( let i = 0; i < reaction.reactants.length; i++ ) {
       if ( i !== 0 ) { s += '+ '; }
-      s += ( reaction.reactants[ i ].coefficientProperty.get() + ' ' + reaction.reactants[ i ].symbol + ' ' );
+      s += ( `${reaction.reactants[ i ].coefficientProperty.get()} ${reaction.reactants[ i ].symbol} ` );
     }
     // right arrow
     s += '\u2192 ';
     // products
     for ( let i = 0; i < reaction.products.length; i++ ) {
       if ( i !== 0 ) { s += '+ '; }
-      s += ( reaction.products[ i ].coefficientProperty.get() + ' ' + reaction.products[ i ].symbol );
+      s += ( `${reaction.products[ i ].coefficientProperty.get()} ${reaction.products[ i ].symbol}` );
       if ( i < reaction.products.length - 1 ) {
         s += ' ';
       }
@@ -76,7 +76,7 @@ const DevStringUtils = {
    * @static
    */
   reactionString: function( reaction ) {
-    return DevStringUtils.equationString( reaction ) + ' : ' + DevStringUtils.quantitiesString( reaction );
+    return `${DevStringUtils.equationString( reaction )} : ${DevStringUtils.quantitiesString( reaction )}`;
   }
 };
 

@@ -345,12 +345,12 @@ function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
 
     // If all reactants have been reduced and we are still out of range, bail with a serious error.
     if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
-      throw new Error( 'ERROR: quantity-range violation cannot be fixed: ' + beforeFixString );
+      throw new Error( `ERROR: quantity-range violation cannot be fixed: ${beforeFixString}` );
     }
 
     if ( enableDebugOutput ) {
-      console.log( 'quantity range violation: ' + beforeFixString +
-                   ' fixed: ' + DevStringUtils.quantitiesString( reaction ) );
+      console.log( `quantity range violation: ${beforeFixString
+                   } fixed: ${DevStringUtils.quantitiesString( reaction )}` );
     }
   }
 }
@@ -384,7 +384,7 @@ function doTest() {
   const factoryFunctions = [];
   for ( level = 0; level < POOLS.length; level++ ) {
     console.log( '----------------------------------------------------------' );
-    console.log( 'Level ' + ( level + 1 ) );
+    console.log( `Level ${level + 1}` );
     console.log( '----------------------------------------------------------' );
     for ( i = 0; i < POOLS[ level ].length; i++ ) {
       factoryFunction = POOLS[ level ][ i ];
@@ -405,14 +405,14 @@ function doTest() {
     reaction = factoryFunction();
     for ( i = 0; i < reaction.reactants.length; i++ ) {
       if ( reaction.reactants[ i ].coefficientProperty.get() > maxQuantity ) {
-        console.log( 'ERROR: reactant coefficient out of range : ' + DevStringUtils.equationString( reaction ) );
+        console.log( `ERROR: reactant coefficient out of range : ${DevStringUtils.equationString( reaction )}` );
         numberOfCoefficientRangeErrors++;
         break;
       }
     }
     for ( i = 0; i < reaction.products.length; i++ ) {
       if ( reaction.products[ i ].coefficientProperty.get() > maxQuantity ) {
-        console.log( 'ERROR: product coefficient out of range : ' + DevStringUtils.equationString( reaction ) );
+        console.log( `ERROR: product coefficient out of range : ${DevStringUtils.equationString( reaction )}` );
         numberOfCoefficientRangeErrors++;
         break;
       }
@@ -460,8 +460,8 @@ function doTest() {
           }
         } );
         if ( zeroReactants ) {
-          console.log( 'ERROR: challenge has zero reactants, level=' + level + ' : ' +
-                       DevStringUtils.reactionString( challenge.reaction ) );
+          console.log( `ERROR: challenge has zero reactants, level=${level} : ${
+                       DevStringUtils.reactionString( challenge.reaction )}` );
           numberOfReactantErrors++;
         }
 
@@ -478,8 +478,8 @@ function doTest() {
 
         // quantity-range violation?
         if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
-          console.log( 'ERROR: challenge has quantity-range violation, level=' + level + ' : ' +
-                       DevStringUtils.reactionString( challenge.reaction ) );
+          console.log( `ERROR: challenge has quantity-range violation, level=${level} : ${
+                       DevStringUtils.reactionString( challenge.reaction )}` );
           numberOfQuantityRangeErrors++;
         }
       } );
@@ -487,9 +487,9 @@ function doTest() {
       // should have exactly one challenge with zero products (irrelevant for 'playAll')
       if ( numberWithZeroProducts !== 1 && !RPALQueryParameters.playAll ) {
         numberOfProductErrors++;
-        console.log( 'ERROR: more than one challenge with zero products, level=' + level + ' challenges=' );
+        console.log( `ERROR: more than one challenge with zero products, level=${level} challenges=` );
         for ( j = 0; j < challenges.length; j++ ) {
-          console.log( j + ': ' + DevStringUtils.reactionString( challenges[ j ].reaction ) );
+          console.log( `${j}: ${DevStringUtils.reactionString( challenges[ j ].reaction )}` );
         }
       }
     }
@@ -499,11 +499,11 @@ function doTest() {
   console.log( '----------------------------------------------------------' );
   console.log( 'Summary' );
   console.log( '----------------------------------------------------------' );
-  console.log( 'challenges generated = ' + numberOfChallengesGenerated );
-  console.log( 'coefficient-range errors = ' + numberOfCoefficientRangeErrors );
-  console.log( 'zero-reactant errors = ' + numberOfReactantErrors );
-  console.log( 'zero-product errors = ' + numberOfProductErrors );
-  console.log( 'quantity-range errors = ' + numberOfQuantityRangeErrors );
+  console.log( `challenges generated = ${numberOfChallengesGenerated}` );
+  console.log( `coefficient-range errors = ${numberOfCoefficientRangeErrors}` );
+  console.log( `zero-reactant errors = ${numberOfReactantErrors}` );
+  console.log( `zero-product errors = ${numberOfProductErrors}` );
+  console.log( `quantity-range errors = ${numberOfQuantityRangeErrors}` );
   console.log( '<done>' );
 }
 
