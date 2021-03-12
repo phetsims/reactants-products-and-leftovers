@@ -21,14 +21,14 @@ const DevStringUtils = {
   equationString: function( reaction ) {
     let s = '';
     // reactants
-    for ( var i = 0; i < reaction.reactants.length; i++ ) {
+    for ( let i = 0; i < reaction.reactants.length; i++ ) {
       if ( i !== 0 ) { s += '+ '; }
       s += ( reaction.reactants[ i ].coefficientProperty.get() + ' ' + reaction.reactants[ i ].symbol + ' ' );
     }
     // right arrow
     s += '\u2192 ';
     // products
-    for ( i = 0; i < reaction.products.length; i++ ) {
+    for ( let i = 0; i < reaction.products.length; i++ ) {
       if ( i !== 0 ) { s += '+ '; }
       s += ( reaction.products[ i ].coefficientProperty.get() + ' ' + reaction.products[ i ].symbol );
       if ( i < reaction.products.length - 1 ) {

@@ -449,7 +449,7 @@ function doTest() {
       numberOfChallengesGenerated += challenges.length;
 
       // validate
-      var numberWithZeroProducts = 0;
+      let numberWithZeroProducts = 0;
       challenges.forEach( challenge => {
 
         // verify that all reactant quantities are > 0

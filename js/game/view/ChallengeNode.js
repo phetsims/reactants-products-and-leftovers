@@ -158,7 +158,7 @@ class ChallengeNode extends Node {
     // centerY is handled below
 
     // visible only until the user has entered a valid guess
-    var checkButtonEnabledObserver = checkButtonEnabled => {
+    const checkButtonEnabledObserver = checkButtonEnabled => {
       questionMark.visible = !checkButtonEnabled;
       if ( checkButtonEnabled ) {
         this.checkButtonEnabledProperty.unlink( checkButtonEnabledObserver );
