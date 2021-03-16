@@ -350,7 +350,7 @@ function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
 
     if ( enableDebugOutput ) {
       console.log( `quantity range violation: ${beforeFixString
-                   } fixed: ${DevStringUtils.quantitiesString( reaction )}` );
+      } fixed: ${DevStringUtils.quantitiesString( reaction )}` );
     }
   }
 }
@@ -461,7 +461,7 @@ function doTest() {
         } );
         if ( zeroReactants ) {
           console.log( `ERROR: challenge has zero reactants, level=${level} : ${
-                       DevStringUtils.reactionString( challenge.reaction )}` );
+            DevStringUtils.reactionString( challenge.reaction )}` );
           numberOfReactantErrors++;
         }
 
@@ -479,7 +479,7 @@ function doTest() {
         // quantity-range violation?
         if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
           console.log( `ERROR: challenge has quantity-range violation, level=${level} : ${
-                       DevStringUtils.reactionString( challenge.reaction )}` );
+            DevStringUtils.reactionString( challenge.reaction )}` );
           numberOfQuantityRangeErrors++;
         }
       } );
