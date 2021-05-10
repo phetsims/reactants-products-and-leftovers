@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.2.12-rc.1 Fri May 07 2021 11:43:23 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# reactants-products-and-leftovers 1.2.12-rc.1 Mon May 10 2021 12:12:27 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -49,20 +49,20 @@
     "branch": "HEAD"
   },
   "phetmarks": {
-    "sha": "b8104e5e5cab630d7a5ca53b7f49a20c2a8e4db5",
-    "branch": "HEAD"
+    "sha": "e68ae1ab46843e6d7027b17ebfbe20340990d9c4",
+    "branch": "reactants-products-and-leftovers-1.2"
   },
   "query-string-machine": {
     "sha": "4178d27a4a676a93c5b0ba62e2559b232a8dad35",
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "9706cee5e71ecd6e07cccaa258e24ab9cf12151c",
+    "sha": "fe7025e98884039b8d6e5e36fd408f75f09b4e4e",
     "branch": "1.2"
   },
   "scenery": {
     "sha": "360236364bf50db5e4ca6c70b5d43f57ffb6b9c9",
-    "branch": "reactants-products-and-leftovers-1.2"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "b39696ef145d23670d80596c95068d41d71222ee",
