@@ -57,11 +57,11 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "38a2e2100aa2e3513fd5d0fe47ff032fc334fe93",
+    "sha": "78bb69356be55a4edf9a7814c0ea4dd33cf1186c",
     "branch": "1.2"
   },
   "scenery": {
-    "sha": "de093d64a6f0995e15251f2bb9b7585c9e589c65",
+    "sha": "a14ab41c57ab12c673b7394e6aecf943c39983b7",
     "branch": "reactants-products-and-leftovers-1.2"
   },
   "scenery-phet": {
