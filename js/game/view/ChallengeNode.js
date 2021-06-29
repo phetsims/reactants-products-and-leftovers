@@ -101,6 +101,7 @@ class ChallengeNode extends Node {
     this.checkButtonEnabledProperty = new DerivedProperty( quantityProperties, () => {
       // true if any quantity that the user can guess is non-zero
       for ( let i = 0, j = arguments.length; i < j; i++ ) {
+        // eslint-disable-next-line prefer-rest-params
         if ( arguments[ i ] !== 0 ) { return true; }
       }
       return false;
