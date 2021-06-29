@@ -157,7 +157,8 @@ function createLevelSelectionButton( level, model, icon, maxIconWidth, maxIconHe
       numberOfStars: model.getNumberOfChallenges( level ),
       perfectScore: model.getPerfectScore( level )
     },
-    listener: () => model.play( level )
+    listener: () => model.play( level ),
+    soundPlayerIndex: level
   } );
 }
 
