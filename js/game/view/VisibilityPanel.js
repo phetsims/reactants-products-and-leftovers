@@ -12,9 +12,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import eyeRegularShape from '../../../../sherpa/js/fontawesome-5/eyeRegularShape.js';
+import eyeSlashRegularShape from '../../../../sherpa/js/fontawesome-5/eyeSlashRegularShape.js';
 import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
-import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import Panel from '../../../../sun/js/Panel.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
@@ -23,7 +25,10 @@ import GameVisibility from '../model/GameVisibility.js';
 
 // constants
 const TEXT_OPTIONS = { font: new PhetFont( 14 ) };
-const FONT_AWESOME_OPTIONS = { scale: 0.5 };
+const FONT_AWESOME_OPTIONS = {
+  scale: 0.04,
+  fill: 'black'
+};
 
 class VisibilityPanel extends Panel {
 
@@ -66,7 +71,7 @@ class VisibilityPanel extends Panel {
  * @returns {Node}
  */
 function createShowAllNode() {
-  const eyeNode = new FontAwesomeNode( 'eye_open', FONT_AWESOME_OPTIONS );
+  const eyeNode = new Path( eyeRegularShape, FONT_AWESOME_OPTIONS );
   const textNode = new Text( reactantsProductsAndLeftoversStrings.showAll, TEXT_OPTIONS );
   return new LayoutBox( {
     children: [ eyeNode, textNode ],
@@ -81,12 +86,12 @@ function createShowAllNode() {
  * @returns {Node}
  */
 function createHideMoleculesNode() {
-  const eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
+  const eyeNode = new Path( eyeSlashRegularShape, FONT_AWESOME_OPTIONS );
   const moleculeNode = new Node( {
     // wrap in a Node because H2ONode doesn't work with standard options
     children: [ new H2ONode( RPALConstants.MOLECULE_OPTIONS ) ],
     scale: 0.4,
-    centerX: eyeNode.right,
+    left: eyeNode.right + 2,
     centerY: eyeNode.bottom
   } );
   const textNode = new Text( reactantsProductsAndLeftoversStrings.hideMolecules, TEXT_OPTIONS );
@@ -103,10 +108,10 @@ function createHideMoleculesNode() {
  * @returns {Node}
  */
 function createHideNumbersNode() {
-  const eyeNode = new FontAwesomeNode( 'eye_close', FONT_AWESOME_OPTIONS );
+  const eyeNode = new Path( eyeSlashRegularShape, FONT_AWESOME_OPTIONS );
   const numbersNode = new Text( '123', {
     font: new PhetFont( 8 ),
-    centerX: eyeNode.right + 2,
+    left: eyeNode.right + 2,
     centerY: eyeNode.bottom
   } );
   const textNode = new Text( reactantsProductsAndLeftoversStrings.hideNumbers, TEXT_OPTIONS );

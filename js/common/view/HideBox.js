@@ -10,8 +10,9 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
+import eyeSlashRegularShape from '../../../../sherpa/js/fontawesome-5/eyeSlashRegularShape.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 class HideBox extends Node {
@@ -35,7 +36,9 @@ class HideBox extends Node {
     } );
 
     // closed-eye icon
-    const eyeNode = new FontAwesomeNode( 'eye_close', { fill: 'rgb(180,180,180)' } );
+    const eyeNode = new Path( eyeSlashRegularShape, {
+      fill: 'rgb( 180, 180, 180 )'
+    } );
     eyeNode.setScaleMagnitude( options.iconHeight / eyeNode.height );
     eyeNode.center = rectangleNode.center;
 
