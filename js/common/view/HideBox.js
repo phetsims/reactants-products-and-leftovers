@@ -1,4 +1,4 @@
-// Copyright 2014-2020, University of Colorado Boulder
+// Copyright 2014-2021, University of Colorado Boulder
 
 /**
  * Box that is placed over things that are 'hidden' while playing a challenge.
