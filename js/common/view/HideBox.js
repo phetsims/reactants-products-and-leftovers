@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import eyeSlashRegularShape from '../../../../sherpa/js/fontawesome-5/eyeSlashRegularShape.js';
+import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 class HideBox extends Node {
@@ -36,7 +36,7 @@ class HideBox extends Node {
     } );
 
     // closed-eye icon
-    const eyeNode = new Path( eyeSlashRegularShape, {
+    const eyeNode = new Path( eyeSlashSolidShape, {
       fill: 'rgb( 180, 180, 180 )'
     } );
     eyeNode.setScaleMagnitude( options.iconHeight / eyeNode.height );

@@ -14,8 +14,8 @@ import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import eyeRegularShape from '../../../../sherpa/js/fontawesome-5/eyeRegularShape.js';
-import eyeSlashRegularShape from '../../../../sherpa/js/fontawesome-5/eyeSlashRegularShape.js';
+import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
+import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
 import Panel from '../../../../sun/js/Panel.js';
 import RPALConstants from '../../common/RPALConstants.js';
@@ -71,7 +71,7 @@ class VisibilityPanel extends Panel {
  * @returns {Node}
  */
 function createShowAllNode() {
-  const eyeNode = new Path( eyeRegularShape, FONT_AWESOME_OPTIONS );
+  const eyeNode = new Path( eyeSolidShape, FONT_AWESOME_OPTIONS );
   const textNode = new Text( reactantsProductsAndLeftoversStrings.showAll, TEXT_OPTIONS );
   return new LayoutBox( {
     children: [ eyeNode, textNode ],
@@ -86,7 +86,7 @@ function createShowAllNode() {
  * @returns {Node}
  */
 function createHideMoleculesNode() {
-  const eyeNode = new Path( eyeSlashRegularShape, FONT_AWESOME_OPTIONS );
+  const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
   const moleculeNode = new Node( {
     // wrap in a Node because H2ONode doesn't work with standard options
     children: [ new H2ONode( RPALConstants.MOLECULE_OPTIONS ) ],
@@ -108,7 +108,7 @@ function createHideMoleculesNode() {
  * @returns {Node}
  */
 function createHideNumbersNode() {
-  const eyeNode = new Path( eyeSlashRegularShape, FONT_AWESOME_OPTIONS );
+  const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
   const numbersNode = new Text( '123', {
     font: new PhetFont( 8 ),
     left: eyeNode.right + 2,
