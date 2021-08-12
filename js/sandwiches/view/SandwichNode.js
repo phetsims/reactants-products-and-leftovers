@@ -10,13 +10,13 @@ import merge from '../../../../phet-core/js/merge.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import breadImage from '../../../images/bread_png.js';
-import cheeseImage from '../../../images/cheese_png.js';
-import meatImage from '../../../images/meat_png.js';
+import bread_png from '../../../images/bread_png.js';
+import cheese_png from '../../../images/cheese_png.js';
+import meat_png from '../../../images/meat_png.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 // constants
-const MAX_WIDTH = _.maxBy( [ breadImage, cheeseImage, meatImage ], image => image.width ).width;
+const MAX_WIDTH = _.maxBy( [ bread_png, cheese_png, meat_png ], image => image.width ).width;
 const Y_SPACING = 4; // vertical space between centers of ingredients
 const SANDWICH_SCALE = 0.65; // default scale of Nodes for sandwiches and their ingredients
 
@@ -44,7 +44,7 @@ class SandwichNode extends Node {
 
     // Put a slice of bread on the bottom.
     if ( breadCount > 0 ) {
-      this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+      this.addChild( new Image( bread_png, { centerX: 0, centerY: centerY } ) );
       centerY -= Y_SPACING;
       breadCount--;
     }
@@ -56,14 +56,14 @@ class SandwichNode extends Node {
     let ingredients;
     if ( meatCount >= cheeseCount ) {
       ingredients = [
-        { count: meatCount, image: meatImage },
-        { count: cheeseCount, image: cheeseImage }
+        { count: meatCount, image: meat_png },
+        { count: cheeseCount, image: cheese_png }
       ];
     }
     else {
       ingredients = [
-        { count: cheeseCount, image: cheeseImage },
-        { count: meatCount, image: meatImage }
+        { count: cheeseCount, image: cheese_png },
+        { count: meatCount, image: meat_png }
       ];
     }
 
@@ -85,7 +85,7 @@ class SandwichNode extends Node {
 
       // Add a slice of bread, but save one slice of bread for the top.
       if ( breadCount > 1 ) {
-        this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+        this.addChild( new Image( bread_png, { centerX: 0, centerY: centerY } ) );
         centerY -= Y_SPACING;
         imageAdded = true;
         breadCount--;
@@ -94,20 +94,20 @@ class SandwichNode extends Node {
 
     // Put a slice of bread on the top.
     if ( breadCount > 0 ) {
-      this.addChild( new Image( breadImage, { centerX: 0, centerY: centerY } ) );
+      this.addChild( new Image( bread_png, { centerX: 0, centerY: centerY } ) );
     }
 
     this.mutate( options );
   }
 
   // @public
-  static createBreadNode() { return new Image( breadImage, { scale: SANDWICH_SCALE } ); }
+  static createBreadNode() { return new Image( bread_png, { scale: SANDWICH_SCALE } ); }
 
   // @public
-  static createMeatNode() { return new Image( meatImage, { scale: SANDWICH_SCALE } ); }
+  static createMeatNode() { return new Image( meat_png, { scale: SANDWICH_SCALE } ); }
 
   // @public
-  static createCheeseNode() { return new Image( cheeseImage, { scale: SANDWICH_SCALE } ); }
+  static createCheeseNode() { return new Image( cheese_png, { scale: SANDWICH_SCALE } ); }
 }
 
 reactantsProductsAndLeftovers.register( 'SandwichNode', SandwichNode );
