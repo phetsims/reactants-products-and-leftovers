@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import RPALColors from '../../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';

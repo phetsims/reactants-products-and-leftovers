@@ -9,7 +9,7 @@
  */
 
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import vegasStrings from '../../../../vegas/js/vegasStrings.js';
 import RPALColors from '../../common/RPALColors.js';

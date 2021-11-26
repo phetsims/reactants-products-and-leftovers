@@ -9,7 +9,7 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import Image from '../../../scenery/js/nodes/Image.js';
+import { Image } from '../../../scenery/js/imports.js';
 import sandwichesHomeScreenIcon_png from '../../images/sandwichesHomeScreenIcon_png.js';
 import sandwichesNavbarIcon_png from '../../images/sandwichesNavbarIcon_png.js';
 import RPALColors from '../common/RPALColors.js';

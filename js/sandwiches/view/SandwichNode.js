@@ -7,9 +7,9 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import HStrut from '../../../../scenery/js/nodes/HStrut.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { HStrut } from '../../../../scenery/js/imports.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import bread_png from '../../../images/bread_png.js';
 import cheese_png from '../../../images/cheese_png.js';
 import meat_png from '../../../images/meat_png.js';

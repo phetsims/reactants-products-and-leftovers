@@ -14,7 +14,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
 import Reaction from '../../common/model/Reaction.js';
 import Substance from '../../common/model/Substance.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';

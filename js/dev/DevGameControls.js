@@ -8,7 +8,7 @@
 
 import merge from '../../../phet-core/js/merge.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import LayoutBox from '../../../scenery/js/nodes/LayoutBox.js';
+import { LayoutBox } from '../../../scenery/js/imports.js';
 import TextPushButton from '../../../sun/js/buttons/TextPushButton.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
