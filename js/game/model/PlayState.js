@@ -7,10 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-const PlayState = Enumeration.byKeys( [
+const PlayState = EnumerationDeprecated.byKeys( [
   'FIRST_CHECK',  // 'Check' button is visible for the first time
   'TRY_AGAIN',    // 'Try Again' button is visible
   'SECOND_CHECK', // 'Check' button is visible for the second time

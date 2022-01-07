@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-const GamePhase = Enumeration.byKeys( [
+const GamePhase = EnumerationDeprecated.byKeys( [
   'SETTINGS', // user is choosing game settings (level, timer, ...)
   'PLAY',     // user is playing the game
   'RESULTS'   // user is viewing results at end of a game

@@ -8,10 +8,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-const GameVisibility = Enumeration.byKeys( [ 'HIDE_MOLECULES', 'HIDE_NUMBERS', 'SHOW_ALL' ] );
+const GameVisibility = EnumerationDeprecated.byKeys( [ 'HIDE_MOLECULES', 'HIDE_NUMBERS', 'SHOW_ALL' ] );
 
 reactantsProductsAndLeftovers.register( 'GameVisibility', GameVisibility );
 export default GameVisibility;

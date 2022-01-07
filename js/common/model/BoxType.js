@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-const BoxType = Enumeration.byKeys( [
+const BoxType = EnumerationDeprecated.byKeys( [
   'BEFORE', // before the reaction started
   'AFTER'   // after the reaction completes
 ] );
