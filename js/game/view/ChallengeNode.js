@@ -8,7 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FaceWithPointsNode from '../../../../scenery-phet/js/FaceWithPointsNode.js';
@@ -226,7 +226,7 @@ class ChallengeNode extends Node {
 
     // @private must be disposed
     // Move from "Try Again" to "Check" state when a quantity is changed, see reactants-products-and-leftovers#37.
-    this.answerChangedLink = Property.lazyMultilink( quantityProperties, () => {
+    this.answerChangedLink = Multilink.lazyMultilink( quantityProperties, () => {
       if ( this.playStateProperty.get() === PlayState.TRY_AGAIN ) {
         this.playStateProperty.set( PlayState.SECOND_CHECK );
       }
