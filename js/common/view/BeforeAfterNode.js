@@ -14,9 +14,7 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { LayoutBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
 import RPALColors from '../RPALColors.js';
@@ -76,9 +74,8 @@ class BeforeAfterNode extends Node {
     const arrowNode = new RightArrowNode( { fill: RPALColors.PANEL_FILL, stroke: null, scale: 0.75 } );
 
     // layout of boxes and arrow
-    const hBox = new LayoutBox( {
+    const hBox = new HBox( {
       children: [ this.beforeBox, arrowNode, this.afterBox ],
-      orientation: 'horizontal',
       spacing: 10
     } );
     this.addChild( hBox );

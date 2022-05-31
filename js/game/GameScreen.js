@@ -11,10 +11,7 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../kite/js/imports.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
-import { LayoutBox } from '../../../scenery/js/imports.js';
-import { Node } from '../../../scenery/js/imports.js';
-import { Path } from '../../../scenery/js/imports.js';
-import { Rectangle } from '../../../scenery/js/imports.js';
+import { HBox, Node, Path, Rectangle, VBox } from '../../../scenery/js/imports.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
@@ -69,16 +66,14 @@ function createIcon() {
       .lineTo( ARROW_SIZE / 2, -ARROW_SIZE )
       .close(),
     ARROW_OPTIONS );
-  const arrowsBox = new LayoutBox( {
+  const arrowsBox = new VBox( {
     children: [ upArrowNode, downArrowNode ],
-    orientation: 'vertical',
     spacing: 20
   } );
 
   // centered in background, scaled to fit
-  const contentNode = new LayoutBox( {
+  const contentNode = new HBox( {
     children: [ arrowsBox, faceNode ],
-    orientation: 'horizontal',
     spacing: 25
   } );
   contentNode.setScaleMagnitude(

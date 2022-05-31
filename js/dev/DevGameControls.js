@@ -8,7 +8,7 @@
 
 import merge from '../../../phet-core/js/merge.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { LayoutBox } from '../../../scenery/js/imports.js';
+import { HBox } from '../../../scenery/js/imports.js';
 import TextPushButton from '../../../sun/js/buttons/TextPushButton.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
@@ -19,7 +19,7 @@ const BUTTON_OPTIONS = {
   textFill: 'white'
 };
 
-class DevGameControls extends LayoutBox {
+class DevGameControls extends HBox {
 
   /**
    * @param {GameModel} model
@@ -28,7 +28,6 @@ class DevGameControls extends LayoutBox {
   constructor( model, options ) {
 
     options = merge( {
-      orientation: 'horizontal',
       spacing: 5
     }, options );
 

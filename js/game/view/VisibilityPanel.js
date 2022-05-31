@@ -10,10 +10,7 @@
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { LayoutBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { HBox, Node, Path, Text } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
@@ -73,9 +70,8 @@ class VisibilityPanel extends Panel {
 function createShowAllNode() {
   const eyeNode = new Path( eyeSolidShape, FONT_AWESOME_OPTIONS );
   const textNode = new Text( reactantsProductsAndLeftoversStrings.showAll, TEXT_OPTIONS );
-  return new LayoutBox( {
+  return new HBox( {
     children: [ eyeNode, textNode ],
-    orientation: 'horizontal',
     spacing: 12
   } );
 }
@@ -95,9 +91,8 @@ function createHideMoleculesNode() {
     centerY: eyeNode.bottom
   } );
   const textNode = new Text( reactantsProductsAndLeftoversStrings.hideMolecules, TEXT_OPTIONS );
-  return new LayoutBox( {
+  return new HBox( {
     children: [ new Node( { children: [ eyeNode, moleculeNode ] } ), textNode ],
-    orientation: 'horizontal',
     spacing: 7
   } );
 }
@@ -115,9 +110,8 @@ function createHideNumbersNode() {
     centerY: eyeNode.bottom
   } );
   const textNode = new Text( reactantsProductsAndLeftoversStrings.hideNumbers, TEXT_OPTIONS );
-  return new LayoutBox( {
+  return new HBox( {
     children: [ new Node( { children: [ eyeNode, numbersNode ] } ), textNode ],
-    orientation: 'horizontal',
     spacing: 5
   } );
 }

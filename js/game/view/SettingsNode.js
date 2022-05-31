@@ -15,10 +15,7 @@ import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { LayoutBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { HBox, Node, Rectangle, Text, VBox } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
@@ -67,10 +64,9 @@ class SettingsNode extends Node {
     for ( let level = 0; level < model.numberOfLevels; level++ ) {
       buttons.push( createLevelSelectionButton( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
     }
-    const buttonsParent = new LayoutBox( {
+    const buttonsParent = new HBox( {
       children: buttons,
       spacing: 40,
-      orientation: 'horizontal',
       center: layoutBounds.center
     } );
 
@@ -98,9 +94,8 @@ class SettingsNode extends Node {
 
     options.children = [
       // title and level-selection buttons, centered in space above visibility radio buttons
-      new LayoutBox( {
+      new VBox( {
         children: [ title, buttonsParent ],
-        orientation: 'vertical',
         align: 'center',
         spacing: 40,
         centerX: layoutBounds.centerX,
@@ -168,18 +163,16 @@ function createLevelSelectionButton( level, model, icon, maxIconWidth, maxIconHe
  */
 function createIcon( level, leftNode, rightNode ) {
   const arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
-  const iconNode = new LayoutBox( {
+  const iconNode = new HBox( {
     children: [ leftNode, arrowNode, rightNode ],
-    orientation: 'horizontal',
     spacing: 20
   } );
   const labelNode = new Text( StringUtils.format( reactantsProductsAndLeftoversStrings.pattern_Level_0, level ), {
     font: new PhetFont( 45 ),
     maxWidth: iconNode.width
   } );
-  return new LayoutBox( {
+  return new VBox( {
     children: [ labelNode, iconNode ],
-    orientation: 'vertical',
     spacing: 30
   } );
 }
