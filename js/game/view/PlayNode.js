@@ -37,7 +37,7 @@ class PlayNode extends Node {
 
     // status bar, across the top of the screen
     const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.scoreProperty, {
-      scoreDisplayConstructor: ScoreDisplayLabeledNumber,
+      createScoreDisplay: scoreProperty => new ScoreDisplayLabeledNumber( scoreProperty ),
 
       // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #57.
       levelProperty: new DerivedProperty( [ model.levelProperty ], level => level + 1 ),
