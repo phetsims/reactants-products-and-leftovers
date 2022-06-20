@@ -18,6 +18,10 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import GamePhase from '../model/GamePhase.js';
 import ChallengeNode from './ChallengeNode.js';
 
+// constants
+const STATUS_BAR_FONT = new PhetFont( 16 );
+const STATUS_BAR_TEXT_FILL = 'white';
+
 class PlayNode extends Node {
 
   /**
@@ -37,7 +41,10 @@ class PlayNode extends Node {
 
     // status bar, across the top of the screen
     const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.scoreProperty, {
-      createScoreDisplay: scoreProperty => new ScoreDisplayLabeledNumber( scoreProperty ),
+      createScoreDisplay: scoreProperty => new ScoreDisplayLabeledNumber( scoreProperty, {
+        font: STATUS_BAR_FONT,
+        textFill: STATUS_BAR_TEXT_FILL
+      } ),
 
       // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #57.
       levelProperty: new DerivedProperty( [ model.levelProperty ], level => level + 1 ),
@@ -45,8 +52,8 @@ class PlayNode extends Node {
       numberOfChallengesProperty: model.numberOfChallengesProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
       timerEnabledProperty: model.timerEnabledProperty,
-      font: new PhetFont( 16 ),
-      textFill: 'white',
+      font: STATUS_BAR_FONT,
+      textFill: STATUS_BAR_TEXT_FILL,
       barFill: 'rgb( 49, 117, 202 )',
       xMargin: 50,
       startOverButtonOptions: {
