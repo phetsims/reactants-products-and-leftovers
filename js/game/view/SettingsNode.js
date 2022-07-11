@@ -151,20 +151,19 @@ class SettingsNode extends Node {
  */
 function createIcon( level, leftNode, rightNode, iconAlignGroup ) {
   const arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
-  const iconNode = new HBox( {
+  const iconNode = new AlignBox( new HBox( {
     children: [ leftNode, arrowNode, rightNode ],
     spacing: 20
+  } ), {
+    group: iconAlignGroup
   } );
   const labelNode = new Text( StringUtils.format( reactantsProductsAndLeftoversStrings.pattern_Level_0, level ), {
     font: new PhetFont( 45 ),
     maxWidth: iconNode.width
   } );
-  const vBox = new VBox( {
+  return new VBox( {
     children: [ labelNode, iconNode ],
     spacing: 30
-  } );
-  return new AlignBox( vBox, {
-    group: iconAlignGroup
   } );
 }
 
