@@ -15,9 +15,9 @@ import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Node, Rectangle, Text, VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
-import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
+import LevelSelectionButtonGroup from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
@@ -49,24 +49,47 @@ class SettingsNode extends Node {
       maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
     } );
 
+    // To make all button icons have the same effective size
+    const iconAlignGroup = new AlignGroup();
+
     // Icons for the level-selection buttons, indexed by level
     const levelIcons = [
-      createLevelOneIcon(),
-      createLevelTwoIcon(),
-      createLevelThreeIcon()
+      createLevelOneIcon( iconAlignGroup ),
+      createLevelTwoIcon( iconAlignGroup ),
+      createLevelThreeIcon( iconAlignGroup )
     ];
-    assert && assert( levelIcons.length === model.numberOfLevels );
-    const maxIconWidth = _.maxBy( levelIcons, icon => icon.width ).width;
-    const maxIconHeight = _.maxBy( levelIcons, icon => icon.height ).height;
 
-    // Level-selection buttons, arranged in a row
-    const buttons = [];
+    // Description of LevelSelectionButtons
+    const levelSelectionButtonGroupItems = [];
     for ( let level = 0; level < model.numberOfLevels; level++ ) {
-      buttons.push( createLevelSelectionButton( level, model, levelIcons[ level ], maxIconWidth, maxIconHeight ) );
+      levelSelectionButtonGroupItems.push( {
+        icon: levelIcons[ level ],
+        scoreProperty: model.bestScoreProperties[ level ],
+        options: {
+          bestTimeProperty: model.bestTimeProperties[ level ],
+          createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
+            numberOfStars: model.getNumberOfChallenges( level ),
+            perfectScore: model.getPerfectScore( level )
+          } ),
+          listener: () => model.play( level ),
+          soundPlayerIndex: level
+        }
+      } );
     }
-    const buttonsParent = new HBox( {
-      children: buttons,
-      spacing: 40,
+
+    // Group of LevelSelectionButtons
+    const levelSelectionButtonGroup = new LevelSelectionButtonGroup( levelSelectionButtonGroupItems, {
+      levelSelectionButtonOptions: {
+        baseColor: 'rgb( 240, 255, 204 )',
+        xMargin: 15,
+        yMargin: 15,
+        buttonWidth: 150,
+        buttonHeight: 150,
+        bestTimeVisibleProperty: model.timerEnabledProperty
+      },
+      flowBoxOptions: {
+        spacing: 40
+      },
       center: layoutBounds.center
     } );
 
@@ -95,7 +118,7 @@ class SettingsNode extends Node {
     options.children = [
       // title and level-selection buttons, centered in space above visibility radio buttons
       new VBox( {
-        children: [ title, buttonsParent ],
+        children: [ title, levelSelectionButtonGroup ],
         align: 'center',
         spacing: 40,
         centerX: layoutBounds.centerX,
@@ -122,45 +145,11 @@ class SettingsNode extends Node {
   }
 }
 
-/**
- * Creates a level-selection button
- * @param {number} level
- * @param {GameModel} model
- * @param {Node} icon
- * @param {number} maxIconWidth
- * @param {number} maxIconHeight
- * @returns {Node}
- */
-function createLevelSelectionButton( level, model, icon, maxIconWidth, maxIconHeight ) {
-
-  // make all icons the same size
-  const rect = new Rectangle( 0, 0, maxIconWidth, maxIconHeight, { center: icon.center } );
-  const content = new Node( {
-    children: [ rect, icon ]
-  } );
-
-  return new LevelSelectionButton( content, model.bestScoreProperties[ level ], {
-    baseColor: 'rgb( 240, 255, 204 )',
-    xMargin: 15,
-    yMargin: 15,
-    buttonWidth: 150,
-    buttonHeight: 150,
-    bestTimeProperty: model.bestTimeProperties[ level ],
-    bestTimeVisibleProperty: model.timerEnabledProperty,
-    createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
-      numberOfStars: model.getNumberOfChallenges( level ),
-      perfectScore: model.getPerfectScore( level )
-    } ),
-    listener: () => model.play( level ),
-    soundPlayerIndex: level
-  } );
-}
-
 /*
  *  Level N
  *  leftNode -> rightNode
  */
-function createIcon( level, leftNode, rightNode ) {
+function createIcon( level, leftNode, rightNode, iconAlignGroup ) {
   const arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
   const iconNode = new HBox( {
     children: [ leftNode, arrowNode, rightNode ],
@@ -170,9 +159,12 @@ function createIcon( level, leftNode, rightNode ) {
     font: new PhetFont( 45 ),
     maxWidth: iconNode.width
   } );
-  return new VBox( {
+  const vBox = new VBox( {
     children: [ labelNode, iconNode ],
     spacing: 30
+  } );
+  return new AlignBox( vBox, {
+    group: iconAlignGroup
   } );
 }
 
@@ -180,33 +172,33 @@ function createIcon( level, leftNode, rightNode ) {
  *  Level 1
  *  ? -> HCl
  */
-function createLevelOneIcon() {
+function createLevelOneIcon( iconAlignGroup ) {
   const leftNode = new Text( reactantsProductsAndLeftoversStrings.questionMark, QUESTION_MARK_OPTIONS );
   const rightNode = new HClNode( RPALConstants.MOLECULE_OPTIONS );
   rightNode.setScaleMagnitude( MOLECULE_SCALE );
-  return createIcon( 1, leftNode, rightNode );
+  return createIcon( 1, leftNode, rightNode, iconAlignGroup );
 }
 
 /**
  *  Level 2
  *  H2O -> ?
  */
-function createLevelTwoIcon() {
+function createLevelTwoIcon( iconAlignGroup ) {
   const leftNode = new H2ONode( RPALConstants.MOLECULE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
   const rightNode = new Text( reactantsProductsAndLeftoversStrings.questionMark, QUESTION_MARK_OPTIONS );
-  return createIcon( 2, leftNode, rightNode );
+  return createIcon( 2, leftNode, rightNode, iconAlignGroup );
 }
 
 /**
  *  Level 3
  *  NH3 -> ??
  */
-function createLevelThreeIcon() {
+function createLevelThreeIcon( iconAlignGroup ) {
   const leftNode = new NH3Node( RPALConstants.MOLECULE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
   const rightNode = new Text( reactantsProductsAndLeftoversStrings.doubleQuestionMark, QUESTION_MARK_OPTIONS );
-  return createIcon( 3, leftNode, rightNode );
+  return createIcon( 3, leftNode, rightNode, iconAlignGroup );
 }
 
 reactantsProductsAndLeftovers.register( 'SettingsNode', SettingsNode );
