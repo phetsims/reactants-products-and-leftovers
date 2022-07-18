@@ -55,7 +55,7 @@ function createIcon( options ) {
   const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
   // H2O molecule, scaled to fit and centered on background
-  const moleculeNode = new H2ONode( { atomOptions: { stroke: 'black', lineWidth: options.moleculeLineWidth } } );
+  const moleculeNode = new H2ONode( { atomNodeOptions: { stroke: 'black', lineWidth: options.moleculeLineWidth } } );
   moleculeNode.setScaleMagnitude(
     Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
   moleculeNode.center = background.center;

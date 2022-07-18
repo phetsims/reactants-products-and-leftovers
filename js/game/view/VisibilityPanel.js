@@ -85,7 +85,7 @@ function createHideMoleculesNode() {
   const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
   const moleculeNode = new Node( {
     // wrap in a Node because H2ONode doesn't work with standard options
-    children: [ new H2ONode( RPALConstants.MOLECULE_OPTIONS ) ],
+    children: [ new H2ONode( RPALConstants.MOLECULE_NODE_OPTIONS ) ],
     scale: 0.4,
     left: eyeNode.right + 2,
     centerY: eyeNode.bottom

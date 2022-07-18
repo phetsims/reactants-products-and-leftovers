@@ -106,7 +106,7 @@ function createIcon( level, leftNode, rightNode, iconAlignGroup ) {
  */
 function createLevelOneIcon( iconAlignGroup ) {
   const leftNode = new Text( reactantsProductsAndLeftoversStrings.questionMark, QUESTION_MARK_OPTIONS );
-  const rightNode = new HClNode( RPALConstants.MOLECULE_OPTIONS );
+  const rightNode = new HClNode( RPALConstants.MOLECULE_NODE_OPTIONS );
   rightNode.setScaleMagnitude( MOLECULE_SCALE );
   return createIcon( 1, leftNode, rightNode, iconAlignGroup );
 }
@@ -116,7 +116,7 @@ function createLevelOneIcon( iconAlignGroup ) {
  *  H2O -> ?
  */
 function createLevelTwoIcon( iconAlignGroup ) {
-  const leftNode = new H2ONode( RPALConstants.MOLECULE_OPTIONS );
+  const leftNode = new H2ONode( RPALConstants.MOLECULE_NODE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
   const rightNode = new Text( reactantsProductsAndLeftoversStrings.questionMark, QUESTION_MARK_OPTIONS );
   return createIcon( 2, leftNode, rightNode, iconAlignGroup );
@@ -127,7 +127,7 @@ function createLevelTwoIcon( iconAlignGroup ) {
  *  NH3 -> ??
  */
 function createLevelThreeIcon( iconAlignGroup ) {
-  const leftNode = new NH3Node( RPALConstants.MOLECULE_OPTIONS );
+  const leftNode = new NH3Node( RPALConstants.MOLECULE_NODE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
   const rightNode = new Text( reactantsProductsAndLeftoversStrings.doubleQuestionMark, QUESTION_MARK_OPTIONS );
   return createIcon( 3, leftNode, rightNode, iconAlignGroup );
