@@ -10,8 +10,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Line } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Line, Node } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SubstanceIcon from './SubstanceIcon.js';
 
