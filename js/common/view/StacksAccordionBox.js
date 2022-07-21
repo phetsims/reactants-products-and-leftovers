@@ -1,4 +1,4 @@
-// Copyright 2014-2021, University of Colorado Boulder
+// Copyright 2014-2022, University of Colorado Boulder
 
 /**
  *  Accordion box that shows stacks of substances. Used in the 'Sandwiches' and 'Molecules' screens.
