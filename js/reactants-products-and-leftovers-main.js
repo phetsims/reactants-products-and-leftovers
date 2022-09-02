@@ -29,6 +29,6 @@ simLauncher.launch( () => {
     new MoleculesScreen(),
     new GameScreen()
   ];
-  const sim = new Sim( reactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].title, screens, options );
+  const sim = new Sim( reactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].titleStringProperty, screens, options );
   sim.start();
 } );
