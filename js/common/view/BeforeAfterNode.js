@@ -16,7 +16,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import RPALColors from '../RPALColors.js';
 import RPALConstants from '../RPALConstants.js';
 import QuantitiesNode from './QuantitiesNode.js';
@@ -39,8 +39,8 @@ class BeforeAfterNode extends Node {
       contentSize: new Dimension2( 100, 100 ), // {Dimension2} size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
       showSymbols: true, // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
-      beforeTitle: reactantsProductsAndLeftoversStrings.beforeReaction,  // {string} title on the 'Before' box
-      afterTitle: reactantsProductsAndLeftoversStrings.afterReaction, // {string} title on the 'After' box
+      beforeTitle: ReactantsProductsAndLeftoversStrings.beforeReaction,  // {string} title on the 'Before' box
+      afterTitle: ReactantsProductsAndLeftoversStrings.afterReaction, // {string} title on the 'After' box
       boxYMargin: 6, // {number} vertical margin between the inner edge of box and the tallest node
       minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
     }, options );

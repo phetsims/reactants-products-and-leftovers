@@ -22,7 +22,7 @@ import RPALConstants from '../../common/RPALConstants.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
 import SubstanceIcon from '../../common/view/SubstanceIcon.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
 
 // constants
@@ -109,7 +109,7 @@ class SandwichesEquationNode extends Node {
     this.iconNodes.push( sandwichNode );
 
     // 'No Reaction', max width determined empirically.
-    const noReactionNode = new MultiLineText( reactantsProductsAndLeftoversStrings.noReaction, { font: new PhetFont( 16 ), fill: 'white' } );
+    const noReactionNode = new MultiLineText( ReactantsProductsAndLeftoversStrings.noReaction, { font: new PhetFont( 16 ), fill: 'white' } );
     noReactionNode.setScaleMagnitude( Math.min( 1, 75 / noReactionNode.width ) );
     noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
     noReactionNode.centerY = arrowNode.centerY;

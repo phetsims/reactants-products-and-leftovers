@@ -12,7 +12,7 @@ import RPALConstants from '../../common/RPALConstants.js';
 import BeforeAfterNode from '../../common/view/BeforeAfterNode.js';
 import RPALScreenView from '../../common/view/RPALScreenView.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichesEquationNode from './SandwichesEquationNode.js';
 import SandwichNode from './SandwichNode.js';
 
@@ -51,8 +51,8 @@ class SandwichesScreenView extends RPALScreenView {
           merge( {}, options, {
             contentSize: RPALConstants.SANDWICHES_BEFORE_AFTER_BOX_SIZE,
             showSymbols: false,
-            beforeTitle: reactantsProductsAndLeftoversStrings.beforeSandwich,
-            afterTitle: reactantsProductsAndLeftoversStrings.afterSandwich,
+            beforeTitle: ReactantsProductsAndLeftoversStrings.beforeSandwich,
+            afterTitle: ReactantsProductsAndLeftoversStrings.afterSandwich,
             minIconSize: maxSandwichSize,
             boxYMargin: 8 // large enough to accommodate biggest sandwich
           } ) );

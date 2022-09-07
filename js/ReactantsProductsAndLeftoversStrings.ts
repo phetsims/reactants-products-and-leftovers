@@ -65,8 +65,8 @@ type StringsType = {
   'doubleQuestionMarkStringProperty': TReadOnlyProperty<string>;
 };
 
-const reactantsProductsAndLeftoversStrings = getStringModule( 'REACTANTS_PRODUCTS_AND_LEFTOVERS' ) as StringsType;
+const ReactantsProductsAndLeftoversStrings = getStringModule( 'REACTANTS_PRODUCTS_AND_LEFTOVERS' ) as StringsType;
 
-reactantsProductsAndLeftovers.register( 'reactantsProductsAndLeftoversStrings', reactantsProductsAndLeftoversStrings );
+reactantsProductsAndLeftovers.register( 'ReactantsProductsAndLeftoversStrings', ReactantsProductsAndLeftoversStrings );
 
-export default reactantsProductsAndLeftoversStrings;
+export default ReactantsProductsAndLeftoversStrings;

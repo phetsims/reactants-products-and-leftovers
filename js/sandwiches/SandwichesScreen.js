@@ -14,7 +14,7 @@ import sandwichesHomeScreenIcon_png from '../../images/sandwichesHomeScreenIcon_
 import sandwichesNavbarIcon_png from '../../images/sandwichesNavbarIcon_png.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftoversStrings.js';
 import SandwichesModel from './model/SandwichesModel.js';
 import SandwichesScreenView from './view/SandwichesScreenView.js';
 
@@ -23,7 +23,7 @@ class SandwichesScreen extends Screen {
   constructor() {
 
     const options = {
-      name: reactantsProductsAndLeftoversStrings.screen.sandwiches,
+      name: ReactantsProductsAndLeftoversStrings.screen.sandwiches,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: new ScreenIcon( new Image( sandwichesHomeScreenIcon_png ), {
         maxIconWidthProportion: 1,

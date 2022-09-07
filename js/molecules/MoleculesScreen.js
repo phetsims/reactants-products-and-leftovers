@@ -14,7 +14,7 @@ import merge from '../../../phet-core/js/merge.js';
 import { Node, Rectangle } from '../../../scenery/js/imports.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftoversStrings.js';
 import MoleculesModel from './model/MoleculesModel.js';
 import MoleculesScreenView from './view/MoleculesScreenView.js';
 
@@ -23,7 +23,7 @@ class MoleculesScreen extends Screen {
   constructor() {
 
     const options = {
-      name: reactantsProductsAndLeftoversStrings.screen.molecules,
+      name: ReactantsProductsAndLeftoversStrings.screen.molecules,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
       navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } )

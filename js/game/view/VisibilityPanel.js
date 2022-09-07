@@ -17,7 +17,7 @@ import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
 import Panel from '../../../../sun/js/Panel.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import GameVisibility from '../model/GameVisibility.js';
 
 // constants
@@ -69,7 +69,7 @@ class VisibilityPanel extends Panel {
  */
 function createShowAllNode() {
   const eyeNode = new Path( eyeSolidShape, FONT_AWESOME_OPTIONS );
-  const textNode = new Text( reactantsProductsAndLeftoversStrings.showAll, TEXT_OPTIONS );
+  const textNode = new Text( ReactantsProductsAndLeftoversStrings.showAll, TEXT_OPTIONS );
   return new HBox( {
     children: [ eyeNode, textNode ],
     spacing: 12
@@ -90,7 +90,7 @@ function createHideMoleculesNode() {
     left: eyeNode.right + 2,
     centerY: eyeNode.bottom
   } );
-  const textNode = new Text( reactantsProductsAndLeftoversStrings.hideMolecules, TEXT_OPTIONS );
+  const textNode = new Text( ReactantsProductsAndLeftoversStrings.hideMolecules, TEXT_OPTIONS );
   return new HBox( {
     children: [ new Node( { children: [ eyeNode, moleculeNode ] } ), textNode ],
     spacing: 7
@@ -109,7 +109,7 @@ function createHideNumbersNode() {
     left: eyeNode.right + 2,
     centerY: eyeNode.bottom
   } );
-  const textNode = new Text( reactantsProductsAndLeftoversStrings.hideNumbers, TEXT_OPTIONS );
+  const textNode = new Text( ReactantsProductsAndLeftoversStrings.hideNumbers, TEXT_OPTIONS );
   return new HBox( {
     children: [ new Node( { children: [ eyeNode, numbersNode ] } ), textNode ],
     spacing: 5

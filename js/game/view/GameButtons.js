@@ -11,15 +11,15 @@
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
-import vegasStrings from '../../../../vegas/js/vegasStrings.js';
+import VegasStrings from '../../../../vegas/js/VegasStrings.js';
 import RPALColors from '../../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import PlayState from '../model/PlayState.js';
 
-const checkString = vegasStrings.check;
-const nextString = vegasStrings.next;
-const showAnswerString = vegasStrings.showAnswer;
-const tryAgainString = vegasStrings.tryAgain;
+const checkString = VegasStrings.check;
+const nextString = VegasStrings.next;
+const showAnswerString = VegasStrings.showAnswer;
+const tryAgainString = VegasStrings.tryAgain;
 
 // constants
 const BUTTON_OPTIONS = {

@@ -10,7 +10,7 @@ import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import GameScreen from './game/GameScreen.js';
 import MoleculesScreen from './molecules/MoleculesScreen.js';
-import reactantsProductsAndLeftoversStrings from './reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from './ReactantsProductsAndLeftoversStrings.js';
 import SandwichesScreen from './sandwiches/SandwichesScreen.js';
 
 const options = {
@@ -29,6 +29,6 @@ simLauncher.launch( () => {
     new MoleculesScreen(),
     new GameScreen()
   ];
-  const sim = new Sim( reactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].titleStringProperty, screens, options );
+  const sim = new Sim( ReactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].titleStringProperty, screens, options );
   sim.start();
 } );

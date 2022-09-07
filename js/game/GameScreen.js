@@ -14,7 +14,7 @@ import FaceNode from '../../../scenery-phet/js/FaceNode.js';
 import { HBox, Node, Path, Rectangle, VBox } from '../../../scenery/js/imports.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftoversStrings.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
 
@@ -23,7 +23,7 @@ class GameScreen extends Screen {
   constructor() {
 
     const options = {
-      name: reactantsProductsAndLeftoversStrings.screen.game,
+      name: ReactantsProductsAndLeftoversStrings.screen.game,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon()
     };

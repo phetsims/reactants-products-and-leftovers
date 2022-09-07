@@ -16,7 +16,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, RichText, Text } from '../../../../scenery/js/imports.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import BoxType from '../model/BoxType.js';
 import RPALColors from '../RPALColors.js';
 import RPALConstants from '../RPALConstants.js';
@@ -228,7 +228,7 @@ class QuantitiesNode extends Node {
     }
 
     // 'Reactants' bracket
-    const reactantsLabel = new Text( reactantsProductsAndLeftoversStrings.reactants, BRACKET_LABEL_OPTIONS );
+    const reactantsLabel = new Text( ReactantsProductsAndLeftoversStrings.reactants, BRACKET_LABEL_OPTIONS );
     const reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
@@ -239,7 +239,7 @@ class QuantitiesNode extends Node {
     this.addChild( reactantsBracket );
 
     // 'Products' bracket
-    const productsLabel = new Text( reactantsProductsAndLeftoversStrings.products, BRACKET_LABEL_OPTIONS );
+    const productsLabel = new Text( ReactantsProductsAndLeftoversStrings.products, BRACKET_LABEL_OPTIONS );
     const productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
@@ -250,7 +250,7 @@ class QuantitiesNode extends Node {
     this.addChild( productsBracket );
 
     // 'Leftovers' bracket
-    const leftoversLabel = new Text( reactantsProductsAndLeftoversStrings.leftovers, BRACKET_LABEL_OPTIONS );
+    const leftoversLabel = new Text( ReactantsProductsAndLeftoversStrings.leftovers, BRACKET_LABEL_OPTIONS );
     const leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,

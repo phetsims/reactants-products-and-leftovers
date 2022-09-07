@@ -46,7 +46,7 @@ import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import RPALConstants from '../RPALConstants.js';
 import RPALSymbols from '../RPALSymbols.js';
 import Reaction from './Reaction.js';
@@ -79,7 +79,7 @@ const ReactionFactory = {
       [ new Substance( 2, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
       [ new Substance( 2, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
-      { name: reactantsProductsAndLeftoversStrings.makeWater } );
+      { name: ReactantsProductsAndLeftoversStrings.makeWater } );
   },
 
   // N2 + 3H2 -> 2NH3 (Make Ammonia)
@@ -88,7 +88,7 @@ const ReactionFactory = {
       [ new Substance( 1, RPALSymbols.N2, new N2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
       [ new Substance( 2, RPALSymbols.NH3, new NH3Node( MOLECULE_NODE_OPTIONS ) ) ],
-      { name: reactantsProductsAndLeftoversStrings.makeAmmonia } );
+      { name: ReactantsProductsAndLeftoversStrings.makeAmmonia } );
   },
 
   // H2 + F2 -> 2HF
@@ -254,7 +254,7 @@ const ReactionFactory = {
         new Substance( 2, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
       [ new Substance( 1, RPALSymbols.CO2, new CO2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
-      { name: reactantsProductsAndLeftoversStrings.combustMethane } );
+      { name: ReactantsProductsAndLeftoversStrings.combustMethane } );
   },
 
   // 2C + 2H2O -> CH4 + CO2

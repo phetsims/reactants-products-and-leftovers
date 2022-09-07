@@ -15,7 +15,7 @@ import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import ChallengeFactory from '../model/ChallengeFactory.js';
 import RPALLevelSelectionButtonGroup from './RPALLevelSelectionButtonGroup.js';
 import VisibilityPanel from './VisibilityPanel.js';
@@ -36,7 +36,7 @@ class SettingsNode extends Node {
     options = options || {};
 
     // Title
-    const title = new Text( reactantsProductsAndLeftoversStrings.chooseYourLevel, {
+    const title = new Text( ReactantsProductsAndLeftoversStrings.chooseYourLevel, {
       font: new PhetFont( 40 ),
       maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
     } );

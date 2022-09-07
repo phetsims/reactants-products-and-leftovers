@@ -23,7 +23,7 @@ import QuantitiesNode from '../../common/view/QuantitiesNode.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import reactantsProductsAndLeftoversStrings from '../../reactantsProductsAndLeftoversStrings.js';
+import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import PlayState from '../model/PlayState.js';
 import GameButtons from './GameButtons.js';
 import RandomBox from './RandomBox.js';
@@ -148,7 +148,7 @@ class ChallengeNode extends Node {
     // Question mark
     //------------------------------------------------------------------------------------
 
-    const questionMark = new Text( reactantsProductsAndLeftoversStrings.questionMark, {
+    const questionMark = new Text( ReactantsProductsAndLeftoversStrings.questionMark, {
       font: new PhetFont( { size: 150, weight: 'bold' } ),
       maxWidth: 0.75 * options.boxSize.width // constrain width for i18n
     } );
