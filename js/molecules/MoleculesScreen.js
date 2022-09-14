@@ -23,7 +23,7 @@ class MoleculesScreen extends Screen {
   constructor() {
 
     const options = {
-      name: ReactantsProductsAndLeftoversStrings.screen.molecules,
+      name: ReactantsProductsAndLeftoversStrings.screen.moleculesStringProperty,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
       navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } )

@@ -23,7 +23,7 @@ class SandwichesScreen extends Screen {
   constructor() {
 
     const options = {
-      name: ReactantsProductsAndLeftoversStrings.screen.sandwiches,
+      name: ReactantsProductsAndLeftoversStrings.screen.sandwichesStringProperty,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: new ScreenIcon( new Image( sandwichesHomeScreenIcon_png ), {
         maxIconWidthProportion: 1,

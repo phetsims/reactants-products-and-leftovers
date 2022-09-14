@@ -23,7 +23,7 @@ class GameScreen extends Screen {
   constructor() {
 
     const options = {
-      name: ReactantsProductsAndLeftoversStrings.screen.game,
+      name: ReactantsProductsAndLeftoversStrings.screen.gameStringProperty,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon()
     };
