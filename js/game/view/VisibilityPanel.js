@@ -44,9 +44,9 @@ class VisibilityPanel extends Panel {
     }, options );
 
     const radioButtonItems = [
-      { value: GameVisibility.SHOW_ALL, node: createShowAllNode() },
-      { value: GameVisibility.HIDE_MOLECULES, node: createHideMoleculesNode() },
-      { value: GameVisibility.HIDE_NUMBERS, node: createHideNumbersNode() }
+      { value: GameVisibility.SHOW_ALL, createNode: tandem => createShowAllNode() },
+      { value: GameVisibility.HIDE_MOLECULES, createNode: tandem => createHideMoleculesNode() },
+      { value: GameVisibility.HIDE_NUMBERS, createNode: tandem => createHideNumbersNode() }
     ];
 
     const radioButtonGroup = new AquaRadioButtonGroup( gameVisibilityProperty, radioButtonItems, {
