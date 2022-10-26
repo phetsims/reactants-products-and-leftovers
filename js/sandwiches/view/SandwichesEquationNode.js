@@ -12,11 +12,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import MultiLineText from '../../../../scenery-phet/js/MultiLineText.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
-import { Node, Text } from '../../../../scenery/js/imports.js';
+import { Node, RichText, Text } from '../../../../scenery/js/imports.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
@@ -109,10 +110,19 @@ class SandwichesEquationNode extends Node {
     this.iconNodes.push( sandwichNode );
 
     // 'No Reaction', max width determined empirically.
-    const noReactionNode = new MultiLineText( ReactantsProductsAndLeftoversStrings.noReaction, { font: new PhetFont( 16 ), fill: 'white' } );
-    noReactionNode.setScaleMagnitude( Math.min( 1, 75 / noReactionNode.width ) );
-    noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
-    noReactionNode.centerY = arrowNode.centerY;
+    const noReactionStringProperty = new DerivedProperty( [ ReactantsProductsAndLeftoversStrings.noReactionStringProperty ],
+      noReactionString => MultiLineText.replaceNewlines( noReactionString )
+    );
+    const noReactionNode = new RichText( noReactionStringProperty, {
+      align: 'center',
+      font: new PhetFont( 16 ),
+      fill: 'white',
+      maxWidth: 85
+    } );
+    noReactionNode.boundsProperty.link( bounds => {
+      noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
+      noReactionNode.centerY = arrowNode.centerY;
+    } );
 
     // Display 'No Reaction' if we don't have a valid sandwich.
     this.sandwichIconPropertyObserver = node => {
