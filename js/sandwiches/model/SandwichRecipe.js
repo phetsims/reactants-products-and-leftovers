@@ -27,13 +27,13 @@ const NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
 class SandwichRecipe extends Reaction {
 
   /**
-   * @param {string} name
+   * @param {TReadOnlyProperty.<string>} nameProperty
    * @param {number} breadCount
    * @param {number} meatCount
    * @param {number} cheeseCount
    * @param {Object} [options]
    */
-  constructor( name, breadCount, meatCount, cheeseCount, options ) {
+  constructor( nameProperty, breadCount, meatCount, cheeseCount, options ) {
 
     assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
 
@@ -54,7 +54,7 @@ class SandwichRecipe extends Reaction {
     const sandwich = new Substance( 1, 'sandwich',
       options.coefficientsMutable ? NO_SANDWICH_NODE : new SandwichNode( breadCount, meatCount, cheeseCount ) );
 
-    super( ingredients, [ sandwich ], { name: name } );
+    super( ingredients, [ sandwich ], { nameProperty: nameProperty } );
 
     if ( options.coefficientsMutable ) {
 

@@ -79,7 +79,7 @@ const ReactionFactory = {
       [ new Substance( 2, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
       [ new Substance( 2, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
-      { name: ReactantsProductsAndLeftoversStrings.makeWater } );
+      { nameProperty: ReactantsProductsAndLeftoversStrings.makeWaterStringProperty } );
   },
 
   // N2 + 3H2 -> 2NH3 (Make Ammonia)
@@ -88,7 +88,7 @@ const ReactionFactory = {
       [ new Substance( 1, RPALSymbols.N2, new N2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
       [ new Substance( 2, RPALSymbols.NH3, new NH3Node( MOLECULE_NODE_OPTIONS ) ) ],
-      { name: ReactantsProductsAndLeftoversStrings.makeAmmonia } );
+      { nameProperty: ReactantsProductsAndLeftoversStrings.makeAmmoniaStringProperty } );
   },
 
   // H2 + F2 -> 2HF
@@ -254,7 +254,7 @@ const ReactionFactory = {
         new Substance( 2, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
       [ new Substance( 1, RPALSymbols.CO2, new CO2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
-      { name: ReactantsProductsAndLeftoversStrings.combustMethane } );
+      { nameProperty: ReactantsProductsAndLeftoversStrings.combustMethaneStringProperty } );
   },
 
   // 2C + 2H2O -> CH4 + CO2

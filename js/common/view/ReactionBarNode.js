@@ -44,8 +44,10 @@ class ReactionBarNode extends Node {
     } );
 
     // radio buttons at right, vertically centered
-    radioButtonGroup.right = options.screenWidth - options.xMargin;
-    radioButtonGroup.centerY = backgroundNode.centerY;
+    radioButtonGroup.boundsProperty.link( bounds => {
+      radioButtonGroup.right = options.screenWidth - options.xMargin;
+      radioButtonGroup.centerY = backgroundNode.centerY;
+    } );
 
     options.children = [ backgroundNode, radioButtonGroup ];
     super( options );

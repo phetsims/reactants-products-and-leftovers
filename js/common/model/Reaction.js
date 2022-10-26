@@ -26,11 +26,11 @@ class Reaction {
     assert && assert( products.length > 0, 'a reaction requires at least 1 product' );
 
     options = merge( {
-      name: null // {string|null} optional name, suitable for display to the user
+      nameProperty: null // {TReadOnlyProperty.<string>|null} optional name, suitable for display to the user
     }, options );
 
     // @public
-    this.name = options.name;
+    this.nameProperty = options.nameProperty;
     this.reactants = reactants;
     this.products = products;
 
