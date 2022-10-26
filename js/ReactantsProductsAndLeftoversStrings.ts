@@ -10,58 +10,33 @@ import reactantsProductsAndLeftovers from './reactantsProductsAndLeftovers.js';
 
 type StringsType = {
   'reactants-products-and-leftovers': {
-    'title': string;
     'titleStringProperty': LinkableProperty<string>;
   };
   'screen': {
-    'sandwiches': string;
     'sandwichesStringProperty': LinkableProperty<string>;
-    'molecules': string;
     'moleculesStringProperty': LinkableProperty<string>;
-    'game': string;
     'gameStringProperty': LinkableProperty<string>;
   };
-  'reactants': string;
   'reactantsStringProperty': LinkableProperty<string>;
-  'products': string;
   'productsStringProperty': LinkableProperty<string>;
-  'leftovers': string;
   'leftoversStringProperty': LinkableProperty<string>;
-  'showAll': string;
   'showAllStringProperty': LinkableProperty<string>;
-  'hideMolecules': string;
   'hideMoleculesStringProperty': LinkableProperty<string>;
-  'hideNumbers': string;
   'hideNumbersStringProperty': LinkableProperty<string>;
-  'cheese': string;
   'cheeseStringProperty': LinkableProperty<string>;
-  'meatAndCheese': string;
   'meatAndCheeseStringProperty': LinkableProperty<string>;
-  'custom': string;
   'customStringProperty': LinkableProperty<string>;
-  'makeWater': string;
   'makeWaterStringProperty': LinkableProperty<string>;
-  'makeAmmonia': string;
   'makeAmmoniaStringProperty': LinkableProperty<string>;
-  'combustMethane': string;
   'combustMethaneStringProperty': LinkableProperty<string>;
-  'beforeReaction': string;
   'beforeReactionStringProperty': LinkableProperty<string>;
-  'afterReaction': string;
   'afterReactionStringProperty': LinkableProperty<string>;
-  'beforeSandwich': string;
   'beforeSandwichStringProperty': LinkableProperty<string>;
-  'afterSandwich': string;
   'afterSandwichStringProperty': LinkableProperty<string>;
-  'noReaction': string;
   'noReactionStringProperty': LinkableProperty<string>;
-  'chooseYourLevel': string;
   'chooseYourLevelStringProperty': LinkableProperty<string>;
-  'pattern_Level_0': string;
   'pattern_Level_0StringProperty': LinkableProperty<string>;
-  'questionMark': string;
   'questionMarkStringProperty': LinkableProperty<string>;
-  'doubleQuestionMark': string;
   'doubleQuestionMarkStringProperty': LinkableProperty<string>;
 };
 
