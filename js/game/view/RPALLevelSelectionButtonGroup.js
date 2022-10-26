@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import HClNode from '../../../../nitroglycerin/js/nodes/HClNode.js';
 import NH3Node from '../../../../nitroglycerin/js/nodes/NH3Node.js';
@@ -90,7 +91,11 @@ function createIcon( level, leftNode, rightNode, iconAlignGroup ) {
   } ), {
     group: iconAlignGroup
   } );
-  const labelNode = new Text( StringUtils.format( ReactantsProductsAndLeftoversStrings.pattern_Level_0, level ), {
+  const labelStringProperty = new DerivedProperty(
+    [ ReactantsProductsAndLeftoversStrings.pattern_Level_0StringProperty ],
+    pattern => StringUtils.format( pattern, level )
+  );
+  const labelNode = new Text( labelStringProperty, {
     font: new PhetFont( 45 ),
     maxWidth: iconNode.width
   } );
