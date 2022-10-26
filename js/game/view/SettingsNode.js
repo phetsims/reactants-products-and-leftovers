@@ -36,7 +36,7 @@ class SettingsNode extends Node {
     options = options || {};
 
     // Title
-    const title = new Text( ReactantsProductsAndLeftoversStrings.chooseYourLevel, {
+    const title = new Text( ReactantsProductsAndLeftoversStrings.chooseYourLevelStringProperty, {
       font: new PhetFont( 40 ),
       maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
     } );
@@ -55,9 +55,11 @@ class SettingsNode extends Node {
 
     // Panel with visibility radio buttons, at bottom center
     const visibilityPanel = new VisibilityPanel( model.gameVisibiltyProperty, {
-      centerX: layoutBounds.centerX,
-      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN,
       maxWidth: 0.65 * layoutBounds.width // constrain width for i18n
+    } );
+    visibilityPanel.boundsProperty.link( bounds => {
+      visibilityPanel.centerX = layoutBounds.centerX;
+      visibilityPanel.bottom = layoutBounds.bottom - SCREEN_Y_MARGIN;
     } );
 
     // Reset All button, at bottom right

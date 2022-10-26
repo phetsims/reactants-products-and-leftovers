@@ -228,7 +228,7 @@ class QuantitiesNode extends Node {
     }
 
     // 'Reactants' bracket
-    const reactantsLabel = new Text( ReactantsProductsAndLeftoversStrings.reactants, BRACKET_LABEL_OPTIONS );
+    const reactantsLabel = new Text( ReactantsProductsAndLeftoversStrings.reactantsStringProperty, BRACKET_LABEL_OPTIONS );
     const reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
@@ -239,7 +239,7 @@ class QuantitiesNode extends Node {
     this.addChild( reactantsBracket );
 
     // 'Products' bracket
-    const productsLabel = new Text( ReactantsProductsAndLeftoversStrings.products, BRACKET_LABEL_OPTIONS );
+    const productsLabel = new Text( ReactantsProductsAndLeftoversStrings.productsStringProperty, BRACKET_LABEL_OPTIONS );
     const productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
@@ -250,7 +250,7 @@ class QuantitiesNode extends Node {
     this.addChild( productsBracket );
 
     // 'Leftovers' bracket
-    const leftoversLabel = new Text( ReactantsProductsAndLeftoversStrings.leftovers, BRACKET_LABEL_OPTIONS );
+    const leftoversLabel = new Text( ReactantsProductsAndLeftoversStrings.leftoversStringProperty, BRACKET_LABEL_OPTIONS );
     const leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,

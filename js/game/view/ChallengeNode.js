@@ -148,7 +148,7 @@ class ChallengeNode extends Node {
     // Question mark
     //------------------------------------------------------------------------------------
 
-    const questionMark = new Text( ReactantsProductsAndLeftoversStrings.questionMark, {
+    const questionMark = new Text( ReactantsProductsAndLeftoversStrings.questionMarkStringProperty, {
       font: new PhetFont( { size: 150, weight: 'bold' } ),
       maxWidth: 0.75 * options.boxSize.width // constrain width for i18n
     } );
