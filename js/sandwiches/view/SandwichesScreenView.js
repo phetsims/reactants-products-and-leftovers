@@ -51,8 +51,8 @@ class SandwichesScreenView extends RPALScreenView {
           merge( {}, options, {
             contentSize: RPALConstants.SANDWICHES_BEFORE_AFTER_BOX_SIZE,
             showSymbols: false,
-            beforeTitle: ReactantsProductsAndLeftoversStrings.beforeSandwich,
-            afterTitle: ReactantsProductsAndLeftoversStrings.afterSandwich,
+            beforeTitleProperty: ReactantsProductsAndLeftoversStrings.beforeSandwichStringProperty,
+            afterTitleProperty: ReactantsProductsAndLeftoversStrings.afterSandwichStringProperty,
             minIconSize: maxSandwichSize,
             boxYMargin: 8 // large enough to accommodate biggest sandwich
           } ) );
