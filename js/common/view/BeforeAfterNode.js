@@ -39,8 +39,8 @@ class BeforeAfterNode extends Node {
       contentSize: new Dimension2( 100, 100 ), // {Dimension2} size of the 'Before' and 'After' boxes
       quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
       showSymbols: true, // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
-      beforeTitle: ReactantsProductsAndLeftoversStrings.beforeReaction,  // {string} title on the 'Before' box
-      afterTitle: ReactantsProductsAndLeftoversStrings.afterReaction, // {string} title on the 'After' box
+      beforeTitleProperty: ReactantsProductsAndLeftoversStrings.beforeReactionStringProperty,  // {string} title on the 'Before' box
+      afterTitleProperty: ReactantsProductsAndLeftoversStrings.afterReactionStringProperty, // {string} title on the 'After' box
       boxYMargin: 6, // {number} vertical margin between the inner edge of box and the tallest node
       minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
     }, options );
@@ -59,14 +59,14 @@ class BeforeAfterNode extends Node {
     // @private 'Before Reaction' box, with stacks of reactants
     this.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, merge( {
       expandedProperty: beforeExpandedProperty,
-      titleNode: new Text( options.beforeTitle, TITLE_OPTIONS ),
+      titleNode: new Text( options.beforeTitleProperty, TITLE_OPTIONS ),
       maxQuantity: options.quantityRange.max
     }, options ) );
 
     // @private 'After Reaction' box, with stacks of products and leftovers
     this.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, merge( {
       expandedProperty: afterExpandedProperty,
-      titleNode: new Text( options.afterTitle, TITLE_OPTIONS ),
+      titleNode: new Text( options.afterTitleProperty, TITLE_OPTIONS ),
       maxQuantity: options.quantityRange.max
     }, options ) );
 
