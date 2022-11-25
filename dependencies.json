@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "8850806b0c412dc8e1467013b482c3b7d41b3bfb",
+    "sha": "727d05e178f99c2bde0b837a4a81c9b73c92c444",
     "branch": "1.2"
   },
   "scenery": {
@@ -65,7 +65,7 @@
     "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "b39696ef145d23670d80596c95068d41d71222ee",
+    "sha": "989da5cbb652256960d32b4de4a81b1cfa1cfa33",
     "branch": "HEAD"
   },
   "sherpa": {
