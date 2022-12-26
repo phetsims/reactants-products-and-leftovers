@@ -7,7 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -38,7 +38,7 @@ class GameModel {
 
     // @public
     this.timerEnabledProperty = new BooleanProperty( false ); // {boolean} is the timer turned on?
-    this.gameVisibiltyProperty = new EnumerationDeprecatedProperty( GameVisibility, GameVisibility.SHOW_ALL );
+    this.gameVisibiltyProperty = new EnumerationProperty( GameVisibility.SHOW_ALL );
 
     // @public (read-only)
     this.levelProperty = new NumberProperty( 0 ); // {number} the current level, starts at 0 in the model, presented as starting from 1 in the view
@@ -46,8 +46,8 @@ class GameModel {
     this.numberOfChallengesProperty = new NumberProperty( 0 ); // {number} the number of challenges in the current game being played
     this.challengeProperty = new Property( null ); // {Challenge} the current challenge being played
     this.challengeIndexProperty = new NumberProperty( -1 ); // {number} the index of the current challenge, -1 indicates no challenge
-    this.gamePhaseProperty = new EnumerationDeprecatedProperty( GamePhase, GamePhase.SETTINGS ); // the current 'phase' of the game
-    this.playStateProperty = new EnumerationDeprecatedProperty( PlayState, PlayState.NONE ); // the current 'play state' of the game
+    this.gamePhaseProperty = new EnumerationProperty( GamePhase.SETTINGS ); // the current 'phase' of the game
+    this.playStateProperty = new EnumerationProperty( PlayState.NONE ); // the current 'play state' of the game
 
     // These fields are @public (read-only), they should not be changed once the model is instantiated.
     this.numberOfLevels = options.numberOfLevels;

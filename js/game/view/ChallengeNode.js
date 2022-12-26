@@ -312,7 +312,7 @@ class ChallengeNode extends Node {
 
   /**
    * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
-   * @param {EnumerationDeprecatedProperty.<PlayState>} playStateProperty
+   * @param {EnumerationProperty.<PlayState>} playStateProperty
    * @public
    */
   activate( playStateProperty ) {

@@ -30,7 +30,7 @@ const FONT_AWESOME_OPTIONS = {
 class VisibilityPanel extends Panel {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<GameVisibility>} gameVisibilityProperty
+   * @param {EnumerationProperty.<GameVisibility>} gameVisibilityProperty
    * @param {Object} [options]
    */
   constructor( gameVisibilityProperty, options ) {

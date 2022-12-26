@@ -1,21 +1,22 @@
 // Copyright 2014-2022, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Phases of a game, mutually exclusive
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-const GamePhase = EnumerationDeprecated.byKeys( [
-  'SETTINGS', // user is choosing game settings (level, timer, ...)
-  'PLAY',     // user is playing the game
-  'RESULTS'   // user is viewing results at end of a game
-] );
+export default class GamePhase extends EnumerationValue {
+
+  public static readonly SETTINGS = new GamePhase(); // user is choosing game settings (level, timer, ...)
+  public static readonly PLAY = new GamePhase(); // user is playing the game
+  public static readonly RESULTS = new GamePhase(); // user is viewing results at end of a game
+
+  public static readonly enumeration = new Enumeration( GamePhase );
+}
 
 reactantsProductsAndLeftovers.register( 'GamePhase', GamePhase );
-
-export default GamePhase;
