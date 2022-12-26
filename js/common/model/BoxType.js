@@ -1,5 +1,6 @@
 // Copyright 2014-2022, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Enum for the 2 boxes that represent the 2 states of a reaction.
  *

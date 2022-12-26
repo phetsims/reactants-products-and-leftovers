@@ -1,5 +1,6 @@
 // Copyright 2020-2022, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Enumeration that describes the visibility choices for the Game.
  * The inverted logic of "Hide" vs "Show" isn't great, but it matches the UI and prevents us from having to use
