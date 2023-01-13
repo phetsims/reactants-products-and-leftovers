@@ -36,7 +36,7 @@ class ReactionRadioButtonGroup extends AquaRadioButtonGroup {
     const items = [];
     choices.forEach( choice => {
       items.push( {
-        createNode: tandem => new Text( choice.nameProperty, TEXT_OPTIONS ),
+        createNode: () => new Text( choice.nameProperty, TEXT_OPTIONS ),
         value: choice
       } );
     } );
