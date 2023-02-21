@@ -23,7 +23,7 @@ import PlayState from './PlayState.js';
 const POINTS_FIRST_CHECK = 2;
 const POINTS_SECOND_CHECK = 1;
 
-class GameModel {
+export default class GameModel {
 
   /**
    * @param {Object} [options]
@@ -251,4 +251,3 @@ class GameModel {
 }
 
 reactantsProductsAndLeftovers.register( 'GameModel', GameModel );
-export default GameModel;

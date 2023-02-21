@@ -13,7 +13,7 @@ import { Node, Path, Rectangle } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class HideBox extends Node {
+export default class HideBox extends Node {
 
   /**
    * @param {Object} [options]
@@ -46,4 +46,3 @@ class HideBox extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'HideBox', HideBox );
-export default HideBox;

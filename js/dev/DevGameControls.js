@@ -19,7 +19,7 @@ const BUTTON_OPTIONS = {
   textFill: 'white'
 };
 
-class DevGameControls extends HBox {
+export default class DevGameControls extends HBox {
 
   /**
    * @param {GameModel} model
@@ -45,4 +45,3 @@ class DevGameControls extends HBox {
 }
 
 reactantsProductsAndLeftovers.register( 'DevGameControls', DevGameControls );
-export default DevGameControls;

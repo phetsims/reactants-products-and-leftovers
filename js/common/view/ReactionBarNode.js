@@ -14,7 +14,7 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import RPALColors from '../RPALColors.js';
 import ReactionRadioButtonGroup from './ReactionRadioButtonGroup.js';
 
-class ReactionBarNode extends Node {
+export default class ReactionBarNode extends Node {
 
   /**
    * @param {Property.<Reaction>} reactionProperty the selected reaction
@@ -94,4 +94,3 @@ class ReactionBarNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'ReactionBarNode', ReactionBarNode );
-export default ReactionBarNode;

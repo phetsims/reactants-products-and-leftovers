@@ -13,7 +13,7 @@ import DevStringUtils from '../../dev/DevStringUtils.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Substance from './Substance.js';
 
-class Reaction {
+export default class Reaction {
 
   /**
    * @param {Substance[]} reactants
@@ -114,4 +114,3 @@ class Reaction {
 }
 
 reactantsProductsAndLeftovers.register( 'Reaction', Reaction );
-export default Reaction;

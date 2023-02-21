@@ -14,7 +14,7 @@ import MoleculesEquationNode from '../../common/view/MoleculesEquationNode.js';
 import RPALScreenView from '../../common/view/RPALScreenView.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class MoleculesScreenView extends RPALScreenView {
+export default class MoleculesScreenView extends RPALScreenView {
 
   /**
    * @param {MoleculesModel} model
@@ -50,4 +50,3 @@ class MoleculesScreenView extends RPALScreenView {
 }
 
 reactantsProductsAndLeftovers.register( 'MoleculesScreenView', MoleculesScreenView );
-export default MoleculesScreenView;

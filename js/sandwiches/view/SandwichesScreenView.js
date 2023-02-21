@@ -16,7 +16,7 @@ import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeft
 import SandwichesEquationNode from './SandwichesEquationNode.js';
 import SandwichNode from './SandwichNode.js';
 
-class SandwichesScreenView extends RPALScreenView {
+export default class SandwichesScreenView extends RPALScreenView {
 
   /**
    * @param {SandwichesModel} model
@@ -62,4 +62,3 @@ class SandwichesScreenView extends RPALScreenView {
 }
 
 reactantsProductsAndLeftovers.register( 'SandwichesScreenView', SandwichesScreenView );
-export default SandwichesScreenView;

@@ -18,7 +18,7 @@ import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftove
 import SandwichesModel from './model/SandwichesModel.js';
 import SandwichesScreenView from './view/SandwichesScreenView.js';
 
-class SandwichesScreen extends Screen {
+export default class SandwichesScreen extends Screen {
 
   constructor() {
 
@@ -44,4 +44,3 @@ class SandwichesScreen extends Screen {
 }
 
 reactantsProductsAndLeftovers.register( 'SandwichesScreen', SandwichesScreen );
-export default SandwichesScreen;

@@ -15,7 +15,7 @@ import PlayNode from './PlayNode.js';
 import ResultsNode from './ResultsNode.js';
 import SettingsNode from './SettingsNode.js';
 
-class GameScreenView extends ScreenView {
+export default class GameScreenView extends ScreenView {
 
   /**
    * @param {GameModel} model
@@ -81,4 +81,3 @@ class GameScreenView extends ScreenView {
 }
 
 reactantsProductsAndLeftovers.register( 'GameScreenView', GameScreenView );
-export default GameScreenView;

@@ -16,7 +16,7 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import RPALConstants from '../RPALConstants.js';
 import ReactionBarNode from './ReactionBarNode.js';
 
-class RPALScreenView extends ScreenView {
+export default class RPALScreenView extends ScreenView {
 
   /**
    * @param {RPALBaseModel} model
@@ -91,4 +91,3 @@ class RPALScreenView extends ScreenView {
 }
 
 reactantsProductsAndLeftovers.register( 'RPALScreenView', RPALScreenView );
-export default RPALScreenView;

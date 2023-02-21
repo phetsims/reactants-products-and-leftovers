@@ -24,7 +24,7 @@ import SandwichNode from '../view/SandwichNode.js';
 // used when the product is undefined, this can be any non-visible node with well-defined bounds
 const NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
 
-class SandwichRecipe extends Reaction {
+export default class SandwichRecipe extends Reaction {
 
   /**
    * @param {TReadOnlyProperty.<string>} nameProperty
@@ -86,4 +86,3 @@ class SandwichRecipe extends Reaction {
 }
 
 reactantsProductsAndLeftovers.register( 'SandwichRecipe', SandwichRecipe );
-export default SandwichRecipe;

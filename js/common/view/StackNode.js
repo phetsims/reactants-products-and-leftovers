@@ -14,7 +14,7 @@ import { Line, Node } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SubstanceIcon from './SubstanceIcon.js';
 
-class StackNode extends Node {
+export default class StackNode extends Node {
 
   /**
    * @param {number} height height of the stack
@@ -86,4 +86,3 @@ class StackNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'StackNode', StackNode );
-export default StackNode;

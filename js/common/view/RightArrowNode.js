@@ -10,7 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class RightArrowNode extends ArrowNode {
+export default class RightArrowNode extends ArrowNode {
 
   /**
    * @param {Object} [options]
@@ -29,4 +29,3 @@ class RightArrowNode extends ArrowNode {
 }
 
 reactantsProductsAndLeftovers.register( 'RightArrowNode', RightArrowNode );
-export default RightArrowNode;

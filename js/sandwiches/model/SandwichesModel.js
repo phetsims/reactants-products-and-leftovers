@@ -16,7 +16,7 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichRecipe from './SandwichRecipe.js';
 
-class SandwichesModel extends RPALBaseModel {
+export default class SandwichesModel extends RPALBaseModel {
 
   constructor() {
     super( [
@@ -30,4 +30,3 @@ class SandwichesModel extends RPALBaseModel {
 }
 
 reactantsProductsAndLeftovers.register( 'SandwichesModel', SandwichesModel );
-export default SandwichesModel;

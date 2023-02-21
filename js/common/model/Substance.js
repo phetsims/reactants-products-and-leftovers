@@ -10,7 +10,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class Substance {
+export default class Substance {
 
   /**
    * @param {number} coefficient substance's coefficient in the reaction equation
@@ -83,4 +83,3 @@ class Substance {
 }
 
 reactantsProductsAndLeftovers.register( 'Substance', Substance );
-export default Substance;

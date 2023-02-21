@@ -24,7 +24,7 @@ import VisibilityPanel from './VisibilityPanel.js';
 const SCREEN_X_MARGIN = 40;
 const SCREEN_Y_MARGIN = 40;
 
-class SettingsNode extends Node {
+export default class SettingsNode extends Node {
 
   /**
    * @param {GameModel} model
@@ -101,4 +101,3 @@ class SettingsNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'SettingsNode', SettingsNode );
-export default SettingsNode;

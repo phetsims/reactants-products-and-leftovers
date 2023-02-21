@@ -22,7 +22,7 @@ import BoxType from '../../common/model/BoxType.js';
 import Substance from '../../common/model/Substance.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class GameGuess {
+export default class GameGuess {
 
   /**
    * @param {Reaction} reaction
@@ -64,4 +64,3 @@ class GameGuess {
 }
 
 reactantsProductsAndLeftovers.register( 'GameGuess', GameGuess );
-export default GameGuess;

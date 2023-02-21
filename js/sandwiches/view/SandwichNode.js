@@ -18,7 +18,7 @@ const MAX_WIDTH = _.maxBy( [ bread_png, cheese_png, meat_png ], image => image.w
 const Y_SPACING = 4; // vertical space between centers of ingredients
 const SANDWICH_SCALE = 0.65; // default scale of Nodes for sandwiches and their ingredients
 
-class SandwichNode extends Node {
+export default class SandwichNode extends Node {
   /**
    * @param {number} breadCount
    * @param {number} meatCount
@@ -109,4 +109,3 @@ class SandwichNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'SandwichNode', SandwichNode );
-export default SandwichNode;

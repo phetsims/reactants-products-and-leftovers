@@ -22,7 +22,7 @@ import ChallengeNode from './ChallengeNode.js';
 const STATUS_BAR_FONT = new PhetFont( 16 );
 const STATUS_BAR_TEXT_FILL = 'white';
 
-class PlayNode extends Node {
+export default class PlayNode extends Node {
 
   /**
    * @param {GameModel} model
@@ -172,4 +172,3 @@ class PlayNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'PlayNode', PlayNode );
-export default PlayNode;

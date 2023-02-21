@@ -28,7 +28,7 @@ import PlayState from '../model/PlayState.js';
 import GameButtons from './GameButtons.js';
 import RandomBox from './RandomBox.js';
 
-class ChallengeNode extends Node {
+export default class ChallengeNode extends Node {
 
   /**
    * @param {GameModel} model
@@ -355,4 +355,3 @@ class ChallengeNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'ChallengeNode', ChallengeNode );
-export default ChallengeNode;

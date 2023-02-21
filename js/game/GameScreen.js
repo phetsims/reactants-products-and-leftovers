@@ -18,7 +18,7 @@ import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftove
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
 
-class GameScreen extends Screen {
+export default class GameScreen extends Screen {
 
   constructor() {
 
@@ -89,4 +89,3 @@ function createIcon() {
 }
 
 reactantsProductsAndLeftovers.register( 'GameScreen', GameScreen );
-export default GameScreen;

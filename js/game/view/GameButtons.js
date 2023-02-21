@@ -31,7 +31,7 @@ const BUTTON_OPTIONS = {
   centerX: 0 // so that all buttons are center aligned
 };
 
-class GameButtons extends Node {
+export default class GameButtons extends Node {
 
   /**
    * @param {GameModel} model
@@ -124,4 +124,3 @@ class GameButtons extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'GameButtons', GameButtons );
-export default GameButtons;

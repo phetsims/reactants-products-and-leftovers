@@ -17,7 +17,7 @@ import StackNode from './StackNode.js';
 // constants
 const MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
 
-class StacksAccordionBox extends AccordionBox {
+export default class StacksAccordionBox extends AccordionBox {
 
   /**
    * @param {Substance[]} substances substances in the box
@@ -106,4 +106,3 @@ class StacksAccordionBox extends AccordionBox {
 }
 
 reactantsProductsAndLeftovers.register( 'StacksAccordionBox', StacksAccordionBox );
-export default StacksAccordionBox;

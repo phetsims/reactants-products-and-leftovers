@@ -35,7 +35,7 @@ const PLUS_OPTIONS = { fill: 'white' };
 const ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
 const SPINNER_OPTIONS = RPALConstants.SPINNER_OPTIONS;
 
-class SandwichesEquationNode extends Node {
+export default class SandwichesEquationNode extends Node {
 
   /**
    * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
@@ -151,4 +151,3 @@ class SandwichesEquationNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'SandwichesEquationNode', SandwichesEquationNode );
-export default SandwichesEquationNode;

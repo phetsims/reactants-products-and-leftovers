@@ -18,7 +18,7 @@ import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftove
 import MoleculesModel from './model/MoleculesModel.js';
 import MoleculesScreenView from './view/MoleculesScreenView.js';
 
-class MoleculesScreen extends Screen {
+export default class MoleculesScreen extends Screen {
 
   constructor() {
 
@@ -68,4 +68,3 @@ function createIcon( options ) {
 }
 
 reactantsProductsAndLeftovers.register( 'MoleculesScreen', MoleculesScreen );
-export default MoleculesScreen;

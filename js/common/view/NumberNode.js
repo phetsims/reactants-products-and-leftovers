@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class NumberNode extends Text {
+export default class NumberNode extends Text {
 
   /**
    * @param {Property.<number>} numberProperty
@@ -46,4 +46,3 @@ class NumberNode extends Text {
 }
 
 reactantsProductsAndLeftovers.register( 'NumberNode', NumberNode );
-export default NumberNode;

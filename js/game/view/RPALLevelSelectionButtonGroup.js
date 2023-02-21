@@ -25,7 +25,7 @@ import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeft
 const QUESTION_MARK_OPTIONS = { font: new PhetFont( { size: 70, weight: 'bold' } ) };
 const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
-class RPALLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
+export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 
   /**
    * @param {GameModel} model
@@ -139,4 +139,3 @@ function createLevelThreeIcon( iconAlignGroup ) {
 }
 
 reactantsProductsAndLeftovers.register( 'RPALLevelSelectionButtonGroup', RPALLevelSelectionButtonGroup );
-export default RPALLevelSelectionButtonGroup;

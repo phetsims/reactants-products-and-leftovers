@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameGuess from './GameGuess.js';
 
-class Challenge {
+export default class Challenge {
 
   /**
    * @param {Reaction} reaction
@@ -76,4 +76,3 @@ class Challenge {
 }
 
 reactantsProductsAndLeftovers.register( 'Challenge', Challenge );
-export default Challenge;

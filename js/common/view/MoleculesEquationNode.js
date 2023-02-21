@@ -13,7 +13,7 @@ import { Node, RichText, Text } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import RightArrowNode from './RightArrowNode.js';
 
-class MoleculesEquationNode extends Node {
+export default class MoleculesEquationNode extends Node {
   /**
    * @param {Reaction} reaction
    * @param {Object} [options]
@@ -95,4 +95,3 @@ function createTermsNode( terms, options ) {
 }
 
 reactantsProductsAndLeftovers.register( 'MoleculesEquationNode', MoleculesEquationNode );
-export default MoleculesEquationNode;

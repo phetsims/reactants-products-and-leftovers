@@ -26,7 +26,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class SubstanceIcon extends Node {
+export default class SubstanceIcon extends Node {
 
   /**
    * @param {Property.<Node>} iconProperty
@@ -64,4 +64,3 @@ class SubstanceIcon extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'SubstanceIcon', SubstanceIcon );
-export default SubstanceIcon;

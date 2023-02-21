@@ -24,7 +24,7 @@ import SandwichNode from '../../sandwiches/view/SandwichNode.js';
 const NUMBER_OF_NODES = 100;
 const FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
 
-class RPALRewardNode extends RewardNode {
+export default class RPALRewardNode extends RewardNode {
 
   /**
    * @param {number} level game level, starting at zero
@@ -77,4 +77,3 @@ const nodeFactoryFunctions = [
 ];
 
 reactantsProductsAndLeftovers.register( 'RPALRewardNode', RPALRewardNode );
-export default RPALRewardNode;

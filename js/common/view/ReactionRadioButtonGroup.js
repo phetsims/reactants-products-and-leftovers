@@ -15,7 +15,7 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 // constants
 const TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
 
-class ReactionRadioButtonGroup extends AquaRadioButtonGroup {
+export default class ReactionRadioButtonGroup extends AquaRadioButtonGroup {
 
   /**
    * @param {Property.<Reaction>} reactionProperty
@@ -46,4 +46,3 @@ class ReactionRadioButtonGroup extends AquaRadioButtonGroup {
 }
 
 reactantsProductsAndLeftovers.register( 'ReactionRadioButtonGroup', ReactionRadioButtonGroup );
-export default ReactionRadioButtonGroup;

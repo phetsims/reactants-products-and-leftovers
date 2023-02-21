@@ -14,7 +14,8 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import GamePhase from '../model/GamePhase.js';
 import RPALRewardNode from './RPALRewardNode.js';
 
-class ResultsNode extends Node {
+export default class ResultsNode extends Node {
+
   /**
    * @param {GameModel} model
    * @param {Bounds2} layoutBounds
@@ -91,4 +92,3 @@ class ResultsNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'ResultsNode', ResultsNode );
-export default ResultsNode;

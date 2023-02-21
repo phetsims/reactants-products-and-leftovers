@@ -38,7 +38,7 @@ const BRACKET_LABEL_OPTIONS = {
 };
 const SPINNER_OPTIONS = RPALConstants.SPINNER_OPTIONS;
 
-class QuantitiesNode extends Node {
+export default class QuantitiesNode extends Node {
 
   /**
    * @param {Substance[]} reactants
@@ -391,4 +391,3 @@ class QuantitiesNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'QuantitiesNode', QuantitiesNode );
-export default QuantitiesNode;

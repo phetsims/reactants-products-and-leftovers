@@ -26,7 +26,7 @@ import StacksAccordionBox from './StacksAccordionBox.js';
 // constants
 const TITLE_OPTIONS = { font: new PhetFont( 14 ), fill: 'white' }; // box titles
 
-class BeforeAfterNode extends Node {
+export default class BeforeAfterNode extends Node {
   /**
    * @param {Reaction} reaction the reaction to be displayed
    * @param {Property.<boolean>} beforeExpandedProperty whether the 'Before' box is expanded
@@ -120,4 +120,3 @@ class BeforeAfterNode extends Node {
 }
 
 reactantsProductsAndLeftovers.register( 'BeforeAfterNode', BeforeAfterNode );
-export default BeforeAfterNode;

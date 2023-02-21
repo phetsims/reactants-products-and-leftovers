@@ -10,7 +10,7 @@ import ReactionFactory from '../../common/model/ReactionFactory.js';
 import RPALBaseModel from '../../common/model/RPALBaseModel.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class MoleculesModel extends RPALBaseModel {
+export default class MoleculesModel extends RPALBaseModel {
 
   constructor() {
     super( [
@@ -23,4 +23,3 @@ class MoleculesModel extends RPALBaseModel {
 }
 
 reactantsProductsAndLeftovers.register( 'MoleculesModel', MoleculesModel );
-export default MoleculesModel;

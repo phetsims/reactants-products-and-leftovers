@@ -21,7 +21,7 @@ import RPALColors from '../../common/RPALColors.js';
 import SubstanceIcon from '../../common/view/SubstanceIcon.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class RandomBox extends Node {
+export default class RandomBox extends Node {
 
   /**
    * @param {Substance[]} substances the substances in the box
@@ -224,4 +224,3 @@ class CellNode extends SubstanceIcon {
 }
 
 reactantsProductsAndLeftovers.register( 'RandomBox', RandomBox );
-export default RandomBox;

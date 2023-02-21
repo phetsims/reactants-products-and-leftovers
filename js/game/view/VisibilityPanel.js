@@ -27,7 +27,7 @@ const FONT_AWESOME_OPTIONS = {
   fill: 'black'
 };
 
-class VisibilityPanel extends Panel {
+export default class VisibilityPanel extends Panel {
 
   /**
    * @param {EnumerationProperty.<GameVisibility>} gameVisibilityProperty
@@ -118,4 +118,3 @@ function createHideNumbersNode() {
 }
 
 reactantsProductsAndLeftovers.register( 'VisibilityPanel', VisibilityPanel );
-export default VisibilityPanel;

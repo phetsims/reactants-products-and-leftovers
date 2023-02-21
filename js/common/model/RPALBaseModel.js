@@ -9,7 +9,7 @@
 import Property from '../../../../axon/js/Property.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-class RPALBaseModel {
+export default class RPALBaseModel {
 
   /**
    * @param {Reaction[]} reactions
@@ -28,4 +28,3 @@ class RPALBaseModel {
 }
 
 reactantsProductsAndLeftovers.register( 'RPALBaseModel', RPALBaseModel );
-export default RPALBaseModel;
