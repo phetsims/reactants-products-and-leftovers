@@ -1,4 +1,4 @@
-// Copyright 2014-2020, University of Colorado Boulder
+// Copyright 2014-2023, University of Colorado Boulder
 
 /**
  * The reward that is displayed when a game is completed with a perfect score.

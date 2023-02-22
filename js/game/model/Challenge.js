@@ -1,4 +1,4 @@
-// Copyright 2014-2020, University of Colorado Boulder
+// Copyright 2014-2023, University of Colorado Boulder
 
 /**
  * A challenge consists of a reaction (with specific before and after quantities), the user's 'guess',
