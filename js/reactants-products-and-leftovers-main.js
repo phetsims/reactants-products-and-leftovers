@@ -13,22 +13,23 @@ import MoleculesScreen from './molecules/MoleculesScreen.js';
 import ReactantsProductsAndLeftoversStrings from './ReactantsProductsAndLeftoversStrings.js';
 import SandwichesScreen from './sandwiches/SandwichesScreen.js';
 
-const options = {
-  credits: {
-    leadDesign: 'Yuen-ying Carpenter, Kelly Lancaster',
-    softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
-    team: 'Wendy Adams, Julia Chamberlain, Patricia Loeblein, Emily B. Moore, Robert Parson, Ariel Paul, ' +
-          'Kathy Perkins',
-    qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan, Oliver Orejola, Benjamin Roberts, Bryan Yoelin'
-  }
-};
-
 simLauncher.launch( () => {
+
   const screens = [
     new SandwichesScreen(),
     new MoleculesScreen(),
     new GameScreen()
   ];
-  const sim = new Sim( ReactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].titleStringProperty, screens, options );
+
+  const sim = new Sim( ReactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].titleStringProperty, screens, {
+    credits: {
+      leadDesign: 'Yuen-ying Carpenter, Kelly Lancaster',
+      softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
+      team: 'Wendy Adams, Julia Chamberlain, Patricia Loeblein, Emily B. Moore, Robert Parson, Ariel Paul, ' +
+            'Kathy Perkins',
+      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan, Oliver Orejola, Benjamin Roberts, Bryan Yoelin'
+    }
+  } );
+
   sim.start();
 } );
