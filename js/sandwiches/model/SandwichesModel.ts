@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Model for the 'Sandwiches' screen.
  *
@@ -19,13 +18,17 @@ import SandwichRecipe from './SandwichRecipe.js';
 
 export default class SandwichesModel extends RPALBaseModel {
 
-  constructor() {
+  public constructor() {
     super( [
+
       // sandwich recipe choices, numeric args are: bread, meat, cheese
       new SandwichRecipe( ReactantsProductsAndLeftoversStrings.cheeseStringProperty, 2, 0, 1 ),
       new SandwichRecipe( ReactantsProductsAndLeftoversStrings.meatAndCheeseStringProperty, 2, 1, 1 ),
+
       // for Custom sandwich, the user can change coefficients of the ingredients
-      new SandwichRecipe( ReactantsProductsAndLeftoversStrings.customStringProperty, 0, 0, 0, { coefficientsMutable: true } )
+      new SandwichRecipe( ReactantsProductsAndLeftoversStrings.customStringProperty, 0, 0, 0, {
+        coefficientsMutable: true
+      } )
     ] );
   }
 }

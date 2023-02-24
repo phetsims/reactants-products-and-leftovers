@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Model for the 'Molecules' screen.
  *
@@ -13,8 +12,9 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 
 export default class MoleculesModel extends RPALBaseModel {
 
-  constructor() {
+  public constructor() {
     super( [
+
       // reaction choices
       ReactionFactory.makeWater(),
       ReactionFactory.makeAmmonia(),
