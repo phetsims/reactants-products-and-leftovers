@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Base type for the model in the 'Sandwiches' and 'Molecules' screens.
  *
