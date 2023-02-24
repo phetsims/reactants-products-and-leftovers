@@ -36,7 +36,7 @@ const BRACKET_LABEL_OPTIONS = {
   fill: 'black',
   maxWidth: 140 // maximum width of bracket labels, determined empirically
 };
-const SPINNER_OPTIONS = RPALConstants.SPINNER_OPTIONS;
+const NUMBER_SPINNER_OPTIONS = RPALConstants.NUMBER_SPINNER_OPTIONS;
 
 export default class QuantitiesNode extends Node {
 
@@ -99,7 +99,7 @@ export default class QuantitiesNode extends Node {
       if ( this.interactiveBox === BoxType.BEFORE ) {
         // spinner
         spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
-          merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
+          merge( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
         this.reactantsParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
       }
@@ -134,7 +134,7 @@ export default class QuantitiesNode extends Node {
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
-          merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
+          merge( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
         this.productsParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
       }
@@ -169,7 +169,7 @@ export default class QuantitiesNode extends Node {
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
-          merge( {}, SPINNER_OPTIONS, { centerX: centerX } ) );
+          merge( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
         this.leftoversParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
       }

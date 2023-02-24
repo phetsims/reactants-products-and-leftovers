@@ -25,7 +25,9 @@ export default class RPALScreenView extends ScreenView {
    */
   constructor( model, createEquationNode, createBeforeAfterNode ) {
 
-    super( RPALConstants.SCREEN_VIEW_OPTIONS );
+    super( {
+      layoutBounds: RPALConstants.SCREEN_VIEW_LAYOUT_BOUNDS
+    } );
 
     this.model = model; // @private
 

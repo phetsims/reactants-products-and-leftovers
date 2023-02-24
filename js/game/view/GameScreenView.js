@@ -22,7 +22,9 @@ export default class GameScreenView extends ScreenView {
    */
   constructor( model ) {
 
-    super( RPALConstants.SCREEN_VIEW_OPTIONS );
+    super( {
+      layoutBounds: RPALConstants.SCREEN_VIEW_LAYOUT_BOUNDS
+    } );
 
     // sounds
     const audioPlayer = new GameAudioPlayer();

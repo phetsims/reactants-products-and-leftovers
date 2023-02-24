@@ -33,7 +33,7 @@ const ARROW_X_SPACING = 15; // space on both sides of arrow
 const TEXT_OPTIONS = { font: new PhetFont( 28 ), fill: 'white' };
 const PLUS_OPTIONS = { fill: 'white' };
 const ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
-const SPINNER_OPTIONS = RPALConstants.SPINNER_OPTIONS;
+const NUMBER_SPINNER_OPTIONS = RPALConstants.NUMBER_SPINNER_OPTIONS;
 
 export default class SandwichesEquationNode extends Node {
 
@@ -68,7 +68,7 @@ export default class SandwichesEquationNode extends Node {
 
       // coefficient
       if ( reaction.coefficientsMutable ) {
-        coefficientNode = new NumberSpinner( reactant.coefficientProperty, new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE ), SPINNER_OPTIONS );
+        coefficientNode = new NumberSpinner( reactant.coefficientProperty, new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE ), NUMBER_SPINNER_OPTIONS );
         this.coefficientNodes.push( coefficientNode );
       }
       else {
