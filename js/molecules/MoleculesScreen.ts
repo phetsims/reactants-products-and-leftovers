@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * 'Molecules' screen
  *
@@ -11,23 +10,24 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import H2ONode from '../../../nitroglycerin/js/nodes/H2ONode.js';
-import merge from '../../../phet-core/js/merge.js';
 import { Node, Rectangle } from '../../../scenery/js/imports.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftoversStrings.js';
 import MoleculesModel from './model/MoleculesModel.js';
 import MoleculesScreenView from './view/MoleculesScreenView.js';
 
-export default class MoleculesScreen extends Screen {
+export default class MoleculesScreen extends Screen<MoleculesModel, MoleculesScreenView> {
 
-  constructor() {
+  public constructor() {
 
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.moleculesStringProperty,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-      homeScreenIcon: createIcon( { moleculeLineWidth: 0.1 } ),
-      navigationBarIcon: createIcon( { moleculeLineWidth: 0.5 } )
+      homeScreenIcon: createIcon( 0.1 ),
+      navigationBarIcon: createIcon( 0.5 ),
+      tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78
     };
 
     super(
@@ -40,14 +40,8 @@ export default class MoleculesScreen extends Screen {
 
 /**
  * Creates the icon for this screen, an H2O molecule.
- * @param {Object} [options]
- * @returns {ScreenIcon}
  */
-function createIcon( options ) {
-
-  options = merge( {
-    moleculeLineWidth: 1 // lineWidth used to stroke the molecule icon
-  }, options );
+function createIcon( moleculeLineWidth: number ): ScreenIcon {
 
   // background rectangle
   const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
@@ -55,12 +49,18 @@ function createIcon( options ) {
   const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
   // H2O molecule, scaled to fit and centered on background
-  const moleculeNode = new H2ONode( { atomNodeOptions: { stroke: 'black', lineWidth: options.moleculeLineWidth } } );
+  const moleculeNode = new H2ONode( {
+    atomNodeOptions: {
+      stroke: 'black', lineWidth: moleculeLineWidth
+    }
+  } );
   moleculeNode.setScaleMagnitude(
     Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
   moleculeNode.center = background.center;
 
-  const iconNode = new Node( { children: [ background, moleculeNode ] } );
+  const iconNode = new Node( {
+    children: [ background, moleculeNode ]
+  } );
 
   return new ScreenIcon( iconNode, {
     maxIconWidthProportion: 1,
