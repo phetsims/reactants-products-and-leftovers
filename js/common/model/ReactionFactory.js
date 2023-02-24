@@ -57,18 +57,6 @@ const MOLECULE_NODE_OPTIONS = RPALConstants.MOLECULE_NODE_OPTIONS; // to improve
 
 const ReactionFactory = {
 
-  // {Node} constructors for all atoms & molecules that appear in reactions
-  moleculeNodeConstructors: [
-    C2H2Node, C2H4Node, C2H5ClNode, C2H5OHNode, C2H6Node, CH2ONode,
-    CH3OHNode, CH4Node, Cl2Node, CNode, CO2Node, CONode, CS2Node,
-    F2Node,
-    H2Node, H2ONode, H2SNode, HClNode, HFNode,
-    N2Node, N2ONode, NH3Node, NO2Node, NONode,
-    O2Node, OF2Node,
-    P4Node, PCl3Node, PCl5Node, PF3Node, PH3Node,
-    SNode, SO2Node, SO3Node
-  ],
-
   //---------------------------------------------------------------------------------------
   // Single-product reactions
   //---------------------------------------------------------------------------------------
