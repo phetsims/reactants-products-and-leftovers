@@ -1,6 +1,5 @@
 // Copyright 2014-2021, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Colors used throughout this simulation.
  *
@@ -14,11 +13,11 @@ import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 const DARK_BLUE = new Color( 51, 118, 196 );
 
 const RPALColors = {
-  SCREEN_BACKGROUND: 'rgb(218,236,255)',
+  SCREEN_BACKGROUND: 'rgb( 218, 236, 255 )',
   PANEL_FILL: DARK_BLUE,
   BOX_STROKE: DARK_BLUE.withAlpha( 0.3 ),
   BOX_FILL: 'white',
-  GAME_BUTTON: 'yellow'
+  GAME_BUTTON: 'yellow' //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/81 PhetColorScheme.BUTTON_YELLOW
 };
 
 reactantsProductsAndLeftovers.register( 'RPALColors', RPALColors );
