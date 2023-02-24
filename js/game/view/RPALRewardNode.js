@@ -55,7 +55,6 @@ import SandwichNode from '../../sandwiches/view/SandwichNode.js';
 
 // constants
 const NUMBER_OF_NODES = 100;
-const FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
 
 // constructors for all atoms & molecules that appear in reactions, to appear in Level 1 reward
 const MOLECULE_NODE_CONSTRUCTORS = [
@@ -68,6 +67,9 @@ const MOLECULE_NODE_CONSTRUCTORS = [
   P4Node, PCl3Node, PCl5Node, PF3Node, PH3Node,
   SNode, SO2Node, SO3Node
 ];
+
+// Smiley face colors, to appear in Level 2 reward
+const FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
 
 export default class RPALRewardNode extends RewardNode {
 
@@ -89,10 +91,7 @@ function createNodesLevel1() {
 
 // Level 2: smiley faces (various colors), @returns {Node[]}
 function createNodesLevel2() {
-  const nodes = [];
-  FACE_COLORS.forEach( color => {
-    nodes.push( new FaceNode( 40, { headFill: color } ) );
-  } );
+  const nodes = FACE_COLORS.map( color => new FaceNode( 40, { headFill: color } ) );
   return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
 }
 
