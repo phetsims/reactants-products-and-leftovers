@@ -69,7 +69,14 @@ const MOLECULE_NODE_CONSTRUCTORS = [
 ];
 
 // Smiley face colors, to appear in Level 2 reward
-const FACE_COLORS = [ 'yellow', 'rgb(255,85,0)', 'orange', 'magenta', 'cyan', 'rgb(100,255,100)' ];
+const FACE_COLORS = [
+  'yellow',
+  'rgb( 255, 85, 0 )',
+  'orange',
+  'magenta',
+  'cyan',
+  'rgb( 100, 255, 100 )'
+];
 
 export default class RPALRewardNode extends RewardNode {
 
