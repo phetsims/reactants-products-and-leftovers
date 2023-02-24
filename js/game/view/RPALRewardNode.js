@@ -84,8 +84,7 @@ export default class RPALRewardNode extends RewardNode {
 
 // Level 1: molecules, @returns {Node[]}
 function createNodesLevel1() {
-  const nodes = [];
-  MOLECULE_NODE_CONSTRUCTORS.forEach( MoleculeNodeConstructor => nodes.push( new MoleculeNodeConstructor() ) );
+  const nodes = MOLECULE_NODE_CONSTRUCTORS.map( MoleculeNodeConstructor => new MoleculeNodeConstructor() );
   return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
 }
 
