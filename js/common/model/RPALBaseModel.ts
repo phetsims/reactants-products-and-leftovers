@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Base type for the model in the 'Sandwiches' and 'Molecules' screens.
  *
@@ -8,21 +7,26 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import TModel from '../../../../joist/js/TModel.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import Reaction from './Reaction.js';
 
-export default class RPALBaseModel {
+export default class RPALBaseModel implements TModel {
 
-  /**
-   * @param {Reaction[]} reactions
-   */
-  constructor( reactions ) {
+  // reaction choices
+  public readonly reactions: Reaction[];
 
-    this.reactions = reactions; // @public {Reaction[]} reaction choices
-    this.reactionProperty = new Property( this.reactions[ 0 ] ); // @public {Reaction} the selected reaction
+  // the selected reaction
+  public readonly reactionProperty: Property<Reaction>;
+
+  public constructor( reactions: Reaction[] ) {
+    this.reactions = reactions;
+    this.reactionProperty = new Property( this.reactions[ 0 ], {
+      validValues: reactions
+    } );
   }
 
-  // @override @public
-  reset() {
+  public reset(): void {
     this.reactionProperty.reset();
     this.reactions.forEach( reaction => reaction.reset() );
   }
