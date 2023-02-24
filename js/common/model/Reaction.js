@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * A chemical reaction is a process that leads to the transformation of one set of
  * chemical substances (reactants) to another (products).
