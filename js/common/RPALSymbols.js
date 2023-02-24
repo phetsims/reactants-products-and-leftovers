@@ -6,21 +6,43 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ChemUtils from '../../../nitroglycerin/js/ChemUtils.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
-// Plain-text versions of the symbols (i18n not required)
-const SYMBOLS = [
-  'C', 'C2H2', 'C2H4', 'C2H5Cl', 'C2H5OH', 'C2H6', 'CH2O', 'CH3OH', 'CH4', 'Cl2', 'CO', 'CO2', 'CS2',
-  'F2', 'H2', 'H2O', 'H2S', 'HCl', 'HF', 'N2', 'N2O', 'NH3', 'NO', 'NO2', 'O2', 'OF2',
-  'P4', 'PCl3', 'PCl5', 'PF3', 'PH3', 'S', 'SO2', 'SO3'
-];
-
-// Create an object that has property names that match the plain-text symbols, values are HTML fragments.
-const RPALSymbols = {};
-SYMBOLS.forEach( symbol => {
-  RPALSymbols[ symbol ] = ChemUtils.toSubscript( symbol );
-} );
+const RPALSymbols = {
+  C: 'C',
+  C2H2: 'C<sub>2</sub>H<sub>2</sub>',
+  C2H4: 'C<sub>2</sub>H<sub>4</sub>',
+  C2H5Cl: 'C<sub>2</sub>H<sub>5</sub>Cl',
+  C2H5OH: 'C<sub>2</sub>H<sub>5</sub>OH',
+  C2H6: 'C<sub>2</sub>H<sub>6</sub>',
+  CH2O: 'CH<sub>2</sub>O',
+  CH3OH: 'CH<sub>3</sub>OH',
+  CH4: 'CH<sub>4</sub>',
+  Cl2: 'Cl<sub>2</sub>',
+  CO: 'CO',
+  CO2: 'CO<sub>2</sub>',
+  CS2: 'CS<sub>2</sub>',
+  F2: 'F<sub>2</sub>',
+  H2: 'H<sub>2</sub>',
+  H2O: 'H<sub>2</sub>O',
+  H2S: 'H<sub>2</sub>S',
+  HCl: 'HCl',
+  HF: 'HF',
+  N2: 'N<sub>2</sub>',
+  N2O: 'N<sub>2</sub>O',
+  NH3: 'NH<sub>3</sub>',
+  NO: 'NO',
+  O2: 'O<sub>2</sub>',
+  OF2: 'OF<sub>2</sub>',
+  P4: 'P<sub>4</sub>',
+  PCl3: 'PCl<sub>3</sub>',
+  PCl5: 'PCl<sub>5</sub>',
+  PF3: 'PF<sub>3</sub>',
+  PH3: 'PH<sub>3</sub>',
+  S: 'S',
+  SO2: 'SO<sub>2</sub>',
+  SO3: 'SO<sub>3</sub>'
+};
 
 reactantsProductsAndLeftovers.register( 'RPALSymbols', RPALSymbols );
 export default RPALSymbols;
