@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * A chemical reaction is a process that leads to the transformation of one set of
  * chemical substances (reactants) to another (products).
@@ -9,62 +8,63 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Substance from './Substance.js';
 
+type SelfOptions = {
+  nameProperty?: TReadOnlyProperty<string> | null; // optional name for the Reaction, displayed to the user
+};
+
+type ReactionOptions = SelfOptions;
+
 export default class Reaction {
 
-  /**
-   * @param {Substance[]} reactants
-   * @param {Substance[]} products
-   * @param {Object} [options]
-   */
-  constructor( reactants, products, options ) {
+  public readonly nameProperty: TReadOnlyProperty<string> | null;
+  public readonly reactants: Substance[];
+  public readonly products: Substance[];
+  public readonly leftovers: Substance[]; // a leftover for each reactant, in the same order as reactants
+
+  public constructor( reactants: Substance[], products: Substance[], providedOptions?: ReactionOptions ) {
 
     assert && assert( reactants.length > 1, 'a reaction requires at least 2 reactants' );
     assert && assert( products.length > 0, 'a reaction requires at least 1 product' );
 
-    options = merge( {
-      nameProperty: null // {TReadOnlyProperty.<string>|null} optional name, suitable for display to the user
-    }, options );
+    const options = optionize<ReactionOptions, SelfOptions>()( {
+      nameProperty: null
+    }, providedOptions );
 
-    // @public
-    this.nameProperty = options.nameProperty;
     this.reactants = reactants;
     this.products = products;
+    this.nameProperty = options.nameProperty;
 
-    // @public Create a leftover for each reactant, in the same order.
+    // Create a leftover for each reactant, in the same order.
     this.leftovers = [];
     this.reactants.forEach( reactant => {
       this.leftovers.push( new Substance( 1, reactant.symbol, reactant.iconProperty.get(), 0 ) );
     } );
 
-    this.reactants.forEach( reactant => {
-      // internal, no corresponding unlink needed
-      reactant.quantityProperty.link( this.updateQuantities.bind( this ) );
-    } );
+    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80 dispose needed?
+    const quantityListener = this.updateQuantities.bind( this );
+    this.reactants.forEach( reactant => reactant.quantityProperty.link( quantityListener ) );
   }
 
-  // @public
-  reset() {
+  public reset(): void {
     this.reactants.forEach( reactant => reactant.reset() );
     this.products.forEach( product => product.reset() );
     this.leftovers.forEach( leftover => leftover.reset() );
   }
 
-  // @public
-  toString() {
+  public toString(): string {
     return DevStringUtils.equationString( this );
   }
 
   /**
    * Formula is a reaction if more than one coefficient is non-zero, or if any coefficient is > 1.
-   * @returns {boolean}
-   * @public
    */
-  isReaction() {
+  public isReaction(): boolean {
     let greaterThanZero = 0;
     let greaterThanOne = 0;
     this.reactants.forEach( reactant => {
@@ -76,9 +76,8 @@ export default class Reaction {
 
   /*
    * Updates the quantities of products and leftovers.
-   * @protected
    */
-  updateQuantities() {
+  protected updateQuantities(): void {
     const numberOfReactions = this.getNumberOfReactions();
     this.products.forEach( product => {
       product.quantityProperty.set( numberOfReactions * product.coefficientProperty.get() );
@@ -94,13 +93,11 @@ export default class Reaction {
    * Gets the number of reactions we have, based on the coefficients and reactant quantities.
    * For each reactant, we divide its quantity by its coefficient.
    * The smallest such value determines the number of reactions N that will occur.
-   * @returns {number}
-   * @private
    */
-  getNumberOfReactions() {
+  private getNumberOfReactions(): number {
     let numberOfReactions = 0;
     if ( this.isReaction() ) {
-      const possibleValues = [];
+      const possibleValues: number[] = [];
       this.reactants.forEach( reactant => {
         if ( reactant.coefficientProperty.get() !== 0 ) {
           possibleValues.push( Math.floor( reactant.quantityProperty.get() / reactant.coefficientProperty.get() ) );
