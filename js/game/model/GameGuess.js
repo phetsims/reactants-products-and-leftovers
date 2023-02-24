@@ -19,7 +19,6 @@
  */
 
 import BoxType from '../../common/model/BoxType.js';
-import Substance from '../../common/model/Substance.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 export default class GameGuess {
@@ -35,19 +34,19 @@ export default class GameGuess {
     // @public Clone reactants, quantities are initialized to zero for 'Before' challenges.
     this.reactants = [];
     reaction.reactants.forEach( reactant => {
-      this.reactants.push( ( interactiveBox === BoxType.BEFORE ) ? Substance.withQuantity( reactant, 0 ) : Substance.clone( reactant ) );
+      this.reactants.push( ( interactiveBox === BoxType.BEFORE ) ? reactant.clone( 0 ) : reactant.clone() );
     } );
 
     // @public Clone products, quantities are initialized to zero for 'After' challenges.
     this.products = [];
     reaction.products.forEach( product => {
-      this.products.push( ( interactiveBox === BoxType.AFTER ) ? Substance.withQuantity( product, 0 ) : Substance.clone( product ) );
+      this.products.push( ( interactiveBox === BoxType.AFTER ) ? product.clone( 0 ) : product.clone() );
     } );
 
     // @public Clone leftovers, quantities are initialized to zero for 'After' challenges.
     this.leftovers = [];
     reaction.leftovers.forEach( leftover => {
-      this.leftovers.push( ( interactiveBox === BoxType.AFTER ) ? Substance.withQuantity( leftover, 0 ) : Substance.clone( leftover ) );
+      this.leftovers.push( ( interactiveBox === BoxType.AFTER ) ? leftover.clone( 0 ) : leftover.clone() );
     } );
 
     assert && assert( this.reactants.length === reaction.reactants.length );

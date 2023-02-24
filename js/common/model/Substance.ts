@@ -59,17 +59,12 @@ export default class Substance {
   }
 
   /**
-   * Creates a shallow copy of a substance. AXON.Property observers are not copied.
+   * Creates a shallow copy of this Substance. AXON.Property observers are not copied.
+   * @param quantity - optional quantity, to override this.quantityProperty.value
    */
-  public static clone( substance: Substance ): Substance {
-    return new Substance( substance.coefficientProperty.value, substance.symbol, substance.iconProperty.value, substance.quantityProperty.value );
-  }
-
-  /**
-   * Creates a shallow copy of a substance with a specified quantity. AXON.Property observers are not copied.
-   */
-  public static withQuantity( substance: Substance, quantity: number ): Substance {
-    return new Substance( substance.coefficientProperty.value, substance.symbol, substance.iconProperty.value, quantity );
+  public clone( quantity?: number ): Substance {
+    return new Substance( this.coefficientProperty.value, this.symbol, this.iconProperty.value,
+      ( quantity === undefined ) ? this.quantityProperty.value : 0 );
   }
 }
 
