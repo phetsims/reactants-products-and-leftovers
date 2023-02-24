@@ -45,7 +45,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "6f6b59a3e83faa73b18de4d44d3ecb7931059832",
+    "sha": "d1028dc518051f48e4d0dd63866cbe5c5adc0434",
     "branch": "HEAD"
   },
   "phetmarks": {
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "19bf4cc9914618539b42603bedfd3dcbf4d1de69",
+    "sha": "7625597f22cd25bc999b22af62c4d2c881708ee1",
     "branch": "1.2"
   },
   "scenery": {
