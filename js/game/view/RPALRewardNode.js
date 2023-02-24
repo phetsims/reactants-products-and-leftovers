@@ -7,7 +7,7 @@
  *
  * Here's what you'll see at each level:
  *
- * Level 1 = molecules
+ * Level 1 = molecules & atoms
  * Level 2 = smiley faces
  * Level 3 = sandwiches
  *
@@ -56,7 +56,7 @@ import SandwichNode from '../../sandwiches/view/SandwichNode.js';
 // constants
 const NUMBER_OF_NODES = 100;
 
-// constructors for all atoms & molecules that appear in reactions, to appear in Level 1 reward
+// constructors for all molecules & atoms that appear in reactions, to appear in Level 1 reward
 const MOLECULE_NODE_CONSTRUCTORS = [
   C2H2Node, C2H4Node, C2H5ClNode, C2H5OHNode, C2H6Node, CH2ONode,
   CH3OHNode, CH4Node, Cl2Node, CNode, CO2Node, CONode, CS2Node,
