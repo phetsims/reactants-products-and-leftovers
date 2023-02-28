@@ -226,7 +226,7 @@ export default class ChallengeNode extends Node {
     // Move from "Try Again" to "Check" state when a quantity is changed, see reactants-products-and-leftovers#37.
     this.answerChangedLink = Multilink.lazyMultilink( quantityProperties, () => {
       if ( this.playStateProperty.value === PlayState.TRY_AGAIN ) {
-        this.playStateProperty.set( PlayState.SECOND_CHECK );
+        this.playStateProperty.value = PlayState.SECOND_CHECK;
       }
     } );
 

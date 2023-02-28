@@ -61,11 +61,11 @@ export default class SandwichRecipe extends Reaction {
       // Update the sandwich image to match the coefficients.
       const updateSandwichNode = () => {
         if ( this.isReaction() ) {
-          sandwich.iconProperty.set(
-            new SandwichNode( bread.coefficientProperty.value, meat.coefficientProperty.value, cheese.coefficientProperty.value ) );
+          sandwich.iconProperty.value =
+            new SandwichNode( bread.coefficientProperty.value, meat.coefficientProperty.value, cheese.coefficientProperty.value );
         }
         else {
-          sandwich.iconProperty.set( NO_SANDWICH_NODE );
+          sandwich.iconProperty.value = NO_SANDWICH_NODE;
         }
       };
 

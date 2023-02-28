@@ -179,7 +179,7 @@ function createChallengesPlayAll( level, maxQuantity, challengeOptions ) {
     // Create a reaction with non-zero quantities of at least one product.
     const reaction = factoryFunctions[ i ]();
     reaction.reactants.forEach( reactant => {
-      reactant.quantityProperty.set( dotRandom.nextIntBetween( reactant.coefficientProperty.value, maxQuantity ) );
+      reactant.quantityProperty.value = dotRandom.nextIntBetween( reactant.coefficientProperty.value, maxQuantity );
     } );
 
     // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
@@ -210,7 +210,7 @@ function createChallengeWithProducts( factoryFunctions, maxQuantity ) {
   // Create a reaction with non-zero quantities of at least one product.
   const reaction = factoryFunction();
   reaction.reactants.forEach( reactant => {
-    reactant.quantityProperty.set( dotRandom.nextIntBetween( reactant.coefficientProperty.value, maxQuantity ) );
+    reactant.quantityProperty.value = dotRandom.nextIntBetween( reactant.coefficientProperty.value, maxQuantity );
   } );
 
   return reaction;
@@ -254,7 +254,7 @@ function createChallengeWithoutProducts( factoryFunctions ) {
 
   // set quantities
   reaction.reactants.forEach( reactant => {
-    reactant.quantityProperty.set( dotRandom.nextIntBetween( 1, Math.max( 1, reactant.coefficientProperty.value - 1 ) ) );
+    reactant.quantityProperty.value = dotRandom.nextIntBetween( 1, Math.max( 1, reactant.coefficientProperty.value - 1 ) );
   } );
 
   return reaction;
@@ -319,7 +319,7 @@ function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
     // First, make sure all reactant quantities are in range.
     reaction.reactants.forEach( reactant => {
       if ( reactant.quantityProperty.value > maxQuantity ) {
-        reactant.quantityProperty.set( maxQuantity );
+        reactant.quantityPropertyvalue = maxQuantity;
       }
     } );
 
@@ -330,7 +330,7 @@ function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
       const reactant = reaction.reactants[ reactantIndex ];
       const quantity = reactant.quantityProperty.value;
       if ( quantity > 1 ) {
-        reactant.quantityProperty.set( reactant.quantityProperty.value - 1 );
+        reactant.quantityProperty.value = reactant.quantityProperty.value - 1;
         changed = true;
       }
       reactantIndex++;
@@ -430,7 +430,7 @@ function doTest() {
     reaction = factoryFunction();
     // set all reactant quantities to their max values.
     for ( i = 0; i < reaction.reactants.length; i++ ) {
-      reaction.reactants[ i ].quantityProperty.set( maxQuantity );
+      reaction.reactants[ i ].quantityProperty.value = maxQuantity;
     }
     // look for violations and try to fix them.
     fixQuantityRangeViolation( reaction, maxQuantity, true /* enableDebugOutput */ );

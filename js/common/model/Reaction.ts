@@ -80,12 +80,12 @@ export default class Reaction {
   protected updateQuantities(): void {
     const numberOfReactions = this.getNumberOfReactions();
     this.products.forEach( product => {
-      product.quantityProperty.set( numberOfReactions * product.coefficientProperty.value );
+      product.quantityProperty.value = numberOfReactions * product.coefficientProperty.value;
     } );
     // reactants and leftovers array have identical orders
     for ( let i = 0; i < this.reactants.length; i++ ) {
-      const quantity = this.reactants[ i ].quantityProperty.value - ( numberOfReactions * this.reactants[ i ].coefficientProperty.value );
-      this.leftovers[ i ].quantityProperty.set( quantity );
+      this.leftovers[ i ].quantityProperty.value =
+        this.reactants[ i ].quantityProperty.value - ( numberOfReactions * this.reactants[ i ].coefficientProperty.value );
     }
   }
 

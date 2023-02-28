@@ -81,26 +81,30 @@ export default class GameModel {
     this.playStateProperty.reset();
 
     // reset scores and times for each level
-    this.bestScoreProperties.forEach( property => property.set( 0 ) );
-    this.bestTimeProperties.forEach( property => property.set( null ) );
+    this.bestScoreProperties.forEach( property => {
+      property.value = 0;
+    } );
+    this.bestTimeProperties.forEach( property => {
+      property.value = null;
+    } );
   }
 
   // @private Advances to GamePhase.SETTINGS, shows the user-interface for selecting game settings
   settings() {
     this.timer.stop();
-    this.playStateProperty.set( PlayState.NONE );
-    this.gamePhaseProperty.set( GamePhase.SETTINGS ); // do this last, so that other stuff is set up before observers are notified
+    this.playStateProperty.value = PlayState.NONE;
+    this.gamePhaseProperty.value = GamePhase.SETTINGS; // do this last, so that other stuff is set up before observers are notified
   }
 
   // @private Advances to GamePhase.PLAY, plays a game for the specified {number} level
   play( level ) {
     assert && assert( this.gamePhaseProperty.value === GamePhase.SETTINGS );
-    this.levelProperty.set( level );
-    this.scoreProperty.set( 0 );
+    this.levelProperty.value = level;
+    this.scoreProperty.value = 0;
     this.initChallenges();
     this.timer.start();
-    this.playStateProperty.set( PlayState.FIRST_CHECK );
-    this.gamePhaseProperty.set( GamePhase.PLAY ); // do this last, so that other stuff is set up before observers are notified
+    this.playStateProperty.value = PlayState.FIRST_CHECK;
+    this.gamePhaseProperty.value = GamePhase.PLAY; // do this last, so that other stuff is set up before observers are notified
   }
 
   // @private Advances to GamePhase.RESULTS, ends the current game and displays results
@@ -109,8 +113,8 @@ export default class GameModel {
     this.timer.stop();
     this.updateBestScore();
     this.updateBestTime();
-    this.playStateProperty.set( PlayState.NONE );
-    this.gamePhaseProperty.set( GamePhase.RESULTS ); // do this last, so that other stuff is set up before observers are notified
+    this.playStateProperty.value = PlayState.NONE;
+    this.gamePhaseProperty.value = GamePhase.RESULTS; // do this last, so that other stuff is set up before observers are notified
   }
 
   // @public Checks the current guess
@@ -124,25 +128,25 @@ export default class GameModel {
       }
       const points = ( playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
       this.challengeProperty.value.points = points;
-      this.scoreProperty.set( this.scoreProperty.value + points );
-      this.playStateProperty.set( PlayState.NEXT );
+      this.scoreProperty.value = this.scoreProperty.value + points;
+      this.playStateProperty.value = PlayState.NEXT;
     }
     else {
-      this.playStateProperty.set( ( playState === PlayState.FIRST_CHECK ) ? PlayState.TRY_AGAIN : PlayState.SHOW_ANSWER );
+      this.playStateProperty.value = ( playState === PlayState.FIRST_CHECK ) ? PlayState.TRY_AGAIN : PlayState.SHOW_ANSWER;
     }
   }
 
   // @public Makes another attempt at solving the challenge
   tryAgain() {
     assert && assert( this.playStateProperty.value === PlayState.TRY_AGAIN );
-    this.playStateProperty.set( PlayState.SECOND_CHECK );
+    this.playStateProperty.value = PlayState.SECOND_CHECK;
   }
 
   // @public Shows the correct answer
   showAnswer() {
     assert && assert( this.playStateProperty.value === PlayState.SHOW_ANSWER );
     this.challengeProperty.value.showAnswer();
-    this.playStateProperty.set( PlayState.NEXT );
+    this.playStateProperty.value = PlayState.NEXT;
   }
 
   // @public Advances to the next challenge
@@ -153,9 +157,9 @@ export default class GameModel {
     }
     else {
       // advance to next challenge
-      this.challengeIndexProperty.set( this.challengeIndexProperty.value + 1 );
-      this.challengeProperty.set( this.challenges[ this.challengeIndexProperty.value ] );
-      this.playStateProperty.set( PlayState.FIRST_CHECK );
+      this.challengeIndexProperty.value = this.challengeIndexProperty.value + 1;
+      this.challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
+      this.playStateProperty.value = PlayState.FIRST_CHECK;
     }
   }
 
@@ -192,7 +196,7 @@ export default class GameModel {
   updateBestScore() {
     const level = this.levelProperty.value;
     if ( this.scoreProperty.value > this.bestScoreProperties[ level ].value ) {
-      this.bestScoreProperties[ level ].set( this.scoreProperty.value );
+      this.bestScoreProperties[ level ].value = this.scoreProperty.value;
     }
   }
 
@@ -205,11 +209,11 @@ export default class GameModel {
       const time = this.timer.elapsedTimeProperty.value;
       if ( !this.bestTimeProperties[ level ].value ) {
         // there was no previous time for this level
-        this.bestTimeProperties[ level ].set( time );
+        this.bestTimeProperties[ level ].value = time;
       }
       else if ( time < this.bestTimeProperties[ level ].value ) {
         // we have a new best time for this level
-        this.bestTimeProperties[ level ].set( time );
+        this.bestTimeProperties[ level ].value = time;
         this.isNewBestTime = true;
       }
     }
@@ -221,9 +225,9 @@ export default class GameModel {
       moleculesVisible: ( this.gameVisibiltyProperty.value !== GameVisibility.HIDE_MOLECULES ),
       numbersVisible: ( this.gameVisibiltyProperty.value !== GameVisibility.HIDE_NUMBERS )
     } );
-    this.numberOfChallengesProperty.set( this.challenges.length );
-    this.challengeIndexProperty.set( 0 );
-    this.challengeProperty.set( this.challenges[ this.challengeIndexProperty.value ] );
+    this.numberOfChallengesProperty.value = this.challenges.length;
+    this.challengeIndexProperty.value = 0;
+    this.challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
   }
 
   /**
@@ -246,7 +250,7 @@ export default class GameModel {
    */
   replayCurrentChallenge() {
     this.challengeProperty.value.reset();
-    this.playStateProperty.set( PlayState.FIRST_CHECK );
+    this.playStateProperty.value = PlayState.FIRST_CHECK;
   }
 }
 
