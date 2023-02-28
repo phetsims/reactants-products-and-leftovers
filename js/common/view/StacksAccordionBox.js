@@ -71,7 +71,7 @@ export default class StacksAccordionBox extends AccordionBox {
     // compute max height of the nodes in the box
     const maxIconHeight = Math.max(
       options.minIconSize.height,
-      _.maxBy( substances, substance => substance.iconProperty.get().height ).iconProperty.get().height );
+      _.maxBy( substances, substance => substance.iconProperty.value.height ).iconProperty.value.height );
 
     // vertical stacks of nodes inside the box
     const stackNodes = []; // @private

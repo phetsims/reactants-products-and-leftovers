@@ -162,7 +162,7 @@ export default class PlayNode extends Node {
      * The user will presumably be distracted processing what they see on the screen, so won't notice the brief interruption.
      */
     this.stepsSinceUpdate++;
-    const challengeIndex = this.model.challengeIndexProperty.get();
+    const challengeIndex = this.model.challengeIndexProperty.value;
     if ( this.stepsSinceUpdate >= 2 && this.visible && !this.nextChallengeNode && challengeIndex < this.model.challenges.length - 1 ) {
       this.nextChallengeNode = new ChallengeNode( this.model, this.model.challenges[ challengeIndex + 1 ], this.challengeBounds, this.audioPlayer );
       this.nextChallengeNode.visible = false;

@@ -43,7 +43,7 @@ export default class Reaction {
     // Create a leftover for each reactant, in the same order.
     this.leftovers = [];
     this.reactants.forEach( reactant => {
-      this.leftovers.push( new Substance( 1, reactant.symbol, reactant.iconProperty.get(), 0 ) );
+      this.leftovers.push( new Substance( 1, reactant.symbol, reactant.iconProperty.value, 0 ) );
     } );
 
     //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80 dispose needed?
@@ -68,8 +68,8 @@ export default class Reaction {
     let greaterThanZero = 0;
     let greaterThanOne = 0;
     this.reactants.forEach( reactant => {
-      if ( reactant.coefficientProperty.get() > 0 ) { greaterThanZero++; }
-      if ( reactant.coefficientProperty.get() > 1 ) { greaterThanOne++; }
+      if ( reactant.coefficientProperty.value > 0 ) { greaterThanZero++; }
+      if ( reactant.coefficientProperty.value > 1 ) { greaterThanOne++; }
     } );
     return ( greaterThanZero > 1 || greaterThanOne > 0 );
   }
@@ -80,11 +80,11 @@ export default class Reaction {
   protected updateQuantities(): void {
     const numberOfReactions = this.getNumberOfReactions();
     this.products.forEach( product => {
-      product.quantityProperty.set( numberOfReactions * product.coefficientProperty.get() );
+      product.quantityProperty.set( numberOfReactions * product.coefficientProperty.value );
     } );
     // reactants and leftovers array have identical orders
     for ( let i = 0; i < this.reactants.length; i++ ) {
-      const quantity = this.reactants[ i ].quantityProperty.get() - ( numberOfReactions * this.reactants[ i ].coefficientProperty.get() );
+      const quantity = this.reactants[ i ].quantityProperty.value - ( numberOfReactions * this.reactants[ i ].coefficientProperty.value );
       this.leftovers[ i ].quantityProperty.set( quantity );
     }
   }
@@ -99,8 +99,8 @@ export default class Reaction {
     if ( this.isReaction() ) {
       const possibleValues: number[] = [];
       this.reactants.forEach( reactant => {
-        if ( reactant.coefficientProperty.get() !== 0 ) {
-          possibleValues.push( Math.floor( reactant.quantityProperty.get() / reactant.coefficientProperty.get() ) );
+        if ( reactant.coefficientProperty.value !== 0 ) {
+          possibleValues.push( Math.floor( reactant.quantityProperty.value / reactant.coefficientProperty.value ) );
         }
       } );
       assert && assert( possibleValues.length > 0 );

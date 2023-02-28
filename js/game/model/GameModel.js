@@ -94,7 +94,7 @@ export default class GameModel {
 
   // @private Advances to GamePhase.PLAY, plays a game for the specified {number} level
   play( level ) {
-    assert && assert( this.gamePhaseProperty.get() === GamePhase.SETTINGS );
+    assert && assert( this.gamePhaseProperty.value === GamePhase.SETTINGS );
     this.levelProperty.set( level );
     this.scoreProperty.set( 0 );
     this.initChallenges();
@@ -105,7 +105,7 @@ export default class GameModel {
 
   // @private Advances to GamePhase.RESULTS, ends the current game and displays results
   results() {
-    assert && assert( this.gamePhaseProperty.get() === GamePhase.PLAY );
+    assert && assert( this.gamePhaseProperty.value === GamePhase.PLAY );
     this.timer.stop();
     this.updateBestScore();
     this.updateBestTime();
@@ -115,16 +115,16 @@ export default class GameModel {
 
   // @public Checks the current guess
   check() {
-    const playState = this.playStateProperty.get();
+    const playState = this.playStateProperty.value;
     assert && assert( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
-    if ( this.challengeProperty.get().isCorrect() ) {
+    if ( this.challengeProperty.value.isCorrect() ) {
       // stop the timer as soon as we successfully complete the last challenge
-      if ( this.challengeIndexProperty.get() === this.challenges.length - 1 ) {
+      if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
         this.timer.stop();
       }
       const points = ( playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
-      this.challengeProperty.get().points = points;
-      this.scoreProperty.set( this.scoreProperty.get() + points );
+      this.challengeProperty.value.points = points;
+      this.scoreProperty.set( this.scoreProperty.value + points );
       this.playStateProperty.set( PlayState.NEXT );
     }
     else {
@@ -134,27 +134,27 @@ export default class GameModel {
 
   // @public Makes another attempt at solving the challenge
   tryAgain() {
-    assert && assert( this.playStateProperty.get() === PlayState.TRY_AGAIN );
+    assert && assert( this.playStateProperty.value === PlayState.TRY_AGAIN );
     this.playStateProperty.set( PlayState.SECOND_CHECK );
   }
 
   // @public Shows the correct answer
   showAnswer() {
-    assert && assert( this.playStateProperty.get() === PlayState.SHOW_ANSWER );
-    this.challengeProperty.get().showAnswer();
+    assert && assert( this.playStateProperty.value === PlayState.SHOW_ANSWER );
+    this.challengeProperty.value.showAnswer();
     this.playStateProperty.set( PlayState.NEXT );
   }
 
   // @public Advances to the next challenge
   next() {
-    if ( this.challengeIndexProperty.get() === this.challenges.length - 1 ) {
+    if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
       // game has been completed, advance to GamePhase.RESULTS
       this.results();
     }
     else {
       // advance to next challenge
-      this.challengeIndexProperty.set( this.challengeIndexProperty.get() + 1 );
-      this.challengeProperty.set( this.challenges[ this.challengeIndexProperty.get() ] );
+      this.challengeIndexProperty.set( this.challengeIndexProperty.value + 1 );
+      this.challengeProperty.set( this.challenges[ this.challengeIndexProperty.value ] );
       this.playStateProperty.set( PlayState.FIRST_CHECK );
     }
   }
@@ -185,14 +185,14 @@ export default class GameModel {
    * @public
    */
   isPerfectScore() {
-    return this.scoreProperty.get() === this.getPerfectScore( this.levelProperty.get() );
+    return this.scoreProperty.value === this.getPerfectScore( this.levelProperty.value );
   }
 
   // @private Updates the best score for the current level.
   updateBestScore() {
-    const level = this.levelProperty.get();
-    if ( this.scoreProperty.get() > this.bestScoreProperties[ level ].get() ) {
-      this.bestScoreProperties[ level ].set( this.scoreProperty.get() );
+    const level = this.levelProperty.value;
+    if ( this.scoreProperty.value > this.bestScoreProperties[ level ].value ) {
+      this.bestScoreProperties[ level ].set( this.scoreProperty.value );
     }
   }
 
@@ -200,14 +200,14 @@ export default class GameModel {
   updateBestTime() {
     assert && assert( !this.timer.isRunningProperty.value );
     this.isNewBestTime = false;
-    if ( this.timerEnabledProperty.get() && this.isPerfectScore() ) {
-      const level = this.levelProperty.get();
+    if ( this.timerEnabledProperty.value && this.isPerfectScore() ) {
+      const level = this.levelProperty.value;
       const time = this.timer.elapsedTimeProperty.value;
-      if ( !this.bestTimeProperties[ level ].get() ) {
+      if ( !this.bestTimeProperties[ level ].value ) {
         // there was no previous time for this level
         this.bestTimeProperties[ level ].set( time );
       }
-      else if ( time < this.bestTimeProperties[ level ].get() ) {
+      else if ( time < this.bestTimeProperties[ level ].value ) {
         // we have a new best time for this level
         this.bestTimeProperties[ level ].set( time );
         this.isNewBestTime = true;
@@ -217,13 +217,13 @@ export default class GameModel {
 
   // @private initializes a new set of challenges for the current level
   initChallenges() {
-    this.challenges = ChallengeFactory.createChallenges( this.levelProperty.get(), this.maxQuantity, {
-      moleculesVisible: ( this.gameVisibiltyProperty.get() !== GameVisibility.HIDE_MOLECULES ),
-      numbersVisible: ( this.gameVisibiltyProperty.get() !== GameVisibility.HIDE_NUMBERS )
+    this.challenges = ChallengeFactory.createChallenges( this.levelProperty.value, this.maxQuantity, {
+      moleculesVisible: ( this.gameVisibiltyProperty.value !== GameVisibility.HIDE_MOLECULES ),
+      numbersVisible: ( this.gameVisibiltyProperty.value !== GameVisibility.HIDE_NUMBERS )
     } );
     this.numberOfChallengesProperty.set( this.challenges.length );
     this.challengeIndexProperty.set( 0 );
-    this.challengeProperty.set( this.challenges[ this.challengeIndexProperty.get() ] );
+    this.challengeProperty.set( this.challenges[ this.challengeIndexProperty.value ] );
   }
 
   /**
@@ -245,7 +245,7 @@ export default class GameModel {
    * @public
    */
   replayCurrentChallenge() {
-    this.challengeProperty.get().reset();
+    this.challengeProperty.value.reset();
     this.playStateProperty.set( PlayState.FIRST_CHECK );
   }
 }

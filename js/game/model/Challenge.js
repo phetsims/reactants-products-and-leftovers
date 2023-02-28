@@ -64,13 +64,13 @@ export default class Challenge {
   showAnswer() {
     let i;
     for ( i = 0; i < this.guess.reactants.length; i++ ) {
-      this.guess.reactants[ i ].quantityProperty.set( this.reaction.reactants[ i ].quantityProperty.get() );
+      this.guess.reactants[ i ].quantityProperty.set( this.reaction.reactants[ i ].quantityProperty.value );
     }
     for ( i = 0; i < this.guess.products.length; i++ ) {
-      this.guess.products[ i ].quantityProperty.set( this.reaction.products[ i ].quantityProperty.get() );
+      this.guess.products[ i ].quantityProperty.set( this.reaction.products[ i ].quantityProperty.value );
     }
     for ( i = 0; i < this.guess.leftovers.length; i++ ) {
-      this.guess.leftovers[ i ].quantityProperty.set( this.reaction.leftovers[ i ].quantityProperty.get() );
+      this.guess.leftovers[ i ].quantityProperty.set( this.reaction.leftovers[ i ].quantityProperty.value );
     }
   }
 }

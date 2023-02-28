@@ -62,7 +62,7 @@ export default class SandwichRecipe extends Reaction {
       const updateSandwichNode = () => {
         if ( this.isReaction() ) {
           sandwich.iconProperty.set(
-            new SandwichNode( bread.coefficientProperty.get(), meat.coefficientProperty.get(), cheese.coefficientProperty.get() ) );
+            new SandwichNode( bread.coefficientProperty.value, meat.coefficientProperty.value, cheese.coefficientProperty.value ) );
         }
         else {
           sandwich.iconProperty.set( NO_SANDWICH_NODE );

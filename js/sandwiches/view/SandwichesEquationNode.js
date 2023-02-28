@@ -72,7 +72,7 @@ export default class SandwichesEquationNode extends Node {
         this.coefficientNodes.push( coefficientNode );
       }
       else {
-        coefficientNode = new Text( reactant.coefficientProperty.get(), TEXT_OPTIONS );
+        coefficientNode = new Text( reactant.coefficientProperty.value, TEXT_OPTIONS );
       }
       coefficientNode.left = plusNode ? ( plusNode.right + PLUS_X_SPACING ) : 0;
       leftNode.addChild( coefficientNode );

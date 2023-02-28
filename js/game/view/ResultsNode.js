@@ -38,20 +38,20 @@ export default class ResultsNode extends Node {
 
         // game reward
         if ( model.isPerfectScore() ) {
-          this.rewardNode = new RPALRewardNode( model.levelProperty.get() );
+          this.rewardNode = new RPALRewardNode( model.levelProperty.value );
           this.addChild( this.rewardNode );
         }
 
         // game results
-        const level = model.levelProperty.get();
+        const level = model.levelProperty.value;
         this.addChild( new LevelCompletedNode(
           level + 1,
-          model.scoreProperty.get(),
+          model.scoreProperty.value,
           model.getPerfectScore( level ),
-          model.numberOfChallengesProperty.get(), // number of stars in the progress indicator
-          model.timerEnabledProperty.get(),
+          model.numberOfChallengesProperty.value, // number of stars in the progress indicator
+          model.timerEnabledProperty.value,
           model.timer.elapsedTimeProperty.value,
-          model.bestTimeProperties[ level ].get(),
+          model.bestTimeProperties[ level ].value,
           model.isNewBestTime,
           () => model.settings(),
           {

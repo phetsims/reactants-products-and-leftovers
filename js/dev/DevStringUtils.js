@@ -23,14 +23,14 @@ const DevStringUtils = {
     // reactants
     for ( let i = 0; i < reaction.reactants.length; i++ ) {
       if ( i !== 0 ) { s += '+ '; }
-      s += ( `${reaction.reactants[ i ].coefficientProperty.get()} ${reaction.reactants[ i ].symbol} ` );
+      s += ( `${reaction.reactants[ i ].coefficientProperty.value} ${reaction.reactants[ i ].symbol} ` );
     }
     // right arrow
     s += '\u2192 ';
     // products
     for ( let i = 0; i < reaction.products.length; i++ ) {
       if ( i !== 0 ) { s += '+ '; }
-      s += ( `${reaction.products[ i ].coefficientProperty.get()} ${reaction.products[ i ].symbol}` );
+      s += ( `${reaction.products[ i ].coefficientProperty.value} ${reaction.products[ i ].symbol}` );
       if ( i < reaction.products.length - 1 ) {
         s += ' ';
       }
@@ -51,19 +51,19 @@ const DevStringUtils = {
     // reactants
     for ( i = 0; i < reaction.reactants.length; i++ ) {
       if ( i !== 0 ) { s += ','; }
-      s += reaction.reactants[ i ].quantityProperty.get();
+      s += reaction.reactants[ i ].quantityProperty.value;
     }
     // right arrow
     s += ' \u2192 ';
     // products
     for ( i = 0; i < reaction.products.length; i++ ) {
       if ( i !== 0 ) { s += ','; }
-      s += reaction.products[ i ].quantityProperty.get();
+      s += reaction.products[ i ].quantityProperty.value;
     }
     // leftovers
     for ( i = 0; i < reaction.leftovers.length; i++ ) {
       s += ',';
-      s += reaction.leftovers[ i ].quantityProperty.get();
+      s += reaction.leftovers[ i ].quantityProperty.value;
     }
     return s;
   },

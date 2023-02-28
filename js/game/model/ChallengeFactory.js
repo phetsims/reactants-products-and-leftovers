@@ -179,7 +179,7 @@ function createChallengesPlayAll( level, maxQuantity, challengeOptions ) {
     // Create a reaction with non-zero quantities of at least one product.
     const reaction = factoryFunctions[ i ]();
     reaction.reactants.forEach( reactant => {
-      reactant.quantityProperty.set( dotRandom.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
+      reactant.quantityProperty.set( dotRandom.nextIntBetween( reactant.coefficientProperty.value, maxQuantity ) );
     } );
 
     // Adjust quantities if they exceed the maximum. Do this before creating the challenge.
@@ -210,7 +210,7 @@ function createChallengeWithProducts( factoryFunctions, maxQuantity ) {
   // Create a reaction with non-zero quantities of at least one product.
   const reaction = factoryFunction();
   reaction.reactants.forEach( reactant => {
-    reactant.quantityProperty.set( dotRandom.nextIntBetween( reactant.coefficientProperty.get(), maxQuantity ) );
+    reactant.quantityProperty.set( dotRandom.nextIntBetween( reactant.coefficientProperty.value, maxQuantity ) );
   } );
 
   return reaction;
@@ -254,7 +254,7 @@ function createChallengeWithoutProducts( factoryFunctions ) {
 
   // set quantities
   reaction.reactants.forEach( reactant => {
-    reactant.quantityProperty.set( dotRandom.nextIntBetween( 1, Math.max( 1, reactant.coefficientProperty.get() - 1 ) ) );
+    reactant.quantityProperty.set( dotRandom.nextIntBetween( 1, Math.max( 1, reactant.coefficientProperty.value - 1 ) ) );
   } );
 
   return reaction;
@@ -269,7 +269,7 @@ function createChallengeWithoutProducts( factoryFunctions ) {
 function reactantCoefficientsAllOne( reaction ) {
   let allOne = true;
   reaction.reactants.forEach( reactant => {
-    if ( reactant.coefficientProperty.get() !== 1 ) {
+    if ( reactant.coefficientProperty.value !== 1 ) {
       allOne = false;
     }
   } );
@@ -286,13 +286,13 @@ function hasQuantityRangeViolation( reaction, maxQuantity ) {
   let violation = false;
   let i;
   for ( i = 0; !violation && i < reaction.reactants.length; i++ ) {
-    violation = ( reaction.reactants[ i ].quantityProperty.get() > maxQuantity );
+    violation = ( reaction.reactants[ i ].quantityProperty.value > maxQuantity );
   }
   for ( i = 0; !violation && i < reaction.products.length; i++ ) {
-    violation = ( reaction.products[ i ].quantityProperty.get() > maxQuantity );
+    violation = ( reaction.products[ i ].quantityProperty.value > maxQuantity );
   }
   for ( i = 0; !violation && i < reaction.leftovers.length; i++ ) {
-    violation = ( reaction.leftovers[ i ].quantityProperty.get() > maxQuantity );
+    violation = ( reaction.leftovers[ i ].quantityProperty.value > maxQuantity );
   }
   return violation;
 }
@@ -318,7 +318,7 @@ function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
 
     // First, make sure all reactant quantities are in range.
     reaction.reactants.forEach( reactant => {
-      if ( reactant.quantityProperty.get() > maxQuantity ) {
+      if ( reactant.quantityProperty.value > maxQuantity ) {
         reactant.quantityProperty.set( maxQuantity );
       }
     } );
@@ -328,9 +328,9 @@ function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
     let changed = false;
     while ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
       const reactant = reaction.reactants[ reactantIndex ];
-      const quantity = reactant.quantityProperty.get();
+      const quantity = reactant.quantityProperty.value;
       if ( quantity > 1 ) {
-        reactant.quantityProperty.set( reactant.quantityProperty.get() - 1 );
+        reactant.quantityProperty.set( reactant.quantityProperty.value - 1 );
         changed = true;
       }
       reactantIndex++;
@@ -404,14 +404,14 @@ function doTest() {
   factoryFunctions.forEach( factoryFunction => {
     reaction = factoryFunction();
     for ( i = 0; i < reaction.reactants.length; i++ ) {
-      if ( reaction.reactants[ i ].coefficientProperty.get() > maxQuantity ) {
+      if ( reaction.reactants[ i ].coefficientProperty.value > maxQuantity ) {
         console.log( `ERROR: reactant coefficient out of range : ${DevStringUtils.equationString( reaction )}` );
         numberOfCoefficientRangeErrors++;
         break;
       }
     }
     for ( i = 0; i < reaction.products.length; i++ ) {
-      if ( reaction.products[ i ].coefficientProperty.get() > maxQuantity ) {
+      if ( reaction.products[ i ].coefficientProperty.value > maxQuantity ) {
         console.log( `ERROR: product coefficient out of range : ${DevStringUtils.equationString( reaction )}` );
         numberOfCoefficientRangeErrors++;
         break;
@@ -455,7 +455,7 @@ function doTest() {
         // verify that all reactant quantities are > 0
         let zeroReactants = false;
         challenge.reaction.reactants.forEach( reactant => {
-          if ( reactant.quantityProperty.get() < 1 ) {
+          if ( reactant.quantityProperty.value < 1 ) {
             zeroReactants = true;
           }
         } );
@@ -468,7 +468,7 @@ function doTest() {
         // count how many challenges have zero products
         let nonZeroProducts = 0;
         challenge.reaction.products.forEach( product => {
-          if ( product.quantityProperty.get() > 0 ) {
+          if ( product.quantityProperty.value > 0 ) {
             nonZeroProducts++;
           }
         } );
