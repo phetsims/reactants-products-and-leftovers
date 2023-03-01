@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Horizontal bar that contains radio buttons for selecting a reaction, and displays the selected reaction's equation.
  * Equations are relatively expensive to create, and we have a small number of reactions.

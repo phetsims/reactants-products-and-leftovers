@@ -1,5 +1,6 @@
 // Copyright 2020-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Radio buttons for selecting a reaction.
  *
