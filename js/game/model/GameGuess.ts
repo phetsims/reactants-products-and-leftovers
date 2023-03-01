@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * A 'guess' is the user's answer to a game challenge, and it may or may not be correct.
  * We call it a 'guess' to distinguish the user's answer from the correct answer.
@@ -20,31 +19,33 @@
  */
 
 import BoxType from '../../common/model/BoxType.js';
+import Reaction from '../../common/model/Reaction.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import Substance from '../../common/model/Substance.js';
 
 export default class GameGuess {
 
-  /**
-   * @param {Reaction} reaction
-   * @param {BoxType} interactiveBox which box is interactive
-   */
-  constructor( reaction, interactiveBox ) {
+  public readonly reactants: Substance[];
+  public readonly products: Substance[];
+  public readonly leftovers: Substance[];
+
+  public constructor( reaction: Reaction, interactiveBox: BoxType ) {
 
     assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
-    // @public Clone reactants, quantities are initialized to zero for 'Before' challenges.
+    // Clone reactants, quantities are initialized to zero for 'Before' challenges.
     this.reactants = [];
     reaction.reactants.forEach( reactant => {
       this.reactants.push( ( interactiveBox === BoxType.BEFORE ) ? reactant.clone( 0 ) : reactant.clone() );
     } );
 
-    // @public Clone products, quantities are initialized to zero for 'After' challenges.
+    // Clone products, quantities are initialized to zero for 'After' challenges.
     this.products = [];
     reaction.products.forEach( product => {
       this.products.push( ( interactiveBox === BoxType.AFTER ) ? product.clone( 0 ) : product.clone() );
     } );
 
-    // @public Clone leftovers, quantities are initialized to zero for 'After' challenges.
+    // Clone leftovers, quantities are initialized to zero for 'After' challenges.
     this.leftovers = [];
     reaction.leftovers.forEach( leftover => {
       this.leftovers.push( ( interactiveBox === BoxType.AFTER ) ? leftover.clone( 0 ) : leftover.clone() );
@@ -55,8 +56,7 @@ export default class GameGuess {
     assert && assert( this.leftovers.length === reaction.leftovers.length );
   }
 
-  // @public
-  reset() {
+  public reset(): void {
     this.reactants.forEach( reactant => reactant.reset() );
     this.products.forEach( product => product.reset() );
     this.leftovers.forEach( leftover => leftover.reset() );
