@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Equation for the 'Sandwiches' screen.
  * This differs from the 'Molecules' screen equation is a few key ways:
