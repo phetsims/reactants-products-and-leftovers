@@ -71,7 +71,7 @@ export default class Challenge {
     return correct;
   }
 
-  // Reveals the correct answer by copying the reaction quantities to the guess.
+  // Reveals the correct answer by copying the answer's reaction quantities to the guess.
   public showAnswer(): void {
     let i;
     for ( i = 0; i < this.guess.reactants.length; i++ ) {
