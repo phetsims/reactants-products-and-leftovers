@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Creates challenges where level-of-difficulty is based on the number variables that
  * we're solving for, and whether the variables are 'Before' or 'After' terms.
