@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Base type for the ScreenView used in the 'Sandwiches' and 'Molecules' screens.
  * The user interface is relatively expensive to create, and we have a small number of reactions.
