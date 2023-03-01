@@ -1,45 +1,51 @@
 // Copyright 2020-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Radio buttons for selecting a reaction.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
-import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
+import AquaRadioButtonGroup, { AquaRadioButtonGroupItem, AquaRadioButtonGroupOptions } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import Reaction from '../model/Reaction.js';
 
-// constants
-const TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
+const TEXT_OPTIONS = {
+  font: new PhetFont( 16 ),
+  fill: 'white'
+};
 
-export default class ReactionRadioButtonGroup extends AquaRadioButtonGroup {
+type SelfOptions = EmptySelfOptions;
 
-  /**
-   * @param {Property.<Reaction>} reactionProperty
-   * @param {Reaction[]} choices
-   * @param {Object} [options]
-   */
-  constructor( reactionProperty, choices, options ) {
+type ReactionRadioButtonGroupOptions = SelfOptions & PickOptional<AquaRadioButtonGroupOptions, 'maxWidth'>;
 
-    options = merge( {
+export default class ReactionRadioButtonGroup extends AquaRadioButtonGroup<Reaction> {
+
+  public constructor( reactionProperty: Property<Reaction>, choices: Reaction[], providedOptions?: ReactionRadioButtonGroupOptions ) {
+
+    const options = optionize<ReactionRadioButtonGroupOptions, SelfOptions, AquaRadioButtonGroupOptions>()( {
+
+      // AquaRadioButtonGroupOptions
       orientation: 'vertical',
       align: 'left',
       spacing: 10,
       touchAreaXDilation: 10,
       radioButtonOptions: { radius: 8 }
-    }, options );
+    }, providedOptions );
 
-    // describe radio buttons, one for each reaction
-    const items = [];
-    choices.forEach( choice => {
-      items.push( {
-        createNode: () => new Text( choice.nameProperty, TEXT_OPTIONS ),
+    // Describe radio buttons, one for each reaction.
+    const items: AquaRadioButtonGroupItem<Reaction>[] = choices.map( choice => {
+      const nameProperty = choice.nameProperty!;
+      assert && assert( nameProperty );
+      return {
+        createNode: () => new Text( nameProperty, TEXT_OPTIONS ),
         value: choice
-      } );
+      };
     } );
 
     super( reactionProperty, items, options );

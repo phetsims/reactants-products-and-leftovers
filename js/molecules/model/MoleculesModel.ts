@@ -6,20 +6,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import ReactionFactory from '../../common/model/ReactionFactory.js';
 import RPALBaseModel from '../../common/model/RPALBaseModel.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 export default class MoleculesModel extends RPALBaseModel {
 
-  public constructor() {
-    super( [
+  public constructor( tandem: Tandem ) {
 
-      // reaction choices
+    const reactions = [
       ReactionFactory.makeWater(),
       ReactionFactory.makeAmmonia(),
       ReactionFactory.combustMethane()
-    ] );
+    ];
+
+    super( reactions, tandem );
   }
 }
 

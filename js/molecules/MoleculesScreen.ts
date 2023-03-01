@@ -20,19 +20,19 @@ import MoleculesScreenView from './view/MoleculesScreenView.js';
 
 export default class MoleculesScreen extends Screen<MoleculesModel, MoleculesScreenView> {
 
-  public constructor() {
+  public constructor( tandem: Tandem ) {
 
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.moleculesStringProperty,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
       homeScreenIcon: createIcon( 0.1 ),
       navigationBarIcon: createIcon( 0.5 ),
-      tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78
+      tandem: tandem
     };
 
     super(
-      () => new MoleculesModel(),
-      model => new MoleculesScreenView( model ),
+      () => new MoleculesModel( tandem.createTandem( 'model' ) ),
+      model => new MoleculesScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );
   }

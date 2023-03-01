@@ -20,8 +20,9 @@ export default class SandwichesScreenView extends RPALScreenView {
 
   /**
    * @param {SandwichesModel} model
+   * @param {Tandem} tandem
    */
-  constructor( model ) {
+  constructor( model, tandem ) {
 
     // compute the size of the largest sandwich, used for view layout
     const maxCoefficient = RPALConstants.SANDWICH_COEFFICIENT_RANGE.max;
@@ -56,7 +57,8 @@ export default class SandwichesScreenView extends RPALScreenView {
             minIconSize: maxSandwichSize,
             boxYMargin: 8 // large enough to accommodate biggest sandwich
           } ) );
-      }
+      },
+      tandem
     );
   }
 }

@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Horizontal bar that contains radio buttons for selecting a reaction, and displays the selected reaction's equation.
  * Equations are relatively expensive to create, and we have a small number of reactions.
@@ -9,86 +8,97 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import { Node, Rectangle } from '../../../../scenery/js/imports.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import { Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import Reaction from '../model/Reaction.js';
 import RPALColors from '../RPALColors.js';
 import ReactionRadioButtonGroup from './ReactionRadioButtonGroup.js';
 
+const X_MARGIN = 20;
+const Y_MARGIN = 10;
+
+export type CreateEquationNodeFunction = ( reaction: Reaction ) => Node;
+
+type SelfOptions = {
+  screenWidth: number;
+};
+
+type ReactionBarNodeOptions = SelfOptions;
+
 export default class ReactionBarNode extends Node {
 
-  /**
-   * @param {Property.<Reaction>} reactionProperty the selected reaction
-   * @param {Reaction[]} reactions the reaction choices
-   * @param {function} createEquationNode takes one {Reaction} parameter, returns {Node}
-   * @param {Object} [options]
-   */
-  constructor( reactionProperty, reactions, createEquationNode, options ) {
+  private readonly equationNodeCache: Map<Reaction, Node>;
 
-    options = merge( {
-      screenWidth: 1000, // width of the screen's safe area
-      xMargin: 20,
-      yMargin: 10,
-      fill: RPALColors.PANEL_FILL,
-      showSymbols: true // true = show symbols, false = show nodes
-    }, options );
+  public constructor( reactionProperty: Property<Reaction>, reactions: Reaction[],
+                      createEquationNode: CreateEquationNodeFunction, providedOptions: ReactionBarNodeOptions ) {
+
+    const options = optionize<ReactionBarNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     // radio buttons for choosing a reaction, scaled to fit for i18n
+    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80 should scale labels, not group
     const radioButtonGroup = new ReactionRadioButtonGroup( reactionProperty, reactions, {
-      maxWidth: 0.25 * options.screenWidth // constrain width for i18n
+      maxWidth: 0.25 * options.screenWidth
     } );
 
     // background, extra wide so that it will appear to fill the window for all but extreme window sizes
-    const backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, radioButtonGroup.height + ( 2 * options.yMargin ), {
-      fill: options.fill,
+    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80 update to fit the window width
+    const backgroundNode = new Rectangle( 0, 0, 4 * options.screenWidth, radioButtonGroup.height + ( 2 * Y_MARGIN ), {
+      fill: RPALColors.PANEL_FILL,
       centerX: options.screenWidth / 2
     } );
 
     // radio buttons at right, vertically centered
     radioButtonGroup.boundsProperty.link( bounds => {
-      radioButtonGroup.right = options.screenWidth - options.xMargin;
+      radioButtonGroup.right = options.screenWidth - X_MARGIN;
       radioButtonGroup.centerY = backgroundNode.centerY;
     } );
 
     options.children = [ backgroundNode, radioButtonGroup ];
+
     super( options );
 
     // pdom - set the initial accessible order
+    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/76 delete?
     this.pdomOrder = [ radioButtonGroup ];
+
     /*
      * Updates the equation to match the reaction.
      * Equations are created on demand and cached for reuse.
      * Unlinking from reactionProperty is unnecessary because this node exists for the lifetime of the simulation.
      */
-    this.equationCache = []; // @private { {Reaction} reaction, {Node} equationNode }[]
+    this.equationNodeCache = new Map();
     reactionProperty.link( reaction => {
 
       // Create an equation for this reaction, if one isn't already in the cache.
-      if ( !_.find( this.equationCache, { reaction: reaction } ) ) {
+      const cachedNode = this.equationNodeCache.get( reaction );
+      if ( !cachedNode ) {
 
         // create equation for the reaction
         const equationNode = createEquationNode( reaction );
         this.addChild( equationNode );
 
         // pdom - as the equations are created, we want them all to be before the radio buttons in focus order
-        this.pdomOrder = [ equationNode ].concat( this.pdomOrder );
+        //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/76 TS error here, delete?
+        // this.pdomOrder = [ equationNode ].concat( this.pdomOrder );
 
         // scale the equation if it's too wide to fit the available space
-        const availableWidth = radioButtonGroup.left - ( 2 * options.xMargin );
+        const availableWidth = radioButtonGroup.left - ( 2 * X_MARGIN );
         const scale = Math.min( 1, availableWidth / equationNode.width );
         equationNode.setScaleMagnitude( scale );
 
         // center the equation in the space to the left of the controls
-        equationNode.centerX = options.xMargin + ( availableWidth / 2 );
+        equationNode.centerX = X_MARGIN + ( availableWidth / 2 );
         equationNode.centerY = backgroundNode.centerY;
 
         // cache it
-        this.equationCache.push( { reaction: reaction, equationNode: equationNode } );
+        this.equationNodeCache.set( reaction, equationNode );
       }
 
-      // Make the reaction's equation visible.
-      this.equationCache.forEach( item => {
-        item.equationNode.visible = ( item.reaction === reaction );
+      // Make only the reaction's equation visible, hide other equations.
+      this.equationNodeCache.forEach( ( node: Node, key: Reaction ) => {
+        node.visible = ( key === reaction );
       } );
     } );
   }

@@ -19,11 +19,13 @@ export default class GameScreenView extends ScreenView {
 
   /**
    * @param {GameModel} model
+   * @param {Tandem} tandem
    */
-  constructor( model ) {
+  constructor( model, tandem ) {
 
     super( {
-      layoutBounds: RPALConstants.SCREEN_VIEW_LAYOUT_BOUNDS
+      layoutBounds: RPALConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
+      tandem: tandem
     } );
 
     // sounds

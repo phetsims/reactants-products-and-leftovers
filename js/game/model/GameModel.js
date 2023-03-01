@@ -26,14 +26,16 @@ const POINTS_SECOND_CHECK = 1;
 export default class GameModel {
 
   /**
+   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( tandem, options ) {
 
     options = merge( {
       level: 0, // the current level in the game, numbered starting with zero
       numberOfLevels: 3, // number of levels in the game
-      maxQuantity: RPALConstants.QUANTITY_RANGE.max // maximum quantity of any substance in a reaction
+      maxQuantity: RPALConstants.QUANTITY_RANGE.max, // maximum quantity of any substance in a reaction
+      tandem: tandem
     }, options );
 
     // @public

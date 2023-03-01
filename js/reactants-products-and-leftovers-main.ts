@@ -8,6 +8,7 @@
 
 import Sim, { SimOptions } from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
+import Tandem from '../../tandem/js/Tandem.js';
 import GameScreen from './game/GameScreen.js';
 import MoleculesScreen from './molecules/MoleculesScreen.js';
 import ReactantsProductsAndLeftoversStrings from './ReactantsProductsAndLeftoversStrings.js';
@@ -18,9 +19,9 @@ simLauncher.launch( () => {
   const titleStringProperty = ReactantsProductsAndLeftoversStrings[ 'reactants-products-and-leftovers' ].titleStringProperty;
 
   const screens = [
-    new SandwichesScreen(),
-    new MoleculesScreen(),
-    new GameScreen()
+    new SandwichesScreen( Tandem.ROOT.createTandem( 'sandwichesScreen' ) ),
+    new MoleculesScreen( Tandem.ROOT.createTandem( 'moleculesScreen' ) ),
+    new GameScreen( Tandem.ROOT.createTandem( 'gameScreen' ) )
   ];
 
   const options: SimOptions = {

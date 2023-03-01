@@ -18,8 +18,9 @@ export default class MoleculesScreenView extends RPALScreenView {
 
   /**
    * @param {MoleculesModel} model
+   * @param {Tandem} tandem
    */
-  constructor( model ) {
+  constructor( model, tandem ) {
 
     super( model,
 
@@ -44,7 +45,8 @@ export default class MoleculesScreenView extends RPALScreenView {
             contentSize: RPALConstants.MOLECULES_BEFORE_AFTER_BOX_SIZE,
             minIconSize: new Dimension2( 30, 25 ) // eyeballed
           } ) );
-      }
+      },
+      tandem
     );
   }
 }

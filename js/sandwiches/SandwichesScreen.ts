@@ -21,7 +21,7 @@ import SandwichesScreenView from './view/SandwichesScreenView.js';
 
 export default class SandwichesScreen extends Screen<SandwichesModel, SandwichesScreenView> {
 
-  public constructor() {
+  public constructor( tandem: Tandem ) {
 
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.sandwichesStringProperty,
@@ -34,12 +34,12 @@ export default class SandwichesScreen extends Screen<SandwichesModel, Sandwiches
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } ),
-      tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78
+      tandem: tandem
     };
 
     super(
-      () => new SandwichesModel(),
-      model => new SandwichesScreenView( model ),
+      () => new SandwichesModel( tandem.createTandem( 'model' ) ),
+      model => new SandwichesScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );
   }

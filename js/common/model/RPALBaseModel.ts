@@ -8,6 +8,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import TModel from '../../../../joist/js/TModel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from './Reaction.js';
 
@@ -19,7 +20,7 @@ export default class RPALBaseModel implements TModel {
   // the selected reaction
   public readonly reactionProperty: Property<Reaction>;
 
-  public constructor( reactions: Reaction[] ) {
+  protected constructor( reactions: Reaction[], tandem: Tandem ) {
     this.reactions = reactions;
     this.reactionProperty = new Property( this.reactions[ 0 ], {
       validValues: reactions

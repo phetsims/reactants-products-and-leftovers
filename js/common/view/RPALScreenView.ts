@@ -1,8 +1,7 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
- * Base type for the ScreenView used in the 'Sandwiches' and 'Molecules' screens.
+ * Base class for the ScreenView used in the 'Sandwiches' and 'Molecules' screens.
  * The user interface is relatively expensive to create, and we have a small number of reactions.
  * So user-interface components are created on demand, then cached to improve the performance of
  * switching between reactions.
@@ -12,25 +11,45 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import { Node, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import RPALBaseModel from '../model/RPALBaseModel.js';
 import RPALConstants from '../RPALConstants.js';
-import ReactionBarNode from './ReactionBarNode.js';
+import ReactionBarNode, { CreateEquationNodeFunction } from './ReactionBarNode.js';
+import Reaction from '../model/Reaction.js';
+import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+
+export type CreateBeforeAfterNodeFunction = (
+  reaction: Reaction,
+  beforeExpandedProperty: Property<boolean>,
+  afterExpandedProperty: Property<boolean>,
+  providedOptions?: NodeTranslationOptions
+) => Node;
 
 export default class RPALScreenView extends ScreenView {
 
+  private readonly model: RPALBaseModel;
+  private readonly beforeAfterCache: Map<Reaction, Node>;
+
   /**
-   * @param {RPALBaseModel} model
-   * @param {function} createEquationNode creates an equation for a specified reaction
-   * @param {function} createBeforeAfterNode creates the Before/After boxes for a specified reaction
+   * @param model
+   * @param createEquationNode - creates an equation for a specified reaction
+   * @param createBeforeAfterNode - creates the Before/After boxes for a specified reaction
+   * @param tandem
    */
-  constructor( model, createEquationNode, createBeforeAfterNode ) {
+  protected constructor( model: RPALBaseModel,
+                         createEquationNode: CreateEquationNodeFunction,
+                         createBeforeAfterNode: CreateBeforeAfterNodeFunction,
+                         tandem: Tandem ) {
 
     super( {
-      layoutBounds: RPALConstants.SCREEN_VIEW_LAYOUT_BOUNDS
+      layoutBounds: RPALConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
+      tandem: tandem
     } );
 
-    this.model = model; // @private
+    this.model = model;
 
     // Properties that are specific to the view
     const beforeExpandedProperty = new BooleanProperty( true ); // {boolean} is the Before box expanded?
@@ -64,11 +83,12 @@ export default class RPALScreenView extends ScreenView {
      * BeforeAfterNodes are created on demand and cached for reuse.
      * Unlinking from reactionProperty is unnecessary because this node exists for the lifetime of the simulation.
      */
-    this.beforeAfterCache = []; // @private { {Reaction} reaction, {Node} beforeAfterNode }[]
+    this.beforeAfterCache = new Map();
     model.reactionProperty.link( reaction => {
 
       // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
-      if ( !_.find( this.beforeAfterCache, { reaction: reaction } ) ) {
+      const cachedNode = this.beforeAfterCache.get( reaction );
+      if ( !cachedNode ) {
 
         const beforeAfterNode = createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
           centerX: this.layoutBounds.centerX,
@@ -77,17 +97,18 @@ export default class RPALScreenView extends ScreenView {
         this.addChild( beforeAfterNode );
 
         // cache it
-        this.beforeAfterCache.push( { reaction: reaction, beforeAfterNode: beforeAfterNode } );
+        this.beforeAfterCache.set( reaction, beforeAfterNode );
 
         // pdom - order should look like [ reactionBarNode, {{ALL_BEFORE_AFTER_NODES}}, resetAllButton ]
-        this.pdomPlayAreaNode.pdomOrder = [ reactionBarNode ]
-          .concat( this.beforeAfterCache.map( item => item.beforeAfterNode ) ) // map all beforeAfterNodes to an array
-          .concat( [ resetAllButton ] );
+        //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/76 TS error here, delete?
+        // this.pdomPlayAreaNode.pdomOrder = [ reactionBarNode ]
+        //   .concat( this.beforeAfterCache.map( item => item.beforeAfterNode ) ) // map all beforeAfterNodes to an array
+        //   .concat( [ resetAllButton ] );
       }
 
-      // Make the reaction's BeforeAfterNode visible.
-      this.beforeAfterCache.forEach( item => {
-        item.beforeAfterNode.visible = ( item.reaction === reaction );
+      // Make only the reaction's BeforeAfterNode visible, hide other nodes.
+      this.beforeAfterCache.forEach( ( beforeAfterNode: Node, key: Reaction ) => {
+        beforeAfterNode.visible = ( key === reaction );
       } );
     } );
   }
