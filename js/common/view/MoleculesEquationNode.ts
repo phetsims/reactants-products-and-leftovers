@@ -1,64 +1,78 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Equation for the 'Molecules' and 'Game' screens. Coefficients are immutable and molecule symbols are displayed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
-import { Node, RichText, Text } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, RichText, TColor, Text } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import Reaction from '../model/Reaction.js';
+import Substance from '../model/Substance.js';
 import RightArrowNode from './RightArrowNode.js';
 
-export default class MoleculesEquationNode extends Node {
-  /**
-   * @param {Reaction} reaction
-   * @param {Object} [options]
-   */
-  constructor( reaction, options ) {
+type SelfOptions = {
+  fill?: TColor;
+  font?: PhetFont;
+  coefficientXSpacing?: number; // space between coefficient and node to its right
+  plusXSpacing?: number; // space on both sides of the plus signs
+  arrowXSpacing?: number; // space on both sides of arrow
+};
 
-    options = merge( {
+type MoleculesEquationNodeOptions = SelfOptions & NodeTranslationOptions;
+
+export default class MoleculesEquationNode extends Node {
+
+  // needed for aligning arrows in Game layout
+  public readonly arrowCenterX: number;
+
+  public constructor( reaction: Reaction, providedOptions?: MoleculesEquationNodeOptions ) {
+
+    const options = optionize<MoleculesEquationNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
       fill: 'white',
       font: new PhetFont( 28 ),
-      coefficientXSpacing: 8, // space between coefficient and node to its right
-      plusXSpacing: 15, // space on both sides of the plus signs
-      arrowXSpacing: 15 // space on both sides of arrow
-    }, options );
-
-    super();
+      coefficientXSpacing: 8,
+      plusXSpacing: 15,
+      arrowXSpacing: 15
+    }, providedOptions );
 
     // left-hand side (reactants)
-    const reactantsNode = createTermsNode( reaction.reactants, options );
-    this.addChild( reactantsNode );
+    const reactantsNode = createTermsNode( reaction.reactants, options.font, options.fill, options.plusXSpacing, options.coefficientXSpacing );
+
+    const coefficientHeight = new Text( '1', { font: options.font, fill: options.fill } ).height;
 
     // right arrow
-    const arrowNode = new RightArrowNode( { fill: options.fill, stroke: null, scale: 0.65 } );
-    arrowNode.left = reactantsNode.right + options.arrowXSpacing;
-    const coefficientHeight = new Text( '1', { font: options.font, fill: options.fill } ).height;
-    arrowNode.centerY = reactantsNode.top + ( coefficientHeight / 2 );
-    this.addChild( arrowNode );
+    const arrowNode = new RightArrowNode( {
+      fill: options.fill,
+      stroke: null,
+      scale: 0.65,
+      left: reactantsNode.right + options.arrowXSpacing,
+      centerY: reactantsNode.top + ( coefficientHeight / 2 )
+    } );
 
     // right-hand side (products)
-    const productsNode = createTermsNode( reaction.products, options );
+    const productsNode = createTermsNode( reaction.products, options.font, options.fill, options.plusXSpacing, options.coefficientXSpacing );
     productsNode.left = arrowNode.right + options.arrowXSpacing;
-    this.addChild( productsNode );
 
-    this.arrowCenterX = arrowNode.centerX; // @public, needed for aligning arrows in Game layout
+    options.children = [ reactantsNode, arrowNode, productsNode ];
 
-    this.mutate( options );
+    super( options );
+
+    this.arrowCenterX = arrowNode.centerX;
   }
 }
 
 /**
  * Creates terms for equation.
- * @param {Substance[]} terms the terms to be added
- * @returns {Node}
  */
-function createTermsNode( terms, options ) {
+function createTermsNode( terms: Substance[], font: PhetFont, fill: TColor, plusXSpacing: number, coefficientXSpacing: number ): Node {
+  assert && assert( terms.length > 0 );
 
   const parentNode = new Node();
   const numberOfTerms = terms.length;
@@ -71,19 +85,19 @@ function createTermsNode( terms, options ) {
   for ( let i = 0; i < numberOfTerms; i++ ) {
 
     // coefficient
-    coefficientNode = new Text( terms[ i ].coefficientProperty.value, { font: options.font, fill: options.fill } );
-    coefficientNode.left = plusNode ? ( plusNode.right + options.plusXSpacing ) : 0;
+    coefficientNode = new Text( terms[ i ].coefficientProperty.value, { font: font, fill: fill } );
+    coefficientNode.left = plusNode ? ( plusNode.right + plusXSpacing ) : 0;
     parentNode.addChild( coefficientNode );
 
     // molecule
-    symbolNode = new RichText( terms[ i ].symbol, { font: options.font, fill: options.fill } );
-    symbolNode.left = coefficientNode.right + options.coefficientXSpacing;
+    symbolNode = new RichText( terms[ i ].symbol, { font: font, fill: fill } );
+    symbolNode.left = coefficientNode.right + coefficientXSpacing;
     parentNode.addChild( symbolNode );
 
     // plus sign between terms
     if ( i < numberOfTerms - 1 ) {
-      plusNode = new PlusNode( { fill: options.fill } );
-      plusNode.left = symbolNode.right + options.plusXSpacing;
+      plusNode = new PlusNode( { fill: fill } );
+      plusNode.left = symbolNode.right + plusXSpacing;
       plusNode.centerY = coefficientNode.centerY;
       parentNode.addChild( plusNode );
     }
