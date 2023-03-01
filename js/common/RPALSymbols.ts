@@ -32,6 +32,7 @@ const RPALSymbols = {
   N2O: 'N<sub>2</sub>O',
   NH3: 'NH<sub>3</sub>',
   NO: 'NO',
+  NO2: 'NO<sub>2</sub>',
   O2: 'O<sub>2</sub>',
   OF2: 'OF<sub>2</sub>',
   P4: 'P<sub>4</sub>',

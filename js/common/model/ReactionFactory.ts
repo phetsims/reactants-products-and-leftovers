@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Factory functions for creating specific chemical reactions.
  *
@@ -63,7 +62,7 @@ const ReactionFactory = {
   //---------------------------------------------------------------------------------------
 
   // 2H2 + O2 -> 2H2O (Make Water)
-  makeWater: function() {
+  makeWater(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -72,7 +71,7 @@ const ReactionFactory = {
   },
 
   // N2 + 3H2 -> 2NH3 (Make Ammonia)
-  makeAmmonia: function() {
+  makeAmmonia(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.N2, new N2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -81,7 +80,7 @@ const ReactionFactory = {
   },
 
   // H2 + F2 -> 2HF
-  Reaction_H2_F2__2HF: function() {
+  Reaction_H2_F2__2HF(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.F2, new F2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -89,7 +88,7 @@ const ReactionFactory = {
   },
 
   // H2 + Cl2 -> 2HCl
-  Reaction_H2_Cl2__2HCl: function() {
+  Reaction_H2_Cl2__2HCl(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.Cl2, new Cl2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -97,7 +96,7 @@ const ReactionFactory = {
   },
 
   // CO + 2H2 -> CH3OH
-  Reaction_CO_2H2__CH3OH: function() {
+  Reaction_CO_2H2__CH3OH(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.CO, new CONode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -105,7 +104,7 @@ const ReactionFactory = {
   },
 
   // CH2O + H2 -> CH3OH
-  Reaction_CH2O_H2__CH3OH: function() {
+  Reaction_CH2O_H2__CH3OH(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.CH2O, new CH2ONode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -113,7 +112,7 @@ const ReactionFactory = {
   },
 
   // C2H4 + H2 -> C2H6
-  Reaction_C2H4_H2__C2H6: function() {
+  Reaction_C2H4_H2__C2H6(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.C2H4, new C2H4Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -121,7 +120,7 @@ const ReactionFactory = {
   },
 
   // C2H2 + 2H2 -> C2H6
-  Reaction_C2H2_2H2__C2H6: function() {
+  Reaction_C2H2_2H2__C2H6(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.C2H2, new C2H2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -129,7 +128,7 @@ const ReactionFactory = {
   },
 
   // C + O2 -> CO2
-  Reaction_C_O2__CO2: function() {
+  Reaction_C_O2__CO2(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.C, new CNode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -137,7 +136,7 @@ const ReactionFactory = {
   },
 
   // 2C + O2 -> 2CO
-  Reaction_2C_O2__2CO: function() {
+  Reaction_2C_O2__2CO(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.C, new CNode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -145,7 +144,7 @@ const ReactionFactory = {
   },
 
   // 2CO + O2 -> 2CO2
-  Reaction_2CO_O2__2CO2: function() {
+  Reaction_2CO_O2__2CO2(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.CO, new CONode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -153,7 +152,7 @@ const ReactionFactory = {
   },
 
   // C + CO2 -> 2CO
-  Reaction_C_CO2__2CO: function() {
+  Reaction_C_CO2__2CO(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.C, new CNode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.CO2, new CO2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -161,7 +160,7 @@ const ReactionFactory = {
   },
 
   // C + 2S -> CS2
-  Reaction_C_2S__CS2: function() {
+  Reaction_C_2S__CS2(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.C, new CNode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.S, new SNode( MOLECULE_NODE_OPTIONS ) ) ],
@@ -169,7 +168,7 @@ const ReactionFactory = {
   },
 
   // N2 + O2 -> 2NO
-  Reaction_N2_O2__2NO: function() {
+  Reaction_N2_O2__2NO(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.N2, new N2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -177,7 +176,7 @@ const ReactionFactory = {
   },
 
   // 2NO + O2 -> 2NO2
-  Reaction_2NO_O2__2NO2: function() {
+  Reaction_2NO_O2__2NO2(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.NO, new NONode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -185,7 +184,7 @@ const ReactionFactory = {
   },
 
   // 2N2 + O2 -> 2N2O
-  Reaction_2N2_O2__2N2O: function() {
+  Reaction_2N2_O2__2N2O(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.N2, new N2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -193,7 +192,7 @@ const ReactionFactory = {
   },
 
   // P4 + 6H2 -> 4PH3
-  Reaction_P4_6H2__4PH3: function() {
+  Reaction_P4_6H2__4PH3(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.P4, new P4Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 6, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -201,7 +200,7 @@ const ReactionFactory = {
   },
 
   // P4 + 6F2 -> 4PF3
-  Reaction_P4_6F2__4PF3: function() {
+  Reaction_P4_6F2__4PF3(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.P4, new P4Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 6, RPALSymbols.F2, new F2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -209,7 +208,7 @@ const ReactionFactory = {
   },
 
   // P4 + 6Cl2 -> 4PCl3
-  Reaction_P4_6Cl2__4PCl3: function() {
+  Reaction_P4_6Cl2__4PCl3(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.P4, new P4Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 6, RPALSymbols.Cl2, new Cl2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -217,7 +216,7 @@ const ReactionFactory = {
   },
 
   // PCl3 + Cl2 -> PCl5
-  Reaction_PCl3_Cl2__PCl5: function() {
+  Reaction_PCl3_Cl2__PCl5(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.PCl3, new PCl3Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.Cl2, new Cl2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -225,7 +224,7 @@ const ReactionFactory = {
   },
 
   // 2SO2 + O2 -> 2SO3
-  Reaction_2SO2_O2__2SO3: function() {
+  Reaction_2SO2_O2__2SO3(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.SO2, new SO2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -237,7 +236,7 @@ const ReactionFactory = {
   //---------------------------------------------------------------------------------------
 
   // CH4 + 2 O2 -> CO2 + 2 H2O (Combust Methane)
-  combustMethane: function() {
+  combustMethane(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.CH4, new CH4Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -247,7 +246,7 @@ const ReactionFactory = {
   },
 
   // 2C + 2H2O -> CH4 + CO2
-  Reaction_2C_2H2O__CH4_CO2: function() {
+  Reaction_2C_2H2O__CH4_CO2(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.C, new CNode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
@@ -256,7 +255,7 @@ const ReactionFactory = {
   },
 
   // CH4 + H2O -> 3H2 + CO
-  Reaction_CH4_H2O__3H2_CO: function() {
+  Reaction_CH4_H2O__3H2_CO(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.CH4, new CH4Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
@@ -265,7 +264,7 @@ const ReactionFactory = {
   },
 
   // 2C2H6 + 7O2 -> 4CO2 + 6H2O
-  Reaction_2C2H6_7O2__4CO2_6H2O: function() {
+  Reaction_2C2H6_7O2__4CO2_6H2O(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.C2H6, new C2H6Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 7, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -274,7 +273,7 @@ const ReactionFactory = {
   },
 
   // C2H4 + 3O2 -> 2CO2 + 2H2O
-  Reaction_C2H4_3O2__2CO2_2H2O: function() {
+  Reaction_C2H4_3O2__2CO2_2H2O(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.C2H4, new C2H4Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -283,7 +282,7 @@ const ReactionFactory = {
   },
 
   // 2C2H2 + 5O2 -> 4CO2 + 2H2O
-  Reaction_2C2H2_5O2__4CO2_2H2O: function() {
+  Reaction_2C2H2_5O2__4CO2_2H2O(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.C2H2, new C2H2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 5, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -292,7 +291,7 @@ const ReactionFactory = {
   },
 
   // C2H5OH + 3O2 -> 2CO2 + 3H2O
-  Reaction_C2H5OH_3O2__2CO2_3H2O: function() {
+  Reaction_C2H5OH_3O2__2CO2_3H2O(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.C2H5OH, new C2H5OHNode( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -301,7 +300,7 @@ const ReactionFactory = {
   },
 
   // C2H6 + Cl2 -> C2H5Cl + HCl
-  Reaction_C2H6_Cl2__C2H5Cl_HCl: function() {
+  Reaction_C2H6_Cl2__C2H5Cl_HCl(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.C2H6, new C2H6Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.Cl2, new Cl2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -310,7 +309,7 @@ const ReactionFactory = {
   },
 
   // CH4 + 4S -> CS2 + 2H2S
-  Reaction_CH4_4S__CS2_2H2S: function() {
+  Reaction_CH4_4S__CS2_2H2S(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.CH4, new CH4Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 4, RPALSymbols.S, new SNode( MOLECULE_NODE_OPTIONS ) ) ],
@@ -319,7 +318,7 @@ const ReactionFactory = {
   },
 
   // CS2 + 3O2 -> CO2 + 2SO2
-  Reaction_CS2_3O2__CO2_2SO2: function() {
+  Reaction_CS2_3O2__CO2_2SO2(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.CS2, new CS2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -328,7 +327,7 @@ const ReactionFactory = {
   },
 
   // 4NH3 + 3O2 -> 2N2 + 6H2O
-  Reaction_4NH3_3O2__2N2_6H2O: function() {
+  Reaction_4NH3_3O2__2N2_6H2O(): Reaction {
     return new Reaction(
       [ new Substance( 4, RPALSymbols.NH3, new NH3Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -337,7 +336,7 @@ const ReactionFactory = {
   },
 
   // 4NH3 + 5O2 -> 4NO + 6H2O
-  Reaction_4NH3_5O2__4NO_6H2O: function() {
+  Reaction_4NH3_5O2__4NO_6H2O(): Reaction {
     return new Reaction(
       [ new Substance( 4, RPALSymbols.NH3, new NH3Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 5, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -346,7 +345,7 @@ const ReactionFactory = {
   },
 
   // 4NH3 + 7O2 -> 4NO2 + 6H2O
-  Reaction_4NH3_7O2__4NO2_6H2O: function() {
+  Reaction_4NH3_7O2__4NO2_6H2O(): Reaction {
     return new Reaction(
       [ new Substance( 4, RPALSymbols.NH3, new NH3Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 7, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -355,7 +354,7 @@ const ReactionFactory = {
   },
 
   // 4NH3 + 6NO -> 5N2 + 6H2O
-  Reaction_4NH3_6NO__5N2_6H2O: function() {
+  Reaction_4NH3_6NO__5N2_6H2O(): Reaction {
     return new Reaction(
       [ new Substance( 4, RPALSymbols.NH3, new NH3Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 6, RPALSymbols.NO, new NONode( MOLECULE_NODE_OPTIONS ) ) ],
@@ -364,7 +363,7 @@ const ReactionFactory = {
   },
 
   // SO2 + 2H2 -> S + 2H2O
-  Reaction_SO2_2H2__S_2H2O: function() {
+  Reaction_SO2_2H2__S_2H2O(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.SO2, new SO2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -373,7 +372,7 @@ const ReactionFactory = {
   },
 
   // SO2 + 3H2 -> H2S + 2H2O
-  Reaction_SO2_3H2__H2S_2H2O: function() {
+  Reaction_SO2_3H2__H2S_2H2O(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.SO2, new SO2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
@@ -382,7 +381,7 @@ const ReactionFactory = {
   },
 
   // 2F2 + H2O -> OF2 + 2HF
-  Reaction_2F2_H2O__OF2_2HF: function() {
+  Reaction_2F2_H2O__OF2_2HF(): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.F2, new F2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
@@ -391,7 +390,7 @@ const ReactionFactory = {
   },
 
   // OF2 + H2O -> O2 + 2HF
-  Reaction_OF2_H2O__O2_2HF: function() {
+  Reaction_OF2_H2O__O2_2HF(): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.OF2, new OF2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
