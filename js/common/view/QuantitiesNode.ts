@@ -11,12 +11,11 @@
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import BracketNode from '../../../../scenery-phet/js/BracketNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions, NodeTranslationOptions, RichText, Text } from '../../../../scenery/js/imports.js';
-import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
+import NumberSpinner, { NumberSpinnerOptions } from '../../../../sun/js/NumberSpinner.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import BoxType from '../model/BoxType.js';
@@ -134,7 +133,7 @@ export default class QuantitiesNode extends Node {
       if ( this.interactiveBox === BoxType.BEFORE ) {
         // spinner
         spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
-          merge( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
+          combineOptions<NumberSpinnerOptions>( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
         this.reactantsParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
       }
@@ -169,7 +168,7 @@ export default class QuantitiesNode extends Node {
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
-          merge( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
+          combineOptions<NumberSpinnerOptions>( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
         this.productsParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
       }
@@ -204,7 +203,7 @@ export default class QuantitiesNode extends Node {
       if ( this.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
-          merge( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
+          combineOptions<NumberSpinnerOptions>( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
         this.leftoversParent.addChild( spinnerNode );
         this.spinnerNodes.push( spinnerNode );
       }
