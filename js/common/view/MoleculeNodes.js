@@ -1,5 +1,6 @@
 // Copyright 2014-2022, University of Colorado Boulder
 
+// ts-nocheck
 /**
  * The molecule nodes used in this simulation.
  * They are created once, then reused throughout Scenery's DAG.
