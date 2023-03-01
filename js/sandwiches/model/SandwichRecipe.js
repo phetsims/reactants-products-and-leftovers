@@ -43,9 +43,9 @@ export default class SandwichRecipe extends Reaction {
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
     const ingredients = [];
-    const bread = new Substance( breadCount, 'bread', SandwichNode.createBreadNode() );
-    const meat = new Substance( meatCount, 'meat', SandwichNode.createMeatNode() );
-    const cheese = new Substance( cheeseCount, 'cheese', SandwichNode.createCheeseNode() );
+    const bread = new Substance( breadCount, 'bread', SandwichNode.createBreadIcon() );
+    const meat = new Substance( meatCount, 'meat', SandwichNode.createMeatIcon() );
+    const cheese = new Substance( cheeseCount, 'cheese', SandwichNode.createCheeseIcon() );
     if ( breadCount > 0 || options.coefficientsMutable ) { ingredients.push( bread ); }
     if ( meatCount > 0 || options.coefficientsMutable ) { ingredients.push( meat ); }
     if ( cheeseCount > 0 || options.coefficientsMutable ) { ingredients.push( cheese ); }
