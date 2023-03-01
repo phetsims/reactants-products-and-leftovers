@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * A 'guess' is the user's answer to a game challenge, and it may or may not be correct.
  * We call it a 'guess' to distinguish the user's answer from the correct answer.
