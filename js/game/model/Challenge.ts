@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * A challenge consists of a reaction (with specific before and after quantities), the user's 'guess',
  * and a specification of which part of the reaction (before or after) the user needs to guess.
@@ -9,41 +8,52 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import BoxType from '../../common/model/BoxType.js';
+import Reaction from '../../common/model/Reaction.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameGuess from './GameGuess.js';
 
+type SelfOptions = {
+  moleculesVisible?: boolean; // are molecules visible when playing the challenge?
+  numbersVisible?: boolean; // are numbers visible when playing the challenge?
+};
+
+type ChallengeOptions = SelfOptions;
+
 export default class Challenge {
 
-  /**
-   * @param {Reaction} reaction
-   * @param {BoxType} interactiveBox which box (Before or After) needs to be guessed
-   * @param {Object} [options]
-   */
-  constructor( reaction, interactiveBox, options ) {
+  public readonly reaction: Reaction;
+  public readonly interactiveBox: BoxType; // which box (Before or After) needs to be guessed
+  public readonly moleculesVisible: boolean;
+  public readonly numbersVisible: boolean;
+  public readonly guess: GameGuess;
+  public points: number; // points awarded for this challenge
 
-    options = merge( {
-      moleculesVisible: true, // {boolean} are molecules visible when playing the challenge?
-      numbersVisible: true // {boolean} are numbers visible when playing the challenge?
-    }, options );
+  public constructor( reaction: Reaction, interactiveBox: BoxType, providedOptions?: ChallengeOptions ) {
 
-    // @public
+    const options = optionize<ChallengeOptions, SelfOptions>()( {
+
+      // SelfOptions
+      moleculesVisible: true,
+      numbersVisible: true
+    }, providedOptions );
+
     this.reaction = reaction;
     this.interactiveBox = interactiveBox;
     this.moleculesVisible = options.moleculesVisible;
     this.numbersVisible = options.numbersVisible;
     this.guess = new GameGuess( reaction, interactiveBox );
-    this.points = 0;  // points awarded for this challenge
+    this.points = 0;
   }
 
-  // @public Resets this challenge to its initial state.
-  reset() {
+  public reset(): void {
     this.guess.reset();
     this.points = 0;
   }
 
-  // @public Does the user's guess match the correct answer?
-  isCorrect() {
+  // Does the user's guess match the correct answer?
+  public isCorrect(): boolean {
     let i;
     let correct = true;
     // all reactants must be equal
@@ -61,8 +71,8 @@ export default class Challenge {
     return correct;
   }
 
-  // @public Reveals the correct answer by copying the reaction quantities to the guess.
-  showAnswer() {
+  // Reveals the correct answer by copying the reaction quantities to the guess.
+  public showAnswer(): void {
     let i;
     for ( i = 0; i < this.guess.reactants.length; i++ ) {
       this.guess.reactants[ i ].quantityProperty.value = this.reaction.reactants[ i ].quantityProperty.value;
