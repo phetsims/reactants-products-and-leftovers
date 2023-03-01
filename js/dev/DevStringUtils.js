@@ -1,5 +1,6 @@
 // Copyright 2014-2021, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Collection of static string utilities used for development.
  * Some of this began its life as toString functions associated with various types.
