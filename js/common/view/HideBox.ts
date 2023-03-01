@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Box that is placed over things that are 'hidden' while playing a challenge.
  * Has a dashed border and a 'closed eye' icon in the center of the box.
@@ -9,23 +8,32 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { Node, Path, Rectangle } from '../../../../scenery/js/imports.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import { Node, NodeOptions, NodeTranslationOptions, Path, Rectangle } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
+const DEFAULT_BOX_SIZE = new Dimension2( 100, 100 );
+
+type SelfOptions = {
+  boxSize?: Dimension2;
+  iconHeight?: number;
+  cornerRadius?: number;
+};
+
+type HideBoxOptions = SelfOptions & NodeTranslationOptions;
+
 export default class HideBox extends Node {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( providedOptions?: HideBoxOptions ) {
 
-    options = merge( {
-      boxSize: new Dimension2( 100, 100 ),
+    const options = optionize<HideBoxOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      boxSize: DEFAULT_BOX_SIZE,
       iconHeight: 35,
       cornerRadius: 0
-    }, options );
+    }, providedOptions );
 
     // dashed box
     const rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
