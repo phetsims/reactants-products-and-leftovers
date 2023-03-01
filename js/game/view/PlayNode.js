@@ -108,9 +108,6 @@ export default class PlayNode extends Node {
           // if a node hasn't been preloaded, create one
           currentChallengeNode = new ChallengeNode( model, challenge, this.challengeBounds, audioPlayer );
           this.addChild( currentChallengeNode );
-
-          // pdom keyboard nav order, challenges should go before the "start over" button
-          this.pdomOrder = [ currentChallengeNode ].concat( this.pdomOrder );
         }
         currentChallengeNode.activate( model.playStateProperty );
         currentChallengeNode.visible = true;

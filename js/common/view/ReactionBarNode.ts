@@ -59,10 +59,6 @@ export default class ReactionBarNode extends Node {
 
     super( options );
 
-    // pdom - set the initial accessible order
-    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/76 delete?
-    this.pdomOrder = [ radioButtonGroup ];
-
     /*
      * Updates the equation to match the reaction.
      * Equations are created on demand and cached for reuse.
@@ -78,10 +74,6 @@ export default class ReactionBarNode extends Node {
         // create equation for the reaction
         const equationNode = createEquationNode( reaction );
         this.addChild( equationNode );
-
-        // pdom - as the equations are created, we want them all to be before the radio buttons in focus order
-        //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/76 TS error here, delete?
-        // this.pdomOrder = [ equationNode ].concat( this.pdomOrder );
 
         // scale the equation if it's too wide to fit the available space
         const availableWidth = radioButtonGroup.left - ( 2 * X_MARGIN );

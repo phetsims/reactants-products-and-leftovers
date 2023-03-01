@@ -67,27 +67,18 @@ export default class GameButtons extends Node {
         tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
         this.addChild( tryAgainButton );
         tryAgainButton.addListener( () => model.tryAgain() );
-
-        // pdom
-        tryAgainButton.focus();
       }
 
       if ( !showAnswerButton && state === PlayState.SHOW_ANSWER ) {
         showAnswerButton = new TextPushButton( showAnswerString, BUTTON_OPTIONS );
         this.addChild( showAnswerButton );
         showAnswerButton.addListener( () => model.showAnswer() );
-
-        // pdom
-        showAnswerButton.focus();
       }
 
       if ( !nextButton && state === PlayState.NEXT ) {
         nextButton = new TextPushButton( nextString, BUTTON_OPTIONS );
         this.addChild( nextButton );
         nextButton.addListener( () => model.next() );
-
-        // pdom
-        nextButton.focus();
       }
 
       // make the proper button visible for the {PlayState} state

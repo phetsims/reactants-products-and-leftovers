@@ -75,9 +75,6 @@ export default class RPALScreenView extends ScreenView {
     resetAllButton.right = this.layoutBounds.right - 10;
     resetAllButton.bottom = this.layoutBounds.bottom - 10;
 
-    // pdom - set the initial accessible order
-    this.pdomPlayAreaNode.pdomOrder = [ reactionBarNode, resetAllButton ];
-
     /*
      * Updates the user interface to match the reaction.
      * BeforeAfterNodes are created on demand and cached for reuse.
@@ -98,12 +95,6 @@ export default class RPALScreenView extends ScreenView {
 
         // cache it
         this.beforeAfterCache.set( reaction, beforeAfterNode );
-
-        // pdom - order should look like [ reactionBarNode, {{ALL_BEFORE_AFTER_NODES}}, resetAllButton ]
-        //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/76 TS error here, delete?
-        // this.pdomPlayAreaNode.pdomOrder = [ reactionBarNode ]
-        //   .concat( this.beforeAfterCache.map( item => item.beforeAfterNode ) ) // map all beforeAfterNodes to an array
-        //   .concat( [ resetAllButton ] );
       }
 
       // Make only the reaction's BeforeAfterNode visible, hide other nodes.
