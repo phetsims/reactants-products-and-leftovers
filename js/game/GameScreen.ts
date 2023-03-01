@@ -39,7 +39,7 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
 }
 
 /**
- * Creates the icon for this screen, a smiley face with up/down arrows.
+ * Creates the icon for this screen, a smiley face with up/down spinner arrows.
  */
 function createIcon(): ScreenIcon {
 
