@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * A challenge consists of a reaction (with specific before and after quantities), the user's 'guess',
  * and a specification of which part of the reaction (before or after) the user needs to guess.
