@@ -56,9 +56,9 @@ export default class RPALScreenView extends ScreenView {
     const afterExpandedProperty = new BooleanProperty( true ); // {boolean} is the After box expanded
 
     // Equation and reaction radio buttons at top of screen
-    const reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions,
-      createEquationNode,
-      { screenWidth: this.layoutBounds.width } );
+    const reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, createEquationNode, {
+      screenWidth: this.layoutBounds.width
+    } );
     this.addChild( reactionBarNode );
     reactionBarNode.top = this.layoutBounds.top;
 
