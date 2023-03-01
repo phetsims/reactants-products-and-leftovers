@@ -1,6 +1,5 @@
 // Copyright 2014-2022, University of Colorado Boulder
 
-// ts-nocheck
 /**
  * The molecule nodes used in this simulation.
  * They are created once, then reused throughout Scenery's DAG.
@@ -46,43 +45,43 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import RPALConstants from '../RPALConstants.js';
 
 // constants
-const MOLECULE_NODE_OPTIONS = RPALConstants.MOLECULE_NODE_OPTIONS;
+const OPTIONS = RPALConstants.MOLECULE_NODE_OPTIONS;
 
 const MoleculeNodes = {
-  C2H2: new C2H2Node( MOLECULE_NODE_OPTIONS ),
-  C2H4: new C2H4Node( MOLECULE_NODE_OPTIONS ),
-  C2H5Cl: new C2H5ClNode( MOLECULE_NODE_OPTIONS ),
-  C2H5OH: new C2H5OHNode( MOLECULE_NODE_OPTIONS ),
-  C2H6: new C2H6Node( MOLECULE_NODE_OPTIONS ),
-  CH2O: new CH2ONode( MOLECULE_NODE_OPTIONS ),
-  CH3OH: new CH3OHNode( MOLECULE_NODE_OPTIONS ),
-  CH4: new CH4Node( MOLECULE_NODE_OPTIONS ),
-  Cl2: new Cl2Node( MOLECULE_NODE_OPTIONS ),
-  C: new CNode( MOLECULE_NODE_OPTIONS ),
-  CO2: new CO2Node( MOLECULE_NODE_OPTIONS ),
-  CO: new CONode( MOLECULE_NODE_OPTIONS ),
-  CS2: new CS2Node( MOLECULE_NODE_OPTIONS ),
-  F2: new F2Node( MOLECULE_NODE_OPTIONS ),
-  H2: new H2Node( MOLECULE_NODE_OPTIONS ),
-  H2O: new H2ONode( MOLECULE_NODE_OPTIONS ),
-  H2S: new H2SNode( MOLECULE_NODE_OPTIONS ),
-  HCl: new HClNode( MOLECULE_NODE_OPTIONS ),
-  HF: new HFNode( MOLECULE_NODE_OPTIONS ),
-  N2: new N2Node( MOLECULE_NODE_OPTIONS ),
-  N2O: new N2ONode( MOLECULE_NODE_OPTIONS ),
-  NH3: new NH3Node( MOLECULE_NODE_OPTIONS ),
-  NO2: new NO2Node( MOLECULE_NODE_OPTIONS ),
-  NO: new NONode( MOLECULE_NODE_OPTIONS ),
-  O2: new O2Node( MOLECULE_NODE_OPTIONS ),
-  OF2: new OF2Node( MOLECULE_NODE_OPTIONS ),
-  P4: new P4Node( MOLECULE_NODE_OPTIONS ),
-  PCl3: new PCl3Node( MOLECULE_NODE_OPTIONS ),
-  PCl5: new PCl5Node( MOLECULE_NODE_OPTIONS ),
-  PF3: new PF3Node( MOLECULE_NODE_OPTIONS ),
-  PH3: new PH3Node( MOLECULE_NODE_OPTIONS ),
-  S: new SNode( MOLECULE_NODE_OPTIONS ),
-  SO2: new SO2Node( MOLECULE_NODE_OPTIONS ),
-  SO3: new SO3Node( MOLECULE_NODE_OPTIONS )
+  C2H2: new C2H2Node( OPTIONS ),
+  C2H4: new C2H4Node( OPTIONS ),
+  C2H5Cl: new C2H5ClNode( OPTIONS ),
+  C2H5OH: new C2H5OHNode( OPTIONS ),
+  C2H6: new C2H6Node( OPTIONS ),
+  CH2O: new CH2ONode( OPTIONS ),
+  CH3OH: new CH3OHNode( OPTIONS ),
+  CH4: new CH4Node( OPTIONS ),
+  Cl2: new Cl2Node( OPTIONS ),
+  C: new CNode( OPTIONS ),
+  CO2: new CO2Node( OPTIONS ),
+  CO: new CONode( OPTIONS ),
+  CS2: new CS2Node( OPTIONS ),
+  F2: new F2Node( OPTIONS ),
+  H2: new H2Node( OPTIONS ),
+  H2O: new H2ONode( OPTIONS ),
+  H2S: new H2SNode( OPTIONS ),
+  HCl: new HClNode( OPTIONS ),
+  HF: new HFNode( OPTIONS ),
+  N2: new N2Node( OPTIONS ),
+  N2O: new N2ONode( OPTIONS ),
+  NH3: new NH3Node( OPTIONS ),
+  NO2: new NO2Node( OPTIONS ),
+  NO: new NONode( OPTIONS ),
+  O2: new O2Node( OPTIONS ),
+  OF2: new OF2Node( OPTIONS ),
+  P4: new P4Node( OPTIONS ),
+  PCl3: new PCl3Node( OPTIONS ),
+  PCl5: new PCl5Node( OPTIONS ),
+  PF3: new PF3Node( OPTIONS ),
+  PH3: new PH3Node( OPTIONS ),
+  S: new SNode( OPTIONS ),
+  SO2: new SO2Node( OPTIONS ),
+  SO3: new SO3Node( OPTIONS )
 };
 
 reactantsProductsAndLeftovers.register( 'MoleculeNodes', MoleculeNodes );
