@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Displays a Substance's icon, which may change dynamically.
  *
@@ -23,43 +22,48 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type SubstanceIconOptions = SelfOptions & NodeTranslationOptions;
 
 export default class SubstanceIcon extends Node {
 
-  /**
-   * @param {Property.<Node>} iconProperty
-   * @param {Object} [options]
-   */
-  constructor( iconProperty, options ) {
+  private readonly disposeSubstanceIcon: () => void;
 
-    super();
+  public constructor( iconProperty: TReadOnlyProperty<Node>, providedOptions?: SubstanceIconOptions ) {
 
-    // @private Add an additional wrapper, so that we can maintain the node's center.
-    this.wrapperNode = new Node();
-    this.addChild( this.wrapperNode );
+    const options = optionize<SubstanceIconOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
-    this.iconProperty = iconProperty; // @private
-    this.iconPropertyObserver = icon => { // @private
-      this.wrapperNode.removeAllChildren();
-      // icon must be removed in dispose, since scenery children keep a reference to their parents
-      this.wrapperNode.addChild( icon );
-      this.wrapperNode.center = Vector2.ZERO;
+    // Add a wrapper, so that we can keep the icon centered and not run afoul of scenery DAG feature.
+    const wrapperNode = new Node();
+
+    const iconPropertyObserver = ( icon: Node ) => {
+      wrapperNode.removeAllChildren();
+      wrapperNode.addChild( icon ); // icon must be removed in dispose, since scenery children keep a reference to their parents
+      wrapperNode.center = Vector2.ZERO;
     };
-    this.iconProperty.link( this.iconPropertyObserver ); // must be unlinked in dispose
+    iconProperty.link( iconPropertyObserver ); // must be unlinked in dispose
 
-    this.mutate( options );
+    options.children = [ wrapperNode ];
+
+    super( options );
+
+    this.disposeSubstanceIcon = () => {
+      if ( iconProperty.hasListener( iconPropertyObserver ) ) {
+        iconProperty.unlink( iconPropertyObserver );
+      }
+      wrapperNode.removeAllChildren(); // to disconnect from icon
+    };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    this.iconProperty.unlink( this.iconPropertyObserver );
-    this.wrapperNode.removeAllChildren(); // to disconnect from icon
+  public override dispose(): void {
+    this.disposeSubstanceIcon();
     super.dispose();
   }
 }

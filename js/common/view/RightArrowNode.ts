@@ -1,29 +1,38 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * An arrow that points from left to right, used in equations to point from reactants to products.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+
+type SelfOptions = {
+  length?: number;
+};
+
+type RightArrowNodeOptions = SelfOptions & NodeTranslationOptions &
+  PickOptional<ArrowNodeOptions, 'fill' | 'stroke' | 'scale'>;
 
 export default class RightArrowNode extends ArrowNode {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( providedOptions?: RightArrowNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<RightArrowNodeOptions, SelfOptions, ArrowNodeOptions>()( {
+
+      // SelfOptions
       length: 70,
+
+      // ArrowNodeOptions
       tailWidth: 15,
       headWidth: 35,
       headHeight: 30
-    }, options );
+    }, providedOptions );
 
     super( 0, 0, options.length, 0, options );
   }

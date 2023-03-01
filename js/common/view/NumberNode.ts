@@ -1,47 +1,52 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Displays a dynamic numeric value.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import { NodeTranslationOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+
+type SelfOptions = {
+  decimalPlaces?: number; // number of decimal places to be displayed
+};
+
+type NumberNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<TextOptions, 'font'>;
 
 export default class NumberNode extends Text {
 
-  /**
-   * @param {Property.<number>} numberProperty
-   * @param {Object} [options]
-   */
-  constructor( numberProperty, options ) {
+  private readonly disposeNumberNode: () => void;
 
-    options = merge( {
-      decimalPlaces: 0  // number of decimal places to be displayed
-    }, options );
+  public constructor( numberProperty: TReadOnlyProperty<number>, providedOptions?: NumberNodeOptions ) {
 
-    super( '' );
+    const options = optionize<NumberNodeOptions, SelfOptions, TextOptions>()( {
 
-    // @private update the displayed number
-    this.numberPropertyObserver = value => {
+      // SelfOptions
+      decimalPlaces: 0
+    }, providedOptions );
+
+    super( '', options );
+
+    const numberPropertyObserver = ( value: number ) => {
       this.text = Utils.toFixed( value, options.decimalPlaces );
     };
-    this.numberProperty = numberProperty; // @private
-    this.numberProperty.link( this.numberPropertyObserver ); // must be unlinked in dispose
+    numberProperty.link( numberPropertyObserver ); // must be unlinked in dispose
 
-    this.mutate( options );
+    this.disposeNumberNode = () => {
+      if ( numberProperty.hasListener( numberPropertyObserver ) ) {
+        numberProperty.unlink( numberPropertyObserver );
+      }
+    };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    this.numberProperty.unlink( this.numberPropertyObserver );
+  public override dispose(): void {
+    this.disposeNumberNode();
     super.dispose();
   }
 }
