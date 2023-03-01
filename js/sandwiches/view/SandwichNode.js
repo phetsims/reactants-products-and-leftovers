@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Creates a sandwich by attempting to mimic how a person would make a sandwich.
  *
