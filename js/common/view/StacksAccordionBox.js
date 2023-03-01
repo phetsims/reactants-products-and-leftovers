@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  *  Accordion box that shows stacks of substances. Used in the 'Sandwiches' and 'Molecules' screens.
  *
