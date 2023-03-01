@@ -1,7 +1,7 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * View for the 'Molecules' screen.
+ * MoleculesScreenView is the view for the 'Molecules' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -22,32 +22,19 @@ export default class MoleculesScreenView extends RPALScreenView {
    */
   constructor( model, tandem ) {
 
-    super( model,
+    // Creates an equation for a specified reaction.
+    const createEquationNode = reaction => new MoleculesEquationNode( reaction );
 
-      /*
-       * Creates an equation for a specified reaction.
-       * @param {Reaction} reaction
-       * @returns {Node}
-       */
-      reaction => new MoleculesEquationNode( reaction ),
+    // Creates the Before/After interface for a specified reaction.
+    const createBeforeAfterNode = ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) => {
+      return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
+        merge( {}, options, {
+          contentSize: RPALConstants.MOLECULES_BEFORE_AFTER_BOX_SIZE,
+          minIconSize: new Dimension2( 30, 25 ) // eyeballed
+        } ) );
+    };
 
-      /*
-       * Creates the Before/After interface for a specified reaction.
-       * @param {Reaction} reaction the reaction displayed in the boxes
-       * @param {Property.<boolean>} beforeExpandedProperty is the 'Before' box expanded?
-       * @param {Property.<boolean>} afterExpandedProperty is the 'After' box expanded?
-       * @param {Object} [options]
-       * @returns {Node}
-       */
-      ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) => {
-        return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
-          merge( {}, options, {
-            contentSize: RPALConstants.MOLECULES_BEFORE_AFTER_BOX_SIZE,
-            minIconSize: new Dimension2( 30, 25 ) // eyeballed
-          } ) );
-      },
-      tandem
-    );
+    super( model, createEquationNode, createBeforeAfterNode, tandem );
   }
 }
 
