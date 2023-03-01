@@ -34,7 +34,7 @@ export default class NumberNode extends Text {
     super( '' );
 
     const numberPropertyObserver = ( value: number ) => {
-      this.text = Utils.toFixed( value, options.decimalPlaces );
+      this.string = Utils.toFixed( value, options.decimalPlaces );
     };
     numberProperty.link( numberPropertyObserver ); // must be unlinked in dispose
 
