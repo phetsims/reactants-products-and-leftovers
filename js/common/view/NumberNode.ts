@@ -31,12 +31,14 @@ export default class NumberNode extends Text {
       decimalPlaces: 0
     }, providedOptions );
 
-    super( '', options );
+    super( '' );
 
     const numberPropertyObserver = ( value: number ) => {
       this.text = Utils.toFixed( value, options.decimalPlaces );
     };
     numberProperty.link( numberPropertyObserver ); // must be unlinked in dispose
+
+    this.mutate( options );
 
     this.disposeNumberNode = () => {
       if ( numberProperty.hasListener( numberPropertyObserver ) ) {
