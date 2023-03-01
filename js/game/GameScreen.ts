@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * 'Game' screen
  *
@@ -13,15 +12,16 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../kite/js/imports.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
 import { HBox, Node, Path, Rectangle, VBox } from '../../../scenery/js/imports.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftoversStrings.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
 
-export default class GameScreen extends Screen {
+export default class GameScreen extends Screen<GameModel, GameScreenView> {
 
-  constructor( tandem ) {
+  public constructor( tandem: Tandem ) {
 
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.gameStringProperty,
@@ -40,9 +40,8 @@ export default class GameScreen extends Screen {
 
 /**
  * Creates the icon for this screen, a smiley face with up/down arrows.
- * @returns {ScreenIcon}
  */
-function createIcon() {
+function createIcon(): ScreenIcon {
 
   // background rectangle
   const background = new Rectangle( 0, 0, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height,
