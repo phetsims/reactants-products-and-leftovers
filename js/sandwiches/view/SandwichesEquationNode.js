@@ -4,7 +4,7 @@
  * Equation for the 'Sandwiches' screen.
  * This differs from the 'Molecules' screen equation is a few key ways:
  *
- * 1. Terms are images instead of formulae.
+ * 1. Terms are images instead of formulas.
  * 2. Reactant coefficients are mutable for the 'custom' sandwich
  * 3. The 'custom' sandwich reaction may not be well-defined.
  * 4. Appearance (fonts, sizes, spacing, ...) needs to be separately tweakable.
@@ -26,7 +26,6 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
 
-// constants
 const COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
 const PLUS_X_SPACING = 15; // space on both sides of the plus signs
 const ARROW_X_SPACING = 15; // space on both sides of arrow

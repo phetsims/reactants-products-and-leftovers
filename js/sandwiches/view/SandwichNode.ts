@@ -12,7 +12,6 @@ import cheese_png from '../../../images/cheese_png.js';
 import meat_png from '../../../images/meat_png.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
-// constants
 const MAX_WIDTH = _.maxBy( [ bread_png, cheese_png, meat_png ], image => image.width )!.width;
 const Y_SPACING = 4; // vertical space between centers of ingredients
 const SANDWICH_SCALE = 0.65; // default scale of Nodes for sandwiches and their ingredients

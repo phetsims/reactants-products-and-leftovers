@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Recipe for a sandwich.
  *
@@ -14,33 +13,40 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
-import Reaction from '../../common/model/Reaction.js';
+import Reaction, { ReactionOptions } from '../../common/model/Reaction.js';
 import Substance from '../../common/model/Substance.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichNode from '../view/SandwichNode.js';
 
-// constants
 // used when the product is undefined, this can be any non-visible node with well-defined bounds
 const NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
 
+type SelfOptions = {
+  coefficientsMutable?: boolean; // Can coefficients of the ingredients can be changed?
+};
+
+type SandwichRecipeOptions = SelfOptions;
+
 export default class SandwichRecipe extends Reaction {
 
-  /**
-   * @param {TReadOnlyProperty.<string>} nameProperty
-   * @param {number} breadCount
-   * @param {number} meatCount
-   * @param {number} cheeseCount
-   * @param {Object} [options]
-   */
-  constructor( nameProperty, breadCount, meatCount, cheeseCount, options ) {
+  public readonly sandwich: Substance;
+  public readonly coefficientsMutable: boolean;
 
+  public constructor( nameProperty: TReadOnlyProperty<string>,
+                      breadCount: number, meatCount: number, cheeseCount: number,
+                      providedOptions?: SandwichRecipeOptions ) {
+
+    assert && assert( Number.isInteger( breadCount ) && Number.isInteger( meatCount ) && Number.isInteger( cheeseCount ) );
     assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
 
-    options = merge( {
-      coefficientsMutable: false // {boolean} can coefficients of the ingredients can be changed?
-    }, options );
+    const options = optionize<SandwichRecipeOptions, SelfOptions, ReactionOptions>()( {
+
+      // SelfOptions
+      coefficientsMutable: false
+    }, providedOptions );
 
     // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
     const ingredients = [];
@@ -80,7 +86,6 @@ export default class SandwichRecipe extends Reaction {
       assert && assert( this.isReaction() );
     }
 
-    // @public (read-only)
     this.sandwich = sandwich;
     this.coefficientsMutable = options.coefficientsMutable;
   }

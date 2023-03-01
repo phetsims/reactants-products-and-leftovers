@@ -18,7 +18,7 @@ type SelfOptions = {
   nameProperty?: TReadOnlyProperty<string> | null; // optional name for the Reaction, displayed to the user
 };
 
-type ReactionOptions = SelfOptions;
+export type ReactionOptions = SelfOptions;
 
 export default class Reaction {
 
