@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Equation for the 'Sandwiches' screen.
  * This differs from the 'Molecules' screen equation is a few key ways:
@@ -15,6 +14,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import MultiLineText from '../../../../scenery-phet/js/MultiLineText.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
@@ -33,25 +33,19 @@ const ARROW_X_SPACING = 15; // space on both sides of arrow
 const TEXT_OPTIONS = { font: new PhetFont( 28 ), fill: 'white' };
 const PLUS_OPTIONS = { fill: 'white' };
 const ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
-const NUMBER_SPINNER_OPTIONS = RPALConstants.NUMBER_SPINNER_OPTIONS;
 
 export default class SandwichesEquationNode extends Node {
 
+  private readonly disposeSandwichesEquationNode: () => void;
+
   /**
-   * @param {SandwichRecipe} reaction the sandwich recipe (reaction) to display
-   * @param {Dimension2} maxSandwichSize dimensions of largest sandwich
-   * @param {Object} [options]
+   * @param reaction the sandwich recipe (reaction) to display
+   * @param maxSandwichSize dimensions of the largest sandwich
    */
-  constructor( reaction, maxSandwichSize, options ) {
+  public constructor( reaction: SandwichRecipe, maxSandwichSize: Dimension2 ) {
 
-    assert && assert( reaction instanceof SandwichRecipe );
-
-    options = options || {};
-
-    super();
-
-    this.coefficientNodes = []; // @private
-    this.iconNodes = []; // @private
+    const coefficientNodes: Node[] = [];
+    const iconNodes: Node[] = [];
 
     // left-hand side is the sandwich ingredients
     const leftNode = new Node();
@@ -68,8 +62,9 @@ export default class SandwichesEquationNode extends Node {
 
       // coefficient
       if ( reaction.coefficientsMutable ) {
-        coefficientNode = new NumberSpinner( reactant.coefficientProperty, new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE ), NUMBER_SPINNER_OPTIONS );
-        this.coefficientNodes.push( coefficientNode );
+        coefficientNode = new NumberSpinner( reactant.coefficientProperty,
+          new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE ), RPALConstants.NUMBER_SPINNER_OPTIONS );
+        coefficientNodes.push( coefficientNode );
       }
       else {
         coefficientNode = new Text( reactant.coefficientProperty.value, TEXT_OPTIONS );
@@ -83,7 +78,7 @@ export default class SandwichesEquationNode extends Node {
         centerY: coefficientNode.centerY
       } );
       leftNode.addChild( iconNode );
-      this.iconNodes.push( iconNode );
+      iconNodes.push( iconNode );
 
       // plus sign between reactants
       if ( i < numberOfReactants - 1 ) {
@@ -102,12 +97,12 @@ export default class SandwichesEquationNode extends Node {
     arrowNode.left = leftNode.right + ARROW_X_SPACING;
     arrowNode.centerY = leftNode.centerY;
 
-    // @private right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
+    // right-hand side is a sandwich, whose image changes based on coefficients of the ingredients
     const sandwichNode = new SubstanceIcon( reaction.sandwich.iconProperty, {
       centerX: arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 ),
       centerY: arrowNode.centerY
     } );
-    this.iconNodes.push( sandwichNode );
+    iconNodes.push( sandwichNode );
 
     // 'No Reaction', max width determined empirically.
     const noReactionStringProperty = new DerivedProperty( [ ReactantsProductsAndLeftoversStrings.noReactionStringProperty ],
@@ -124,28 +119,28 @@ export default class SandwichesEquationNode extends Node {
       noReactionNode.centerY = arrowNode.centerY;
     } );
 
+    super( {
+      children: [ leftNode, arrowNode, sandwichNode, noReactionNode ]
+    } );
+
     // Display 'No Reaction' if we don't have a valid sandwich.
-    this.sandwichIconPropertyObserver = node => {
+    const sandwichIconPropertyObserver = ( node: Node ) => {
       sandwichNode.visible = reaction.isReaction();
       noReactionNode.visible = !sandwichNode.visible;
     };
-    this.sandwichIconProperty = reaction.sandwich.iconProperty; // @private
-    this.sandwichIconProperty.link( this.sandwichIconPropertyObserver ); // must be unlinked in dispose
+    reaction.sandwich.iconProperty.link( sandwichIconPropertyObserver );
 
-    options.children = [ leftNode, arrowNode, sandwichNode, noReactionNode ];
-    this.mutate( options );
+    this.disposeSandwichesEquationNode = () => {
+      coefficientNodes.forEach( node => node.dispose() );
+      iconNodes.forEach( node => node.dispose() );
+      if ( reaction.sandwich.iconProperty.hasListener( sandwichIconPropertyObserver ) ) {
+        reaction.sandwich.iconProperty.unlink( sandwichIconPropertyObserver );
+      }
+    };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    this.coefficientNodes.forEach( node => node.dispose() );
-    this.coefficientNodes = null;
-    this.iconNodes.forEach( node => node.dispose() );
-    this.iconNodes = null;
-    this.sandwichIconProperty.unlink( this.sandwichIconPropertyObserver );
+  public override dispose(): void {
+    this.disposeSandwichesEquationNode();
     super.dispose();
   }
 }
