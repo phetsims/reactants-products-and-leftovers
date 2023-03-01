@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Model for the 'Game' screen.
  *
@@ -11,10 +10,13 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
+import TModel from '../../../../joist/js/TModel.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import Challenge from './Challenge.js';
 import ChallengeFactory from './ChallengeFactory.js';
 import GamePhase from './GamePhase.js';
 import GameVisibility from './GameVisibility.js';
@@ -24,57 +26,94 @@ import PlayState from './PlayState.js';
 const POINTS_FIRST_CHECK = 2;
 const POINTS_SECOND_CHECK = 1;
 
-export default class GameModel {
+type SelfOptions = {
+  level?: number; // the current level in the game, numbered starting with zero
+  numberOfLevels?: number; // number of levels in the game
+  maxQuantity?: number; // maximum quantity of any substance in a reaction
+};
 
-  /**
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   */
-  constructor( tandem, options ) {
+type GameModelOptions = SelfOptions;
 
-    options = merge( {
-      level: 0, // the current level in the game, numbered starting with zero
-      numberOfLevels: 3, // number of levels in the game
-      maxQuantity: RPALConstants.QUANTITY_RANGE.max, // maximum quantity of any substance in a reaction
-      tandem: tandem
-    }, options );
+export default class GameModel implements TModel {
 
-    // @public
-    this.timerEnabledProperty = new BooleanProperty( false ); // {boolean} is the timer turned on?
-    this.gameVisibiltyProperty = new EnumerationProperty( GameVisibility.SHOW_ALL );
+  public readonly numberOfLevels: number;
+  public readonly maxQuantity: number;
 
-    // @public (read-only)
-    this.levelProperty = new NumberProperty( 0 ); // {number} the current level, starts at 0 in the model, presented as starting from 1 in the view
-    this.scoreProperty = new NumberProperty( 0 ); // {number} how many points the user has earned for the current game
-    this.numberOfChallengesProperty = new NumberProperty( 0 ); // {number} the number of challenges in the current game being played
-    this.challengeProperty = new Property( null ); // {Challenge} the current challenge being played
-    this.challengeIndexProperty = new NumberProperty( -1 ); // {number} the index of the current challenge, -1 indicates no challenge
-    this.gamePhaseProperty = new EnumerationProperty( GamePhase.SETTINGS ); // the current 'phase' of the game
-    this.playStateProperty = new EnumerationProperty( PlayState.NONE ); // the current 'play state' of the game
+  public readonly timerEnabledProperty: Property<boolean>;
+  public readonly gameVisibilityProperty: EnumerationProperty<GameVisibility>;
 
-    // These fields are @public (read-only), they should not be changed once the model is instantiated.
+  // the current level, starts at 0 in the model, presented as starting from 1 in the view
+  public readonly levelProperty: Property<number>;
+
+  // how many points the user has earned for the current game
+  public readonly scoreProperty: Property<number>;
+
+  // the number of challenges in the current game being played
+  public readonly numberOfChallengesProperty: Property<number>;
+
+  // the current challenge being played, null if there's no challenge
+  public readonly challengeProperty: Property<Challenge | null>;
+
+  // the index of the current challenge, -1 indicates no challenge
+  public readonly challengeIndexProperty: Property<number>;
+
+  // the current 'phase' of the game
+  public readonly gamePhaseProperty: EnumerationProperty<GamePhase>;
+
+  // the current 'play state' of the game
+  public readonly playStateProperty: EnumerationProperty<PlayState>;
+
+  // These fields should be treated as read-only. They are changed by GameModel as game-play progresses.
+  public challenges: Challenge[]; // the set of challenges for the current game being played
+  public readonly bestScoreProperties: Property<number>[]; // best scores for each level
+  public readonly bestTimeProperties: Property<number | null>[]; // best times for each level, null if a level has no best time yet
+  public isNewBestTime: boolean; // is the time for the most-recently-completed game a new best time?
+
+  private readonly timer: GameTimer;
+
+  public constructor( tandem: Tandem, providedOptions?: GameModelOptions ) {
+
+    const options = optionize<GameModelOptions, SelfOptions>()( {
+
+      // SelfOptions
+      level: 0,
+      numberOfLevels: 3,
+      maxQuantity: RPALConstants.QUANTITY_RANGE.max
+    }, providedOptions );
+
     this.numberOfLevels = options.numberOfLevels;
     this.maxQuantity = options.maxQuantity;
 
-    // These fields are @public (read-only), they change as game-play progresses.
-    this.challenges = []; // {Challenge[]} the set of challenges for the current game being played
-    this.bestScoreProperties = []; // {Property.<number>[]} best scores for each level
-    this.bestTimeProperties = []; // {Property.<number>[]} best times for each level, in ms
-    this.isNewBestTime = false; // {boolean} is the time for the most-recently-completed game a new best time?
+    this.timerEnabledProperty = new BooleanProperty( false ); // {boolean} is the timer turned on?
+    this.gameVisibilityProperty = new EnumerationProperty( GameVisibility.SHOW_ALL );
+
+    // read-only
+    this.levelProperty = new NumberProperty( 0 );
+    this.scoreProperty = new NumberProperty( 0 );
+    this.numberOfChallengesProperty = new NumberProperty( 0 );
+    this.challengeProperty = new Property<Challenge | null>( null );
+    this.challengeIndexProperty = new NumberProperty( -1 );
+    this.gamePhaseProperty = new EnumerationProperty( GamePhase.SETTINGS );
+    this.playStateProperty = new EnumerationProperty( PlayState.NONE );
+
+    // read-only
+    this.challenges = [];
+    this.bestScoreProperties = [];
+    this.bestTimeProperties = [];
+    this.isNewBestTime = false;
     for ( let level = 0; level < this.numberOfLevels; level++ ) {
       this.bestScoreProperties.push( new NumberProperty( 0 ) );
-      this.bestTimeProperties.push( new Property( null ) ); // null if a level has no best time yet
+      this.bestTimeProperties.push( new Property<number | null>( null ) );
     }
 
-    this.timer = new GameTimer(); // @private
+    this.timer = new GameTimer();
   }
 
-  // @public Resets the model to its initial state.
-  reset() {
+  public reset(): void {
 
     // reset Properties
     this.timerEnabledProperty.reset();
-    this.gameVisibiltyProperty.reset();
+    this.gameVisibilityProperty.reset();
     this.levelProperty.reset();
     this.scoreProperty.reset();
     this.numberOfChallengesProperty.reset();
@@ -92,15 +131,15 @@ export default class GameModel {
     } );
   }
 
-  // @private Advances to GamePhase.SETTINGS, shows the user-interface for selecting game settings
-  settings() {
+  // Advances to GamePhase.SETTINGS, shows the user-interface for selecting game settings.
+  private settings(): void {
     this.timer.stop();
     this.playStateProperty.value = PlayState.NONE;
     this.gamePhaseProperty.value = GamePhase.SETTINGS; // do this last, so that other stuff is set up before observers are notified
   }
 
-  // @private Advances to GamePhase.PLAY, plays a game for the specified {number} level
-  play( level ) {
+  // Advances to GamePhase.PLAY, to play a game for the specified level.
+  private play( level: number ): void {
     assert && assert( this.gamePhaseProperty.value === GamePhase.SETTINGS );
     this.levelProperty.value = level;
     this.scoreProperty.value = 0;
@@ -110,8 +149,8 @@ export default class GameModel {
     this.gamePhaseProperty.value = GamePhase.PLAY; // do this last, so that other stuff is set up before observers are notified
   }
 
-  // @private Advances to GamePhase.RESULTS, ends the current game and displays results
-  results() {
+  // Advances to GamePhase.RESULTS, ends the current game and displays results.
+  private results(): void {
     assert && assert( this.gamePhaseProperty.value === GamePhase.PLAY );
     this.timer.stop();
     this.updateBestScore();
@@ -120,17 +159,21 @@ export default class GameModel {
     this.gamePhaseProperty.value = GamePhase.RESULTS; // do this last, so that other stuff is set up before observers are notified
   }
 
-  // @public Checks the current guess
-  check() {
+  // Checks the current guess.
+  public check(): void {
     const playState = this.playStateProperty.value;
     assert && assert( playState === PlayState.FIRST_CHECK || playState === PlayState.SECOND_CHECK );
-    if ( this.challengeProperty.value.isCorrect() ) {
+
+    const challenge = this.challengeProperty.value!;
+    assert && assert( challenge );
+
+    if ( challenge.isCorrect() ) {
       // stop the timer as soon as we successfully complete the last challenge
       if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
         this.timer.stop();
       }
       const points = ( playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
-      this.challengeProperty.value.points = points;
+      challenge.points = points;
       this.scoreProperty.value = this.scoreProperty.value + points;
       this.playStateProperty.value = PlayState.NEXT;
     }
@@ -139,21 +182,23 @@ export default class GameModel {
     }
   }
 
-  // @public Makes another attempt at solving the challenge
-  tryAgain() {
+  // Makes another attempt at solving the challenge.
+  public tryAgain(): void {
     assert && assert( this.playStateProperty.value === PlayState.TRY_AGAIN );
     this.playStateProperty.value = PlayState.SECOND_CHECK;
   }
 
-  // @public Shows the correct answer
-  showAnswer() {
+  // Shows the correct answer.
+  public showAnswer(): void {
     assert && assert( this.playStateProperty.value === PlayState.SHOW_ANSWER );
-    this.challengeProperty.value.showAnswer();
+    const challenge = this.challengeProperty.value!;
+    assert && assert( challenge );
+    challenge.showAnswer();
     this.playStateProperty.value = PlayState.NEXT;
   }
 
-  // @public Advances to the next challenge
-  next() {
+  // Advances to the next challenge.
+  public next(): void {
     if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
       // game has been completed, advance to GamePhase.RESULTS
       this.results();
@@ -168,65 +213,58 @@ export default class GameModel {
 
   /**
    * Gets the number of challenges for the specified level.
-   * @param {number} level
-   * @returns {number}
-   * @public
    */
-  getNumberOfChallenges( level ) {
+  public getNumberOfChallenges( level: number ): number {
     return ChallengeFactory.getNumberOfChallenges( level );
   }
 
   /**
    * Gets the perfect score for the specified level.
-   * @param {number} level
-   * @returns {number}
-   * @public
    */
-  getPerfectScore( level ) {
+  public getPerfectScore( level: number ): number {
     return ChallengeFactory.getNumberOfChallenges( level ) * POINTS_FIRST_CHECK;
   }
 
   /**
    * Is the current score perfect?
-   * @returns {boolean}
-   * @public
    */
-  isPerfectScore() {
-    return this.scoreProperty.value === this.getPerfectScore( this.levelProperty.value );
+  public isPerfectScore(): boolean {
+    return ( this.scoreProperty.value === this.getPerfectScore( this.levelProperty.value ) );
   }
 
-  // @private Updates the best score for the current level.
-  updateBestScore() {
+  // Updates the best score for the current level.
+  private updateBestScore(): void {
     const level = this.levelProperty.value;
     if ( this.scoreProperty.value > this.bestScoreProperties[ level ].value ) {
       this.bestScoreProperties[ level ].value = this.scoreProperty.value;
     }
   }
 
-  // @private Updates the best time for the current level, at the end of a timed game with a perfect score.
-  updateBestTime() {
+  // Updates the best time for the current level, at the end of a timed game with a perfect score.
+  private updateBestTime(): void {
     assert && assert( !this.timer.isRunningProperty.value );
     this.isNewBestTime = false;
     if ( this.timerEnabledProperty.value && this.isPerfectScore() ) {
       const level = this.levelProperty.value;
       const time = this.timer.elapsedTimeProperty.value;
-      if ( !this.bestTimeProperties[ level ].value ) {
-        // there was no previous time for this level
+      const bestTime = this.bestTimeProperties[ level ].value;
+      if ( bestTime === null ) {
+        // There was no previous best time for this level.
         this.bestTimeProperties[ level ].value = time;
       }
-      else if ( time < this.bestTimeProperties[ level ].value ) {
-        // we have a new best time for this level
+      else if ( time < bestTime ) {
+        // We have a new best time for this level.
         this.bestTimeProperties[ level ].value = time;
         this.isNewBestTime = true;
       }
     }
   }
 
-  // @private initializes a new set of challenges for the current level
-  initChallenges() {
+  // Initializes a new set of challenges for the current level.
+  private initChallenges(): void {
     this.challenges = ChallengeFactory.createChallenges( this.levelProperty.value, this.maxQuantity, {
-      moleculesVisible: ( this.gameVisibiltyProperty.value !== GameVisibility.HIDE_MOLECULES ),
-      numbersVisible: ( this.gameVisibiltyProperty.value !== GameVisibility.HIDE_NUMBERS )
+      moleculesVisible: ( this.gameVisibilityProperty.value !== GameVisibility.HIDE_MOLECULES ),
+      numbersVisible: ( this.gameVisibilityProperty.value !== GameVisibility.HIDE_NUMBERS )
     } );
     this.numberOfChallengesProperty.value = this.challenges.length;
     this.challengeIndexProperty.value = 0;
@@ -234,25 +272,17 @@ export default class GameModel {
   }
 
   /**
-   * DEBUG
-   * Skips the current challenge.
-   * Score and best times are meaningless after using this.
-   * This is a developer feature.
-   * @public
+   * DEBUG: Skips the current challenge. Score and best times are meaningless after using this. This is a developer feature.
    */
-  skipCurrentChallenge() {
+  public skipCurrentChallenge(): void {
     this.next();
   }
 
   /**
-   * DEBUG
-   * Replays the current challenge.
-   * Score and best times are meaningless after using this.
-   * This is a developer feature.
-   * @public
+   * DEBUG: Replays the current challenge. Score and best times are meaningless after using this. This is a developer feature.
    */
-  replayCurrentChallenge() {
-    this.challengeProperty.value.reset();
+  public replayCurrentChallenge(): void {
+    this.challengeProperty.value && this.challengeProperty.value.reset();
     this.playStateProperty.value = PlayState.FIRST_CHECK;
   }
 }

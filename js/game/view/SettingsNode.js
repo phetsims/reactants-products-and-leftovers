@@ -54,7 +54,7 @@ export default class SettingsNode extends Node {
     } );
 
     // Panel with visibility radio buttons, at bottom center
-    const visibilityPanel = new VisibilityPanel( model.gameVisibiltyProperty, {
+    const visibilityPanel = new VisibilityPanel( model.gameVisibilityProperty, {
       maxWidth: 0.65 * layoutBounds.width // constrain width for i18n
     } );
     visibilityPanel.boundsProperty.link( bounds => {
