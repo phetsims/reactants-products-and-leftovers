@@ -19,7 +19,7 @@ type SelfOptions = {
   numbersVisible?: boolean; // are numbers visible when playing the challenge?
 };
 
-type ChallengeOptions = SelfOptions;
+export type ChallengeOptions = SelfOptions;
 
 export default class Challenge {
 

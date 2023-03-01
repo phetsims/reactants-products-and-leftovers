@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Creates challenges where level-of-difficulty is based on the number variables that
  * we're solving for, and whether the variables are 'Before' or 'After' terms.
@@ -26,13 +25,16 @@ import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import Challenge from './Challenge.js';
+import Challenge, { ChallengeOptions } from './Challenge.js';
+import Reaction from '../../common/model/Reaction.js';
 
 // constants
 const CHALLENGES_PER_LEVEL = 5;
 
+type FactoryFunction = () => Reaction;
+
 // level 2 is all the one-product reactions
-const LEVEL2_POOL = [
+const LEVEL2_POOL: FactoryFunction[] = [
   ReactionFactory.Reaction_PCl3_Cl2__PCl5, // PCl5 is the largest molecule in this pool, so put this first for layout debugging
   ReactionFactory.makeWater,
   ReactionFactory.Reaction_H2_F2__2HF,
@@ -57,7 +59,7 @@ const LEVEL2_POOL = [
 ];
 
 // level 3 is all the two-product reactions
-const LEVEL3_POOL = [
+const LEVEL3_POOL: FactoryFunction[] = [
   ReactionFactory.Reaction_C2H5OH_3O2__2CO2_3H2O, // C2H5OH has the most atoms in this pool, so put this first for performance debugging
   ReactionFactory.Reaction_2C_2H2O__CH4_CO2,
   ReactionFactory.Reaction_CH4_H2O__3H2_CO,
@@ -79,10 +81,10 @@ const LEVEL3_POOL = [
 ];
 
 // level 1 is all the reactions
-const LEVEL1_POOL = LEVEL2_POOL.concat( LEVEL3_POOL );
+const LEVEL1_POOL: FactoryFunction[] = LEVEL2_POOL.concat( LEVEL3_POOL );
 
 // 'pools' of factory functions, indexed by level
-const POOLS = [ LEVEL1_POOL, LEVEL2_POOL, LEVEL3_POOL ];
+const POOLS: FactoryFunction[][] = [ LEVEL1_POOL, LEVEL2_POOL, LEVEL3_POOL ];
 
 // which box is interactive, indexed by level
 const INTERACTIVE_BOXES = [ BoxType.BEFORE, BoxType.AFTER, BoxType.AFTER ];
@@ -91,13 +93,14 @@ const ChallengeFactory = {
 
   /**
    * Creates a set of challenges.
-   * @param {number} level game level, starting at zero
-   * @param {number} maxQuantity maximum quantity of any substance in the reaction
-   * @param {Object} [challengeOptions] options passed to Challenge constructor
-   * @returns {Challenge[]}
+   * @param level - game level, starting at zero
+   * @param maxQuantity - maximum quantity of any substance in the reaction
+   * @param [challengeOptions] - options passed to Challenge constructor
    */
-  createChallenges: function( level, maxQuantity, challengeOptions ) {
-    challengeOptions = challengeOptions || {};
+  createChallenges( level: number, maxQuantity: number, challengeOptions?: ChallengeOptions ): Challenge[] {
+    assert && assert( Number.isInteger( level ) && level >= 0 && level < POOLS.length );
+    assert && assert( Number.isInteger( maxQuantity ) && maxQuantity > 0 );
+
     if ( RPALQueryParameters.playAll ) {
       return createChallengesPlayAll( level, maxQuantity, challengeOptions );
     }
@@ -108,30 +111,27 @@ const ChallengeFactory = {
 
   /**
    * Gets the number of reactions in the 'pool' for a specified level.
-   * @param {number} level game level, starting at zero
-   * @returns {number}
+   * @param level - game level, starting at zero
    */
-  getNumberOfChallenges: function( level ) {
-    assert && assert( level >= 0 && level < POOLS.length );
+  getNumberOfChallenges( level: number ): number {
+    assert && assert( Number.isInteger( level ) && level >= 0 && level < POOLS.length );
     return RPALQueryParameters.playAll ? POOLS[ level ].length : CHALLENGES_PER_LEVEL;
   },
 
-  // DEBUG: Runs a sanity check on this factory, prints to console.
-  test: function() { doTest(); }
+  /**
+   * DEBUG: Runs a sanity check for challenge creation. Prints diagnostics to the console.
+   */
+  test(): void {
+    doTest();
+  }
 };
 
 /**
  * Creates a set of random challenges.
- *
- * @param {number} level
- * @param {number} maxQuantity
- * @param {Object} challengeOptions options to the Challenge constructor
- * @returns {Challenge[]}
  */
-function createChallenges( level, maxQuantity, challengeOptions ) {
-
-  assert && assert( level >= 0 && level < POOLS.length );
-  assert && assert( maxQuantity > 0 );
+function createChallenges( level: number, maxQuantity: number, challengeOptions?: ChallengeOptions ): Challenge[] {
+  assert && assert( Number.isInteger( level ) && level >= 0 && level < POOLS.length );
+  assert && assert( Number.isInteger( maxQuantity ) && maxQuantity > 0 );
 
   const numberOfChallenges = CHALLENGES_PER_LEVEL;
   const factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
@@ -139,7 +139,7 @@ function createChallenges( level, maxQuantity, challengeOptions ) {
   // Determine which challenge will have zero products.
   const zeroProductsIndex = dotRandom.nextInt( numberOfChallenges );
 
-  const challenges = []; // [{Challenge}]
+  const challenges: Challenge[] = [];
   for ( let i = 0; i < numberOfChallenges; i++ ) {
 
     // reaction with quantities
@@ -170,9 +170,9 @@ function createChallenges( level, maxQuantity, challengeOptions ) {
  * @param maxQuantity
  * @param challengeOptions
  */
-function createChallengesPlayAll( level, maxQuantity, challengeOptions ) {
+function createChallengesPlayAll( level: number, maxQuantity: number, challengeOptions?: ChallengeOptions ): Challenge[] {
 
-  const challenges = []; // [{Challenge}]
+  const challenges: Challenge[] = [];
   const factoryFunctions = POOLS[ level ].slice( 0 ); // make a copy of the array for the specified level
 
   for ( let i = 0; i < factoryFunctions.length; i++ ) {
@@ -194,14 +194,11 @@ function createChallengesPlayAll( level, maxQuantity, challengeOptions ) {
 
 /**
  * Creates a reaction with non-zero quantities of at least one product.
- * @param {function[]} factoryFunctions
- * @param {number} maxQuantity
- * @returns {Reaction}
  */
-function createChallengeWithProducts( factoryFunctions, maxQuantity ) {
+function createChallengeWithProducts( factoryFunctions: FactoryFunction[], maxQuantity: number ): Reaction {
 
   assert && assert( factoryFunctions.length > 0 );
-  assert && assert( maxQuantity > 0 );
+  assert && assert( Number.isInteger( maxQuantity ) && maxQuantity > 0 );
 
   // Choose a function and remove it from the further consideration.
   const randomIndex = dotRandom.nextIntBetween( 0, factoryFunctions.length - 1 );
@@ -219,15 +216,12 @@ function createChallengeWithProducts( factoryFunctions, maxQuantity ) {
 
 /**
  * Creates a reaction with zero quantities of all products.
- * @param {function[]} factoryFunctions
- * @returns {Reaction}
  */
-function createChallengeWithoutProducts( factoryFunctions ) {
-
+function createChallengeWithoutProducts( factoryFunctions: FactoryFunction[] ): Reaction {
   assert && assert( factoryFunctions.length > 0 );
 
   // Choose a reaction that is capable of having no products when all reactant quantities are non-zero.
-  let reaction = null;
+  let reaction: Reaction;
   let retry = true;
   const disqualifiedFunctions = []; // functions that were disqualified
   while ( retry ) {
@@ -247,6 +241,8 @@ function createChallengeWithoutProducts( factoryFunctions ) {
       disqualifiedFunctions.push( factoryFunction );
     }
   }
+  const generatedReaction = reaction!;
+  assert && assert( generatedReaction );
 
   // Put the functions that we didn't use back in the pool.
   disqualifiedFunctions.forEach( disqualifiedFunction => {
@@ -254,20 +250,18 @@ function createChallengeWithoutProducts( factoryFunctions ) {
   } );
 
   // set quantities
-  reaction.reactants.forEach( reactant => {
+  generatedReaction.reactants.forEach( reactant => {
     reactant.quantityProperty.value = dotRandom.nextIntBetween( 1, Math.max( 1, reactant.coefficientProperty.value - 1 ) );
   } );
 
-  return reaction;
+  return generatedReaction;
 }
 
 /**
  * Does this reaction have coefficient of 1 for all reactants? This type of reaction cannot produce
  * zero products with non-zero quantities, so we don't want to use it for that purpose.
- * @param {Reaction} reaction
- * @returns {boolean}
  */
-function reactantCoefficientsAllOne( reaction ) {
+function reactantCoefficientsAllOne( reaction: Reaction ): boolean {
   let allOne = true;
   reaction.reactants.forEach( reactant => {
     if ( reactant.coefficientProperty.value !== 1 ) {
@@ -279,11 +273,10 @@ function reactantCoefficientsAllOne( reaction ) {
 
 /**
  * Checks a reaction for quantity range violations.
- * @param {Reaction} reaction
- * @param {number} maxQuantity
- * @returns {boolean}
  */
-function hasQuantityRangeViolation( reaction, maxQuantity ) {
+function hasQuantityRangeViolation( reaction: Reaction, maxQuantity: number ): boolean {
+  assert && assert( Number.isInteger( maxQuantity ) && maxQuantity > 0 );
+
   let violation = false;
   let i;
   for ( i = 0; !violation && i < reaction.reactants.length; i++ ) {
@@ -305,13 +298,12 @@ function hasQuantityRangeViolation( reaction, maxQuantity ) {
  *
  * In the Java version of this simulation, this manifested itself as Unfuddle #2156.
  *
- * @param {Reaction} reaction
- * @param {number} maxQuantity
- * @param {boolean} enableDebugOutput prints to the console when a violation is fixed
+ * @param reaction
+ * @param maxQuantity
+ * @param [enableDebugOutput] - prints to the console when a violation is fixed
  */
-function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
-
-  enableDebugOutput = !!enableDebugOutput || false;
+function fixQuantityRangeViolation( reaction: Reaction, maxQuantity: number, enableDebugOutput = false ): void {
+  assert && assert( Number.isInteger( maxQuantity ) && maxQuantity > 0 );
 
   if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
 
@@ -320,7 +312,7 @@ function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
     // First, make sure all reactant quantities are in range.
     reaction.reactants.forEach( reactant => {
       if ( reactant.quantityProperty.value > maxQuantity ) {
-        reactant.quantityPropertyvalue = maxQuantity;
+        reactant.quantityProperty.value = maxQuantity;
       }
     } );
 
@@ -363,7 +355,7 @@ function fixQuantityRangeViolation( reaction, maxQuantity, enableDebugOutput ) {
  * with 'dev' query parameter and press the 'Test' button that appears on the Game's level-selection screen.
  * Output is printed to the console.
  */
-function doTest() {
+function doTest(): void {
 
   assert && assert( !RPALQueryParameters.playAll ); // test doesn't work with some query parameters
 
@@ -374,24 +366,17 @@ function doTest() {
   let numberOfProductErrors = 0;
   let numberOfQuantityRangeErrors = 0;
 
-  // hoist vars that will be reused
-  let factoryFunction;
-  let reaction;
-  let level;
-  let i;
-  let j;
-
   // Print reactions by level. Put all reactions in a container, removing duplicates.
-  const factoryFunctions = [];
-  for ( level = 0; level < POOLS.length; level++ ) {
+  const factoryFunctions: FactoryFunction[] = [];
+  for ( let level = 0; level < POOLS.length; level++ ) {
     console.log( '----------------------------------------------------------' );
     console.log( `Level ${level + 1}` );
     console.log( '----------------------------------------------------------' );
-    for ( i = 0; i < POOLS[ level ].length; i++ ) {
-      factoryFunction = POOLS[ level ][ i ];
-      reaction = factoryFunction();
+    for ( let i = 0; i < POOLS[ level ].length; i++ ) {
+      const factoryFunction = POOLS[ level ][ i ];
+      const reaction = factoryFunction();
       console.log( DevStringUtils.equationString( reaction ) );
-      if ( factoryFunctions.indexOf( factoryFunction ) === -1 ) {
+      if ( factoryFunctions.includes( factoryFunction ) ) {
         factoryFunctions.push( factoryFunction );
       }
     }
@@ -403,15 +388,15 @@ function doTest() {
   console.log( 'Looking for coefficient-range violations ...' );
   console.log( '----------------------------------------------------------' );
   factoryFunctions.forEach( factoryFunction => {
-    reaction = factoryFunction();
-    for ( i = 0; i < reaction.reactants.length; i++ ) {
+    const reaction = factoryFunction();
+    for ( let i = 0; i < reaction.reactants.length; i++ ) {
       if ( reaction.reactants[ i ].coefficientProperty.value > maxQuantity ) {
         console.log( `ERROR: reactant coefficient out of range : ${DevStringUtils.equationString( reaction )}` );
         numberOfCoefficientRangeErrors++;
         break;
       }
     }
-    for ( i = 0; i < reaction.products.length; i++ ) {
+    for ( let i = 0; i < reaction.products.length; i++ ) {
       if ( reaction.products[ i ].coefficientProperty.value > maxQuantity ) {
         console.log( `ERROR: product coefficient out of range : ${DevStringUtils.equationString( reaction )}` );
         numberOfCoefficientRangeErrors++;
@@ -428,9 +413,9 @@ function doTest() {
   console.log( 'Looking for quantity-range violations that cannot be fixed ...' );
   console.log( '----------------------------------------------------------------' );
   factoryFunctions.forEach( factoryFunction => {
-    reaction = factoryFunction();
+    const reaction = factoryFunction();
     // set all reactant quantities to their max values.
-    for ( i = 0; i < reaction.reactants.length; i++ ) {
+    for ( let i = 0; i < reaction.reactants.length; i++ ) {
       reaction.reactants[ i ].quantityProperty.value = maxQuantity;
     }
     // look for violations and try to fix them.
@@ -442,8 +427,8 @@ function doTest() {
   console.log( 'Testing challenge generation ...' );
   console.log( '----------------------------------------------------------' );
 
-  for ( level = 0; level < POOLS.length; level++ ) {
-    for ( i = 0; i < 100; i++ ) {
+  for ( let level = 0; level < POOLS.length; level++ ) {
+    for ( let i = 0; i < 100; i++ ) {
 
       // create challenges
       const challenges = ChallengeFactory.createChallenges( level, maxQuantity );
@@ -451,7 +436,8 @@ function doTest() {
 
       // validate
       let numberWithZeroProducts = 0;
-      challenges.forEach( challenge => {
+      for ( let j = 0; j < challenges.length; j++ ) {
+        const challenge = challenges[ j ];
 
         // verify that all reactant quantities are > 0
         let zeroReactants = false;
@@ -478,25 +464,24 @@ function doTest() {
         }
 
         // quantity-range violation?
-        if ( hasQuantityRangeViolation( reaction, maxQuantity ) ) {
-          console.log( `ERROR: challenge has quantity-range violation, level=${level} : ${
-            DevStringUtils.reactionString( challenge.reaction )}` );
+        if ( hasQuantityRangeViolation( challenge.reaction, maxQuantity ) ) {
+          console.log( `ERROR: challenge has quantity-range violation, level=${level} : ${DevStringUtils.reactionString( challenge.reaction )}` );
           numberOfQuantityRangeErrors++;
         }
-      } );
+      }
 
       // should have exactly one challenge with zero products (irrelevant for 'playAll')
       if ( numberWithZeroProducts !== 1 && !RPALQueryParameters.playAll ) {
         numberOfProductErrors++;
         console.log( `ERROR: more than one challenge with zero products, level=${level} challenges=` );
-        for ( j = 0; j < challenges.length; j++ ) {
+        for ( let j = 0; j < challenges.length; j++ ) {
           console.log( `${j}: ${DevStringUtils.reactionString( challenges[ j ].reaction )}` );
         }
       }
     }
   }
 
-  // This is the bit that you want to look at, when the test has completed.  Errors should all be zero.
+  // Inspect this bit of output when the test has completed. Errors should all be zero.
   console.log( '----------------------------------------------------------' );
   console.log( 'Summary' );
   console.log( '----------------------------------------------------------' );
