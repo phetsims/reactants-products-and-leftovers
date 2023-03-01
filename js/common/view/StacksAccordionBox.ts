@@ -31,7 +31,7 @@ type SelfOptions = {
   boxYMargin?: number; // vertical margin between the inner edge of box and the tallest node
 };
 
-type StacksAccordionBoxOptions = SelfOptions;
+export type StacksAccordionBoxOptions = SelfOptions;
 
 export default class StacksAccordionBox extends AccordionBox {
 

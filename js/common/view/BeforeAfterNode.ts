@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * This is the primary UI component for the 'Sandwiches' and 'Molecules' screens.
  * It displays a reaction as 2 boxes, representing the 'Before' and 'After' states of the reaction.
@@ -12,38 +11,62 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { HBox, Node } from '../../../../scenery/js/imports.js';
+import Range from '../../../../dot/js/Range.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import { HBox, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
+import Reaction from '../model/Reaction.js';
 import RPALColors from '../RPALColors.js';
 import RPALConstants from '../RPALConstants.js';
 import QuantitiesNode from './QuantitiesNode.js';
 import RightArrowNode from './RightArrowNode.js';
-import StacksAccordionBox from './StacksAccordionBox.js';
+import StacksAccordionBox, { StacksAccordionBoxOptions } from './StacksAccordionBox.js';
+
+const DEFAULT_CONTENT_SIZE = new Dimension2( 100, 100 );
+const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );
+
+type SelfOptions = {
+  quantityRange?: Range; // range of the quantity values
+  showSymbols?: boolean; // whether to show symbols (eg, H2O) for the substances in the reactions
+  beforeTitleProperty?: TReadOnlyProperty<string>;  // title on the 'Before' box
+  afterTitleProperty?: TReadOnlyProperty<string>; // title on the 'After' box
+  contentSize?: Dimension2; // size of the 'Before' and 'After' boxes
+  minIconSize?: Dimension2; // minimum amount of layout space reserved for Substance icons
+  boxYMargin?: number; // vertical margin between the inner edge of box and the tallest node
+};
+
+type BeforeAfterNodeOptions = SelfOptions;
 
 export default class BeforeAfterNode extends Node {
 
+  private readonly disposeBeforeAfterNode: () => void;
+
   /**
-   * @param {Reaction} reaction the reaction to be displayed
-   * @param {Property.<boolean>} beforeExpandedProperty whether the 'Before' box is expanded
-   * @param {Property.<boolean>} afterExpandedProperty whether the 'After' box is expanded
-   * @param {Object} [options]
+   * @param reaction - the reaction to be displayed
+   * @param beforeExpandedProperty - whether the 'Before' box is expanded
+   * @param afterExpandedProperty - whether the 'After' box is expanded
+   * @param [providedOptions]
    */
-  constructor( reaction, beforeExpandedProperty, afterExpandedProperty, options ) {
+  public constructor( reaction: Reaction,
+                      beforeExpandedProperty: Property<boolean>,
+                      afterExpandedProperty: Property<boolean>,
+                      providedOptions?: BeforeAfterNodeOptions ) {
 
-    options = merge( {
-      contentSize: new Dimension2( 100, 100 ), // {Dimension2} size of the 'Before' and 'After' boxes
-      quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
-      showSymbols: true, // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
-      beforeTitleProperty: ReactantsProductsAndLeftoversStrings.beforeReactionStringProperty,  // {string} title on the 'Before' box
-      afterTitleProperty: ReactantsProductsAndLeftoversStrings.afterReactionStringProperty, // {string} title on the 'After' box
-      boxYMargin: 6, // {number} vertical margin between the inner edge of box and the tallest node
-      minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
-    }, options );
+    const options = optionize<BeforeAfterNodeOptions, SelfOptions, NodeOptions>()( {
 
-    super();
+      // SelfOptions
+      quantityRange: RPALConstants.QUANTITY_RANGE,
+      showSymbols: true,
+      beforeTitleProperty: ReactantsProductsAndLeftoversStrings.beforeReactionStringProperty,
+      afterTitleProperty: ReactantsProductsAndLeftoversStrings.afterReactionStringProperty,
+      contentSize: DEFAULT_CONTENT_SIZE,
+      minIconSize: DEFAULT_MIN_ICON_SIZE,
+      boxYMargin: 6
+    }, providedOptions );
 
     // vars to improve readability
     const reactants = reaction.reactants;
@@ -54,19 +77,19 @@ export default class BeforeAfterNode extends Node {
     const beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.contentSize.width );
     const afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
 
-    const stacksAccordionBoxOptions = {
+    const stacksAccordionBoxOptions: StacksAccordionBoxOptions = {
       contentSize: options.contentSize,
-      iconSize: options.iconSize,
+      minIconSize: options.minIconSize,
       maxQuantity: options.quantityRange.max,
       boxYMargin: options.boxYMargin
     };
 
-    // @private 'Before Reaction' box, with stacks of reactants
-    this.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, options.beforeTitleProperty,
+    // 'Before Reaction' box, with stacks of reactants
+    const beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, options.beforeTitleProperty,
       beforeExpandedProperty, stacksAccordionBoxOptions );
 
-    // @private 'After Reaction' box, with stacks of products and leftovers
-    this.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, options.afterTitleProperty,
+    // 'After Reaction' box, with stacks of products and leftovers
+    const afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, options.afterTitleProperty,
       afterExpandedProperty, stacksAccordionBoxOptions );
 
     // Arrow between boxes
@@ -74,43 +97,34 @@ export default class BeforeAfterNode extends Node {
 
     // layout of boxes and arrow
     const hBox = new HBox( {
-      children: [ this.beforeBox, arrowNode, this.afterBox ],
+      children: [ beforeBox, arrowNode, afterBox ],
       spacing: 10
     } );
-    this.addChild( hBox );
 
-    // @private Everything below the boxes
-    this.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
+    // Everything below the boxes
+    const quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       showSymbols: options.showSymbols,
       boxWidth: options.contentSize.width,
-      afterBoxXOffset: this.afterBox.left - this.beforeBox.left,
+      afterBoxXOffset: afterBox.left - beforeBox.left,
       minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
-      x: this.beforeBox.x,
-      top: this.beforeBox.bottom + 6
+      x: beforeBox.x,
+      top: beforeBox.bottom + 6
     } );
-    this.addChild( this.quantitiesNode );
 
-    // pass options to supertype
-    this.mutate( options );
+    options.children = [ hBox, quantitiesNode ];
+
+    super( options );
+
+    this.disposeBeforeAfterNode = () => {
+      beforeBox.dispose();
+      afterBox.dispose();
+      quantitiesNode.dispose();
+    };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-
-    // accordion boxes
-    this.beforeBox.dispose();
-    this.beforeBox = null;
-    this.afterBox.dispose();
-    this.afterBox = null;
-
-    // stuff below the boxes
-    this.quantitiesNode.dispose();
-    this.quantitiesNode = null;
-
+  public override dispose(): void {
+    this.disposeBeforeAfterNode();
     super.dispose();
   }
 }
