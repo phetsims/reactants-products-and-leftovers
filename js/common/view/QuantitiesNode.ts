@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * The 'quantities' interface includes everything that's displayed below the Before/After boxes.
  * It indicates the quantities of reactants, products and leftovers, and allows interaction
@@ -11,14 +10,17 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import BracketNode from '../../../../scenery-phet/js/BracketNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, RichText, Text } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, RichText, Text } from '../../../../scenery/js/imports.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import BoxType from '../model/BoxType.js';
+import Substance from '../model/Substance.js';
 import RPALColors from '../RPALColors.js';
 import RPALConstants from '../RPALConstants.js';
 import HideBox from './HideBox.js';
@@ -39,22 +41,53 @@ const BRACKET_LABEL_OPTIONS = {
 };
 const NUMBER_SPINNER_OPTIONS = RPALConstants.NUMBER_SPINNER_OPTIONS;
 
+type SelfOptions = {
+  interactiveBox?: BoxType; // which box is interactive (Before or After)
+  boxWidth?: number; // width of the Before and After boxes
+  afterBoxXOffset?: number; // x-offset of left of After box, relative to left of Before box
+  quantityRange?: Range; // range of spinners
+  hideNumbersBox?: boolean; // {boolean} should we include a 'hide box' to cover the static numbers?
+  minIconSize?: Dimension2; // minimum amount of layout space reserved for Substance icons
+  showSymbols?: boolean; // whether to show symbols (eg, H2O) for the substances in the reactions
+};
+
+type QuantitiesNodeOptions = SelfOptions & NodeTranslationOptions;
+
 export default class QuantitiesNode extends Node {
 
+  private readonly reactants: Substance[];
+  private readonly products: Substance[];
+  private readonly leftovers: Substance[];
+  private readonly interactiveBox: BoxType;
+  private readonly spinnerNodes: NumberSpinner[];
+  private readonly beforeNumberNodes: NumberNode[];
+  private readonly afterNumberNodes: NumberNode[];
+
+  private readonly reactantsParent: Node; // reactants, below the 'Before' box
+  private readonly productsParent: Node; // products, below the 'After' box
+  private readonly leftoversParent: Node; // leftovers, below the 'After' box, to the right of the products
+
+  private readonly hideNumbersBox?: Node; // optional 'Hide numbers' box, to hide static quantities
+
+  private readonly disposeQuantitiesNode: () => void;
+
   /**
-   * @param {Substance[]} reactants
-   * @param {Substance[]} products
-   * @param {Substance[]} leftovers
-   * @param {number[]} beforeXOffsets offsets of reactants relative to the left edge of the 'Before' box
-   * @param {number[]} afterXOffsets offsets of products and leftovers relative to the left edge of the 'Before' box
-   * @param {Object} [options]
+   * @param reactants
+   * @param products
+   * @param leftovers
+   * @param beforeXOffsets - offsets of reactants relative to the left edge of the 'Before' box
+   * @param afterXOffsets - offsets of products and leftovers relative to the left edge of the 'Before' box
+   * @param [providedOptions]
    */
-  constructor( reactants, products, leftovers, beforeXOffsets, afterXOffsets, options ) {
+  public constructor( reactants: Substance[], products: Substance[], leftovers: Substance[],
+                      beforeXOffsets: number[], afterXOffsets: number[], providedOptions?: QuantitiesNodeOptions ) {
 
     assert && assert( reactants.length === beforeXOffsets.length );
     assert && assert( products.length + leftovers.length === afterXOffsets.length );
 
-    options = merge( {
+    const options = optionize<QuantitiesNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
       interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
       boxWidth: 100, // {number} width of the Before and After boxes
       afterBoxXOffset: 200, // {number} x-offset of left of After box, relative to left of Before box
@@ -62,14 +95,14 @@ export default class QuantitiesNode extends Node {
       hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
       minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons
       showSymbols: true // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
-    }, options );
+    }, providedOptions );
 
     super();
 
-    this.reactants = reactants; // @private
-    this.products = products; // @private
-    this.leftovers = leftovers; // @private
-    this.interactiveBox = options.interactiveBox; // @private
+    this.reactants = reactants;
+    this.products = products;
+    this.leftovers = leftovers;
+    this.interactiveBox = options.interactiveBox;
 
     // explicitly hoist reused vars
     let i;
@@ -83,14 +116,15 @@ export default class QuantitiesNode extends Node {
     let symbolNode;
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    this.spinnerNodes = []; // @private {NumberSpinner[]}
-    this.beforeNumberNodes = []; // @private {NumberNode[]}
-    this.afterNumberNodes = []; // @private {NumberNode[]}
-    this.iconNodes = []; // @private {SubstanceIcon[]}
-    const symbolNodes = [];
+    this.spinnerNodes = [];
+    this.beforeNumberNodes = [];
+    this.afterNumberNodes = [];
+
+    const iconNodes: Node[] = [];
+    const symbolNodes: Node[] = [];
 
     // reactants, below the 'Before' box
-    this.reactantsParent = new Node(); // @private
+    this.reactantsParent = new Node();
     this.addChild( this.reactantsParent );
     for ( i = 0; i < reactants.length; i++ ) {
 
@@ -114,7 +148,7 @@ export default class QuantitiesNode extends Node {
       // substance icon
       iconNode = new SubstanceIcon( reactant.iconProperty, { centerX: centerX } );
       this.reactantsParent.addChild( iconNode );
-      this.iconNodes.push( iconNode );
+      iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -125,7 +159,7 @@ export default class QuantitiesNode extends Node {
     }
 
     // products, below the 'After' box
-    this.productsParent = new Node(); // @private
+    this.productsParent = new Node();
     this.addChild( this.productsParent );
     for ( i = 0; i < products.length; i++ ) {
 
@@ -149,7 +183,7 @@ export default class QuantitiesNode extends Node {
       // substance icon
       iconNode = new SubstanceIcon( product.iconProperty, { centerX: centerX } );
       this.productsParent.addChild( iconNode );
-      this.iconNodes.push( iconNode );
+      iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -160,7 +194,7 @@ export default class QuantitiesNode extends Node {
     }
 
     // leftovers, below the 'After' box, to the right of the products
-    this.leftoversParent = new Node(); // @private
+    this.leftoversParent = new Node();
     this.addChild( this.leftoversParent );
     for ( i = 0; i < leftovers.length; i++ ) {
 
@@ -184,7 +218,7 @@ export default class QuantitiesNode extends Node {
       // substance icon
       iconNode = new SubstanceIcon( leftover.iconProperty, { centerX: centerX } );
       this.leftoversParent.addChild( iconNode );
-      this.iconNodes.push( iconNode );
+      iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
@@ -199,10 +233,8 @@ export default class QuantitiesNode extends Node {
      * Ensures that all similar components (spinners, numbers, icons, symbols) are vertically centered.
      */
     const spinnerHeight = this.spinnerNodes[ 0 ].height;
-    const maxIconHeight = Math.max(
-      options.minIconSize.height,
-      _.maxBy( this.iconNodes, node => node.height ).height );
-    const maxSymbolHeight = symbolNodes.length ? _.maxBy( symbolNodes, node => node.height ).height : 0;
+    const maxIconHeight = Math.max( options.minIconSize.height, _.maxBy( iconNodes, node => node.height )!.height );
+    const maxSymbolHeight = symbolNodes.length ? _.maxBy( symbolNodes, node => node.height )!.height : 0;
 
     this.spinnerNodes.forEach( spinnerNode => {
       spinnerNode.centerY = ( spinnerHeight / 2 );
@@ -213,7 +245,7 @@ export default class QuantitiesNode extends Node {
     this.afterNumberNodes.forEach( numberNode => {
       numberNode.centerY = ( spinnerHeight / 2 );
     } );
-    this.iconNodes.forEach( iconNode => {
+    iconNodes.forEach( iconNode => {
       iconNode.centerY = spinnerHeight + QUANTITY_IMAGE_Y_SPACING + ( maxIconHeight / 2 );
     } );
     if ( options.showSymbols ) {
@@ -262,7 +294,6 @@ export default class QuantitiesNode extends Node {
     this.addChild( leftoversBracket );
 
     // Optional 'Hide numbers' box on top of the static quantities
-    this.hideNumbersBox = null;  // @private
     if ( options.hideNumbersBox ) {
       this.hideNumbersBox = new HideBox( {
         boxSize: new Dimension2( options.boxWidth, spinnerHeight ),
@@ -275,6 +306,13 @@ export default class QuantitiesNode extends Node {
     }
 
     this.mutate( options );
+
+    this.disposeQuantitiesNode = () => {
+      this.spinnerNodes.forEach( node => node.dispose() );
+      this.beforeNumberNodes.forEach( node => node.dispose() );
+      this.afterNumberNodes.forEach( node => node.dispose() );
+      iconNodes.forEach( node => node.dispose() );
+    };
   }
 
   /**
@@ -282,11 +320,8 @@ export default class QuantitiesNode extends Node {
    * When it's interactive, spinners are visible; when not, static numbers are visible.
    * Static numbers are created on demand, so that we don't have unnecessary nodes for situations
    * that are always interactive, and to improve performance on creation.
-   *
-   * @param {boolean} interactive
-   * @public
    */
-  setInteractive( interactive ) {
+  public setInteractive( interactive: boolean ): void {
 
     // spinners
     this.spinnerNodes.forEach( spinnerNode => { spinnerNode.visible = interactive; } );
@@ -347,38 +382,25 @@ export default class QuantitiesNode extends Node {
 
   /**
    * Changes visibility of the 'Hide numbers' box.
-   * @param {boolean} visible
-   * @public
    */
-  setHideNumbersBoxVisible( visible ) {
+  public setHideNumbersBoxVisible( visible: boolean ): void {
     if ( this.hideNumbersBox ) {
       this.hideNumbersBox.visible = visible;
     }
   }
 
-  // @public @overide
-  dispose() {
-    this.spinnerNodes.forEach( node => node.dispose() );
-    this.spinnerNodes = null;
-    this.beforeNumberNodes.forEach( node => node.dispose() );
-    this.beforeNumberNodes = null;
-    this.afterNumberNodes.forEach( node => node.dispose() );
-    this.afterNumberNodes = null;
-    this.iconNodes.forEach( node => node.dispose() );
-    this.iconNodes = null;
-
+  public override dispose(): void {
+    this.disposeQuantitiesNode();
     super.dispose();
   }
 
   /**
    * Creates x-offsets for substances, relative to the left edge of their 'Before' or 'After' box.
-   * @param {number} numberOfSubstances
-   * @param {number} boxWidth
-   * @returns {number[]}
-   * @static
-   * @public
    */
-  static createXOffsets( numberOfSubstances, boxWidth ) {
+  public static createXOffsets( numberOfSubstances: number, boxWidth: number ): number[] {
+    assert && assert( Number.isInteger( numberOfSubstances ) && numberOfSubstances > 0 );
+    assert && assert( boxWidth > 0 );
+
     const xOffsets = [];
     const xMargin = ( numberOfSubstances > 2 ) ? 0 : ( 0.15 * boxWidth ); // make 2-reactant case look nice
     const deltaX = ( boxWidth - ( 2 * xMargin ) ) / numberOfSubstances;
