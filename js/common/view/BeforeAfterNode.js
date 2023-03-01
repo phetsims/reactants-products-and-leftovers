@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * This is the primary UI component for the 'Sandwiches' and 'Molecules' screens.
  * It displays a reaction as 2 boxes, representing the 'Before' and 'After' states of the reaction.
