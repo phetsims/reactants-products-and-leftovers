@@ -1,16 +1,16 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Developer controls for the 'Game' screen. i18n not required.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../phet-core/js/merge.js';
+import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { HBox } from '../../../scenery/js/imports.js';
+import { HBox, HBoxOptions, NodeTranslationOptions } from '../../../scenery/js/imports.js';
 import TextPushButton from '../../../sun/js/buttons/TextPushButton.js';
+import GameModel from '../game/model/GameModel.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 // constants
@@ -20,17 +20,19 @@ const BUTTON_OPTIONS = {
   textFill: 'white'
 };
 
+type SelfOptions = EmptySelfOptions;
+
+type DevGameControlsOptions = SelfOptions & NodeTranslationOptions;
+
 export default class DevGameControls extends HBox {
 
-  /**
-   * @param {GameModel} model
-   * @param {Object} [options]
-   */
-  constructor( model, options ) {
+  public constructor( model: GameModel, providedOptions?: DevGameControlsOptions ) {
 
-    options = merge( {
+    const options = optionize<DevGameControlsOptions, SelfOptions, HBoxOptions>()( {
+
+      // HBoxOptions
       spacing: 5
-    }, options );
+    }, providedOptions );
 
     // replays the current challenge
     const replayButton = new TextPushButton( '<', BUTTON_OPTIONS );

@@ -1,6 +1,5 @@
 // Copyright 2014-2021, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Collection of static string utilities used for development.
  * Some of this began its life as toString functions associated with various types.
@@ -9,17 +8,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Reaction from '../common/model/Reaction.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 const DevStringUtils = {
 
   /**
    * String representation of a reaction equation, with HTML stripped out.
-   * @param {Reaction} reaction
-   * @returns {string}
-   * @static
    */
-  equationString: function( reaction ) {
+  equationString( reaction: Reaction ): string {
     let s = '';
     // reactants
     for ( let i = 0; i < reaction.reactants.length; i++ ) {
@@ -42,11 +39,8 @@ const DevStringUtils = {
   /**
    * String representation of quantities for reactants, products and leftovers.
    * Example: 4,1 -> 1,2,2,0
-   * @param {Reaction} reaction
-   * @returns {string}
-   * @static
    */
-  quantitiesString: function( reaction ) {
+  quantitiesString( reaction: Reaction ): string {
     let s = '';
     let i = 0;
     // reactants
@@ -72,11 +66,8 @@ const DevStringUtils = {
   /**
    * String representation of a reaction, including quantities.
    * Example: 2H2 + 1O2 -> 2H2O : 2,2 -> 2,0,1
-   * @param {Reaction} reaction
-   * @returns {string}
-   * @static
    */
-  reactionString: function( reaction ) {
+  reactionString( reaction: Reaction ): string {
     return `${DevStringUtils.equationString( reaction )} : ${DevStringUtils.quantitiesString( reaction )}`;
   }
 };
