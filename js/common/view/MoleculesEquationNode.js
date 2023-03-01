@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Equation for the 'Molecules' and 'Game' screens. Coefficients are immutable and molecule symbols are displayed.
  *
