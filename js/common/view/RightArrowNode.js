@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * An arrow that points from left to right, used in equations to point from reactants to products.
  *
