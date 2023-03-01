@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Box that is placed over things that are 'hidden' while playing a challenge.
  * Has a dashed border and a 'closed eye' icon in the center of the box.
