@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * The 'quantities' interface includes everything that's displayed below the Before/After boxes.
  * It indicates the quantities of reactants, products and leftovers, and allows interaction
