@@ -13,8 +13,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
+import { HBox, Node } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import RPALColors from '../RPALColors.js';
@@ -23,10 +22,8 @@ import QuantitiesNode from './QuantitiesNode.js';
 import RightArrowNode from './RightArrowNode.js';
 import StacksAccordionBox from './StacksAccordionBox.js';
 
-// constants
-const TITLE_OPTIONS = { font: new PhetFont( 14 ), fill: 'white' }; // box titles
-
 export default class BeforeAfterNode extends Node {
+
   /**
    * @param {Reaction} reaction the reaction to be displayed
    * @param {Property.<boolean>} beforeExpandedProperty whether the 'Before' box is expanded
@@ -56,19 +53,20 @@ export default class BeforeAfterNode extends Node {
     const beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.contentSize.width );
     const afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
 
+    const stacksAccordionBoxOptions = {
+      contentSize: options.contentSize,
+      iconSize: options.iconSize,
+      maxQuantity: options.quantityRange.max,
+      boxYMargin: options.boxYMargin
+    };
+
     // @private 'Before Reaction' box, with stacks of reactants
-    this.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, merge( {
-      expandedProperty: beforeExpandedProperty,
-      titleNode: new Text( options.beforeTitleProperty, TITLE_OPTIONS ),
-      maxQuantity: options.quantityRange.max
-    }, options ) );
+    this.beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, options.beforeTitleProperty,
+      beforeExpandedProperty, stacksAccordionBoxOptions );
 
     // @private 'After Reaction' box, with stacks of products and leftovers
-    this.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, merge( {
-      expandedProperty: afterExpandedProperty,
-      titleNode: new Text( options.afterTitleProperty, TITLE_OPTIONS ),
-      maxQuantity: options.quantityRange.max
-    }, options ) );
+    this.afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, options.afterTitleProperty,
+      afterExpandedProperty, stacksAccordionBoxOptions );
 
     // Arrow between boxes
     const arrowNode = new RightArrowNode( { fill: RPALColors.PANEL_FILL, stroke: null, scale: 0.75 } );
