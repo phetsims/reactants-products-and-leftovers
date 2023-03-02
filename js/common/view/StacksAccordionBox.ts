@@ -20,7 +20,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 
 // constants
 const MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
-const TITLE_OPTIONS = { font: new PhetFont( 14 ), fill: 'white' }; // box titles
 const DEFAULT_CONTENT_SIZE = new Dimension2( 100, 100 );
 const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );
 
@@ -70,7 +69,6 @@ export default class StacksAccordionBox extends AccordionBox {
         touchAreaXDilation: 10,
         touchAreaYDilation: 10
       },
-      titleNode: new Text( titleStringProperty, TITLE_OPTIONS ),
       titleBarOptions: {
         fill: RPALColors.PANEL_FILL
       },
@@ -84,6 +82,11 @@ export default class StacksAccordionBox extends AccordionBox {
     assert && assert( Number.isInteger( options.maxQuantity ) && options.maxQuantity > 0 );
 
     // scale the title to fit
+    options.titleNode = new Text( titleStringProperty, {
+      font: new PhetFont( 14 ),
+      fill: 'white',
+      maxWidth: 0.75 * options.contentSize.width
+    } );
     options.titleNode.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * options.contentSize.width / options.titleNode.width ) );
 
     // content for the accordion box
