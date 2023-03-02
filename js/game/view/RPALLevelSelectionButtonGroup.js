@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * RPALLevelSelectionButtonGroup is the group of level-selection buttons for the 'Game' screen.
  *
