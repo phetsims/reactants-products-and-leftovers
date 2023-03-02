@@ -46,7 +46,7 @@ export default class Reaction {
       this.leftovers.push( new Substance( 1, reactant.symbol, reactant.iconProperty.value, 0 ) );
     } );
 
-    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80 dispose needed?
+    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/82 dispose needed?
     const quantityListener = this.updateQuantities.bind( this );
     this.reactants.forEach( reactant => reactant.quantityProperty.link( quantityListener ) );
   }
