@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Group of mutually-exclusive buttons that are used to advance a challenge through its states.
  * The buttons are 'Check', 'Try Again', 'Show Answer' and 'Next'.
