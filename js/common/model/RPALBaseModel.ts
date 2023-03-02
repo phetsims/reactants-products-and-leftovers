@@ -31,6 +31,10 @@ export default class RPALBaseModel<R extends Reaction = Reaction> implements TMo
     this.reactionProperty.reset();
     this.reactions.forEach( reaction => reaction.reset() );
   }
+
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+  }
 }
 
 reactantsProductsAndLeftovers.register( 'RPALBaseModel', RPALBaseModel );

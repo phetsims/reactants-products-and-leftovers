@@ -52,6 +52,11 @@ export default class HideBox extends Node {
     options.children = [ rectangleNode, eyeNode ];
     super( options );
   }
+
+  public override dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 reactantsProductsAndLeftovers.register( 'HideBox', HideBox );

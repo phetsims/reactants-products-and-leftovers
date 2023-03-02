@@ -317,6 +317,11 @@ export default class QuantitiesNode extends Node {
     };
   }
 
+  public override dispose(): void {
+    this.disposeQuantitiesNode();
+    super.dispose();
+  }
+
   /**
    * Determines whether this UI component is interactive (true on creation).
    * When it's interactive, spinners are visible; when not, static numbers are visible.
@@ -389,11 +394,6 @@ export default class QuantitiesNode extends Node {
     if ( this.hideNumbersBox ) {
       this.hideNumbersBox.visible = visible;
     }
-  }
-
-  public override dispose(): void {
-    this.disposeQuantitiesNode();
-    super.dispose();
   }
 
   /**

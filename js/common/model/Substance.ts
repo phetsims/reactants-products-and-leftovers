@@ -48,6 +48,10 @@ export default class Substance {
     this.iconProperty.reset();
   }
 
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+  }
+
   /*
    * Are 2 substances the same? AXON.Property observers are not considered.
    */
