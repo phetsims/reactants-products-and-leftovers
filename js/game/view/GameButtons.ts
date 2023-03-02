@@ -13,7 +13,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
 import VegasStrings from '../../../../vegas/js/VegasStrings.js';
 import RPALColors from '../../common/RPALColors.js';
@@ -25,7 +25,7 @@ type SelfOptions = {
   maxTextWidth?: number;
 };
 
-type GameButtonOptions = SelfOptions & PickOptional<NodeOptions, 'maxWidth'>;
+type GameButtonOptions = SelfOptions & NodeTranslationOptions & PickOptional<NodeOptions, 'maxWidth'>;
 
 export default class GameButtons extends Node {
 
@@ -41,8 +41,6 @@ export default class GameButtons extends Node {
       maxTextWidth: 100
     }, providedOptions );
 
-    super( options );
-
     const textPushButtonOptions: TextPushButtonOptions = {
       maxTextWidth: options.maxTextWidth,
       font: new PhetFont( { size: 20, weight: 'bold' } ),
@@ -55,8 +53,10 @@ export default class GameButtons extends Node {
 
     // Check button is needed immediately. Create it so this node has well-defined bounds (needed for layout).
     const checkButton = new TextPushButton( VegasStrings.checkStringProperty, textPushButtonOptions );
-    this.addChild( checkButton );
     checkButton.addListener( () => model.check() );
+    options.children = [ checkButton ];
+
+    super( options );
 
     // enable/disable the check button
     const checkButtonEnabledObserver = ( enabled: boolean ) => {
