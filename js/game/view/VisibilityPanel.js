@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Panel that contains radio buttons for selecting what's visible/hidden in Game challenges.
  * Provides the ability to hide either molecules or numbers (but not both).
