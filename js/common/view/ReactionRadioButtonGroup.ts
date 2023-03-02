@@ -24,9 +24,9 @@ type SelfOptions = EmptySelfOptions;
 
 type ReactionRadioButtonGroupOptions = SelfOptions & PickOptional<AquaRadioButtonGroupOptions, 'maxWidth'>;
 
-export default class ReactionRadioButtonGroup extends AquaRadioButtonGroup<Reaction> {
+export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> extends AquaRadioButtonGroup<R> {
 
-  public constructor( reactionProperty: Property<Reaction>, choices: Reaction[], providedOptions?: ReactionRadioButtonGroupOptions ) {
+  public constructor( reactionProperty: Property<R>, choices: R[], providedOptions?: ReactionRadioButtonGroupOptions ) {
 
     const options = optionize<ReactionRadioButtonGroupOptions, SelfOptions, AquaRadioButtonGroupOptions>()( {
 
@@ -39,7 +39,7 @@ export default class ReactionRadioButtonGroup extends AquaRadioButtonGroup<React
     }, providedOptions );
 
     // Describe radio buttons, one for each reaction.
-    const items: AquaRadioButtonGroupItem<Reaction>[] = choices.map( choice => {
+    const items: AquaRadioButtonGroupItem<R>[] = choices.map( choice => {
       const nameProperty = choice.nameProperty!;
       assert && assert( nameProperty );
       return {

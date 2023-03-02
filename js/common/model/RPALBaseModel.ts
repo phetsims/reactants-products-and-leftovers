@@ -12,15 +12,15 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from './Reaction.js';
 
-export default class RPALBaseModel implements TModel {
+export default class RPALBaseModel<R extends Reaction = Reaction> implements TModel {
 
   // reaction choices
-  public readonly reactions: Reaction[];
+  public readonly reactions: R[];
 
   // the selected reaction
-  public readonly reactionProperty: Property<Reaction>;
+  public readonly reactionProperty: Property<R>;
 
-  protected constructor( reactions: Reaction[], tandem: Tandem ) {
+  protected constructor( reactions: R[], tandem: Tandem ) {
     this.reactions = reactions;
     this.reactionProperty = new Property( this.reactions[ 0 ], {
       validValues: reactions

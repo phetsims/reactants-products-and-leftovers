@@ -17,7 +17,7 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichRecipe from './SandwichRecipe.js';
 
-export default class SandwichesModel extends RPALBaseModel {
+export default class SandwichesModel extends RPALBaseModel<SandwichRecipe> {
 
   public constructor( tandem: Tandem ) {
 

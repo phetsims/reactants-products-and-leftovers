@@ -29,10 +29,10 @@ export type CreateBeforeAfterNodeFunction = (
   providedOptions?: BeforeAfterNodeOptions
 ) => Node;
 
-export default class RPALScreenView extends ScreenView {
+export default class RPALScreenView<R extends Reaction = Reaction> extends ScreenView {
 
-  private readonly model: RPALBaseModel;
-  private readonly beforeAfterCache: Map<Reaction, Node>;
+  private readonly model: RPALBaseModel<R>;
+  private readonly beforeAfterCache: Map<R, Node>;
 
   /**
    * @param model
@@ -40,8 +40,8 @@ export default class RPALScreenView extends ScreenView {
    * @param createBeforeAfterNode - creates the Before/After boxes for a specified reaction
    * @param tandem
    */
-  protected constructor( model: RPALBaseModel,
-                         createEquationNode: CreateEquationNodeFunction,
+  protected constructor( model: RPALBaseModel<R>,
+                         createEquationNode: CreateEquationNodeFunction<R>,
                          createBeforeAfterNode: CreateBeforeAfterNodeFunction,
                          tandem: Tandem ) {
 

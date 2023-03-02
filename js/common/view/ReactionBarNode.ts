@@ -19,7 +19,7 @@ import ReactionRadioButtonGroup from './ReactionRadioButtonGroup.js';
 const X_MARGIN = 20;
 const Y_MARGIN = 10;
 
-export type CreateEquationNodeFunction = ( reaction: Reaction ) => Node;
+export type CreateEquationNodeFunction<R extends Reaction = Reaction> = ( reaction: R ) => Node;
 
 type SelfOptions = {
   screenWidth: number;
@@ -27,12 +27,12 @@ type SelfOptions = {
 
 type ReactionBarNodeOptions = SelfOptions;
 
-export default class ReactionBarNode extends Node {
+export default class ReactionBarNode<R extends Reaction = Reaction> extends Node {
 
-  private readonly equationNodeCache: Map<Reaction, Node>;
+  private readonly equationNodeCache: Map<R, Node>;
 
-  public constructor( reactionProperty: Property<Reaction>, reactions: Reaction[],
-                      createEquationNode: CreateEquationNodeFunction, providedOptions: ReactionBarNodeOptions ) {
+  public constructor( reactionProperty: Property<R>, reactions: R[],
+                      createEquationNode: CreateEquationNodeFunction<R>, providedOptions: ReactionBarNodeOptions ) {
 
     const options = optionize<ReactionBarNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
@@ -89,7 +89,7 @@ export default class ReactionBarNode extends Node {
       }
 
       // Make only the reaction's equation visible, hide other equations.
-      this.equationNodeCache.forEach( ( node: Node, key: Reaction ) => {
+      this.equationNodeCache.forEach( ( node: Node, key: R ) => {
         node.visible = ( key === reaction );
       } );
     } );
