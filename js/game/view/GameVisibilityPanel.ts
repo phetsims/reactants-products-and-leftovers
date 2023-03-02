@@ -23,7 +23,7 @@ import GameVisibility from '../model/GameVisibility.js';
 
 const TEXT_OPTIONS = {
   font: new PhetFont( 14 ),
-  maxWidth: 500
+  maxWidth: 350
 };
 const FONT_AWESOME_OPTIONS = {
   scale: 0.04,
