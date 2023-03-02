@@ -69,7 +69,7 @@ export default class GameModel implements TModel {
   public readonly bestTimeProperties: Property<number | null>[]; // best times for each level, null if a level has no best time yet
   public isNewBestTime: boolean; // is the time for the most-recently-completed game a new best time?
 
-  private readonly timer: GameTimer;
+  public readonly timer: GameTimer;
 
   public constructor( tandem: Tandem, providedOptions?: GameModelOptions ) {
 
@@ -132,7 +132,7 @@ export default class GameModel implements TModel {
   }
 
   // Advances to GamePhase.SETTINGS, shows the user-interface for selecting game settings.
-  private settings(): void {
+  public settings(): void {
     this.timer.stop();
     this.playStateProperty.value = PlayState.NONE;
     this.gamePhaseProperty.value = GamePhase.SETTINGS; // do this last, so that other stuff is set up before observers are notified
