@@ -139,7 +139,7 @@ export default class GameModel implements TModel {
   }
 
   // Advances to GamePhase.PLAY, to play a game for the specified level.
-  private play( level: number ): void {
+  public play( level: number ): void {
     assert && assert( this.gamePhaseProperty.value === GamePhase.SETTINGS );
     this.levelProperty.value = level;
     this.scoreProperty.value = 0;

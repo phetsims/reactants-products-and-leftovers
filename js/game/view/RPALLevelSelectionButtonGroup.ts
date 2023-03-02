@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * RPALLevelSelectionButtonGroup is the group of level-selection buttons for the 'Game' screen.
  *
@@ -8,33 +7,37 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import HClNode from '../../../../nitroglycerin/js/nodes/HClNode.js';
 import NH3Node from '../../../../nitroglycerin/js/nodes/NH3Node.js';
-import merge from '../../../../phet-core/js/merge.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { AlignBox, AlignGroup, HBox, Text, VBox } from '../../../../scenery/js/imports.js';
-import LevelSelectionButtonGroup from '../../../../vegas/js/LevelSelectionButtonGroup.js';
+import { AlignBox, AlignGroup, HBox, Node, NodeTranslationOptions, Text, VBox } from '../../../../scenery/js/imports.js';
+import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem, LevelSelectionButtonGroupOptions } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
+import GameModel from '../model/GameModel.js';
 
 // constants
 const QUESTION_MARK_OPTIONS = { font: new PhetFont( { size: 70, weight: 'bold' } ) };
 const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
+type SelfOptions = EmptySelfOptions;
+
+type RPALLevelSelectionButtonGroupOptions = SelfOptions & NodeTranslationOptions;
+
 export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 
-  /**
-   * @param {GameModel} model
-   * @param {Object} [options]
-   */
-  constructor( model, options ) {
+  public constructor( model: GameModel, providedOptions?: RPALLevelSelectionButtonGroupOptions ) {
 
-    options = merge( {
+    const options = optionize<RPALLevelSelectionButtonGroupOptions, SelfOptions, LevelSelectionButtonGroupOptions>()( {
+
+      // LevelSelectionButtonGroupOptions
       levelSelectionButtonOptions: {
         baseColor: 'rgb( 240, 255, 204 )',
         xMargin: 15,
@@ -46,7 +49,7 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
       flowBoxOptions: {
         spacing: 40
       }
-    }, options );
+    }, providedOptions );
 
     // To make all button icons have the same effective size
     const iconAlignGroup = new AlignGroup();
@@ -59,14 +62,14 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
     ];
 
     // Description of LevelSelectionButtons
-    const levelSelectionButtonGroupItems = [];
+    const levelSelectionButtonGroupItems: LevelSelectionButtonGroupItem[] = [];
     for ( let level = 0; level < model.numberOfLevels; level++ ) {
       levelSelectionButtonGroupItems.push( {
         icon: levelIcons[ level ],
         scoreProperty: model.bestScoreProperties[ level ],
         options: {
           bestTimeProperty: model.bestTimeProperties[ level ],
-          createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
+          createScoreDisplay: ( scoreProperty: TReadOnlyProperty<number> ) => new ScoreDisplayStars( scoreProperty, {
             numberOfStars: model.getNumberOfChallenges( level ),
             perfectScore: model.getPerfectScore( level )
           } ),
@@ -84,7 +87,7 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
  *  Level N
  *  leftNode -> rightNode
  */
-function createIcon( level, leftNode, rightNode, iconAlignGroup ) {
+function createIcon( level: number, leftNode: Node, rightNode: Node, iconAlignGroup: AlignGroup ): Node {
   const arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
   const iconNode = new AlignBox( new HBox( {
     children: [ leftNode, arrowNode, rightNode ],
@@ -110,7 +113,7 @@ function createIcon( level, leftNode, rightNode, iconAlignGroup ) {
  *  Level 1
  *  ? -> HCl
  */
-function createLevelOneIcon( iconAlignGroup ) {
+function createLevelOneIcon( iconAlignGroup: AlignGroup ): Node {
   const leftNode = new Text( ReactantsProductsAndLeftoversStrings.questionMarkStringProperty, QUESTION_MARK_OPTIONS );
   const rightNode = new HClNode( RPALConstants.MOLECULE_NODE_OPTIONS );
   rightNode.setScaleMagnitude( MOLECULE_SCALE );
@@ -121,7 +124,7 @@ function createLevelOneIcon( iconAlignGroup ) {
  *  Level 2
  *  H2O -> ?
  */
-function createLevelTwoIcon( iconAlignGroup ) {
+function createLevelTwoIcon( iconAlignGroup: AlignGroup ): Node {
   const leftNode = new H2ONode( RPALConstants.MOLECULE_NODE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
   const rightNode = new Text( ReactantsProductsAndLeftoversStrings.questionMarkStringProperty, QUESTION_MARK_OPTIONS );
@@ -132,7 +135,7 @@ function createLevelTwoIcon( iconAlignGroup ) {
  *  Level 3
  *  NH3 -> ??
  */
-function createLevelThreeIcon( iconAlignGroup ) {
+function createLevelThreeIcon( iconAlignGroup: AlignGroup ): Node {
   const leftNode = new NH3Node( RPALConstants.MOLECULE_NODE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
   const rightNode = new Text( ReactantsProductsAndLeftoversStrings.doubleQuestionMarkStringProperty, QUESTION_MARK_OPTIONS );
