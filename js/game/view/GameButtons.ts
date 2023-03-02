@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Group of mutually-exclusive buttons that are used to advance a challenge through its states.
  * The buttons are 'Check', 'Try Again', 'Show Answer' and 'Next'.
@@ -9,18 +8,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import VegasStrings from '../../../../vegas/js/VegasStrings.js';
 import RPALColors from '../../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import GameModel from '../model/GameModel.js';
 import PlayState from '../model/PlayState.js';
-
-const checkString = VegasStrings.check;
-const nextString = VegasStrings.next;
-const showAnswerString = VegasStrings.showAnswer;
-const tryAgainString = VegasStrings.tryAgain;
 
 // constants
 const BUTTON_OPTIONS = {
@@ -32,52 +31,55 @@ const BUTTON_OPTIONS = {
   centerX: 0 // so that all buttons are center aligned
 };
 
+type SelfOptions = EmptySelfOptions;
+
+type GameButtonOptions = SelfOptions & PickOptional<NodeOptions, 'maxWidth'>;
+
 export default class GameButtons extends Node {
 
-  /**
-   * @param {GameModel} model
-   * @param {Property.<boolean>} checkButtonEnabledProperty is the 'Check' button enabled?
-   * @param {Object} [options]
-   */
-  constructor( model, checkButtonEnabledProperty, options ) {
+  private playStateProperty: EnumerationProperty<PlayState> | null;
+  private playStateObserver: ( ( playState: PlayState ) => void );
+  private readonly disposeGameButtons: () => void;
 
-    options = options || {};
+  public constructor( model: GameModel, checkButtonEnabledProperty: TReadOnlyProperty<boolean>, providedOptions?: GameButtonOptions ) {
+
+    const options = providedOptions;
 
     super( options );
 
-    // check button is needed immediately, so create it so this node has well-defined bounds (needed for layout)
-    const checkButton = new TextPushButton( checkString, BUTTON_OPTIONS );
+    // Check button is needed immediately. Create it so this node has well-defined bounds (needed for layout).
+    const checkButton = new TextPushButton( VegasStrings.checkStringProperty, BUTTON_OPTIONS );
     this.addChild( checkButton );
     checkButton.addListener( () => model.check() );
 
     // enable/disable the check button
-    this.checkButtonEnabledObserver = enabled => { checkButton.enabled = enabled; }; // @private
-    this.checkButtonEnabledProperty = checkButtonEnabledProperty; // @private
-    this.checkButtonEnabledProperty.link( this.checkButtonEnabledObserver ); // must be unlinked in dispose
+    const checkButtonEnabledObserver = ( enabled: boolean ) => {
+      checkButton.enabled = enabled;
+    };
+    checkButtonEnabledProperty.link( checkButtonEnabledObserver ); // must be unlinked in dispose
 
     // other buttons, created on demand
-    let tryAgainButton;
-    let showAnswerButton;
-    let nextButton;
+    let tryAgainButton: TextPushButton;
+    let showAnswerButton: TextPushButton;
+    let nextButton: TextPushButton;
 
-    // @private
-    this.playStateObserver = state => {
+    const playStateObserver = ( state: PlayState ) => {
 
       // create buttons on demand
       if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
-        tryAgainButton = new TextPushButton( tryAgainString, BUTTON_OPTIONS );
+        tryAgainButton = new TextPushButton( VegasStrings.tryAgainStringProperty, BUTTON_OPTIONS );
         this.addChild( tryAgainButton );
         tryAgainButton.addListener( () => model.tryAgain() );
       }
 
       if ( !showAnswerButton && state === PlayState.SHOW_ANSWER ) {
-        showAnswerButton = new TextPushButton( showAnswerString, BUTTON_OPTIONS );
+        showAnswerButton = new TextPushButton( VegasStrings.showAnswerStringProperty, BUTTON_OPTIONS );
         this.addChild( showAnswerButton );
         showAnswerButton.addListener( () => model.showAnswer() );
       }
 
       if ( !nextButton && state === PlayState.NEXT ) {
-        nextButton = new TextPushButton( nextString, BUTTON_OPTIONS );
+        nextButton = new TextPushButton( VegasStrings.nextStringProperty, BUTTON_OPTIONS );
         this.addChild( nextButton );
         nextButton.addListener( () => model.next() );
       }
@@ -88,31 +90,32 @@ export default class GameButtons extends Node {
       showAnswerButton && ( showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER ) );
       nextButton && ( nextButton.visible = ( state === PlayState.NEXT ) );
     };
-    this.playStateProperty = null; // @private will be set by activate()
+
+    this.disposeGameButtons = () => {
+      if ( checkButtonEnabledProperty.hasListener( checkButtonEnabledObserver ) ) {
+        checkButtonEnabledProperty.unlink( checkButtonEnabledObserver );
+      }
+      if ( this.playStateProperty && this.playStateProperty.hasListener( this.playStateObserver ) ) {
+        this.playStateProperty.unlink( this.playStateObserver );
+      }
+    };
+
+    this.playStateProperty = null; // will be set by activate()
+    this.playStateObserver = playStateObserver;
   }
 
   /**
    * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
-   * @param {EnumerationProperty.<PlayState>} playStateProperty
-   * @public
    */
-  activate( playStateProperty ) {
+  public activate( playStateProperty: EnumerationProperty<PlayState> ): void {
     this.playStateProperty = playStateProperty;
     this.playStateProperty.link( this.playStateObserver ); // must be unlinked in dispose
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    this.checkButtonEnabledProperty.unlink( this.checkButtonEnabledObserver );
-    if ( this.playStateProperty ) {
-      this.playStateProperty.unlink( this.playStateObserver );
-    }
+  public override dispose(): void {
+    this.disposeGameButtons();
     super.dispose();
   }
-
 }
 
 reactantsProductsAndLeftovers.register( 'GameButtons', GameButtons );
