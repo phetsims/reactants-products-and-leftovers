@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Portion of the scenegraph that corresponds to GamePhase.SETTINGS.
  * Displays a panel with controls used to configure a game (level selection, timer, ...)
