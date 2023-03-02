@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * View of a Game challenge. This node is not 'active' (connected to the model) until the activate() function is called.
  * This supports the ability to preload a node, then activate it at some later time.  See issue #17.
@@ -9,12 +8,18 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import merge from '../../../../phet-core/js/merge.js';
+import Range from '../../../../dot/js/Range.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import FaceWithPointsNode from '../../../../scenery-phet/js/FaceWithPointsNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import BoxType from '../../common/model/BoxType.js';
 import RPALColors from '../../common/RPALColors.js';
 import RPALConstants from '../../common/RPALConstants.js';
@@ -25,26 +30,47 @@ import RightArrowNode from '../../common/view/RightArrowNode.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
+import Challenge from '../model/Challenge.js';
+import GameModel from '../model/GameModel.js';
 import PlayState from '../model/PlayState.js';
 import GameButtons from './GameButtons.js';
 import RandomBox from './RandomBox.js';
 
+const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );
+
+type SelfOptions = {
+  boxSize?: Dimension2; // size of the 'Before' and 'After' boxes
+  quantityRange?: Range; // range of the quantity values
+  minIconSize?: Dimension2; // minimum amount of layout space reserved for Substance icons
+};
+
+type ChallengeNodeOptions = SelfOptions;
+
 export default class ChallengeNode extends Node {
 
-  /**
-   * @param {GameModel} model
-   * @param {Challenge} challenge
-   * @param {Bounds2} challengeBounds portion of the screen where the Challenge can be displayed
-   * @param {GameAudioPlayer} audioPlayer
-   * @param {Object} [options]
-   */
-  constructor( model, challenge, challengeBounds, audioPlayer, options ) {
+  private readonly checkButtonEnabledProperty: TReadOnlyProperty<boolean>;
+  private playStateProperty: EnumerationProperty<PlayState> | null; // set by activate()
+  private readonly playStateObserver: ( playState: PlayState ) => void;
+  private readonly buttons: GameButtons;
+  private readonly disposeChallengeNode: () => void;
 
-    options = merge( {
-      boxSize: RPALConstants.GAME_BEFORE_AFTER_BOX_SIZE, // {Dimension2} size of the 'Before' and 'After' boxes
-      quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of the quantity values
-      minIconSize: new Dimension2( 0, 0 ) // {Dimension2} minimum amount of layout space reserved for Substance icons
-    }, options );
+  /**
+   * @param model
+   * @param challenge
+   * @param challengeBounds - portion of the screen where the Challenge can be displayed
+   * @param audioPlayer
+   * @param [providedOptions]
+   */
+  public constructor( model: GameModel, challenge: Challenge, challengeBounds: Bounds2, audioPlayer: GameAudioPlayer,
+                      providedOptions?: ChallengeNodeOptions ) {
+
+    const options = optionize<ChallengeNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      boxSize: RPALConstants.GAME_BEFORE_AFTER_BOX_SIZE,
+      quantityRange: RPALConstants.QUANTITY_RANGE,
+      minIconSize: DEFAULT_MIN_ICON_SIZE
+    }, providedOptions );
 
     super();
 
@@ -87,7 +113,7 @@ export default class ChallengeNode extends Node {
     //------------------------------------------------------------------------------------
 
     // Check button is disabled if all guessable quantities are zero
-    const quantityProperties = [];
+    const quantityProperties: Property<number>[] = [];
     if ( interactiveBox === BoxType.BEFORE ) {
       guess.reactants.forEach( reactant => quantityProperties.push( reactant.quantityProperty ) );
     }
@@ -96,8 +122,7 @@ export default class ChallengeNode extends Node {
       guess.leftovers.forEach( leftover => quantityProperties.push( leftover.quantityProperty ) );
     }
 
-    // @private must be detached in dispose
-    this.checkButtonEnabledProperty = new DerivedProperty( quantityProperties, () => {
+    this.checkButtonEnabledProperty = DerivedProperty.deriveAny( quantityProperties, () => {
       // true if any quantity that the user can guess is non-zero
       for ( let i = 0, j = arguments.length; i < j; i++ ) {
         // eslint-disable-next-line prefer-rest-params
@@ -120,30 +145,30 @@ export default class ChallengeNode extends Node {
     } );
     this.addChild( arrowNode );
 
-    // @private 'Before Reaction' box, with molecules at random positions
-    this.beforeBox = new RandomBox( reactants, {
+    // 'Before Reaction' box, with molecules at random positions
+    const beforeBox = new RandomBox( reactants, {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
       right: arrowNode.left - 5,
       top: equationNode.bottom + 10
     } );
-    this.addChild( this.beforeBox );
-    arrowNode.centerY = this.beforeBox.centerY;
+    this.addChild( beforeBox );
+    arrowNode.centerY = beforeBox.centerY;
 
-    // @private 'After Reaction' box, with molecules at random positions
-    this.afterBox = new RandomBox( products.concat( leftovers ), {
+    // 'After Reaction' box, with molecules at random positions
+    const afterBox = new RandomBox( products.concat( leftovers ), {
       boxSize: options.boxSize,
       maxQuantity: options.quantityRange.max,
       left: arrowNode.right + 5,
-      top: this.beforeBox.top
+      top: beforeBox.top
     } );
-    this.addChild( this.afterBox );
+    this.addChild( afterBox );
 
     //------------------------------------------------------------------------------------
     // Face
     //------------------------------------------------------------------------------------
 
-    let faceNode = null; // created on demand
+    let faceNode: FaceWithPointsNode | null = null; // created on demand
 
     //------------------------------------------------------------------------------------
     // Question mark
@@ -154,11 +179,11 @@ export default class ChallengeNode extends Node {
       maxWidth: 0.75 * options.boxSize.width // constrain width for i18n
     } );
     this.addChild( questionMark );
-    questionMark.centerX = ( interactiveBox === BoxType.BEFORE ) ? this.beforeBox.centerX : this.afterBox.centerX;
+    questionMark.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
     // centerY is handled below
 
     // visible only until the user has entered a valid guess
-    const checkButtonEnabledObserver = checkButtonEnabled => {
+    const checkButtonEnabledObserver = ( checkButtonEnabled: boolean ) => {
       questionMark.visible = !checkButtonEnabled;
       if ( checkButtonEnabled ) {
         this.checkButtonEnabledProperty.unlink( checkButtonEnabledObserver );
@@ -171,16 +196,15 @@ export default class ChallengeNode extends Node {
     // Buttons (Check, Try Again, ...)
     //------------------------------------------------------------------------------------
 
-    // @private
-    this.buttons = new GameButtons( model, this.checkButtonEnabledProperty, {
+    const buttons = new GameButtons( model, this.checkButtonEnabledProperty, {
       maxWidth: 0.85 * options.boxSize.width // constrain width for i18n
     } );
-    this.addChild( this.buttons );
-    this.buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? this.beforeBox.centerX : this.afterBox.centerX;
-    this.buttons.bottom = this.beforeBox.bottom - 15;
+    this.addChild( buttons );
+    buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
+    buttons.bottom = beforeBox.bottom - 15;
 
     // center question mark in negative space above buttons
-    questionMark.centerY = this.beforeBox.top + ( this.buttons.top - this.beforeBox.top ) / 2;
+    questionMark.centerY = beforeBox.top + ( buttons.top - beforeBox.top ) / 2;
 
     //------------------------------------------------------------------------------------
     // Everything below the boxes
@@ -190,31 +214,30 @@ export default class ChallengeNode extends Node {
     const beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.boxSize.width );
     const afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.boxSize.width );
 
-    // @private
-    this.quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
+    const quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       interactiveBox: interactiveBox,
       boxWidth: options.boxSize.width,
-      afterBoxXOffset: this.afterBox.left - this.beforeBox.left,
+      afterBoxXOffset: afterBox.left - beforeBox.left,
       minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
       hideNumbersBox: !challenge.numbersVisible,
-      x: this.beforeBox.x,
-      top: this.beforeBox.bottom + 4
+      x: beforeBox.x,
+      top: beforeBox.bottom + 4
     } );
-    this.addChild( this.quantitiesNode );
+    this.addChild( quantitiesNode );
 
     //------------------------------------------------------------------------------------
     // Optional 'Hide molecules' box on top of Before or After box
     //------------------------------------------------------------------------------------
 
-    let hideMoleculesBox = null;
+    let hideMoleculesBox: HideBox | null = null;
     if ( !challenge.moleculesVisible ) {
       hideMoleculesBox = new HideBox( {
         boxSize: options.boxSize,
         iconHeight: 0.4 * options.boxSize.height,
         cornerRadius: 3,
-        left: ( interactiveBox === BoxType.BEFORE ) ? this.afterBox.left : this.beforeBox.left,
-        bottom: this.beforeBox.bottom
+        left: ( interactiveBox === BoxType.BEFORE ) ? afterBox.left : beforeBox.left,
+        bottom: beforeBox.bottom
       } );
       this.addChild( hideMoleculesBox );
     }
@@ -223,16 +246,18 @@ export default class ChallengeNode extends Node {
     // Observers
     //------------------------------------------------------------------------------------
 
-    // @private must be disposed
     // Move from "Try Again" to "Check" state when a quantity is changed, see reactants-products-and-leftovers#37.
-    this.answerChangedLink = Multilink.lazyMultilink( quantityProperties, () => {
-      if ( this.playStateProperty.value === PlayState.TRY_AGAIN ) {
-        this.playStateProperty.value = PlayState.SECOND_CHECK;
+    // Must be disposed.
+    const answerChangedLink = Multilink.lazyMultilinkAny( quantityProperties, () => {
+      const playStateProperty = this.playStateProperty!;
+      assert && assert( playStateProperty, 'playStateProperty should have been set by now.' );
+      if ( playStateProperty.value === PlayState.TRY_AGAIN ) {
+        playStateProperty.value = PlayState.SECOND_CHECK;
       }
     } );
 
-    // @private handle PlayState changes
-    this.playStateObserver = playState => {
+    // handle PlayState changes
+    const playStateObserver = ( playState: PlayState ) => {
 
       // face
       let faceVisible = false;
@@ -263,8 +288,8 @@ export default class ChallengeNode extends Node {
         } );
         this.addChild( faceNode );
         // put it in the correct box
-        faceNode.centerX = ( interactiveBox === BoxType.BEFORE ) ? this.beforeBox.centerX : this.afterBox.centerX;
-        faceNode.centerY = questionMark.centerY = this.beforeBox.top + ( this.buttons.top - this.beforeBox.top ) / 2;
+        faceNode.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
+        faceNode.centerY = questionMark.centerY = beforeBox.top + ( buttons.top - beforeBox.top ) / 2;
       }
       if ( faceNode ) {
         faceNode.setPoints( facePoints );
@@ -278,18 +303,17 @@ export default class ChallengeNode extends Node {
         hideMoleculesBox.visible = hideBoxVisible;
         // also hide the Before/After box, so we don't see its stroke
         if ( interactiveBox === BoxType.BEFORE ) {
-          this.afterBox.visible = !hideBoxVisible;
+          afterBox.visible = !hideBoxVisible;
         }
         else {
-          this.beforeBox.visible = !hideBoxVisible;
+          beforeBox.visible = !hideBoxVisible;
         }
       }
-      this.quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
+      quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
 
       // switch between spinners and static numbers
-      this.quantitiesNode.setInteractive( _.includes( [ PlayState.FIRST_CHECK, PlayState.SECOND_CHECK, PlayState.TRY_AGAIN ], playState ) );
+      quantitiesNode.setInteractive( _.includes( [ PlayState.FIRST_CHECK, PlayState.SECOND_CHECK, PlayState.TRY_AGAIN ], playState ) );
     };
-    this.playStateProperty = null; // @private will be set by activate()
 
     //------------------------------------------------------------------------------------
     // Developer
@@ -306,48 +330,44 @@ export default class ChallengeNode extends Node {
     }
 
     this.mutate( options );
+
+    this.disposeChallengeNode = () => {
+
+      if ( this.playStateProperty ) {
+        this.playStateProperty.unlink( playStateObserver );
+      }
+
+      // boxes
+      beforeBox.dispose();
+      afterBox.dispose();
+
+      // buttons
+      buttons.dispose();
+      this.checkButtonEnabledProperty.unlinkAll();
+      this.checkButtonEnabledProperty.dispose();
+      answerChangedLink.dispose();
+
+      // stuff below the boxes
+      quantitiesNode.dispose();
+    };
+
+    this.playStateProperty = null; // will be set by activate()
+    this.playStateObserver = playStateObserver;
+    this.buttons = buttons;
   }
 
   /**
    * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
-   * @param {EnumerationProperty.<PlayState>} playStateProperty
-   * @public
    */
-  activate( playStateProperty ) {
+  public activate( playStateProperty: EnumerationProperty<PlayState> ): void {
     this.buttons.activate( playStateProperty );
     this.playStateProperty = playStateProperty;
     // optimization: we're set up in the correct initial state, so wait for state change
     this.playStateProperty.lazyLink( this.playStateObserver ); // must be unlinked in dispose
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-
-    // model
-    if ( this.playStateProperty ) {
-      this.playStateProperty.unlink( this.playStateObserver );
-    }
-
-    // boxes
-    this.beforeBox.dispose();
-    this.beforeBox = null;
-    this.afterBox.dispose();
-    this.afterBox = null;
-
-    // buttons
-    this.buttons.dispose();
-    this.buttons = null;
-    this.checkButtonEnabledProperty.unlinkAll();
-    this.checkButtonEnabledProperty.dispose();
-    this.answerChangedLink.dispose();
-
-    // stuff below the boxes
-    this.quantitiesNode.dispose();
-    this.quantitiesNode = null;
-
+  public override dispose(): void {
+    this.disposeChallengeNode();
     super.dispose();
   }
 }

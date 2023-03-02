@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Portion of the scenegraph that corresponds to GamePhase.PLAY.
  * Displays the status bar and current challenge.
@@ -9,13 +8,16 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
+import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
 import DevGameControls from '../../dev/DevGameControls.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import ChallengeNode from './ChallengeNode.js';
 
@@ -25,17 +27,20 @@ const STATUS_BAR_TEXT_FILL = 'white';
 
 export default class PlayNode extends Node {
 
-  /**
-   * @param {GameModel} model
-   * @param {Bounds2} layoutBounds the {Screen}'s layoutBounds
-   * @param {Property.<Bounds2>} visibleBoundsProperty
-   * @param {GameAudioPlayer} audioPlayer
-   */
-  constructor( model, layoutBounds, visibleBoundsProperty, audioPlayer ) {
+  private readonly model: GameModel;
+  private readonly layoutBounds: Bounds2;
+  private readonly audioPlayer: GameAudioPlayer;
+
+  private readonly challengeBounds: Bounds2; // challenge will be displayed in the area below the status bar
+  private readonly disposeNodes: ChallengeNode[]; // nodes in this array are scheduled for disposal
+  private nextChallengeNode: ChallengeNode | null; // the next challenge, preloaded to improve responsiveness
+  private stepsSinceDisposal: number; // number of times that step() has been called since a node was schedule for disposal
+  private stepsSinceUpdate: number; // number of times that step() has been called since the challenge changed
+
+  public constructor( model: GameModel, layoutBounds: Bounds2, visibleBoundsProperty: TReadOnlyProperty<Bounds2>, audioPlayer: GameAudioPlayer ) {
 
     super();
 
-    // @private
     this.model = model;
     this.layoutBounds = layoutBounds;
     this.audioPlayer = audioPlayer;
@@ -75,14 +80,13 @@ export default class PlayNode extends Node {
       } ) );
     }
 
-    // @private challenge will be displayed in the area below the status bar
     this.challengeBounds = new Bounds2( layoutBounds.left, statusBar.bottom, layoutBounds.right, layoutBounds.bottom );
 
-    let currentChallengeNode = null; // {ChallengeNode} the challenge that is displayed
-    this.disposeNodes = [];  // @private {ChallengeNode[]} nodes in this array are scheduled for disposal
-    this.nextChallengeNode = null; // @private {ChallengeNode} the next challenge, preloaded to improve responsiveness
-    this.stepsSinceDisposal = 0;  // @private number of times that step() has been called since a node was schedule for disposal
-    this.stepsSinceUpdate = 0; // @private number of times that step() has been called since the challenge changed
+    let currentChallengeNode: ChallengeNode | null = null;
+    this.disposeNodes = [];
+    this.nextChallengeNode = null;
+    this.stepsSinceDisposal = 0;
+    this.stepsSinceUpdate = 0;
 
     /*
      * Displays the current challenge.
@@ -135,8 +139,7 @@ export default class PlayNode extends Node {
     } );
   }
 
-  // @public
-  step( elapsedTime ) {
+  public step( dt: number ): void {
 
     /**
      * See issue #17
@@ -151,7 +154,7 @@ export default class PlayNode extends Node {
         this.removeChild( this.disposeNodes[ i ] );
         this.disposeNodes[ i ].dispose();
       }
-      this.disposeNodes = [];
+      this.disposeNodes.length = 0;
     }
 
     /**
