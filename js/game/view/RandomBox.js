@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Displays substances at random positions in a box.
  * This is used for the 'Before' and 'After' boxes in the Game screen.
