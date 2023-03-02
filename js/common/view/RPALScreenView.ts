@@ -11,7 +11,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import { Node, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import RPALBaseModel from '../model/RPALBaseModel.js';
@@ -20,12 +20,13 @@ import ReactionBarNode, { CreateEquationNodeFunction } from './ReactionBarNode.j
 import Reaction from '../model/Reaction.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { BeforeAfterNodeOptions } from './BeforeAfterNode.js';
 
 export type CreateBeforeAfterNodeFunction = (
   reaction: Reaction,
   beforeExpandedProperty: Property<boolean>,
   afterExpandedProperty: Property<boolean>,
-  providedOptions?: NodeTranslationOptions
+  providedOptions?: BeforeAfterNodeOptions
 ) => Node;
 
 export default class RPALScreenView extends ScreenView {

@@ -7,11 +7,11 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import merge from '../../../../phet-core/js/merge.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Reaction from '../../common/model/Reaction.js';
 import RPALConstants from '../../common/RPALConstants.js';
-import BeforeAfterNode from '../../common/view/BeforeAfterNode.js';
+import BeforeAfterNode, { BeforeAfterNodeOptions } from '../../common/view/BeforeAfterNode.js';
 import MoleculesEquationNode from '../../common/view/MoleculesEquationNode.js';
 import RPALScreenView, { CreateBeforeAfterNodeFunction } from '../../common/view/RPALScreenView.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
@@ -26,13 +26,12 @@ export default class MoleculesScreenView extends RPALScreenView {
 
     // Creates the Before/After interface for a specified reaction.
     const createBeforeAfterNode: CreateBeforeAfterNodeFunction =
-      ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) => {
-        return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
-          merge( {}, options, {
+      ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) =>
+        new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
+          combineOptions<BeforeAfterNodeOptions>( {
             contentSize: RPALConstants.MOLECULES_BEFORE_AFTER_BOX_SIZE,
             minIconSize: new Dimension2( 30, 25 ) // eyeballed
-          } ) );
-      };
+          }, options ) );
 
     super( model, createEquationNode, createBeforeAfterNode, tandem );
   }

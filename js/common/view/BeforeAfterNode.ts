@@ -16,7 +16,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { HBox, Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import { HBox, Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import Reaction from '../model/Reaction.js';
@@ -39,7 +39,7 @@ type SelfOptions = {
   boxYMargin?: number; // vertical margin between the inner edge of box and the tallest node
 };
 
-type BeforeAfterNodeOptions = SelfOptions;
+export type BeforeAfterNodeOptions = SelfOptions & NodeTranslationOptions;
 
 export default class BeforeAfterNode extends Node {
 

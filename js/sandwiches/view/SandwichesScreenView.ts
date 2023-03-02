@@ -7,10 +7,9 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
-import BeforeAfterNode from '../../common/view/BeforeAfterNode.js';
+import BeforeAfterNode, { BeforeAfterNodeOptions } from '../../common/view/BeforeAfterNode.js';
 import RPALScreenView, { CreateBeforeAfterNodeFunction } from '../../common/view/RPALScreenView.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
@@ -18,6 +17,7 @@ import SandwichesModel from '../model/SandwichesModel.js';
 import SandwichesEquationNode from './SandwichesEquationNode.js';
 import SandwichNode from './SandwichNode.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class SandwichesScreenView extends RPALScreenView {
 
@@ -33,17 +33,16 @@ export default class SandwichesScreenView extends RPALScreenView {
 
     // Creates the Before/After interface for a specified reaction.
     const createBeforeAfterNode: CreateBeforeAfterNodeFunction =
-      ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) => {
-        return new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
-          merge( {}, options, {
+      ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) =>
+        new BeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty,
+          combineOptions<BeforeAfterNodeOptions>( {
             contentSize: RPALConstants.SANDWICHES_BEFORE_AFTER_BOX_SIZE,
             showSymbols: false,
             beforeTitleProperty: ReactantsProductsAndLeftoversStrings.beforeSandwichStringProperty,
             afterTitleProperty: ReactantsProductsAndLeftoversStrings.afterSandwichStringProperty,
             minIconSize: maxSandwichSize,
             boxYMargin: 8 // large enough to accommodate the biggest sandwich
-          } ) );
-      };
+          }, options ) );
 
     //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80 createEquationNode argument
     // @ts-expect-error
