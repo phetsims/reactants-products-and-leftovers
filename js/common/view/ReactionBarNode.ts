@@ -37,10 +37,7 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
     const options = optionize<ReactionBarNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     // radio buttons for choosing a reaction, scaled to fit for i18n
-    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/82 should scale labels, not group
-    const radioButtonGroup = new ReactionRadioButtonGroup( reactionProperty, reactions, {
-      maxWidth: 0.25 * options.screenWidth
-    } );
+    const radioButtonGroup = new ReactionRadioButtonGroup( reactionProperty, reactions );
 
     // background, extra wide so that it will appear to fill the window for all but extreme window sizes
     //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/82 update to fit the window width

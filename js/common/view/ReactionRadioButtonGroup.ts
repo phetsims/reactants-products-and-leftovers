@@ -8,21 +8,15 @@
 
 import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem, AquaRadioButtonGroupOptions } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from '../model/Reaction.js';
 
-const TEXT_OPTIONS = {
-  font: new PhetFont( 16 ),
-  fill: 'white'
-};
-
 type SelfOptions = EmptySelfOptions;
 
-type ReactionRadioButtonGroupOptions = SelfOptions & PickOptional<AquaRadioButtonGroupOptions, 'maxWidth'>;
+type ReactionRadioButtonGroupOptions = SelfOptions;
 
 export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> extends AquaRadioButtonGroup<R> {
 
@@ -38,12 +32,18 @@ export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> ext
       radioButtonOptions: { radius: 8 }
     }, providedOptions );
 
+    const textOptions = {
+      font: new PhetFont( 16 ),
+      fill: 'white',
+      maxWidth: 210 // determined empirically
+    };
+
     // Describe radio buttons, one for each reaction.
     const items: AquaRadioButtonGroupItem<R>[] = choices.map( choice => {
       const nameProperty = choice.nameProperty!;
       assert && assert( nameProperty );
       return {
-        createNode: () => new Text( nameProperty, TEXT_OPTIONS ),
+        createNode: () => new Text( nameProperty, textOptions ),
         value: choice
       };
     } );
