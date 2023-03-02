@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * The reward that is displayed when a game is completed with a perfect score.
  * Various images (based on game level) move from top to bottom in the play area.
@@ -50,6 +49,7 @@ import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import RewardNode from '../../../../vegas/js/RewardNode.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichNode from '../../sandwiches/view/SandwichNode.js';
@@ -79,31 +79,44 @@ const FACE_COLORS = [
   'rgb( 100, 255, 100 )'
 ];
 
+/*
+ * Functions for creating nodes, indexed by level.
+ * In the model, level starts at zero. In the view, it's presented as starting from 1.
+ * The function names correspond to the view presentation.
+ */
+const NODE_FACTORY_FUNCTIONS = [
+  createNodesLevel1,
+  createNodesLevel2,
+  createNodesLevel3
+];
+
 export default class RPALRewardNode extends RewardNode {
 
   /**
-   * @param {number} level game level, starting at zero
+   * @param level - game level, starting at zero
    */
-  constructor( level ) {
-    assert && assert( level >= 0 && level < nodeFactoryFunctions.length );
-    super( { nodes: nodeFactoryFunctions[ level ]() } );
+  public constructor( level: number ) {
+    assert && assert( Number.isInteger( level ) && level >= 0 && level < NODE_FACTORY_FUNCTIONS.length );
+    super( {
+      nodes: NODE_FACTORY_FUNCTIONS[ level ]()
+    } );
   }
 }
 
-// Level 1: molecules, @returns {Node[]}
-function createNodesLevel1() {
+// Level 1: molecules
+function createNodesLevel1(): Node[] {
   const nodes = MOLECULE_NODE_CONSTRUCTORS.map( MoleculeNodeConstructor => new MoleculeNodeConstructor() );
   return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
 }
 
-// Level 2: smiley faces (various colors), @returns {Node[]}
-function createNodesLevel2() {
+// Level 2: smiley faces (various colors)
+function createNodesLevel2(): Node[] {
   const nodes = FACE_COLORS.map( color => new FaceNode( 40, { headFill: color } ) );
   return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
 }
 
-// Level 3: sandwiches, @returns {Node[]}
-function createNodesLevel3() {
+// Level 3: sandwiches
+function createNodesLevel3(): Node[] {
   const nodes = [
     // args: bread, meat, cheese
     new SandwichNode( 3, 3, 3 ),
@@ -115,16 +128,5 @@ function createNodesLevel3() {
   ];
   return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
 }
-
-/*
- * Functions for creating nodes, indexed by level.
- * In the model, level starts at zero. In the view, it's presented as starting from 1.
- * The function names correspond to the view presentation.
- */
-const nodeFactoryFunctions = [
-  createNodesLevel1,
-  createNodesLevel2,
-  createNodesLevel3
-];
 
 reactantsProductsAndLeftovers.register( 'RPALRewardNode', RPALRewardNode );
