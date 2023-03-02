@@ -45,7 +45,7 @@ export default class GameScreenView extends ScreenView {
 
       // create nodes on demand
       if ( settingsNode === null && gamePhase === GamePhase.SETTINGS ) {
-        settingsNode = new SettingsNode( model, this.layoutBounds );
+        settingsNode = new SettingsNode( model, this.layoutBounds, tandem.createTandem( 'settingsNode' ) );
         this.addChild( settingsNode );
       }
 
