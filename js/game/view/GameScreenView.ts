@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * View for the 'Game' screen.
  *
@@ -8,9 +7,11 @@
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import PlayNode from './PlayNode.js';
 import ResultsNode from './ResultsNode.js';
@@ -18,11 +19,10 @@ import SettingsNode from './SettingsNode.js';
 
 export default class GameScreenView extends ScreenView {
 
-  /**
-   * @param {GameModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
+  private playNode: PlayNode | null; // created on demand
+  private resultsNode: ResultsNode | null; // created on demand
+
+  public constructor( model: GameModel, tandem: Tandem ) {
 
     super( {
       layoutBounds: RPALConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
@@ -33,9 +33,9 @@ export default class GameScreenView extends ScreenView {
     const audioPlayer = new GameAudioPlayer();
 
     // one node for each 'phase' of the game, created on demand to improve startup time
-    let settingsNode = null; // @private
-    this.playNode = null; // @private
-    this.resultsNode = null; // @private
+    let settingsNode: SettingsNode | null = null;
+    this.playNode = null;
+    this.resultsNode = null;
 
     /*
      * Handle game 'phase' changes, nodes created on demand to reduce startup time.
@@ -68,20 +68,21 @@ export default class GameScreenView extends ScreenView {
 
   /**
    * Animation step function.
-   * @param {number} elapsedTime time between step calls, in seconds
-   * @public
+   * @param dt - time between step calls, in seconds
    */
-  step( elapsedTime ) {
+  public override step( dt: number ): void {
 
     // animate the reward
     if ( this.resultsNode && this.resultsNode.visible ) {
-      this.resultsNode.step( elapsedTime );
+      this.resultsNode.step( dt );
     }
 
     // cleanup nodes
     if ( this.playNode ) {
-      this.playNode.step( elapsedTime );
+      this.playNode.step( dt );
     }
+
+    super.step( dt );
   }
 }
 
