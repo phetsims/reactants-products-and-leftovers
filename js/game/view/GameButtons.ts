@@ -10,28 +10,20 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
-import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
+import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
 import VegasStrings from '../../../../vegas/js/VegasStrings.js';
 import RPALColors from '../../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameModel from '../model/GameModel.js';
 import PlayState from '../model/PlayState.js';
 
-// constants
-const BUTTON_OPTIONS = {
-  font: new PhetFont( { size: 20, weight: 'bold' } ),
-  baseColor: RPALColors.GAME_BUTTON,
-  opacity: 0.65,
-  xMargin: 20,
-  yMargin: 5,
-  centerX: 0 // so that all buttons are center aligned
+type SelfOptions = {
+  maxTextWidth?: number;
 };
-
-type SelfOptions = EmptySelfOptions;
 
 type GameButtonOptions = SelfOptions & PickOptional<NodeOptions, 'maxWidth'>;
 
@@ -43,12 +35,26 @@ export default class GameButtons extends Node {
 
   public constructor( model: GameModel, checkButtonEnabledProperty: TReadOnlyProperty<boolean>, providedOptions?: GameButtonOptions ) {
 
-    const options = providedOptions;
+    const options = optionize<GameButtonOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      maxTextWidth: 100
+    }, providedOptions );
 
     super( options );
 
+    const textPushButtonOptions: TextPushButtonOptions = {
+      maxTextWidth: options.maxTextWidth,
+      font: new PhetFont( { size: 20, weight: 'bold' } ),
+      baseColor: RPALColors.GAME_BUTTON,
+      opacity: 0.65,
+      xMargin: 20,
+      yMargin: 5,
+      centerX: 0 // so that all buttons are center aligned
+    };
+
     // Check button is needed immediately. Create it so this node has well-defined bounds (needed for layout).
-    const checkButton = new TextPushButton( VegasStrings.checkStringProperty, BUTTON_OPTIONS );
+    const checkButton = new TextPushButton( VegasStrings.checkStringProperty, textPushButtonOptions );
     this.addChild( checkButton );
     checkButton.addListener( () => model.check() );
 
@@ -67,19 +73,19 @@ export default class GameButtons extends Node {
 
       // create buttons on demand
       if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
-        tryAgainButton = new TextPushButton( VegasStrings.tryAgainStringProperty, BUTTON_OPTIONS );
+        tryAgainButton = new TextPushButton( VegasStrings.tryAgainStringProperty, textPushButtonOptions );
         this.addChild( tryAgainButton );
         tryAgainButton.addListener( () => model.tryAgain() );
       }
 
       if ( !showAnswerButton && state === PlayState.SHOW_ANSWER ) {
-        showAnswerButton = new TextPushButton( VegasStrings.showAnswerStringProperty, BUTTON_OPTIONS );
+        showAnswerButton = new TextPushButton( VegasStrings.showAnswerStringProperty, textPushButtonOptions );
         this.addChild( showAnswerButton );
         showAnswerButton.addListener( () => model.showAnswer() );
       }
 
       if ( !nextButton && state === PlayState.NEXT ) {
-        nextButton = new TextPushButton( VegasStrings.nextStringProperty, BUTTON_OPTIONS );
+        nextButton = new TextPushButton( VegasStrings.nextStringProperty, textPushButtonOptions );
         this.addChild( nextButton );
         nextButton.addListener( () => model.next() );
       }

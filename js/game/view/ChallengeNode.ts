@@ -197,7 +197,7 @@ export default class ChallengeNode extends Node {
     //------------------------------------------------------------------------------------
 
     const buttons = new GameButtons( model, this.checkButtonEnabledProperty, {
-      maxWidth: 0.85 * options.boxSize.width // constrain width for i18n
+      maxTextWidth: 0.65 * options.boxSize.width
     } );
     this.addChild( buttons );
     buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
