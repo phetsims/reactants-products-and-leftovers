@@ -9,20 +9,20 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Reaction from '../../common/model/Reaction.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import BeforeAfterNode, { BeforeAfterNodeOptions } from '../../common/view/BeforeAfterNode.js';
 import MoleculesEquationNode from '../../common/view/MoleculesEquationNode.js';
 import RPALScreenView, { CreateBeforeAfterNodeFunction } from '../../common/view/RPALScreenView.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import MoleculesModel from '../model/MoleculesModel.js';
+import { CreateEquationNodeFunction } from '../../common/view/ReactionBarNode.js';
 
 export default class MoleculesScreenView extends RPALScreenView {
 
   public constructor( model: MoleculesModel, tandem: Tandem ) {
 
     // Creates an equation for a specified reaction.
-    const createEquationNode = ( reaction: Reaction ) => new MoleculesEquationNode( reaction );
+    const createEquationNode: CreateEquationNodeFunction = reaction => new MoleculesEquationNode( reaction );
 
     // Creates the Before/After interface for a specified reaction.
     const createBeforeAfterNode: CreateBeforeAfterNodeFunction =

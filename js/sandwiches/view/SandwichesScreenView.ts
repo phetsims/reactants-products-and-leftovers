@@ -16,8 +16,8 @@ import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeft
 import SandwichesModel from '../model/SandwichesModel.js';
 import SandwichesEquationNode from './SandwichesEquationNode.js';
 import SandwichNode from './SandwichNode.js';
-import SandwichRecipe from '../model/SandwichRecipe.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import { CreateEquationNodeFunction } from '../../common/view/ReactionBarNode.js';
 
 export default class SandwichesScreenView extends RPALScreenView {
 
@@ -29,7 +29,9 @@ export default class SandwichesScreenView extends RPALScreenView {
     const maxSandwichSize = new Dimension2( maxSandwich.width, maxSandwich.height );
 
     // Creates an equation for a specified reaction.
-    const createEquationNode = ( reaction: SandwichRecipe ) => new SandwichesEquationNode( reaction, maxSandwichSize );
+    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80 TS2345: Argument of type 'Reaction' is not assignable to parameter of type 'SandwichRecipe'.
+    // @ts-expect-error
+    const createEquationNode: CreateEquationNodeFunction = reaction => new SandwichesEquationNode( reaction, maxSandwichSize );
 
     // Creates the Before/After interface for a specified reaction.
     const createBeforeAfterNode: CreateBeforeAfterNodeFunction =
@@ -44,8 +46,6 @@ export default class SandwichesScreenView extends RPALScreenView {
             boxYMargin: 8 // large enough to accommodate the biggest sandwich
           }, options ) );
 
-    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80 createEquationNode argument
-    // @ts-expect-error
     super( model, createEquationNode, createBeforeAfterNode, tandem );
   }
 }
