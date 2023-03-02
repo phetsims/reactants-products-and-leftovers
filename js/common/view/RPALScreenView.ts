@@ -31,7 +31,6 @@ export type CreateBeforeAfterNodeFunction = (
 
 export default class RPALScreenView<R extends Reaction = Reaction> extends ScreenView {
 
-  private readonly model: RPALBaseModel<R>;
   private readonly beforeAfterCache: Map<R, Node>;
 
   /**
@@ -50,22 +49,22 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
       tandem: tandem
     } );
 
-    this.model = model;
-
     // Properties that are specific to the view
     const beforeExpandedProperty = new BooleanProperty( true ); // {boolean} is the Before box expanded?
     const afterExpandedProperty = new BooleanProperty( true ); // {boolean} is the After box expanded
 
     // Equation and reaction radio buttons at top of screen
     const reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, createEquationNode, {
-      screenWidth: this.layoutBounds.width
+      screenWidth: this.layoutBounds.width,
+      top: this.layoutBounds.top
     } );
     this.addChild( reactionBarNode );
-    reactionBarNode.top = this.layoutBounds.top;
 
     // Reset All button
     const resetAllButton = new ResetAllButton( {
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
+      right: this.layoutBounds.right - 10,
+      bottom: this.layoutBounds.bottom - 10,
       listener: () => {
         model.reset();
         beforeExpandedProperty.reset();
@@ -73,8 +72,6 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
       }
     } );
     this.addChild( resetAllButton );
-    resetAllButton.right = this.layoutBounds.right - 10;
-    resetAllButton.bottom = this.layoutBounds.bottom - 10;
 
     /*
      * Updates the user interface to match the reaction.

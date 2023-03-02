@@ -10,7 +10,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from '../model/Reaction.js';
 import RPALColors from '../RPALColors.js';
@@ -25,7 +25,7 @@ type SelfOptions = {
   screenWidth: number;
 };
 
-type ReactionBarNodeOptions = SelfOptions;
+type ReactionBarNodeOptions = SelfOptions & NodeTranslationOptions;
 
 export default class ReactionBarNode<R extends Reaction = Reaction> extends Node {
 
