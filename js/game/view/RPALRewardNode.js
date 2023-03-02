@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * The reward that is displayed when a game is completed with a perfect score.
  * Various images (based on game level) move from top to bottom in the play area.
