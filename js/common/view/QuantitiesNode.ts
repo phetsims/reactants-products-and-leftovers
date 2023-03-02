@@ -61,11 +61,9 @@ export default class QuantitiesNode extends Node {
   private readonly spinnerNodes: NumberSpinner[];
   private readonly beforeNumberNodes: NumberNode[];
   private readonly afterNumberNodes: NumberNode[];
-
   private readonly reactantsParent: Node; // reactants, below the 'Before' box
   private readonly productsParent: Node; // products, below the 'After' box
   private readonly leftoversParent: Node; // leftovers, below the 'After' box, to the right of the products
-
   private readonly hideNumbersBox?: Node; // optional 'Hide numbers' box, to hide static quantities
 
   private readonly disposeQuantitiesNode: () => void;
@@ -96,13 +94,6 @@ export default class QuantitiesNode extends Node {
       showSymbols: true // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
     }, providedOptions );
 
-    super();
-
-    this.reactants = reactants;
-    this.products = products;
-    this.leftovers = leftovers;
-    this.interactiveBox = options.interactiveBox;
-
     // explicitly hoist reused vars
     let i;
     let reactant;
@@ -115,114 +106,111 @@ export default class QuantitiesNode extends Node {
     let symbolNode;
 
     // keep track of components that appear below the boxes, so we can handle their vertical alignment
-    this.spinnerNodes = [];
-    this.beforeNumberNodes = [];
-    this.afterNumberNodes = [];
+    const spinnerNodes: NumberSpinner[] = [];
+    const beforeNumberNodes: NumberNode[] = [];
+    const afterNumberNodes: NumberNode[] = [];
 
     const iconNodes: Node[] = [];
     const symbolNodes: Node[] = [];
 
     // reactants, below the 'Before' box
-    this.reactantsParent = new Node();
-    this.addChild( this.reactantsParent );
+    const reactantsParent = new Node();
     for ( i = 0; i < reactants.length; i++ ) {
 
       reactant = reactants[ i ];
       centerX = beforeXOffsets[ i ];
 
-      if ( this.interactiveBox === BoxType.BEFORE ) {
+      if ( options.interactiveBox === BoxType.BEFORE ) {
         // spinner
         spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
           combineOptions<NumberSpinnerOptions>( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
-        this.reactantsParent.addChild( spinnerNode );
-        this.spinnerNodes.push( spinnerNode );
+        reactantsParent.addChild( spinnerNode );
+        spinnerNodes.push( spinnerNode );
       }
       else {
         // static number
         numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-        this.reactantsParent.addChild( numberNode );
-        this.beforeNumberNodes.push( numberNode );
+        reactantsParent.addChild( numberNode );
+        beforeNumberNodes.push( numberNode );
       }
 
       // substance icon
       iconNode = new SubstanceIcon( reactant.iconProperty, { centerX: centerX } );
-      this.reactantsParent.addChild( iconNode );
+      reactantsParent.addChild( iconNode );
       iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
         symbolNode = new RichText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        this.reactantsParent.addChild( symbolNode );
+        reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
     }
 
     // products, below the 'After' box
-    this.productsParent = new Node();
-    this.addChild( this.productsParent );
+    const productsParent = new Node();
     for ( i = 0; i < products.length; i++ ) {
 
       product = products[ i ];
       centerX = options.afterBoxXOffset + afterXOffsets[ i ];
 
-      if ( this.interactiveBox === BoxType.AFTER ) {
+      if ( options.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
           combineOptions<NumberSpinnerOptions>( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
-        this.productsParent.addChild( spinnerNode );
-        this.spinnerNodes.push( spinnerNode );
+        productsParent.addChild( spinnerNode );
+        spinnerNodes.push( spinnerNode );
       }
       else {
         // static number
         numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-        this.productsParent.addChild( numberNode );
-        this.afterNumberNodes.push( numberNode );
+        productsParent.addChild( numberNode );
+        afterNumberNodes.push( numberNode );
       }
 
       // substance icon
       iconNode = new SubstanceIcon( product.iconProperty, { centerX: centerX } );
-      this.productsParent.addChild( iconNode );
+      productsParent.addChild( iconNode );
       iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
         symbolNode = new RichText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        this.productsParent.addChild( symbolNode );
+        productsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
     }
 
     // leftovers, below the 'After' box, to the right of the products
-    this.leftoversParent = new Node();
-    this.addChild( this.leftoversParent );
+    const leftoversParent = new Node();
     for ( i = 0; i < leftovers.length; i++ ) {
 
       leftover = leftovers[ i ];
       centerX = options.afterBoxXOffset + afterXOffsets[ i + products.length ]; // leftovers follow products in afterXOffsets
 
-      if ( this.interactiveBox === BoxType.AFTER ) {
+      if ( options.interactiveBox === BoxType.AFTER ) {
         // spinner
         spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
           combineOptions<NumberSpinnerOptions>( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
-        this.leftoversParent.addChild( spinnerNode );
-        this.spinnerNodes.push( spinnerNode );
+        leftoversParent.addChild( spinnerNode );
+        spinnerNodes.push( spinnerNode );
       }
       else {
         // static number
         numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
-        this.leftoversParent.addChild( numberNode );
-        this.afterNumberNodes.push( numberNode );
+        leftoversParent.addChild( numberNode );
+        afterNumberNodes.push( numberNode );
       }
 
       // substance icon
       iconNode = new SubstanceIcon( leftover.iconProperty, { centerX: centerX } );
-      this.leftoversParent.addChild( iconNode );
+      leftoversParent.addChild( iconNode );
       iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
         symbolNode = new RichText( leftover.symbol, { font: SYMBOL_FONT, centerX: centerX } );
-        this.leftoversParent.addChild( symbolNode );
+        leftoversParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
     }
@@ -231,17 +219,17 @@ export default class QuantitiesNode extends Node {
      * Vertical layout of components below the boxes.
      * Ensures that all similar components (spinners, numbers, icons, symbols) are vertically centered.
      */
-    const spinnerHeight = this.spinnerNodes[ 0 ].height;
+    const spinnerHeight = spinnerNodes[ 0 ].height;
     const maxIconHeight = Math.max( options.minIconSize.height, _.maxBy( iconNodes, node => node.height )!.height );
     const maxSymbolHeight = symbolNodes.length ? _.maxBy( symbolNodes, node => node.height )!.height : 0;
 
-    this.spinnerNodes.forEach( spinnerNode => {
+    spinnerNodes.forEach( spinnerNode => {
       spinnerNode.centerY = ( spinnerHeight / 2 );
     } );
-    this.beforeNumberNodes.forEach( numberNode => {
+    beforeNumberNodes.forEach( numberNode => {
       numberNode.centerY = ( spinnerHeight / 2 );
     } );
-    this.afterNumberNodes.forEach( numberNode => {
+    afterNumberNodes.forEach( numberNode => {
       numberNode.centerY = ( spinnerHeight / 2 );
     } );
     iconNodes.forEach( iconNode => {
@@ -264,47 +252,62 @@ export default class QuantitiesNode extends Node {
     const reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
-      bracketLength: Math.max( options.minIconSize.width, this.reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
-      centerX: this.reactantsParent.centerX,
+      bracketLength: Math.max( options.minIconSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: reactantsParent.centerX,
       top: bracketsTop
     } );
-    this.addChild( reactantsBracket );
 
     // 'Products' bracket
     const productsLabel = new Text( ReactantsProductsAndLeftoversStrings.productsStringProperty, BRACKET_LABEL_OPTIONS );
     const productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
-      bracketLength: Math.max( options.minIconSize.width, this.productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
-      centerX: this.productsParent.centerX,
+      bracketLength: Math.max( options.minIconSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: productsParent.centerX,
       top: bracketsTop
     } );
-    this.addChild( productsBracket );
 
     // 'Leftovers' bracket
     const leftoversLabel = new Text( ReactantsProductsAndLeftoversStrings.leftoversStringProperty, BRACKET_LABEL_OPTIONS );
     const leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,
-      bracketLength: Math.max( options.minIconSize.width, this.leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
-      centerX: this.leftoversParent.centerX,
+      bracketLength: Math.max( options.minIconSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
+      centerX: leftoversParent.centerX,
       top: bracketsTop
     } );
-    this.addChild( leftoversBracket );
+
+    options.children = [
+      reactantsParent, productsParent, leftoversParent,
+      reactantsBracket, productsBracket, leftoversBracket
+    ];
 
     // Optional 'Hide numbers' box on top of the static quantities
+    let hideNumbersBox;
     if ( options.hideNumbersBox ) {
-      this.hideNumbersBox = new HideBox( {
+      hideNumbersBox = new HideBox( {
         boxSize: new Dimension2( options.boxWidth, spinnerHeight ),
         iconHeight: 0.65 * spinnerHeight,
         cornerRadius: 3,
-        left: ( this.interactiveBox === BoxType.BEFORE ) ? options.afterBoxXOffset : 0,
-        centerY: this.spinnerNodes[ 0 ].centerY
+        left: ( options.interactiveBox === BoxType.BEFORE ) ? options.afterBoxXOffset : 0,
+        centerY: spinnerNodes[ 0 ].centerY
       } );
-      this.addChild( this.hideNumbersBox );
+      options.children.push( hideNumbersBox );
     }
 
-    this.mutate( options );
+    super( options );
+
+    this.reactants = reactants;
+    this.products = products;
+    this.leftovers = leftovers;
+    this.interactiveBox = options.interactiveBox;
+    this.spinnerNodes = spinnerNodes;
+    this.beforeNumberNodes = beforeNumberNodes;
+    this.afterNumberNodes = afterNumberNodes;
+    this.reactantsParent = reactantsParent;
+    this.productsParent = productsParent;
+    this.leftoversParent = leftoversParent;
+    this.hideNumbersBox = hideNumbersBox;
 
     this.disposeQuantitiesNode = () => {
       this.spinnerNodes.forEach( node => node.dispose() );
