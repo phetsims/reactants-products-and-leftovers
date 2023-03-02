@@ -45,7 +45,7 @@ export default class SandwichesScreenView extends RPALScreenView {
           } ) );
       };
 
-    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80
+    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/80 createEquationNode argument
     // @ts-expect-error
     super( model, createEquationNode, createBeforeAfterNode, tandem );
   }
