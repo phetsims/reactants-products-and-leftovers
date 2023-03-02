@@ -22,6 +22,7 @@ import ChallengeFactory from '../model/ChallengeFactory.js';
 import GameModel from '../model/GameModel.js';
 import RPALLevelSelectionButtonGroup from './RPALLevelSelectionButtonGroup.js';
 import GameVisibilityPanel from './GameVisibilityPanel.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 
 // constants
 const SCREEN_X_MARGIN = 40;
@@ -38,8 +39,12 @@ export default class SettingsNode extends Node {
     } );
 
     // Group of LevelSelectionButtons
-    const levelSelectionButtonGroup = new RPALLevelSelectionButtonGroup( model, {
-      center: layoutBounds.center
+    const levelSelectionButtonGroup = new RPALLevelSelectionButtonGroup( model );
+
+    const titleAndButtonsParent = new VBox( {
+      children: [ title, levelSelectionButtonGroup ],
+      align: 'center',
+      spacing: 60
     } );
 
     // Timer toggle button, at bottom left
@@ -56,6 +61,12 @@ export default class SettingsNode extends Node {
       gameVisibilityPanel.bottom = layoutBounds.bottom - SCREEN_Y_MARGIN;
     } );
 
+    Multilink.multilink( [ titleAndButtonsParent.boundsProperty, gameVisibilityPanel.boundsProperty ],
+      () => {
+        titleAndButtonsParent.centerX = layoutBounds.centerX;
+        titleAndButtonsParent.centerY = ( gameVisibilityPanel.top - layoutBounds.top + SCREEN_Y_MARGIN ) / 2;
+      } );
+
     // Reset All button, at bottom right
     const resetAllButton = new ResetAllButton( {
       listener: () => model.reset(),
@@ -66,16 +77,9 @@ export default class SettingsNode extends Node {
 
     super( {
       children: [
-        // title and level-selection buttons, centered in space above visibility radio buttons
-        new VBox( {
-          children: [ title, levelSelectionButtonGroup ],
-          align: 'center',
-          spacing: 40,
-          centerX: layoutBounds.centerX,
-          centerY: ( gameVisibilityPanel.top - layoutBounds.top ) / 2
-        } ),
-        timerToggleButton,
+        titleAndButtonsParent,
         gameVisibilityPanel,
+        timerToggleButton,
         resetAllButton
       ],
       tandem: tandem

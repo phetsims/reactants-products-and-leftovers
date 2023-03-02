@@ -15,7 +15,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { AlignBox, AlignGroup, HBox, Node, NodeTranslationOptions, Text, VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem, LevelSelectionButtonGroupOptions } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import RPALConstants from '../../common/RPALConstants.js';
@@ -24,12 +24,15 @@ import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeft
 import GameModel from '../model/GameModel.js';
 
 // constants
-const QUESTION_MARK_OPTIONS = { font: new PhetFont( { size: 70, weight: 'bold' } ) };
+const QUESTION_MARK_OPTIONS = {
+  font: new PhetFont( { size: 70, weight: 'bold' } ),
+  maxWidth: 20
+};
 const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
 type SelfOptions = EmptySelfOptions;
 
-type RPALLevelSelectionButtonGroupOptions = SelfOptions & NodeTranslationOptions;
+type RPALLevelSelectionButtonGroupOptions = SelfOptions;
 
 export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 
