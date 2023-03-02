@@ -21,7 +21,7 @@ import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeft
 import ChallengeFactory from '../model/ChallengeFactory.js';
 import GameModel from '../model/GameModel.js';
 import RPALLevelSelectionButtonGroup from './RPALLevelSelectionButtonGroup.js';
-import VisibilityPanel from './VisibilityPanel.js';
+import GameVisibilityPanel from './GameVisibilityPanel.js';
 
 // constants
 const SCREEN_X_MARGIN = 40;
@@ -50,10 +50,10 @@ export default class SettingsNode extends Node {
     } );
 
     // Panel with visibility radio buttons, at bottom center
-    const visibilityPanel = new VisibilityPanel( model.gameVisibilityProperty );
-    visibilityPanel.boundsProperty.link( bounds => {
-      visibilityPanel.centerX = layoutBounds.centerX;
-      visibilityPanel.bottom = layoutBounds.bottom - SCREEN_Y_MARGIN;
+    const gameVisibilityPanel = new GameVisibilityPanel( model.gameVisibilityProperty );
+    gameVisibilityPanel.boundsProperty.link( bounds => {
+      gameVisibilityPanel.centerX = layoutBounds.centerX;
+      gameVisibilityPanel.bottom = layoutBounds.bottom - SCREEN_Y_MARGIN;
     } );
 
     // Reset All button, at bottom right
@@ -72,10 +72,10 @@ export default class SettingsNode extends Node {
           align: 'center',
           spacing: 40,
           centerX: layoutBounds.centerX,
-          centerY: ( visibilityPanel.top - layoutBounds.top ) / 2
+          centerY: ( gameVisibilityPanel.top - layoutBounds.top ) / 2
         } ),
         timerToggleButton,
-        visibilityPanel,
+        gameVisibilityPanel,
         resetAllButton
       ],
       tandem: tandem

@@ -34,7 +34,7 @@ type SelfOptions = EmptySelfOptions;
 
 type VisibilityPanelOptions = SelfOptions;
 
-export default class VisibilityPanel extends Panel {
+export default class GameVisibilityPanel extends Panel {
 
   public constructor( gameVisibilityProperty: EnumerationProperty<GameVisibility>, providedOptions?: VisibilityPanelOptions ) {
 
@@ -127,4 +127,4 @@ function createHideNumbersNode( iconAlignBoxOptions: AlignBoxOptions ): Node {
   } );
 }
 
-reactantsProductsAndLeftovers.register( 'VisibilityPanel', VisibilityPanel );
+reactantsProductsAndLeftovers.register( 'GameVisibilityPanel', GameVisibilityPanel );
