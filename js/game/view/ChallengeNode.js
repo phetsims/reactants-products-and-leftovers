@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * View of a Game challenge. This node is not 'active' (connected to the model) until the activate() function is called.
  * This supports the ability to preload a node, then activate it at some later time.  See issue #17.
