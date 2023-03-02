@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Portion of the scenegraph that corresponds to GamePhase.RESULTS.
  * Displays a panel with the game results (score, optional time, reward, ...)
