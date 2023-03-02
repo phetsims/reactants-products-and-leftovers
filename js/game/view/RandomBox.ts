@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Displays substances at random positions in a box.
  * This is used for the 'Before' and 'After' boxes in the Game screen.
@@ -12,40 +11,53 @@
  * - When a node becomes visible, it is assigned a position in the grid.
  */
 
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { Node, Rectangle } from '../../../../scenery/js/imports.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import { Node, NodeOptions, NodeTranslationOptions, Rectangle, TColor } from '../../../../scenery/js/imports.js';
+import Substance from '../../common/model/Substance.js';
 import RPALColors from '../../common/RPALColors.js';
 import SubstanceIcon from '../../common/view/SubstanceIcon.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
+const DEFAULT_BOX_SIZE = new Dimension2( 100, 100 );
+
+type SelfOptions = {
+  boxSize?: Dimension2;
+  maxQuantity?: number; // the maximum quantity of each substance in the box
+  cornerRadius?: number;
+  fill?: TColor;
+  stroke?: TColor;
+  margin?: number; // margin around the inside edge of the box
+
+  // Molecules in the box are arranged in a grid. This option controls how much the molecules are randomly offset
+  // from the center of the grid's cells. Higher values make the layout look less grid-like, but result in more
+  // overlap of molecules (a trade-off).
+  randomOffset?: number;
+};
+
+type RandomBoxOptions = SelfOptions & NodeTranslationOptions;
+
 export default class RandomBox extends Node {
 
-  /**
-   * @param {Substance[]} substances the substances in the box
-   * @param {Object} [options]
-   */
-  constructor( substances, options ) {
+  private readonly disposeRandomBox: () => void;
 
-    options = merge( {
-      boxSize: new Dimension2( 100, 100 ),
-      maxQuantity: 4, // the maximum quantity of each substance in the box
+  public constructor( substances: Substance[], providedOptions?: RandomBoxOptions ) {
+
+    const options = optionize<RandomBoxOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      boxSize: DEFAULT_BOX_SIZE,
+      maxQuantity: 4,
       cornerRadius: 3,
       fill: RPALColors.BOX_FILL,
       stroke: RPALColors.BOX_STROKE,
-      margin: 5, // margin around the inside edge of the box
-
-      /**
-       * Molecules in the box are arranged in a grid. This option controls how much the molecules are randomly offset from the center
-       * of the grid's cells. Higher values make the layout look less grid-like, but result in more overlap of molecules (a trade-off).
-       */
+      margin: 5,
       randomOffset: 8
-    }, options );
-
-    super();
+    }, providedOptions );
 
     /*
      * Compute the size of the grid needed to accommodate the maximum number of nodes.
@@ -55,7 +67,7 @@ export default class RandomBox extends Node {
     const columns = rows;
 
     // Compute positions in the grid, this is our 'pool' of positions.
-    const positions = [];
+    const positions: Vector2[] = [];
     const dx = Math.floor( ( options.boxSize.width - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / columns );
     const dy = Math.floor( ( options.boxSize.height - ( 2 * options.margin ) - ( 2 * options.randomOffset ) ) / rows );
     for ( let column = 0; column < columns; column++ ) {
@@ -67,10 +79,7 @@ export default class RandomBox extends Node {
     }
     assert && assert( positions.length === rows * columns );
 
-    /**
-     * Chooses a random position and remove it from the pool of positions.
-     * @returns {Vector2}
-     */
+    // Chooses a random position and remove it from the pool of positions.
     const choosePosition = () => {
       assert && assert( positions.length > 0 );
       const index = dotRandom.nextIntBetween( 0, positions.length - 1 );
@@ -79,41 +88,37 @@ export default class RandomBox extends Node {
       return position;
     };
 
-    /**
-     * Puts a position back in the pool of positions.
-     * @param {Vector2} position
-     */
-    const releasePosition = position => {
-      positions.push( position );
-    };
+    // Puts a position back in the pool of positions.
+    const releasePosition = ( position: Vector2 ) => positions.push( position );
 
     // the box
     const boxNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
       fill: options.fill,
       stroke: options.stroke
     } );
-    this.addChild( boxNode );
 
     // substances inside the box
-    this.substanceLayers = []; // @private [{SubstanceLayer}]
+    const substanceLayers: SubstanceLayer[] = [];
     const parent = new Node();
     substances.forEach( substance => {
-      const substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty, options.randomOffset, choosePosition, releasePosition );
+      const substanceLayer = new SubstanceLayer( substance.iconProperty, substance.quantityProperty,
+        options.randomOffset, choosePosition, releasePosition );
       parent.addChild( substanceLayer );
-      this.substanceLayers.push( substanceLayer );
+      substanceLayers.push( substanceLayer );
     } );
-    this.addChild( parent );
 
-    this.mutate( options );
+    options.children = [ boxNode, parent ];
+
+    super( options );
+
+    this.disposeRandomBox = () => {
+      substanceLayers.forEach( node => node.dispose() );
+      substanceLayers.length = 0;
+    };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    this.substanceLayers.forEach( node => node.dispose() );
-    this.substanceLayers = null;
+  public override dispose(): void {
+    this.disposeRandomBox();
     super.dispose();
   }
 }
@@ -123,29 +128,25 @@ export default class RandomBox extends Node {
  */
 class SubstanceLayer extends Node {
 
-  /**
-   * @param {Property.<Node>} iconProperty
-   * @param {Property.<number>} quantityProperty
-   * @param {number} randomOffset
-   * @param {function} choosePosition returns {Vector2}
-   * @param {function} releasePosition @param {Vector2}
-   */
-  constructor( iconProperty, quantityProperty, randomOffset, choosePosition, releasePosition ) {
+  private readonly disposeSubstanceLayer: () => void;
+
+  public constructor( iconProperty: TReadOnlyProperty<Node>, quantityProperty: TReadOnlyProperty<number>,
+                      randomOffset: number, choosePosition: () => Vector2, releasePosition: ( position: Vector2 ) => void ) {
 
     super();
 
-    this.cellNodes = []; // @private {CellNode[]}
+    const cellNodes: CellNode[] = [];
 
-    this.quantityPropertyObserver = quantity => {
+    const quantityPropertyObserver = ( quantity: number ) => {
 
-      const count = Math.max( quantity, this.getChildrenCount() );
+      const count = Math.max( quantity, cellNodes.length );
 
       for ( let i = 0; i < count; i++ ) {
 
         if ( i < this.getChildrenCount() ) {
 
           // node already exists
-          const node = this.getChildAt( i );
+          const node = cellNodes[ i ];
           const nodeWasVisible = node.visible;
           node.visible = ( i < quantity );
 
@@ -159,25 +160,25 @@ class SubstanceLayer extends Node {
           }
         }
         else {
+
           // add a node
           const cellNode = new CellNode( iconProperty, choosePosition(), randomOffset );
           this.addChild( cellNode );
-          this.cellNodes.push( cellNode );
+          cellNodes.push( cellNode );
         }
       }
     };
-    this.quantityProperty = quantityProperty; // @private
-    this.quantityProperty.link( this.quantityPropertyObserver ); // must be unlinked in dispose
+    quantityProperty.link( quantityPropertyObserver ); // must be unlinked in dispose
+
+    this.disposeSubstanceLayer = () => {
+      cellNodes.forEach( node => node.dispose() ); // also does removeChild
+      cellNodes.length = 0;
+      quantityProperty.unlink( quantityPropertyObserver );
+    };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    this.cellNodes.forEach( node => node.dispose() );
-    this.cellNodes = null;
-    this.quantityProperty.unlink( this.quantityPropertyObserver );
+  public override dispose(): void {
+    this.disposeSubstanceLayer();
     super.dispose();
   }
 }
@@ -187,36 +188,30 @@ class SubstanceLayer extends Node {
  */
 class CellNode extends SubstanceIcon {
 
-  /**
-   * @param {Property.<Node>} iconProperty
-   * @param {Vector2} gridPosition
-   * @param {number} randomOffset
-   */
-  constructor( iconProperty, gridPosition, randomOffset ) {
+  private gridPosition: Vector2;
+  private readonly randomOffset: number;
+
+  public constructor( iconProperty: TReadOnlyProperty<Node>, gridPosition: Vector2, randomOffset: number ) {
 
     super( iconProperty );
 
-    this.gridPosition = gridPosition; // @private
-    this.randomOffset = randomOffset; // @private
+    this.gridPosition = gridPosition;
+    this.randomOffset = randomOffset;
 
     this.setGridPosition( gridPosition ); // initialize position
   }
 
   /**
    * Gets the grid position.
-   * @returns {Vector2}
-   * @public
    */
-  getGridPosition() {
+  public getGridPosition(): Vector2 {
     return this.gridPosition;
   }
 
   /**
    * Sets the grid position.
-   * @param {Vector2} gridPosition
-   * @public
    */
-  setGridPosition( gridPosition ) {
+  public setGridPosition( gridPosition: Vector2 ): void {
     this.gridPosition = gridPosition;
     // Move this node to the specified grid position, with some randomized offset.
     this.centerX = gridPosition.x + dotRandom.nextIntBetween( -this.randomOffset, this.randomOffset );
