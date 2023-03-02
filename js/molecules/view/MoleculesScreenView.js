@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * MoleculesScreenView is the view for the 'Molecules' screen.
  *
