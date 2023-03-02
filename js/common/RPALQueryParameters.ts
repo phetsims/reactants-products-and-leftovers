@@ -13,7 +13,11 @@ const RPALQueryParameters = QueryStringMachine.getAll( {
 
   // Plays all reactions for each level of the game.
   // For internal use only.
-  playAll: { type: 'flag' }
+  playAll: { type: 'flag' },
+
+  // Show the game reward regardless of score.
+  // For internal use only.
+  showReward: { type: 'flag' }
 } );
 
 reactantsProductsAndLeftovers.register( 'RPALQueryParameters', RPALQueryParameters );

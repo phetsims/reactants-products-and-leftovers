@@ -16,6 +16,7 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import RPALRewardNode from './RPALRewardNode.js';
+import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 
 export default class ResultsNode extends Node {
 
@@ -36,10 +37,14 @@ export default class ResultsNode extends Node {
       // show results when we enter this phase
       if ( gamePhase === GamePhase.RESULTS ) {
 
-        // game reward
-        if ( model.isPerfectScore() ) {
+        // Show the reward if the score is perfect, and play the appropriate audio feedback.
+        if ( model.isPerfectScore() || RPALQueryParameters.showReward ) {
           this.rewardNode = new RPALRewardNode( model.levelProperty.value );
           this.addChild( this.rewardNode );
+          audioPlayer.gameOverPerfectScore();
+        }
+        else {
+          audioPlayer.gameOverImperfectScore();
         }
 
         // game results
@@ -60,14 +65,6 @@ export default class ResultsNode extends Node {
             centerX: layoutBounds.centerX,
             centerY: layoutBounds.centerY
           } ) );
-
-        // Play the appropriate audio feedback.
-        if ( model.isPerfectScore() ) {
-          audioPlayer.gameOverPerfectScore();
-        }
-        else {
-          audioPlayer.gameOverImperfectScore();
-        }
       }
       else {
         this.removeAllChildren();
