@@ -81,7 +81,7 @@ export default class Reaction {
   /*
    * Updates the quantities of products and leftovers.
    */
-  protected updateQuantities(): void {
+  private updateQuantities(): void {
     const numberOfReactions = this.getNumberOfReactions();
     this.products.forEach( product => {
       product.quantityProperty.value = numberOfReactions * product.coefficientProperty.value;

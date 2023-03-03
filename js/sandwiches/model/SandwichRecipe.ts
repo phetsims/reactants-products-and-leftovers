@@ -59,10 +59,10 @@ export default class SandwichRecipe extends Reaction {
 
     super( [ bread, meat, cheese ], [ sandwich ], { nameProperty: nameProperty } );
 
+    // Updates the sandwich (product) icon
     Multilink.multilink(
       [ bread.coefficientProperty, meat.coefficientProperty, cheese.coefficientProperty ],
       ( breadCoefficient, meatCoefficient, cheeseCoefficient ) => {
-        this.updateQuantities();
         sandwich.iconProperty.value = this.isReaction() ?
                                       new SandwichNode( breadCoefficient, meatCoefficient, cheeseCoefficient ) :
                                       NO_SANDWICH_NODE;
