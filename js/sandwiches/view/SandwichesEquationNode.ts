@@ -77,9 +77,6 @@ export default class SandwichesEquationNode extends Node {
         plusNode.centerY = coefficientNode.centerY;
         leftNode.addChild( plusNode );
       }
-      else {
-        plusNode = null;
-      }
     }
 
     // right arrow

@@ -103,9 +103,6 @@ function createTermsNode( terms: Substance[], font: PhetFont, fill: TColor, plus
       plusNode.centerY = coefficientNode.centerY;
       parentNode.addChild( plusNode );
     }
-    else {
-      plusNode = null;
-    }
   }
 
   return parentNode;
