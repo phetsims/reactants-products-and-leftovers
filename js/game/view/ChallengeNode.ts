@@ -123,14 +123,10 @@ export default class ChallengeNode extends Node {
       guess.leftovers.forEach( leftover => quantityProperties.push( leftover.quantityProperty ) );
     }
 
-    this.checkButtonEnabledProperty = DerivedProperty.deriveAny( quantityProperties, () => {
-      // true if any quantity that the user can guess is non-zero
-      for ( let i = 0, j = arguments.length; i < j; i++ ) {
-        // eslint-disable-next-line prefer-rest-params
-        if ( arguments[ i ] !== 0 ) { return true; }
-      }
-      return false;
-    } );
+    // true if any quantity that the user can guess is non-zero
+    this.checkButtonEnabledProperty = DerivedProperty.deriveAny( quantityProperties, () =>
+      !!_.find( quantityProperties, quantityProperty => ( quantityProperty.value !== 0 ) )
+    );
 
     //------------------------------------------------------------------------------------
     // Boxes & arrow
