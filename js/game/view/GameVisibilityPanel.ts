@@ -80,7 +80,7 @@ export default class GameVisibilityPanel extends Panel {
  */
 function createShowAllNode( iconAlignBoxOptions: AlignBoxOptions ): Node {
   const iconNode = new AlignBox( new Path( eyeSolidShape, FONT_AWESOME_OPTIONS ), iconAlignBoxOptions );
-  const textNode = new Text( 'foo', TEXT_OPTIONS );//ReactantsProductsAndLeftoversStrings.showAllStringProperty, TEXT_OPTIONS );
+  const textNode = new Text( ReactantsProductsAndLeftoversStrings.showAllStringProperty, TEXT_OPTIONS );
   return new HBox( {
     children: [ iconNode, textNode ],
     spacing: 12
