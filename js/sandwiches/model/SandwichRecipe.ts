@@ -63,6 +63,8 @@ export default class SandwichRecipe extends Reaction {
 
     super( ingredients, [ sandwich ], { nameProperty: nameProperty } );
 
+    assert && assert( options.coefficientsMutable || this.isReaction(), 'a static recipe must be a valid reaction' );
+
     if ( options.coefficientsMutable ) {
 
       // Update the sandwich image to match the coefficients.
@@ -77,9 +79,6 @@ export default class SandwichRecipe extends Reaction {
       };
 
       ingredients.forEach( ingredient => ingredient.coefficientProperty.link( updateSandwichNode ) );
-    }
-    else {
-      assert && assert( this.isReaction() );
     }
 
     this.sandwich = sandwich;
