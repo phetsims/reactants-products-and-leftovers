@@ -131,6 +131,7 @@ export default class SandwichesEquationNode extends Node {
     reaction.sandwich.iconProperty.link( sandwichIconPropertyObserver );
 
     this.disposeSandwichesEquationNode = () => {
+      noReactionNode.dispose();
       coefficientNodes.forEach( node => node.dispose() );
       iconNodes.forEach( node => node.dispose() );
       if ( reaction.sandwich.iconProperty.hasListener( sandwichIconPropertyObserver ) ) {

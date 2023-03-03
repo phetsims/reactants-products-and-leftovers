@@ -311,6 +311,9 @@ export default class QuantitiesNode extends Node {
     this.hideNumbersBox = hideNumbersBox;
 
     this.disposeQuantitiesNode = () => {
+      reactantsLabel.dispose();
+      productsLabel.dispose();
+      leftoversLabel.dispose();
       this.spinnerNodes.forEach( node => node.dispose() );
       this.beforeNumberNodes.forEach( node => node.dispose() );
       this.afterNumberNodes.forEach( node => node.dispose() );

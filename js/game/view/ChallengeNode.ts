@@ -349,6 +349,7 @@ export default class ChallengeNode extends Node {
       // boxes
       beforeBox.dispose();
       afterBox.dispose();
+      questionMark.dispose();
 
       // stuff below the boxes
       quantitiesNode.dispose();
