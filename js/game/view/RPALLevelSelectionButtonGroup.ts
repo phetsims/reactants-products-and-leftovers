@@ -26,7 +26,7 @@ import GameModel from '../model/GameModel.js';
 // constants
 const QUESTION_MARK_OPTIONS = {
   font: new PhetFont( { size: 70, weight: 'bold' } ),
-  maxWidth: 20
+  maxWidth: 100
 };
 const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
