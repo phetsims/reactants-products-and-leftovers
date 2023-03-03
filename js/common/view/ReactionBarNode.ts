@@ -9,6 +9,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { Node, NodeOptions, NodeTranslationOptions, Rectangle } from '../../../../scenery/js/imports.js';
@@ -24,6 +25,7 @@ export type CreateEquationNodeFunction<R extends Reaction = Reaction> = ( reacti
 
 type SelfOptions = {
   layoutBounds: Bounds2;
+  visibleBoundsProperty: TReadOnlyProperty<Bounds2>;
 };
 
 type ReactionBarNodeOptions = SelfOptions & NodeTranslationOptions;
@@ -40,11 +42,12 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
     // radio buttons for choosing a reaction, scaled to fit for i18n
     const radioButtonGroup = new ReactionRadioButtonGroup( reactionProperty, reactions );
 
-    // background, extra wide so that it will appear to fill the window for all but extreme window sizes
-    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/82 update to fit the window width
-    const backgroundNode = new Rectangle( 0, 0, 4 * options.layoutBounds.width, radioButtonGroup.height + ( 2 * Y_MARGIN ), {
-      fill: RPALColors.PANEL_FILL,
-      centerX: options.layoutBounds.width / 2
+    // The horizontal bar, sized to fit the width of the browser window.
+    const backgroundNode = new Rectangle( 0, 0, 0, 1, {
+      fill: RPALColors.PANEL_FILL
+    } );
+    options.visibleBoundsProperty.link( visibleBounds => {
+      backgroundNode.setRect( visibleBounds.left, 0, visibleBounds.width, radioButtonGroup.height + ( 2 * Y_MARGIN ) );
     } );
 
     // radio buttons at right, vertically centered

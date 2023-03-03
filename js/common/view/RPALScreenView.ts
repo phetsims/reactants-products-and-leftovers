@@ -56,6 +56,7 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
     // Equation and reaction radio buttons at top of screen
     const reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, createEquationNode, {
       layoutBounds: this.layoutBounds,
+      visibleBoundsProperty: this.visibleBoundsProperty,
       top: this.layoutBounds.top
     } );
     this.addChild( reactionBarNode );
