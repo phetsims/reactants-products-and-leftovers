@@ -7,6 +7,7 @@
  */
 
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
@@ -24,7 +25,7 @@ type SelfOptions = {
   arrowXSpacing?: number; // space on both sides of arrow
 };
 
-type MoleculesEquationNodeOptions = SelfOptions & NodeTranslationOptions;
+type MoleculesEquationNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class MoleculesEquationNode extends Node {
 

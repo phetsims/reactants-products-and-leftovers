@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -21,7 +22,8 @@ import ReactionRadioButtonGroup from './ReactionRadioButtonGroup.js';
 const X_MARGIN = 20;
 const Y_MARGIN = 10;
 
-export type CreateEquationNodeFunction<R extends Reaction = Reaction> = ( reaction: R ) => Node;
+export type CreateEquationNodeFunction<R extends Reaction = Reaction> =
+  ( reaction: R, visibleProperty: TReadOnlyProperty<boolean> ) => Node;
 
 type SelfOptions = {
   layoutBounds: Bounds2;
@@ -31,8 +33,6 @@ type SelfOptions = {
 type ReactionBarNodeOptions = SelfOptions & NodeTranslationOptions;
 
 export default class ReactionBarNode<R extends Reaction = Reaction> extends Node {
-
-  private readonly equationNodeCache: Map<R, Node>;
 
   public constructor( reactionProperty: Property<R>, reactions: R[],
                       createEquationNode: CreateEquationNodeFunction<R>, providedOptions: ReactionBarNodeOptions ) {
@@ -56,44 +56,25 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
       radioButtonGroup.centerY = barNode.centerY;
     } );
 
-    options.children = [ barNode, radioButtonGroup ];
+    const reactionEquations = reactions.map( reaction => {
 
-    super( options );
+      const visibleProperty = new DerivedProperty( [ reactionProperty ], value => value === reaction );
 
-    /*
-     * Updates the equation to match the reaction.
-     * Equations are created on demand and cached for reuse.
-     * Unlinking from reactionProperty is unnecessary because this node exists for the lifetime of the simulation.
-     */
-    this.equationNodeCache = new Map();
-    reactionProperty.link( reaction => {
+      const equationNode = createEquationNode( reaction, visibleProperty );
 
-      // Create an equation for this reaction, if one isn't already in the cache.
-      const cachedNode = this.equationNodeCache.get( reaction );
-      if ( !cachedNode ) {
-
-        // create equation for the reaction
-        const equationNode = createEquationNode( reaction );
-        this.addChild( equationNode );
-
-        // scale the equation if it's too wide to fit the available space
-        const availableWidth = radioButtonGroup.left - ( 2 * X_MARGIN );
-        const scale = Math.min( 1, availableWidth / equationNode.width );
-        equationNode.setScaleMagnitude( scale );
-
-        // center the equation in the space to the left of the controls
+      // center the equation in the space to the left of the radio buttons
+      radioButtonGroup.boundsProperty.link( () => {
+        const availableWidth = radioButtonGroup.left - X_MARGIN;
         equationNode.centerX = X_MARGIN + ( availableWidth / 2 );
         equationNode.centerY = barNode.centerY;
-
-        // cache it
-        this.equationNodeCache.set( reaction, equationNode );
-      }
-
-      // Make only the reaction's equation visible, hide other equations.
-      this.equationNodeCache.forEach( ( node: Node, key: R ) => {
-        node.visible = ( key === reaction );
       } );
+
+      return equationNode;
     } );
+
+    options.children = [ barNode, radioButtonGroup, ...reactionEquations ];
+
+    super( options );
   }
 
   public override dispose(): void {

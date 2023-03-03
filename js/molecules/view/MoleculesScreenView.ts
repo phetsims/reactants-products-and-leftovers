@@ -22,7 +22,10 @@ export default class MoleculesScreenView extends RPALScreenView {
   public constructor( model: MoleculesModel, tandem: Tandem ) {
 
     // Creates an equation for a specified reaction.
-    const createEquationNode: CreateEquationNodeFunction = reaction => new MoleculesEquationNode( reaction );
+    const createEquationNode: CreateEquationNodeFunction =
+      ( reaction, visibleProperty ) => new MoleculesEquationNode( reaction, {
+        visibleProperty: visibleProperty
+      } );
 
     // Creates the Before/After interface for a specified reaction.
     const createBeforeAfterNode: CreateBeforeAfterNodeFunction =

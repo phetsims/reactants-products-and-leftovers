@@ -35,7 +35,7 @@ export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> ext
     const textOptions = {
       font: new PhetFont( 16 ),
       fill: 'white',
-      maxWidth: 210 // determined empirically
+      maxWidth: 175 // determined empirically
     };
 
     // Describe radio buttons, one for each reaction.

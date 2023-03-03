@@ -31,7 +31,7 @@ export default class SandwichesScreenView extends RPALScreenView<SandwichRecipe>
 
     // Creates an equation for a specified reaction.
     const createEquationNode: CreateEquationNodeFunction<SandwichRecipe> =
-      reaction => new SandwichesEquationNode( reaction, maxSandwichSize );
+      ( reaction, visibleProperty ) => new SandwichesEquationNode( reaction, maxSandwichSize, visibleProperty );
 
     // Creates the Before/After interface for a specified reaction.
     const createBeforeAfterNode: CreateBeforeAfterNodeFunction =

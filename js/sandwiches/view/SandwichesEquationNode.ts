@@ -14,6 +14,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import MultiLineText from '../../../../scenery-phet/js/MultiLineText.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -40,7 +41,7 @@ export default class SandwichesEquationNode extends Node {
    * @param reaction the sandwich recipe (reaction) to display
    * @param maxSandwichSize dimensions of the largest sandwich
    */
-  public constructor( reaction: SandwichRecipe, maxSandwichSize: Dimension2 ) {
+  public constructor( reaction: SandwichRecipe, maxSandwichSize: Dimension2, visibleProperty: TReadOnlyProperty<boolean> ) {
 
     // left-hand side is the sandwich ingredients
     const leftNode = new Node();
@@ -106,7 +107,8 @@ export default class SandwichesEquationNode extends Node {
     } );
 
     super( {
-      children: [ leftNode, arrowNode, sandwichNode, noReactionNode ]
+      children: [ leftNode, arrowNode, sandwichNode, noReactionNode ],
+      visibleProperty: visibleProperty
     } );
 
     // Display 'No Reaction' if we don't have a valid sandwich.
