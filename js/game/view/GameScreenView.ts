@@ -77,11 +77,6 @@ export default class GameScreenView extends ScreenView {
       this.resultsNode.step( dt );
     }
 
-    // cleanup nodes
-    if ( this.playNode ) {
-      this.playNode.step( dt );
-    }
-
     super.step( dt );
   }
 }

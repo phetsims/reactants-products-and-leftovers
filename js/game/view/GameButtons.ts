@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -29,8 +28,6 @@ type GameButtonOptions = SelfOptions & PickOptional<VBoxOptions, 'maxWidth'>;
 
 export default class GameButtons extends VBox {
 
-  private playStateProperty: EnumerationProperty<PlayState> | null;
-  private playStateObserver: ( ( playState: PlayState ) => void );
   private readonly disposeGameButtons: () => void;
 
   public constructor( model: GameModel, checkButtonEnabledProperty: TReadOnlyProperty<boolean>, providedOptions?: GameButtonOptions ) {
@@ -88,6 +85,7 @@ export default class GameButtons extends VBox {
       showAnswerButton && ( showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER ) );
       nextButton && ( nextButton.visible = ( state === PlayState.NEXT ) );
     };
+    model.playStateProperty.link( playStateObserver );
 
     this.disposeGameButtons = () => {
       checkButton.dispose();
@@ -97,21 +95,10 @@ export default class GameButtons extends VBox {
       if ( checkButtonEnabledProperty.hasListener( checkButtonEnabledObserver ) ) {
         checkButtonEnabledProperty.unlink( checkButtonEnabledObserver );
       }
-      if ( this.playStateProperty && this.playStateProperty.hasListener( this.playStateObserver ) ) {
-        this.playStateProperty.unlink( this.playStateObserver );
+      if ( model.playStateProperty.hasListener( playStateObserver ) ) {
+        model.playStateProperty.unlink( playStateObserver );
       }
     };
-
-    this.playStateProperty = null; // will be set by activate()
-    this.playStateObserver = playStateObserver;
-  }
-
-  /**
-   * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
-   */
-  public activate( playStateProperty: EnumerationProperty<PlayState> ): void {
-    this.playStateProperty = playStateProperty;
-    this.playStateProperty.link( this.playStateObserver ); // must be unlinked in dispose
   }
 
   public override dispose(): void {

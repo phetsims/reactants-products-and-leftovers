@@ -30,12 +30,7 @@ export default class PlayNode extends Node {
   private readonly model: GameModel;
   private readonly layoutBounds: Bounds2;
   private readonly audioPlayer: GameAudioPlayer;
-
   private readonly challengeBounds: Bounds2; // challenge will be displayed in the area below the status bar
-  private readonly disposeNodes: ChallengeNode[]; // nodes in this array are scheduled for disposal
-  private nextChallengeNode: ChallengeNode | null; // the next challenge, preloaded to improve responsiveness
-  private stepsSinceDisposal: number; // number of times that step() has been called since a node was schedule for disposal
-  private stepsSinceUpdate: number; // number of times that step() has been called since the challenge changed
 
   public constructor( model: GameModel, layoutBounds: Bounds2, visibleBoundsProperty: TReadOnlyProperty<Bounds2>, audioPlayer: GameAudioPlayer ) {
 
@@ -83,10 +78,6 @@ export default class PlayNode extends Node {
     this.challengeBounds = new Bounds2( layoutBounds.left, statusBar.bottom, layoutBounds.right, layoutBounds.bottom );
 
     let currentChallengeNode: ChallengeNode | null = null;
-    this.disposeNodes = [];
-    this.nextChallengeNode = null;
-    this.stepsSinceDisposal = 0;
-    this.stepsSinceUpdate = 0;
 
     /*
      * Displays the current challenge.
@@ -96,79 +87,26 @@ export default class PlayNode extends Node {
 
       // schedule previous challenge for deletion
       if ( currentChallengeNode ) {
-        this.disposeNodes.push( currentChallengeNode );
-        currentChallengeNode.visible = false;
+        currentChallengeNode.dispose(); // handles removeChild
         currentChallengeNode = null;
-        this.stepsSinceDisposal = 0;
       }
 
       // activate current challenge
       if ( challenge ) { // challenge will be null on startup and 'Reset All'
-        if ( this.nextChallengeNode ) {
-          // use preloaded node
-          currentChallengeNode = this.nextChallengeNode;
-          this.nextChallengeNode = null;
-        }
-        else {
-          // if a node hasn't been preloaded, create one
-          currentChallengeNode = new ChallengeNode( model, challenge, this.challengeBounds, audioPlayer );
-          this.addChild( currentChallengeNode );
-        }
-        currentChallengeNode.activate( model.playStateProperty );
-        currentChallengeNode.visible = true;
-        this.stepsSinceUpdate = 0;
+        currentChallengeNode = new ChallengeNode( model, challenge, this.challengeBounds, audioPlayer );
+        this.addChild( currentChallengeNode );
       }
     } );
 
     /*
-     * When we transition away from 'play' phase, schedule the current and preloaded nodes for disposal.
-     * Unlink is unnecessary because this node exists for the lifetime of the simulation.
+     * When we transition away from 'play' phase, dispose of the current challengeNode.
      */
     model.gamePhaseProperty.link( gamePhase => {
-      if ( gamePhase !== GamePhase.PLAY ) {
-        if ( currentChallengeNode ) {
-          this.disposeNodes.push( currentChallengeNode );
-          currentChallengeNode = null;
-        }
-        if ( this.nextChallengeNode ) {
-          this.disposeNodes.push( this.nextChallengeNode );
-          this.nextChallengeNode = null;
-        }
-        this.stepsSinceDisposal = 0;
+      if ( gamePhase !== GamePhase.PLAY && currentChallengeNode ) {
+        currentChallengeNode.dispose();
+        currentChallengeNode = null;
       }
     } );
-  }
-
-  public step( dt: number ): void {
-
-    /**
-     * See issue #17
-     * To defer the cost of removing a ChallengeNode, handle the removal of the previous ChallengeNode after the current one
-     * is made visible (2 steps). The user will presumably be distracted processing what they see on the screen, so won't notice
-     * the brief interruption. this.disposeNodes is an array so that we can remove both the current and next (preloaded)
-     * ChallengeNodes when we leave the 'play' phase of the game.
-     */
-    this.stepsSinceDisposal++;
-    if ( this.stepsSinceDisposal >= 2 && this.disposeNodes.length > 0 ) {
-      for ( let i = 0; i < this.disposeNodes.length; i++ ) {
-        this.removeChild( this.disposeNodes[ i ] );
-        this.disposeNodes[ i ].dispose();
-      }
-      this.disposeNodes.length = 0;
-    }
-
-    /**
-     * See issue #17
-     * To defer the cost of adding a ChallengeNode, preload the new one after the current one is made visible (2 steps).
-     * The user will presumably be distracted processing what they see on the screen, so won't notice the brief interruption.
-     */
-    this.stepsSinceUpdate++;
-    const challengeIndex = this.model.challengeIndexProperty.value;
-    if ( this.stepsSinceUpdate >= 2 && this.visible && !this.nextChallengeNode && challengeIndex < this.model.challenges.length - 1 ) {
-      this.nextChallengeNode = new ChallengeNode( this.model, this.model.challenges[ challengeIndex + 1 ], this.challengeBounds, this.audioPlayer );
-      this.nextChallengeNode.visible = false;
-      this.addChild( this.nextChallengeNode );
-    }
   }
 }
 

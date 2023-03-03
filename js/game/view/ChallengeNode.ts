@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -48,7 +47,6 @@ type ChallengeNodeOptions = SelfOptions;
 export default class ChallengeNode extends Node {
 
   private readonly checkButtonEnabledProperty: TReadOnlyProperty<boolean>;
-  private playStateProperty: EnumerationProperty<PlayState> | null; // set by activate()
   private readonly playStateObserver: ( playState: PlayState ) => void;
   private readonly buttons: GameButtons;
   private readonly disposeChallengeNode: () => void;
@@ -282,10 +280,8 @@ export default class ChallengeNode extends Node {
     // Move from "Try Again" to "Check" state when a quantity is changed, see reactants-products-and-leftovers#37.
     // Must be disposed.
     const answerChangedMultilink = Multilink.lazyMultilinkAny( quantityProperties, () => {
-      const playStateProperty = this.playStateProperty!;
-      assert && assert( playStateProperty, 'playStateProperty should have been set by now.' );
-      if ( playStateProperty.value === PlayState.TRY_AGAIN ) {
-        playStateProperty.value = PlayState.SECOND_CHECK;
+      if ( model.playStateProperty.value === PlayState.TRY_AGAIN ) {
+        model.playStateProperty.value = PlayState.SECOND_CHECK;
       }
     } );
 
@@ -325,6 +321,7 @@ export default class ChallengeNode extends Node {
       // switch between spinners and static numbers
       quantitiesNode.setInteractive( PlayState.INTERACTIVE_STATES.includes( playState ) );
     };
+    model.playStateProperty.link( playStateObserver );
 
     //------------------------------------------------------------------------------------
     // Developer
@@ -351,8 +348,8 @@ export default class ChallengeNode extends Node {
 
       // Properties
       this.checkButtonEnabledProperty.dispose();
-      if ( this.playStateProperty ) {
-        this.playStateProperty.unlink( playStateObserver );
+      if ( model.playStateProperty.hasListener( playStateObserver ) ) {
+        model.playStateProperty.unlink( playStateObserver );
       }
 
       // Nodes
@@ -363,19 +360,8 @@ export default class ChallengeNode extends Node {
       quantitiesNode.dispose();
     };
 
-    this.playStateProperty = null; // will be set by activate()
     this.playStateObserver = playStateObserver;
     this.buttons = buttons;
-  }
-
-  /**
-   * Connects this node to the model. Until this is called, the node is preloaded, but not fully functional.
-   */
-  public activate( playStateProperty: EnumerationProperty<PlayState> ): void {
-    this.buttons.activate( playStateProperty );
-    this.playStateProperty = playStateProperty;
-    // optimization: we're set up in the correct initial state, so wait for state change
-    this.playStateProperty.lazyLink( this.playStateObserver ); // must be unlinked in dispose
   }
 
   public override dispose(): void {
