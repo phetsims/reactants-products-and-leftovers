@@ -95,18 +95,7 @@ export default class QuantitiesNode extends Node {
       showSymbols: true // whether to show symbols (eg, H2O) for the substances in the reactions
     }, providedOptions );
 
-    // explicitly hoist reused vars
-    let i;
-    let reactant;
-    let product;
-    let leftover;
-    let centerX;
-    let numberNode;
-    let spinnerNode;
-    let iconNode;
-    let symbolNode;
-
-    // keep track of components that appear below the boxes, so we can handle their vertical alignment
+    // Keep track of components that appear below the boxes, so we can handle their vertical alignment.
     const spinnerNodes: NumberSpinner[] = [];
     const beforeNumberNodes: NumberNode[] = [];
     const afterNumberNodes: NumberNode[] = [];
@@ -116,33 +105,45 @@ export default class QuantitiesNode extends Node {
 
     // reactants, below the 'Before' box
     const reactantsParent = new Node();
-    for ( i = 0; i < reactants.length; i++ ) {
+    for ( let i = 0; i < reactants.length; i++ ) {
 
-      reactant = reactants[ i ];
-      centerX = beforeXOffsets[ i ];
+      const reactant = reactants[ i ];
+      const centerX = beforeXOffsets[ i ];
 
       if ( options.interactiveBox === BoxType.BEFORE ) {
+
         // spinner
-        spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
-          combineOptions<NumberSpinnerOptions>( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
+        const spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
+          combineOptions<NumberSpinnerOptions>( {
+            centerX: centerX
+          }, NUMBER_SPINNER_OPTIONS ) );
         reactantsParent.addChild( spinnerNode );
         spinnerNodes.push( spinnerNode );
       }
       else {
+
         // static number
-        numberNode = new NumberNode( reactant.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+        const numberNode = new NumberNode( reactant.quantityProperty, {
+          font: QUANTITY_FONT,
+          centerX: centerX
+        } );
         reactantsParent.addChild( numberNode );
         beforeNumberNodes.push( numberNode );
       }
 
       // substance icon
-      iconNode = new SubstanceIcon( reactant.iconProperty, { centerX: centerX } );
+      const iconNode = new SubstanceIcon( reactant.iconProperty, {
+        centerX: centerX
+      } );
       reactantsParent.addChild( iconNode );
       iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new RichText( StringUtils.wrapLTR( reactant.symbol ), { font: SYMBOL_FONT, centerX: centerX } );
+        const symbolNode = new RichText( StringUtils.wrapLTR( reactant.symbol ), {
+          font: SYMBOL_FONT,
+          centerX: centerX
+        } );
         reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -150,33 +151,45 @@ export default class QuantitiesNode extends Node {
 
     // products, below the 'After' box
     const productsParent = new Node();
-    for ( i = 0; i < products.length; i++ ) {
+    for ( let i = 0; i < products.length; i++ ) {
 
-      product = products[ i ];
-      centerX = options.afterBoxXOffset + afterXOffsets[ i ];
+      const product = products[ i ];
+      const centerX = options.afterBoxXOffset + afterXOffsets[ i ];
 
       if ( options.interactiveBox === BoxType.AFTER ) {
+
         // spinner
-        spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
-          combineOptions<NumberSpinnerOptions>( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
+        const spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
+          combineOptions<NumberSpinnerOptions>( {
+            centerX: centerX
+          }, NUMBER_SPINNER_OPTIONS ) );
         productsParent.addChild( spinnerNode );
         spinnerNodes.push( spinnerNode );
       }
       else {
+
         // static number
-        numberNode = new NumberNode( product.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+        const numberNode = new NumberNode( product.quantityProperty, {
+          font: QUANTITY_FONT,
+          centerX: centerX
+        } );
         productsParent.addChild( numberNode );
         afterNumberNodes.push( numberNode );
       }
 
       // substance icon
-      iconNode = new SubstanceIcon( product.iconProperty, { centerX: centerX } );
+      const iconNode = new SubstanceIcon( product.iconProperty, {
+        centerX: centerX
+      } );
       productsParent.addChild( iconNode );
       iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new RichText( product.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+        const symbolNode = new RichText( product.symbol, {
+          font: SYMBOL_FONT,
+          centerX: centerX
+        } );
         productsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -184,33 +197,45 @@ export default class QuantitiesNode extends Node {
 
     // leftovers, below the 'After' box, to the right of the products
     const leftoversParent = new Node();
-    for ( i = 0; i < leftovers.length; i++ ) {
+    for ( let i = 0; i < leftovers.length; i++ ) {
 
-      leftover = leftovers[ i ];
-      centerX = options.afterBoxXOffset + afterXOffsets[ i + products.length ]; // leftovers follow products in afterXOffsets
+      const leftover = leftovers[ i ];
+      const centerX = options.afterBoxXOffset + afterXOffsets[ i + products.length ]; // leftovers follow products in afterXOffsets
 
       if ( options.interactiveBox === BoxType.AFTER ) {
+
         // spinner
-        spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
-          combineOptions<NumberSpinnerOptions>( {}, NUMBER_SPINNER_OPTIONS, { centerX: centerX } ) );
+        const spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
+          combineOptions<NumberSpinnerOptions>( {
+            centerX: centerX
+          }, NUMBER_SPINNER_OPTIONS ) );
         leftoversParent.addChild( spinnerNode );
         spinnerNodes.push( spinnerNode );
       }
       else {
+
         // static number
-        numberNode = new NumberNode( leftover.quantityProperty, { font: QUANTITY_FONT, centerX: centerX } );
+        const numberNode = new NumberNode( leftover.quantityProperty, {
+          font: QUANTITY_FONT,
+          centerX: centerX
+        } );
         leftoversParent.addChild( numberNode );
         afterNumberNodes.push( numberNode );
       }
 
       // substance icon
-      iconNode = new SubstanceIcon( leftover.iconProperty, { centerX: centerX } );
+      const iconNode = new SubstanceIcon( leftover.iconProperty, {
+        centerX: centerX
+      } );
       leftoversParent.addChild( iconNode );
       iconNodes.push( iconNode );
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new RichText( leftover.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+        const symbolNode = new RichText( leftover.symbol, {
+          font: SYMBOL_FONT,
+          centerX: centerX
+        } );
         leftoversParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
@@ -338,18 +363,18 @@ export default class QuantitiesNode extends Node {
     this.spinnerNodes.forEach( spinnerNode => { spinnerNode.visible = interactive; } );
 
     const centerY = this.spinnerNodes[ 0 ].height / 2;
-    let i;
-    let numberNode;
-    let centerX; // explicitly hoist loop vars
 
     if ( this.interactiveBox === BoxType.BEFORE ) {
 
       // reactants, create static numbers on demand
       if ( !interactive && this.beforeNumberNodes.length === 0 ) {
-        for ( i = 0; i < this.reactants.length; i++ ) {
-          centerX = this.spinnerNodes[ i ].centerX;
-          numberNode = new NumberNode( this.reactants[ i ].quantityProperty,
-            { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
+        for ( let i = 0; i < this.reactants.length; i++ ) {
+          const centerX = this.spinnerNodes[ i ].centerX;
+          const numberNode = new NumberNode( this.reactants[ i ].quantityProperty, {
+            font: QUANTITY_FONT,
+            centerX: centerX,
+            centerY: centerY
+          } );
           this.reactantsParent.addChild( numberNode );
           this.beforeNumberNodes.push( numberNode );
         }
@@ -366,19 +391,25 @@ export default class QuantitiesNode extends Node {
       if ( !interactive && this.afterNumberNodes.length === 0 ) {
 
         // products
-        for ( i = 0; i < this.products.length; i++ ) {
-          centerX = this.spinnerNodes[ i ].centerX;
-          numberNode = new NumberNode( this.products[ i ].quantityProperty,
-            { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
+        for ( let i = 0; i < this.products.length; i++ ) {
+          const centerX = this.spinnerNodes[ i ].centerX;
+          const numberNode = new NumberNode( this.products[ i ].quantityProperty, {
+            font: QUANTITY_FONT,
+            centerX: centerX,
+            centerY: centerY
+          } );
           this.productsParent.addChild( numberNode );
           this.afterNumberNodes.push( numberNode );
         }
 
         // leftovers
-        for ( i = 0; i < this.leftovers.length; i++ ) {
-          centerX = this.spinnerNodes[ i + this.products.length ].centerX; // leftover spinners follow product spinners
-          numberNode = new NumberNode( this.leftovers[ i ].quantityProperty,
-            { font: QUANTITY_FONT, centerX: centerX, centerY: centerY } );
+        for ( let i = 0; i < this.leftovers.length; i++ ) {
+          const centerX = this.spinnerNodes[ i + this.products.length ].centerX; // leftover spinners follow product spinners
+          const numberNode = new NumberNode( this.leftovers[ i ].quantityProperty, {
+            font: QUANTITY_FONT,
+            centerX: centerX,
+            centerY: centerY
+          } );
           this.leftoversParent.addChild( numberNode );
           this.afterNumberNodes.push( numberNode );
         }
