@@ -340,15 +340,15 @@ export default class ChallengeNode extends Node {
         this.playStateProperty.unlink( playStateObserver );
       }
 
-      // boxes
-      beforeBox.dispose();
-      afterBox.dispose();
-
       // buttons
       buttons.dispose();
       this.checkButtonEnabledProperty.unlinkAll();
       this.checkButtonEnabledProperty.dispose();
       answerChangedLink.dispose();
+
+      // boxes
+      beforeBox.dispose();
+      afterBox.dispose();
 
       // stuff below the boxes
       quantitiesNode.dispose();
