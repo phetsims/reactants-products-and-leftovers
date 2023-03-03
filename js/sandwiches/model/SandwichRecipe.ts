@@ -16,10 +16,14 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
 import Reaction, { ReactionOptions } from '../../common/model/Reaction.js';
 import Substance from '../../common/model/Substance.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichNode from '../view/SandwichNode.js';
+
+// Used when the product is undefined. This can be any non-visible node with well-defined bounds.
+const NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
 
 type SelfOptions = {
   coefficientsMutable?: boolean; // Can coefficients of the ingredients can be changed?
@@ -59,7 +63,9 @@ export default class SandwichRecipe extends Reaction {
       [ bread.coefficientProperty, meat.coefficientProperty, cheese.coefficientProperty ],
       ( breadCoefficient, meatCoefficient, cheeseCoefficient ) => {
         this.updateQuantities();
-        sandwich.iconProperty.value = new SandwichNode( breadCoefficient, meatCoefficient, cheeseCoefficient );
+        sandwich.iconProperty.value = this.isReaction() ?
+                                      new SandwichNode( breadCoefficient, meatCoefficient, cheeseCoefficient ) :
+                                      NO_SANDWICH_NODE;
       } );
 
     this.sandwich = sandwich;
