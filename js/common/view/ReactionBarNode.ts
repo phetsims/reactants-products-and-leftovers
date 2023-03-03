@@ -39,24 +39,24 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
 
     const options = optionize<ReactionBarNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
-    // radio buttons for choosing a reaction, scaled to fit for i18n
+    // radio buttons for choosing a reaction
     const radioButtonGroup = new ReactionRadioButtonGroup( reactionProperty, reactions );
 
     // The horizontal bar, sized to fit the width of the browser window.
-    const backgroundNode = new Rectangle( 0, 0, 0, 1, {
+    const barNode = new Rectangle( 0, 0, 0, 1, {
       fill: RPALColors.PANEL_FILL
     } );
     options.visibleBoundsProperty.link( visibleBounds => {
-      backgroundNode.setRect( visibleBounds.left, 0, visibleBounds.width, radioButtonGroup.height + ( 2 * Y_MARGIN ) );
+      barNode.setRect( visibleBounds.left, 0, visibleBounds.width, radioButtonGroup.height + ( 2 * Y_MARGIN ) );
     } );
 
-    // radio buttons at right, vertically centered
+    // radio buttons at right, vertically centered in the bar
     radioButtonGroup.boundsProperty.link( bounds => {
       radioButtonGroup.right = options.layoutBounds.right - X_MARGIN;
-      radioButtonGroup.centerY = backgroundNode.centerY;
+      radioButtonGroup.centerY = barNode.centerY;
     } );
 
-    options.children = [ backgroundNode, radioButtonGroup ];
+    options.children = [ barNode, radioButtonGroup ];
 
     super( options );
 
@@ -83,7 +83,7 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
 
         // center the equation in the space to the left of the controls
         equationNode.centerX = X_MARGIN + ( availableWidth / 2 );
-        equationNode.centerY = backgroundNode.centerY;
+        equationNode.centerY = barNode.centerY;
 
         // cache it
         this.equationNodeCache.set( reaction, equationNode );
