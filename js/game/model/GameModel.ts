@@ -39,7 +39,7 @@ export default class GameModel implements TModel {
   public readonly numberOfLevels: number;
   public readonly maxQuantity: number;
 
-  public readonly timerEnabledProperty: Property<boolean>;
+  public readonly timerEnabledProperty: Property<boolean>; // is the timer turned on?
   public readonly gameVisibilityProperty: EnumerationProperty<GameVisibility>;
 
   // the current level, starts at 0 in the model, presented as starting from 1 in the view
@@ -84,7 +84,7 @@ export default class GameModel implements TModel {
     this.numberOfLevels = options.numberOfLevels;
     this.maxQuantity = options.maxQuantity;
 
-    this.timerEnabledProperty = new BooleanProperty( false ); // {boolean} is the timer turned on?
+    this.timerEnabledProperty = new BooleanProperty( false );
     this.gameVisibilityProperty = new EnumerationProperty( GameVisibility.SHOW_ALL );
 
     // read-only

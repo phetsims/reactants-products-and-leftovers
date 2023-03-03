@@ -50,8 +50,8 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
     } );
 
     // Properties that are specific to the view
-    const beforeExpandedProperty = new BooleanProperty( true ); // {boolean} is the Before box expanded?
-    const afterExpandedProperty = new BooleanProperty( true ); // {boolean} is the After box expanded
+    const beforeExpandedProperty = new BooleanProperty( true ); // is the Before box expanded?
+    const afterExpandedProperty = new BooleanProperty( true ); // is the After box expanded
 
     // Equation and reaction radio buttons at top of screen
     const reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, createEquationNode, {

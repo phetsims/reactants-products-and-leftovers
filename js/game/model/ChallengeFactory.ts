@@ -143,7 +143,7 @@ function createChallenges( level: number, maxQuantity: number, challengeOptions?
   for ( let i = 0; i < numberOfChallenges; i++ ) {
 
     // reaction with quantities
-    let reaction = null; // {Reaction}
+    let reaction: Reaction;
     if ( i === zeroProductsIndex ) {
       reaction = createChallengeWithoutProducts( factoryFunctions );
     }

@@ -46,7 +46,7 @@ type SelfOptions = {
   boxWidth?: number; // width of the Before and After boxes
   afterBoxXOffset?: number; // x-offset of left of After box, relative to left of Before box
   quantityRange?: Range; // range of spinners
-  hideNumbersBox?: boolean; // {boolean} should we include a 'hide box' to cover the static numbers?
+  hideNumbersBox?: boolean; // should we include a 'hide box' to cover the static numbers?
   minIconSize?: Dimension2; // minimum amount of layout space reserved for Substance icons
   showSymbols?: boolean; // whether to show symbols (eg, H2O) for the substances in the reactions
 };
@@ -86,13 +86,13 @@ export default class QuantitiesNode extends Node {
     const options = optionize<QuantitiesNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      interactiveBox: BoxType.BEFORE, // {BoxType} interactiveBox which box is interactive
-      boxWidth: 100, // {number} width of the Before and After boxes
-      afterBoxXOffset: 200, // {number} x-offset of left of After box, relative to left of Before box
-      quantityRange: RPALConstants.QUANTITY_RANGE, // {Range} range of spinners
-      hideNumbersBox: false,  // {boolean} should we include a 'hide box' to cover the static numbers?
+      interactiveBox: BoxType.BEFORE, // interactiveBox which box is interactive
+      boxWidth: 100, // width of the Before and After boxes
+      afterBoxXOffset: 200, // x-offset of left of After box, relative to left of Before box
+      quantityRange: RPALConstants.QUANTITY_RANGE, // range of spinners
+      hideNumbersBox: false,  // should we include a 'hide box' to cover the static numbers?
       minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons
-      showSymbols: true // {boolean} whether to show symbols (eg, H2O) for the substances in the reactions
+      showSymbols: true // whether to show symbols (eg, H2O) for the substances in the reactions
     }, providedOptions );
 
     // explicitly hoist reused vars
