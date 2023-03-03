@@ -40,6 +40,7 @@ export default class SandwichesEquationNode extends Node {
   /**
    * @param reaction the sandwich recipe (reaction) to display
    * @param maxSandwichSize dimensions of the largest sandwich
+   * @param visibleProperty
    */
   public constructor( reaction: SandwichRecipe, maxSandwichSize: Dimension2, visibleProperty: TReadOnlyProperty<boolean> ) {
 
