@@ -13,16 +13,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
 import Reaction, { ReactionOptions } from '../../common/model/Reaction.js';
 import Substance from '../../common/model/Substance.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichNode from '../view/SandwichNode.js';
-
-// used when the product is undefined, this can be any non-visible node with well-defined bounds
-const NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
 
 type SelfOptions = {
   coefficientsMutable?: boolean; // Can coefficients of the ingredients can be changed?
@@ -48,43 +45,22 @@ export default class SandwichRecipe extends Reaction {
       coefficientsMutable: false
     }, providedOptions );
 
-    // sandwich ingredients (symbols are internal for sandwiches, no i18n required)
-    const ingredients = [];
+    // Reactants: sandwich ingredients (symbols are internal for sandwiches, no i18n required)
     const bread = new Substance( breadCount, 'bread', SandwichNode.createBreadIcon() );
     const meat = new Substance( meatCount, 'meat', SandwichNode.createMeatIcon() );
     const cheese = new Substance( cheeseCount, 'cheese', SandwichNode.createCheeseIcon() );
-    if ( breadCount > 0 || options.coefficientsMutable ) { ingredients.push( bread ); }
-    if ( meatCount > 0 || options.coefficientsMutable ) { ingredients.push( meat ); }
-    if ( cheeseCount > 0 || options.coefficientsMutable ) { ingredients.push( cheese ); }
 
-    // sandwich image will be updated below
-    const sandwich = new Substance( 1, 'sandwich',
-      options.coefficientsMutable ? NO_SANDWICH_NODE : new SandwichNode( breadCount, meatCount, cheeseCount ) );
+    // Products: sandwich
+    const sandwich = new Substance( 1, 'sandwich', new SandwichNode( breadCount, meatCount, cheeseCount ) );
 
-    super( ingredients, [ sandwich ], { nameProperty: nameProperty } );
+    super( [ bread, meat, cheese ], [ sandwich ], { nameProperty: nameProperty } );
 
-    if ( options.coefficientsMutable ) {
-
-      // Update the sandwich image to match the coefficients.
-      const updateSandwichNode = () => {
-        if ( this.isReaction() ) {
-          sandwich.iconProperty.value =
-            new SandwichNode( bread.coefficientProperty.value, meat.coefficientProperty.value, cheese.coefficientProperty.value );
-        }
-        else {
-          sandwich.iconProperty.value = NO_SANDWICH_NODE;
-        }
-      };
-
-      ingredients.forEach( ingredient => {
-        // unlink is unnecessary because these properties exist for the lifetime of the simulation
-        ingredient.coefficientProperty.link( this.updateQuantities.bind( this ) );
-        ingredient.coefficientProperty.link( updateSandwichNode );
+    Multilink.multilink(
+      [ bread.coefficientProperty, meat.coefficientProperty, cheese.coefficientProperty ],
+      ( breadCoefficient, meatCoefficient, cheeseCoefficient ) => {
+        this.updateQuantities();
+        sandwich.iconProperty.value = new SandwichNode( breadCoefficient, meatCoefficient, cheeseCoefficient );
       } );
-    }
-    else {
-      assert && assert( this.isReaction() );
-    }
 
     this.sandwich = sandwich;
     this.coefficientsMutable = options.coefficientsMutable;
