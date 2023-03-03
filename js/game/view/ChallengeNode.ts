@@ -175,8 +175,6 @@ export default class ChallengeNode extends Node {
       maxWidth: 0.75 * options.boxSize.width // constrain width for i18n
     } );
     this.addChild( questionMark );
-    questionMark.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
-    // centerY is handled below
 
     // visible only until the user has entered a valid guess
     const checkButtonEnabledObserver = ( checkButtonEnabled: boolean ) => {
@@ -196,14 +194,6 @@ export default class ChallengeNode extends Node {
       maxTextWidth: 0.65 * options.boxSize.width
     } );
     this.addChild( buttons );
-
-    buttons.boundsProperty.link( () => {
-      buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
-      buttons.bottom = beforeBox.bottom - 15;
-    } );
-
-    // center question mark in negative space above buttons
-    questionMark.centerY = beforeBox.top + ( buttons.top - beforeBox.top ) / 2;
 
     //------------------------------------------------------------------------------------
     // Everything below the boxes
@@ -240,6 +230,22 @@ export default class ChallengeNode extends Node {
       } );
       this.addChild( hideMoleculesBox );
     }
+
+    //------------------------------------------------------------------------------------
+    // Dynamic layout
+    //------------------------------------------------------------------------------------
+
+    // Center buttons inside bottom of interactive box.
+    buttons.boundsProperty.link( () => {
+      buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
+      buttons.bottom = beforeBox.bottom - 15;
+    } );
+
+    // Center question mark in negative space above buttons.
+    Multilink.multilink( [ questionMark.boundsProperty, buttons.boundsProperty ], () => {
+      questionMark.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
+      questionMark.centerY = beforeBox.top + ( buttons.top - beforeBox.top ) / 2;
+    } );
 
     //------------------------------------------------------------------------------------
     // Observers
