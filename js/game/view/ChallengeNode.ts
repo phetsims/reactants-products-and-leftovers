@@ -99,7 +99,8 @@ export default class ChallengeNode extends Node {
     equationNode.left = challengeBounds.centerX - equationNode.arrowCenterX; // arrow at center of bounds
 
     // equations background
-    const equationBackground = new Rectangle( 0, 0, equationNode.width + 30, equationNode.height + 6, 3, 3, {
+    const equationBackground = new Rectangle( 0, 0, equationNode.width + 30, equationNode.height + 6, {
+      cornerRadius: 3,
       fill: 'white',
       stroke: 'black',
       center: equationNode.center

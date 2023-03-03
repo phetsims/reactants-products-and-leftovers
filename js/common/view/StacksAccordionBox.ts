@@ -94,7 +94,9 @@ export default class StacksAccordionBox extends AccordionBox {
     const content = new Node();
 
     // rectangle with no fill, this ensures constant size of the content
-    const rectangle = new Rectangle( 0, 0, options.contentSize.width, options.contentSize.height, options.cornerRadius, options.cornerRadius );
+    const rectangle = new Rectangle( 0, 0, options.contentSize.width, options.contentSize.height, {
+      cornerRadius: options.cornerRadius
+    } );
     content.addChild( rectangle );
 
     // compute max height of the nodes in the box

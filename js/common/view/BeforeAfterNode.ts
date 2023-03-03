@@ -93,7 +93,11 @@ export default class BeforeAfterNode extends Node {
       afterExpandedProperty, stacksAccordionBoxOptions );
 
     // Arrow between boxes
-    const arrowNode = new RightArrowNode( { fill: RPALColors.PANEL_FILL, stroke: null, scale: 0.75 } );
+    const arrowNode = new RightArrowNode( {
+      fill: RPALColors.PANEL_FILL,
+      stroke: null,
+      scale: 0.75
+    } );
 
     // layout of boxes and arrow
     const hBox = new HBox( {

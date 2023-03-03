@@ -36,9 +36,10 @@ export default class HideBox extends Node {
     }, providedOptions );
 
     // dashed box
-    const rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, options.cornerRadius, options.cornerRadius, {
+    const rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, {
+      cornerRadius: options.cornerRadius,
       fill: 'white',
-      stroke: 'rgb(180,180,180)',
+      stroke: 'rgb( 180, 180, 180 )',
       lineDash: [ 14, 14 ]
     } );
 
