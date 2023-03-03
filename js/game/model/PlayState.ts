@@ -21,6 +21,9 @@ export default class PlayState extends EnumerationValue {
   public static readonly NONE = new PlayState(); // use this value when game is not in the 'play' phase
 
   public static readonly enumeration = new Enumeration( PlayState );
+
+  // States where the user can change their guess via spinners.
+  public static readonly INTERACTIVE_STATES = [ PlayState.FIRST_CHECK, PlayState.TRY_AGAIN, PlayState.SECOND_CHECK ];
 }
 
 reactantsProductsAndLeftovers.register( 'PlayState', PlayState );

@@ -77,7 +77,6 @@ export default class ChallengeNode extends Node {
     const reaction = challenge.reaction;
     const guess = challenge.guess;
     const interactiveBox = challenge.interactiveBox;
-    assert && assert( interactiveBox === BoxType.BEFORE || interactiveBox === BoxType.AFTER );
 
     // which substances are visible depends on whether we're guessing 'Before' or 'After' quantities
     const reactants = ( interactiveBox === BoxType.BEFORE ) ? guess.reactants : reaction.reactants;
@@ -160,11 +159,23 @@ export default class ChallengeNode extends Node {
     } );
     this.addChild( afterBox );
 
+    const guessBox = ( interactiveBox === BoxType.BEFORE ) ? beforeBox : afterBox;
+    const answerBox = ( interactiveBox === BoxType.BEFORE ) ? afterBox : beforeBox;
+
     //------------------------------------------------------------------------------------
     // Face
     //------------------------------------------------------------------------------------
 
-    let faceNode: FaceWithPointsNode | null = null; // created on demand
+    const faceNode = new FaceWithPointsNode( {
+      visible: false,
+      faceDiameter: 150,
+      faceOpacity: 0.5,
+      pointsAlignment: 'rightCenter',
+      pointsFill: 'yellow',
+      pointsStroke: 'rgb(50,50,50)',
+      pointsOpacity: 0.65
+    } );
+    this.addChild( faceNode );
 
     //------------------------------------------------------------------------------------
     // Question mark
@@ -225,7 +236,7 @@ export default class ChallengeNode extends Node {
         boxSize: options.boxSize,
         iconHeight: 0.4 * options.boxSize.height,
         cornerRadius: 3,
-        left: ( interactiveBox === BoxType.BEFORE ) ? afterBox.left : beforeBox.left,
+        left: guessBox.left,
         bottom: beforeBox.bottom
       } );
       this.addChild( hideMoleculesBox );
@@ -237,14 +248,31 @@ export default class ChallengeNode extends Node {
 
     // Center buttons inside bottom of interactive box.
     buttons.boundsProperty.link( () => {
-      buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
-      buttons.bottom = beforeBox.bottom - 15;
+      buttons.centerX = guessBox.centerX;
+      buttons.bottom = guessBox.bottom - 15;
     } );
 
     // Center question mark in negative space above buttons.
-    Multilink.multilink( [ questionMark.boundsProperty, buttons.boundsProperty ], () => {
-      questionMark.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
-      questionMark.centerY = beforeBox.top + ( buttons.top - beforeBox.top ) / 2;
+    const questionMarkMultilink = Multilink.multilink( [ questionMark.boundsProperty, buttons.boundsProperty ],
+      ( questionMarkBounds, buttonBounds ) => {
+        questionMark.centerX = guessBox.centerX;
+        if ( buttonBounds.equals( Bounds2.NOTHING ) ) {
+          questionMark.centerY = guessBox.centerY;
+        }
+        else {
+          questionMark.centerY = guessBox.top + ( buttons.top - guessBox.top ) / 2;
+        }
+      } );
+
+    // Center face in negative space above buttons.
+    const faceNodeMultilink = Multilink.multilink( [ buttons.boundsProperty ], buttonBounds => {
+      faceNode.centerX = guessBox.centerX;
+      if ( buttonBounds.equals( Bounds2.NOTHING ) ) {
+        faceNode.centerY = guessBox.centerY;
+      }
+      else {
+        faceNode.centerY = guessBox.top + ( buttons.top - guessBox.top ) / 2;
+      }
     } );
 
     //------------------------------------------------------------------------------------
@@ -253,7 +281,7 @@ export default class ChallengeNode extends Node {
 
     // Move from "Try Again" to "Check" state when a quantity is changed, see reactants-products-and-leftovers#37.
     // Must be disposed.
-    const answerChangedLink = Multilink.lazyMultilinkAny( quantityProperties, () => {
+    const answerChangedMultilink = Multilink.lazyMultilinkAny( quantityProperties, () => {
       const playStateProperty = this.playStateProperty!;
       assert && assert( playStateProperty, 'playStateProperty should have been set by now.' );
       if ( playStateProperty.value === PlayState.TRY_AGAIN ) {
@@ -281,43 +309,21 @@ export default class ChallengeNode extends Node {
         }
       }
 
-      // create face on demand
-      if ( !faceNode && faceVisible ) {
-        faceNode = new FaceWithPointsNode( {
-          faceDiameter: 150,
-          faceOpacity: 0.5,
-          pointsAlignment: 'rightCenter',
-          pointsFill: 'yellow',
-          pointsStroke: 'rgb(50,50,50)',
-          pointsOpacity: 0.65
-        } );
-        this.addChild( faceNode );
-        // put it in the correct box
-        faceNode.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
-        faceNode.centerY = questionMark.centerY = beforeBox.top + ( buttons.top - beforeBox.top ) / 2;
-      }
-      if ( faceNode ) {
-        faceNode.setPoints( facePoints );
-        ( facePoints === 0 ) ? faceNode.frown() : faceNode.smile();
-        faceNode.visible = faceVisible;
-      }
+      // Update the face
+      faceNode.setPoints( facePoints );
+      ( facePoints === 0 ) ? faceNode.frown() : faceNode.smile();
+      faceNode.visible = faceVisible;
 
       // 'hide' boxes
       const hideBoxVisible = ( playState !== PlayState.NEXT );
       if ( hideMoleculesBox ) {
         hideMoleculesBox.visible = hideBoxVisible;
-        // also hide the Before/After box, so we don't see its stroke
-        if ( interactiveBox === BoxType.BEFORE ) {
-          afterBox.visible = !hideBoxVisible;
-        }
-        else {
-          beforeBox.visible = !hideBoxVisible;
-        }
+        answerBox.visible = !hideBoxVisible; // also hide the answer box, so we don't see its stroke
       }
       quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
 
       // switch between spinners and static numbers
-      quantitiesNode.setInteractive( _.includes( [ PlayState.FIRST_CHECK, PlayState.SECOND_CHECK, PlayState.TRY_AGAIN ], playState ) );
+      quantitiesNode.setInteractive( PlayState.INTERACTIVE_STATES.includes( playState ) );
     };
 
     //------------------------------------------------------------------------------------
@@ -338,22 +344,22 @@ export default class ChallengeNode extends Node {
 
     this.disposeChallengeNode = () => {
 
+      // Multilinks
+      questionMarkMultilink.dispose();
+      faceNodeMultilink.dispose();
+      answerChangedMultilink.dispose();
+
+      // Properties
+      this.checkButtonEnabledProperty.dispose();
       if ( this.playStateProperty ) {
         this.playStateProperty.unlink( playStateObserver );
       }
 
-      // buttons
+      // Nodes
+      questionMark.dispose();
       buttons.dispose();
-      this.checkButtonEnabledProperty.unlinkAll();
-      this.checkButtonEnabledProperty.dispose();
-      answerChangedLink.dispose();
-
-      // boxes
       beforeBox.dispose();
       afterBox.dispose();
-      questionMark.dispose();
-
-      // stuff below the boxes
       quantitiesNode.dispose();
     };
 
