@@ -73,7 +73,7 @@ export default class StacksAccordionBox extends AccordionBox {
         fill: RPALColors.PANEL_FILL
       },
       titleAlignX: 'center',
-      buttonAlign: 'right',
+      buttonAlign: 'left',
       contentXMargin: 0,
       contentYMargin: 0,
       contentYSpacing: 0
