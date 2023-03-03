@@ -45,17 +45,14 @@ export default class SandwichesEquationNode extends Node {
     // left-hand side is the sandwich ingredients
     const leftNode = new Node();
 
-    // hoist loop vars explicitly
-    let reactant;
-    let coefficientNode;
-    let iconNode;
     let plusNode;
     const numberOfReactants = reaction.reactants.length;
     for ( let i = 0; i < numberOfReactants; i++ ) {
 
-      reactant = reaction.reactants[ i ];
+      const reactant = reaction.reactants[ i ];
 
       // coefficient
+      let coefficientNode;
       if ( reaction.coefficientsMutable ) {
         coefficientNode = new NumberSpinner( reactant.coefficientProperty,
           new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE ), RPALConstants.NUMBER_SPINNER_OPTIONS );
@@ -67,7 +64,7 @@ export default class SandwichesEquationNode extends Node {
       leftNode.addChild( coefficientNode );
 
       // icon
-      iconNode = new SubstanceIcon( reactant.iconProperty, {
+      const iconNode = new SubstanceIcon( reactant.iconProperty, {
         left: coefficientNode.right + COEFFICIENT_X_SPACING,
         centerY: coefficientNode.centerY
       } );

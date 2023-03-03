@@ -83,20 +83,16 @@ function createTermsNode( terms: Substance[], font: PhetFont, fill: TColor, plus
   const parentNode = new Node();
   const numberOfTerms = terms.length;
 
-  // hoist loop vars explicitly
-  let coefficientNode;
-  let symbolNode;
   let plusNode;
-
   for ( let i = 0; i < numberOfTerms; i++ ) {
 
     // coefficient
-    coefficientNode = new Text( terms[ i ].coefficientProperty.value, { font: font, fill: fill } );
+    const coefficientNode = new Text( terms[ i ].coefficientProperty.value, { font: font, fill: fill } );
     coefficientNode.left = plusNode ? ( plusNode.right + plusXSpacing ) : 0;
     parentNode.addChild( coefficientNode );
 
     // molecule
-    symbolNode = new RichText( StringUtils.wrapLTR( terms[ i ].symbol ), { font: font, fill: fill } );
+    const symbolNode = new RichText( StringUtils.wrapLTR( terms[ i ].symbol ), { font: font, fill: fill } );
     symbolNode.left = coefficientNode.right + coefficientXSpacing;
     parentNode.addChild( symbolNode );
 
