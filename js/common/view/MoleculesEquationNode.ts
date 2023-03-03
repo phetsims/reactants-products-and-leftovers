@@ -7,6 +7,7 @@
  */
 
 import optionize from '../../../../phet-core/js/optionize.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import { Node, NodeOptions, NodeTranslationOptions, RichText, TColor, Text } from '../../../../scenery/js/imports.js';
@@ -95,7 +96,7 @@ function createTermsNode( terms: Substance[], font: PhetFont, fill: TColor, plus
     parentNode.addChild( coefficientNode );
 
     // molecule
-    symbolNode = new RichText( terms[ i ].symbol, { font: font, fill: fill } );
+    symbolNode = new RichText( StringUtils.wrapLTR( terms[ i ].symbol ), { font: font, fill: fill } );
     symbolNode.left = coefficientNode.right + coefficientXSpacing;
     parentNode.addChild( symbolNode );
 

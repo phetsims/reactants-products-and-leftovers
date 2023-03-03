@@ -12,6 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import BracketNode from '../../../../scenery-phet/js/BracketNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions, NodeTranslationOptions, RichText, Text } from '../../../../scenery/js/imports.js';
@@ -141,7 +142,7 @@ export default class QuantitiesNode extends Node {
 
       // symbol
       if ( options.showSymbols ) {
-        symbolNode = new RichText( reactant.symbol, { font: SYMBOL_FONT, centerX: centerX } );
+        symbolNode = new RichText( StringUtils.wrapLTR( reactant.symbol ), { font: SYMBOL_FONT, centerX: centerX } );
         reactantsParent.addChild( symbolNode );
         symbolNodes.push( symbolNode );
       }
