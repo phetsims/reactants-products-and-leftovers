@@ -10,10 +10,10 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
+import { VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
 import VegasStrings from '../../../../vegas/js/VegasStrings.js';
 import RPALColors from '../../common/RPALColors.js';
@@ -25,9 +25,9 @@ type SelfOptions = {
   maxTextWidth?: number;
 };
 
-type GameButtonOptions = SelfOptions & NodeTranslationOptions & PickOptional<NodeOptions, 'maxWidth'>;
+type GameButtonOptions = SelfOptions & PickOptional<VBoxOptions, 'maxWidth'>;
 
-export default class GameButtons extends Node {
+export default class GameButtons extends VBox {
 
   private playStateProperty: EnumerationProperty<PlayState> | null;
   private playStateObserver: ( ( playState: PlayState ) => void );
@@ -35,7 +35,7 @@ export default class GameButtons extends Node {
 
   public constructor( model: GameModel, checkButtonEnabledProperty: TReadOnlyProperty<boolean>, providedOptions?: GameButtonOptions ) {
 
-    const options = optionize<GameButtonOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<GameButtonOptions, SelfOptions, VBoxOptions>()( {
 
       // SelfOptions
       maxTextWidth: 100
@@ -51,10 +51,27 @@ export default class GameButtons extends Node {
       centerX: 0 // so that all buttons are center aligned
     };
 
-    // Check button is needed immediately. Create it so this node has well-defined bounds (needed for layout).
-    const checkButton = new TextPushButton( VegasStrings.checkStringProperty, textPushButtonOptions );
-    checkButton.addListener( () => model.check() );
-    options.children = [ checkButton ];
+    const checkButton = new TextPushButton( VegasStrings.checkStringProperty,
+      combineOptions<TextPushButtonOptions>( {
+        listener: () => model.check()
+      }, textPushButtonOptions ) );
+
+    const tryAgainButton = new TextPushButton( VegasStrings.tryAgainStringProperty,
+      combineOptions<TextPushButtonOptions>( {
+        listener: () => model.tryAgain()
+      }, textPushButtonOptions ) );
+
+    const showAnswerButton = new TextPushButton( VegasStrings.showAnswerStringProperty,
+      combineOptions<TextPushButtonOptions>( {
+        listener: () => model.showAnswer()
+      }, textPushButtonOptions ) );
+
+    const nextButton = new TextPushButton( VegasStrings.nextStringProperty,
+      combineOptions<TextPushButtonOptions>( {
+        listener: () => model.next()
+      }, textPushButtonOptions ) );
+
+    options.children = [ checkButton, tryAgainButton, showAnswerButton, nextButton ];
 
     super( options );
 
@@ -64,33 +81,8 @@ export default class GameButtons extends Node {
     };
     checkButtonEnabledProperty.link( checkButtonEnabledObserver ); // must be unlinked in dispose
 
-    // other buttons, created on demand
-    let tryAgainButton: TextPushButton;
-    let showAnswerButton: TextPushButton;
-    let nextButton: TextPushButton;
-
+    // Show the button that corresponds to the PlayState.
     const playStateObserver = ( state: PlayState ) => {
-
-      // create buttons on demand
-      if ( !tryAgainButton && state === PlayState.TRY_AGAIN ) {
-        tryAgainButton = new TextPushButton( VegasStrings.tryAgainStringProperty, textPushButtonOptions );
-        this.addChild( tryAgainButton );
-        tryAgainButton.addListener( () => model.tryAgain() );
-      }
-
-      if ( !showAnswerButton && state === PlayState.SHOW_ANSWER ) {
-        showAnswerButton = new TextPushButton( VegasStrings.showAnswerStringProperty, textPushButtonOptions );
-        this.addChild( showAnswerButton );
-        showAnswerButton.addListener( () => model.showAnswer() );
-      }
-
-      if ( !nextButton && state === PlayState.NEXT ) {
-        nextButton = new TextPushButton( VegasStrings.nextStringProperty, textPushButtonOptions );
-        this.addChild( nextButton );
-        nextButton.addListener( () => model.next() );
-      }
-
-      // make the proper button visible for the {PlayState} state
       checkButton && ( checkButton.visible = ( state === PlayState.FIRST_CHECK || state === PlayState.SECOND_CHECK ) );
       tryAgainButton && ( tryAgainButton.visible = ( state === PlayState.TRY_AGAIN ) );
       showAnswerButton && ( showAnswerButton.visible = ( state === PlayState.SHOW_ANSWER ) );
@@ -98,6 +90,10 @@ export default class GameButtons extends Node {
     };
 
     this.disposeGameButtons = () => {
+      checkButton.dispose();
+      tryAgainButton.dispose();
+      showAnswerButton.dispose();
+      nextButton.dispose();
       if ( checkButtonEnabledProperty.hasListener( checkButtonEnabledObserver ) ) {
         checkButtonEnabledProperty.unlink( checkButtonEnabledObserver );
       }

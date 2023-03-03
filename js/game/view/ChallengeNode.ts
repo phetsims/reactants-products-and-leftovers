@@ -197,11 +197,14 @@ export default class ChallengeNode extends Node {
     //------------------------------------------------------------------------------------
 
     const buttons = new GameButtons( model, this.checkButtonEnabledProperty, {
-      maxTextWidth: 0.65 * options.boxSize.width,
-      centerX: ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX,
-      bottom: beforeBox.bottom - 15
+      maxTextWidth: 0.65 * options.boxSize.width
     } );
     this.addChild( buttons );
+
+    buttons.boundsProperty.link( () => {
+      buttons.centerX = ( interactiveBox === BoxType.BEFORE ) ? beforeBox.centerX : afterBox.centerX;
+      buttons.bottom = beforeBox.bottom - 15;
+    } );
 
     // center question mark in negative space above buttons
     questionMark.centerY = beforeBox.top + ( buttons.top - beforeBox.top ) / 2;
