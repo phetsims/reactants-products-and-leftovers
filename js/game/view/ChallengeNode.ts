@@ -228,17 +228,14 @@ export default class ChallengeNode extends Node {
     // Optional 'Hide molecules' box, on top of the answer box.
     //------------------------------------------------------------------------------------
 
-    let hideMoleculesBox: HideBox | null = null;
-    if ( !challenge.moleculesVisible ) {
-      hideMoleculesBox = new HideBox( {
-        boxSize: options.boxSize,
-        iconHeight: 0.4 * options.boxSize.height,
-        cornerRadius: 3,
-        left: answerBox.left,
-        bottom: answerBox.bottom
-      } );
-      this.addChild( hideMoleculesBox );
-    }
+    const hideMoleculesBox = new HideBox( {
+      boxSize: options.boxSize,
+      iconHeight: 0.4 * options.boxSize.height,
+      cornerRadius: 3,
+      left: answerBox.left,
+      bottom: answerBox.bottom
+    } );
+    this.addChild( hideMoleculesBox );
 
     //------------------------------------------------------------------------------------
     // Dynamic layout
@@ -311,12 +308,9 @@ export default class ChallengeNode extends Node {
       faceNode.visible = faceVisible;
 
       // 'hide' boxes
-      const hideBoxVisible = ( playState !== PlayState.NEXT );
-      if ( hideMoleculesBox ) {
-        hideMoleculesBox.visible = hideBoxVisible;
-        answerBox.visible = !hideBoxVisible; // also hide the answer box, so we don't see its stroke
-      }
-      quantitiesNode.setHideNumbersBoxVisible( hideBoxVisible );
+      hideMoleculesBox.visible = ( playState !== PlayState.NEXT ) && !challenge.moleculesVisible;
+      answerBox.visible = !hideMoleculesBox.visible; // also hide the answer box, so we don't see its stroke
+      quantitiesNode.setHideNumbersBoxVisible( ( playState !== PlayState.NEXT ) && !challenge.numbersVisible );
 
       // switch between spinners and static numbers
       quantitiesNode.setInteractive( PlayState.INTERACTIVE_STATES.includes( playState ) );

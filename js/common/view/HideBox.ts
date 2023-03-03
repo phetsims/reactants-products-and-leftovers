@@ -9,6 +9,7 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { Node, NodeOptions, NodeTranslationOptions, Path, Rectangle } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
@@ -21,7 +22,7 @@ type SelfOptions = {
   cornerRadius?: number;
 };
 
-type HideBoxOptions = SelfOptions & NodeTranslationOptions;
+type HideBoxOptions = SelfOptions & NodeTranslationOptions & PickOptional<NodeOptions, 'visible'>;
 
 export default class HideBox extends Node {
 

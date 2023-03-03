@@ -65,7 +65,7 @@ export default class QuantitiesNode extends Node {
   private readonly reactantsParent: Node; // reactants, below the 'Before' box
   private readonly productsParent: Node; // products, below the 'After' box
   private readonly leftoversParent: Node; // leftovers, below the 'After' box, to the right of the products
-  private readonly hideNumbersBox?: Node; // optional 'Hide numbers' box, to hide static quantities
+  private readonly hideNumbersBox: Node; // 'Hide numbers' box, to hide static quantities
 
   private readonly disposeQuantitiesNode: () => void;
 
@@ -303,23 +303,21 @@ export default class QuantitiesNode extends Node {
       top: bracketsTop
     } );
 
+    // 'Hide numbers' box on top of the static quantities
+    const hideNumbersBox = new HideBox( {
+      visible: options.hideNumbersBox,
+      boxSize: new Dimension2( options.boxWidth, spinnerHeight ),
+      iconHeight: 0.65 * spinnerHeight,
+      cornerRadius: 3,
+      left: ( options.interactiveBox === BoxType.BEFORE ) ? options.afterBoxXOffset : 0,
+      centerY: spinnerNodes[ 0 ].centerY
+    } );
+
     options.children = [
       reactantsParent, productsParent, leftoversParent,
-      reactantsBracket, productsBracket, leftoversBracket
+      reactantsBracket, productsBracket, leftoversBracket,
+      hideNumbersBox
     ];
-
-    // Optional 'Hide numbers' box on top of the static quantities
-    let hideNumbersBox;
-    if ( options.hideNumbersBox ) {
-      hideNumbersBox = new HideBox( {
-        boxSize: new Dimension2( options.boxWidth, spinnerHeight ),
-        iconHeight: 0.65 * spinnerHeight,
-        cornerRadius: 3,
-        left: ( options.interactiveBox === BoxType.BEFORE ) ? options.afterBoxXOffset : 0,
-        centerY: spinnerNodes[ 0 ].centerY
-      } );
-      options.children.push( hideNumbersBox );
-    }
 
     super( options );
 
@@ -426,9 +424,7 @@ export default class QuantitiesNode extends Node {
    * Changes visibility of the 'Hide numbers' box.
    */
   public setHideNumbersBoxVisible( visible: boolean ): void {
-    if ( this.hideNumbersBox ) {
-      this.hideNumbersBox.visible = visible;
-    }
+    this.hideNumbersBox.visible = visible;
   }
 
   /**
