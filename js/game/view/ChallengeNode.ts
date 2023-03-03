@@ -225,7 +225,7 @@ export default class ChallengeNode extends Node {
     this.addChild( quantitiesNode );
 
     //------------------------------------------------------------------------------------
-    // Optional 'Hide molecules' box on top of Before or After box
+    // Optional 'Hide molecules' box, on top of the answer box.
     //------------------------------------------------------------------------------------
 
     let hideMoleculesBox: HideBox | null = null;
@@ -234,8 +234,8 @@ export default class ChallengeNode extends Node {
         boxSize: options.boxSize,
         iconHeight: 0.4 * options.boxSize.height,
         cornerRadius: 3,
-        left: guessBox.left,
-        bottom: beforeBox.bottom
+        left: answerBox.left,
+        bottom: answerBox.bottom
       } );
       this.addChild( hideMoleculesBox );
     }
