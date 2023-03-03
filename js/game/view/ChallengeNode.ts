@@ -10,7 +10,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
@@ -114,7 +113,7 @@ export default class ChallengeNode extends Node {
     //------------------------------------------------------------------------------------
 
     // Check button is disabled if all guessable quantities are zero
-    const quantityProperties: Property<number>[] = [];
+    const quantityProperties: TReadOnlyProperty<number>[] = [];
     if ( interactiveBox === BoxType.BEFORE ) {
       guess.reactants.forEach( reactant => quantityProperties.push( reactant.quantityProperty ) );
     }
