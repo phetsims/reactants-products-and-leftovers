@@ -36,16 +36,11 @@ const ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
 
 export default class SandwichesEquationNode extends Node {
 
-  private readonly disposeSandwichesEquationNode: () => void;
-
   /**
    * @param reaction the sandwich recipe (reaction) to display
    * @param maxSandwichSize dimensions of the largest sandwich
    */
   public constructor( reaction: SandwichRecipe, maxSandwichSize: Dimension2 ) {
-
-    const coefficientNodes: Node[] = [];
-    const iconNodes: Node[] = [];
 
     // left-hand side is the sandwich ingredients
     const leftNode = new Node();
@@ -64,7 +59,6 @@ export default class SandwichesEquationNode extends Node {
       if ( reaction.coefficientsMutable ) {
         coefficientNode = new NumberSpinner( reactant.coefficientProperty,
           new Property( RPALConstants.SANDWICH_COEFFICIENT_RANGE ), RPALConstants.NUMBER_SPINNER_OPTIONS );
-        coefficientNodes.push( coefficientNode );
       }
       else {
         coefficientNode = new Text( reactant.coefficientProperty.value, TEXT_OPTIONS );
@@ -78,7 +72,6 @@ export default class SandwichesEquationNode extends Node {
         centerY: coefficientNode.centerY
       } );
       leftNode.addChild( iconNode );
-      iconNodes.push( iconNode );
 
       // plus sign between reactants
       if ( i < numberOfReactants - 1 ) {
@@ -102,7 +95,6 @@ export default class SandwichesEquationNode extends Node {
       centerX: arrowNode.right + ARROW_X_SPACING + ( maxSandwichSize.width / 2 ),
       centerY: arrowNode.centerY
     } );
-    iconNodes.push( sandwichNode );
 
     // 'No Reaction', max width determined empirically.
     const noReactionStringProperty = new DerivedProperty( [ ReactantsProductsAndLeftoversStrings.noReactionStringProperty ],
@@ -129,19 +121,10 @@ export default class SandwichesEquationNode extends Node {
       noReactionNode.visible = !sandwichNode.visible;
     };
     reaction.sandwich.iconProperty.link( sandwichIconPropertyObserver );
-
-    this.disposeSandwichesEquationNode = () => {
-      noReactionNode.dispose();
-      coefficientNodes.forEach( node => node.dispose() );
-      iconNodes.forEach( node => node.dispose() );
-      if ( reaction.sandwich.iconProperty.hasListener( sandwichIconPropertyObserver ) ) {
-        reaction.sandwich.iconProperty.unlink( sandwichIconPropertyObserver );
-      }
-    };
   }
 
   public override dispose(): void {
-    this.disposeSandwichesEquationNode();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }
