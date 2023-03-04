@@ -9,7 +9,6 @@
 import { Color } from '../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
-// constants
 const DARK_BLUE = new Color( 51, 118, 196 );
 
 const RPALColors = {

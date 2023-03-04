@@ -24,7 +24,6 @@ import RPALLevelSelectionButtonGroup from './RPALLevelSelectionButtonGroup.js';
 import GameVisibilityPanel from './GameVisibilityPanel.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 
-// constants
 const SCREEN_X_MARGIN = 40;
 const SCREEN_Y_MARGIN = 40;
 

@@ -27,7 +27,7 @@ import HideBox from './HideBox.js';
 import NumberNode from './NumberNode.js';
 import SubstanceIcon from './SubstanceIcon.js';
 
-// constants
+const NUMBER_SPINNER_OPTIONS = RPALConstants.NUMBER_SPINNER_OPTIONS;
 const QUANTITY_FONT = new PhetFont( 28 ); // font for the quantities that appear below the boxes
 const SYMBOL_FONT = new PhetFont( 16 ); // font for the symbols that appear below the boxes
 const QUANTITY_IMAGE_Y_SPACING = 4; // vertical space between quantity and image
@@ -39,7 +39,6 @@ const BRACKET_LABEL_OPTIONS = {
   fill: 'black',
   maxWidth: 140 // maximum width of bracket labels, determined empirically
 };
-const NUMBER_SPINNER_OPTIONS = RPALConstants.NUMBER_SPINNER_OPTIONS;
 
 type SelfOptions = {
   interactiveBox?: BoxType; // which box is interactive (Before or After)

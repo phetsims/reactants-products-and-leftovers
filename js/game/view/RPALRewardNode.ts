@@ -54,8 +54,7 @@ import RewardNode from '../../../../vegas/js/RewardNode.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichNode from '../../sandwiches/view/SandwichNode.js';
 
-// constants
-const NUMBER_OF_NODES = 100;
+const NUMBER_OF_NODES = 100; // number of Nodes for each reward
 
 // constructors for all molecules & atoms that appear in reactions, to appear in Level 1 reward
 const MOLECULE_NODE_CONSTRUCTORS = [

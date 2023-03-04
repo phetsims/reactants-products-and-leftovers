@@ -23,12 +23,11 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import GameModel from '../model/GameModel.js';
 
-// constants
+const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 const QUESTION_MARK_OPTIONS = {
   font: new PhetFont( { size: 70, weight: 'bold' } ),
   maxWidth: 100
 };
-const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 
 type SelfOptions = EmptySelfOptions;
 

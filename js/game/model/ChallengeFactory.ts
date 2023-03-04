@@ -28,7 +28,6 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import Challenge, { ChallengeOptions } from './Challenge.js';
 import Reaction from '../../common/model/Reaction.js';
 
-// constants
 const CHALLENGES_PER_LEVEL = 5;
 
 type FactoryFunction = () => Reaction;

@@ -44,7 +44,6 @@ import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import RPALConstants from '../RPALConstants.js';
 
-// constants
 const OPTIONS = RPALConstants.MOLECULE_NODE_OPTIONS;
 
 const MoleculeNodes = {

@@ -22,7 +22,6 @@ import GamePhase from './GamePhase.js';
 import GameVisibility from './GameVisibility.js';
 import PlayState from './PlayState.js';
 
-// constants
 const POINTS_FIRST_CHECK = 2;
 const POINTS_SECOND_CHECK = 1;
 

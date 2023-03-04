@@ -21,7 +21,6 @@ import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import ChallengeNode from './ChallengeNode.js';
 
-// constants
 const STATUS_BAR_FONT = new PhetFont( 16 );
 const STATUS_BAR_TEXT_FILL = 'white';
 

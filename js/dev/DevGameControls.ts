@@ -9,12 +9,11 @@
 import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { HBox, HBoxOptions, NodeTranslationOptions } from '../../../scenery/js/imports.js';
-import TextPushButton from '../../../sun/js/buttons/TextPushButton.js';
+import TextPushButton, { TextPushButtonOptions } from '../../../sun/js/buttons/TextPushButton.js';
 import GameModel from '../game/model/GameModel.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
-// constants
-const BUTTON_OPTIONS = {
+const TEXT_PUSH_BUTTON_OPTIONS: TextPushButtonOptions = {
   font: new PhetFont( 10 ),
   baseColor: 'red',
   textFill: 'white'
@@ -35,11 +34,11 @@ export default class DevGameControls extends HBox {
     }, providedOptions );
 
     // replays the current challenge
-    const replayButton = new TextPushButton( '<', BUTTON_OPTIONS );
+    const replayButton = new TextPushButton( '<', TEXT_PUSH_BUTTON_OPTIONS );
     replayButton.addListener( () => model.replayCurrentChallenge() );
 
     // skips the current challenge
-    const skipButton = new TextPushButton( '>', BUTTON_OPTIONS );
+    const skipButton = new TextPushButton( '>', TEXT_PUSH_BUTTON_OPTIONS );
     skipButton.addListener( () => model.skipCurrentChallenge() );
 
     options.children = [ replayButton, skipButton ];

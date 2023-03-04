@@ -18,7 +18,6 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 
-// constants
 const MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
 const DEFAULT_CONTENT_SIZE = new Dimension2( 100, 100 );
 const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );

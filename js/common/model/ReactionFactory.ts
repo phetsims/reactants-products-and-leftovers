@@ -52,7 +52,6 @@ import RPALSymbols from '../RPALSymbols.js';
 import Reaction from './Reaction.js';
 import Substance from './Substance.js';
 
-// constants
 const MOLECULE_NODE_OPTIONS = RPALConstants.MOLECULE_NODE_OPTIONS; // to improve readability
 
 const ReactionFactory = {
