@@ -16,7 +16,6 @@ import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import RPALRewardNode from './RPALRewardNode.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
-import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 
 export default class ResultsNode extends Node {
 
@@ -61,7 +60,6 @@ export default class ResultsNode extends Node {
           () => model.settings(),
           {
             starDiameter: 45,
-            buttonFill: PhetColorScheme.BUTTON_YELLOW,
             centerX: layoutBounds.centerX,
             centerY: layoutBounds.centerY
           } ) );
