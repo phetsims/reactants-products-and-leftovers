@@ -94,7 +94,7 @@ export default class BeforeAfterNode extends Node {
 
     // Arrow between boxes
     const arrowNode = new RightArrowNode( {
-      fill: RPALColors.PANEL_FILL,
+      fill: RPALColors.STATUS_BAR_FILL,
       stroke: null,
       scale: 0.75
     } );

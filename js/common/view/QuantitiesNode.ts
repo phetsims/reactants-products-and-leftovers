@@ -275,7 +275,7 @@ export default class QuantitiesNode extends Node {
     // 'Reactants' bracket
     const reactantsLabel = new Text( ReactantsProductsAndLeftoversStrings.reactantsStringProperty, BRACKET_TEXT_OPTIONS );
     const reactantsBracket = new BracketNode( {
-      bracketStroke: RPALColors.PANEL_FILL,
+      bracketStroke: RPALColors.BRACKET_NODE_STROKE,
       labelNode: reactantsLabel,
       bracketLength: Math.max( options.minIconSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: reactantsParent.centerX,
@@ -285,7 +285,7 @@ export default class QuantitiesNode extends Node {
     // 'Products' bracket
     const productsLabel = new Text( ReactantsProductsAndLeftoversStrings.productsStringProperty, BRACKET_TEXT_OPTIONS );
     const productsBracket = new BracketNode( {
-      bracketStroke: RPALColors.PANEL_FILL,
+      bracketStroke: RPALColors.BRACKET_NODE_STROKE,
       labelNode: productsLabel,
       bracketLength: Math.max( options.minIconSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: productsParent.centerX,
@@ -295,7 +295,7 @@ export default class QuantitiesNode extends Node {
     // 'Leftovers' bracket
     const leftoversLabel = new Text( ReactantsProductsAndLeftoversStrings.leftoversStringProperty, BRACKET_TEXT_OPTIONS );
     const leftoversBracket = new BracketNode( {
-      bracketStroke: RPALColors.PANEL_FILL,
+      bracketStroke: RPALColors.BRACKET_NODE_STROKE,
       labelNode: leftoversLabel,
       bracketLength: Math.max( options.minIconSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: leftoversParent.centerX,

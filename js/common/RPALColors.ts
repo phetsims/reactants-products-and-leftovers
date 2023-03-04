@@ -14,7 +14,8 @@ const DARK_BLUE = new Color( 51, 118, 196 );
 
 const RPALColors = {
   SCREEN_BACKGROUND: 'rgb( 218, 236, 255 )',
-  PANEL_FILL: DARK_BLUE,
+  STATUS_BAR_FILL: DARK_BLUE,
+  BRACKET_NODE_STROKE: DARK_BLUE,
   BOX_STROKE: DARK_BLUE.withAlpha( 0.3 ),
   BOX_FILL: 'white',
   GAME_BUTTON: PhetColorScheme.BUTTON_YELLOW

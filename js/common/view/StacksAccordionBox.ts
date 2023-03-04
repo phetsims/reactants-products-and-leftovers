@@ -69,7 +69,7 @@ export default class StacksAccordionBox extends AccordionBox {
         touchAreaYDilation: 10
       },
       titleBarOptions: {
-        fill: RPALColors.PANEL_FILL
+        fill: RPALColors.STATUS_BAR_FILL
       },
       titleAlignX: 'center',
       buttonAlign: 'left',
