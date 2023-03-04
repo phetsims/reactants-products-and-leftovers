@@ -45,7 +45,7 @@ export default class MoleculesEquationNode extends Node {
     }, providedOptions );
 
     // left-hand side (reactants)
-    const reactantsNode = createTermsNode( reaction.reactants, options.font, options.fill, options.plusXSpacing, options.coefficientXSpacing );
+    const reactantsNode = new ExpressionNode( reaction.reactants, options.font, options.fill, options.plusXSpacing, options.coefficientXSpacing );
 
     const coefficientHeight = new Text( '1', { font: options.font, fill: options.fill } ).height;
 
@@ -59,7 +59,7 @@ export default class MoleculesEquationNode extends Node {
     } );
 
     // right-hand side (products)
-    const productsNode = createTermsNode( reaction.products, options.font, options.fill, options.plusXSpacing, options.coefficientXSpacing );
+    const productsNode = new ExpressionNode( reaction.products, options.font, options.fill, options.plusXSpacing, options.coefficientXSpacing );
     productsNode.left = arrowNode.right + options.arrowXSpacing;
 
     options.children = [ reactantsNode, arrowNode, productsNode ];
@@ -76,42 +76,46 @@ export default class MoleculesEquationNode extends Node {
 }
 
 /**
- * Creates terms for equation.
+ * ExpressionNode is one side of a reaction equation.
  */
-function createTermsNode( terms: Substance[], font: PhetFont, fill: TColor, plusXSpacing: number, coefficientXSpacing: number ): Node {
-  assert && assert( terms.length > 0 );
+class ExpressionNode extends Node {
 
-  const parentNode = new Node();
-  const numberOfTerms = terms.length;
+  public constructor( terms: Substance[], font: PhetFont, fill: TColor, plusXSpacing: number, coefficientXSpacing: number ) {
 
-  const textOptions = {
-    font: font,
-    fill: fill
-  };
+    const textOptions = {
+      font: font,
+      fill: fill
+    };
 
-  let plusNode;
-  for ( let i = 0; i < numberOfTerms; i++ ) {
+    const children: Node[] = [];
 
-    // coefficient
-    const coefficientNode = new Text( terms[ i ].coefficientProperty.value, textOptions );
-    coefficientNode.left = plusNode ? ( plusNode.right + plusXSpacing ) : 0;
-    parentNode.addChild( coefficientNode );
+    let plusNode;
+    const numberOfTerms = terms.length;
+    for ( let i = 0; i < numberOfTerms; i++ ) {
 
-    // molecule
-    const symbolNode = new RichText( StringUtils.wrapLTR( terms[ i ].symbol ), textOptions );
-    symbolNode.left = coefficientNode.right + coefficientXSpacing;
-    parentNode.addChild( symbolNode );
+      // coefficient
+      const coefficientNode = new Text( terms[ i ].coefficientProperty.value, textOptions );
+      coefficientNode.left = plusNode ? ( plusNode.right + plusXSpacing ) : 0;
+      children.push( coefficientNode );
 
-    // plus sign between terms
-    if ( i < numberOfTerms - 1 ) {
-      plusNode = new PlusNode( { fill: fill } );
-      plusNode.left = symbolNode.right + plusXSpacing;
-      plusNode.centerY = coefficientNode.centerY;
-      parentNode.addChild( plusNode );
+      // molecule
+      const symbolNode = new RichText( StringUtils.wrapLTR( terms[ i ].symbol ), textOptions );
+      symbolNode.left = coefficientNode.right + coefficientXSpacing;
+      children.push( symbolNode );
+
+      // plus sign between terms
+      if ( i < numberOfTerms - 1 ) {
+        plusNode = new PlusNode( { fill: fill } );
+        plusNode.left = symbolNode.right + plusXSpacing;
+        plusNode.centerY = coefficientNode.centerY;
+        children.push( plusNode );
+      }
     }
-  }
 
-  return parentNode;
+    super( {
+      children: children
+    } );
+  }
 }
 
 reactantsProductsAndLeftovers.register( 'MoleculesEquationNode', MoleculesEquationNode );
