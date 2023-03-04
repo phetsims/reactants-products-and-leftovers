@@ -34,7 +34,7 @@ const QUANTITY_IMAGE_Y_SPACING = 4; // vertical space between quantity and image
 const IMAGE_SYMBOL_Y_SPACING = 2; // vertical space between image and symbol
 const BRACKET_Y_SPACING = 1; // vertical space between the brackets and whatever is directly above it
 const BRACKET_X_MARGIN = 6; // amount that brackets extend beyond the things they bracket
-const BRACKET_LABEL_OPTIONS = {
+const BRACKET_TEXT_OPTIONS = {
   font: new PhetFont( 12 ),
   fill: 'black',
   maxWidth: 140 // maximum width of bracket labels, determined empirically
@@ -273,7 +273,7 @@ export default class QuantitiesNode extends Node {
     }
 
     // 'Reactants' bracket
-    const reactantsLabel = new Text( ReactantsProductsAndLeftoversStrings.reactantsStringProperty, BRACKET_LABEL_OPTIONS );
+    const reactantsLabel = new Text( ReactantsProductsAndLeftoversStrings.reactantsStringProperty, BRACKET_TEXT_OPTIONS );
     const reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: reactantsLabel,
@@ -283,7 +283,7 @@ export default class QuantitiesNode extends Node {
     } );
 
     // 'Products' bracket
-    const productsLabel = new Text( ReactantsProductsAndLeftoversStrings.productsStringProperty, BRACKET_LABEL_OPTIONS );
+    const productsLabel = new Text( ReactantsProductsAndLeftoversStrings.productsStringProperty, BRACKET_TEXT_OPTIONS );
     const productsBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: productsLabel,
@@ -293,7 +293,7 @@ export default class QuantitiesNode extends Node {
     } );
 
     // 'Leftovers' bracket
-    const leftoversLabel = new Text( ReactantsProductsAndLeftoversStrings.leftoversStringProperty, BRACKET_LABEL_OPTIONS );
+    const leftoversLabel = new Text( ReactantsProductsAndLeftoversStrings.leftoversStringProperty, BRACKET_TEXT_OPTIONS );
     const leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.PANEL_FILL,
       labelNode: leftoversLabel,

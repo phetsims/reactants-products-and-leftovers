@@ -11,7 +11,7 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../kite/js/imports.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
-import { HBox, Node, Path, Rectangle, VBox } from '../../../scenery/js/imports.js';
+import { HBox, Node, Path, PathOptions, Rectangle, VBox } from '../../../scenery/js/imports.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
@@ -51,7 +51,7 @@ function createIcon(): ScreenIcon {
   const faceNode = new FaceNode( 200, { headStroke: 'black', headLineWidth: 4 } );
 
   // up/down arrows
-  const ARROW_OPTIONS = { fill: 'black' };
+  const ARROW_OPTIONS: PathOptions = { fill: 'black' };
   const ARROW_SIZE = 0.4 * faceNode.height;
   const upArrowNode = new Path( new Shape()
       // clockwise from tip

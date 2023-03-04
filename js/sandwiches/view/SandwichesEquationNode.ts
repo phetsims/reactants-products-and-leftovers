@@ -18,11 +18,11 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import MultiLineText from '../../../../scenery-phet/js/MultiLineText.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
-import { Node, RichText, Text } from '../../../../scenery/js/imports.js';
+import PlusNode, { PlusNodeOptions } from '../../../../scenery-phet/js/PlusNode.js';
+import { Node, RichText, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import RPALConstants from '../../common/RPALConstants.js';
-import RightArrowNode from '../../common/view/RightArrowNode.js';
+import RightArrowNode, { RightArrowNodeOptions } from '../../common/view/RightArrowNode.js';
 import SubstanceIcon from '../../common/view/SubstanceIcon.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
@@ -31,9 +31,16 @@ import SandwichRecipe from '../model/SandwichRecipe.js';
 const COEFFICIENT_X_SPACING = 8; // space between coefficient and node to its right
 const PLUS_X_SPACING = 15; // space on both sides of the plus signs
 const ARROW_X_SPACING = 15; // space on both sides of arrow
-const TEXT_OPTIONS = { font: new PhetFont( 28 ), fill: 'white' };
-const PLUS_OPTIONS = { fill: 'white' };
-const ARROW_OPTIONS = { fill: 'white', stroke: null, scale: 0.65 };
+const TEXT_OPTIONS: TextOptions = {
+  font: new PhetFont( 28 ),
+  fill: 'white'
+};
+const PLUS_NODE_OPTIONS: PlusNodeOptions = { fill: 'white' };
+const RIGHT_ARROW_NODE_OPTIONS: RightArrowNodeOptions = {
+  fill: 'white',
+  stroke: null,
+  scale: 0.65
+};
 
 export default class SandwichesEquationNode extends Node {
 
@@ -74,7 +81,7 @@ export default class SandwichesEquationNode extends Node {
 
       // plus sign between reactants
       if ( i < numberOfReactants - 1 ) {
-        plusNode = new PlusNode( PLUS_OPTIONS );
+        plusNode = new PlusNode( PLUS_NODE_OPTIONS );
         plusNode.left = iconNode.right + PLUS_X_SPACING;
         plusNode.centerY = coefficientNode.centerY;
         leftNode.addChild( plusNode );
@@ -82,7 +89,7 @@ export default class SandwichesEquationNode extends Node {
     }
 
     // right arrow
-    const arrowNode = new RightArrowNode( ARROW_OPTIONS );
+    const arrowNode = new RightArrowNode( RIGHT_ARROW_NODE_OPTIONS );
     arrowNode.left = leftNode.right + ARROW_X_SPACING;
     arrowNode.centerY = leftNode.centerY;
 

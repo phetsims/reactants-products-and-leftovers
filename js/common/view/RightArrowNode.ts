@@ -16,7 +16,7 @@ type SelfOptions = {
   length?: number;
 };
 
-type RightArrowNodeOptions = SelfOptions & NodeTranslationOptions &
+export type RightArrowNodeOptions = SelfOptions & NodeTranslationOptions &
   PickOptional<ArrowNodeOptions, 'fill' | 'stroke' | 'scale'>;
 
 export default class RightArrowNode extends ArrowNode {

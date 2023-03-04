@@ -11,7 +11,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { AlignBox, AlignBoxOptions, AlignGroup, HBox, Node, Path, Text } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignBoxOptions, AlignGroup, HBox, Node, Path, PathOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
@@ -21,11 +21,11 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import GameVisibility from '../model/GameVisibility.js';
 
-const TEXT_OPTIONS = {
+const TEXT_OPTIONS: TextOptions = {
   font: new PhetFont( 14 ),
   maxWidth: 350
 };
-const FONT_AWESOME_OPTIONS = {
+const FONT_AWESOME_OPTIONS: PathOptions = {
   scale: 0.04,
   fill: 'black'
 };
