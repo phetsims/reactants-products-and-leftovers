@@ -11,12 +11,12 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
-import RPALColors from '../../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import RPALRewardNode from './RPALRewardNode.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
+import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 
 export default class ResultsNode extends Node {
 
@@ -61,7 +61,7 @@ export default class ResultsNode extends Node {
           () => model.settings(),
           {
             starDiameter: 45,
-            buttonFill: RPALColors.GAME_BUTTON,
+            buttonFill: PhetColorScheme.BUTTON_YELLOW,
             centerX: layoutBounds.centerX,
             centerY: layoutBounds.centerY
           } ) );

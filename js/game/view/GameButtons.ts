@@ -11,11 +11,11 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
 import VegasStrings from '../../../../vegas/js/VegasStrings.js';
-import RPALColors from '../../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameModel from '../model/GameModel.js';
 import PlayState from '../model/PlayState.js';
@@ -41,7 +41,7 @@ export default class GameButtons extends VBox {
     const textPushButtonOptions: TextPushButtonOptions = {
       maxTextWidth: options.maxTextWidth,
       font: new PhetFont( { size: 20, weight: 'bold' } ),
-      baseColor: RPALColors.GAME_BUTTON,
+      baseColor: PhetColorScheme.BUTTON_YELLOW,
       opacity: 0.65,
       xMargin: 20,
       yMargin: 5,
