@@ -37,7 +37,7 @@ export default class HideBox extends Node {
     }, providedOptions );
 
     // dashed box
-    const rectangleNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, {
+    const boxNode = new Rectangle( 0, 0, options.boxSize.width, options.boxSize.height, {
       cornerRadius: options.cornerRadius,
       fill: 'white',
       stroke: 'rgb( 180, 180, 180 )',
@@ -49,9 +49,9 @@ export default class HideBox extends Node {
       fill: 'rgb( 180, 180, 180 )'
     } );
     eyeNode.setScaleMagnitude( options.iconHeight / eyeNode.height );
-    eyeNode.center = rectangleNode.center;
+    eyeNode.center = boxNode.center;
 
-    options.children = [ rectangleNode, eyeNode ];
+    options.children = [ boxNode, eyeNode ];
     super( options );
   }
 
