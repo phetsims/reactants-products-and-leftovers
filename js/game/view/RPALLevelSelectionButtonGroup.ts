@@ -6,13 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import HClNode from '../../../../nitroglycerin/js/nodes/HClNode.js';
 import NH3Node from '../../../../nitroglycerin/js/nodes/NH3Node.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { AlignBox, AlignGroup, HBox, Node, Text, TextOptions, VBox } from '../../../../scenery/js/imports.js';
@@ -97,10 +96,11 @@ function createIcon( level: number, leftNode: Node, rightNode: Node, iconAlignGr
   } ), {
     group: iconAlignGroup
   } );
-  const labelStringProperty = new DerivedProperty(
-    [ ReactantsProductsAndLeftoversStrings.pattern_Level_0StringProperty ],
-    pattern => StringUtils.format( pattern, level )
-  );
+  const labelStringProperty = new PatternStringProperty( ReactantsProductsAndLeftoversStrings.pattern_Level_0StringProperty, {
+    level: level
+  }, {
+    formatNames: [ 'level' ] // to map '{0}' to '{{level}}'
+  } );
   const labelNode = new Text( labelStringProperty, {
     font: new PhetFont( 45 ),
     maxWidth: iconNode.width
