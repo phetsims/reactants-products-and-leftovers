@@ -21,6 +21,7 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import GameVisibility from '../model/GameVisibility.js';
 
+const ICON_TEXT_SPACING = 7;
 const TEXT_OPTIONS: TextOptions = {
   font: new PhetFont( 14 ),
   maxWidth: 350
@@ -55,9 +56,9 @@ export default class GameVisibilityPanel extends Panel {
     };
 
     const radioButtonItems = [
-      { value: GameVisibility.SHOW_ALL, createNode: () => createShowAllNode( iconAlignBoxOptions ) },
-      { value: GameVisibility.HIDE_MOLECULES, createNode: () => createHideMoleculesNode( iconAlignBoxOptions ) },
-      { value: GameVisibility.HIDE_NUMBERS, createNode: () => createHideNumbersNode( iconAlignBoxOptions ) }
+      { value: GameVisibility.SHOW_ALL, createNode: () => new ShowAllNode( iconAlignBoxOptions ) },
+      { value: GameVisibility.HIDE_MOLECULES, createNode: () => new HideMoleculesNode( iconAlignBoxOptions ) },
+      { value: GameVisibility.HIDE_NUMBERS, createNode: () => new HideNumbersNode( iconAlignBoxOptions ) }
     ];
 
     const radioButtonGroup = new AquaRadioButtonGroup( gameVisibilityProperty, radioButtonItems, {
@@ -76,55 +77,65 @@ export default class GameVisibilityPanel extends Panel {
 }
 
 /**
- * Creates the content for the 'Show All' radio button, an open eye with text to the right of it.
+ * ShowAllNode is the content for the 'Show All' radio button, an open eye with text to the right of it.
  */
-function createShowAllNode( iconAlignBoxOptions: AlignBoxOptions ): Node {
-  const iconNode = new AlignBox( new Path( eyeSolidShape, FONT_AWESOME_OPTIONS ), iconAlignBoxOptions );
-  const textNode = new Text( ReactantsProductsAndLeftoversStrings.showAllStringProperty, TEXT_OPTIONS );
-  return new HBox( {
-    children: [ iconNode, textNode ],
-    spacing: 12
-  } );
+class ShowAllNode extends HBox {
+  public constructor( iconAlignBoxOptions: AlignBoxOptions ) {
+    const iconNode = new AlignBox( new Path( eyeSolidShape, FONT_AWESOME_OPTIONS ), iconAlignBoxOptions );
+    const textNode = new Text( ReactantsProductsAndLeftoversStrings.showAllStringProperty, TEXT_OPTIONS );
+    super( {
+      children: [ iconNode, textNode ],
+      spacing: ICON_TEXT_SPACING
+    } );
+  }
 }
 
 /**
- * Creates the content for the 'Hide Molecules' radio button,
+ * HideMoleculesNode is the content for the 'Hide Molecules' radio button,
  * a closed eye with '123' at lower right, and text to the right.
  */
-function createHideMoleculesNode( iconAlignBoxOptions: AlignBoxOptions ): Node {
-  const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
-  const moleculeNode = new Node( {
-    // wrap in a Node because H2ONode doesn't work with standard options
-    children: [ new H2ONode( RPALConstants.MOLECULE_NODE_OPTIONS ) ],
-    scale: 0.4,
-    left: eyeNode.right + 2,
-    centerY: eyeNode.bottom
-  } );
-  const iconNode = new AlignBox( new Node( { children: [ eyeNode, moleculeNode ] } ), iconAlignBoxOptions );
-  const textNode = new Text( ReactantsProductsAndLeftoversStrings.hideMoleculesStringProperty, TEXT_OPTIONS );
-  return new HBox( {
-    children: [ iconNode, textNode ],
-    spacing: 7
-  } );
+class HideMoleculesNode extends HBox {
+  public constructor( iconAlignBoxOptions: AlignBoxOptions ) {
+
+    const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
+    const moleculeNode = new Node( {
+      // wrap in a Node because H2ONode doesn't work with standard options
+      children: [ new H2ONode( RPALConstants.MOLECULE_NODE_OPTIONS ) ],
+      scale: 0.4,
+      left: eyeNode.right + 2,
+      centerY: eyeNode.bottom
+    } );
+    const iconNode = new AlignBox( new Node( { children: [ eyeNode, moleculeNode ] } ), iconAlignBoxOptions );
+    const textNode = new Text( ReactantsProductsAndLeftoversStrings.hideMoleculesStringProperty, TEXT_OPTIONS );
+
+    super( {
+      children: [ iconNode, textNode ],
+      spacing: ICON_TEXT_SPACING
+    } );
+  }
 }
 
 /**
- * Creates the content for the 'Hide Numbers' radio button,
+ * HideNumbersNode is the content for the 'Hide Numbers' radio button,
  * a closed eye with H2O molecule at lower right, and text to the right.
  */
-function createHideNumbersNode( iconAlignBoxOptions: AlignBoxOptions ): Node {
-  const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
-  const numbersNode = new Text( '123', {
-    font: new PhetFont( 8 ),
-    left: eyeNode.right + 2,
-    centerY: eyeNode.bottom
-  } );
-  const iconNode = new AlignBox( new Node( { children: [ eyeNode, numbersNode ] } ), iconAlignBoxOptions );
-  const textNode = new Text( ReactantsProductsAndLeftoversStrings.hideNumbersStringProperty, TEXT_OPTIONS );
-  return new HBox( {
-    children: [ iconNode, textNode ],
-    spacing: 5
-  } );
+class HideNumbersNode extends HBox {
+  public constructor( iconAlignBoxOptions: AlignBoxOptions ) {
+
+    const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
+    const numbersNode = new Text( '123', {
+      font: new PhetFont( 8 ),
+      left: eyeNode.right + 2,
+      centerY: eyeNode.bottom
+    } );
+    const iconNode = new AlignBox( new Node( { children: [ eyeNode, numbersNode ] } ), iconAlignBoxOptions );
+    const textNode = new Text( ReactantsProductsAndLeftoversStrings.hideNumbersStringProperty, TEXT_OPTIONS );
+
+    super( {
+      children: [ iconNode, textNode ],
+      spacing: ICON_TEXT_SPACING
+    } );
+  }
 }
 
 reactantsProductsAndLeftovers.register( 'GameVisibilityPanel', GameVisibilityPanel );
