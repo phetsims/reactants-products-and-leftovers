@@ -100,6 +100,7 @@ export default class SandwichesEquationNode extends Node {
     } );
 
     // 'No Reaction', max width determined empirically.
+    //TODO https://github.com/phetsims/scenery/issues/1542 make RichText handle this replacement
     const noReactionStringProperty = new DerivedProperty( [ ReactantsProductsAndLeftoversStrings.noReactionStringProperty ],
       noReactionString => MultiLineText.replaceNewlines( noReactionString )
     );
