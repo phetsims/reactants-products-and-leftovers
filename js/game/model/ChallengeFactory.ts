@@ -234,7 +234,7 @@ function createChallengeWithoutProducts( factoryFunctions: FactoryFunction[] ): 
 
     // Create the reaction and test its coefficients.
     reaction = factoryFunction();
-    retry = reactantCoefficientsAllOne( reaction );
+    retry = hasReactantCoefficientsAllOne( reaction );
 
     if ( retry ) {
       disqualifiedFunctions.push( factoryFunction );
@@ -260,7 +260,7 @@ function createChallengeWithoutProducts( factoryFunctions: FactoryFunction[] ): 
  * Does this reaction have coefficient of 1 for all reactants? This type of reaction cannot produce
  * zero products with non-zero quantities, so we don't want to use it for that purpose.
  */
-function reactantCoefficientsAllOne( reaction: Reaction ): boolean {
+function hasReactantCoefficientsAllOne( reaction: Reaction ): boolean {
   let allOne = true;
   reaction.reactants.forEach( reactant => {
     if ( reactant.coefficientProperty.value !== 1 ) {
