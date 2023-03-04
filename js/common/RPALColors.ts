@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import { Color } from '../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
@@ -16,7 +17,7 @@ const RPALColors = {
   PANEL_FILL: DARK_BLUE,
   BOX_STROKE: DARK_BLUE.withAlpha( 0.3 ),
   BOX_FILL: 'white',
-  GAME_BUTTON: 'yellow' //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/81 PhetColorScheme.BUTTON_YELLOW
+  GAME_BUTTON: PhetColorScheme.BUTTON_YELLOW
 };
 
 reactantsProductsAndLeftovers.register( 'RPALColors', RPALColors );
