@@ -9,17 +9,19 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { AlignBox, AlignBoxOptions, AlignGroup, HBox, Node, Path, PathOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
-import AquaRadioButtonGroup from '../../../../sun/js/AquaRadioButtonGroup.js';
-import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
+import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
+import Panel from '../../../../sun/js/Panel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import GameVisibility from '../model/GameVisibility.js';
+import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 
 const ICON_TEXT_SPACING = 7;
 const TEXT_OPTIONS: TextOptions = {
@@ -31,23 +33,9 @@ const FONT_AWESOME_OPTIONS: PathOptions = {
   fill: 'black'
 };
 
-type SelfOptions = EmptySelfOptions;
-
-type VisibilityPanelOptions = SelfOptions;
-
 export default class GameVisibilityPanel extends Panel {
 
-  public constructor( gameVisibilityProperty: EnumerationProperty<GameVisibility>, providedOptions?: VisibilityPanelOptions ) {
-
-    const options = optionize<VisibilityPanelOptions, SelfOptions, PanelOptions>()( {
-
-      // PanelOptions
-      xMargin: 15,
-      yMargin: 10,
-      fill: 'rgb( 235, 245, 255 )',
-      stroke: 'rgb( 180, 180, 180 )',
-      lineWidth: 0.5
-    }, providedOptions );
+  public constructor( gameVisibilityProperty: EnumerationProperty<GameVisibility>, tandem: Tandem ) {
 
     // To make all icons have the same effective size
     const iconAlignBoxOptions: AlignBoxOptions = {
@@ -55,24 +43,43 @@ export default class GameVisibilityPanel extends Panel {
       xAlign: 'left'
     };
 
-    const radioButtonItems = [
-      { value: GameVisibility.SHOW_ALL, createNode: () => new ShowAllNode( iconAlignBoxOptions ) },
-      { value: GameVisibility.HIDE_MOLECULES, createNode: () => new HideMoleculesNode( iconAlignBoxOptions ) },
-      { value: GameVisibility.HIDE_NUMBERS, createNode: () => new HideNumbersNode( iconAlignBoxOptions ) }
+    const radioButtonItems: AquaRadioButtonGroupItem<GameVisibility>[] = [
+      {
+        value: GameVisibility.SHOW_ALL,
+        createNode: ( tandem: Tandem ) => new ShowAllNode( tandem, iconAlignBoxOptions ),
+        tandemName: 'showAllRadioButton'
+      },
+      {
+        value: GameVisibility.HIDE_MOLECULES,
+        createNode: ( tandem: Tandem ) => new HideMoleculesNode( tandem, iconAlignBoxOptions ),
+        tandemName: 'hideMoleculesRadioButton'
+      },
+      {
+        value: GameVisibility.HIDE_NUMBERS,
+        createNode: ( tandem: Tandem ) => new HideNumbersNode( tandem, iconAlignBoxOptions ),
+        tandemName: 'hideNumbersRadioButton'
+      }
     ];
 
-    const radioButtonGroup = new AquaRadioButtonGroup( gameVisibilityProperty, radioButtonItems, {
+    const radioButtonGroup = new VerticalAquaRadioButtonGroup<GameVisibility>( gameVisibilityProperty, radioButtonItems, {
       spacing: 15,
-      align: 'left',
       touchAreaXDilation: 10,
       touchAreaYDilation: 6,
       radioButtonOptions: {
         radius: 8,
         xSpacing: 10
-      }
+      },
+      tandem: tandem.createTandem( 'radioButtonGroup' )
     } );
 
-    super( radioButtonGroup, options );
+    super( radioButtonGroup, {
+      xMargin: 15,
+      yMargin: 10,
+      fill: 'rgb( 235, 245, 255 )',
+      stroke: 'rgb( 180, 180, 180 )',
+      lineWidth: 0.5,
+      tandem: tandem
+    } );
   }
 }
 
@@ -80,12 +87,19 @@ export default class GameVisibilityPanel extends Panel {
  * ShowAllNode is the content for the 'Show All' radio button, an open eye with text to the right of it.
  */
 class ShowAllNode extends HBox {
-  public constructor( iconAlignBoxOptions: AlignBoxOptions ) {
-    const iconNode = new AlignBox( new Path( eyeSolidShape, FONT_AWESOME_OPTIONS ), iconAlignBoxOptions );
-    const textNode = new Text( ReactantsProductsAndLeftoversStrings.showAllStringProperty, TEXT_OPTIONS );
+  public constructor( tandem: Tandem, iconAlignBoxOptions: AlignBoxOptions ) {
+
+    const icon = new AlignBox( new Path( eyeSolidShape, FONT_AWESOME_OPTIONS ), iconAlignBoxOptions );
+
+    const text = new Text( ReactantsProductsAndLeftoversStrings.showAllStringProperty,
+      combineOptions<TextOptions>( {
+        tandem: tandem.createTandem( 'text' )
+      }, TEXT_OPTIONS ) );
+
     super( {
-      children: [ iconNode, textNode ],
-      spacing: ICON_TEXT_SPACING
+      children: [ icon, text ],
+      spacing: ICON_TEXT_SPACING,
+      tandem: tandem
     } );
   }
 }
@@ -95,7 +109,7 @@ class ShowAllNode extends HBox {
  * a closed eye with '123' at lower right, and text to the right.
  */
 class HideMoleculesNode extends HBox {
-  public constructor( iconAlignBoxOptions: AlignBoxOptions ) {
+  public constructor( tandem: Tandem, iconAlignBoxOptions: AlignBoxOptions ) {
 
     const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
     const moleculeNode = new Node( {
@@ -105,12 +119,17 @@ class HideMoleculesNode extends HBox {
       left: eyeNode.right + 2,
       centerY: eyeNode.bottom
     } );
-    const iconNode = new AlignBox( new Node( { children: [ eyeNode, moleculeNode ] } ), iconAlignBoxOptions );
-    const textNode = new Text( ReactantsProductsAndLeftoversStrings.hideMoleculesStringProperty, TEXT_OPTIONS );
+    const icon = new AlignBox( new Node( { children: [ eyeNode, moleculeNode ] } ), iconAlignBoxOptions );
+
+    const text = new Text( ReactantsProductsAndLeftoversStrings.hideMoleculesStringProperty,
+      combineOptions<TextOptions>( {
+        tandem: tandem.createTandem( 'text' )
+      }, TEXT_OPTIONS ) );
 
     super( {
-      children: [ iconNode, textNode ],
-      spacing: ICON_TEXT_SPACING
+      children: [ icon, text ],
+      spacing: ICON_TEXT_SPACING,
+      tandem: tandem
     } );
   }
 }
@@ -120,7 +139,7 @@ class HideMoleculesNode extends HBox {
  * a closed eye with H2O molecule at lower right, and text to the right.
  */
 class HideNumbersNode extends HBox {
-  public constructor( iconAlignBoxOptions: AlignBoxOptions ) {
+  public constructor( tandem: Tandem, iconAlignBoxOptions: AlignBoxOptions ) {
 
     const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
     const numbersNode = new Text( '123', {
@@ -128,12 +147,17 @@ class HideNumbersNode extends HBox {
       left: eyeNode.right + 2,
       centerY: eyeNode.bottom
     } );
-    const iconNode = new AlignBox( new Node( { children: [ eyeNode, numbersNode ] } ), iconAlignBoxOptions );
-    const textNode = new Text( ReactantsProductsAndLeftoversStrings.hideNumbersStringProperty, TEXT_OPTIONS );
+    const icon = new AlignBox( new Node( { children: [ eyeNode, numbersNode ] } ), iconAlignBoxOptions );
+
+    const text = new Text( ReactantsProductsAndLeftoversStrings.hideNumbersStringProperty,
+      combineOptions<TextOptions>( {
+        tandem: tandem.createTandem( 'text' )
+      }, TEXT_OPTIONS ) );
 
     super( {
-      children: [ iconNode, textNode ],
-      spacing: ICON_TEXT_SPACING
+      children: [ icon, text ],
+      spacing: ICON_TEXT_SPACING,
+      tandem: tandem
     } );
   }
 }

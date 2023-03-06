@@ -11,11 +11,11 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import HClNode from '../../../../nitroglycerin/js/nodes/HClNode.js';
 import NH3Node from '../../../../nitroglycerin/js/nodes/NH3Node.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { AlignBox, AlignGroup, HBox, Node, Text, TextOptions, VBox } from '../../../../scenery/js/imports.js';
-import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem, LevelSelectionButtonGroupOptions } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
@@ -28,29 +28,9 @@ const QUESTION_MARK_OPTIONS: TextOptions = {
   maxWidth: 100
 };
 
-type SelfOptions = EmptySelfOptions;
-
-type RPALLevelSelectionButtonGroupOptions = SelfOptions;
-
 export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 
-  public constructor( model: GameModel, providedOptions?: RPALLevelSelectionButtonGroupOptions ) {
-
-    const options = optionize<RPALLevelSelectionButtonGroupOptions, SelfOptions, LevelSelectionButtonGroupOptions>()( {
-
-      // LevelSelectionButtonGroupOptions
-      levelSelectionButtonOptions: {
-        baseColor: 'rgb( 240, 255, 204 )',
-        xMargin: 15,
-        yMargin: 15,
-        buttonWidth: 150,
-        buttonHeight: 150,
-        bestTimeVisibleProperty: model.timerEnabledProperty
-      },
-      flowBoxOptions: {
-        spacing: 40
-      }
-    }, providedOptions );
+  public constructor( model: GameModel, tandem: Tandem ) {
 
     // To make all button icons have the same effective size
     const iconAlignGroup = new AlignGroup();
@@ -80,7 +60,20 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
       } );
     }
 
-    super( levelSelectionButtonGroupItems, options );
+    super( levelSelectionButtonGroupItems, {
+      levelSelectionButtonOptions: {
+        baseColor: 'rgb( 240, 255, 204 )',
+        xMargin: 15,
+        yMargin: 15,
+        buttonWidth: 150,
+        buttonHeight: 150,
+        bestTimeVisibleProperty: model.timerEnabledProperty
+      },
+      flowBoxOptions: {
+        spacing: 40
+      },
+      tandem: tandem
+    } );
   }
 }
 

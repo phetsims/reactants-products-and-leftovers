@@ -34,16 +34,17 @@ export default class SettingsNode extends GamePhaseNode {
   public constructor( model: GameModel, layoutBounds: Bounds2, tandem: Tandem ) {
 
     // Title
-    const title = new Text( ReactantsProductsAndLeftoversStrings.chooseYourLevelStringProperty, {
+    const titleText = new Text( ReactantsProductsAndLeftoversStrings.chooseYourLevelStringProperty, {
       font: new PhetFont( 40 ),
-      maxWidth: 0.75 * layoutBounds.width // constrain width for i18n
+      maxWidth: 0.75 * layoutBounds.width,
+      tandem: tandem.createTandem( 'titleText' )
     } );
 
     // Group of LevelSelectionButtons
-    const levelSelectionButtonGroup = new RPALLevelSelectionButtonGroup( model );
+    const levelSelectionButtonGroup = new RPALLevelSelectionButtonGroup( model, tandem.createTandem( 'levelSelectionButtonGroup' ) );
 
     const titleAndButtonsParent = new VBox( {
-      children: [ title, levelSelectionButtonGroup ],
+      children: [ titleText, levelSelectionButtonGroup ],
       align: 'center',
       spacing: 60
     } );
@@ -52,11 +53,12 @@ export default class SettingsNode extends GamePhaseNode {
     const timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, {
       stroke: 'gray',
       left: layoutBounds.left + SCREEN_X_MARGIN,
-      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
+      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN,
+      tandem: tandem.createTandem( 'timerToggleButton' )
     } );
 
     // Panel with visibility radio buttons, at bottom center
-    const gameVisibilityPanel = new GameVisibilityPanel( model.gameVisibilityProperty );
+    const gameVisibilityPanel = new GameVisibilityPanel( model.gameVisibilityProperty, tandem.createTandem( 'gameVisibilityPanel' ) );
     gameVisibilityPanel.boundsProperty.link( bounds => {
       gameVisibilityPanel.centerX = layoutBounds.centerX;
       gameVisibilityPanel.bottom = layoutBounds.bottom - SCREEN_Y_MARGIN;
@@ -70,10 +72,14 @@ export default class SettingsNode extends GamePhaseNode {
 
     // Reset All button, at bottom right
     const resetAllButton = new ResetAllButton( {
-      listener: () => model.reset(),
+      listener: () => {
+        this.interruptSubtreeInput();
+        model.reset();
+      },
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
       right: layoutBounds.right - SCREEN_X_MARGIN,
-      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
+      bottom: layoutBounds.bottom - SCREEN_Y_MARGIN,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
     super( GamePhase.SETTINGS, model.gamePhaseProperty, {

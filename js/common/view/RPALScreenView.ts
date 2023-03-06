@@ -67,6 +67,7 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
       right: this.layoutBounds.right - 10,
       bottom: this.layoutBounds.bottom - 10,
       listener: () => {
+        this.interruptSubtreeInput();
         model.reset();
         beforeExpandedProperty.reset();
         afterExpandedProperty.reset();
