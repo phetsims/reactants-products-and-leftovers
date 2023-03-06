@@ -66,7 +66,8 @@ export default class PlayNode extends GamePhaseNode {
         xMargin: 10,
         yMargin: 5,
         listener: () => model.settings()
-      }
+      },
+      tandem: tandem.createTandem( 'statusBar' )
     } );
     this.addChild( statusBar );
 
