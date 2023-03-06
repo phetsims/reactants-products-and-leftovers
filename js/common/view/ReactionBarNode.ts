@@ -41,7 +41,8 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
     const options = optionize<ReactionBarNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     // radio buttons for choosing a reaction
-    const radioButtonGroup = new ReactionRadioButtonGroup( reactionProperty, reactions );
+    const radioButtonGroup = new ReactionRadioButtonGroup( reactionProperty, reactions,
+      options.tandem.createTandem( 'radioButtonGroup' ) );
 
     // The horizontal bar, sized to fit the width of the browser window.
     const barNode = new Rectangle( 0, 0, 0, 1, {

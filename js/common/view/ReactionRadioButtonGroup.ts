@@ -7,30 +7,17 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import AquaRadioButtonGroup, { AquaRadioButtonGroupItem, AquaRadioButtonGroupOptions } from '../../../../sun/js/AquaRadioButtonGroup.js';
+import { Text, TextOptions } from '../../../../scenery/js/imports.js';
+import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from '../model/Reaction.js';
 
-type SelfOptions = EmptySelfOptions;
-
-type ReactionRadioButtonGroupOptions = SelfOptions;
-
 export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> extends AquaRadioButtonGroup<R> {
 
-  public constructor( reactionProperty: Property<R>, choices: R[], providedOptions?: ReactionRadioButtonGroupOptions ) {
-
-    const options = optionize<ReactionRadioButtonGroupOptions, SelfOptions, AquaRadioButtonGroupOptions>()( {
-
-      // AquaRadioButtonGroupOptions
-      orientation: 'vertical',
-      align: 'left',
-      spacing: 10,
-      touchAreaXDilation: 10,
-      radioButtonOptions: { radius: 8 }
-    }, providedOptions );
+  public constructor( reactionProperty: Property<R>, reactions: R[], tandem: Tandem ) {
 
     const textOptions = {
       font: new PhetFont( 16 ),
@@ -39,16 +26,28 @@ export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> ext
     };
 
     // Describe radio buttons, one for each reaction.
-    const items: AquaRadioButtonGroupItem<R>[] = choices.map( choice => {
-      const nameProperty = choice.nameProperty!;
+    const items: AquaRadioButtonGroupItem<R>[] = reactions.map( reaction => {
+      const nameProperty = reaction.nameProperty!;
       assert && assert( nameProperty );
       return {
-        createNode: () => new Text( nameProperty, textOptions ),
-        value: choice
+        createNode: tandem => new Text( nameProperty, combineOptions<TextOptions>( {
+          tandem: tandem.createTandem( 'text' )
+        }, textOptions ) ),
+        value: reaction
+        //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 tandemName
       };
     } );
 
-    super( reactionProperty, items, options );
+    super( reactionProperty, items, {
+
+      // AquaRadioButtonGroupOptions
+      orientation: 'vertical',
+      align: 'left',
+      spacing: 10,
+      touchAreaXDilation: 10,
+      radioButtonOptions: { radius: 8 },
+      tandem: tandem
+    } );
   }
 
   public override dispose(): void {
