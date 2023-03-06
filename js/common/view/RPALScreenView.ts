@@ -1,10 +1,7 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Base class for the ScreenView used in the 'Sandwiches' and 'Molecules' screens.
- * The user interface is relatively expensive to create, and we have a small number of reactions.
- * So user-interface components are created on demand, then cached to improve the performance of
- * switching between reactions.
+ * RPALScreenView is the base class for the ScreenView for the 'Sandwiches' and 'Molecules' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -21,6 +18,7 @@ import Reaction from '../model/Reaction.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { BeforeAfterNodeOptions } from './BeforeAfterNode.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 export type CreateBeforeAfterNodeFunction = (
   reaction: Reaction,
@@ -30,8 +28,6 @@ export type CreateBeforeAfterNodeFunction = (
 ) => Node;
 
 export default class RPALScreenView<R extends Reaction = Reaction> extends ScreenView {
-
-  private readonly beforeAfterCache: Map<R, Node>;
 
   /**
    * @param model
@@ -59,7 +55,14 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
       visibleBoundsProperty: this.visibleBoundsProperty,
       top: this.layoutBounds.top
     } );
-    this.addChild( reactionBarNode );
+
+    // Create a pair of 'Before' and 'After' boxes for each reaction, visible when the reaction is selected.
+    const beforeAfterNodes = model.reactions.map( reaction =>
+      createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
+        visibleProperty: new DerivedProperty( [ model.reactionProperty ], value => ( value === reaction ) ),
+        centerX: this.layoutBounds.centerX,
+        top: reactionBarNode.bottom + 12 // below the reaction equation
+      } ) );
 
     // Reset All button
     const resetAllButton = new ResetAllButton( {
@@ -73,35 +76,11 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
         afterExpandedProperty.reset();
       }
     } );
-    this.addChild( resetAllButton );
 
-    /*
-     * Updates the user interface to match the reaction.
-     * BeforeAfterNodes are created on demand and cached for reuse.
-     * Unlinking from reactionProperty is unnecessary because this node exists for the lifetime of the simulation.
-     */
-    this.beforeAfterCache = new Map();
-    model.reactionProperty.link( reaction => {
-
-      // Create a BeforeAfterNode for this reaction, if one isn't already in the cache.
-      const cachedNode = this.beforeAfterCache.get( reaction );
-      if ( !cachedNode ) {
-
-        const beforeAfterNode = createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
-          centerX: this.layoutBounds.centerX,
-          top: reactionBarNode.bottom + 12 // below the reaction equation
-        } );
-        this.addChild( beforeAfterNode );
-
-        // cache it
-        this.beforeAfterCache.set( reaction, beforeAfterNode );
-      }
-
-      // Make only the reaction's BeforeAfterNode visible, hide other nodes.
-      this.beforeAfterCache.forEach( ( beforeAfterNode: Node, key: Reaction ) => {
-        beforeAfterNode.visible = ( key === reaction );
-      } );
+    const screenViewRootNode = new Node( {
+      children: [ reactionBarNode, ...beforeAfterNodes, resetAllButton ]
     } );
+    this.addChild( screenViewRootNode );
   }
 
   public override dispose(): void {
