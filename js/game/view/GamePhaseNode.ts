@@ -27,11 +27,10 @@ export default class GamePhaseNode extends Node {
     const options = optionize<GamePhaseNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
-      visibleProperty: new DerivedProperty( [ gamePhaseProperty ],
-        gamePhase => ( gamePhase === GamePhase.SETTINGS ), {
-          tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
-          phetioValueType: BooleanIO
-        } )
+      visibleProperty: new DerivedProperty( [ gamePhaseProperty ], value => ( value === gamePhase ), {
+        tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
+        phetioValueType: BooleanIO
+      } )
     }, providedOptions );
 
     super( options );
