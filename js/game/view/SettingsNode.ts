@@ -1,8 +1,8 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Portion of the scenegraph that corresponds to GamePhase.SETTINGS.
- * Displays a panel with controls used to configure a game (level selection, timer, ...)
+ * SettingsNode is responsible for the view that corresponds to GamePhase.SETTINGS.
+ * It displays the controls used to configure the game (level selection, timer toggle button,...)
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,9 +11,8 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Text, VBox } from '../../../../scenery/js/imports.js';
+import { Text, VBox } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
@@ -23,11 +22,14 @@ import GameModel from '../model/GameModel.js';
 import RPALLevelSelectionButtonGroup from './RPALLevelSelectionButtonGroup.js';
 import GameVisibilityPanel from './GameVisibilityPanel.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import GamePhase from '../model/GamePhase.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import GamePhaseNode from './GamePhaseNode.js';
 
 const SCREEN_X_MARGIN = 40;
 const SCREEN_Y_MARGIN = 40;
 
-export default class SettingsNode extends Node {
+export default class SettingsNode extends GamePhaseNode {
 
   public constructor( model: GameModel, layoutBounds: Bounds2, tandem: Tandem ) {
 
@@ -74,7 +76,7 @@ export default class SettingsNode extends Node {
       bottom: layoutBounds.bottom - SCREEN_Y_MARGIN
     } );
 
-    super( {
+    super( GamePhase.SETTINGS, model.gamePhaseProperty, {
       children: [
         titleAndButtonsParent,
         gameVisibilityPanel,

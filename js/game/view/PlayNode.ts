@@ -1,8 +1,8 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Portion of the scenegraph that corresponds to GamePhase.PLAY.
- * Displays the status bar and current challenge.
+ * SettingsNode is responsible for the view that corresponds to GamePhase.PLAY.
+ * It displays the status bar and current challenge.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
@@ -20,20 +20,24 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import ChallengeNode from './ChallengeNode.js';
+import GamePhaseNode from './GamePhaseNode.js';
 
 const STATUS_BAR_FONT = new PhetFont( 16 );
 const STATUS_BAR_TEXT_FILL = 'white';
 
-export default class PlayNode extends Node {
+export default class PlayNode extends GamePhaseNode {
 
   private readonly model: GameModel;
   private readonly layoutBounds: Bounds2;
   private readonly audioPlayer: GameAudioPlayer;
   private readonly challengeBounds: Bounds2; // challenge will be displayed in the area below the status bar
 
-  public constructor( model: GameModel, layoutBounds: Bounds2, visibleBoundsProperty: TReadOnlyProperty<Bounds2>, audioPlayer: GameAudioPlayer ) {
+  public constructor( model: GameModel, layoutBounds: Bounds2, visibleBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      audioPlayer: GameAudioPlayer, tandem: Tandem ) {
 
-    super();
+    super( GamePhase.PLAY, model.gamePhaseProperty, {
+      tandem: tandem
+    } );
 
     this.model = model;
     this.layoutBounds = layoutBounds;

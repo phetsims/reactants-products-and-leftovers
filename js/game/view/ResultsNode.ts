@@ -1,14 +1,13 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Portion of the scenegraph that corresponds to GamePhase.RESULTS.
- * Displays a panel with the game results (score, optional time, reward, ...)
+ * SettingsNode is responsible for the view that corresponds to GamePhase.RESULTS.
+ * It displays the game results (score, optional time,...) and a reward (if the user got a perfect score).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import { Node } from '../../../../scenery/js/imports.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
@@ -16,14 +15,18 @@ import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import RPALRewardNode from './RPALRewardNode.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import GamePhaseNode from './GamePhaseNode.js';
 
-export default class ResultsNode extends Node {
+export default class ResultsNode extends GamePhaseNode {
 
   private rewardNode: RPALRewardNode | null; // created on demand
 
-  public constructor( model: GameModel, layoutBounds: Bounds2, audioPlayer: GameAudioPlayer ) {
+  public constructor( model: GameModel, layoutBounds: Bounds2, audioPlayer: GameAudioPlayer, tandem: Tandem ) {
 
-    super();
+    super( GamePhase.RESULTS, model.gamePhaseProperty, {
+      tandem: tandem
+    } );
 
     this.rewardNode = null;
 
