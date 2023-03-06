@@ -53,7 +53,8 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
     const reactionBarNode = new ReactionBarNode( model.reactionProperty, model.reactions, createEquationNode, {
       layoutBounds: this.layoutBounds,
       visibleBoundsProperty: this.visibleBoundsProperty,
-      top: this.layoutBounds.top
+      top: this.layoutBounds.top,
+      tandem: tandem.createTandem( 'reactionBarNode' )
     } );
 
     // Create a pair of 'Before' and 'After' boxes for each reaction, visible when the reaction is selected.
@@ -74,7 +75,8 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
         model.reset();
         beforeExpandedProperty.reset();
         afterExpandedProperty.reset();
-      }
+      },
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
     const screenViewRootNode = new Node( {

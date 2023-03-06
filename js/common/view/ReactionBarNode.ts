@@ -13,6 +13,7 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Node, NodeOptions, NodeTranslationOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from '../model/Reaction.js';
@@ -30,7 +31,7 @@ type SelfOptions = {
   visibleBoundsProperty: TReadOnlyProperty<Bounds2>;
 };
 
-type ReactionBarNodeOptions = SelfOptions & NodeTranslationOptions;
+type ReactionBarNodeOptions = SelfOptions & NodeTranslationOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class ReactionBarNode<R extends Reaction = Reaction> extends Node {
 
