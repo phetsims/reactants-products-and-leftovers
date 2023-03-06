@@ -1,7 +1,7 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Base type for the model in the 'Sandwiches' and 'Molecules' screens.
+ * RPALBaseModel is the base class model for the 'Sandwiches' and 'Molecules' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
