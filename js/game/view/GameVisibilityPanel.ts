@@ -46,7 +46,7 @@ export default class GameVisibilityPanel extends Panel {
     const radioButtonItems: AquaRadioButtonGroupItem<GameVisibility>[] = [
       {
         value: GameVisibility.SHOW_ALL,
-        createNode: ( tandem: Tandem ) => new ShowAllNode( tandem, iconAlignBoxOptions ),
+        createNode: tandem => new ShowAllNode( tandem, iconAlignBoxOptions ),
         tandemName: 'showAllRadioButton'
       },
       {
@@ -98,8 +98,7 @@ class ShowAllNode extends HBox {
 
     super( {
       children: [ icon, text ],
-      spacing: ICON_TEXT_SPACING,
-      tandem: tandem
+      spacing: ICON_TEXT_SPACING
     } );
   }
 }
@@ -128,8 +127,7 @@ class HideMoleculesNode extends HBox {
 
     super( {
       children: [ icon, text ],
-      spacing: ICON_TEXT_SPACING,
-      tandem: tandem
+      spacing: ICON_TEXT_SPACING
     } );
   }
 }
@@ -156,8 +154,7 @@ class HideNumbersNode extends HBox {
 
     super( {
       children: [ icon, text ],
-      spacing: ICON_TEXT_SPACING,
-      tandem: tandem
+      spacing: ICON_TEXT_SPACING
     } );
   }
 }
