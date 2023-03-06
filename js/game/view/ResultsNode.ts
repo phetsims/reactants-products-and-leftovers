@@ -20,7 +20,7 @@ import GamePhaseNode from './GamePhaseNode.js';
 
 export default class ResultsNode extends GamePhaseNode {
 
-  private rewardNode: RPALRewardNode | null; // created on demand
+  private rewardNode: RPALRewardNode | null; // created dynamically to match the level
 
   public constructor( model: GameModel, layoutBounds: Bounds2, audioPlayer: GameAudioPlayer, tandem: Tandem ) {
 
@@ -29,6 +29,9 @@ export default class ResultsNode extends GamePhaseNode {
     } );
 
     this.rewardNode = null;
+
+    // Created dynamically to match the level
+    let levelCompletedNode: LevelCompletedNode | null = null;
 
     /*
      * Displays the game results, possibly with a 'reward'.
@@ -49,9 +52,9 @@ export default class ResultsNode extends GamePhaseNode {
           audioPlayer.gameOverImperfectScore();
         }
 
-        // game results
+        // Pseudo-dialog that shows results.
         const level = model.levelProperty.value;
-        this.addChild( new LevelCompletedNode(
+        levelCompletedNode = new LevelCompletedNode(
           level + 1,
           model.scoreProperty.value,
           model.getPerfectScore( level ),
@@ -65,14 +68,18 @@ export default class ResultsNode extends GamePhaseNode {
             starDiameter: 45,
             centerX: layoutBounds.centerX,
             centerY: layoutBounds.centerY
-          } ) );
+          } );
+        this.addChild( levelCompletedNode );
       }
       else {
-        this.removeAllChildren();
-        if ( this.rewardNode !== null ) {
+        if ( this.rewardNode ) {
           this.rewardNode.dispose();
+          this.rewardNode = null;
         }
-        this.rewardNode = null;
+        if ( levelCompletedNode ) {
+          levelCompletedNode.dispose();
+          levelCompletedNode = null;
+        }
       }
     } );
   }
