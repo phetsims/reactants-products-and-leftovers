@@ -35,18 +35,16 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
     // To make all button icons have the same effective size
     const iconAlignGroup = new AlignGroup();
 
-    // Icons for the level-selection buttons, indexed by level
-    const levelIcons = [
-      createLevelOneIcon( iconAlignGroup ),
-      createLevelTwoIcon( iconAlignGroup ),
-      createLevelThreeIcon( iconAlignGroup )
-    ];
+    // Functions to create icons for the level-selection buttons, indexed by level.
+    const buttonIconFunctions = [ createLevel1ButtonIcon, createLevel2ButtonIcon, createLevel3ButtonIcon ];
+    assert && assert( buttonIconFunctions.length === model.numberOfLevels );
 
     // Description of LevelSelectionButtons
     const levelSelectionButtonGroupItems: LevelSelectionButtonGroupItem[] = [];
     for ( let level = 0; level < model.numberOfLevels; level++ ) {
+      const buttonTandemName = `level${level}Button`;
       levelSelectionButtonGroupItems.push( {
-        icon: levelIcons[ level ],
+        icon: buttonIconFunctions[ level ]( iconAlignGroup ),
         scoreProperty: model.bestScoreProperties[ level ],
         options: {
           bestTimeProperty: model.bestTimeProperties[ level ],
@@ -56,7 +54,8 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
           } ),
           listener: () => model.play( level ),
           soundPlayerIndex: level
-        }
+        },
+        tandemName: buttonTandemName
       } );
     }
 
@@ -81,25 +80,30 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
  *  Level N
  *  leftNode -> rightNode
  */
-function createIcon( level: number, leftNode: Node, rightNode: Node, iconAlignGroup: AlignGroup ): Node {
+function createButtonIcon( level: number, leftNode: Node, rightNode: Node, iconAlignGroup: AlignGroup ): Node {
+
+  // Icon
   const arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
-  const iconNode = new AlignBox( new HBox( {
+  const icon = new AlignBox( new HBox( {
     children: [ leftNode, arrowNode, rightNode ],
     spacing: 20
   } ), {
     group: iconAlignGroup
   } );
-  const labelStringProperty = new PatternStringProperty( ReactantsProductsAndLeftoversStrings.pattern_Level_0StringProperty, {
+
+  // Text
+  const stringProperty = new PatternStringProperty( ReactantsProductsAndLeftoversStrings.pattern_Level_0StringProperty, {
     level: level
   }, {
     formatNames: [ 'level' ] // to map '{0}' to '{{level}}'
   } );
-  const labelNode = new Text( labelStringProperty, {
+  const text = new Text( stringProperty, {
     font: new PhetFont( 45 ),
-    maxWidth: iconNode.width
+    maxWidth: icon.width
   } );
+
   return new VBox( {
-    children: [ labelNode, iconNode ],
+    children: [ text, icon ],
     spacing: 30
   } );
 }
@@ -108,33 +112,33 @@ function createIcon( level: number, leftNode: Node, rightNode: Node, iconAlignGr
  *  Level 1
  *  ? -> HCl
  */
-function createLevelOneIcon( iconAlignGroup: AlignGroup ): Node {
+function createLevel1ButtonIcon( iconAlignGroup: AlignGroup ): Node {
   const leftNode = new Text( ReactantsProductsAndLeftoversStrings.questionMarkStringProperty, QUESTION_MARK_OPTIONS );
   const rightNode = new HClNode( RPALConstants.MOLECULE_NODE_OPTIONS );
   rightNode.setScaleMagnitude( MOLECULE_SCALE );
-  return createIcon( 1, leftNode, rightNode, iconAlignGroup );
+  return createButtonIcon( 1, leftNode, rightNode, iconAlignGroup );
 }
 
 /**
  *  Level 2
  *  H2O -> ?
  */
-function createLevelTwoIcon( iconAlignGroup: AlignGroup ): Node {
+function createLevel2ButtonIcon( iconAlignGroup: AlignGroup ): Node {
   const leftNode = new H2ONode( RPALConstants.MOLECULE_NODE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
   const rightNode = new Text( ReactantsProductsAndLeftoversStrings.questionMarkStringProperty, QUESTION_MARK_OPTIONS );
-  return createIcon( 2, leftNode, rightNode, iconAlignGroup );
+  return createButtonIcon( 2, leftNode, rightNode, iconAlignGroup );
 }
 
 /**
  *  Level 3
  *  NH3 -> ??
  */
-function createLevelThreeIcon( iconAlignGroup: AlignGroup ): Node {
+function createLevel3ButtonIcon( iconAlignGroup: AlignGroup ): Node {
   const leftNode = new NH3Node( RPALConstants.MOLECULE_NODE_OPTIONS );
   leftNode.setScaleMagnitude( MOLECULE_SCALE );
   const rightNode = new Text( ReactantsProductsAndLeftoversStrings.doubleQuestionMarkStringProperty, QUESTION_MARK_OPTIONS );
-  return createIcon( 3, leftNode, rightNode, iconAlignGroup );
+  return createButtonIcon( 3, leftNode, rightNode, iconAlignGroup );
 }
 
 reactantsProductsAndLeftovers.register( 'RPALLevelSelectionButtonGroup', RPALLevelSelectionButtonGroup );
