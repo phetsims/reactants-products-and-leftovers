@@ -122,7 +122,7 @@ export default class GameModel implements TModel {
       numberType: 'Integer',
       //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 range
       isValidValue: value => ( value >= -1 ),
-      tandem: tandem.createTandem( 'numberOfChallengesProperty' )
+      tandem: tandem.createTandem( 'challengeIndexProperty' )
     } );
 
     this.gamePhaseProperty = new EnumerationProperty( GamePhase.SETTINGS, {
