@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -21,6 +22,8 @@ import ChallengeFactory from './ChallengeFactory.js';
 import GamePhase from './GamePhase.js';
 import GameVisibility from './GameVisibility.js';
 import PlayState from './PlayState.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 const POINTS_FIRST_CHECK = 2;
 const POINTS_SECOND_CHECK = 1;
@@ -83,26 +86,76 @@ export default class GameModel implements TModel {
     this.numberOfLevels = options.numberOfLevels;
     this.maxQuantity = options.maxQuantity;
 
-    this.timerEnabledProperty = new BooleanProperty( false );
-    this.gameVisibilityProperty = new EnumerationProperty( GameVisibility.SHOW_ALL );
+    this.timerEnabledProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'timerEnabledProperty' )
+    } );
+
+    this.gameVisibilityProperty = new EnumerationProperty( GameVisibility.SHOW_ALL, {
+      tandem: tandem.createTandem( 'gameVisibilityProperty' )
+    } );
 
     // read-only
-    this.levelProperty = new NumberProperty( 0 );
-    this.scoreProperty = new NumberProperty( 0 );
-    this.numberOfChallengesProperty = new NumberProperty( 0 );
-    this.challengeProperty = new Property<Challenge | null>( null );
-    this.challengeIndexProperty = new NumberProperty( -1 );
-    this.gamePhaseProperty = new EnumerationProperty( GamePhase.SETTINGS );
-    this.playStateProperty = new EnumerationProperty( PlayState.NONE );
+    this.levelProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      range: new Range( 0, this.numberOfLevels - 1 ),
+      tandem: tandem.createTandem( 'levelProperty' )
+    } );
+
+    this.scoreProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      isValidValue: value => ( value >= 0 ),
+      tandem: tandem.createTandem( 'scoreProperty' )
+    } );
+
+    this.numberOfChallengesProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 range
+      isValidValue: value => ( value >= 0 ),
+      tandem: tandem.createTandem( 'numberOfChallengesProperty' )
+    } );
+
+    this.challengeProperty = new Property<Challenge | null>( null, {
+      //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 NullableIO( ChallengeIO )
+    } );
+
+    this.challengeIndexProperty = new NumberProperty( -1, {
+      numberType: 'Integer',
+      //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 range
+      isValidValue: value => ( value >= -1 ),
+      tandem: tandem.createTandem( 'numberOfChallengesProperty' )
+    } );
+
+    this.gamePhaseProperty = new EnumerationProperty( GamePhase.SETTINGS, {
+      tandem: tandem.createTandem( 'gamePhaseProperty' ),
+      phetioReadOnly: true
+      //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 phetioDocumentation
+    } );
+
+    this.playStateProperty = new EnumerationProperty( PlayState.NONE, {
+      tandem: tandem.createTandem( 'playStateProperty' ),
+      phetioReadOnly: true
+      //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 phetioDocumentation
+    } );
 
     // read-only
     this.challenges = [];
     this.bestScoreProperties = [];
     this.bestTimeProperties = [];
     this.isNewBestTime = false;
+    const bestScoresTandem = tandem.createTandem( 'bestScores' );
+    const bestTimesTandem = tandem.createTandem( 'bestTimes' );
     for ( let level = 0; level < this.numberOfLevels; level++ ) {
-      this.bestScoreProperties.push( new NumberProperty( 0 ) );
-      this.bestTimeProperties.push( new Property<number | null>( null ) );
+
+      this.bestScoreProperties.push( new NumberProperty( 0, {
+        numberType: 'Integer',
+        tandem: bestScoresTandem.createTandem( `bestScore${level}Property` )
+      } ) );
+
+      this.bestTimeProperties.push( new Property<number | null>( null, {
+        tandem: bestTimesTandem.createTandem( `bestTime${level}Property` ),
+        phetioValueType: NullableIO( NumberIO )
+        //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 phetioDocumentation
+      } ) );
     }
 
     this.timer = new GameTimer();
