@@ -1,4 +1,4 @@
-// Copyright 2014-2023, University of Colorado Boulder
+// Copyright 2023, University of Colorado Boulder
 
 /**
  * GamePhaseNode is the base class for a node that shows the view for one phase of the game.
