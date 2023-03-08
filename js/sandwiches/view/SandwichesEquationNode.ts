@@ -12,11 +12,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import MultiLineText from '../../../../scenery-phet/js/MultiLineText.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlusNode, { PlusNodeOptions } from '../../../../scenery-phet/js/PlusNode.js';
 import { Node, RichText, Text, TextOptions } from '../../../../scenery/js/imports.js';
@@ -100,11 +98,8 @@ export default class SandwichesEquationNode extends Node {
     } );
 
     // 'No Reaction', max width determined empirically.
-    //TODO https://github.com/phetsims/scenery/issues/1542 make RichText handle this replacement
-    const noReactionStringProperty = new DerivedProperty( [ ReactantsProductsAndLeftoversStrings.noReactionStringProperty ],
-      noReactionString => MultiLineText.replaceNewlines( noReactionString )
-    );
-    const noReactionNode = new RichText( noReactionStringProperty, {
+    const noReactionNode = new RichText( ReactantsProductsAndLeftoversStrings.noReactionStringProperty, {
+      replaceNewlines: true,
       align: 'center',
       font: new PhetFont( 16 ),
       fill: 'white',
