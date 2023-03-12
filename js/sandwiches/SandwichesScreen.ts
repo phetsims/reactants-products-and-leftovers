@@ -26,14 +26,8 @@ export default class SandwichesScreen extends Screen<SandwichesModel, Sandwiches
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.sandwichesStringProperty,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-      homeScreenIcon: new ScreenIcon( new Image( sandwichesHomeScreenIcon_png ), {
-        maxIconWidthProportion: 1,
-        maxIconHeightProportion: 1
-      } ),
-      navigationBarIcon: new ScreenIcon( new Image( sandwichesNavbarIcon_png ), {
-        maxIconWidthProportion: 1,
-        maxIconHeightProportion: 1
-      } ),
+      homeScreenIcon: createHomeScreenIcon(),
+      navigationBarIcon: createNavigationBarIcon(),
       tandem: tandem
     };
 
@@ -43,6 +37,26 @@ export default class SandwichesScreen extends Screen<SandwichesModel, Sandwiches
       options
     );
   }
+}
+
+/**
+ * Creates the ScreenIcon for the Home screen.
+ */
+function createHomeScreenIcon(): ScreenIcon {
+  return new ScreenIcon( new Image( sandwichesHomeScreenIcon_png ), {
+    maxIconWidthProportion: 1,
+    maxIconHeightProportion: 1
+  } );
+}
+
+/**
+ * Creates the ScreenIcon for the navigation bar.
+ */
+function createNavigationBarIcon(): ScreenIcon {
+  return new ScreenIcon( new Image( sandwichesNavbarIcon_png ), {
+    maxIconWidthProportion: 1,
+    maxIconHeightProportion: 1
+  } );
 }
 
 reactantsProductsAndLeftovers.register( 'SandwichesScreen', SandwichesScreen );

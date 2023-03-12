@@ -25,8 +25,8 @@ export default class MoleculesScreen extends Screen<MoleculesModel, MoleculesScr
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.moleculesStringProperty,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-      homeScreenIcon: createIcon( 0.1 ),
-      navigationBarIcon: createIcon( 0.5 ),
+      homeScreenIcon: createScreenIcon( 0.1 ),
+      navigationBarIcon: createScreenIcon( 0.5 ),
       tandem: tandem
     };
 
@@ -39,9 +39,9 @@ export default class MoleculesScreen extends Screen<MoleculesModel, MoleculesScr
 }
 
 /**
- * Creates the icon for this screen, an H2O molecule.
+ * Creates the ScreenIcon for this screen, an H2O molecule.
  */
-function createIcon( moleculeLineWidth: number ): ScreenIcon {
+function createScreenIcon( moleculeLineWidth: number ): ScreenIcon {
 
   // background rectangle
   const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;

@@ -26,7 +26,7 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.gameStringProperty,
       backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
-      homeScreenIcon: createIcon(),
+      homeScreenIcon: createScreenIcon(),
       tandem: tandem
     };
 
@@ -39,9 +39,9 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
 }
 
 /**
- * Creates the icon for this screen, a smiley face with up/down spinner arrows.
+ * Creates the ScreenIcon for this screen, a smiley face with up/down spinner arrows.
  */
-function createIcon(): ScreenIcon {
+function createScreenIcon(): ScreenIcon {
 
   // background rectangle
   const background = new Rectangle( 0, 0,
