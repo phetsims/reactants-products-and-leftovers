@@ -11,7 +11,7 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../kite/js/imports.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
-import { HBox, Node, Path, PathOptions, Rectangle, VBox } from '../../../scenery/js/imports.js';
+import { HBox, Path, PathOptions, VBox } from '../../../scenery/js/imports.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
@@ -42,12 +42,6 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
  * Creates the ScreenIcon for this screen, a smiley face with up/down spinner arrows.
  */
 function createScreenIcon(): ScreenIcon {
-
-  // background rectangle
-  const background = new Rectangle( 0, 0,
-    Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height, {
-      fill: 'white'
-    } );
 
   // smiley face
   const faceNode = new FaceNode( 200, {
@@ -82,15 +76,9 @@ function createScreenIcon(): ScreenIcon {
     children: [ arrowsBox, faceNode ],
     spacing: 25
   } );
-  contentNode.setScaleMagnitude(
-    Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
-  contentNode.center = background.center;
 
-  const iconNode = new Node( { children: [ background, contentNode ] } );
-
-  return new ScreenIcon( iconNode, {
-    maxIconWidthProportion: 1,
-    maxIconHeightProportion: 1
+  return new ScreenIcon( contentNode, {
+    fill: 'white'
   } );
 }
 
