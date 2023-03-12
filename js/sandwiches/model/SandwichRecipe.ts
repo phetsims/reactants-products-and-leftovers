@@ -61,7 +61,9 @@ export default class SandwichRecipe extends Reaction {
     const sandwich = new Substance( 1, 'sandwich',
       options.coefficientsMutable ? NO_SANDWICH_NODE : new SandwichNode( breadCount, meatCount, cheeseCount ) );
 
-    super( ingredients, [ sandwich ], { nameProperty: nameProperty } );
+    super( ingredients, [ sandwich ], {
+      nameProperty: nameProperty
+    } );
 
     assert && assert( options.coefficientsMutable || this.isReaction(), 'a static recipe must be a valid reaction' );
 

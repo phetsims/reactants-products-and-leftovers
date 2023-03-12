@@ -83,7 +83,11 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
 function createButtonIcon( level: number, leftNode: Node, rightNode: Node, iconAlignGroup: AlignGroup ): Node {
 
   // Icon
-  const arrowNode = new ArrowNode( 0, 0, 50, 0, { headHeight: 20, headWidth: 20, tailWidth: 6 } );
+  const arrowNode = new ArrowNode( 0, 0, 50, 0, {
+    headHeight: 20,
+    headWidth: 20,
+    tailWidth: 6
+  } );
   const icon = new AlignBox( new HBox( {
     children: [ leftNode, arrowNode, rightNode ],
     spacing: 20

@@ -44,11 +44,16 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
 function createIcon(): ScreenIcon {
 
   // background rectangle
-  const background = new Rectangle( 0, 0, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height,
-    { fill: 'white' } );
+  const background = new Rectangle( 0, 0,
+    Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width, Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height, {
+      fill: 'white'
+    } );
 
   // smiley face
-  const faceNode = new FaceNode( 200, { headStroke: 'black', headLineWidth: 4 } );
+  const faceNode = new FaceNode( 200, {
+    headStroke: 'black',
+    headLineWidth: 4
+  } );
 
   // up/down arrows
   const ARROW_OPTIONS: PathOptions = { fill: 'black' };
