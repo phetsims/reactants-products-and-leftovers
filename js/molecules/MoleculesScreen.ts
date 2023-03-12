@@ -10,7 +10,6 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import H2ONode from '../../../nitroglycerin/js/nodes/H2ONode.js';
-import { Node, Rectangle } from '../../../scenery/js/imports.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
@@ -43,28 +42,15 @@ export default class MoleculesScreen extends Screen<MoleculesModel, MoleculesScr
  */
 function createScreenIcon( moleculeLineWidth: number ): ScreenIcon {
 
-  // background rectangle
-  const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-  const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
-  const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
-
   // H2O molecule, scaled to fit and centered on background
-  const moleculeNode = new H2ONode( {
+  const iconNode = new H2ONode( {
     atomNodeOptions: {
       stroke: 'black', lineWidth: moleculeLineWidth
     }
   } );
-  moleculeNode.setScaleMagnitude(
-    Math.min( 0.82 * background.width / moleculeNode.width, 0.82 * background.height / moleculeNode.height ) );
-  moleculeNode.center = background.center;
-
-  const iconNode = new Node( {
-    children: [ background, moleculeNode ]
-  } );
 
   return new ScreenIcon( iconNode, {
-    maxIconWidthProportion: 1,
-    maxIconHeightProportion: 1
+    fill: 'white'
   } );
 }
 
