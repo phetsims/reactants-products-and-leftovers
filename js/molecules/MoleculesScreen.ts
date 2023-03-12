@@ -42,10 +42,10 @@ export default class MoleculesScreen extends Screen<MoleculesModel, MoleculesScr
  */
 function createScreenIcon( moleculeLineWidth: number ): ScreenIcon {
 
-  // H2O molecule, scaled to fit and centered on background
   const iconNode = new H2ONode( {
     atomNodeOptions: {
-      stroke: 'black', lineWidth: moleculeLineWidth
+      stroke: 'black',
+      lineWidth: moleculeLineWidth
     }
   } );
 
