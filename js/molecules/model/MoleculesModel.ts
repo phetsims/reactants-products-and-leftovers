@@ -15,10 +15,12 @@ export default class MoleculesModel extends RPALBaseModel {
 
   public constructor( tandem: Tandem ) {
 
+    const reactionsTandem = tandem.createTandem( 'reactions' );
+
     const reactions = [
-      ReactionFactory.makeWater(),
-      ReactionFactory.makeAmmonia(),
-      ReactionFactory.combustMethane()
+      ReactionFactory.makeWater( reactionsTandem.createTandem( 'makeWater' ) ),
+      ReactionFactory.makeAmmonia( reactionsTandem.createTandem( 'makeAmmonia' ) ),
+      ReactionFactory.combustMethane( reactionsTandem.createTandem( 'combustMethane' ) )
     ];
 
     super( reactions, tandem );

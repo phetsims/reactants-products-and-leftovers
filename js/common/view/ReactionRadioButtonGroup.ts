@@ -33,8 +33,8 @@ export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> ext
         createNode: tandem => new Text( nameProperty, combineOptions<TextOptions>( {
           tandem: tandem.createTandem( 'text' )
         }, textOptions ) ),
-        value: reaction
-        //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 tandemName
+        value: reaction,
+        tandemName: `${reaction.tandem.name}RadioButton`
       };
     } );
 

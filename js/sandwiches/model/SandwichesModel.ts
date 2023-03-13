@@ -21,15 +21,25 @@ export default class SandwichesModel extends RPALBaseModel<SandwichRecipe> {
 
   public constructor( tandem: Tandem ) {
 
+    const sandwichesTandem = tandem.createTandem( 'sandwiches' );
+
     const reactions = [
 
       // sandwich recipe choices, numeric args are: bread, meat, cheese
-      new SandwichRecipe( ReactantsProductsAndLeftoversStrings.cheeseStringProperty, 2, 0, 1 ),
-      new SandwichRecipe( ReactantsProductsAndLeftoversStrings.meatAndCheeseStringProperty, 2, 1, 1 ),
+      new SandwichRecipe( 2, 0, 1, {
+        nameProperty: ReactantsProductsAndLeftoversStrings.cheeseStringProperty,
+        tandem: sandwichesTandem.createTandem( 'cheeseSandwich' )
+      } ),
+      new SandwichRecipe( 2, 1, 1, {
+        nameProperty: ReactantsProductsAndLeftoversStrings.meatAndCheeseStringProperty,
+        tandem: sandwichesTandem.createTandem( 'meatAndCheeseSandwich' )
+      } ),
 
       // for Custom sandwich, the user can change coefficients of the ingredients
-      new SandwichRecipe( ReactantsProductsAndLeftoversStrings.customStringProperty, 0, 0, 0, {
-        coefficientsMutable: true
+      new SandwichRecipe( 0, 0, 0, {
+        coefficientsMutable: true,
+        nameProperty: ReactantsProductsAndLeftoversStrings.customStringProperty,
+        tandem: sandwichesTandem.createTandem( 'customSandwich' )
       } )
     ];
 

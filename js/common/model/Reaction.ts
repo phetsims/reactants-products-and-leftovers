@@ -10,6 +10,11 @@
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Substance from './Substance.js';
@@ -18,9 +23,10 @@ type SelfOptions = {
   nameProperty?: TReadOnlyProperty<string> | null; // optional name for the Reaction, displayed to the user
 };
 
-export type ReactionOptions = SelfOptions;
+//TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 tandem required
+export type ReactionOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem'>;
 
-export default class Reaction {
+export default class Reaction extends PhetioObject {
 
   public readonly nameProperty: TReadOnlyProperty<string> | null;
   public readonly reactants: Substance[];
@@ -32,9 +38,16 @@ export default class Reaction {
     assert && assert( reactants.length > 1, 'a reaction requires at least 2 reactants' );
     assert && assert( products.length > 0, 'a reaction requires at least 1 product' );
 
-    const options = optionize<ReactionOptions, SelfOptions>()( {
-      nameProperty: null
+    const options = optionize<ReactionOptions, SelfOptions, PhetioObjectOptions>()( {
+      nameProperty: null,
+
+      // PhetioObjectOptions
+      tandem: Tandem.OPT_OUT, //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 tandem required
+      phetioState: false,
+      phetioType: Reaction.ReactionIO
     }, providedOptions );
+
+    super( options );
 
     this.reactants = reactants;
     this.products = products;
@@ -57,11 +70,12 @@ export default class Reaction {
     this.leftovers.forEach( leftover => leftover.reset() );
   }
 
-  public dispose(): void {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 
-  public toString(): string {
+  public override toString(): string {
     return DevStringUtils.equationString( this );
   }
 
@@ -113,6 +127,11 @@ export default class Reaction {
     }
     return numberOfReactions;
   }
+
+  public static readonly ReactionIO = new IOType( 'ReactionIO', {
+    valueType: Reaction,
+    supertype: ReferenceIO( IOType.ObjectIO )
+  } );
 }
 
 reactantsProductsAndLeftovers.register( 'Reaction', Reaction );

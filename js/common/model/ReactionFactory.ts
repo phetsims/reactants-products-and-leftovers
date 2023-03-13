@@ -45,6 +45,7 @@ import PH3Node from '../../../../nitroglycerin/js/nodes/PH3Node.js';
 import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import RPALConstants from '../RPALConstants.js';
@@ -61,21 +62,27 @@ const ReactionFactory = {
   //---------------------------------------------------------------------------------------
 
   // 2H2 + O2 -> 2H2O (Make Water)
-  makeWater(): Reaction {
+  makeWater( tandem = Tandem.OPT_OUT ): Reaction {
     return new Reaction(
       [ new Substance( 2, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 1, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
       [ new Substance( 2, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
-      { nameProperty: ReactantsProductsAndLeftoversStrings.makeWaterStringProperty } );
+      {
+        nameProperty: ReactantsProductsAndLeftoversStrings.makeWaterStringProperty,
+        tandem: tandem
+      } );
   },
 
   // N2 + 3H2 -> 2NH3 (Make Ammonia)
-  makeAmmonia(): Reaction {
+  makeAmmonia( tandem = Tandem.OPT_OUT ): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.N2, new N2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 3, RPALSymbols.H2, new H2Node( MOLECULE_NODE_OPTIONS ) ) ],
       [ new Substance( 2, RPALSymbols.NH3, new NH3Node( MOLECULE_NODE_OPTIONS ) ) ],
-      { nameProperty: ReactantsProductsAndLeftoversStrings.makeAmmoniaStringProperty } );
+      {
+        nameProperty: ReactantsProductsAndLeftoversStrings.makeAmmoniaStringProperty,
+        tandem: tandem
+      } );
   },
 
   // H2 + F2 -> 2HF
@@ -235,13 +242,16 @@ const ReactionFactory = {
   //---------------------------------------------------------------------------------------
 
   // CH4 + 2 O2 -> CO2 + 2 H2O (Combust Methane)
-  combustMethane(): Reaction {
+  combustMethane( tandem = Tandem.OPT_OUT ): Reaction {
     return new Reaction(
       [ new Substance( 1, RPALSymbols.CH4, new CH4Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.O2, new O2Node( MOLECULE_NODE_OPTIONS ) ) ],
       [ new Substance( 1, RPALSymbols.CO2, new CO2Node( MOLECULE_NODE_OPTIONS ) ),
         new Substance( 2, RPALSymbols.H2O, new H2ONode( MOLECULE_NODE_OPTIONS ) ) ],
-      { nameProperty: ReactantsProductsAndLeftoversStrings.combustMethaneStringProperty } );
+      {
+        nameProperty: ReactantsProductsAndLeftoversStrings.combustMethaneStringProperty,
+        tandem: tandem
+      } );
   },
 
   // 2C + 2H2O -> CH4 + CO2

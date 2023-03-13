@@ -13,8 +13,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import Reaction, { ReactionOptions } from '../../common/model/Reaction.js';
 import Substance from '../../common/model/Substance.js';
@@ -28,16 +28,14 @@ type SelfOptions = {
   coefficientsMutable?: boolean; // Can coefficients of the ingredients can be changed?
 };
 
-type SandwichRecipeOptions = SelfOptions;
+type SandwichRecipeOptions = SelfOptions & PickRequired<ReactionOptions, 'nameProperty' | 'tandem'>;
 
 export default class SandwichRecipe extends Reaction {
 
   public readonly sandwich: Substance;
   public readonly coefficientsMutable: boolean;
 
-  public constructor( nameProperty: TReadOnlyProperty<string>,
-                      breadCount: number, meatCount: number, cheeseCount: number,
-                      providedOptions?: SandwichRecipeOptions ) {
+  public constructor( breadCount: number, meatCount: number, cheeseCount: number, providedOptions?: SandwichRecipeOptions ) {
 
     assert && assert( Number.isInteger( breadCount ) && Number.isInteger( meatCount ) && Number.isInteger( cheeseCount ) );
     assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
@@ -61,9 +59,7 @@ export default class SandwichRecipe extends Reaction {
     const sandwich = new Substance( 1, 'sandwich',
       options.coefficientsMutable ? NO_SANDWICH_NODE : new SandwichNode( breadCount, meatCount, cheeseCount ) );
 
-    super( ingredients, [ sandwich ], {
-      nameProperty: nameProperty
-    } );
+    super( ingredients, [ sandwich ], options );
 
     assert && assert( options.coefficientsMutable || this.isReaction(), 'a static recipe must be a valid reaction' );
 

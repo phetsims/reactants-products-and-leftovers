@@ -23,7 +23,9 @@ export default class RPALBaseModel<R extends Reaction = Reaction> implements TMo
   protected constructor( reactions: R[], tandem: Tandem ) {
     this.reactions = reactions;
     this.reactionProperty = new Property( this.reactions[ 0 ], {
-      validValues: reactions
+      validValues: reactions,
+      tandem: tandem.createTandem( 'reactionProperty' ),
+      phetioValueType: Reaction.ReactionIO
     } );
   }
 
