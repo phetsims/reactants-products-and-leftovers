@@ -97,6 +97,7 @@ export default class GameModel implements TModel {
     // read-only
     this.levelProperty = new NumberProperty( 0, {
       numberType: 'Integer',
+      hasListenerOrderDependencies: true, // TODO: https://github.com/phetsims/reactants-products-and-leftovers/issues/85
       range: new Range( 0, this.numberOfLevels - 1 ),
       tandem: tandem.createTandem( 'levelProperty' )
     } );

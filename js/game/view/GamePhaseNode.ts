@@ -29,7 +29,8 @@ export default class GamePhaseNode extends Node {
       // NodeOptions
       visibleProperty: new DerivedProperty( [ gamePhaseProperty ], value => ( value === gamePhase ), {
         tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
-        phetioValueType: BooleanIO
+        phetioValueType: BooleanIO,
+        hasListenerOrderDependencies: true // TODO: https://github.com/phetsims/reactants-products-and-leftovers/issues/85
       } )
     }, providedOptions );
 
