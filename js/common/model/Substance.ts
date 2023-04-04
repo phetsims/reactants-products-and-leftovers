@@ -37,8 +37,14 @@ export default class Substance {
 
     this.symbol = symbol;
 
-    this.coefficientProperty = new NumberProperty( coefficient );
-    this.quantityProperty = new NumberProperty( quantity );
+    this.coefficientProperty = new NumberProperty( coefficient, {
+      numberType: 'Integer'
+    } );
+
+    this.quantityProperty = new NumberProperty( quantity, {
+      numberType: 'Integer'
+    } );
+
     this.iconProperty = new Property( icon );
   }
 
