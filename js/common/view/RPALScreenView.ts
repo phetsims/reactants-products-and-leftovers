@@ -17,7 +17,7 @@ import ReactionBarNode, { CreateEquationNodeFunction } from './ReactionBarNode.j
 import Reaction from '../model/Reaction.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { BeforeAfterNodeOptions } from './BeforeAfterNode.js';
+import { BeforeAfterNodeOptions } from './RPALSceneNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 

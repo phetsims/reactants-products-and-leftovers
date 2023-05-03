@@ -43,7 +43,7 @@ type SelfOptions = {
 export type BeforeAfterNodeOptions = SelfOptions & NodeTranslationOptions &
   PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
-export default class BeforeAfterNode extends Node {
+export default class RPALSceneNode extends Node {
 
   private readonly disposeBeforeAfterNode: () => void;
 
@@ -142,4 +142,4 @@ export default class BeforeAfterNode extends Node {
   }
 }
 
-reactantsProductsAndLeftovers.register( 'BeforeAfterNode', BeforeAfterNode );
+reactantsProductsAndLeftovers.register( 'RPALSceneNode', RPALSceneNode );
