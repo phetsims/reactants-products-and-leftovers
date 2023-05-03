@@ -1,9 +1,8 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Horizontal bar that contains radio buttons for selecting a reaction, and displays the selected reaction's equation.
- * Equations are relatively expensive to create, and we have a small number of reactions.
- * So equations are created on demand, then cached to improve the performance of switching between reactions.
+ * ReactionBarNode is the horizontal bar that appears at the top of the screen. It contains radio buttons for selecting
+ * a reaction, and displays the selected reaction's equation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
