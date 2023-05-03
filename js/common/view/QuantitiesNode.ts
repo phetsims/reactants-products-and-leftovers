@@ -15,7 +15,7 @@ import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import BracketNode from '../../../../scenery-phet/js/BracketNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, NodeOptions, NodeTranslationOptions, RichText, Text } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, RichText, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import NumberSpinner, { NumberSpinnerOptions } from '../../../../sun/js/NumberSpinner.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
@@ -94,6 +94,9 @@ export default class QuantitiesNode extends Node {
       minIconSize: new Dimension2( 0, 0 ), // minimum amount of layout space reserved for Substance icons
       showSymbols: true // whether to show symbols (eg, H2O) for the substances in the reactions
     }, providedOptions );
+
+    const afterQuantitiesNodeTandem = options.tandem.createTandem( 'afterQuantitiesNode' );
+    const beforeQuantitiesNodeTandem = options.tandem.createTandem( 'beforeQuantitiesNode' );
 
     // Keep track of components that appear below the boxes, so we can handle their vertical alignment.
     const spinnerNodes: NumberSpinner[] = [];
@@ -274,30 +277,39 @@ export default class QuantitiesNode extends Node {
     }
 
     // 'Reactants' bracket
-    const reactantsLabel = new Text( ReactantsProductsAndLeftoversStrings.reactantsStringProperty, BRACKET_TEXT_OPTIONS );
+    const reactantsText = new Text( ReactantsProductsAndLeftoversStrings.reactantsStringProperty,
+      combineOptions<TextOptions>( {
+        tandem: beforeQuantitiesNodeTandem.createTandem( 'reactantsText' )
+      }, BRACKET_TEXT_OPTIONS ) );
     const reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.BRACKET_NODE_STROKE,
-      labelNode: reactantsLabel,
+      labelNode: reactantsText,
       bracketLength: Math.max( options.minIconSize.width, reactantsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: reactantsParent.centerX,
       top: bracketsTop
     } );
 
     // 'Products' bracket
-    const productsLabel = new Text( ReactantsProductsAndLeftoversStrings.productsStringProperty, BRACKET_TEXT_OPTIONS );
+    const productsText = new Text( ReactantsProductsAndLeftoversStrings.productsStringProperty,
+      combineOptions<TextOptions>( {
+        tandem: afterQuantitiesNodeTandem.createTandem( 'productsText' )
+      }, BRACKET_TEXT_OPTIONS ) );
     const productsBracket = new BracketNode( {
       bracketStroke: RPALColors.BRACKET_NODE_STROKE,
-      labelNode: productsLabel,
+      labelNode: productsText,
       bracketLength: Math.max( options.minIconSize.width, productsParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: productsParent.centerX,
       top: bracketsTop
     } );
 
     // 'Leftovers' bracket
-    const leftoversLabel = new Text( ReactantsProductsAndLeftoversStrings.leftoversStringProperty, BRACKET_TEXT_OPTIONS );
+    const leftoversText = new Text( ReactantsProductsAndLeftoversStrings.leftoversStringProperty,
+      combineOptions<TextOptions>( {
+        tandem: afterQuantitiesNodeTandem.createTandem( 'leftoversText' )
+      }, BRACKET_TEXT_OPTIONS ) );
     const leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.BRACKET_NODE_STROKE,
-      labelNode: leftoversLabel,
+      labelNode: leftoversText,
       bracketLength: Math.max( options.minIconSize.width, leftoversParent.width + ( 2 * BRACKET_X_MARGIN ) ),
       centerX: leftoversParent.centerX,
       top: bracketsTop
@@ -315,12 +327,12 @@ export default class QuantitiesNode extends Node {
 
     const beforeQuantitiesNode = new Node( {
       children: [ reactantsParent, reactantsBracket ],
-      tandem: options.tandem.createTandem( 'beforeQuantitiesNode' )
+      tandem: beforeQuantitiesNodeTandem
     } );
 
     const afterQuantitiesNode = new Node( {
       children: [ productsParent, leftoversParent, productsBracket, leftoversBracket ],
-      tandem: options.tandem.createTandem( 'afterQuantitiesNode' )
+      tandem: afterQuantitiesNodeTandem
     } );
 
     options.children = [ beforeQuantitiesNode, afterQuantitiesNode, hideNumbersBox ];
@@ -340,9 +352,9 @@ export default class QuantitiesNode extends Node {
     this.hideNumbersBox = hideNumbersBox;
 
     this.disposeQuantitiesNode = () => {
-      reactantsLabel.dispose();
-      productsLabel.dispose();
-      leftoversLabel.dispose();
+      reactantsText.dispose();
+      productsText.dispose();
+      leftoversText.dispose();
       this.spinnerNodes.forEach( node => node.dispose() );
       this.beforeNumberNodes.forEach( node => node.dispose() );
       this.afterNumberNodes.forEach( node => node.dispose() );

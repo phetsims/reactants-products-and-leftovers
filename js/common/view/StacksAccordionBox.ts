@@ -82,13 +82,14 @@ export default class StacksAccordionBox extends AccordionBox {
     assert && assert( Number.isInteger( options.maxQuantity ) && options.maxQuantity > 0 );
 
     // scale the title to fit
-    const titleNode = new Text( titleStringProperty, {
+    const titleText = new Text( titleStringProperty, {
       font: new PhetFont( 14 ),
       fill: 'white',
-      maxWidth: 0.75 * options.contentSize.width
+      maxWidth: 0.75 * options.contentSize.width,
+      tandem: options.tandem.createTandem( 'titleText' )
     } );
-    titleNode.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * options.contentSize.width / titleNode.width ) );
-    options.titleNode = titleNode;
+    titleText.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * options.contentSize.width / titleText.width ) );
+    options.titleNode = titleText;
 
     // content for the accordion box
     const content = new Node();
@@ -120,7 +121,7 @@ export default class StacksAccordionBox extends AccordionBox {
     super( content, options );
 
     this.disposeStacksAccordionBox = () => {
-      titleNode.dispose();
+      titleText.dispose();
       stackNodes.forEach( node => node.dispose() );
       stackNodes.length = 0;
     };

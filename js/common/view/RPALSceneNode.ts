@@ -122,7 +122,7 @@ export default class RPALSceneNode extends Node {
       quantityRange: options.quantityRange,
       x: beforeAccordionBox.x,
       top: beforeAccordionBox.bottom + 6,
-      tandem: options.tandem.createTandem( 'quantitiesNodes' )
+      tandem: options.tandem.createTandem( 'quantitiesNode' )
     } );
 
     options.children = [ hBox, quantitiesNode ];
@@ -136,6 +136,7 @@ export default class RPALSceneNode extends Node {
     this.disposeBeforeAfterNode = () => {
       beforeAccordionBox.dispose();
       afterAccordionBox.dispose();
+      rightArrowNode.dispose();
       quantitiesNode.dispose();
     };
   }
