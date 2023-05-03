@@ -21,7 +21,7 @@ import { BeforeAfterNodeOptions } from './RPALSceneNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
-export type CreateBeforeAfterNodeFunction = (
+export type CreateSceneNodeFunction = (
   reaction: Reaction,
   beforeExpandedProperty: Property<boolean>,
   afterExpandedProperty: Property<boolean>,
@@ -33,12 +33,12 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
   /**
    * @param model
    * @param createEquationNode - creates an equation for a specified reaction
-   * @param createBeforeAfterNode - creates the Before/After boxes for a specified reaction
+   * @param createSceneNode - creates the Before/After boxes for a specified reaction
    * @param tandem
    */
   protected constructor( model: RPALBaseModel<R>,
                          createEquationNode: CreateEquationNodeFunction<R>,
-                         createBeforeAfterNode: CreateBeforeAfterNodeFunction,
+                         createSceneNode: CreateSceneNodeFunction,
                          tandem: Tandem ) {
 
     super( {
@@ -62,7 +62,7 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
     const beforeAfterNodes = model.reactions.map( reaction => {
       const beforeAfterNodesTandem = sceneNodesTandem.createTandem( `${reaction.tandem.name}SceneNode` );
-      return createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
+      return createSceneNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
         visibleProperty: new DerivedProperty( [ model.reactionProperty ], value => ( value === reaction ), {
           tandem: beforeAfterNodesTandem.createTandem( 'visibleProperty' ),
           phetioValueType: BooleanIO

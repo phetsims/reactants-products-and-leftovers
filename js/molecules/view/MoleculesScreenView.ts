@@ -12,7 +12,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALSceneNode, { BeforeAfterNodeOptions } from '../../common/view/RPALSceneNode.js';
 import MoleculesEquationNode from '../../common/view/MoleculesEquationNode.js';
-import RPALScreenView, { CreateBeforeAfterNodeFunction } from '../../common/view/RPALScreenView.js';
+import RPALScreenView, { CreateSceneNodeFunction } from '../../common/view/RPALScreenView.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import MoleculesModel from '../model/MoleculesModel.js';
 import { CreateEquationNodeFunction } from '../../common/view/ReactionBarNode.js';
@@ -27,8 +27,8 @@ export default class MoleculesScreenView extends RPALScreenView {
         visibleProperty: visibleProperty
       } );
 
-    // Creates the Before/After interface for a specified reaction.
-    const createBeforeAfterNode: CreateBeforeAfterNodeFunction =
+    // Creates the user interface for a specified reaction.
+    const createSceneNode: CreateSceneNodeFunction =
       ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) =>
         new RPALSceneNode( reaction, beforeExpandedProperty, afterExpandedProperty,
           combineOptions<BeforeAfterNodeOptions>( {
@@ -36,7 +36,7 @@ export default class MoleculesScreenView extends RPALScreenView {
             minIconSize: new Dimension2( 30, 25 ) // eyeballed
           }, options ) );
 
-    super( model, createEquationNode, createBeforeAfterNode, tandem );
+    super( model, createEquationNode, createSceneNode, tandem );
   }
 }
 

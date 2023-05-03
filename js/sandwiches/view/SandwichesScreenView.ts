@@ -10,7 +10,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALSceneNode, { BeforeAfterNodeOptions } from '../../common/view/RPALSceneNode.js';
-import RPALScreenView, { CreateBeforeAfterNodeFunction } from '../../common/view/RPALScreenView.js';
+import RPALScreenView, { CreateSceneNodeFunction } from '../../common/view/RPALScreenView.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichesModel from '../model/SandwichesModel.js';
@@ -33,8 +33,8 @@ export default class SandwichesScreenView extends RPALScreenView<SandwichRecipe>
     const createEquationNode: CreateEquationNodeFunction<SandwichRecipe> =
       ( reaction, visibleProperty ) => new SandwichesEquationNode( reaction, maxSandwichSize, visibleProperty );
 
-    // Creates the Before/After interface for a specified reaction.
-    const createBeforeAfterNode: CreateBeforeAfterNodeFunction =
+    // Creates the user interface for a specified reaction.
+    const createSceneNode: CreateSceneNodeFunction =
       ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) =>
         new RPALSceneNode( reaction, beforeExpandedProperty, afterExpandedProperty,
           combineOptions<BeforeAfterNodeOptions>( {
@@ -46,7 +46,7 @@ export default class SandwichesScreenView extends RPALScreenView<SandwichRecipe>
             boxYMargin: 8 // large enough to accommodate the biggest sandwich
           }, options ) );
 
-    super( model, createEquationNode, createBeforeAfterNode, tandem );
+    super( model, createEquationNode, createSceneNode, tandem );
   }
 }
 
