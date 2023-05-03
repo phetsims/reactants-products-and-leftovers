@@ -93,7 +93,7 @@ export default class RPALSceneNode extends Node {
       }, stacksAccordionBoxOptions ) );
 
     // 'After Reaction' accordion box, with stacks of products and leftovers
-    const afterAccordionBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, options.afterTitleProperty,
+    const afterAccordionBox = new StacksAccordionBox( [ ...products, ...leftovers ], afterXOffsets, options.afterTitleProperty,
       afterExpandedProperty, combineOptions<StacksAccordionBoxOptions>( {
         tandem: options.tandem.createTandem( 'afterAccordionBox' )
       }, stacksAccordionBoxOptions ) );
