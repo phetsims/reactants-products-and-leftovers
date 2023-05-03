@@ -15,6 +15,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import { Line, Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SubstanceIcon from './SubstanceIcon.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -32,7 +33,7 @@ export default class StackNode extends Node {
    * @param deltaY - the vertical spacing between nodes in the stack
    * @param [providedOptions]
    */
-  public constructor( height: number, iconProperty: TReadOnlyProperty<Node>, quantityProperty: TReadOnlyProperty<number>,
+  public constructor( height: number, iconProperty: TReadOnlyProperty<Node>, quantityProperty: NumberProperty,
                       startCenterY: number, deltaY: number, providedOptions?: StackNodeOptions ) {
 
     const options = optionize<StackNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
@@ -44,35 +45,25 @@ export default class StackNode extends Node {
      */
     const line = new Line( 0, 0, 0, height );
 
-    // parent for all items in the stack
-    const itemsParent = new Node();
-
+    // Eagerly create the maximum number of nodes in the stack, positioned from the bottom up.
     const iconNodes: SubstanceIcon[] = [];
+    for ( let i = 0; i < quantityProperty.range.max; i++ ) {
+      const iconNode = new SubstanceIcon( iconProperty, {
+        centerX: 0,
+        centerY: startCenterY - ( i * deltaY )
+      } );
+      iconNodes.push( iconNode );
+    }
 
-    // update the number of nodes in the stack
+    // Make the proper number of nodes visible in the stack, from the bottom up.
     const quantityPropertyObserver = ( quantity: number ) => {
-
-      const count = Math.max( quantity, itemsParent.getChildrenCount() );
-
-      for ( let i = 0; i < count; i++ ) {
-        if ( i < itemsParent.getChildrenCount() ) {
-          // set visibility of a node that already exists
-          itemsParent.getChildAt( i ).visible = ( i < quantity );
-        }
-        else {
-          // add a node
-          const iconNode = new SubstanceIcon( iconProperty, {
-            centerX: 0,
-            centerY: startCenterY - ( i * deltaY )
-          } );
-          itemsParent.addChild( iconNode );
-          iconNodes.push( iconNode );
-        }
+      for ( let i = 0; i < iconNodes.length; i++ ) {
+        iconNodes[ i ].visible = ( i < quantity );
       }
     };
     quantityProperty.link( quantityPropertyObserver ); // must be unlinked in dispose
 
-    options.children = [ line, itemsParent ];
+    options.children = [ line, ...iconNodes ];
 
     super( options );
 
