@@ -12,7 +12,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SubstanceIcon from './SubstanceIcon.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import RPALConstants from '../RPALConstants.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -30,14 +30,14 @@ export default class StackNode extends Node {
    * @param deltaY - the vertical spacing between nodes in the stack
    * @param [providedOptions]
    */
-  public constructor( height: number, iconProperty: TReadOnlyProperty<Node>, quantityProperty: NumberProperty,
+  public constructor( height: number, iconProperty: TReadOnlyProperty<Node>, quantityProperty: TReadOnlyProperty<number>,
                       startCenterY: number, deltaY: number, providedOptions?: StackNodeOptions ) {
 
     const options = optionize<StackNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     // Eagerly create the maximum number of Nodes in the stack, positioned from the bottom up.
     const icons: SubstanceIcon[] = [];
-    for ( let i = 0; i < quantityProperty.range.max; i++ ) {
+    for ( let i = 0; i < RPALConstants.QUANTITY_RANGE.max; i++ ) {
       icons.push( new SubstanceIcon( iconProperty, {
         centerX: 0,
         centerY: startCenterY - ( i * deltaY )
@@ -46,6 +46,7 @@ export default class StackNode extends Node {
 
     // Make the proper number of Nodes visible in the stack, from the bottom up.
     const quantityPropertyObserver = ( quantity: number ) => {
+      assert && assert( RPALConstants.QUANTITY_RANGE.contains( quantity ) );
       for ( let i = 0; i < icons.length; i++ ) {
         icons[ i ].visible = ( i < quantity );
       }

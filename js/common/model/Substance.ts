@@ -10,7 +10,6 @@ import { Node } from '../../../../scenery/js/imports.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import RPALConstants from '../RPALConstants.js';
 
 export default class Substance {
 
@@ -20,7 +19,7 @@ export default class Substance {
   public readonly coefficientProperty: Property<number>;
 
   // how much of the substance we have
-  public readonly quantityProperty: NumberProperty;
+  public readonly quantityProperty: Property<number>;
 
   // visual representation of the substance, mutable to support the 'Custom' sandwich
   public readonly iconProperty: Property<Node>;
@@ -43,8 +42,7 @@ export default class Substance {
     } );
 
     this.quantityProperty = new NumberProperty( quantity, {
-      numberType: 'Integer',
-      range: RPALConstants.QUANTITY_RANGE
+      numberType: 'Integer'
     } );
 
     this.iconProperty = new Property( icon );
