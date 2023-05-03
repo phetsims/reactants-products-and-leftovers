@@ -313,11 +313,17 @@ export default class QuantitiesNode extends Node {
       centerY: spinnerNodes[ 0 ].centerY
     } );
 
-    options.children = [
-      reactantsParent, productsParent, leftoversParent,
-      reactantsBracket, productsBracket, leftoversBracket,
-      hideNumbersBox
-    ];
+    const beforeQuantitiesNode = new Node( {
+      children: [ reactantsParent, reactantsBracket ],
+      tandem: options.tandem.createTandem( 'beforeQuantitiesNode' )
+    } );
+
+    const afterQuantitiesNode = new Node( {
+      children: [ productsParent, leftoversParent, productsBracket, leftoversBracket ],
+      tandem: options.tandem.createTandem( 'afterQuantitiesNode' )
+    } );
+
+    options.children = [ beforeQuantitiesNode, afterQuantitiesNode, hideNumbersBox ];
 
     super( options );
 

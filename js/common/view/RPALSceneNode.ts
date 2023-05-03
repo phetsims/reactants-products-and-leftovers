@@ -129,6 +129,10 @@ export default class RPALSceneNode extends Node {
 
     super( options );
 
+    this.addLinkedElement( reaction, {
+      tandem: options.tandem.createTandem( reaction.tandem.name )
+    } );
+
     this.disposeBeforeAfterNode = () => {
       beforeAccordionBox.dispose();
       afterAccordionBox.dispose();
