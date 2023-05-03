@@ -15,8 +15,7 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { HBox, Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
@@ -26,6 +25,7 @@ import RPALConstants from '../RPALConstants.js';
 import QuantitiesNode from './QuantitiesNode.js';
 import RightArrowNode from './RightArrowNode.js';
 import StacksAccordionBox, { StacksAccordionBoxOptions } from './StacksAccordionBox.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const DEFAULT_CONTENT_SIZE = new Dimension2( 100, 100 );
 const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );
@@ -40,7 +40,8 @@ type SelfOptions = {
   boxYMargin?: number; // vertical margin between the inner edge of box and the tallest node
 };
 
-export type BeforeAfterNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<NodeOptions, 'visibleProperty'>;
+export type BeforeAfterNodeOptions = SelfOptions & NodeTranslationOptions &
+  PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
 export default class BeforeAfterNode extends Node {
 
@@ -78,43 +79,50 @@ export default class BeforeAfterNode extends Node {
     const beforeXOffsets = QuantitiesNode.createXOffsets( reactants.length, options.contentSize.width );
     const afterXOffsets = QuantitiesNode.createXOffsets( products.length + leftovers.length, options.contentSize.width );
 
-    const stacksAccordionBoxOptions: StacksAccordionBoxOptions = {
+    const stacksAccordionBoxOptions = {
       contentSize: options.contentSize,
       minIconSize: options.minIconSize,
       maxQuantity: options.quantityRange.max,
       boxYMargin: options.boxYMargin
     };
 
-    // 'Before Reaction' box, with stacks of reactants
-    const beforeBox = new StacksAccordionBox( reactants, beforeXOffsets, options.beforeTitleProperty,
-      beforeExpandedProperty, stacksAccordionBoxOptions );
+    // 'Before Reaction' accordion box, with stacks of reactants
+    const beforeAccordionBox = new StacksAccordionBox( reactants, beforeXOffsets, options.beforeTitleProperty,
+      beforeExpandedProperty, combineOptions<StacksAccordionBoxOptions>( {
+        tandem: options.tandem.createTandem( 'beforeAccordionBox' )
+      }, stacksAccordionBoxOptions ) );
 
-    // 'After Reaction' box, with stacks of products and leftovers
-    const afterBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, options.afterTitleProperty,
-      afterExpandedProperty, stacksAccordionBoxOptions );
+    // 'After Reaction' accordion box, with stacks of products and leftovers
+    const afterAccordionBox = new StacksAccordionBox( products.concat( leftovers ), afterXOffsets, options.afterTitleProperty,
+      afterExpandedProperty, combineOptions<StacksAccordionBoxOptions>( {
+        tandem: options.tandem.createTandem( 'afterAccordionBox' )
+      }, stacksAccordionBoxOptions ) );
 
     // Arrow between boxes
-    const arrowNode = new RightArrowNode( {
+    const rightArrowNode = new RightArrowNode( {
       fill: RPALColors.STATUS_BAR_FILL,
       stroke: null,
-      scale: 0.75
+      scale: 0.75,
+      tandem: options.tandem.createTandem( 'rightArrowNode' )
     } );
 
     // layout of boxes and arrow
     const hBox = new HBox( {
-      children: [ beforeBox, arrowNode, afterBox ],
-      spacing: 10
+      children: [ beforeAccordionBox, rightArrowNode, afterAccordionBox ],
+      spacing: 10,
+      excludeInvisibleChildrenFromBounds: false
     } );
 
     // Everything below the boxes
     const quantitiesNode = new QuantitiesNode( reactants, products, leftovers, beforeXOffsets, afterXOffsets, {
       showSymbols: options.showSymbols,
       boxWidth: options.contentSize.width,
-      afterBoxXOffset: afterBox.left - beforeBox.left,
+      afterBoxXOffset: afterAccordionBox.left - beforeAccordionBox.left,
       minIconSize: options.minIconSize,
       quantityRange: options.quantityRange,
-      x: beforeBox.x,
-      top: beforeBox.bottom + 6
+      x: beforeAccordionBox.x,
+      top: beforeAccordionBox.bottom + 6,
+      tandem: options.tandem.createTandem( 'quantitiesNodes' )
     } );
 
     options.children = [ hBox, quantitiesNode ];
@@ -122,8 +130,8 @@ export default class BeforeAfterNode extends Node {
     super( options );
 
     this.disposeBeforeAfterNode = () => {
-      beforeBox.dispose();
-      afterBox.dispose();
+      beforeAccordionBox.dispose();
+      afterAccordionBox.dispose();
       quantitiesNode.dispose();
     };
   }

@@ -33,6 +33,7 @@ import GameModel from '../model/GameModel.js';
 import PlayState from '../model/PlayState.js';
 import GameButtons from './GameButtons.js';
 import RandomBox from './RandomBox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );
 
@@ -220,7 +221,8 @@ export default class ChallengeNode extends Node {
       quantityRange: options.quantityRange,
       hideNumbersBox: !challenge.numbersVisible,
       x: beforeBox.x,
-      top: beforeBox.bottom + 4
+      top: beforeBox.bottom + 4,
+      tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78
     } );
     this.addChild( quantitiesNode );
 

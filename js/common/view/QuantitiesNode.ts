@@ -26,6 +26,7 @@ import RPALConstants from '../RPALConstants.js';
 import HideBox from './HideBox.js';
 import NumberNode from './NumberNode.js';
 import SubstanceIcon from './SubstanceIcon.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const NUMBER_SPINNER_OPTIONS = RPALConstants.NUMBER_SPINNER_OPTIONS;
 const QUANTITY_FONT = new PhetFont( 28 ); // font for the quantities that appear below the boxes
@@ -50,7 +51,7 @@ type SelfOptions = {
   showSymbols?: boolean; // whether to show symbols (eg, H2O) for the substances in the reactions
 };
 
-type QuantitiesNodeOptions = SelfOptions & NodeTranslationOptions;
+type QuantitiesNodeOptions = SelfOptions & NodeTranslationOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class QuantitiesNode extends Node {
 

@@ -19,6 +19,7 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { BeforeAfterNodeOptions } from './BeforeAfterNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 export type CreateBeforeAfterNodeFunction = (
   reaction: Reaction,
@@ -58,12 +59,19 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
     } );
 
     // Create a pair of 'Before' and 'After' boxes for each reaction, visible when the reaction is selected.
-    const beforeAfterNodes = model.reactions.map( reaction =>
-      createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
-        visibleProperty: new DerivedProperty( [ model.reactionProperty ], value => ( value === reaction ) ),
+    const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
+    const beforeAfterNodes = model.reactions.map( reaction => {
+      const beforeAfterNodesTandem = sceneNodesTandem.createTandem( `${reaction.tandem.name}SceneNode` );
+      return createBeforeAfterNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
+        visibleProperty: new DerivedProperty( [ model.reactionProperty ], value => ( value === reaction ), {
+          tandem: beforeAfterNodesTandem.createTandem( 'visibleProperty' ),
+          phetioValueType: BooleanIO
+        } ),
         centerX: this.layoutBounds.centerX,
-        top: reactionBarNode.bottom + 12 // below the reaction equation
-      } ) );
+        top: reactionBarNode.bottom + 12, // below the reaction equation
+        tandem: beforeAfterNodesTandem
+      } );
+    } );
 
     // Reset All button
     const resetAllButton = new ResetAllButton( {

@@ -17,6 +17,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
 const DEFAULT_CONTENT_SIZE = new Dimension2( 100, 100 );
@@ -29,7 +30,7 @@ type SelfOptions = {
   boxYMargin?: number; // vertical margin between the inner edge of box and the tallest node
 };
 
-export type StacksAccordionBoxOptions = SelfOptions;
+export type StacksAccordionBoxOptions = SelfOptions & PickRequired<AccordionBoxOptions, 'tandem'>;
 
 export default class StacksAccordionBox extends AccordionBox {
 
