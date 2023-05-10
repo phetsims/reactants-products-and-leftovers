@@ -52,7 +52,12 @@
         },
         "simulation": true,
         "supportsOutputJS": true,
-        "published": true
+        "published": true,
+        "screenNameKeys": [
+          "REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.sandwiches",
+          "REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.molecules",
+          "REACTANTS_PRODUCTS_AND_LEFTOVERS/screen.game"
+        ]
       },
       "eslintConfig": {
         "extends": "../chipper/eslint/sim_eslintrc.js",
@@ -63,7 +68,15 @@
             ],
             "rules": {
               "@typescript-eslint/no-explicit-any": "error",
-              "@typescript-eslint/ban-ts-comment": "error"
+              "@typescript-eslint/ban-ts-comment": [
+                "error",
+                {
+                  "ts-expect-error": true,
+                  "ts-ignore": true,
+                  "ts-check": true,
+                  "ts-nocheck": true
+                }
+              ]
             }
           }
         ]
