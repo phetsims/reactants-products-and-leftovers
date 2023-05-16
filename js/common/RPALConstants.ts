@@ -39,7 +39,7 @@ const NUMBER_SPINNER_OPTIONS: NumberSpinnerOptions = {
 
 const RPALConstants = {
 
-  SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 835, 504 ),
+  SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 835, 504 ), //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/75
 
   QUANTITY_RANGE: new Range( 0, 8 ),
   SANDWICH_COEFFICIENT_RANGE: new Range( 0, 3 ),
