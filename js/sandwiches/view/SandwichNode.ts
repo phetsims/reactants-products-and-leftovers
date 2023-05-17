@@ -32,7 +32,6 @@ export default class SandwichNode extends Node {
     let centerY = 0;
 
     // ensure that all sandwiches are the same width
-    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/82
     children.push( new HStrut( MAX_WIDTH, { centerX: 0 } ) );
 
     // Put a slice of bread on the bottom.
