@@ -85,8 +85,7 @@ export default class StacksAccordionBox extends AccordionBox {
     const titleText = new Text( titleStringProperty, {
       font: new PhetFont( 14 ),
       fill: 'white',
-      maxWidth: 0.75 * options.contentSize.width,
-      tandem: options.tandem.createTandem( 'titleText' )
+      maxWidth: 0.75 * options.contentSize.width
     } );
     titleText.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * options.contentSize.width / titleText.width ) );
     options.titleNode = titleText;

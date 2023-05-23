@@ -7,9 +7,8 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Text, TextOptions } from '../../../../scenery/js/imports.js';
+import { Text } from '../../../../scenery/js/imports.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
@@ -30,9 +29,7 @@ export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> ext
       const nameProperty = reaction.nameProperty!;
       assert && assert( nameProperty );
       return {
-        createNode: tandem => new Text( nameProperty, combineOptions<TextOptions>( {
-          tandem: tandem.createTandem( 'text' )
-        }, textOptions ) ),
+        createNode: tandem => new Text( nameProperty, textOptions ),
         value: reaction,
         tandemName: `${reaction.tandem.name}RadioButton`
       };

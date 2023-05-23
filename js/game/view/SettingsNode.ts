@@ -36,8 +36,7 @@ export default class SettingsNode extends GamePhaseNode {
     // Title
     const titleText = new Text( ReactantsProductsAndLeftoversStrings.chooseYourLevelStringProperty, {
       font: new PhetFont( 40 ),
-      maxWidth: 0.75 * layoutBounds.width,
-      tandem: tandem.createTandem( 'titleText' )
+      maxWidth: 0.75 * layoutBounds.width
     } );
 
     // Group of LevelSelectionButtons

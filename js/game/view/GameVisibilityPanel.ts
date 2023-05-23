@@ -9,7 +9,6 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { AlignBox, AlignBoxOptions, AlignGroup, HBox, Node, Path, PathOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
@@ -91,10 +90,7 @@ class ShowAllNode extends HBox {
 
     const icon = new AlignBox( new Path( eyeSolidShape, FONT_AWESOME_OPTIONS ), iconAlignBoxOptions );
 
-    const text = new Text( ReactantsProductsAndLeftoversStrings.showAllStringProperty,
-      combineOptions<TextOptions>( {
-        tandem: tandem.createTandem( 'text' )
-      }, TEXT_OPTIONS ) );
+    const text = new Text( ReactantsProductsAndLeftoversStrings.showAllStringProperty, TEXT_OPTIONS );
 
     super( {
       children: [ icon, text ],
@@ -120,10 +116,7 @@ class HideMoleculesNode extends HBox {
     } );
     const icon = new AlignBox( new Node( { children: [ eyeNode, moleculeNode ] } ), iconAlignBoxOptions );
 
-    const text = new Text( ReactantsProductsAndLeftoversStrings.hideMoleculesStringProperty,
-      combineOptions<TextOptions>( {
-        tandem: tandem.createTandem( 'text' )
-      }, TEXT_OPTIONS ) );
+    const text = new Text( ReactantsProductsAndLeftoversStrings.hideMoleculesStringProperty, TEXT_OPTIONS );
 
     super( {
       children: [ icon, text ],
@@ -147,10 +140,7 @@ class HideNumbersNode extends HBox {
     } );
     const icon = new AlignBox( new Node( { children: [ eyeNode, numbersNode ] } ), iconAlignBoxOptions );
 
-    const text = new Text( ReactantsProductsAndLeftoversStrings.hideNumbersStringProperty,
-      combineOptions<TextOptions>( {
-        tandem: tandem.createTandem( 'text' )
-      }, TEXT_OPTIONS ) );
+    const text = new Text( ReactantsProductsAndLeftoversStrings.hideNumbersStringProperty, TEXT_OPTIONS );
 
     super( {
       children: [ icon, text ],

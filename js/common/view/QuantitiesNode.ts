@@ -15,7 +15,7 @@ import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import BracketNode from '../../../../scenery-phet/js/BracketNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, NodeOptions, NodeTranslationOptions, RichText, Text, TextOptions } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, RichText, Text } from '../../../../scenery/js/imports.js';
 import NumberSpinner, { NumberSpinnerOptions } from '../../../../sun/js/NumberSpinner.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
@@ -277,10 +277,7 @@ export default class QuantitiesNode extends Node {
     }
 
     // 'Reactants' bracket
-    const reactantsText = new Text( ReactantsProductsAndLeftoversStrings.reactantsStringProperty,
-      combineOptions<TextOptions>( {
-        tandem: beforeQuantitiesNodeTandem.createTandem( 'reactantsText' )
-      }, BRACKET_TEXT_OPTIONS ) );
+    const reactantsText = new Text( ReactantsProductsAndLeftoversStrings.reactantsStringProperty, BRACKET_TEXT_OPTIONS );
     const reactantsBracket = new BracketNode( {
       bracketStroke: RPALColors.BRACKET_NODE_STROKE,
       labelNode: reactantsText,
@@ -290,10 +287,7 @@ export default class QuantitiesNode extends Node {
     } );
 
     // 'Products' bracket
-    const productsText = new Text( ReactantsProductsAndLeftoversStrings.productsStringProperty,
-      combineOptions<TextOptions>( {
-        tandem: afterQuantitiesNodeTandem.createTandem( 'productsText' )
-      }, BRACKET_TEXT_OPTIONS ) );
+    const productsText = new Text( ReactantsProductsAndLeftoversStrings.productsStringProperty, BRACKET_TEXT_OPTIONS );
     const productsBracket = new BracketNode( {
       bracketStroke: RPALColors.BRACKET_NODE_STROKE,
       labelNode: productsText,
@@ -303,10 +297,7 @@ export default class QuantitiesNode extends Node {
     } );
 
     // 'Leftovers' bracket
-    const leftoversText = new Text( ReactantsProductsAndLeftoversStrings.leftoversStringProperty,
-      combineOptions<TextOptions>( {
-        tandem: afterQuantitiesNodeTandem.createTandem( 'leftoversText' )
-      }, BRACKET_TEXT_OPTIONS ) );
+    const leftoversText = new Text( ReactantsProductsAndLeftoversStrings.leftoversStringProperty, BRACKET_TEXT_OPTIONS );
     const leftoversBracket = new BracketNode( {
       bracketStroke: RPALColors.BRACKET_NODE_STROKE,
       labelNode: leftoversText,
