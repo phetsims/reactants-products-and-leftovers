@@ -45,17 +45,17 @@ export default class GameVisibilityPanel extends Panel {
     const radioButtonItems: AquaRadioButtonGroupItem<GameVisibility>[] = [
       {
         value: GameVisibility.SHOW_ALL,
-        createNode: tandem => new ShowAllNode( tandem, iconAlignBoxOptions ),
+        createNode: tandem => new ShowAllNode( iconAlignBoxOptions ),
         tandemName: 'showAllRadioButton'
       },
       {
         value: GameVisibility.HIDE_MOLECULES,
-        createNode: ( tandem: Tandem ) => new HideMoleculesNode( tandem, iconAlignBoxOptions ),
+        createNode: tandem => new HideMoleculesNode( iconAlignBoxOptions ),
         tandemName: 'hideMoleculesRadioButton'
       },
       {
         value: GameVisibility.HIDE_NUMBERS,
-        createNode: ( tandem: Tandem ) => new HideNumbersNode( tandem, iconAlignBoxOptions ),
+        createNode: tandem => new HideNumbersNode( iconAlignBoxOptions ),
         tandemName: 'hideNumbersRadioButton'
       }
     ];
@@ -86,7 +86,7 @@ export default class GameVisibilityPanel extends Panel {
  * ShowAllNode is the content for the 'Show All' radio button, an open eye with text to the right of it.
  */
 class ShowAllNode extends HBox {
-  public constructor( tandem: Tandem, iconAlignBoxOptions: AlignBoxOptions ) {
+  public constructor( iconAlignBoxOptions: AlignBoxOptions ) {
 
     const icon = new AlignBox( new Path( eyeSolidShape, FONT_AWESOME_OPTIONS ), iconAlignBoxOptions );
 
@@ -104,7 +104,7 @@ class ShowAllNode extends HBox {
  * a closed eye with '123' at lower right, and text to the right.
  */
 class HideMoleculesNode extends HBox {
-  public constructor( tandem: Tandem, iconAlignBoxOptions: AlignBoxOptions ) {
+  public constructor( iconAlignBoxOptions: AlignBoxOptions ) {
 
     const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
     const moleculeNode = new Node( {
@@ -130,7 +130,7 @@ class HideMoleculesNode extends HBox {
  * a closed eye with H2O molecule at lower right, and text to the right.
  */
 class HideNumbersNode extends HBox {
-  public constructor( tandem: Tandem, iconAlignBoxOptions: AlignBoxOptions ) {
+  public constructor( iconAlignBoxOptions: AlignBoxOptions ) {
 
     const eyeNode = new Path( eyeSlashSolidShape, FONT_AWESOME_OPTIONS );
     const numbersNode = new Text( '123', {
