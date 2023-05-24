@@ -94,7 +94,8 @@ class ShowAllNode extends HBox {
 
     super( {
       children: [ icon, text ],
-      spacing: ICON_TEXT_SPACING
+      spacing: ICON_TEXT_SPACING,
+      justify: 'left'
     } );
   }
 }
@@ -120,7 +121,8 @@ class HideMoleculesNode extends HBox {
 
     super( {
       children: [ icon, text ],
-      spacing: ICON_TEXT_SPACING
+      spacing: ICON_TEXT_SPACING,
+      justify: 'left'
     } );
   }
 }
@@ -144,7 +146,8 @@ class HideNumbersNode extends HBox {
 
     super( {
       children: [ icon, text ],
-      spacing: ICON_TEXT_SPACING
+      spacing: ICON_TEXT_SPACING,
+      justify: 'left'
     } );
   }
 }
