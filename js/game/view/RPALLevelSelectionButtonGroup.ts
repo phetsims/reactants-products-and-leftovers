@@ -99,6 +99,7 @@ function createButtonIcon( level: number, leftNode: Node, rightNode: Node, iconA
   const stringProperty = new PatternStringProperty( ReactantsProductsAndLeftoversStrings.pattern_Level_0StringProperty, {
     level: level
   }, {
+    tandem: Tandem.OPT_OUT,
     formatNames: [ 'level' ] // to map '{0}' to '{{level}}'
   } );
   const text = new Text( stringProperty, {
