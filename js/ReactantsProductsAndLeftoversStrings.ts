@@ -5,39 +5,39 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import LinkableProperty from '../../axon/js/LinkableProperty.js';
+import type LocalizedStringProperty from '../../chipper/js/LocalizedStringProperty.js';
 import reactantsProductsAndLeftovers from './reactantsProductsAndLeftovers.js';
 
 type StringsType = {
   'reactants-products-and-leftovers': {
-    'titleStringProperty': LinkableProperty<string>;
+    'titleStringProperty': LocalizedStringProperty;
   };
   'screen': {
-    'sandwichesStringProperty': LinkableProperty<string>;
-    'moleculesStringProperty': LinkableProperty<string>;
-    'gameStringProperty': LinkableProperty<string>;
+    'sandwichesStringProperty': LocalizedStringProperty;
+    'moleculesStringProperty': LocalizedStringProperty;
+    'gameStringProperty': LocalizedStringProperty;
   };
-  'reactantsStringProperty': LinkableProperty<string>;
-  'productsStringProperty': LinkableProperty<string>;
-  'leftoversStringProperty': LinkableProperty<string>;
-  'showAllStringProperty': LinkableProperty<string>;
-  'hideMoleculesStringProperty': LinkableProperty<string>;
-  'hideNumbersStringProperty': LinkableProperty<string>;
-  'cheeseStringProperty': LinkableProperty<string>;
-  'meatAndCheeseStringProperty': LinkableProperty<string>;
-  'customStringProperty': LinkableProperty<string>;
-  'makeWaterStringProperty': LinkableProperty<string>;
-  'makeAmmoniaStringProperty': LinkableProperty<string>;
-  'combustMethaneStringProperty': LinkableProperty<string>;
-  'beforeReactionStringProperty': LinkableProperty<string>;
-  'afterReactionStringProperty': LinkableProperty<string>;
-  'beforeSandwichStringProperty': LinkableProperty<string>;
-  'afterSandwichStringProperty': LinkableProperty<string>;
-  'noReactionStringProperty': LinkableProperty<string>;
-  'chooseYourLevelStringProperty': LinkableProperty<string>;
-  'pattern_Level_0StringProperty': LinkableProperty<string>;
-  'questionMarkStringProperty': LinkableProperty<string>;
-  'doubleQuestionMarkStringProperty': LinkableProperty<string>;
+  'reactantsStringProperty': LocalizedStringProperty;
+  'productsStringProperty': LocalizedStringProperty;
+  'leftoversStringProperty': LocalizedStringProperty;
+  'showAllStringProperty': LocalizedStringProperty;
+  'hideMoleculesStringProperty': LocalizedStringProperty;
+  'hideNumbersStringProperty': LocalizedStringProperty;
+  'cheeseStringProperty': LocalizedStringProperty;
+  'meatAndCheeseStringProperty': LocalizedStringProperty;
+  'customStringProperty': LocalizedStringProperty;
+  'makeWaterStringProperty': LocalizedStringProperty;
+  'makeAmmoniaStringProperty': LocalizedStringProperty;
+  'combustMethaneStringProperty': LocalizedStringProperty;
+  'beforeReactionStringProperty': LocalizedStringProperty;
+  'afterReactionStringProperty': LocalizedStringProperty;
+  'beforeSandwichStringProperty': LocalizedStringProperty;
+  'afterSandwichStringProperty': LocalizedStringProperty;
+  'noReactionStringProperty': LocalizedStringProperty;
+  'chooseYourLevelStringProperty': LocalizedStringProperty;
+  'pattern_Level_0StringProperty': LocalizedStringProperty;
+  'questionMarkStringProperty': LocalizedStringProperty;
+  'doubleQuestionMarkStringProperty': LocalizedStringProperty;
 };
 
 const ReactantsProductsAndLeftoversStrings = getStringModule( 'REACTANTS_PRODUCTS_AND_LEFTOVERS' ) as StringsType;
