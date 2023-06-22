@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Disposable from '../../../../axon/js/Disposable.js';
 import { HStrut, Image, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import bread_png from '../../../images/bread_png.js';
 import cheese_png from '../../../images/cheese_png.js';
@@ -96,7 +97,7 @@ export default class SandwichNode extends Node {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 
