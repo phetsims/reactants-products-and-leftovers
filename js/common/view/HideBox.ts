@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -34,7 +33,10 @@ export default class HideBox extends Node {
       // SelfOptions
       boxSize: DEFAULT_BOX_SIZE,
       iconHeight: 35,
-      cornerRadius: 0
+      cornerRadius: 0,
+
+      // NodeOptions
+      isDisposable: false
     }, providedOptions );
 
     // dashed box
@@ -54,11 +56,6 @@ export default class HideBox extends Node {
 
     options.children = [ boxNode, eyeNode ];
     super( options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

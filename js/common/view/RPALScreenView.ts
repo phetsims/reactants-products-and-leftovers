@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Node } from '../../../../scenery/js/imports.js';
@@ -44,6 +43,7 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
 
     super( {
       layoutBounds: RPALConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -92,11 +92,6 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
       children: [ reactionBarNode, ...beforeAfterNodes, resetAllButton ]
     } );
     this.addChild( screenViewRootNode );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

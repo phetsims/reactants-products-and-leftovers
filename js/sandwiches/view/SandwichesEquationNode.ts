@@ -12,7 +12,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
@@ -113,6 +112,7 @@ export default class SandwichesEquationNode extends Node {
 
     super( {
       children: [ leftNode, arrowNode, sandwichNode, noReactionNode ],
+      isDisposable: false,
       visibleProperty: visibleProperty
     } );
 
@@ -122,11 +122,6 @@ export default class SandwichesEquationNode extends Node {
       noReactionNode.visible = !sandwichNode.visible;
     };
     reaction.sandwich.iconProperty.link( sandwichIconPropertyObserver );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

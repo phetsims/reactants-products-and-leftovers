@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
@@ -38,7 +37,11 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
   public constructor( reactionProperty: Property<R>, reactions: R[],
                       createEquationNode: CreateEquationNodeFunction<R>, providedOptions: ReactionBarNodeOptions ) {
 
-    const options = optionize<ReactionBarNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
+    const options = optionize<ReactionBarNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false
+    }, providedOptions );
 
     // radio buttons for choosing a reaction
     const radioButtonGroup = new ReactionRadioButtonGroup( reactionProperty, reactions,
@@ -77,11 +80,6 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
     options.children = [ barNode, radioButtonGroup, ...reactionEquations ];
 
     super( options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

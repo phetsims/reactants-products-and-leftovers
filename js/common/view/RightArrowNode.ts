@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
@@ -32,15 +31,11 @@ export default class RightArrowNode extends ArrowNode {
       // ArrowNodeOptions
       tailWidth: 15,
       headWidth: 35,
-      headHeight: 30
+      headHeight: 30,
+      isDisposable: false
     }, providedOptions );
 
     super( 0, 0, options.length, 0, options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

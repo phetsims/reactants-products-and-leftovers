@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
@@ -42,7 +41,10 @@ export default class MoleculesEquationNode extends Node {
       font: new PhetFont( 28 ),
       coefficientXSpacing: 8,
       plusXSpacing: 15,
-      arrowXSpacing: 15
+      arrowXSpacing: 15,
+
+      // NodeOptions
+      isDisposable: false
     }, providedOptions );
 
     // left-hand side (reactants)
@@ -68,11 +70,6 @@ export default class MoleculesEquationNode extends Node {
     super( options );
 
     this.arrowCenterX = arrowNode.centerX;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
@@ -114,7 +111,8 @@ class ExpressionNode extends Node {
     }
 
     super( {
-      children: children
+      children: children,
+      isDisposable: false
     } );
   }
 }

@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GamePhase from '../model/GamePhase.js';
@@ -32,15 +31,11 @@ export default class GamePhaseNode extends Node {
         tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
         phetioValueType: BooleanIO,
         hasListenerOrderDependencies: true // TODO: https://github.com/phetsims/reactants-products-and-leftovers/issues/85
-      } )
+      } ),
+      isDisposable: false
     }, providedOptions );
 
     super( options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

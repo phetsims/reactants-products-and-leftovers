@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import { HStrut, Image, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import bread_png from '../../../images/bread_png.js';
 import cheese_png from '../../../images/cheese_png.js';
@@ -25,7 +24,8 @@ export default class SandwichNode extends Node {
     assert && assert( breadCount >= 0 && meatCount >= 0 && cheeseCount >= 0 );
 
     const options: NodeOptions = {
-      scale: SANDWICH_SCALE
+      scale: SANDWICH_SCALE,
+      isDisposable: false
     };
 
     const children: Node[] = [];
@@ -94,11 +94,6 @@ export default class SandwichNode extends Node {
     options.children = children;
 
     super( options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public static createBreadIcon(): Node {

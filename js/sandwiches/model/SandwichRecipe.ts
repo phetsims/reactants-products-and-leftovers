@@ -13,7 +13,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
@@ -82,11 +81,6 @@ export default class SandwichRecipe extends Reaction {
 
     this.sandwich = sandwich;
     this.coefficientsMutable = options.coefficientsMutable;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

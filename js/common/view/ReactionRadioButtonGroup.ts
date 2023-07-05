@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
@@ -44,13 +43,9 @@ export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> ext
       spacing: 10,
       touchAreaXDilation: 10,
       radioButtonOptions: { radius: 8 },
+      isDisposable: false,
       tandem: tandem
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

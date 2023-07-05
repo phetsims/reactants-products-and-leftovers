@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -43,6 +42,7 @@ export default class Reaction extends PhetioObject {
       nameProperty: null,
 
       // PhetioObjectOptions
+      isDisposable: false,
       tandem: Tandem.OPT_OUT, //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 tandem required
       phetioState: false,
       phetioType: Reaction.ReactionIO
@@ -68,11 +68,6 @@ export default class Reaction extends PhetioObject {
     this.reactants.forEach( reactant => reactant.reset() );
     this.products.forEach( product => product.reset() );
     this.leftovers.forEach( leftover => leftover.reset() );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public override toString(): string {
