@@ -59,19 +59,24 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
       tandem: tandem.createTandem( 'reactionBarNode' )
     } );
 
-    // Create a pair of 'Before' and 'After' boxes for each reaction, visible when the reaction is selected.
+    // Scenes, one for each reaction
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const beforeAfterNodes = model.reactions.map( reaction => {
-      const beforeAfterNodesTandem = sceneNodesTandem.createTandem( `${reaction.tandem.name}SceneNode` );
-      return createSceneNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
-        visibleProperty: new DerivedProperty( [ model.reactionProperty ], value => ( value === reaction ), {
-          tandem: beforeAfterNodesTandem.createTandem( 'visibleProperty' ),
-          phetioValueType: BooleanIO
-        } ),
-        centerX: this.layoutBounds.centerX,
-        top: reactionBarNode.bottom + 12, // below the reaction equation
-        tandem: beforeAfterNodesTandem
-      } );
+    const sceneNodes = new Node( {
+
+      // Each scene is a pair of 'Before' and 'After' boxes for a reaction, visible when that reaction is selected.
+      children: model.reactions.map( reaction => {
+        const sceneNodeTandem = sceneNodesTandem.createTandem( `${reaction.tandem.name}SceneNode` );
+        return createSceneNode( reaction, beforeExpandedProperty, afterExpandedProperty, {
+          visibleProperty: new DerivedProperty( [ model.reactionProperty ], value => ( value === reaction ), {
+            tandem: sceneNodeTandem.createTandem( 'visibleProperty' ),
+            phetioValueType: BooleanIO
+          } ),
+          centerX: this.layoutBounds.centerX,
+          top: reactionBarNode.bottom + 12, // below the reaction equation
+          tandem: sceneNodeTandem
+        } );
+      } ),
+      tandem: sceneNodesTandem
     } );
 
     // Reset All button
@@ -89,7 +94,7 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
     } );
 
     const screenViewRootNode = new Node( {
-      children: [ reactionBarNode, ...beforeAfterNodes, resetAllButton ]
+      children: [ reactionBarNode, sceneNodes, resetAllButton ]
     } );
     this.addChild( screenViewRootNode );
   }
