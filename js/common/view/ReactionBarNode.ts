@@ -56,12 +56,6 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
       barNode.setRect( visibleBounds.left, 0, visibleBounds.width, radioButtonGroup.height + ( 2 * Y_MARGIN ) );
     } );
 
-    // radio buttons at right, vertically centered in the bar
-    radioButtonGroup.boundsProperty.link( bounds => {
-      radioButtonGroup.right = options.layoutBounds.right - X_MARGIN;
-      radioButtonGroup.centerY = barNode.centerY;
-    } );
-
     const equationNodes = reactions.map( reaction => {
       const visibleProperty = new DerivedProperty( [ reactionProperty ], value => value === reaction );
       return createEquationNode( reaction, visibleProperty );
@@ -77,6 +71,13 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
 
     super( options );
 
+    // radio buttons at right, vertically centered in the bar
+    radioButtonGroup.boundsProperty.link( bounds => {
+      radioButtonGroup.right = options.layoutBounds.right - X_MARGIN;
+      radioButtonGroup.centerY = barNode.centerY;
+    } );
+
+    // equations centered in the space to the left of radio buttons
     Multilink.multilink( [ radioButtonGroup.visibleProperty, radioButtonGroup.boundsProperty ],
       ( radioButtonGroupVisible, radioButtonGroupBounds ) => {
         equationNodes.forEach( equationNode => {
