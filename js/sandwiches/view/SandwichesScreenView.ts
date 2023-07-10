@@ -9,16 +9,14 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
-import RPALSceneNode, { BeforeAfterNodeOptions } from '../../common/view/RPALSceneNode.js';
 import RPALScreenView, { CreateSceneNodeFunction } from '../../common/view/RPALScreenView.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichesModel from '../model/SandwichesModel.js';
 import SandwichesEquationNode from './SandwichesEquationNode.js';
 import SandwichNode from './SandwichNode.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { CreateEquationNodeFunction } from '../../common/view/ReactionBarNode.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
+import SandwichesSceneNode from './SandwichesSceneNode.js';
 
 export default class SandwichesScreenView extends RPALScreenView<SandwichRecipe> {
 
@@ -34,17 +32,9 @@ export default class SandwichesScreenView extends RPALScreenView<SandwichRecipe>
       ( reaction, visibleProperty ) => new SandwichesEquationNode( reaction, maxSandwichSize, visibleProperty );
 
     // Creates the user interface for a specified reaction.
-    const createSceneNode: CreateSceneNodeFunction =
+    const createSceneNode: CreateSceneNodeFunction<SandwichRecipe> =
       ( reaction, beforeExpandedProperty, afterExpandedProperty, options ) =>
-        new RPALSceneNode( reaction, beforeExpandedProperty, afterExpandedProperty,
-          combineOptions<BeforeAfterNodeOptions>( {
-            contentSize: RPALConstants.SANDWICHES_BEFORE_AFTER_BOX_SIZE,
-            showSymbols: false,
-            beforeTitleProperty: ReactantsProductsAndLeftoversStrings.beforeSandwichStringProperty,
-            afterTitleProperty: ReactantsProductsAndLeftoversStrings.afterSandwichStringProperty,
-            minIconSize: maxSandwichSize,
-            boxYMargin: 8 // large enough to accommodate the biggest sandwich
-          }, options ) );
+        new SandwichesSceneNode( reaction, model.reactionProperty, beforeExpandedProperty, afterExpandedProperty, options );
 
     super( model, createEquationNode, createSceneNode, tandem );
   }

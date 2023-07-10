@@ -17,15 +17,15 @@ import ReactionBarNode, { CreateEquationNodeFunction } from './ReactionBarNode.j
 import Reaction from '../model/Reaction.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { BeforeAfterNodeOptions } from './RPALSceneNode.js';
+import { RPALSceneNodeOptions } from './RPALSceneNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
-export type CreateSceneNodeFunction = (
-  reaction: Reaction,
+export type CreateSceneNodeFunction<R extends Reaction = Reaction> = (
+  reaction: R,
   beforeExpandedProperty: Property<boolean>,
   afterExpandedProperty: Property<boolean>,
-  providedOptions?: BeforeAfterNodeOptions
+  providedOptions: RPALSceneNodeOptions
 ) => Node;
 
 export default class RPALScreenView<R extends Reaction = Reaction> extends ScreenView {
@@ -38,7 +38,7 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
    */
   protected constructor( model: RPALBaseModel<R>,
                          createEquationNode: CreateEquationNodeFunction<R>,
-                         createSceneNode: CreateSceneNodeFunction,
+                         createSceneNode: CreateSceneNodeFunction<R>,
                          tandem: Tandem ) {
 
     super( {

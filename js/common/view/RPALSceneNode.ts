@@ -40,25 +40,27 @@ type SelfOptions = {
   boxYMargin?: number; // vertical margin between the inner edge of box and the tallest node
 };
 
-export type BeforeAfterNodeOptions = SelfOptions & NodeTranslationOptions &
+export type RPALSceneNodeOptions = SelfOptions & NodeTranslationOptions &
   PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
-export default class RPALSceneNode extends Node {
+export default class RPALSceneNode<R extends Reaction = Reaction> extends Node {
 
   private readonly disposeBeforeAfterNode: () => void;
 
   /**
-   * @param reaction - the reaction to be displayed
+   * @param reaction - the reaction to be displayed by this scene
+   * @param reactionProperty - the selected reaction
    * @param beforeExpandedProperty - whether the 'Before' box is expanded
    * @param afterExpandedProperty - whether the 'After' box is expanded
    * @param [providedOptions]
    */
-  public constructor( reaction: Reaction,
+  public constructor( reaction: R,
+                      reactionProperty: TReadOnlyProperty<R>,
                       beforeExpandedProperty: Property<boolean>,
                       afterExpandedProperty: Property<boolean>,
-                      providedOptions?: BeforeAfterNodeOptions ) {
+                      providedOptions?: RPALSceneNodeOptions ) {
 
-    const options = optionize<BeforeAfterNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<RPALSceneNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
       quantityRange: RPALConstants.QUANTITY_RANGE,
