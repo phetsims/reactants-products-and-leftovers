@@ -25,6 +25,9 @@ export default class Substance {
   // visual representation of the substance, mutable to support the 'Custom' sandwich
   public readonly iconProperty: Property<Node>;
 
+  //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 Substances should have a tandem, and this should be unnecessary
+  public readonly tandemName: string;
+
   /**
    * @param coefficient - substance's coefficient in the reaction equation
    * @param symbol - used in reaction equation
@@ -47,6 +50,12 @@ export default class Substance {
     } );
 
     this.iconProperty = new Property( icon );
+
+    // The tandem name is the symbol with HTML tags removed. Examples:
+    // 'cheese' => 'cheese'
+    // 'H<sub>2</sub>O' => H2O
+    this.tandemName = symbol.replace( /(<([^>]+)>)/ig, '' );
+    assert && assert( this.tandemName.length > 0 );
   }
 
   public reset(): void {

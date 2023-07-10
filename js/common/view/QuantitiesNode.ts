@@ -95,8 +95,9 @@ export default class QuantitiesNode extends Node {
       showSymbols: true // whether to show symbols (eg, H2O) for the substances in the reactions
     }, providedOptions );
 
-    const afterQuantitiesNodeTandem = options.tandem.createTandem( 'afterQuantitiesNode' );
-    const beforeQuantitiesNodeTandem = options.tandem.createTandem( 'beforeQuantitiesNode' );
+    const reactantsNodeTandem = options.tandem.createTandem( 'reactantsNode' );
+    const productsNodeTandem = options.tandem.createTandem( 'productsNode' );
+    const leftOversNodeTandem = options.tandem.createTandem( 'leftOversNode' );
 
     // Keep track of components that appear below the boxes, so we can handle their vertical alignment.
     const spinnerNodes: NumberSpinner[] = [];
@@ -118,17 +119,20 @@ export default class QuantitiesNode extends Node {
         // spinner
         const spinnerNode = new NumberSpinner( reactant.quantityProperty, new Property( options.quantityRange ),
           combineOptions<NumberSpinnerOptions>( {
-            centerX: centerX
+            centerX: centerX,
+            tandem: reactantsNodeTandem.createTandem( `${reactant.tandemName}Spinner` )
           }, NUMBER_SPINNER_OPTIONS ) );
         reactantsParent.addChild( spinnerNode );
         spinnerNodes.push( spinnerNode );
       }
       else {
 
-        // static number
+        // display
         const numberNode = new NumberNode( reactant.quantityProperty, {
           font: QUANTITY_FONT,
-          centerX: centerX
+          centerX: centerX,
+          tandem: reactantsNodeTandem.createTandem( `${reactant.tandemName}Display` ),
+          phetioVisiblePropertyInstrumented: true
         } );
         reactantsParent.addChild( numberNode );
         beforeNumberNodes.push( numberNode );
@@ -164,17 +168,20 @@ export default class QuantitiesNode extends Node {
         // spinner
         const spinnerNode = new NumberSpinner( product.quantityProperty, new Property( options.quantityRange ),
           combineOptions<NumberSpinnerOptions>( {
-            centerX: centerX
+            centerX: centerX,
+            tandem: productsNodeTandem.createTandem( `${product.tandemName}Spinner` )
           }, NUMBER_SPINNER_OPTIONS ) );
         productsParent.addChild( spinnerNode );
         spinnerNodes.push( spinnerNode );
       }
       else {
 
-        // static number
+        // display
         const numberNode = new NumberNode( product.quantityProperty, {
           font: QUANTITY_FONT,
-          centerX: centerX
+          centerX: centerX,
+          tandem: productsNodeTandem.createTandem( `${product.tandemName}Display` ),
+          phetioVisiblePropertyInstrumented: true
         } );
         productsParent.addChild( numberNode );
         afterNumberNodes.push( numberNode );
@@ -210,17 +217,20 @@ export default class QuantitiesNode extends Node {
         // spinner
         const spinnerNode = new NumberSpinner( leftover.quantityProperty, new Property( options.quantityRange ),
           combineOptions<NumberSpinnerOptions>( {
-            centerX: centerX
+            centerX: centerX,
+            tandem: leftOversNodeTandem.createTandem( `${leftover.tandemName}Spinner` )
           }, NUMBER_SPINNER_OPTIONS ) );
         leftoversParent.addChild( spinnerNode );
         spinnerNodes.push( spinnerNode );
       }
       else {
 
-        // static number
+        // display
         const numberNode = new NumberNode( leftover.quantityProperty, {
           font: QUANTITY_FONT,
-          centerX: centerX
+          centerX: centerX,
+          tandem: leftOversNodeTandem.createTandem( `${leftover.tandemName}Display` ),
+          phetioVisiblePropertyInstrumented: true
         } );
         leftoversParent.addChild( numberNode );
         afterNumberNodes.push( numberNode );
@@ -316,17 +326,22 @@ export default class QuantitiesNode extends Node {
       centerY: spinnerNodes[ 0 ].centerY
     } );
 
-    const beforeQuantitiesNode = new Node( {
+    const reactantsNode = new Node( {
       children: [ reactantsParent, reactantsBracket ],
-      tandem: beforeQuantitiesNodeTandem
+      tandem: reactantsNodeTandem
     } );
 
-    const afterQuantitiesNode = new Node( {
-      children: [ productsParent, leftoversParent, productsBracket, leftoversBracket ],
-      tandem: afterQuantitiesNodeTandem
+    const productsNode = new Node( {
+      children: [ productsParent, productsBracket ],
+      tandem: productsNodeTandem
     } );
 
-    options.children = [ beforeQuantitiesNode, afterQuantitiesNode, hideNumbersBox ];
+    const leftOversNode = new Node( {
+      children: [ leftoversParent, leftoversBracket ],
+      tandem: leftOversNodeTandem
+    } );
+
+    options.children = [ reactantsNode, productsNode, leftOversNode, hideNumbersBox ];
 
     super( options );
 

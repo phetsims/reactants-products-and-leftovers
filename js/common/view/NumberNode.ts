@@ -17,7 +17,8 @@ type SelfOptions = {
   decimalPlaces?: number; // number of decimal places to be displayed
 };
 
-type NumberNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<TextOptions, 'font'>;
+type NumberNodeOptions = SelfOptions & NodeTranslationOptions &
+  PickOptional<TextOptions, 'font' | 'tandem' | 'phetioVisiblePropertyInstrumented'>;
 
 export default class NumberNode extends Text {
 
@@ -45,6 +46,8 @@ export default class NumberNode extends Text {
         numberProperty.unlink( numberPropertyObserver );
       }
     };
+
+    //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 link to numberProperty
   }
 
   public override dispose(): void {
