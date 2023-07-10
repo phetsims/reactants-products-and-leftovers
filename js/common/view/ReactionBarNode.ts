@@ -18,6 +18,7 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import Reaction from '../model/Reaction.js';
 import RPALColors from '../RPALColors.js';
 import ReactionRadioButtonGroup from './ReactionRadioButtonGroup.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 
 const X_MARGIN = 20;
 const Y_MARGIN = 10;
@@ -61,25 +62,34 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
       radioButtonGroup.centerY = barNode.centerY;
     } );
 
-    const reactionEquations = reactions.map( reaction => {
-
+    const equationNodes = reactions.map( reaction => {
       const visibleProperty = new DerivedProperty( [ reactionProperty ], value => value === reaction );
-
-      const equationNode = createEquationNode( reaction, visibleProperty );
-
-      // center the equation in the space to the left of the radio buttons
-      radioButtonGroup.boundsProperty.link( () => {
-        const availableWidth = radioButtonGroup.left - X_MARGIN;
-        equationNode.centerX = X_MARGIN + ( availableWidth / 2 );
-        equationNode.centerY = barNode.centerY;
-      } );
-
-      return equationNode;
+      return createEquationNode( reaction, visibleProperty );
     } );
 
-    options.children = [ barNode, radioButtonGroup, ...reactionEquations ];
+    // Parent for all equations, so that the equation can be hidden via PhET-iO.
+    const equationNode = new Node( {
+      children: equationNodes,
+      tandem: options.tandem.createTandem( 'equationNode' )
+    } );
+
+    options.children = [ barNode, radioButtonGroup, equationNode ];
 
     super( options );
+
+    Multilink.multilink( [ radioButtonGroup.visibleProperty, radioButtonGroup.boundsProperty ],
+      ( radioButtonGroupVisible, radioButtonGroupBounds ) => {
+        equationNodes.forEach( equationNode => {
+          if ( radioButtonGroupVisible ) {
+            equationNode.centerX = radioButtonGroup.left / 2;
+            equationNode.centerY = barNode.centerY;
+          }
+          else {
+            equationNode.centerX = barNode.centerX;
+            equationNode.centerY = barNode.centerY;
+          }
+        } );
+      } );
   }
 }
 
