@@ -1,7 +1,7 @@
 # Reactants, Products and Leftovers - model description
 
 A chemical reaction is a process that leads to the transformation of one set of
-chemical substances (reactants) to another (products).  We refer to the reactants
+chemical substances (reactants) to another (products). We refer to the reactants
 that do not transform to products as "leftovers".
 
 Each reactant and product has a coefficient, given by the chemical equation.
