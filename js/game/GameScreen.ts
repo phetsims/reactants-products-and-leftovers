@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../kite/js/imports.js';
@@ -25,7 +24,7 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
 
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.gameStringProperty,
-      backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
+      backgroundColorProperty: RPALColors.screenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon(),
       tandem: tandem
     };

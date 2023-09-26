@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import H2ONode from '../../../nitroglycerin/js/nodes/H2ONode.js';
@@ -23,7 +22,7 @@ export default class MoleculesScreen extends Screen<MoleculesModel, MoleculesScr
 
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.moleculesStringProperty,
-      backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
+      backgroundColorProperty: RPALColors.screenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon( 0.1 ),
       navigationBarIcon: createScreenIcon( 0.5 ),
       tandem: tandem

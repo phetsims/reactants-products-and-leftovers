@@ -23,7 +23,10 @@
     ],
     "simFeatures": {
       "supportsSound": true,
-      "supportsDynamicLocale": true
+      "supportsDynamicLocale": true,
+      "colorProfiles": [
+        "default"
+      ]
     },
     "phet-io": {
       "validation": false

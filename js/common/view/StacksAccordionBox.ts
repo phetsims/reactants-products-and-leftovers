@@ -61,8 +61,8 @@ export default class StacksAccordionBox extends AccordionBox {
       boxYMargin: 6,
 
       // AccordionBoxOptions
-      fill: RPALColors.BOX_FILL,
-      stroke: RPALColors.BOX_STROKE,
+      fill: RPALColors.boxFillProperty,
+      stroke: RPALColors.boxStrokeProperty,
       cornerRadius: 3,
       expandedProperty: expandedProperty,
       expandCollapseButtonOptions: {
@@ -70,7 +70,7 @@ export default class StacksAccordionBox extends AccordionBox {
         touchAreaYDilation: 10
       },
       titleBarOptions: {
-        fill: RPALColors.STATUS_BAR_FILL
+        fill: RPALColors.statusBarFillProperty
       },
       titleAlignX: 'center',
       buttonAlign: 'left',

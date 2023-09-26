@@ -131,7 +131,7 @@ export default class ChallengeNode extends Node {
 
     // Arrow between boxes
     const arrowNode = new RightArrowNode( {
-      fill: RPALColors.STATUS_BAR_FILL,
+      fill: RPALColors.statusBarFillProperty,
       stroke: null,
       scale: 0.75,
       centerX: challengeBounds.centerX

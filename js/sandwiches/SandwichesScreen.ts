@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
@@ -25,7 +24,7 @@ export default class SandwichesScreen extends Screen<SandwichesModel, Sandwiches
 
     const options = {
       name: ReactantsProductsAndLeftoversStrings.screen.sandwichesStringProperty,
-      backgroundColorProperty: new Property( RPALColors.SCREEN_BACKGROUND ),
+      backgroundColorProperty: RPALColors.screenBackgroundColorProperty,
       homeScreenIcon: createHomeScreenIcon(),
       navigationBarIcon: createNavigationBarIcon(),
       tandem: tandem

@@ -50,7 +50,7 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
 
     // The horizontal bar, sized to fit the width of the browser window.
     const barNode = new Rectangle( 0, 0, 0, 1, {
-      fill: RPALColors.STATUS_BAR_FILL
+      fill: RPALColors.statusBarFillProperty
     } );
     options.visibleBoundsProperty.link( visibleBounds => {
       barNode.setRect( visibleBounds.left, 0, visibleBounds.width, radioButtonGroup.height + ( 2 * Y_MARGIN ) );
