@@ -3,24 +3,24 @@
 Start by reading [model.md](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/doc/model.md).
 
 Reactants, products and leftovers are implemented by
-class [Substance](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/common/model/Substance.js).
+class [Substance](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/common/model/Substance.ts).
 
 Chemical reactions are implemented by
-class [Reaction](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/common/model/Reaction.js).
+class [Reaction](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/common/model/Reaction.ts).
 The algorithm for computing quantities (described in model.md)
 is implemented in methods `getNumberOfReactions` and `updateQuantities`.
 
 The "Sandwiches" analogy is implemented as a single-product reaction. The sandwich recipe defines the reaction equation.
 Sandwich ingredients are reactants (and leftovers), and the completed sandwich is the product.
-See [SandwichRecipe](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/sandwiches/model/SandwichRecipe.js).
+See [SandwichRecipe](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/sandwiches/model/SandwichRecipe.ts).
 
 The Game screen is controlled by a state machine. There are 3 top-level "phases" of a game, as described in
-[GamePhase](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/game/model/GamePhase.js). While
+[GamePhase](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/game/model/GamePhase.ts). While
 playing a challenge, the Game will be in one of the "states" described
-in [PlayState](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/game/model/PlayState.js).
+in [PlayState](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/game/model/PlayState.ts).
 
 Generation of challenges for the Game screen is described in the documentation
-for [ChallengeFactory](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/game/model/ChallengeFactory.js).
+for [ChallengeFactory](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/game/model/ChallengeFactory.ts).
 
 Game 'level' is numbered starting from zero throughout the model, and displayed starting from 1 in the view. Ie,
 model.level === 0 is displayed as 'Level 1'.
@@ -41,7 +41,7 @@ make it a sibling of itself, or attempt to position it. VERY IMPORTANT is that w
 scenegraph, the Substance's icon needs to be explicitly removed from the wrapper. This is because scenery nodes keep a
 reference to their parent. If we don't explicitly remove the icon from the scene graph, then all of its ancestors will
 be retained, creating a memory leak. More details can be found
-in [SubstanceIcon](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/common/view/SubstanceIcon.js),
+in [SubstanceIcon](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/common/view/SubstanceIcon.ts),
 which is the wrapper for Substance icons.
 
 An aspect of performance ([GitHub issue #17](https://github.com/phetsims/reactants-products-and-leftovers/issues/17))
@@ -51,5 +51,5 @@ new `ChallengeNode`. This made the Game feel a bit sluggish and unresponsive. Th
 the animation loop, handling them immediately after displaying a new challenge, when the user is liable to be distracted
 with looking at what has just been displayed. In this interval, the previous
 `ChallengeNode` is removed, and the next `ChallengeNode` is created and added (but not made visible).
-See [PlayNode.step](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/game/view/PlayNode.js)
+See [PlayNode.step](https://github.com/phetsims/reactants-products-and-leftovers/blob/main/js/game/view/PlayNode.ts)
 for more details.
