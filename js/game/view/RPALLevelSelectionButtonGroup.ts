@@ -64,10 +64,10 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
         baseColor: 'rgb( 240, 255, 204 )',
         xMargin: 15,
         yMargin: 15,
-        buttonWidth: 150,
-        buttonHeight: 150,
         bestTimeVisibleProperty: model.timerEnabledProperty
       },
+      groupButtonWidth: 150,
+      groupButtonHeight: 150,
       flowBoxOptions: {
         spacing: 40
       },
