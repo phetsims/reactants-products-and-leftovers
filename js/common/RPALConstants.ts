@@ -39,7 +39,10 @@ const NUMBER_SPINNER_OPTIONS: NumberSpinnerOptions = {
 
 const RPALConstants = {
 
-  SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 835, 504 ), //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/75
+  // A PhET wide decision was made to not update custom layout bounds even if they do not match the
+  // default layout bounds in ScreenView. Do not change these bounds as changes could break or disturb
+  // any phet-io instrumention. https://github.com/phetsims/phet-io/issues/1939
+  SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 835, 504 ),
 
   QUANTITY_RANGE: new Range( 0, 8 ),
   SANDWICH_COEFFICIENT_RANGE: new Range( 0, 3 ),
