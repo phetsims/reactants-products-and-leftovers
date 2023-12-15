@@ -47,7 +47,6 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
         icon: buttonIconFunctions[ level ]( iconAlignGroup ),
         scoreProperty: model.bestScoreProperties[ level ],
         options: {
-          bestTimeProperty: model.bestTimeProperties[ level ],
           createScoreDisplay: ( scoreProperty: TReadOnlyProperty<number> ) => new ScoreDisplayStars( scoreProperty, {
             numberOfStars: model.getNumberOfChallenges( level ),
             perfectScore: model.getPerfectScore( level )
@@ -63,8 +62,7 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
       levelSelectionButtonOptions: {
         baseColor: 'rgb( 240, 255, 204 )',
         xMargin: 15,
-        yMargin: 15,
-        bestTimeVisibleProperty: model.timerEnabledProperty
+        yMargin: 15
       },
       groupButtonWidth: 150,
       groupButtonHeight: 150,
