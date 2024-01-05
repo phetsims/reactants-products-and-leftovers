@@ -9,6 +9,8 @@
  * - Nodes are never removed; they remain as children for the lifetime of this node.
  * - The visibility of nodes is adjusted to show the correct quantity of the substance.
  * - When a node becomes visible, it is assigned a position in the grid.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
