@@ -5,7 +5,7 @@
  *
  * VERY IMPORTANT NOTES!
  *
- * Scenery is a DAG and allows one instance of a Node to appear in the scenegraph in
+ * Scenery is a DAG and allows one instance of a Node to appear in the scene graph in
  * multiple places, with 2 caveats: (1) a Node cannot be a sibling of itself, and (2)
  * transforming a node will do so everywhere that it appears. Because an icon can
  * appear in multiple places in the view, this type provides a convenient way to
