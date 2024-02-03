@@ -22,7 +22,7 @@ export default class Substance {
   // how much of the substance we have
   public readonly quantityProperty: Property<number>;
 
-  // visual representation of the substance, mutable to support the 'Custom' sandwich
+  // visual snackType of the substance, mutable to support the 'Custom' sandwich
   public readonly iconProperty: Property<Node>;
 
   //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 Substances should have a tandem, and this should be unnecessary
@@ -31,7 +31,7 @@ export default class Substance {
   /**
    * @param coefficient - substance's coefficient in the reaction equation
    * @param symbol - used in reaction equation
-   * @param icon - visual representation of the substance
+   * @param icon - visual snackType of the substance
    * @param [quantity] - how much of a substance we have, defaults to zero
    */
   public constructor( coefficient: number, symbol: string, icon: Node, quantity = 0 ) {

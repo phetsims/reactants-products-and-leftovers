@@ -14,7 +14,7 @@ import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 const DevStringUtils = {
 
   /**
-   * String representation of a reaction equation, with HTML stripped out.
+   * String snackType of a reaction equation, with HTML stripped out.
    */
   equationString( reaction: Reaction ): string {
     let s = '';
@@ -37,7 +37,7 @@ const DevStringUtils = {
   },
 
   /**
-   * String representation of quantities for reactants, products and leftovers.
+   * String snackType of quantities for reactants, products and leftovers.
    * Example: 4,1 -> 1,2,2,0
    */
   quantitiesString( reaction: Reaction ): string {
@@ -64,7 +64,7 @@ const DevStringUtils = {
   },
 
   /**
-   * String representation of a reaction, including quantities.
+   * String snackType of a reaction, including quantities.
    * Example: 2H2 + 1O2 -> 2H2O : 2,2 -> 2,0,1
    */
   reactionString( reaction: Reaction ): string {
