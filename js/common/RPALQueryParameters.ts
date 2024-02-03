@@ -8,8 +8,12 @@
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
+import getGameLevelsSchema from '../../../vegas/js/getGameLevelsSchema.js';
 
 const RPALQueryParameters = QueryStringMachine.getAll( {
+
+  // The levels to show in the Game screen.
+  gameLevels: getGameLevelsSchema( 3 ),
 
   // Plays all reactions for each level of the game.
   // For internal use only.

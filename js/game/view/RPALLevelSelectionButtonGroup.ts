@@ -21,6 +21,7 @@ import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import GameModel from '../model/GameModel.js';
+import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 
 const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 const QUESTION_MARK_OPTIONS: TextOptions = {
@@ -69,6 +70,7 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
       flowBoxOptions: {
         spacing: 40
       },
+      gameLevels: RPALQueryParameters.gameLevels,
       tandem: tandem
     } );
   }
