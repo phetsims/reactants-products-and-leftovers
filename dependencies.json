@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "93fe1b3da502f7ee5a0c40c53af1224428a15846",
+    "sha": "415fb379da2c9ddf4b9c0f34ae044f6c4f9d88ec",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "1fde5ef1b936b8251ca3758f123a0941fdc72fbd",
+    "sha": "dbe752e010aafae8460eb91650bd3f4db0defb64",
     "branch": "HEAD"
   },
   "kite": {
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "b38ac069b0a78d4ffe4bf982860f7be78a4a5ffb",
+    "sha": "1b8b45cbeb6ceed29a6f0ecb73a32a82dc39f89a",
     "branch": "1.2"
   },
   "scenery": {
