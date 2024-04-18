@@ -65,7 +65,10 @@ export default class PlayNode extends GamePhaseNode {
         textFill: 'black',
         xMargin: 10,
         yMargin: 5,
-        listener: () => model.settings()
+        listener: () => {
+          this.interruptSubtreeInput();
+          model.settings();
+        }
       },
       tandem: tandem.createTandem( 'statusBar' )
     } );
