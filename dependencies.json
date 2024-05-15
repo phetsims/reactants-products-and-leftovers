@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "87395db51b2c20dad6f7e85950be4eab2bec4e5c",
+    "sha": "3d97a0f6ef0fabd4e9a3d450e62678d94f2340e3",
     "branch": "HEAD"
   },
   "dot": {
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "beab7cee41e85bdb348c6a1e242858d9613f83c6",
+    "sha": "445c3522ab527e1a2b922d0f9fb09180d57ce463",
     "branch": "1.2"
   },
   "scenery": {
