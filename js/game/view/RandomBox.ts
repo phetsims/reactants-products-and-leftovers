@@ -55,8 +55,8 @@ export default class RandomBox extends Node {
       boxSize: DEFAULT_BOX_SIZE,
       maxQuantity: 4,
       cornerRadius: 3,
-      fill: RPALColors.boxFillProperty,
-      stroke: RPALColors.boxStrokeProperty,
+      fill: RPALColors.BOX_FILL,
+      stroke: RPALColors.BOX_STROKE,
       margin: 5,
       randomOffset: 8
     }, providedOptions );

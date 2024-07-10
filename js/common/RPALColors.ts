@@ -17,21 +17,11 @@ const RPALColors = {
     default: 'rgb( 218, 236, 255 )'
   } ),
 
-  statusBarFillProperty: new ProfileColorProperty( reactantsProductsAndLeftovers, 'statusBarFill', {
-    default: DARK_BLUE
-  } ),
-
-  bracketStrokeProperty: new ProfileColorProperty( reactantsProductsAndLeftovers, 'bracketStroke', {
-    default: DARK_BLUE
-  } ),
-
-  boxFillProperty: new ProfileColorProperty( reactantsProductsAndLeftovers, 'boxFill', {
-    default: 'white'
-  } ),
-
-  boxStrokeProperty: new ProfileColorProperty( reactantsProductsAndLeftovers, 'boxStroke', {
-    default: DARK_BLUE.withAlpha( 0.3 )
-  } )
+  // Caution! Converting these colors to ProfileColorProperty requires disposing things that link to them.
+  STATUS_BAR_FILL: DARK_BLUE,
+  BRACKET_NODE_STROKE: DARK_BLUE,
+  BOX_STROKE: DARK_BLUE.withAlpha( 0.3 ),
+  BOX_FILL: 'white'
 };
 
 reactantsProductsAndLeftovers.register( 'RPALColors', RPALColors );

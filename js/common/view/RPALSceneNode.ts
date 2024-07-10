@@ -102,7 +102,7 @@ export default class RPALSceneNode<R extends Reaction = Reaction> extends Node {
 
     // Arrow between boxes
     const rightArrowNode = new RightArrowNode( {
-      fill: RPALColors.statusBarFillProperty,
+      fill: RPALColors.STATUS_BAR_FILL,
       stroke: null,
       scale: 0.75,
       tandem: options.tandem.createTandem( 'rightArrowNode' )
