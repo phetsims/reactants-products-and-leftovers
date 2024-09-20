@@ -57,6 +57,11 @@
               "ts-nocheck": true
             }
           ]
+        },
+        "parserOptions": {
+          "project": [
+            "../reactants-products-and-leftovers/tsconfig.json"
+          ]
         }
       }
     ]
