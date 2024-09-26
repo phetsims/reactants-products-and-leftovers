@@ -19,7 +19,7 @@ import { Rectangle } from '../../../../scenery/js/imports.js';
 import Reaction, { ReactionOptions } from '../../common/model/Reaction.js';
 import Substance from '../../common/model/Substance.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import SandwichNode from '../view/SandwichNode.js'; // eslint-disable-line no-view-imported-from-model
+import SandwichNode from '../view/SandwichNode.js'; // eslint-disable-line phet/no-view-imported-from-model
 
 // Used when the product is undefined. This can be any non-visible node with well-defined bounds
 const NO_SANDWICH_NODE = new Rectangle( 0, 0, 5, 5 );
