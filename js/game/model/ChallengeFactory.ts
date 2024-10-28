@@ -2,12 +2,13 @@
 
 /**
  * ChallengeFactory creates challenges where level-of-difficulty is based on the number variables that
- * we're solving for, and whether the variables are 'Before' or 'After' terms.
+ * we're solving for, and whether the variables are 'Before' or 'After' terms.  All challenges are randomly
+ * chosen for a 'challenge pool' associated with each level.
  *
  * Behavior is:
- * - Level 1: one or two products, randomly chosen, variables 'Before'
- * - Level 2: one product, randomly chosen, variables 'After'
- * - Level 3: two products, randomly chosen, variables 'After'
+ * - Level 1: one or two products, variables 'Before'
+ * - Level 2: one product, variables 'After'
+ * - Level 3: two products, variables 'After'
  *
  * Additional requirements:
  * - All coefficients will be > 0
