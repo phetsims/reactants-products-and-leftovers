@@ -1,19 +1,19 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Creates challenges where level-of-difficulty is based on the number variables that
+ * ChallengeFactory creates challenges where level-of-difficulty is based on the number variables that
  * we're solving for, and whether the variables are 'Before' or 'After' terms.
  *
  * Behavior is:
- * - Level 1: one or two products random, Before (2 variables)
- * - Level 2: one product random, After
- * - Level 3: two products random, After (4 variables)
+ * - Level 1: one or two products, randomly chosen, variables 'Before'
+ * - Level 2: one product, randomly chosen, variables 'After'
+ * - Level 3: two products, randomly chosen, variables 'After'
  *
  * Additional requirements:
- * - all coefficients will be > 0
- * - all reactant quantities will be > 0
- * - every game will contain exactly one zero-products challenge
- * - game will contain no duplicate reactions
+ * - All coefficients will be > 0
+ * - All reactant quantities will be > 0
+ * - Each set of challenges will contain exactly 1 zero-products challenge.
+ * - Each set of challenges will contain no duplicate reactions.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
