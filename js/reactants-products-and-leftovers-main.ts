@@ -29,7 +29,7 @@ simLauncher.launch( () => {
       leadDesign: 'Yuen-ying Carpenter, Kelly Lancaster',
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
       team: 'Wendy Adams, Julia Chamberlain, Patricia Loeblein, Emily B. Moore, Robert Parson, Ariel Paul, ' +
-            'Kathy Perkins',
+            'Kathy Perkins, Amy Rouinfar',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan, Oliver Orejola, Benjamin Roberts, Bryan Yoelin'
     }
   };
