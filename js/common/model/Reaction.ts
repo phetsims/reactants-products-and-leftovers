@@ -60,8 +60,7 @@ export default class Reaction extends PhetioObject {
       this.leftovers.push( new Substance( 1, reactant.symbol, reactant.iconProperty.value, 0 ) );
     } );
 
-    const quantityListener = this.updateQuantities.bind( this );
-    this.reactants.forEach( reactant => reactant.quantityProperty.link( quantityListener ) );
+    this.reactants.forEach( reactant => reactant.quantityProperty.link( () => this.updateQuantities() ) );
   }
 
   public reset(): void {
@@ -90,7 +89,7 @@ export default class Reaction extends PhetioObject {
   /*
    * Updates the quantities of products and leftovers.
    */
-  private updateQuantities(): void {
+  protected updateQuantities(): void {
     const numberOfReactions = this.getNumberOfReactions();
     this.products.forEach( product => {
       product.quantityProperty.value = numberOfReactions * product.coefficientProperty.value;
