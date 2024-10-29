@@ -69,8 +69,6 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
 
     options.children = [ barNode, radioButtonGroup, equationNode ];
 
-    super( options );
-
     // radio buttons at right, vertically centered in the bar
     radioButtonGroup.boundsProperty.link( bounds => {
       radioButtonGroup.right = options.layoutBounds.right - X_MARGIN;
@@ -91,6 +89,8 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
           }
         } );
       } );
+
+    super( options );
   }
 }
 
