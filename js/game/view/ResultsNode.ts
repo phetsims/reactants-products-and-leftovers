@@ -66,10 +66,13 @@ export default class ResultsNode extends GamePhaseNode {
           () => model.settings(),
           {
             starDiameter: 45,
-            centerX: layoutBounds.centerX,
-            centerY: layoutBounds.centerY
+            contentMaxWidth: 500
           } );
         this.addChild( levelCompletedNode );
+
+        levelCompletedNode.localBoundsProperty.link( () => {
+          levelCompletedNode!.center = layoutBounds.center;
+        } );
       }
       else {
         if ( this.rewardNode ) {
