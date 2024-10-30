@@ -1,4 +1,4 @@
-// Copyright 2014-2023, University of Colorado Boulder
+// Copyright 2014-2024, University of Colorado Boulder
 
 /**
  * A chemical reaction is a process that leads to the transformation of one set of
