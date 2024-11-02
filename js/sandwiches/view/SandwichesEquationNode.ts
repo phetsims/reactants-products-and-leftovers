@@ -103,7 +103,8 @@ export default class SandwichesEquationNode extends Node {
       align: 'center',
       font: new PhetFont( 16 ),
       fill: 'white',
-      maxWidth: 85
+      maxWidth: 85,
+      maxHeight: 70 // Constraint height for multiline text. See https://github.com/phetsims/reactants-products-and-leftovers/issues/97
     } );
     noReactionNode.boundsProperty.link( bounds => {
       noReactionNode.left = arrowNode.right + ARROW_X_SPACING;
