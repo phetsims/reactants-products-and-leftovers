@@ -85,7 +85,11 @@ export default class StacksAccordionBox extends AccordionBox {
     const titleText = new Text( titleStringProperty, {
       font: new PhetFont( 14 ),
       fill: 'white',
-      maxWidth: 325
+
+      // Caution! Increasing this value may break the horizontal alignment of stacks in the accordion box with
+      // quantities that appear below the accordion box.
+      // See https://github.com/phetsims/reactants-products-and-leftovers/issues/96
+      maxWidth: 230
     } );
     titleText.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * options.contentSize.width / titleText.width ) );
     options.titleNode = titleText;
