@@ -19,7 +19,6 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-const MAX_TITLE_PERCENTAGE = 0.75; // title will be scaled down if greater than this percentage of the box width
 const DEFAULT_CONTENT_SIZE = new Dimension2( 100, 100 );
 const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );
 
@@ -91,7 +90,6 @@ export default class StacksAccordionBox extends AccordionBox {
       // See https://github.com/phetsims/reactants-products-and-leftovers/issues/96
       maxWidth: 230
     } );
-    titleText.setScaleMagnitude( Math.min( 1, MAX_TITLE_PERCENTAGE * options.contentSize.width / titleText.width ) );
     options.titleNode = titleText;
 
     // content for the accordion box
