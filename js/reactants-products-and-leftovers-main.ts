@@ -30,7 +30,7 @@ simLauncher.launch( () => {
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
       team: 'Wendy Adams, Julia Chamberlain, Patricia Loeblein, Emily B. Moore, Robert Parson, Ariel Paul, ' +
             'Kathy Perkins, Amy Rouinfar',
-      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Matthew Moore, Elise Morgan, Oliver Orejola, ' +
+      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Matthew Moore, Elise Morgan, Ashton Morris, Oliver Orejola, ' +
                         'Benjamin Roberts, Nancy Salpepi, Kathryn Woessner, Bryan Yoelin'
     }
   };
