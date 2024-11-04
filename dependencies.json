@@ -1,5 +1,5 @@
 {
-  "comment": "# reactants-products-and-leftovers 1.3.0-rc.2 Mon Nov 04 2024 09:24:35 GMT-0700 (Mountain Standard Time)",
+  "comment": "# reactants-products-and-leftovers 1.3.0-rc.2 Mon Nov 04 2024 12:11:30 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "e518fe8db0a776a67e60e9c2110cd8411a21a007",
     "branch": "HEAD"
@@ -65,7 +65,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "1912db688f3ebb15b13319c1b62850c687995de6",
+    "sha": "5816214d66df3bdde3b795d09012df4684c5d27c",
     "branch": "1.3"
   },
   "scenery": {
