@@ -6,15 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import GamePhase from '../model/GamePhase.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import GamePhase from '../model/GamePhase.js';
 
 type SelfOptions = EmptySelfOptions;
 

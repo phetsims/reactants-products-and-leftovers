@@ -17,6 +17,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import FaceWithPointsNode from '../../../../scenery-phet/js/FaceWithPointsNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import BoxType from '../../common/model/BoxType.js';
 import RPALColors from '../../common/RPALColors.js';
@@ -33,7 +34,6 @@ import GameModel from '../model/GameModel.js';
 import PlayState from '../model/PlayState.js';
 import GameButtons from './GameButtons.js';
 import RandomBox from './RandomBox.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );
 

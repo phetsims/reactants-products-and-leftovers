@@ -7,19 +7,19 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import { Node } from '../../../../scenery/js/imports.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import Reaction from '../model/Reaction.js';
 import RPALBaseModel from '../model/RPALBaseModel.js';
 import RPALConstants from '../RPALConstants.js';
 import ReactionBarNode, { CreateEquationNodeFunction } from './ReactionBarNode.js';
-import Reaction from '../model/Reaction.js';
-import Property from '../../../../axon/js/Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import { RPALSceneNodeOptions } from './RPALSceneNode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 export type CreateSceneNodeFunction<R extends Reaction = Reaction> = (
   reaction: R,

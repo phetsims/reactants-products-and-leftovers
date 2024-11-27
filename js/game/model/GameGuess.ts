@@ -20,8 +20,8 @@
 
 import BoxType from '../../common/model/BoxType.js';
 import Reaction from '../../common/model/Reaction.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Substance from '../../common/model/Substance.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 export default class GameGuess {
 

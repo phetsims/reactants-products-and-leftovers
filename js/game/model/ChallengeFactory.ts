@@ -21,13 +21,13 @@
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import BoxType from '../../common/model/BoxType.js';
+import Reaction from '../../common/model/Reaction.js';
 import ReactionFactory from '../../common/model/ReactionFactory.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Challenge, { ChallengeOptions } from './Challenge.js';
-import Reaction from '../../common/model/Reaction.js';
 
 const CHALLENGES_PER_LEVEL = 5;
 

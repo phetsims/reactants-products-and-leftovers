@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import RPALSceneNode, { RPALSceneNodeOptions } from '../../common/view/RPALSceneNode.js';
 import Property from '../../../../axon/js/Property.js';
-import SandwichRecipe from '../model/SandwichRecipe.js';
-import RPALConstants from '../../common/RPALConstants.js';
-import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
-import SandwichNode from './SandwichNode.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import RPALConstants from '../../common/RPALConstants.js';
+import RPALSceneNode, { RPALSceneNodeOptions } from '../../common/view/RPALSceneNode.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
+import SandwichRecipe from '../model/SandwichRecipe.js';
+import SandwichNode from './SandwichNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

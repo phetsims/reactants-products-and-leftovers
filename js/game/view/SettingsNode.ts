@@ -7,24 +7,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text, VBox } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import ChallengeFactory from '../model/ChallengeFactory.js';
 import GameModel from '../model/GameModel.js';
-import RPALLevelSelectionButtonGroup from './RPALLevelSelectionButtonGroup.js';
-import GameVisibilityPanel from './GameVisibilityPanel.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import GamePhase from '../model/GamePhase.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GamePhaseNode from './GamePhaseNode.js';
+import GameVisibilityPanel from './GameVisibilityPanel.js';
+import RPALLevelSelectionButtonGroup from './RPALLevelSelectionButtonGroup.js';
 
 const SCREEN_X_MARGIN = 40;
 const SCREEN_Y_MARGIN = 40;

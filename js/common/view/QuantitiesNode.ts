@@ -12,6 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import BracketNode from '../../../../scenery-phet/js/BracketNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -26,7 +27,6 @@ import RPALConstants from '../RPALConstants.js';
 import HideBox from './HideBox.js';
 import NumberNode from './NumberNode.js';
 import SubstanceIcon from './SubstanceIcon.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const NUMBER_SPINNER_OPTIONS = RPALConstants.NUMBER_SPINNER_OPTIONS;
 const QUANTITY_FONT = new PhetFont( 28 ); // font for the quantities that appear below the boxes

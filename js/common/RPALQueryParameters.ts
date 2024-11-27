@@ -7,8 +7,8 @@
  */
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
-import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 import getGameLevelsSchema from '../../../vegas/js/getGameLevelsSchema.js';
+import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 const RPALQueryParameters = QueryStringMachine.getAll( {
 

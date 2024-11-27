@@ -16,6 +16,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { HBox, Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
@@ -25,7 +26,6 @@ import RPALConstants from '../RPALConstants.js';
 import QuantitiesNode from './QuantitiesNode.js';
 import RightArrowNode from './RightArrowNode.js';
 import StacksAccordionBox, { StacksAccordionBoxOptions } from './StacksAccordionBox.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const DEFAULT_CONTENT_SIZE = new Dimension2( 100, 100 );
 const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );

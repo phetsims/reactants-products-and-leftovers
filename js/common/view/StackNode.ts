@@ -11,8 +11,8 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import SubstanceIcon from './SubstanceIcon.js';
 import RPALConstants from '../RPALConstants.js';
+import SubstanceIcon from './SubstanceIcon.js';
 
 type SelfOptions = EmptySelfOptions;
 

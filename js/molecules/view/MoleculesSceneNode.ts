@@ -6,14 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
-import RPALSceneNode, { RPALSceneNodeOptions } from '../../common/view/RPALSceneNode.js';
 import Property from '../../../../axon/js/Property.js';
-import RPALConstants from '../../common/RPALConstants.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Reaction from '../../common/model/Reaction.js';
+import RPALConstants from '../../common/RPALConstants.js';
+import RPALSceneNode, { RPALSceneNodeOptions } from '../../common/view/RPALSceneNode.js';
+import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 type SelfOptions = EmptySelfOptions;
 

@@ -9,14 +9,14 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
+import { CreateEquationNodeFunction } from '../../common/view/ReactionBarNode.js';
 import RPALScreenView, { CreateSceneNodeFunction } from '../../common/view/RPALScreenView.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichesModel from '../model/SandwichesModel.js';
-import SandwichesEquationNode from './SandwichesEquationNode.js';
-import SandwichNode from './SandwichNode.js';
-import { CreateEquationNodeFunction } from '../../common/view/ReactionBarNode.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
+import SandwichesEquationNode from './SandwichesEquationNode.js';
 import SandwichesSceneNode from './SandwichesSceneNode.js';
+import SandwichNode from './SandwichNode.js';
 
 export default class SandwichesScreenView extends RPALScreenView<SandwichRecipe> {
 

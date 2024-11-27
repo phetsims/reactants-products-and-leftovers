@@ -18,10 +18,10 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import RPALConstants from '../../common/RPALConstants.js';
+import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import GameModel from '../model/GameModel.js';
-import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 
 const MOLECULE_SCALE = 3; // scale of the molecule icons used on the level-selection buttons
 const QUESTION_MARK_OPTIONS: TextOptions = {

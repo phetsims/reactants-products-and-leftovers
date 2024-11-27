@@ -8,15 +8,15 @@
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
+import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
-import RPALRewardNode from './RPALRewardNode.js';
-import RPALQueryParameters from '../../common/RPALQueryParameters.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GamePhaseNode from './GamePhaseNode.js';
+import RPALRewardNode from './RPALRewardNode.js';
 
 export default class ResultsNode extends GamePhaseNode {
 

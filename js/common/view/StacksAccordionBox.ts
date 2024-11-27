@@ -6,18 +6,18 @@
  *  @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
+import Substance from '../model/Substance.js';
 import RPALColors from '../RPALColors.js';
 import StackNode from './StackNode.js';
-import Substance from '../model/Substance.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import Property from '../../../../axon/js/Property.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const DEFAULT_CONTENT_SIZE = new Dimension2( 100, 100 );
 const DEFAULT_MIN_ICON_SIZE = new Dimension2( 0, 0 );

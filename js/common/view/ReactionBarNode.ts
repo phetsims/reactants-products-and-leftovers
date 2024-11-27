@@ -8,6 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -18,7 +19,6 @@ import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.j
 import Reaction from '../model/Reaction.js';
 import RPALColors from '../RPALColors.js';
 import ReactionRadioButtonGroup from './ReactionRadioButtonGroup.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 
 const X_MARGIN = 20;
 const Y_MARGIN = 10;
