@@ -1,4 +1,4 @@
-// Copyright 2014-2023, University of Colorado Boulder
+// Copyright 2014-2024, University of Colorado Boulder
 
 /**
  * RPALScreenView is the base class for the ScreenView for the 'Sandwiches' and 'Molecules' screens.
