@@ -79,6 +79,8 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
     Multilink.multilink( [ radioButtonGroup.visibleProperty, radioButtonGroup.boundsProperty ],
       ( radioButtonGroupVisible, radioButtonGroupBounds ) => {
         equationNodes.forEach( equationNode => {
+
+          // TODO: Should not need an isFinite() check for radioButtonGroups, https://github.com/phetsims/phet-io/issues/2003
           if ( radioButtonGroupVisible && radioButtonGroupBounds.isFinite() ) {
             equationNode.centerX = radioButtonGroup.left / 2;
             equationNode.centerY = barNode.centerY;

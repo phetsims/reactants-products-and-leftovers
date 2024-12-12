@@ -66,6 +66,8 @@ export default class SettingsNode extends GamePhaseNode {
     Multilink.multilink( [ titleAndButtonsParent.boundsProperty, gameVisibilityPanel.boundsProperty ],
       () => {
         titleAndButtonsParent.centerX = layoutBounds.centerX;
+
+        // TODO: Replace isFinite() check with better support for Panel with invisible content, https://github.com/phetsims/phet-io/issues/2003
         if ( gameVisibilityPanel.bounds.isFinite() ) { // Hiding all children with PhET-iO should not cause a layout error, see https://github.com/phetsims/phet-io/issues/2003
           titleAndButtonsParent.centerY = ( gameVisibilityPanel.top - layoutBounds.top + SCREEN_Y_MARGIN ) / 2;
         }
