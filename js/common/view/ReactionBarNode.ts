@@ -79,7 +79,7 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
     Multilink.multilink( [ radioButtonGroup.visibleProperty, radioButtonGroup.boundsProperty ],
       ( radioButtonGroupVisible, radioButtonGroupBounds ) => {
         equationNodes.forEach( equationNode => {
-          if ( radioButtonGroupVisible ) {
+          if ( radioButtonGroupVisible && radioButtonGroupBounds.isFinite() ) {
             equationNode.centerX = radioButtonGroup.left / 2;
             equationNode.centerY = barNode.centerY;
           }
