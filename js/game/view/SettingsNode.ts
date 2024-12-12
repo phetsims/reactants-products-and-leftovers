@@ -66,7 +66,9 @@ export default class SettingsNode extends GamePhaseNode {
     Multilink.multilink( [ titleAndButtonsParent.boundsProperty, gameVisibilityPanel.boundsProperty ],
       () => {
         titleAndButtonsParent.centerX = layoutBounds.centerX;
-        titleAndButtonsParent.centerY = ( gameVisibilityPanel.top - layoutBounds.top + SCREEN_Y_MARGIN ) / 2;
+        if ( gameVisibilityPanel.bounds.isFinite() ) { // Hiding all children with PhET-iO should not cause a layout error, see https://github.com/phetsims/phet-io/issues/2003
+          titleAndButtonsParent.centerY = ( gameVisibilityPanel.top - layoutBounds.top + SCREEN_Y_MARGIN ) / 2;
+        }
       } );
 
     // Reset All button, at bottom right
