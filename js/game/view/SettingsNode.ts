@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
@@ -42,11 +41,8 @@ export default class SettingsNode extends GamePhaseNode {
     // Group of LevelSelectionButtons
     const levelSelectionButtonGroup = new RPALLevelSelectionButtonGroup( model, tandem.createTandem( 'levelSelectionButtonGroup' ) );
 
-    const titleAndButtonsParent = new VBox( {
-      children: [ titleText, levelSelectionButtonGroup ],
-      align: 'center',
-      spacing: 60
-    } );
+    // Panel with visibility radio buttons, at bottom center
+    const gameVisibilityPanel = new GameVisibilityPanel( model.gameVisibilityProperty, tandem.createTandem( 'gameVisibilityPanel' ) );
 
     // Timer toggle button, at bottom left
     const timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, {
@@ -56,22 +52,15 @@ export default class SettingsNode extends GamePhaseNode {
       tandem: tandem.createTandem( 'timerToggleButton' )
     } );
 
-    // Panel with visibility radio buttons, at bottom center
-    const gameVisibilityPanel = new GameVisibilityPanel( model.gameVisibilityProperty, tandem.createTandem( 'gameVisibilityPanel' ) );
-    gameVisibilityPanel.boundsProperty.link( bounds => {
-      gameVisibilityPanel.centerX = layoutBounds.centerX;
-      gameVisibilityPanel.bottom = layoutBounds.bottom - SCREEN_Y_MARGIN;
+    const vBox = new VBox( {
+      excludeInvisibleChildrenFromBounds: true,
+      children: [ titleText, levelSelectionButtonGroup, gameVisibilityPanel ],
+      align: 'center',
+      spacing: 45
     } );
-
-    Multilink.multilink( [ titleAndButtonsParent.boundsProperty, gameVisibilityPanel.boundsProperty ],
-      () => {
-        titleAndButtonsParent.centerX = layoutBounds.centerX;
-
-        // TODO: Replace isFinite() check with better support for Panel with invisible content, https://github.com/phetsims/phet-io/issues/2003
-        if ( gameVisibilityPanel.bounds.isFinite() ) { // Hiding all children with PhET-iO should not cause a layout error, see https://github.com/phetsims/phet-io/issues/2003
-          titleAndButtonsParent.centerY = ( gameVisibilityPanel.top - layoutBounds.top + SCREEN_Y_MARGIN ) / 2;
-        }
-      } );
+    vBox.boundsProperty.link( () => {
+      vBox.center = layoutBounds.center;
+    } );
 
     // Reset All button, at bottom right
     const resetAllButton = new ResetAllButton( {
@@ -87,8 +76,7 @@ export default class SettingsNode extends GamePhaseNode {
 
     super( GamePhase.SETTINGS, model.gamePhaseProperty, {
       children: [
-        titleAndButtonsParent,
-        gameVisibilityPanel,
+        vBox,
         timerToggleButton,
         resetAllButton
       ],
