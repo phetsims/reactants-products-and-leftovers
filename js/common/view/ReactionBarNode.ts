@@ -80,7 +80,7 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
       ( radioButtonGroupVisible, radioButtonGroupBounds ) => {
         equationNodes.forEach( equationNode => {
 
-          // TODO: Should not need an isFinite() check for radioButtonGroups, https://github.com/phetsims/phet-io/issues/2003
+          // TODO: Should not need an isFinite() check for radioButtonGroups, https://github.com/phetsims/reactants-products-and-leftovers/issues/99
           if ( radioButtonGroupVisible && radioButtonGroupBounds.isFinite() ) {
             equationNode.centerX = radioButtonGroup.left / 2;
             equationNode.centerY = barNode.centerY;
