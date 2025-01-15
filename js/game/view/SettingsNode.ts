@@ -7,11 +7,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { ManualConstraint, Text, VBox } from '../../../../scenery/js/imports.js';
+import { Text, VBox } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
@@ -62,6 +63,16 @@ export default class SettingsNode extends GamePhaseNode {
       gameVisibilityPanel.bottom = layoutBounds.bottom - SCREEN_Y_MARGIN;
     } );
 
+    Multilink.multilink( [ titleAndButtonsParent.boundsProperty, gameVisibilityPanel.boundsProperty ],
+      () => {
+        titleAndButtonsParent.centerX = layoutBounds.centerX;
+
+        // TODO: Replace isFinite() check with better support for Panel with invisible content, https://github.com/phetsims/phet-io/issues/2003
+        if ( gameVisibilityPanel.bounds.isFinite() ) { // Hiding all children with PhET-iO should not cause a layout error, see https://github.com/phetsims/phet-io/issues/2003
+          titleAndButtonsParent.centerY = ( gameVisibilityPanel.top - layoutBounds.top + SCREEN_Y_MARGIN ) / 2;
+        }
+      } );
+
     // Reset All button, at bottom right
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -82,15 +93,6 @@ export default class SettingsNode extends GamePhaseNode {
         resetAllButton
       ],
       tandem: tandem
-    } );
-
-    ManualConstraint.create( this, [ titleAndButtonsParent, gameVisibilityPanel ], ( titleAndButtonsParentProxy, gameVisibilityPanelProxy ) => {
-      titleAndButtonsParentProxy.centerX = layoutBounds.centerX;
-
-      // TODO: Replace isFinite() check with better support for Panel with invisible content, https://github.com/phetsims/phet-io/issues/2003
-      if ( gameVisibilityPanelProxy.bounds.isFinite() ) { // Hiding all children with PhET-iO should not cause a layout error, see https://github.com/phetsims/phet-io/issues/2003
-        titleAndButtonsParentProxy.centerY = ( gameVisibilityPanelProxy.top - layoutBounds.top + SCREEN_Y_MARGIN ) / 2;
-      }
     } );
 
     // 'Test' button at top right, runs a sanity test on the challenge generator
