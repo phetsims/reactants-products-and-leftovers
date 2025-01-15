@@ -87,8 +87,8 @@ export default class SettingsNode extends GamePhaseNode {
     ManualConstraint.create( this, [ titleAndButtonsParent, gameVisibilityPanel ], ( titleAndButtonsParentProxy, gameVisibilityPanelProxy ) => {
       titleAndButtonsParentProxy.centerX = layoutBounds.centerX;
 
-      // TODO: Replace isFinite() check with better support for Panel with invisible content, https://github.com/phetsims/reactants-products-and-leftovers/issues/99
-      if ( gameVisibilityPanelProxy.bounds.isFinite() ) { // Hiding all children with PhET-iO should not cause a layout error, see https://github.com/phetsims/reactants-products-and-leftovers/issues/99
+      // TODO: Replace isFinite() check with better support for Panel with invisible content, https://github.com/phetsims/phet-io/issues/2003
+      if ( gameVisibilityPanelProxy.bounds.isFinite() ) { // Hiding all children with PhET-iO should not cause a layout error, see https://github.com/phetsims/phet-io/issues/2003
         titleAndButtonsParentProxy.centerY = ( gameVisibilityPanelProxy.top - layoutBounds.top + SCREEN_Y_MARGIN ) / 2;
       }
     } );
