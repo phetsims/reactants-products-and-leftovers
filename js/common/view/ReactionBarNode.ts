@@ -1,4 +1,4 @@
-// Copyright 2014-2024, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * ReactionBarNode is the horizontal bar that appears at the top of the screen. It contains radio buttons for selecting
