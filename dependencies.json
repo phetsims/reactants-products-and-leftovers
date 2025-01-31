@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "324636db493c4f17c5b350f0899a4ed82110c351",
+    "sha": "ecd38207b571d99508d145e8a3f2c05dc46ac667",
     "branch": "HEAD"
   },
   "kite": {
@@ -65,7 +65,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "4ccc1846a535ba36b048c7d2dd6692dae64401f8",
+    "sha": "5af5f22ef156846e7078a7b0042e779064cdd842",
     "branch": "1.3"
   },
   "scenery": {
