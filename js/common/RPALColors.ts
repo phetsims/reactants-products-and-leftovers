@@ -6,7 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Color, ProfileColorProperty } from '../../../scenery/js/imports.js';
+import Color from '../../../scenery/js/util/Color.js';
+import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 const DARK_BLUE = new Color( 51, 118, 196 );

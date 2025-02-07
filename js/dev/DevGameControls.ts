@@ -8,7 +8,8 @@
 
 import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { HBox, HBoxOptions, NodeTranslationOptions } from '../../../scenery/js/imports.js';
+import HBox, { HBoxOptions } from '../../../scenery/js/layout/nodes/HBox.js';
+import { NodeTranslationOptions } from '../../../scenery/js/nodes/Node.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../sun/js/buttons/TextPushButton.js';
 import GameModel from '../game/model/GameModel.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';

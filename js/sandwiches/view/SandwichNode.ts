@@ -6,7 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { HStrut, Image, Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import HStrut from '../../../../scenery/js/nodes/HStrut.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import bread_png from '../../../images/bread_png.js';
 import cheese_png from '../../../images/cheese_png.js';
 import meat_png from '../../../images/meat_png.js';

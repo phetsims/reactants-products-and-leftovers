@@ -8,9 +8,11 @@
 
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import { Shape } from '../../../kite/js/imports.js';
+import Shape from '../../../kite/js/Shape.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
-import { HBox, Path, PathOptions, VBox } from '../../../scenery/js/imports.js';
+import HBox from '../../../scenery/js/layout/nodes/HBox.js';
+import VBox from '../../../scenery/js/layout/nodes/VBox.js';
+import Path, { PathOptions } from '../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import RPALColors from '../common/RPALColors.js';
 import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
