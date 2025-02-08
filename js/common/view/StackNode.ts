@@ -1,4 +1,4 @@
-// Copyright 2014-2024, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * StackNode is a vertical stack of Substances, built from the bottom up. The maximum number of Nodes in the stack
