@@ -10,6 +10,7 @@
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -122,7 +123,7 @@ export default class Reaction extends PhetioObject {
     return numberOfReactions;
   }
 
-  public static readonly ReactionIO = new IOType( 'ReactionIO', {
+  public static readonly ReactionIO = new IOType<IntentionalAny, IntentionalAny>( 'ReactionIO', {
     valueType: Reaction,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
