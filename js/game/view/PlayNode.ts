@@ -51,7 +51,7 @@ export default class PlayNode extends GamePhaseNode {
       } ),
 
       // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #57.
-      levelProperty: new DerivedProperty( [ model.levelProperty ], level => level + 1 ),
+      levelNumberProperty: new DerivedProperty( [ model.levelProperty ], level => level + 1 ),
       challengeIndexProperty: model.challengeIndexProperty,
       numberOfChallengesProperty: model.numberOfChallengesProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
