@@ -24,6 +24,7 @@ import ChallengeFactory from './ChallengeFactory.js';
 import GamePhase from './GamePhase.js';
 import GameVisibility from './GameVisibility.js';
 import PlayState from './PlayState.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 const POINTS_FIRST_CHECK = 2;
 const POINTS_SECOND_CHECK = 1;
@@ -56,8 +57,10 @@ export default class GameModel implements TModel {
   // the current challenge being played, null if there's no challenge
   public readonly challengeProperty: Property<Challenge | null>;
 
-  // the index of the current challenge, -1 indicates no challenge
-  public readonly challengeIndexProperty: Property<number>;
+  // The current challenge in this.challenges, using 1-based index, as shown in the Game status bar.
+  // 0 indicates no challenge.
+  public readonly challengeNumberProperty: TReadOnlyProperty<number>;
+  private readonly _challengeNumberProperty: Property<number>;
 
   // the current 'phase' of the game
   public readonly gamePhaseProperty: EnumerationProperty<GamePhase>;
@@ -119,12 +122,16 @@ export default class GameModel implements TModel {
       //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 NullableIO( ChallengeIO )
     } );
 
-    this.challengeIndexProperty = new NumberProperty( -1, {
+    // Uses 1-based numbering. Zero means 'no challenge'.
+    this._challengeNumberProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       //TODO https://github.com/phetsims/reactants-products-and-leftovers/issues/78 range
-      isValidValue: value => ( value >= -1 ),
-      tandem: tandem.createTandem( 'challengeIndexProperty' )
+      isValidValue: value => ( value >= 0 ),
+      tandem: tandem.createTandem( 'challengeNumberProperty' ),
+      phetioDocumentation: 'The challenge number shown in the status bar. Indicates how far the user has progressed through a level.',
+      phetioReadOnly: true
     } );
+    this.challengeNumberProperty = this._challengeNumberProperty;
 
     this.gamePhaseProperty = new EnumerationProperty( GamePhase.SETTINGS, {
       tandem: tandem.createTandem( 'gamePhaseProperty' ),
@@ -171,7 +178,7 @@ export default class GameModel implements TModel {
     this.scoreProperty.reset();
     this.numberOfChallengesProperty.reset();
     this.challengeProperty.reset();
-    this.challengeIndexProperty.reset();
+    this._challengeNumberProperty.reset();
     this.gamePhaseProperty.reset();
     this.playStateProperty.reset();
 
@@ -222,7 +229,7 @@ export default class GameModel implements TModel {
 
     if ( challenge.isCorrect() ) {
       // stop the timer as soon as we successfully complete the last challenge
-      if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
+      if ( this.challengeNumberProperty.value === this.challenges.length ) {
         this.timer.stop();
       }
       const points = ( playState === PlayState.FIRST_CHECK ) ? POINTS_FIRST_CHECK : POINTS_SECOND_CHECK;
@@ -252,14 +259,14 @@ export default class GameModel implements TModel {
 
   // Advances to the next challenge.
   public next(): void {
-    if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
+    if ( this.challengeNumberProperty.value === this.challenges.length ) {
       // game has been completed, advance to GamePhase.RESULTS
       this.results();
     }
     else {
       // advance to next challenge
-      this.challengeIndexProperty.value = this.challengeIndexProperty.value + 1;
-      this.challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
+      this._challengeNumberProperty.value = this._challengeNumberProperty.value + 1;
+      this.challengeProperty.value = this.challenges[ this._challengeNumberProperty.value - 1 ];
       this.playStateProperty.value = PlayState.FIRST_CHECK;
     }
   }
@@ -320,8 +327,8 @@ export default class GameModel implements TModel {
       numbersVisible: ( this.gameVisibilityProperty.value !== GameVisibility.HIDE_NUMBERS )
     } );
     this.numberOfChallengesProperty.value = this.challenges.length;
-    this.challengeIndexProperty.value = 0;
-    this.challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
+    this._challengeNumberProperty.value = 1;
+    this.challengeProperty.value = this.challenges[ this._challengeNumberProperty.value - 1 ];
   }
 
   /**
