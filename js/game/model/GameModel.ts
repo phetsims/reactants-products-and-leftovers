@@ -24,7 +24,7 @@ import ChallengeFactory from './ChallengeFactory.js';
 import GamePhase from './GamePhase.js';
 import GameVisibility from './GameVisibility.js';
 import PlayState from './PlayState.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
 
 const POINTS_FIRST_CHECK = 2;
 const POINTS_SECOND_CHECK = 1;
@@ -59,7 +59,7 @@ export default class GameModel implements TModel {
 
   // The current challenge in this.challenges, using 1-based index, as shown in the Game status bar.
   // 0 indicates no challenge.
-  public readonly challengeNumberProperty: TReadOnlyProperty<number>;
+  public readonly challengeNumberProperty: ReadOnlyProperty<number>;
   private readonly _challengeNumberProperty: Property<number>;
 
   // the current 'phase' of the game
