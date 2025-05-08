@@ -7,7 +7,7 @@
  */
 
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
 import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import HClNode from '../../../../nitroglycerin/js/nodes/HClNode.js';
 import NH3Node from '../../../../nitroglycerin/js/nodes/NH3Node.js';
@@ -53,7 +53,7 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
         icon: buttonIconFunctions[ level ]( iconAlignGroup ),
         scoreProperty: model.bestScoreProperties[ level ],
         options: {
-          createScoreDisplay: ( scoreProperty: TReadOnlyProperty<number> ) => new ScoreDisplayStars( scoreProperty, {
+          createScoreDisplay: ( scoreProperty: ReadOnlyProperty<number> ) => new ScoreDisplayStars( scoreProperty, {
             numberOfStars: model.getNumberOfChallenges( level ),
             perfectScore: model.getPerfectScore( level )
           } ),
