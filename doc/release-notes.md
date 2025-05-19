@@ -37,4 +37,8 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * UI Sound
 * TypeScript implementation
 
+## 1.1 (2018-08-14)
+
+## 1.1 (2016-01-11)
+
 ## 1.0 (2015-01-27)
