@@ -43,7 +43,6 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
 
     super( {
       layoutBounds: RPALConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
-      isDisposable: false,
       tandem: tandem
     } );
 
