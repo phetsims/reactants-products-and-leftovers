@@ -1,4 +1,4 @@
-// Copyright 2023-2024, University of Colorado Boulder
+// Copyright 2023-2025, University of Colorado Boulder
 
 /**
  * SandwichesSceneNode is the scene for one sandwich recipe (reaction) in the 'Sandwiches' screen.
