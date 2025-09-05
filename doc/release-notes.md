@@ -37,6 +37,9 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * Basic Sound
 * TypeScript implementation
 
+### Other Changes:
+* ⚠️Best times are no longer shown below the buttons for the levels in the Game screen.
+
 ## 1.1 (2018-08-14)
 
 ## 1.1 (2016-01-11)
