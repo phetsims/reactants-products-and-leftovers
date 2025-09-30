@@ -66,7 +66,6 @@ export default class SettingsNode extends GamePhaseNode {
     // Reset All button, at bottom right
     const resetAllButton = new ResetAllButton( {
       listener: () => {
-        this.interruptSubtreeInput();
         model.reset();
       },
       scale: RPALConstants.RESET_ALL_BUTTON_SCALE,
