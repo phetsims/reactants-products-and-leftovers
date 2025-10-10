@@ -52,12 +52,12 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
       levelSelectionButtonGroupItems.push( {
         icon: buttonIconFunctions[ level ]( iconAlignGroup ),
         scoreProperty: model.bestScoreProperties[ level ],
+        buttonListener: () => model.play( level ),
         options: {
           createScoreDisplay: ( scoreProperty: ReadOnlyProperty<number> ) => new ScoreDisplayStars( scoreProperty, {
             numberOfStars: model.getNumberOfChallenges( level ),
             perfectScore: model.getPerfectScore( level )
           } ),
-          listener: () => model.play( level ),
           soundPlayerIndex: level
         },
         tandemName: buttonTandemName
