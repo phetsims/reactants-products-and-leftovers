@@ -17,6 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
+import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Challenge from './Challenge.js';
@@ -213,8 +214,11 @@ export default class GameModel implements TModel {
   private results(): void {
     assert && assert( this.gamePhaseProperty.value === GamePhase.PLAY );
     this.timer.stop();
-    this.updateBestScore();
-    this.updateBestTime();
+    const level = this.levelProperty.value;
+    const score = this.scoreProperty.value;
+    const time = this.timer.elapsedTimeProperty.value;
+    this.isNewBestTime = LevelSelectionButton.tryUpdateScoreAndBestTime( score, time,
+      this.bestScoreProperties[ level ], this.bestTimeProperties[ level ] );
     this.playStateProperty.value = PlayState.NONE;
     this.gamePhaseProperty.value = GamePhase.RESULTS; // do this last, so that other stuff is set up before observers are notified
   }
@@ -290,34 +294,6 @@ export default class GameModel implements TModel {
    */
   public isPerfectScore(): boolean {
     return ( this.scoreProperty.value === this.getPerfectScore( this.levelProperty.value ) );
-  }
-
-  // Updates the best score for the current level.
-  private updateBestScore(): void {
-    const level = this.levelProperty.value;
-    if ( this.scoreProperty.value > this.bestScoreProperties[ level ].value ) {
-      this.bestScoreProperties[ level ].value = this.scoreProperty.value;
-    }
-  }
-
-  // Updates the best time for the current level, at the end of a timed game with a perfect score.
-  private updateBestTime(): void {
-    assert && assert( !this.timer.isRunning );
-    this.isNewBestTime = false;
-    if ( this.timerEnabledProperty.value && this.isPerfectScore() ) {
-      const level = this.levelProperty.value;
-      const time = this.timer.elapsedTimeProperty.value;
-      const bestTime = this.bestTimeProperties[ level ].value;
-      if ( bestTime === null ) {
-        // There was no previous best time for this level.
-        this.bestTimeProperties[ level ].value = time;
-      }
-      else if ( time < bestTime ) {
-        // We have a new best time for this level.
-        this.bestTimeProperties[ level ].value = time;
-        this.isNewBestTime = true;
-      }
-    }
   }
 
   // Initializes a new set of challenges for the current level.

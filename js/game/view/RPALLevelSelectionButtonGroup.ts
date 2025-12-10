@@ -58,7 +58,8 @@ export default class RPALLevelSelectionButtonGroup extends LevelSelectionButtonG
             numberOfStars: model.getNumberOfChallenges( level ),
             perfectScore: model.getPerfectScore( level )
           } ),
-          soundPlayerIndex: level
+          soundPlayerIndex: level,
+          bestTimeForScoreProperty: model.bestTimeProperties[ level ]
         },
         tandemName: buttonTandemName
       } );
