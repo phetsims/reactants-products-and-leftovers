@@ -81,9 +81,7 @@ browser: `http://localhost/reactants-products-and-leftovers/build/adapted-from-p
 
 ### Get Involved
 
-Contact us at our Google
-Group: <a href="http://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5" target="_blank">
-Developing Interactive Simulations in HTML5</a>
+Join us at the <a href="https://scenerystack.org/community/join/" target="_blank">SceneryStack Community</a>
 
 Help us improve, create a <a href="http://github.com/phetsims/reactants-products-and-leftovers/issues/new" target="_blank">New Issue</a>
 
