@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "ae6113e264048e83a8087154fbac78b38bdeb763",
+    "sha": "eafc02523a684672f9cecaab313350d66151af00",
     "branch": "HEAD"
   },
   "chipper": {
@@ -65,7 +65,7 @@
     "branch": "HEAD"
   },
   "reactants-products-and-leftovers": {
-    "sha": "48ad014381d61594a4b2b75fe4a32224d58d3c78",
+    "sha": "8f26d55c636f3af6e4939d9d10091267182dc6cb",
     "branch": "1.3"
   },
   "scenery": {
