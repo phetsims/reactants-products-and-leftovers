@@ -10,7 +10,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 type SelfOptions = {
   length?: number;
@@ -38,5 +37,3 @@ export default class RightArrowNode extends ArrowNode {
     super( 0, 0, options.length, 0, options );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'RightArrowNode', RightArrowNode );

@@ -46,7 +46,6 @@ import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import RPALConstants from '../RPALConstants.js';
 import RPALSymbols from '../RPALSymbols.js';
@@ -408,5 +407,4 @@ const ReactionFactory = {
   }
 };
 
-reactantsProductsAndLeftovers.register( 'ReactionFactory', ReactionFactory );
 export default ReactionFactory;

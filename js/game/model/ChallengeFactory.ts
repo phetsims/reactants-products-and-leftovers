@@ -26,7 +26,6 @@ import ReactionFactory from '../../common/model/ReactionFactory.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Challenge, { ChallengeOptions } from './Challenge.js';
 
 const CHALLENGES_PER_LEVEL = 5;
@@ -493,5 +492,4 @@ function doTest(): void {
   console.log( '<done>' );
 }
 
-reactantsProductsAndLeftovers.register( 'ChallengeFactory', ChallengeFactory );
 export default ChallengeFactory;

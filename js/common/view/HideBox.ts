@@ -14,7 +14,6 @@ import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/j
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 const DEFAULT_BOX_SIZE = new Dimension2( 100, 100 );
 
@@ -60,5 +59,3 @@ export default class HideBox extends Node {
     super( options );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'HideBox', HideBox );

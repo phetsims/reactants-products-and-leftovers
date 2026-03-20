@@ -16,7 +16,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
 import VegasStrings from '../../../../vegas/js/VegasStrings.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameModel from '../model/GameModel.js';
 import PlayState from '../model/PlayState.js';
 
@@ -106,5 +105,3 @@ export default class GameButtons extends VBox {
     super.dispose();
   }
 }
-
-reactantsProductsAndLeftovers.register( 'GameButtons', GameButtons );

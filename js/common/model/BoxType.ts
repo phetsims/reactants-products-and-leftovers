@@ -8,7 +8,6 @@
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 export default class BoxType extends EnumerationValue {
 
@@ -17,5 +16,3 @@ export default class BoxType extends EnumerationValue {
 
   public static readonly enumeration = new Enumeration( BoxType );
 }
-
-reactantsProductsAndLeftovers.register( 'BoxType', BoxType );

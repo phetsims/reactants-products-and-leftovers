@@ -13,7 +13,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import Reaction from '../../common/model/Reaction.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALSceneNode, { RPALSceneNodeOptions } from '../../common/view/RPALSceneNode.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -42,5 +41,3 @@ export default class MoleculesSceneNode extends RPALSceneNode {
     super( reaction, reactionProperty, beforeExpandedProperty, afterExpandedProperty, options );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'MoleculesSceneNode', MoleculesSceneNode );

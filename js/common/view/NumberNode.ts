@@ -12,7 +12,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 type SelfOptions = {
   decimalPlaces?: number; // number of decimal places to be displayed
@@ -56,5 +55,3 @@ export default class NumberNode extends Text {
     super.dispose();
   }
 }
-
-reactantsProductsAndLeftovers.register( 'NumberNode', NumberNode );

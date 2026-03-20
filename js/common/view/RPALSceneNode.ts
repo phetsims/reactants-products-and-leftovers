@@ -19,7 +19,6 @@ import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import Reaction from '../model/Reaction.js';
 import RPALColors from '../RPALColors.js';
@@ -147,5 +146,3 @@ export default class RPALSceneNode<R extends Reaction = Reaction> extends Node {
     super.dispose();
   }
 }
-
-reactantsProductsAndLeftovers.register( 'RPALSceneNode', RPALSceneNode );

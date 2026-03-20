@@ -20,7 +20,6 @@ import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/j
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberSpinner, { NumberSpinnerOptions } from '../../../../sun/js/NumberSpinner.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import BoxType from '../model/BoxType.js';
 import Substance from '../model/Substance.js';
@@ -471,5 +470,3 @@ export default class QuantitiesNode extends Node {
     return xOffsets;
   }
 }
-
-reactantsProductsAndLeftovers.register( 'QuantitiesNode', QuantitiesNode );

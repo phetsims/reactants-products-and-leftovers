@@ -15,7 +15,6 @@ import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/j
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from '../model/Reaction.js';
 import Substance from '../model/Substance.js';
 import RightArrowNode from './RightArrowNode.js';
@@ -119,5 +118,3 @@ class ExpressionNode extends Node {
     } );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'MoleculesEquationNode', MoleculesEquationNode );

@@ -11,7 +11,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from '../model/Reaction.js';
 
 export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> extends AquaRadioButtonGroup<R> {
@@ -48,5 +47,3 @@ export default class ReactionRadioButtonGroup<R extends Reaction = Reaction> ext
     } );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'ReactionRadioButtonGroup', ReactionRadioButtonGroup );

@@ -16,7 +16,6 @@ import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
 import DevGameControls from '../../dev/DevGameControls.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import ChallengeNode from './ChallengeNode.js';
@@ -116,5 +115,3 @@ export default class PlayNode extends GamePhaseNode {
     } );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'PlayNode', PlayNode );

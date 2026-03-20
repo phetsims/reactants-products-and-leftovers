@@ -51,7 +51,6 @@ import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RewardNode from '../../../../vegas/js/RewardNode.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichNode from '../../sandwiches/view/SandwichNode.js';
 
 const NUMBER_OF_NODES = 100; // number of Nodes for each reward
@@ -127,5 +126,3 @@ function createNodesLevel3(): Node[] {
   ];
   return RewardNode.createRandomNodes( nodes, NUMBER_OF_NODES );
 }
-
-reactantsProductsAndLeftovers.register( 'RPALRewardNode', RPALRewardNode );

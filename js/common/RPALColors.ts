@@ -25,5 +25,4 @@ const RPALColors = {
   BOX_FILL: 'white'
 };
 
-reactantsProductsAndLeftovers.register( 'RPALColors', RPALColors );
 export default RPALColors;

@@ -14,7 +14,6 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from '../model/Reaction.js';
 import RPALBaseModel from '../model/RPALBaseModel.js';
 import RPALConstants from '../RPALConstants.js';
@@ -103,5 +102,3 @@ export default class RPALScreenView<R extends Reaction = Reaction> extends Scree
     this.addChild( screenViewRootNode );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'RPALScreenView', RPALScreenView );

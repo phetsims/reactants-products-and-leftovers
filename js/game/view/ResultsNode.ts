@@ -12,7 +12,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameModel from '../model/GameModel.js';
 import GamePhase from '../model/GamePhase.js';
 import GamePhaseNode from './GamePhaseNode.js';
@@ -97,5 +96,3 @@ export default class ResultsNode extends GamePhaseNode {
     }
   }
 }
-
-reactantsProductsAndLeftovers.register( 'ResultsNode', ResultsNode );

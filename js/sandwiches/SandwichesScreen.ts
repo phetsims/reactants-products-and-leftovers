@@ -13,7 +13,6 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import sandwichesHomeScreenIcon_png from '../../images/sandwichesHomeScreenIcon_png.js';
 import sandwichesNavbarIcon_png from '../../images/sandwichesNavbarIcon_png.js';
 import RPALColors from '../common/RPALColors.js';
-import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftoversStrings.js';
 import SandwichesModel from './model/SandwichesModel.js';
 import SandwichesScreenView from './view/SandwichesScreenView.js';
@@ -57,5 +56,3 @@ function createNavigationBarIcon(): ScreenIcon {
     maxIconHeightProportion: 1
   } );
 }
-
-reactantsProductsAndLeftovers.register( 'SandwichesScreen', SandwichesScreen );

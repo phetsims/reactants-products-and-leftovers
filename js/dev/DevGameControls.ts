@@ -12,7 +12,6 @@ import HBox, { HBoxOptions } from '../../../scenery/js/layout/nodes/HBox.js';
 import { NodeTranslationOptions } from '../../../scenery/js/nodes/Node.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../sun/js/buttons/TextPushButton.js';
 import GameModel from '../game/model/GameModel.js';
-import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 const TEXT_PUSH_BUTTON_OPTIONS: TextPushButtonOptions = {
   font: new PhetFont( 10 ),
@@ -46,5 +45,3 @@ export default class DevGameControls extends HBox {
     super( options );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'DevGameControls', DevGameControls );

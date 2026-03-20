@@ -11,7 +11,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import { CreateEquationNodeFunction } from '../../common/view/ReactionBarNode.js';
 import RPALScreenView, { CreateSceneNodeFunction } from '../../common/view/RPALScreenView.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichesModel from '../model/SandwichesModel.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
 import SandwichesEquationNode from './SandwichesEquationNode.js';
@@ -39,5 +38,3 @@ export default class SandwichesScreenView extends RPALScreenView<SandwichRecipe>
     super( model, createEquationNode, createSceneNode, tandem );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'SandwichesScreenView', SandwichesScreenView );

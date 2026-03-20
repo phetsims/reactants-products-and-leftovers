@@ -12,7 +12,6 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALSceneNode, { RPALSceneNodeOptions } from '../../common/view/RPALSceneNode.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
 import SandwichNode from './SandwichNode.js';
@@ -53,5 +52,3 @@ export default class SandwichesSceneNode extends RPALSceneNode<SandwichRecipe> {
     super( reaction, reactionProperty, beforeExpandedProperty, afterExpandedProperty, options );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'SandwichesSceneNode', SandwichesSceneNode );

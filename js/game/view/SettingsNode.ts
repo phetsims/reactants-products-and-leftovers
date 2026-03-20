@@ -17,7 +17,6 @@ import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import ChallengeFactory from '../model/ChallengeFactory.js';
 import GameModel from '../model/GameModel.js';
@@ -97,5 +96,3 @@ export default class SettingsNode extends GamePhaseNode {
     }
   }
 }
-
-reactantsProductsAndLeftovers.register( 'SettingsNode', SettingsNode );

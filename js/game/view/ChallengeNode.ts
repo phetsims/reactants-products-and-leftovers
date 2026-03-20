@@ -29,7 +29,6 @@ import MoleculesEquationNode from '../../common/view/MoleculesEquationNode.js';
 import QuantitiesNode from '../../common/view/QuantitiesNode.js';
 import RightArrowNode from '../../common/view/RightArrowNode.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import Challenge from '../model/Challenge.js';
 import GameModel from '../model/GameModel.js';
@@ -367,5 +366,3 @@ export default class ChallengeNode extends Node {
     super.dispose();
   }
 }
-
-reactantsProductsAndLeftovers.register( 'ChallengeNode', ChallengeNode );

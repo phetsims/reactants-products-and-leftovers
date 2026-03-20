@@ -6,8 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
-
 const RPALSymbols = {
   C: 'C',
   C2H2: 'C<sub>2</sub>H<sub>2</sub>',
@@ -45,5 +43,4 @@ const RPALSymbols = {
   SO3: 'SO<sub>3</sub>'
 };
 
-reactantsProductsAndLeftovers.register( 'RPALSymbols', RPALSymbols );
 export default RPALSymbols;

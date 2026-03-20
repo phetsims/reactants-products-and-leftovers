@@ -17,7 +17,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import DevStringUtils from '../../dev/DevStringUtils.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Substance from './Substance.js';
 
 type SelfOptions = {
@@ -128,5 +127,3 @@ export default class Reaction extends PhetioObject {
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }
-
-reactantsProductsAndLeftovers.register( 'Reaction', Reaction );

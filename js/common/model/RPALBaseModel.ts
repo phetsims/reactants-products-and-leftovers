@@ -10,7 +10,6 @@ import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
 import TModel from '../../../../joist/js/TModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from './Reaction.js';
 
 export default class RPALBaseModel<R extends Reaction = Reaction> implements TModel {
@@ -39,5 +38,3 @@ export default class RPALBaseModel<R extends Reaction = Reaction> implements TMo
     Disposable.assertNotDisposable();
   }
 }
-
-reactantsProductsAndLeftovers.register( 'RPALBaseModel', RPALBaseModel );

@@ -23,7 +23,6 @@ import Panel from '../../../../sun/js/Panel.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALConstants from '../../common/RPALConstants.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import GameVisibility from '../model/GameVisibility.js';
 
@@ -156,5 +155,3 @@ class HideNumbersNode extends HBox {
     } );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'GameVisibilityPanel', GameVisibilityPanel );

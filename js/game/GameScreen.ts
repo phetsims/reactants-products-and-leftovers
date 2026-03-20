@@ -15,7 +15,6 @@ import VBox from '../../../scenery/js/layout/nodes/VBox.js';
 import Path, { PathOptions } from '../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import RPALColors from '../common/RPALColors.js';
-import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftoversStrings.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
@@ -82,5 +81,3 @@ function createScreenIcon(): ScreenIcon {
     fill: 'white'
   } );
 }
-
-reactantsProductsAndLeftovers.register( 'GameScreen', GameScreen );

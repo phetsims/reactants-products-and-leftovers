@@ -25,7 +25,6 @@ import TColor from '../../../../scenery/js/util/TColor.js';
 import Substance from '../../common/model/Substance.js';
 import RPALColors from '../../common/RPALColors.js';
 import SubstanceIcon from '../../common/view/SubstanceIcon.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 const DEFAULT_BOX_SIZE = new Dimension2( 100, 100 );
 
@@ -222,5 +221,3 @@ class CellNode extends SubstanceIcon {
     this.centerY = gridPosition.y + dotRandom.nextIntBetween( -this.randomOffset, this.randomOffset );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'RandomBox', RandomBox );

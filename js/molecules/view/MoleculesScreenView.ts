@@ -10,7 +10,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import MoleculesEquationNode from '../../common/view/MoleculesEquationNode.js';
 import { CreateEquationNodeFunction } from '../../common/view/ReactionBarNode.js';
 import RPALScreenView, { CreateSceneNodeFunction } from '../../common/view/RPALScreenView.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import MoleculesModel from '../model/MoleculesModel.js';
 import MoleculesSceneNode from './MoleculesSceneNode.js';
 
@@ -32,5 +31,3 @@ export default class MoleculesScreenView extends RPALScreenView {
     super( model, createEquationNode, createSceneNode, tandem );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'MoleculesScreenView', MoleculesScreenView );

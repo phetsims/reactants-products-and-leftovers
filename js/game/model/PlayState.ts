@@ -9,7 +9,6 @@
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 export default class PlayState extends EnumerationValue {
 
@@ -25,5 +24,3 @@ export default class PlayState extends EnumerationValue {
   // States where the user can change their guess via spinners.
   public static readonly INTERACTIVE_STATES = [ PlayState.FIRST_CHECK, PlayState.TRY_AGAIN, PlayState.SECOND_CHECK ];
 }
-
-reactantsProductsAndLeftovers.register( 'PlayState', PlayState );

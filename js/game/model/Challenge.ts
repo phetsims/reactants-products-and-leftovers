@@ -11,7 +11,6 @@
 import optionize from '../../../../phet-core/js/optionize.js';
 import BoxType from '../../common/model/BoxType.js';
 import Reaction from '../../common/model/Reaction.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameGuess from './GameGuess.js';
 
 type SelfOptions = {
@@ -85,5 +84,3 @@ export default class Challenge {
     }
   }
 }
-
-reactantsProductsAndLeftovers.register( 'Challenge', Challenge );

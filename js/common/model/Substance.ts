@@ -10,7 +10,6 @@ import Disposable from '../../../../axon/js/Disposable.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 export default class Substance {
 
@@ -87,5 +86,3 @@ export default class Substance {
       ( quantity === undefined ) ? this.quantityProperty.value : 0 );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'Substance', Substance );

@@ -10,7 +10,6 @@
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import RPALConstants from '../RPALConstants.js';
 import SubstanceIcon from './SubstanceIcon.js';
 
@@ -71,5 +70,3 @@ export default class StackNode extends Node {
     super.dispose();
   }
 }
-
-reactantsProductsAndLeftovers.register( 'StackNode', StackNode );

@@ -10,7 +10,6 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import RPALConstants from '../../common/RPALConstants.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GameModel from '../model/GameModel.js';
 import PlayNode from './PlayNode.js';
 import ResultsNode from './ResultsNode.js';
@@ -54,5 +53,3 @@ export default class GameScreenView extends ScreenView {
     super.step( dt );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'GameScreenView', GameScreenView );

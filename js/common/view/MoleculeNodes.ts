@@ -41,7 +41,6 @@ import PH3Node from '../../../../nitroglycerin/js/nodes/PH3Node.js';
 import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import RPALConstants from '../RPALConstants.js';
 
 const OPTIONS = RPALConstants.MOLECULE_NODE_OPTIONS;
@@ -83,5 +82,4 @@ const MoleculeNodes = {
   SO3: new SO3Node( OPTIONS )
 };
 
-reactantsProductsAndLeftovers.register( 'MoleculeNodes', MoleculeNodes );
 export default MoleculeNodes;

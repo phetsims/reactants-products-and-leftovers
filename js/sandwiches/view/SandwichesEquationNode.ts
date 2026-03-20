@@ -24,7 +24,6 @@ import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RightArrowNode, { RightArrowNodeOptions } from '../../common/view/RightArrowNode.js';
 import SubstanceIcon from '../../common/view/SubstanceIcon.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichRecipe from '../model/SandwichRecipe.js';
 
@@ -127,5 +126,3 @@ export default class SandwichesEquationNode extends Node {
     reaction.sandwich.iconProperty.link( sandwichIconPropertyObserver );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'SandwichesEquationNode', SandwichesEquationNode );

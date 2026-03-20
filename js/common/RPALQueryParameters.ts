@@ -9,7 +9,6 @@
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 import getGameLevelsSchema from '../../../vegas/js/getGameLevelsSchema.js';
-import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 const RPALQueryParameters = QueryStringMachine.getAll( {
 
@@ -24,8 +23,6 @@ const RPALQueryParameters = QueryStringMachine.getAll( {
   // For internal use only.
   showReward: { type: 'flag' }
 } );
-
-reactantsProductsAndLeftovers.register( 'RPALQueryParameters', RPALQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );

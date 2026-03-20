@@ -13,7 +13,6 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import GamePhase from '../model/GamePhase.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -38,5 +37,3 @@ export default class GamePhaseNode extends Node {
     super( options );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'GamePhaseNode', GamePhaseNode );

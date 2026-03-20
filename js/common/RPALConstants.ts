@@ -12,7 +12,6 @@ import Range from '../../../dot/js/Range.js';
 import { MoleculeNodeOptions } from '../../../nitroglycerin/js/nodes/MoleculeNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { NumberSpinnerOptions } from '../../../sun/js/NumberSpinner.js';
-import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 const MOLECULE_NODE_OPTIONS: MoleculeNodeOptions = {
   atomNodeOptions: {
@@ -58,5 +57,4 @@ const RPALConstants = {
   NUMBER_SPINNER_OPTIONS: NUMBER_SPINNER_OPTIONS
 };
 
-reactantsProductsAndLeftovers.register( 'RPALConstants', RPALConstants );
 export default RPALConstants;

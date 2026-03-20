@@ -9,7 +9,6 @@
  */
 
 import Reaction from '../common/model/Reaction.js';
-import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 
 const DevStringUtils = {
 
@@ -72,5 +71,4 @@ const DevStringUtils = {
   }
 };
 
-reactantsProductsAndLeftovers.register( 'DevStringUtils', DevStringUtils );
 export default DevStringUtils;

@@ -13,7 +13,6 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RPALBaseModel from '../../common/model/RPALBaseModel.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import SandwichRecipe from './SandwichRecipe.js';
 
@@ -46,5 +45,3 @@ export default class SandwichesModel extends RPALBaseModel<SandwichRecipe> {
     super( reactions, tandem );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'SandwichesModel', SandwichesModel );

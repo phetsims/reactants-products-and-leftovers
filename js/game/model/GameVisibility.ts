@@ -10,7 +10,6 @@
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 export default class GameVisibility extends EnumerationValue {
 
@@ -20,5 +19,3 @@ export default class GameVisibility extends EnumerationValue {
 
   public static readonly enumeration = new Enumeration( GameVisibility );
 }
-
-reactantsProductsAndLeftovers.register( 'GameVisibility', GameVisibility );

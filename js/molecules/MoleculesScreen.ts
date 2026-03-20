@@ -11,7 +11,6 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import H2ONode from '../../../nitroglycerin/js/nodes/H2ONode.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import RPALColors from '../common/RPALColors.js';
-import reactantsProductsAndLeftovers from '../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../ReactantsProductsAndLeftoversStrings.js';
 import MoleculesModel from './model/MoleculesModel.js';
 import MoleculesScreenView from './view/MoleculesScreenView.js';
@@ -52,5 +51,3 @@ function createScreenIcon( moleculeLineWidth: number ): ScreenIcon {
     fill: 'white'
   } );
 }
-
-reactantsProductsAndLeftovers.register( 'MoleculesScreen', MoleculesScreen );

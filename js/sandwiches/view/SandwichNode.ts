@@ -12,7 +12,6 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import bread_png from '../../../images/bread_png.js';
 import cheese_png from '../../../images/cheese_png.js';
 import meat_png from '../../../images/meat_png.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 
 const MAX_WIDTH = _.maxBy( [ bread_png, cheese_png, meat_png ], image => image.width )!.width;
 const Y_SPACING = 4; // vertical space between centers of ingredients
@@ -110,5 +109,3 @@ export default class SandwichNode extends Node {
     return new Image( cheese_png, { scale: SANDWICH_SCALE } );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'SandwichNode', SandwichNode );

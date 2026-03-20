@@ -20,7 +20,6 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
 import GameUtils from '../../../../vegas/js/GameUtils.js';
 import RPALConstants from '../../common/RPALConstants.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Challenge from './Challenge.js';
 import ChallengeFactory from './ChallengeFactory.js';
 import GamePhase from './GamePhase.js';
@@ -322,5 +321,3 @@ export default class GameModel implements TModel {
     this.playStateProperty.value = PlayState.FIRST_CHECK;
   }
 }
-
-reactantsProductsAndLeftovers.register( 'GameModel', GameModel );

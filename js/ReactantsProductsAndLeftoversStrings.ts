@@ -45,6 +45,4 @@ type StringsType = {
 
 const ReactantsProductsAndLeftoversStrings = getStringModule( 'REACTANTS_PRODUCTS_AND_LEFTOVERS' ) as StringsType;
 
-reactantsProductsAndLeftovers.register( 'ReactantsProductsAndLeftoversStrings', ReactantsProductsAndLeftoversStrings );
-
 export default ReactantsProductsAndLeftoversStrings;

@@ -18,7 +18,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Reaction, { ReactionOptions } from '../../common/model/Reaction.js';
 import Substance from '../../common/model/Substance.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import SandwichNode from '../view/SandwichNode.js'; // eslint-disable-line phet/no-view-imported-from-model
 
 // Used when the product is undefined. This can be any non-visible node with well-defined bounds
@@ -86,5 +85,3 @@ export default class SandwichRecipe extends Reaction {
     }
   }
 }
-
-reactantsProductsAndLeftovers.register( 'SandwichRecipe', SandwichRecipe );

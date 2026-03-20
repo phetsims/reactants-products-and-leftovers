@@ -16,7 +16,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import Reaction from '../model/Reaction.js';
 import RPALColors from '../RPALColors.js';
 import ReactionRadioButtonGroup from './ReactionRadioButtonGroup.js';
@@ -95,5 +94,3 @@ export default class ReactionBarNode<R extends Reaction = Reaction> extends Node
     super( options );
   }
 }
-
-reactantsProductsAndLeftovers.register( 'ReactionBarNode', ReactionBarNode );

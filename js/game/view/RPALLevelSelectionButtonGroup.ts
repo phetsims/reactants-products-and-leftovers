@@ -24,7 +24,6 @@ import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import RPALConstants from '../../common/RPALConstants.js';
 import RPALQueryParameters from '../../common/RPALQueryParameters.js';
-import reactantsProductsAndLeftovers from '../../reactantsProductsAndLeftovers.js';
 import ReactantsProductsAndLeftoversStrings from '../../ReactantsProductsAndLeftoversStrings.js';
 import GameModel from '../model/GameModel.js';
 
@@ -151,5 +150,3 @@ function createLevel3ButtonIcon( iconAlignGroup: AlignGroup ): Node {
   const rightNode = new Text( ReactantsProductsAndLeftoversStrings.doubleQuestionMarkStringProperty, QUESTION_MARK_OPTIONS );
   return createButtonIcon( 3, leftNode, rightNode, iconAlignGroup );
 }
-
-reactantsProductsAndLeftovers.register( 'RPALLevelSelectionButtonGroup', RPALLevelSelectionButtonGroup );
