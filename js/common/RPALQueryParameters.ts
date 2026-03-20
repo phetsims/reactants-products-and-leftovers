@@ -30,6 +30,6 @@ reactantsProductsAndLeftovers.register( 'RPALQueryParameters', RPALQueryParamete
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.reactantsProductsAndLeftovers.RPALQueryParameters' );
+phet.log && phet.log( `RPALQueryParameters: ${JSON.stringify( RPALQueryParameters, null, 2 )}` );
 
 export default RPALQueryParameters;
