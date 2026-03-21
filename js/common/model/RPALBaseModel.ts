@@ -1,4 +1,4 @@
-// Copyright 2014-2023, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * RPALBaseModel is the base class model for the 'Sandwiches' and 'Molecules' screens.
